@@ -1,16 +1,16 @@
-name: PMU - Test course complète (manuel)
+name: PMU - Test course à venir (manuel)
 
 on:
   workflow_dispatch:
     inputs:
       course_url:
-        description: 'URL Geny de la course (laisser vide pour découverte depuis le programme du 09/11)'
+        description: 'URL Partants/Pronos Geny (vide = recherche Vincennes R2C1 du 10/11/2026)'
         required: false
         type: string
       max_chevaux:
-        description: 'Nombre max de chevaux à traiter (14 pour la course entière)'
+        description: 'Limite de collecte après vérification de tous les partants'
         required: true
-        default: '14'
+        default: '3'
         type: choice
         options: ['3', '14']
 
@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  course-complete:
+  course-a-venir:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -31,21 +31,21 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - name: Installer Python et navigateur Chromium
+      - name: Installer Python et Chromium
         run: |
           python -m pip install -r requirements.txt
           python -m playwright install --with-deps chromium
-      - name: Découvrir et contrôler tous les partants
+      - name: Découvrir les partants sur la page Partants Pronos
         env:
           COURSE_URL: ${{ inputs.course_url }}
         run: python -m pmu_geny.decouverte_partants --course-url "$COURSE_URL" --attendu 14 --manifest resultats/partants_decouverts.json
-      - name: Extraire un cheval après l'autre
+      - name: Extraire les historiques séquentiellement
         run: python -m pmu_geny.traitement_course --manifest resultats/partants_decouverts.json --sortie resultats --max-chevaux "${{ inputs.max_chevaux }}"
-      - name: Publier bilan et diagnostics, même si échec
+      - name: Conserver les diagnostics même si erreur
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: bilan-course-geny
+          name: bilan-course-a-venir
           path: resultats/
           if-no-files-found: warn
           retention-days: 7
