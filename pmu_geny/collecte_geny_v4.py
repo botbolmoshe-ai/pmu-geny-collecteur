@@ -130,6 +130,61 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
     }
 
 
+def limitation_geny(status: int | None, title: str, visible_text: str) -> bool:
+    """Le site peut renvoyer une page 429 avec un statut HTTP 200."""
+    if status == 429:
+        return True
+    title = (title or '').casefold()
+    body = (visible_text or '').casefold()
+    return ('trop de requêtes' in title or 'trop de requetes' in title
+            or bool(re.search(r'\b429\b', body[:1500]) and
+                    ('trop de requêtes' in body[:1500] or 'trop de requetes' in body[:1500])))
+
+
+
+def diagnostic_acces(status: int | None, title: str, text: str, html: str) -> str:
+    """Classer la page existante sans lancer aucune nouvelle requete HTTP.
+
+    RECORDS n'est jamais une condition ; l'accessibilite de CARRIERE est
+    evaluee uniquement sur une vraie page cheval, hors erreur de limitation.
+    """
+    if (limitation_geny(status, title, text) or
+        re.search(r"error_status\s*:\s*['\"]429['\"]", html or "") or
+        re.search(r"<title>\s*Trop de requ[eê]tes", html or "", re.I)):
+        return 'ACCES_LIMITE_429'
+    if status is not None and status >= 400:
+        return f'HTTP_{status}'
+    if re.search(r"(?im)^\s*CARRIÈRE\s*$", text or ""):
+        return 'CARRIERE_ACCESSIBLE'
+    return 'CARRIERE_NON_DETECTEE'
+
+
+def enregistrer_acces(outdir: Path, verdict: str, url: str, status: int | None,
+                      title: str, cookie_status: str = 'NON_TESTE') -> None:
+    record = {
+        'statut_acces': verdict, 'carriere_accessible': verdict == 'CARRIERE_ACCESSIBLE',
+        'historique_extrait': False, 'historique_complet': False,
+        'source_url': url, 'http': status, 'titre_page': title,
+        'consentement': cookie_status,
+        'extrait_utc': datetime.now(timezone.utc).isoformat(),
+    }
+    (outdir / 'controle_acces.json').write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding='utf-8')
+
+
+def sauvegarder_diagnostics(page, outdir: Path, text: str) -> None:
+    (outdir / 'diagnostic_texte_geny.txt').write_text(text, encoding='utf-8')
+    (outdir / 'diagnostic_geny.html').write_text(page.content(), encoding='utf-8')
+    page.screenshot(path=str(outdir / 'diagnostic_capture.png'), full_page=True)
+
+def sauver_limitation(outdir: Path, url: str, status: int | None, titre: str) -> None:
+    (outdir / 'etat_collecte.json').write_text(json.dumps({
+        'statut': 'ACCES_LIMITE_429', 'source_url': url,
+        'http': status, 'titre_page': titre,
+        'extrait_utc': datetime.now(timezone.utc).isoformat(),
+        'action': 'ARRET_IMMEDIAT_SANS_REESSAI'
+    }, ensure_ascii=False, indent=2), encoding='utf-8')
+
+
 def main() -> int:
     p=argparse.ArgumentParser(description="Test Geny : consentement + extraction de carrière")
     p.add_argument("--url",default=DEFAULT_URL)
@@ -140,6 +195,9 @@ def main() -> int:
         p.error("URL cheval Geny attendue")
     outdir=Path(args.sortie);outdir.mkdir(parents=True,exist_ok=True)
     text=""; dom_rows=[];cookie_status="NON_TESTE"
+    # Ne jamais réutiliser par accident un ancien succès après un échec.
+    for old in ('historique_geny.json', 'historique_geny.csv', 'etat_collecte.json', 'controle_acces.json'):
+        (outdir / old).unlink(missing_ok=True)
     with sync_playwright() as pw:
         browser=pw.chromium.launch(headless=args.headless)
         context=browser.new_context(locale="fr-FR",timezone_id="Europe/Paris",viewport={"width":1366,"height":900})
@@ -147,10 +205,46 @@ def main() -> int:
         try:
             print("Ouverture :",args.url)
             response=page.goto(args.url,wait_until="domcontentloaded",timeout=45000)
-            print("HTTP :",response.status if response else "inconnu")
-            cookie_status=dismiss_consent(page)
-            try: page.get_by_text("CARRIÈRE",exact=True).first.wait_for(timeout=20000)
-            except PlaywrightTimeoutError: print("Rubrique CARRIÈRE non detectee dans le delai.")
+            http_status = response.status if response else None
+            print("HTTP :", http_status if http_status is not None else "inconnu")
+            title = page.title()
+            initial_text = page.locator("body").inner_text(timeout=12000)
+            initial_html = page.content()
+            verdict = diagnostic_acces(http_status, title, initial_text, initial_html)
+            print('Controle initial (sans requete supplementaire) :', verdict, flush=True)
+            enregistrer_acces(outdir, verdict, args.url, http_status, title)
+            if verdict == 'ACCES_LIMITE_429':
+                sauver_limitation(outdir, args.url, http_status, title)
+                sauvegarder_diagnostics(page, outdir, initial_text)
+                print('ACCES_LIMITE_429 : arret immediat, sans nouvel essai.', flush=True)
+                return 3
+            if verdict.startswith('HTTP_'):
+                sauvegarder_diagnostics(page, outdir, initial_text)
+                print('ERREUR_HTTP :', verdict, flush=True)
+                return 2
+            if verdict != 'CARRIERE_ACCESSIBLE':
+                # L'unique chargement peut afficher un bandeau de consentement.
+                # Verifier l'accessibilite a nouveau apres le refus, mais sans
+                # declencher une deuxieme navigation vers Geny.
+                cookie_status = dismiss_consent(page)
+                try:
+                    page.get_by_text('CARRIÈRE', exact=True).first.wait_for(timeout=7000)
+                except PlaywrightTimeoutError:
+                    pass
+                current_text = page.locator('body').inner_text(timeout=12000)
+                verdict = diagnostic_acces(http_status, page.title(), current_text, page.content())
+                print('Controle apres consentement :', verdict, flush=True)
+                enregistrer_acces(outdir, verdict, args.url, http_status, page.title(), cookie_status)
+                if verdict == 'ACCES_LIMITE_429':
+                    sauver_limitation(outdir, args.url, http_status, page.title())
+                    sauvegarder_diagnostics(page, outdir, current_text)
+                    return 3
+                if verdict != 'CARRIERE_ACCESSIBLE':
+                    sauvegarder_diagnostics(page, outdir, current_text)
+                    print('CARRIERE_NON_DETECTEE : page conservee pour diagnostic.', flush=True)
+                    return 2
+            else:
+                print('CARRIERE_ACCESSIBLE : pas de rubrique RECORDS requise.', flush=True)
             # Continuer progressivement jusqu'a disparition des changements de taille,
             # puis remonter pour garder toute la page accessible.
             last_height=-1; stable=0
@@ -163,6 +257,18 @@ def main() -> int:
                 if stable>=5: break
             page.wait_for_timeout(800)
             text=page.locator("body").inner_text(timeout=20000)
+            controle_final = diagnostic_acces(http_status, page.title(), text, page.content())
+            if controle_final == 'ACCES_LIMITE_429':
+                sauver_limitation(outdir, args.url, http_status, page.title())
+                enregistrer_acces(outdir, controle_final, args.url, http_status, page.title(), cookie_status)
+                sauvegarder_diagnostics(page, outdir, text)
+                print('ACCES_LIMITE_429 : arret immediat.', flush=True)
+                return 3
+            if controle_final != 'CARRIERE_ACCESSIBLE':
+                enregistrer_acces(outdir, controle_final, args.url, http_status, page.title(), cookie_status)
+                sauvegarder_diagnostics(page, outdir, text)
+                print('CARRIERE_NON_DETECTEE apres chargement.', flush=True)
+                return 2
             # Capture des lignes structurées si Geny utilise un vrai tableau.
             # Playwright Locator.all_inner_texts() n'accepte pas de parametre timeout.
             # Les lignes DOM peuvent ne pas exister si Geny utilise des div CSS.
@@ -189,6 +295,12 @@ def main() -> int:
     with (outdir/"historique_geny.csv").open("w",encoding="utf-8-sig",newline="") as f:
         writer=csv.DictWriter(f,fieldnames=cols,delimiter=";");writer.writeheader()
         writer.writerows({k:r[k] for k in cols} for r in result["performances"])
+    access_path = outdir / 'controle_acces.json'
+    if access_path.exists():
+        info = json.loads(access_path.read_text(encoding='utf-8'))
+        info['historique_extrait'] = bool(result['nombre_extrait'])
+        info['historique_complet'] = bool(result['complet'])
+        access_path.write_text(json.dumps(info, ensure_ascii=False, indent=2), encoding='utf-8')
     print("\nConsentement :",cookie_status)
     print("Geny annonce :",result["nombre_annonce_geny"])
     print("Lignes extraites :",result["nombre_extrait"])
