@@ -18,13 +18,23 @@ COURSE_RE = re.compile(r'/course/(\d+)-([^/?#]+)', re.I)
 
 
 def course_candidates(anchors: list[dict], keyword: str) -> list[dict]:
-    out=[]
+    """Regrouper les URLs d'une meme course par identifiant Geny.
+
+    La page de programme expose souvent plusieurs ancres pour le meme ID
+    (fiche, cotes, pronostics, statistiques). Il ne faut pas les compter
+    comme des courses differentes.
+    """
+    by_id = {}
     for a in anchors:
-        url=a.get('href') or ''
-        m=COURSE_RE.search(url)
-        if m and keyword in (m.group(2)+' '+a.get('text','')).lower():
-            out.append({'url': url, 'id':m.group(1)})
-    return list({x['url']:x for x in out}.values())
+        url = a.get('href') or ''
+        m = COURSE_RE.search(url)
+        if not m or keyword.casefold() not in (m.group(2) + ' ' + a.get('text', '')).casefold():
+            continue
+        ident = m.group(1)
+        # URL canonique : supprime l'onglet (/cotes, /pronostics, etc.)
+        canonical = f'https://www.geny.com{m.group(0).rstrip("/")}'
+        by_id[ident] = {'url': canonical, 'id': ident}
+    return sorted(by_id.values(), key=lambda item: item['id'])
 
 
 def horse_candidates(anchors: list[dict], race_id: str) -> tuple[list[dict],list[dict]]:
@@ -61,8 +71,9 @@ def produire_manifest(race_url: str, programme: str, attendu: int, output: Path,
                 page.wait_for_timeout(1200)
                 candidates=course_candidates(links(page),COURSE_NAME)
                 (diagnostic/'liens_courses.json').write_text(json.dumps(links(page),ensure_ascii=False,indent=2),encoding='utf-8')
+                print('Courses candidates (IDs uniques) :', json.dumps(candidates, ensure_ascii=False), flush=True)
                 if len(candidates)!=1:
-                    raise RuntimeError(f'Découverte course ambiguë : {len(candidates)} lien(s) Caliceo, voir liens_courses.json. Fournir course_url explicitement.')
+                    raise RuntimeError(f'Découverte course ambiguë : {len(candidates)} identifiant(s) de course distinct(s), voir liens_courses.json. Fournir course_url explicitement.')
                 race_url=candidates[0]['url']
             parsed=urlparse(race_url)
             m=COURSE_RE.search(parsed.path)
