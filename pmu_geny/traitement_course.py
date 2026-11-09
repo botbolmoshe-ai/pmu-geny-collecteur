@@ -71,12 +71,30 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
             ident, nom = str(cheval["id"]), cheval.get("nom", "")
             # Identifiant global stable : les historiques se réutilisent entre courses.
             ancien = journal.get(ident, {})
+            # Ne jamais qualifier de COMPlET un cheval si son historique n'est
+            # pas également sauvegardé : le journal seul ne suffit pas.
+            historique_cache = etat_path.parent / "historiques" / ident / "historique_geny.json"
+            if ancien.get("statut") == "COMPLET" and historique_cache.is_file():
+                try:
+                    snapshot = json.loads(historique_cache.read_text(encoding="utf-8"))
+                    if (snapshot.get("nombre_extrait") != ancien.get("nombre_extrait")
+                            or snapshot.get("statut") != "COMPLET"):
+                        raise ValueError("Historique cache non concordant")
+                    dest = sortie / cid / ident
+                    dest.mkdir(parents=True, exist_ok=True)
+                    for f in historique_cache.parent.glob("historique_geny.*"):
+                        shutil.copy2(f, dest / f.name)
+                    stats["chevaux"].append({"id": ident, "nom": nom, "statut": "COMPLET",
+                        "origine": "CACHE_PERSISTANT", "nombre_extrait": ancien.get("nombre_extrait"),
+                        "nombre_annonce_geny": ancien.get("nombre_annonce_geny")})
+                    print(f"CACHE : {nom} ({ident}) historique complet conserve et reutilise.", flush=True)
+                    continue
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    print(f"CACHE INVALIDE : {nom} - {exc}. Nouvelle collecte requise.", flush=True)
+            elif ancien.get("statut") == "COMPLET":
+                print(f"CACHE SANS DONNEES : {nom}; controle complet non recevable.", flush=True)
             if ancien.get("statut") == "COMPLET":
-                stats["chevaux"].append({"id": ident, "nom": nom, "statut": "COMPLET",
-                    "origine": "CACHE_PERSISTANT", "nombre_extrait": ancien.get("nombre_extrait"),
-                    "nombre_annonce_geny": ancien.get("nombre_annonce_geny")})
-                print(f"CACHE : {nom} ({ident}) historique complet, aucune requete Geny.", flush=True)
-                continue
+                ancien = {}  # marquage ancien sans donnees : autoriser la collecte
             # Une unique nouvelle tentative est permise pour corriger les cas partiels.
             # Les comptes 429 ne consomment pas ce droit de correction.
             reprise_partielle = (ancien.get("statut") in PARTIELS or ancien.get("correction_en_attente", False)) and not ancien.get("correction_tentee", False)
@@ -112,6 +130,14 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
                     "code_retour": res.get("code_retour"),
                 }
                 stats["chevaux"].append(etat)
+                # Persister le contenu, pas seulement le statut. Une exécution
+                # GitHub Actions ne conserve pas son disque local par défaut.
+                if statut == "COMPLET":
+                    source = sortie / cid / ident
+                    dest = etat_path.parent / "historiques" / ident
+                    dest.mkdir(parents=True, exist_ok=True)
+                    for f in source.glob("historique_geny.*"):
+                        shutil.copy2(f, dest / f.name)
                 journal[ident] = {**etat, "maj_utc": datetime.now(timezone.utc).isoformat()}
                 _ecrire_etat(etat_path, etat_persistant)
                 if statut == "ACCES_LIMITE_429":
@@ -156,7 +182,7 @@ def main() -> None:
     p = argparse.ArgumentParser(description="Collecte Geny par cheval, sans bloquer la course en cas de 429")
     p.add_argument("--manifest", default="courses_test.json")
     p.add_argument("--sortie", default="resultats")
-    p.add_argument("--max-chevaux", type=int, default=3)
+    p.add_argument("--max-chevaux", type=int, default=14)
     p.add_argument("--etat", default="cache_pmu/etat_persistant.json", help="Journal des chevaux entre executions")
     args = p.parse_args()
     if args.max_chevaux < 1:

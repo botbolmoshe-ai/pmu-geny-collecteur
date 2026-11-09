@@ -27,7 +27,13 @@ def extraire_cheval(url: str, identifiant: str, sortie: Path) -> dict[str, Any]:
     finally:
         sys.argv = old_argv
     path = folder / "historique_geny.json"
-    if path.exists():
+    limitation = folder / 'etat_collecte.json'
+    if code == 3 and limitation.exists():
+        result = json.loads(limitation.read_text(encoding='utf-8'))
+        result.setdefault('nombre_extrait', 0)
+    elif code == 3:
+        result = {'statut': 'ACCES_LIMITE_429', 'nombre_extrait': 0, 'source_url': url}
+    elif path.exists():
         result = json.loads(path.read_text(encoding="utf-8"))
     else:
         result = {"statut": "ERREUR_NAVIGATION", "nombre_extrait": 0, "source_url": url}
