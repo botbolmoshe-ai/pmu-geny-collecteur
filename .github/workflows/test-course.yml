@@ -1,0 +1,51 @@
+name: PMU - Test course complète (manuel)
+
+on:
+  workflow_dispatch:
+    inputs:
+      course_url:
+        description: 'URL Geny de la course (laisser vide pour découverte depuis le programme du 09/11)'
+        required: false
+        type: string
+      max_chevaux:
+        description: 'Nombre max de chevaux à traiter (14 pour la course entière)'
+        required: true
+        default: '14'
+        type: choice
+        options: ['3', '14']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geny-course-pilote
+  cancel-in-progress: false
+
+jobs:
+  course-complete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Installer Python et navigateur Chromium
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: Découvrir et contrôler tous les partants
+        env:
+          COURSE_URL: ${{ inputs.course_url }}
+        run: python -m pmu_geny.decouverte_partants --course-url "$COURSE_URL" --attendu 14 --manifest resultats/partants_decouverts.json
+      - name: Extraire un cheval après l'autre
+        run: python -m pmu_geny.traitement_course --manifest resultats/partants_decouverts.json --sortie resultats --max-chevaux "${{ inputs.max_chevaux }}"
+      - name: Publier bilan et diagnostics, même si échec
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bilan-course-geny
+          path: resultats/
+          if-no-files-found: warn
+          retention-days: 7

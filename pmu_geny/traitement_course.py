@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from .extraction_historique_par_cheval import extraire_cheval
@@ -23,7 +24,13 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int) -> dict:
         partants = course.get("partants", [])
         if not partants:
             raise ValueError(f"Aucun partant pour {cid}")
-        stats = {"course_id": cid, "chevaux": [], "traitement": "EN_COURS"}
+        expected = course.get("nombre_partants_attendu")
+        if expected is not None and len(partants) != int(expected):
+            raise ValueError(f"Liste des partants incomplète pour {cid}: {len(partants)}/{expected}")
+        ids = [str(c["id"]) for c in partants]
+        if len(ids) != len(set(ids)):
+            raise ValueError(f"Identifiants de chevaux en doublon pour {cid}")
+        stats = {"course_id": cid, "nombre_partants_attendu": expected, "chevaux": [], "traitement": "EN_COURS"}
         bilan["courses"].append(stats)
         for cheval in partants:
             if total >= max_chevaux:
@@ -37,6 +44,7 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int) -> dict:
             except Exception as e:
                 stats["chevaux"].append({"id": ident, "nom": cheval.get("nom"), "statut": "ERREUR", "erreur": str(e)})
             total += 1
+            time.sleep(2)  # Politesse vis-à-vis du site, pas de requêtes parallèles.
             sortie.mkdir(parents=True, exist_ok=True)
             (sortie / "bilan.json").write_text(json.dumps(bilan, ensure_ascii=False, indent=2), encoding="utf-8")
         else:

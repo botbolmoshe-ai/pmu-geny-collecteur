@@ -30,3 +30,20 @@ Les fichiers de diagnostic peuvent contenir des éléments provenant de la page 
 - Ajouter l'écriture dans Google Sheets via compte de service ou OAuth avec identifiants stockés dans les **GitHub Actions Secrets**, jamais dans le dépôt.
 - Déclencher périodiquement avec un `schedule` seulement après vérification ; les événements programmés peuvent être retardés. Le figement strict TOP3 avant départ doit rester un mécanisme distinct.
 - Vérifier les conditions d'utilisation du site Geny et maîtriser le rythme des requêtes.
+
+## Test multi-chevaux — Bordeaux R1C4, 9 novembre 2026
+
+Le workflow **PMU - Test course complète (manuel)** (`.github/workflows/test-course.yml`) réalise deux étapes :
+
+1. Ouvre le programme officiel Geny de la journée et cherche la fiche du **Prix Caliceo** ; récupère exclusivement les liens des chevaux correspondant à l'identifiant de cette course. Il exige **14 fiches distinctes** avant de poursuivre. Si la détection n'est pas certaine, il s'arrête et fournit les diagnostics ; **aucune association n'est inventée**.
+2. Collecte séquentiellement les historiques avec le moteur V4. Un rapport `resultats/bilan.json` est produit. Le ZIP **bilan-course-geny** est disponible dans Artifacts, y compris en cas de problème si des diagnostics ont été créés.
+
+### Mode opératoire
+
+- Copier **les deux fichiers nouveaux** `.github/workflows/test-course.yml` et `pmu_geny/decouverte_partants.py` dans le dépôt local via GitHub Desktop, puis **remplacer** `pmu_geny/traitement_course.py` par cette version (les autres fichiers restent inchangés).
+- Dans GitHub Desktop : `Commit to main` puis `Push origin`.
+- Sur GitHub > Actions > `PMU - Test course complète (manuel)` > `Run workflow`.
+- Laisser `course_url` vide (découverte depuis le programme Geny). Choisir `max_chevaux=3` pour le premier contrôle ; puis `14` après validation.
+- Si la découverte automatique échoue, ouvrir le ZIP `bilan-course-geny`, inspecter `decouverte/fiche_course.png` et `decouverte/liens_fiche_course.json`. On peut passer l'URL **réelle** de course Geny dans `course_url` lors du relancement. Ne pas fournir d'URL supposée.
+
+**Limites :** disponibilité et HTML Geny non vérifiés pour ce nouvel extracteur de partants, distinct du collecteur d'historiques déjà testé. Ce workflow ne planifie rien, ne calcule pas de TOP3 et n'écrit pas dans Google Sheets. La sélection complète des partants doit être validée avant une utilisation quotidienne.
