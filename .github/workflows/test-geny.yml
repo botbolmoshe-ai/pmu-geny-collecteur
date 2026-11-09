@@ -1,0 +1,38 @@
+name: Test Geny Playwright (manuel)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geny-test
+  cancel-in-progress: false
+
+jobs:
+  tester-extraction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Installer Python et Playwright
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: Tester un cheval dans le cloud
+        run: python -m pmu_geny.traitement_course --manifest courses_test.json --sortie resultats --max-chevaux 1
+      - name: Conserver les résultats de diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostic-geny
+          path: resultats/
+          if-no-files-found: warn
+          retention-days: 7
