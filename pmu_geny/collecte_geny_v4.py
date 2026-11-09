@@ -101,6 +101,14 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
                 rank=parts[-2]
             elif parts[-1].casefold() in {"dai","disq","nc","np","arr","dist"}:
                 rank=parts[-1]
+            else:
+                # Une fiche de jeune cheval peut afficher une ligne de qualification
+                # immédiatement après sa performance. Elle est parfois concaténée
+                # à la dernière ligne DOM, si bien que "Dai" n'est plus le dernier
+                # élément. Chercher uniquement les classements explicites dans la
+                # ligne, sans transformer une cote ou une allocation en rang.
+                non_classes = {"dai", "disq", "nc", "np", "arr", "dist"}
+                rank = next((x for x in parts[4:] if x.casefold() in non_classes), "")
         else:
             # En cas de structure inconnue, conserver la ligne brute, sans inventer de champs.
             remain=txt[m.end():]
