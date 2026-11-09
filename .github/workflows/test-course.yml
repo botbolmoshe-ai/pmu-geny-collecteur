@@ -1,14 +1,14 @@
-name: PMU - Test course à venir (manuel)
+name: PMU - Test course complète (manuel)
 
 on:
   workflow_dispatch:
     inputs:
       course_url:
-        description: 'URL Partants/Pronos Geny (vide = recherche Vincennes R2C1 du 10/11/2026)'
+        description: 'URL Geny de la course (vide = course pilote 1697378)'
         required: false
         type: string
       max_chevaux:
-        description: 'Limite de collecte après vérification de tous les partants'
+        description: 'Nombre max de nouveaux chevaux à collecter ce lancement'
         required: true
         default: '3'
         type: choice
@@ -22,11 +22,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  course-a-venir:
+  course-complete:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+      - name: Restaurer le cache entre executions
+        uses: actions/cache/restore@v4
+        with:
+          path: cache_pmu/
+          key: pmu-historique-v8-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            pmu-historique-v8-
+            pmu-historique-v7-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -35,17 +43,41 @@ jobs:
         run: |
           python -m pip install -r requirements.txt
           python -m playwright install --with-deps chromium
-      - name: Découvrir les partants sur la page Partants Pronos
+      - name: Reutiliser les partants verifies ou les decouvrir
         env:
           COURSE_URL: ${{ inputs.course_url }}
-        run: python -m pmu_geny.decouverte_partants --course-url "$COURSE_URL" --attendu 14 --manifest resultats/partants_decouverts.json
-      - name: Extraire les historiques séquentiellement
-        run: python -m pmu_geny.traitement_course --manifest resultats/partants_decouverts.json --sortie resultats --max-chevaux "${{ inputs.max_chevaux }}"
-      - name: Conserver les diagnostics même si erreur
+        shell: bash
+        run: |
+          mkdir -p resultats cache_pmu
+          if [[ -z "$COURSE_URL" && -s cache_pmu/manifest_pilote_1697378.json ]]; then
+            cp cache_pmu/manifest_pilote_1697378.json resultats/partants_decouverts.json
+            echo 'Manifest pilote deja valide : aucun acces Geny pour les partants.'
+          else
+            python -m pmu_geny.decouverte_partants --course-url "$COURSE_URL" --attendu 14 --manifest resultats/partants_decouverts.json
+            if [[ -z "$COURSE_URL" ]]; then
+              cp resultats/partants_decouverts.json cache_pmu/manifest_pilote_1697378.json
+            fi
+          fi
+      - name: Extraire uniquement les cas en attente
+        run: |
+          python -m pmu_geny.traitement_course \
+            --manifest resultats/partants_decouverts.json \
+            --sortie resultats \
+            --etat cache_pmu/etat_persistant.json \
+            --max-chevaux "${{ inputs.max_chevaux }}"
+      - name: Sauvegarder le journal pour la prochaine execution
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: cache_pmu/
+          key: pmu-historique-v8-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Publier bilan et diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: bilan-course-a-venir
-          path: resultats/
+          name: bilan-course-geny
+          path: |
+            resultats/
+            cache_pmu/etat_persistant.json
           if-no-files-found: warn
-          retention-days: 7
+          retention-days: 14
