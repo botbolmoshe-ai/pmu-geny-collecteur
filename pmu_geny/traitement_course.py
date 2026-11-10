@@ -7,6 +7,7 @@ Ce module ne calcule pas lui-même de pronostic et n'écrit pas Google Sheets.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import shutil
 import time
@@ -14,6 +15,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from .extraction_historique_par_cheval import extraire_cheval
 from .controle_historique import classifier, PARTIELS
+from .collecte_geny_v4 import lire_classement
 
 
 def _save_bilan(sortie: Path, bilan: dict) -> None:
@@ -34,6 +36,57 @@ def _ecrire_etat(path: Path, obj: dict) -> None:
     tmp = path.with_suffix(".tmp")
     tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
     tmp.replace(path)
+
+
+def _revalider_historique_cache(fichier: Path) -> dict | None:
+    """Reparer uniquement les classements verifiables depuis le CSV/JSON sauvegarde.
+
+    Ne consulte jamais Geny, ne modifie jamais le nombre de courses. Si le
+    classement ne peut pas etre determine avec certitude, ne le fabrique pas.
+    """
+    try:
+        doc = json.loads(fichier.read_text(encoding="utf-8"))
+        if not isinstance(doc.get("performances"), list):
+            return None
+        changement = False
+        for ligne in doc["performances"]:
+            if str(ligne.get("classement", "")).strip():
+                continue
+            texte = str(ligne.get("texte_source", ""))
+            # Reprise sur la ligne d'origine seulement, apres les champs stables.
+            cellules = texte.split("|")
+            if len(cellules) < 7:
+                continue
+            rang = lire_classement(cellules[4:])
+            if rang:
+                ligne["classement"] = rang
+                changement = True
+        if not changement:
+            return None
+        statut, motifs = classifier(doc)
+        doc["statut"] = statut
+        doc["complet"] = statut == "COMPLET"
+        doc["champs_detail_valides"] = statut not in ("DONNEES_INCOMPLETES", "PARTIEL_HISTORIQUE")
+        # Les fichiers d'historique sont des copies locales persistantes.
+        fichier.write_text(json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
+        csv_path = fichier.with_suffix(".csv")
+        if csv_path.exists():
+            with csv_path.open(encoding="utf-8-sig", newline="") as fh:
+                reader = csv.DictReader(fh, delimiter=";")
+                noms = reader.fieldnames
+                lignes = list(reader)
+            if noms and len(lignes) == len(doc["performances"]):
+                for csv_row, item in zip(lignes, doc["performances"]):
+                    csv_row["classement"] = item["classement"]
+                with csv_path.open("w", encoding="utf-8-sig", newline="") as fh:
+                    writer = csv.DictWriter(fh, fieldnames=noms, delimiter=";")
+                    writer.writeheader()
+                    writer.writerows(lignes)
+        return {"statut": statut, "motifs": motifs,
+                "nombre_extrait": doc.get("nombre_extrait"),
+                "nombre_annonce_geny": doc.get("nombre_annonce_geny")}
+    except (OSError, ValueError, TypeError, KeyError, csv.Error):
+        return None
 
 
 def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | None = None, cooldown_heures: int = 1) -> dict:
@@ -88,6 +141,13 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
             # Ne jamais qualifier de COMPlET un cheval si son historique n'est
             # pas également sauvegardé : le journal seul ne suffit pas.
             historique_cache = etat_path.parent / "historiques" / ident / "historique_geny.json"
+            if ancien.get("statut") in PARTIELS and historique_cache.is_file():
+                revalide = _revalider_historique_cache(historique_cache)
+                if revalide:
+                    journal[ident] = {**ancien, **revalide, "maj_utc": datetime.now(timezone.utc).isoformat()}
+                    _ecrire_etat(etat_path, etat_persistant)
+                    ancien = journal[ident]
+                    print(f"REVALIDATION HORS LIGNE : {nom} ({ident}) => {ancien['statut']}", flush=True)
             if ancien.get("statut") == "COMPLET" and historique_cache.is_file():
                 try:
                     snapshot = json.loads(historique_cache.read_text(encoding="utf-8"))

@@ -18,7 +18,7 @@ from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeo
 DEFAULT_URL = "https://www.geny.com/cheval/2775817-kelle-belle-jasma/course/1683699"
 DATE_RE = re.compile(r"(?<!\d)(\d{2})/(\d{2})/(20\d{2}|\d{2})(?!\d)")
 COUNT_RE = re.compile(r"\bsur\s+(\d{1,4})\s+courses\b", re.I)
-RANK_RE = re.compile(r"(?<!\w)(Dai|Disq|Nc|NP|(?:\d{1,2})\s*(?:er|e|eme|ème|ᵉ))(?!\w)", re.I)
+RANK_RE = re.compile(r"(?<!\w)(Dai|Di|Disq|Nc|NP|(?:\d{1,2})\s*(?:er|e|eme|ème|ᵉ))(?!\w)", re.I)
 DIST_RE = re.compile(r"(?<!\d)(\d{4})\s*(?:m|\b)")
 
 
@@ -80,14 +80,14 @@ def lire_classement(cellules: list[str]) -> str:
     """Lire uniquement le classement de fin de ligne, jamais une cote ou allocation.
 
     Geny peut rendre les rangs en un bloc (« 12e »), en deux (« 12 | e »),
-    ou afficher un statut (« Dai »). Le chrono est facultatif.
+    ou afficher un statut (« Dai », « Di »). Le chrono est facultatif.
     """
     cells = [normalize(str(c)) for c in cellules if normalize(str(c))]
     if not cells:
         return ""
     # Une extraction DOM ajoute parfois des cellules vides ou des espaces.
     dernier = cells[-1]
-    non_classes = {"dai", "disq", "nc", "np", "arr", "dist"}
+    non_classes = {"dai", "di", "disq", "nc", "np", "arr", "dist"}
     if dernier.casefold() in non_classes:
         return dernier
     m = re.fullmatch(r"(\d{1,2})\s*(?:er|e|eme|ème|ᵉ)", dernier, re.I)
