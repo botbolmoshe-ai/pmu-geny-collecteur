@@ -1,3 +1,5 @@
+Voir `CORRECTIF_V20_6.md` pour les changements de l’ordonnanceur J-1 et du rapprochement PMU–Geny.
+
 # PMU V20 — météo sourcée (évolution incrémentale V19)
 
 ## Ajout vérifié en tests locaux
@@ -97,3 +99,6 @@ Après arrivée officielle enregistrée, le cycle `auto` génère `audits/AAAA-M
 ## Correctif V20.5
 
 Voir `CORRECTIF_V20_5.md` pour la reconnaissance des hippodromes et le diagnostic J-1.
+
+## V20.7 : association par R/C
+Voir `CORRECTIF_V20_7.md`.

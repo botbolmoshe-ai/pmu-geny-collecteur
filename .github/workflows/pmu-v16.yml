@@ -1,4 +1,4 @@
-name: PMU - V20.5 Filtre hippodromes et J-1
+name: PMU - V20.7 R-C et rapprochement PMU-Geny
 
 on:
   schedule:
@@ -95,14 +95,16 @@ jobs:
       - name: Installer Playwright (decouverte ou collecte uniquement)
         if: github.event_name == 'workflow_dispatch' && (inputs.mode == 'auto' || inputs.mode == 'decouvrir' || inputs.mode == 'collecter') || github.event.schedule == '0,15,30,45 5-20 * * *'
         run: |
+          # Le module Python Playwright est importé même sur les cycles légers.
+          # Installer les dépendances Python toujours, Chromium uniquement sur cycle lourd.
+          python -m pip install -r requirements.txt
           if [ "${{ github.event_name }}" = "schedule" ]; then
             MINUTE=$(TZ=Europe/Paris date +%M)
             if [ "$MINUTE" -ge 15 ]; then
-              echo 'Cycle leger : navigateur Geny non requis.'
+              echo 'Cycle leger : navigateur Chromium non requis.'
               exit 0
             fi
           fi
-          python -m pip install -r requirements.txt
           python -m playwright install --with-deps chromium
       - name: Installer les dependances ML (cycles legers inclus)
         run: python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2
@@ -131,14 +133,18 @@ jobs:
               # J-1 : relancer le programme de demain à chaque cycle complet dès 18 h.
               # Les courses du jour déjà parties ne consomment pas le budget Geny.
               # Si le jour J n'a plus de départ futur, tout le solde va à J+1.
-              if full and now.hour>=18:
-                  remaining=max(0,3-today_state.get('fiches_geny_budget_consommees',0))
+              if now.hour>=18:
+                  remaining=max(0,3-today_state.get('fiches_geny_budget_consommees',0)) if full else 0
                   tomorrow=(now+timedelta(days=1)).date().isoformat()
-                  print(f'PLANIFICATION_J1 date={tomorrow} budget_fiches={remaining} tentatives_decouverte=1',flush=True)
-                  tomorrow_state=run(root,tomorrow,[],remaining,max_discoveries=1,now=now)
-                  print(f'BILAN_J1 date={tomorrow} courses_selectionnees={sum(1 for x in tomorrow_state.get("courses",{}).values() if x.get("traitement")=="PREPARATION_AVANT_DEPART")} fiches_consommees={tomorrow_state.get("fiches_geny_budget_consommees",0)}',flush=True)
-              elif now.hour>=18 and not full:
-                  print('PLANIFICATION_J1_DIFFEREE cycle_leger; prochaine_execution_complete',flush=True)
+                  # Même un cycle léger prépare J+1 dès 18h si le programme n'est pas déjà en cache.
+                  already=(root/'sources_pmu'/f'programme_{tomorrow}.json').is_file()
+                  if full or not already:
+                      print(f'PLANIFICATION_J1 date={tomorrow} cycle={"complet" if full else "leger"} budget_fiches={remaining} tentatives_decouverte={1 if full else 0}',flush=True)
+                      tomorrow_state=run(root,tomorrow,[],remaining,max_discoveries=1 if full else 0,
+                                         now=now,selection_complete=True)
+                      print(f'BILAN_J1 date={tomorrow} courses_selectionnees={sum(1 for x in tomorrow_state.get("courses",{}).values() if x.get("traitement")=="PREPARATION_AVANT_DEPART")} fiches_consommees={tomorrow_state.get("fiches_geny_budget_consommees",0)}',flush=True)
+                  else:
+                      print(f'PLANIFICATION_J1_DEJA_EFFECTUEE date={tomorrow}; collecte Geny au prochain cycle complet',flush=True)
               print('Cycle complet' if full else 'Cycle PMU de proximité')
           PYRUN
       - name: Decouvrir les partants, sans collecter les historiques

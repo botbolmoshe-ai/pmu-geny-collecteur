@@ -177,7 +177,7 @@ def update_np(cache, course, manifest, pmu_data):
                                        'nouveau':r['statut_participation']} for r in rows if old.get(r['numero'],{}).get('statut_participation')!=r['statut_participation']]}
     save(target,doc);return doc
 
-def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None):
+def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None):
     now=now or datetime.now(PARIS)
     if now.tzinfo is None: raise ValueError("Heure de traitement sans fuseau")
     index=cache/'orchestration'/f'{date}.json'; state=load(index,{'date':date,'courses':{},'alertes':[]})
@@ -212,7 +212,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     # Les courses récentes peuvent seulement passer par la phase arrivées/audit.
     # Le lendemain est préparé dès 18 h (heure de Paris), sans trafic nocturne.
     from .planification_v20_2 import selectionner_courses
-    selected=selectionner_courses(courses, now, date, selection, max_new>0,
+    selected=selectionner_courses(courses, now, date, selection, max_new>0 if selection_complete is None else selection_complete,
                                 state, max_courses=12)
     remaining_new=max_new
     remaining_discoveries=max_discoveries
@@ -222,6 +222,15 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     last=(geny_state.get('dernier_blocage_geny') or {}).get('utc')
     try: cooldown=bool(last and datetime.now(timezone.utc)<datetime.fromisoformat(last)+timedelta(hours=1))
     except (ValueError,TypeError): cooldown=False
+    geny_index=None
+    if remaining_discoveries>0 and not cooldown and any(datetime.fromisoformat(c['depart'])>now for c in selected):
+        try:
+            from .rapprochement_v20_6 import index_programme
+            geny_index=index_programme(cache,date,cache/'etat_persistant.json')
+            print(f"INDEX_GENY date={date} statut={geny_index.get('statut')} courses={len(geny_index.get('courses',[]))} codes_rc_documentes={geny_index.get('codes_rc_documentes',0)}",flush=True)
+            if geny_index.get('statut')=='GENY_BLOQUE':cooldown=True
+        except Exception as exc:
+            state['alertes'].append(f'INDEX_GENY: {type(exc).__name__}: {exc}')
     for c in selected:
         key=c['code']; entry=state['courses'].setdefault(key,{'identifiant_geny':None,'etat':'A_DECOUVRIR'})
         entry.update({'depart':c['depart'],'nom':c['nom'],'hippodrome':c['hippodrome'],'nombre_declares':c['nombre_declares'], 'priorite_metier':c.get('priorite_metier'), 'motif_selection':c.get('motif_selection')})
@@ -251,9 +260,15 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             block=m['courses'][0]
             match=correspondences.get(f'{date}_{key}')==block.get('course_id')
             if not match:
-                # Retrocompatibilité V16/V17: même date et même intitulé exact dans l'URL Geny.
+                # Rétrocompatibilité V16/V17: vérifier également l'hippodrome,
+                # jamais le nom seul. Un rapprochement de cache erroné est durable.
                 u=block.get('source_course_geny','')
-                match=bool(date in u and normalize(c['nom']) and normalize(c['nom']) in normalize(u))
+                if date in u:
+                    from .rapprochement_v20_6 import index_from_anchors, rapprocher
+                    local_candidates=index_from_anchors([{'href':u,'text':''}],date)
+                    decision=rapprocher(c,local_candidates)
+                    match=(decision.get('statut')=='CORRESPONDANCE_CONFIRMEE'
+                           and f"GENY-{decision['geny_id']}"==str(block.get('course_id')))
                 if match:
                     correspondences[f'{date}_{key}']=block['course_id']
                     save(correspondences_path,correspondences)
@@ -265,20 +280,22 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             # Le collecteur refuse une correspondance ambiguë.
             try:
                 from .decouverte_partants import produire_manifest
-                from .collecte_geny_v4 import diagnostic_acces
-                keyword=normalize(c['nom'])
-                if not keyword: raise ValueError('Nom de course PMU vide')
-                # Limite de découvertes par exécution pour ne pas saturer Geny.
+                from .rapprochement_v20_6 import rapprocher
+                if not geny_index or geny_index.get('statut')!='OK':
+                    raise LookupError('Index journalier Geny indisponible')
+                decision=rapprocher(c,geny_index['courses'])
+                entry['rapprochement_geny']=decision
+                if decision['statut']!='CORRESPONDANCE_CONFIRMEE':
+                    raise LookupError('Geny: '+decision['statut'])
+                # Une tentative de manifeste est une découverte lourde.
                 remaining_discoveries-=1
                 temp=cache/'orchestration'/'decouvertes'/f'{date}_{key}.json'
-                data=produire_manifest('',f'https://www.geny.com/programme/{date}/orga/PMU',
-                         c['nombre_declares'],temp,cache/'diagnostics'/'decouverte'/f'{date}_{key}',keyword,
+                data=produire_manifest(decision['url'], '', c['nombre_declares'], temp,
+                         cache/'diagnostics'/'decouverte'/f'{date}_{key}', '',
                          cache/'etat_persistant.json')
                 block=data['courses'][0]
-                # Interdire la liaison si le nom ne figure pas dans l'URL Geny.
-                url=block.get('source_course_geny','')
-                if keyword not in normalize(url):
-                    raise ValueError('Geny: correspondance nom non confirmée')
+                if str(block['course_id'])!=f"GENY-{decision['geny_id']}":
+                    raise ValueError('Geny: identifiant fiche incompatible avec l’index')
                 manifest_path=cache/'manifestes'/f"{block['course_id']}.json"
                 save(manifest_path,data)
                 manifest=data
@@ -291,6 +308,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 if (geny_state.get('dernier_blocage_geny') or {}).get('utc'): cooldown=True
         if manifest is None:
             entry['etat']='GENY_NON_ASSOCIE'
+            entry['motif_attente_geny']=('COOLDOWN_GENY' if cooldown else
+                'QUOTA_DECOUVERTE_ATTEINT' if remaining_discoveries<=0 else
+                entry.get('erreur_decouverte','AUCUNE_ASSOCIATION_VERIFIEE'))
             continue
         entry['identifiant_geny']=manifest['courses'][0]['course_id'];entry['etat']='MANIFESTE_PRESENT'
         if phase in ('auto','collecter') and not est_partie and remaining_new>0 and not cooldown:
@@ -365,6 +385,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     save(index,state)
     print(json.dumps({'date':date,'courses_pmu':len(courses),'courses_selectionnees':len(selected),
                       'manifestes_associes':sum(e.get('identifiant_geny') is not None for e in state['courses'].values()),
+                      'rapprochements_ambigus':sum(e.get('rapprochement_geny',{}).get('statut')=='CORRESPONDANCE_AMBIGUE' for e in state['courses'].values()),
                       'alertes':state['alertes'][-3:]},ensure_ascii=False))
     return state
 
