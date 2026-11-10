@@ -13,7 +13,7 @@
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -38,7 +38,7 @@
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY"
     },
     "R4C4": {
       "identifiant_geny": null,
@@ -63,7 +63,7 @@
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY"
     },
     "R4C5": {
       "identifiant_geny": null,
@@ -95,7 +95,7 @@
       "traitement": "RESULTATS_SEULEMENT",
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY"
     },
     "R4C1": {
       "identifiant_geny": null,
@@ -116,7 +116,7 @@
       "traitement": "RESULTATS_SEULEMENT",
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY"
     },
     "R1C9": {
       "identifiant_geny": null,
@@ -143,9 +143,9 @@
       "motif_selection": "ALLOCATION_ELEVEE"
     },
     "R3C6": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-10T20:26:00+01:00",
+      "identifiant_geny": "GENY-1697379",
+      "etat": "MANIFESTE_PRESENT",
+      "depart": "2026-11-10T20:07:00+01:00",
       "nom": "PRIX DU BAR DES ACACIAS",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 10,
@@ -154,12 +154,37 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697379",
+        "url": "https://www.geny.com/course/1697379-2026-11-10-reims-prix-du-bar-des-acacias",
+        "score": 1.0,
+        "methode": "DATE_HIPPODROME_RC",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "r": 3,
+          "c": 6,
+          "nom": {
+            "hippodrome": true,
+            "similarite_nom": 1.0
+          }
+        }
+      },
+      "np_confirmes": 0,
+      "np_verification_utc": "2026-11-10T19:02:27.810315+00:00",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_prevision": "HORS_FENETRE_H1",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1697379/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R3C7": {
       "identifiant_geny": null,
       "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-10T20:28:00+01:00",
+      "depart": "2026-11-10T20:37:00+01:00",
       "nom": "PRIX DE LA VICTOIRE DE 1918",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 12,
@@ -168,7 +193,7 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY"
     },
     "R2C7": {
       "identifiant_geny": null,
@@ -199,14 +224,14 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-10T18:52:08.229682+00:00",
-  "fiches_geny_budget_consommees": 0,
+  "dernier_controle_pmu": "2026-11-10T19:01:41.076009+00:00",
+  "fiches_geny_budget_consommees": 3,
   "diagnostic_pmu": {
     "date": "2026-11-10",
-    "horodatage_utc": "2026-11-10T18:52:08.229682+00:00",
+    "horodatage_utc": "2026-11-10T19:01:41.076009+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/10112026",
     "statut": "COURSES_DISPONIBLES",
-    "courses_retenues": 16,
+    "courses_retenues": 15,
     "reunions_recues": 5,
     "reunions_francaises": 4,
     "reunions_pays_inconnu": 0,
@@ -214,6 +239,7 @@
     "courses_recues": 38,
     "exclusions": {
       "metier_hors_trot": 16,
+      "depart_hors_plage_07_21": 1,
       "pays_etranger": 1
     },
     "pays_observes": {
@@ -377,7 +403,7 @@
       }
     ],
     "courses_p1": 8,
-    "courses_p2": 8,
+    "courses_p2": 7,
     "decisions_metier": [
       {
         "code": "R1C1",
@@ -644,17 +670,6 @@
         "nombre_partants": 12
       },
       {
-        "code": "R3C8",
-        "niveau": "P2",
-        "motif": "HIPPODROME_MAJEUR_P2",
-        "discipline": "TROT_ATTELE",
-        "allocation_eur": 21000,
-        "groupe": false,
-        "hippodrome": "HIPPODROME DE REIMS",
-        "hippodrome_normalise": "reims",
-        "nombre_partants": 12
-      },
-      {
         "code": "R4C1",
         "niveau": "EXCLU",
         "motif": "HORS_TROT",
@@ -732,5 +747,13 @@
         "nombre_partants": 10
       }
     ]
+  },
+  "entrainement_ml": {
+    "entrainement_utc": "2026-11-10T19:02:28.326806+00:00",
+    "courses": 0,
+    "lignes": 0,
+    "minimum_courses": 100,
+    "minimum_lignes": 700,
+    "etat": "INSUFFISANT"
   }
 }
