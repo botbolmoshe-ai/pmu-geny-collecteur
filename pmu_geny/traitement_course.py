@@ -10,7 +10,7 @@ import argparse
 import json
 import shutil
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from .extraction_historique_par_cheval import extraire_cheval
 from .controle_historique import classifier, PARTIELS
@@ -36,7 +36,7 @@ def _ecrire_etat(path: Path, obj: dict) -> None:
     tmp.replace(path)
 
 
-def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | None = None) -> dict:
+def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | None = None, cooldown_heures: int = 1) -> dict:
     courses = manifest.get("courses", [])
     if not isinstance(courses, list) or not courses:
         raise ValueError("Manifeste sans liste 'courses' non vide")
@@ -50,6 +50,20 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
     etat_persistant = _lire_etat(etat_path)
     journal = etat_persistant.setdefault("chevaux", {})
     compteur = 0
+    # Un blocage recent impose une periode sans consultation Geny, y compris
+    # au premier cheval du prochain run. Cette regle n'essaie pas de contourner
+    # les restrictions du site.
+    dernier_blocage = etat_persistant.get("dernier_blocage_geny") or {}
+    cooldown_actif = False
+    if dernier_blocage.get("utc"):
+        try:
+            debut = datetime.fromisoformat(dernier_blocage["utc"])
+            cooldown_actif = datetime.now(timezone.utc) < debut + timedelta(hours=cooldown_heures)
+        except (ValueError, TypeError):
+            pass
+    if cooldown_actif:
+        bilan["collecte_geny"] = "DIFFEREE_COOLDOWN"
+        print(f"COOLDOWN GENY : pas de requete pendant {cooldown_heures}h apres un 403/429.", flush=True)
     collecte_suspendue = False
     limite_test = False
     for course in courses:
@@ -98,12 +112,15 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
             # Une unique nouvelle tentative est permise pour corriger les cas partiels.
             # Les comptes 429 ne consomment pas ce droit de correction.
             reprise_partielle = (ancien.get("statut") in PARTIELS or ancien.get("correction_en_attente", False)) and not ancien.get("correction_tentee", False)
-            if ancien.get("statut") not in (None, "ACCES_LIMITE_429", "NON_TENTE_ACCES_LIMITE_429", "NON_TENTE_ACCES_REFUSE_403", "NON_TENTE_LIMITE_TEST") and not reprise_partielle:
+            if ancien.get("statut") not in (None, "ACCES_LIMITE_429", "ACCES_REFUSE_403", "NON_TENTE_ACCES_LIMITE_429", "NON_TENTE_ACCES_REFUSE_403", "NON_TENTE_LIMITE_TEST", "NON_TENTE_COOLDOWN") and not reprise_partielle:
                 # Conformément à la règle : les autres erreurs/partiels nécessitent un contrôle ciblé.
                 stats["chevaux"].append({"id": ident, "nom": nom, "statut": ancien["statut"],
                     "origine": "CACHE_A_CONTROLER", "nombre_extrait": ancien.get("nombre_extrait"),
                     "nombre_annonce_geny": ancien.get("nombre_annonce_geny"), "motifs": ancien.get("motifs", []), "correction_tentee": ancien.get("correction_tentee", False)})
                 print(f"CACHE : {nom} ({ident}) {ancien['statut']}, pas de nouvelle requete automatique.", flush=True)
+                continue
+            if cooldown_actif:
+                stats["chevaux"].append({"id": ident, "nom": nom, "statut": "NON_TENTE_COOLDOWN", "nombre_extrait": None})
                 continue
             if collecte_suspendue:
                 stats["chevaux"].append({
@@ -132,7 +149,7 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
                 stats["chevaux"].append(etat)
                 # Persister le contenu, pas seulement le statut. Une exécution
                 # GitHub Actions ne conserve pas son disque local par défaut.
-                if statut == "COMPLET":
+                if statut == "COMPLET" or statut in PARTIELS:
                     source = sortie / cid / ident
                     dest = etat_path.parent / "historiques" / ident
                     dest.mkdir(parents=True, exist_ok=True)
@@ -144,6 +161,8 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
                     collecte_suspendue = True
                     cause = "403" if statut == "ACCES_REFUSE_403" else "429"
                     bilan["collecte_geny"] = f"SUSPENDUE_{cause}"
+                    etat_persistant["dernier_blocage_geny"] = {"utc": datetime.now(timezone.utc).isoformat(), "code": cause}
+                    _ecrire_etat(etat_path, etat_persistant)
                     print(f"Geny refuse ou limite les requetes ({cause}) : suspension de la collecte Geny uniquement.", flush=True)
                     print("Le bilan de course reste disponible pour les etapes hors Geny.", flush=True)
             except Exception as exc:
@@ -158,12 +177,14 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
         # Les chevaux non tentés lors de cette exécution deviennent re-éligibles
         # à la prochaine exécution ; le blocage 429 reste enregistré.
         for item in stats["chevaux"]:
-            if item["statut"] in ("NON_TENTE_ACCES_LIMITE_429", "NON_TENTE_ACCES_REFUSE_403", "NON_TENTE_LIMITE_TEST"):
+            if item["statut"] in ("NON_TENTE_ACCES_LIMITE_429", "NON_TENTE_ACCES_REFUSE_403", "NON_TENTE_LIMITE_TEST", "NON_TENTE_COOLDOWN"):
                 if item["id"] not in journal:
                     journal[item["id"]] = {**item, "maj_utc": datetime.now(timezone.utc).isoformat()}
         _ecrire_etat(etat_path, etat_persistant)
         states = [x["statut"] for x in stats["chevaux"]]
-        if collecte_suspendue:
+        if cooldown_actif:
+            stats["collecte_geny"] = "DIFFEREE_COOLDOWN"
+        elif collecte_suspendue:
             stats["collecte_geny"] = bilan["collecte_geny"]
         elif limite_test:
             stats["collecte_geny"] = "LIMITE_TEST_ATTEINTE"
@@ -173,7 +194,7 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
             stats["collecte_geny"] = "TERMINEE_AVEC_ECARTS"
         stats["top3_mode_recommande"] = "DEGRADE" if any(x != "COMPLET" for x in states) else "COMPLET"
         _save_bilan(sortie, bilan)
-    if not collecte_suspendue:
+    if not collecte_suspendue and not cooldown_actif:
         bilan["collecte_geny"] = "LIMITE_TEST_ATTEINTE" if limite_test else "TERMINEE"
     _save_bilan(sortie, bilan)
     return bilan
@@ -185,11 +206,14 @@ def main() -> None:
     p.add_argument("--sortie", default="resultats")
     p.add_argument("--max-chevaux", type=int, default=14)
     p.add_argument("--etat", default="cache_pmu/etat_persistant.json", help="Journal des chevaux entre executions")
+    p.add_argument("--cooldown-heures", type=int, default=1, help="Minimum d heures sans demande Geny apres un refus")
     args = p.parse_args()
+    if args.cooldown_heures < 1:
+        p.error("--cooldown-heures >= 1")
     if args.max_chevaux < 1:
         p.error("--max-chevaux >= 1")
     manifest = json.loads(Path(args.manifest).read_text(encoding="utf-8"))
-    bilan = traiter(manifest, Path(args.sortie), args.max_chevaux, Path(args.etat))
+    bilan = traiter(manifest, Path(args.sortie), args.max_chevaux, Path(args.etat), args.cooldown_heures)
     for c in bilan["courses"]:
         print(f"BILAN {c['course_id']}: COLLECTE={c['collecte_geny']} / COURSE={c['traitement_course']} / TOP3 RECOMMANDE={c['top3_mode_recommande']}", flush=True)
         for horse in c["chevaux"]:

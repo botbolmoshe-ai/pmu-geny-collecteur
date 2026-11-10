@@ -8,10 +8,11 @@ import argparse
 import json
 import re
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse, urlsplit, urlunsplit
 from playwright.sync_api import sync_playwright
-from .collecte_geny_v4 import dismiss_consent
+from .collecte_geny_v4 import dismiss_consent, diagnostic_acces
 
 PROGRAMME = 'https://www.geny.com/programme/2026-11-10/orga/PMU'
 COURSE_NAME = 'prix-des-tulipes'
@@ -176,7 +177,7 @@ def extract_partants(page, context, race_id, attendu, diagnostic):
     return result
 
 
-def produire_manifest(race_url, programme, attendu, output, diagnostic, keyword):
+def produire_manifest(race_url, programme, attendu, output, diagnostic, keyword, etat_path=None):
     diagnostic.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -204,6 +205,25 @@ def produire_manifest(race_url, programme, attendu, output, diagnostic, keyword)
             for attempt_number, url in enumerate(candidate_urls(urls), 1):
                 response = page.goto(url, wait_until='domcontentloaded', timeout=45000)
                 status = response.status if response else None
+                # Lire la page actuelle AVANT d'agir sur la CMP ou de chercher
+                # des partants. Evite les autres tentatives si refus 403/429.
+                verdict = diagnostic_acces(status, page.title(), page.locator("body").inner_text(), page.content())
+                if verdict in ("ACCES_LIMITE_429", "ACCES_REFUSE_403"):
+                    write_json(diagnostic / "blocage_decouverte.json", {"url": url, "verdict": verdict, "http": status})
+                    if etat_path:
+                        state = {}
+                        if etat_path.exists():
+                            try:
+                                state = json.loads(etat_path.read_text(encoding='utf-8'))
+                            except (ValueError, OSError):
+                                state = {}
+                        if not isinstance(state, dict):
+                            state = {}
+                        state.setdefault('version', 1)
+                        state.setdefault('chevaux', {})
+                        state['dernier_blocage_geny'] = {'utc': datetime.now(timezone.utc).isoformat(), 'code': '403' if verdict.endswith('403') else '429'}
+                        write_json(etat_path, state)
+                    raise RuntimeError(f"Geny refuse la decouverte : {verdict}; aucune nouvelle requete de decouverte")
                 dismiss_consent(page)
                 page.wait_for_timeout(1200)
                 anchors = links(page)
@@ -235,10 +255,11 @@ def main():
     ap.add_argument('--attendu', type=int, default=14)
     ap.add_argument('--manifest', default='resultats/partants_decouverts.json')
     ap.add_argument('--diagnostic', default='resultats/decouverte')
+    ap.add_argument('--etat', default='cache_pmu/etat_persistant.json')
     args=ap.parse_args()
     if args.attendu < 1:
         ap.error('--attendu >= 1')
-    produire_manifest(args.course_url,args.programme,args.attendu,Path(args.manifest),Path(args.diagnostic),args.mot_cle)
+    produire_manifest(args.course_url,args.programme,args.attendu,Path(args.manifest),Path(args.diagnostic),args.mot_cle,Path(args.etat))
 
 if __name__=='__main__':
     main()

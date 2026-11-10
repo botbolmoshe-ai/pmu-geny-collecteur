@@ -1,0 +1,171 @@
+name: PMU - V16 Decouverte et collecte incrementale
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Decouvrir une seule fois, puis Collecter sans nouvelle decouverte'
+        type: choice
+        required: true
+        default: 'collecter'
+        options: ['decouvrir', 'collecter']
+      course_url:
+        description: 'URL officielle Geny /course/ID.../partants-pronostics'
+        type: string
+        required: true
+        default: 'https://www.geny.com/course/1697377-2026-11-10-vincennes-prix-de-beauvais/partants-pronostics'
+      nombre_partants:
+        description: 'Nombre de lignes attendues (declarations, non-partants inclus)'
+        type: number
+        required: true
+        default: 18
+      max_chevaux:
+        description: 'Maximum de nouvelles fiches a consulter pour cette execution'
+        type: number
+        required: true
+        default: 18
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pmu-v16-data
+  cancel-in-progress: false
+
+jobs:
+  traiter-course:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Valider les parametres et restaurer les donnees durables
+        env:
+          COURSE_URL: ${{ inputs.course_url }}
+          NOMBRE: ${{ inputs.nombre_partants }}
+          MAX: ${{ inputs.max_chevaux }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p cache_pmu resultats
+          python - <<'PYVALID'
+          import os, re
+          from urllib.parse import urlparse
+          url=os.environ['COURSE_URL']
+          parsed=urlparse(url)
+          assert parsed.scheme == 'https' and parsed.hostname in ('www.geny.com','geny.com'), 'URL externe non autorisee'
+          m=re.match(r'^/course/(\d+)(?:-[^/]*)?(?:/partants-pronostics)?/?$',parsed.path)
+          assert m, 'URL de course Geny invalide'
+          assert 1 <= int(os.environ['NOMBRE']) <= 30
+          assert 1 <= int(os.environ['MAX']) <= 30
+          with open('course_id.txt','w') as f:f.write(m.group(1))
+          print('COURSE ID',m.group(1))
+          PYVALID
+          if git ls-remote --exit-code --heads origin pmu-data >/dev/null 2>&1; then
+            git fetch --no-tags origin pmu-data
+            git archive origin/pmu-data | tar -x -C cache_pmu
+            echo 'DONNEES PERSISTANTES : rechargees depuis pmu-data'
+          else
+            echo 'DONNEES PERSISTANTES : branche pmu-data absente, initialisation'
+          fi
+      - name: Installer Playwright (decouverte ou collecte uniquement)
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: Decouvrir les partants, sans collecter les historiques
+        if: inputs.mode == 'decouvrir'
+        env:
+          COURSE_URL: ${{ inputs.course_url }}
+          NOMBRE: ${{ inputs.nombre_partants }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CID="$(cat course_id.txt)"
+          # Un manifeste valide est reutilise : zero requete reseau.
+          if [ -s "cache_pmu/manifestes/GENY-${CID}.json" ]; then
+            echo "MANIFESTE EXISTANT : pas de nouvelle decouverte pour ${CID}"
+          else
+            # Ne pas redemander une page des partants pendant le cooldown partage.
+            python - <<'PYCOOLDOWN'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone, timedelta
+          statefile=Path('cache_pmu/etat_persistant.json')
+          if statefile.exists():
+              state=json.loads(statefile.read_text(encoding='utf-8'))
+              t=(state.get('dernier_blocage_geny') or {}).get('utc')
+              if t and datetime.now(timezone.utc) < datetime.fromisoformat(t)+timedelta(hours=1):
+                  raise SystemExit('COOLDOWN GENY : decouverte differee sans nouvelle requete.')
+          PYCOOLDOWN
+            python -m pmu_geny.decouverte_partants \
+              --course-url "$COURSE_URL" \
+              --attendu "$NOMBRE" \
+              --manifest "cache_pmu/manifestes/GENY-${CID}.json" \
+              --diagnostic "resultats/decouverte-${CID}" \
+              --etat cache_pmu/etat_persistant.json
+          fi
+      - name: Collecter depuis le manifeste stocke, sans decouverte
+        if: inputs.mode == 'collecter'
+        env:
+          MAX: ${{ inputs.max_chevaux }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CID="$(cat course_id.txt)"
+          MANIFEST="cache_pmu/manifestes/GENY-${CID}.json"
+          if [ ! -s "$MANIFEST" ]; then
+            echo "ERREUR : aucun manifeste pour GENY-${CID}. Lancer d'abord le mode decouvrir." >&2
+            exit 2
+          fi
+          python -m pmu_geny.traitement_course \
+            --manifest "$MANIFEST" \
+            --sortie resultats \
+            --etat cache_pmu/etat_persistant.json \
+            --max-chevaux "$MAX" \
+            --cooldown-heures 1
+      - name: Publier les diagnostics et les bilans
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pmu-v16-${{ github.run_id }}
+          path: |
+            resultats/
+            cache_pmu/manifestes/
+            cache_pmu/etat_persistant.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Conserver les historiques et les manifestes sur la branche pmu-data
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -d cache_pmu ] || [ -z "$(find cache_pmu -type f -print -quit)" ]; then
+            echo 'Aucune donnee a sauvegarder.'
+            exit 0
+          fi
+          mkdir -p /tmp/pmu-data-worktree
+          if git show-ref --verify --quiet refs/remotes/origin/pmu-data; then
+            git worktree add --detach /tmp/pmu-data-worktree origin/pmu-data
+            git -C /tmp/pmu-data-worktree switch -C pmu-data origin/pmu-data
+          else
+            git worktree add -b pmu-data /tmp/pmu-data-worktree HEAD
+            git -C /tmp/pmu-data-worktree rm -rf --ignore-unmatch . >/dev/null
+            git -C /tmp/pmu-data-worktree clean -fdx >/dev/null
+          fi
+          cp -a cache_pmu/. /tmp/pmu-data-worktree/
+          git -C /tmp/pmu-data-worktree config user.name 'github-actions[bot]'
+          git -C /tmp/pmu-data-worktree config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C /tmp/pmu-data-worktree add -A
+          if git -C /tmp/pmu-data-worktree diff --cached --quiet; then
+            echo 'Aucune nouvelle donnee a committer.'
+          else
+            git -C /tmp/pmu-data-worktree commit -m "PMU data: run ${{ github.run_id }}"
+            git -C /tmp/pmu-data-worktree push origin HEAD:refs/heads/pmu-data
+            echo 'DONNEES SAUVEGARDEES : branche pmu-data'
+          fi
