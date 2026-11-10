@@ -12,7 +12,8 @@
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
       "priorite_metier": "P2",
-      "motif_selection": "HIPPODROME_MAJEUR_P2"
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -36,7 +37,8 @@
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
       "priorite_metier": "P2",
-      "motif_selection": "HIPPODROME_MAJEUR_P2"
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     },
     "R4C4": {
       "identifiant_geny": null,
@@ -56,11 +58,12 @@
       "nom": "PRIX DES MEMOIRES DE GUERRE",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 12,
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
       "priorite_metier": "P2",
-      "motif_selection": "HIPPODROME_MAJEUR_P2"
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     },
     "R4C5": {
       "identifiant_geny": null,
@@ -91,7 +94,8 @@
       "nombre_declares": 16,
       "traitement": "RESULTATS_SEULEMENT",
       "priorite_metier": "P2",
-      "motif_selection": "HIPPODROME_MAJEUR_P2"
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     },
     "R4C1": {
       "identifiant_geny": null,
@@ -111,7 +115,8 @@
       "nombre_declares": 12,
       "traitement": "RESULTATS_SEULEMENT",
       "priorite_metier": "P2",
-      "motif_selection": "HIPPODROME_MAJEUR_P2"
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     },
     "R1C9": {
       "identifiant_geny": null,
@@ -140,7 +145,7 @@
     "R3C6": {
       "identifiant_geny": null,
       "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-10T19:56:00+01:00",
+      "depart": "2026-11-10T20:26:00+01:00",
       "nom": "PRIX DU BAR DES ACACIAS",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 10,
@@ -148,7 +153,8 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)"
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     },
     "R3C7": {
       "identifiant_geny": null,
@@ -161,7 +167,8 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)"
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     },
     "R2C7": {
       "identifiant_geny": null,
@@ -172,16 +179,31 @@
       "nombre_declares": 13,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "RESULTATS_SEULEMENT"
+      "traitement": "RESULTATS_SEULEMENT",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+    },
+    "R3C8": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "depart": "2026-11-10T21:00:00+01:00",
+      "nom": "PRIX DES COLOMBES DE LA PAIX",
+      "hippodrome": "HIPPODROME DE REIMS",
+      "nombre_declares": 12,
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-10T18:29:16.463793+00:00",
+  "dernier_controle_pmu": "2026-11-10T18:52:08.229682+00:00",
   "fiches_geny_budget_consommees": 0,
   "diagnostic_pmu": {
     "date": "2026-11-10",
-    "horodatage_utc": "2026-11-10T18:29:16.463793+00:00",
+    "horodatage_utc": "2026-11-10T18:52:08.229682+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/10112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 16,
