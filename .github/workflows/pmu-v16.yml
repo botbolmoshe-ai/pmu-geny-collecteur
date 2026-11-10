@@ -1,14 +1,17 @@
-name: PMU - V16 Decouverte et collecte incrementale
+name: PMU - V20.2 Orchestration J-1, priorites et audit
 
 on:
+  schedule:
+    # Chaque quart d'heure; gate Europe/Paris dans Python (été/hiver).
+    - cron: '0,15,30,45 5-20 * * *'
   workflow_dispatch:
     inputs:
       mode:
         description: 'Decouvrir une seule fois, puis Collecter sans nouvelle decouverte'
         type: choice
         required: true
-        default: 'collecter'
-        options: ['decouvrir', 'collecter']
+        default: 'auto'
+        options: ['auto', 'decouvrir', 'collecter', 'controle_np', 'consolider']
       course_url:
         description: 'URL officielle Geny /course/ID.../partants-pronostics'
         type: string
@@ -19,6 +22,21 @@ on:
         type: number
         required: true
         default: 18
+      pmu_url:
+        description: 'URL de la fiche officielle PMU consultee (mode controle_np)'
+        type: string
+        required: false
+        default: ''
+      np_numeros:
+        description: 'Numeros NP releves sur PMU, separes par virgules; vide si 0 NP'
+        type: string
+        required: false
+        default: ''
+      pmu_liste_complete:
+        description: 'Confirmer que la liste complete sur PMU a ete examinee'
+        type: boolean
+        required: false
+        default: false
       max_chevaux:
         description: 'Maximum de nouvelles fiches a consulter pour cette execution'
         type: number
@@ -29,7 +47,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: pmu-v16-data
+  group: pmu-donnees-production
   cancel-in-progress: false
 
 jobs:
@@ -47,9 +65,9 @@ jobs:
           cache: pip
       - name: Valider les parametres et restaurer les donnees durables
         env:
-          COURSE_URL: ${{ inputs.course_url }}
-          NOMBRE: ${{ inputs.nombre_partants }}
-          MAX: ${{ inputs.max_chevaux }}
+          COURSE_URL: ${{ inputs.course_url || 'https://www.geny.com/course/1697377-2026-11-10-vincennes-prix-de-beauvais/partants-pronostics' }}
+          NOMBRE: ${{ inputs.nombre_partants || 18 }}
+          MAX: ${{ inputs.max_chevaux || 18 }}
         shell: bash
         run: |
           set -euo pipefail
@@ -75,14 +93,54 @@ jobs:
             echo 'DONNEES PERSISTANTES : branche pmu-data absente, initialisation'
           fi
       - name: Installer Playwright (decouverte ou collecte uniquement)
+        if: github.event_name == 'workflow_dispatch' && (inputs.mode == 'auto' || inputs.mode == 'decouvrir' || inputs.mode == 'collecter') || github.event.schedule == '0,15,30,45 5-20 * * *'
         run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            MINUTE=$(TZ=Europe/Paris date +%M)
+            if [ "$MINUTE" -ge 15 ]; then
+              echo 'Cycle leger : navigateur Geny non requis.'
+              exit 0
+            fi
+          fi
           python -m pip install -r requirements.txt
           python -m playwright install --with-deps chromium
+      - name: Installer les dependances ML (cycles legers inclus)
+        run: python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2
+      - name: Cycle automatique quotidien (PMU puis Geny, sans doublons)
+        if: github.event_name == 'schedule' || inputs.mode == 'auto'
+        shell: bash
+        env:
+          IS_SCHEDULED: ${{ github.event_name == 'schedule' }}
+        run: |
+          set -euo pipefail
+          python - <<'PYRUN'
+          from datetime import datetime,timedelta
+          from zoneinfo import ZoneInfo
+          from pmu_geny.auto_v18 import run
+          from pathlib import Path
+          now=datetime.now(ZoneInfo('Europe/Paris'))
+          # Une seule plage 07:00-21:59 Paris: pas d'activité de nuit.
+          if not 7 <= now.hour <= 21:
+              print('En dehors du créneau 07:00–21:59 Europe/Paris')
+          else:
+              full=(now.minute < 15)
+              root=Path('cache_pmu')
+              today=now.date().isoformat()
+              today_state=run(root,today,[],3 if full else 0,
+                  max_discoveries=1 if full else 0,now=now)
+              # J-1 dès 18 h : partage du quota global Geny (3 fiches/h).
+              # La priorité est donnée au jour J ; reliquat pour le lendemain.
+              if full and now.hour>=18:
+                  remaining=max(0,3-today_state.get('fiches_geny_budget_consommees',0))
+                  tomorrow=(now+timedelta(days=1)).date().isoformat()
+                  run(root,tomorrow,[],remaining,max_discoveries=1,now=now)
+              print('Cycle complet' if full else 'Cycle PMU de proximité')
+          PYRUN
       - name: Decouvrir les partants, sans collecter les historiques
         if: inputs.mode == 'decouvrir'
         env:
-          COURSE_URL: ${{ inputs.course_url }}
-          NOMBRE: ${{ inputs.nombre_partants }}
+          COURSE_URL: ${{ inputs.course_url || 'https://www.geny.com/course/1697377-2026-11-10-vincennes-prix-de-beauvais/partants-pronostics' }}
+          NOMBRE: ${{ inputs.nombre_partants || 18 }}
         shell: bash
         run: |
           set -euo pipefail
@@ -113,7 +171,7 @@ jobs:
       - name: Collecter depuis le manifeste stocke, sans decouverte
         if: inputs.mode == 'collecter'
         env:
-          MAX: ${{ inputs.max_chevaux }}
+          MAX: ${{ inputs.max_chevaux || 18 }}
         shell: bash
         run: |
           set -euo pipefail
@@ -129,15 +187,54 @@ jobs:
             --etat cache_pmu/etat_persistant.json \
             --max-chevaux "$MAX" \
             --cooldown-heures 1
+      - name: Verifier les non-partants d'apres une consultation confirmee de PMU
+        if: inputs.mode == 'controle_np'
+        shell: bash
+        env:
+          PMU_URL: ${{ inputs.pmu_url }}
+          NP_NUMEROS: ${{ inputs.np_numeros }}
+          PMU_LISTE_COMPLETE: ${{ inputs.pmu_liste_complete }}
+        run: |
+          set -euo pipefail
+          CID="$(cat course_id.txt)"
+          MANIFEST="cache_pmu/manifestes/GENY-${CID}.json"
+          if [ ! -s "$MANIFEST" ]; then echo 'Manifeste absent : lancer decouvrir.' >&2; exit 2; fi
+          if [ "$PMU_LISTE_COMPLETE" != 'true' ]; then
+            echo 'Pour valider 0 NP et tous les partants, confirmer la consultation de la liste complète sur PMU.' >&2
+            exit 2
+          fi
+          python -m pmu_geny.participation_pmu --manifest "$MANIFEST" \
+            --dossier cache_pmu/participations --url-pmu "$PMU_URL" \
+            --non-partants "$NP_NUMEROS" --liste-complete --confirme
+      - name: Consolider hors ligne les CSV de suivi et les performances
+        if: inputs.mode == 'collecter' || inputs.mode == 'controle_np' || inputs.mode == 'consolider'
+        shell: bash
+        run: |
+          set -euo pipefail
+          CID="$(cat course_id.txt)"
+          MANIFEST="cache_pmu/manifestes/GENY-${CID}.json"
+          if [ ! -s "$MANIFEST" ]; then echo 'Manifeste absent.' >&2; exit 2; fi
+          python -m pmu_geny.export_v17 --manifest "$MANIFEST" --cache cache_pmu --sortie cache_pmu/exports
+          mkdir -p "resultats/GENY-${CID}"
+          cp -a "cache_pmu/exports/GENY-${CID}/." "resultats/GENY-${CID}/"
       - name: Publier les diagnostics et les bilans
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pmu-v16-${{ github.run_id }}
+          name: pmu-v20-2-${{ github.run_id }}
           path: |
             resultats/
             cache_pmu/manifestes/
+            cache_pmu/exports/
+            cache_pmu/participations/
             cache_pmu/etat_persistant.json
+            cache_pmu/orchestration/
+            cache_pmu/pronostics/
+            cache_pmu/arrivees/
+            cache_pmu/evaluations/
+            cache_pmu/ml/
+            cache_pmu/cotes/
+            cache_pmu/contextes/
           retention-days: 30
           if-no-files-found: warn
       - name: Conserver les historiques et les manifestes sur la branche pmu-data
