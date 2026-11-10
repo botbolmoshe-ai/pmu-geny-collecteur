@@ -8,9 +8,11 @@
       "nom": "PRIX DU BLEUET DE FRANCE",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 14,
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)"
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -26,13 +28,15 @@
     "R3C4": {
       "identifiant_geny": null,
       "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-10T18:52:00+01:00",
+      "depart": "2026-11-10T19:07:00+01:00",
       "nom": "PRIX DE LA FLAMME DU SOUVENIR",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 11,
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)"
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2"
     },
     "R4C4": {
       "identifiant_geny": null,
@@ -48,13 +52,15 @@
     "R3C5": {
       "identifiant_geny": null,
       "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-10T19:24:00+01:00",
+      "depart": "2026-11-10T19:37:00+01:00",
       "nom": "PRIX DES MEMOIRES DE GUERRE",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 12,
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)"
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2"
     },
     "R4C5": {
       "identifiant_geny": null,
@@ -83,7 +89,9 @@
       "nom": "PRIX DE L'ARMISTICE",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 16,
-      "traitement": "RESULTATS_SEULEMENT"
+      "traitement": "RESULTATS_SEULEMENT",
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2"
     },
     "R4C1": {
       "identifiant_geny": null,
@@ -101,7 +109,9 @@
       "nom": "PRIX PRESTO",
       "hippodrome": "HIPPODROME DE REIMS",
       "nombre_declares": 12,
-      "traitement": "RESULTATS_SEULEMENT"
+      "traitement": "RESULTATS_SEULEMENT",
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2"
     },
     "R1C9": {
       "identifiant_geny": null,
@@ -126,18 +136,55 @@
       "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv",
       "priorite_metier": "P1",
       "motif_selection": "ALLOCATION_ELEVEE"
+    },
+    "R3C6": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "depart": "2026-11-10T19:56:00+01:00",
+      "nom": "PRIX DU BAR DES ACACIAS",
+      "hippodrome": "HIPPODROME DE REIMS",
+      "nombre_declares": 10,
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)"
+    },
+    "R3C7": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "depart": "2026-11-10T20:28:00+01:00",
+      "nom": "PRIX DE LA VICTOIRE DE 1918",
+      "hippodrome": "HIPPODROME DE REIMS",
+      "nombre_declares": 12,
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)"
+    },
+    "R2C7": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "depart": "2026-11-10T16:00:00+01:00",
+      "nom": "PRIX DE PONTORSON",
+      "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+      "nombre_declares": 13,
+      "priorite_metier": "P1",
+      "motif_selection": "VINCENNES",
+      "traitement": "RESULTATS_SEULEMENT"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-10T17:46:28.384033+00:00",
+  "dernier_controle_pmu": "2026-11-10T18:29:16.463793+00:00",
   "fiches_geny_budget_consommees": 0,
   "diagnostic_pmu": {
     "date": "2026-11-10",
-    "horodatage_utc": "2026-11-10T17:46:28.384033+00:00",
+    "horodatage_utc": "2026-11-10T18:29:16.463793+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/10112026",
     "statut": "COURSES_DISPONIBLES",
-    "courses_retenues": 2,
+    "courses_retenues": 16,
     "reunions_recues": 5,
     "reunions_francaises": 4,
     "reunions_pays_inconnu": 0,
@@ -145,7 +192,6 @@
     "courses_recues": 38,
     "exclusions": {
       "metier_hors_trot": 16,
-      "metier_hippodrome_hors_selection": 14,
       "pays_etranger": 1
     },
     "pays_observes": {
@@ -308,8 +354,8 @@
         ]
       }
     ],
-    "courses_p1": 2,
-    "courses_p2": 0,
+    "courses_p1": 8,
+    "courses_p2": 8,
     "decisions_metier": [
       {
         "code": "R1C1",
@@ -319,6 +365,7 @@
         "allocation_eur": 25600,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 7
       },
       {
@@ -329,6 +376,7 @@
         "allocation_eur": 27400,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 11
       },
       {
@@ -339,6 +387,7 @@
         "allocation_eur": 25900,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 11
       },
       {
@@ -349,6 +398,7 @@
         "allocation_eur": 50900,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 16
       },
       {
@@ -359,6 +409,7 @@
         "allocation_eur": 19200,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 15
       },
       {
@@ -369,6 +420,7 @@
         "allocation_eur": 18300,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 12
       },
       {
@@ -379,6 +431,7 @@
         "allocation_eur": 47600,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 13
       },
       {
@@ -389,6 +442,7 @@
         "allocation_eur": 25900,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 16
       },
       {
@@ -399,166 +453,183 @@
         "allocation_eur": 21100,
         "groupe": false,
         "hippodrome": "HIPPODROME DE FONTAINEBLEAU",
+        "hippodrome_normalise": "fontainebleau",
         "nombre_partants": 15
       },
       {
         "code": "R2C1",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P1",
+        "motif": "VINCENNES",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 33000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+        "hippodrome_normalise": "vincennes",
         "nombre_partants": 14
       },
       {
         "code": "R2C2",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P1",
+        "motif": "VINCENNES",
         "discipline": "TROT_MONTE",
         "allocation_eur": 35000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+        "hippodrome_normalise": "vincennes",
         "nombre_partants": 13
       },
       {
         "code": "R2C3",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P1",
+        "motif": "VINCENNES",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 18000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+        "hippodrome_normalise": "vincennes",
         "nombre_partants": 16
       },
       {
         "code": "R2C4",
         "niveau": "P1",
-        "motif": "ALLOCATION_ELEVEE",
+        "motif": "VINCENNES",
         "discipline": "TROT_MONTE",
         "allocation_eur": 52000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+        "hippodrome_normalise": "vincennes",
         "nombre_partants": 15
       },
       {
         "code": "R2C5",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P1",
+        "motif": "VINCENNES",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 35000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+        "hippodrome_normalise": "vincennes",
         "nombre_partants": 10
       },
       {
         "code": "R2C6",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P1",
+        "motif": "VINCENNES",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 37000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+        "hippodrome_normalise": "vincennes",
         "nombre_partants": 14
       },
       {
         "code": "R2C7",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P1",
+        "motif": "VINCENNES",
         "discipline": "TROT_MONTE",
         "allocation_eur": 35000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+        "hippodrome_normalise": "vincennes",
         "nombre_partants": 13
       },
       {
         "code": "R2C8",
         "niveau": "P1",
-        "motif": "ALLOCATION_ELEVEE",
+        "motif": "VINCENNES",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 40000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+        "hippodrome_normalise": "vincennes",
         "nombre_partants": 18
       },
       {
         "code": "R3C1",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P2",
+        "motif": "HIPPODROME_MAJEUR_P2",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 24000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE REIMS",
+        "hippodrome_normalise": "reims",
         "nombre_partants": 12
       },
       {
         "code": "R3C2",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P2",
+        "motif": "HIPPODROME_MAJEUR_P2",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 35000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE REIMS",
+        "hippodrome_normalise": "reims",
         "nombre_partants": 16
       },
       {
         "code": "R3C3",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P2",
+        "motif": "HIPPODROME_MAJEUR_P2",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 21000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE REIMS",
+        "hippodrome_normalise": "reims",
         "nombre_partants": 14
       },
       {
         "code": "R3C4",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P2",
+        "motif": "HIPPODROME_MAJEUR_P2",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 21000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE REIMS",
+        "hippodrome_normalise": "reims",
         "nombre_partants": 11
       },
       {
         "code": "R3C5",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P2",
+        "motif": "HIPPODROME_MAJEUR_P2",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 18000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE REIMS",
+        "hippodrome_normalise": "reims",
         "nombre_partants": 12
       },
       {
         "code": "R3C6",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P2",
+        "motif": "HIPPODROME_MAJEUR_P2",
         "discipline": "TROT_MONTE",
         "allocation_eur": 19000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE REIMS",
+        "hippodrome_normalise": "reims",
         "nombre_partants": 10
       },
       {
         "code": "R3C7",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P2",
+        "motif": "HIPPODROME_MAJEUR_P2",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 21000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE REIMS",
+        "hippodrome_normalise": "reims",
         "nombre_partants": 12
       },
       {
         "code": "R3C8",
-        "niveau": "EXCLU",
-        "motif": "HIPPODROME_HORS_SELECTION",
+        "niveau": "P2",
+        "motif": "HIPPODROME_MAJEUR_P2",
         "discipline": "TROT_ATTELE",
         "allocation_eur": 21000,
         "groupe": false,
         "hippodrome": "HIPPODROME DE REIMS",
+        "hippodrome_normalise": "reims",
         "nombre_partants": 12
       },
       {
@@ -569,6 +640,7 @@
         "allocation_eur": 12500,
         "groupe": false,
         "hippodrome": "HIPPODROME D'AMIENS",
+        "hippodrome_normalise": "amiens",
         "nombre_partants": 9
       },
       {
@@ -579,6 +651,7 @@
         "allocation_eur": 11500,
         "groupe": false,
         "hippodrome": "HIPPODROME D'AMIENS",
+        "hippodrome_normalise": "amiens",
         "nombre_partants": 9
       },
       {
@@ -589,6 +662,7 @@
         "allocation_eur": 15600,
         "groupe": false,
         "hippodrome": "HIPPODROME D'AMIENS",
+        "hippodrome_normalise": "amiens",
         "nombre_partants": 14
       },
       {
@@ -599,6 +673,7 @@
         "allocation_eur": 13400,
         "groupe": false,
         "hippodrome": "HIPPODROME D'AMIENS",
+        "hippodrome_normalise": "amiens",
         "nombre_partants": 14
       },
       {
@@ -609,6 +684,7 @@
         "allocation_eur": 11500,
         "groupe": false,
         "hippodrome": "HIPPODROME D'AMIENS",
+        "hippodrome_normalise": "amiens",
         "nombre_partants": 13
       },
       {
@@ -619,6 +695,7 @@
         "allocation_eur": 16300,
         "groupe": false,
         "hippodrome": "HIPPODROME D'AMIENS",
+        "hippodrome_normalise": "amiens",
         "nombre_partants": 11
       },
       {
@@ -629,6 +706,7 @@
         "allocation_eur": 15600,
         "groupe": false,
         "hippodrome": "HIPPODROME D'AMIENS",
+        "hippodrome_normalise": "amiens",
         "nombre_partants": 10
       }
     ]
