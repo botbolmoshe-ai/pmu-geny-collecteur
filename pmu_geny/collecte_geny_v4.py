@@ -53,6 +53,29 @@ def dismiss_consent(page) -> str:
     return "NON_VISIBLE"
 
 
+def separer_qualifications(candidat: str) -> tuple[str, bool]:
+    """Retirer une qualification (hors course) et sa date des donnees de course.
+
+    Geny peut placer une qualification juste apres une course dans le meme
+    conteneur DOM. On conserve la course et on elimine uniquement la suite.
+    Si le conteneur ne decrit qu'une qualification, on l'exclut entierement.
+    """
+    texte = normalize(candidat)
+    if not re.search(r"\bqualification\b", texte, re.I):
+        return texte, False
+    # Reperer la date de qualification precedant le libelle. Le format peut
+    # etre 03/06/2026, 03/06 2026 ou 03/06 | 2026.
+    qual = re.search(r"\bqualification\b", texte, re.I)
+    prefixe = texte[:qual.start()]
+    dates = list(re.finditer(r"(?<!\d)\d{2}/\d{2}(?:\s*(?:\|\s*)\s*(?:20)?\d{2})?(?!\d)", prefixe))
+    if len(dates) >= 2:
+        return texte[:dates[-1].start()].rstrip(' |'), True
+    # Une seule date : soit une qualification seule, soit une course suivie
+    # d'une qualification dont la date est absente. Dans le doute, NE PAS
+    # valider une performance sur ce bloc ambigu.
+    return '', True
+
+
 def parse_career(body: str, dom_rows: list[str]) -> dict:
     """Extrait les dates de courses de carriere en privilegiant les lignes DOM.
 
@@ -80,7 +103,13 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
             candidates.append(" | ".join(lines[i: min(starts[j+1] if j+1 < len(starts) else i+18, i+18)]))
 
     records=[]
-    for txt in candidates:
+    qualifications_ignorees = 0
+    for brut in candidates:
+        txt, contient_qualification = separer_qualifications(brut)
+        if contient_qualification:
+            qualifications_ignorees += 1
+        if not txt:
+            continue
         m=DATE_RE.search(txt)
         if not m: continue
         day, month, year=m.groups()
@@ -129,6 +158,7 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
     return {
         "nombre_annonce_geny":expected,
         "nombre_extrait":len(records),
+        "blocs_qualification_exclus": qualifications_ignorees,
         "dates_uniques":unique,
         "nombre_concordant":count_ok,
         "champs_detail_valides":detailed_ok,
@@ -312,6 +342,7 @@ def main() -> int:
     print("\nConsentement :",cookie_status)
     print("Geny annonce :",result["nombre_annonce_geny"])
     print("Lignes extraites :",result["nombre_extrait"])
+    print("Blocs contenant une qualification exclus/nettoyes :", result["blocs_qualification_exclus"])
     print("Lignes manquantes :",result["manquants"])
     print("Statut :",result["statut"])
     print("Fichiers de diagnostic :",outdir.resolve())
