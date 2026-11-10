@@ -12,7 +12,7 @@ class TestV18(unittest.TestCase):
   self.manifest={'courses':[{'course_id':'GENY-99','partants':[{'numero':i,'id':str(i),'nom':'Cheval'+str(i)} for i in range(1,5)]}]}
   self.course={'date':'2026-11-15','code':'R2C1','depart':'2026-11-15T16:30:00+01:00'}
  def test_programme_france(self):
-  inp={'programme':{'reunions':[{'numOfficiel':2,'hippodrome':{'pays':'FRANCE','libelleCourt':'Vincennes'},'courses':[{'numOrdre':1,'heureDepart':1794756600000,'nombreDeclaresPartants':4,'libelle':'Prix exemple'}]}]}}
+  inp={'programme':{'reunions':[{'numOfficiel':2,'hippodrome':{'pays':'FRANCE','libelleCourt':'Vincennes'},'courses':[{'numOrdre':1,'heureDepart':1794756600000,'nombreDeclaresPartants':4,'libelle':'Prix exemple','specialite':'TROT_MONTE'}]}]}}
   # L'heure doit rester du même jour, pas de conversion silencieuse.
   r=programme(inp,'2026-11-15');self.assertEqual(len(r),1);self.assertEqual(r[0]['code'],'R2C1')
  def test_np_zero_requires_all_flags(self):

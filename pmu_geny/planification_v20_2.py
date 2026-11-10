@@ -45,6 +45,8 @@ def selectionner_courses(courses, now, date, selection, complet, etat, max_cours
             if not complet:continue
             priority=(2,remaining)
         if not complet and remaining>90:continue
-        selected.append((priority,c))
+        # Le temps jusqu'au départ reste prioritaire; P1 précède P2 à urgence égale.
+        rang_metier=0 if c.get('priorite_metier')=='P1' else 1
+        selected.append(((priority[0],priority[1],rang_metier),c))
     selected.sort(key=lambda x:x[0])
     return [c for _,c in selected[:max_courses]]

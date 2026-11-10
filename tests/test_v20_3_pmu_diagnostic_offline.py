@@ -6,7 +6,7 @@ class DiagnosticPMUTest(unittest.TestCase):
     def setUp(self):
         self.date='2026-11-10'
         self.depart=int(datetime.fromisoformat('2026-11-10T15:30:00+01:00').timestamp()*1000)
-        self.course={'numOrdre':8,'heureDepart':self.depart,'nombreDeclaresPartants':18,'libelle':'Prix de Beauvais'}
+        self.course={'numOrdre':8,'heureDepart':self.depart,'nombreDeclaresPartants':18,'libelle':'Prix de Beauvais','specialite':'TROT_ATTELE'}
     def test_country_in_reunion(self):
         data={'programme':{'reunions':[{'numOfficiel':2,'pays':'FRA','hippodrome':{'libelleLong':'Vincennes'},'courses':[self.course]}]}}
         courses,diag=programme_diagnostic(data,self.date)

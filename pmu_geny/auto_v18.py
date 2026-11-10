@@ -85,6 +85,8 @@ def programme_diagnostic(doc, date):
           'courses_recues':0,'courses_retenues':0,
           'exclusions':{},'pays_observes':{},'exemples_reunions':[]}
     output=[]
+    decision_courses=[]
+    from .selection_metier_v20_4 import niveau
     def exclusion(reason):
         diag['exclusions'][reason]=diag['exclusions'].get(reason,0)+1
     for r in reunions:
@@ -113,13 +115,22 @@ def programme_diagnostic(doc, date):
             if not isinstance(depart,(int,float)):exclusion('heure_depart_absente');continue
             instant=datetime.fromtimestamp(depart/1000 if depart>10**11 else depart, tz=timezone.utc).astimezone(PARIS)
             if instant.date().isoformat()!=date:exclusion('date_incoherente');continue
+            # Périmètre diurne: uniquement départs de 07h00 à 21h00 inclus (Paris).
+            if not (7 <= instant.hour < 21 or (instant.hour == 21 and instant.minute == 0)):
+                exclusion('depart_hors_plage_07_21');continue
             nb=_num(c,'nombreDeclaresPartants','nombrePartants','nbPartants')
             if not nb or not 1<=nb<=30:exclusion('partants_absents_ou_invalides');continue
-            output.append({'date':date,'code':f'R{numero_reunion}C{no}','hippodrome':hp,'nom':_str(c,'libelle','nomCourse'),
+            tier,motif,metadata=niveau(c,r,hp,nb)
+            decision_courses.append({'code':f'R{numero_reunion}C{no}', 'niveau':tier or 'EXCLU', 'motif':motif, **metadata})
+            if tier is None:exclusion('metier_'+motif.lower());continue
+            output.append({'priorite_metier':tier,'motif_selection':motif,'allocation_eur':metadata['allocation_eur'], 'date':date,'code':f'R{numero_reunion}C{no}','hippodrome':hp,'nom':_str(c,'libelle','nomCourse'),
                            'depart':instant.isoformat(),'nombre_declares':nb,'num_reunion':numero_reunion,'num_course':no,
                            'distance_m':_num(c,'distance','distanceMetres','distanceCourse'),
-                           'discipline':_str(c,'discipline','typeCourse')})
+                           'discipline':metadata['discipline']})
     diag['courses_retenues']=len(output)
+    diag['courses_p1']=sum(c['priorite_metier']=='P1' for c in output)
+    diag['courses_p2']=sum(c['priorite_metier']=='P2' for c in output)
+    diag['decisions_metier']=decision_courses
     return sorted(output,key=lambda x:x['depart']),diag
 
 
@@ -213,7 +224,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     except (ValueError,TypeError): cooldown=False
     for c in selected:
         key=c['code']; entry=state['courses'].setdefault(key,{'identifiant_geny':None,'etat':'A_DECOUVRIR'})
-        entry.update({'depart':c['depart'],'nom':c['nom'],'hippodrome':c['hippodrome'],'nombre_declares':c['nombre_declares']})
+        entry.update({'depart':c['depart'],'nom':c['nom'],'hippodrome':c['hippodrome'],'nombre_declares':c['nombre_declares'], 'priorite_metier':c.get('priorite_metier'), 'motif_selection':c.get('motif_selection')})
         departure=datetime.fromisoformat(c['depart'])
         est_partie=now>=departure
         # Aucune prévision rétroactive, même si PMU n'a pas encore communiqué le statut.
