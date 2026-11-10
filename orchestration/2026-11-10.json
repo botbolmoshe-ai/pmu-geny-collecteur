@@ -151,7 +151,7 @@
       "nombre_declares": 10,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE REIMS (0 correspondances)",
       "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
@@ -179,7 +179,9 @@
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1697379/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R3C7": {
       "identifiant_geny": null,
@@ -224,14 +226,14 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-10T19:01:41.076009+00:00",
-  "fiches_geny_budget_consommees": 3,
+  "dernier_controle_pmu": "2026-11-10T19:45:35.602108+00:00",
+  "fiches_geny_budget_consommees": 0,
   "diagnostic_pmu": {
     "date": "2026-11-10",
-    "horodatage_utc": "2026-11-10T19:01:41.076009+00:00",
+    "horodatage_utc": "2026-11-10T19:45:35.602108+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/10112026",
     "statut": "COURSES_DISPONIBLES",
-    "courses_retenues": 15,
+    "courses_retenues": 14,
     "reunions_recues": 5,
     "reunions_francaises": 4,
     "reunions_pays_inconnu": 0,
@@ -239,7 +241,7 @@
     "courses_recues": 38,
     "exclusions": {
       "metier_hors_trot": 16,
-      "depart_hors_plage_07_21": 1,
+      "depart_hors_plage_07_21": 2,
       "pays_etranger": 1
     },
     "pays_observes": {
@@ -403,7 +405,7 @@
       }
     ],
     "courses_p1": 8,
-    "courses_p2": 7,
+    "courses_p2": 6,
     "decisions_metier": [
       {
         "code": "R1C1",
@@ -657,17 +659,6 @@
         "hippodrome": "HIPPODROME DE REIMS",
         "hippodrome_normalise": "reims",
         "nombre_partants": 10
-      },
-      {
-        "code": "R3C7",
-        "niveau": "P2",
-        "motif": "HIPPODROME_MAJEUR_P2",
-        "discipline": "TROT_ATTELE",
-        "allocation_eur": 21000,
-        "groupe": false,
-        "hippodrome": "HIPPODROME DE REIMS",
-        "hippodrome_normalise": "reims",
-        "nombre_partants": 12
       },
       {
         "code": "R4C1",
