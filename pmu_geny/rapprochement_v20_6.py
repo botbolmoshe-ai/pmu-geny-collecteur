@@ -124,54 +124,87 @@ def similarity(course, candidate):
     return score, {'hippodrome': True, 'similarite_nom': round(title_score, 3)}
 
 
-def rapprocher(course, candidats, seuil=.83, ecart=.12):
-    """Priorité à (date, hippodrome, R, C), sinon repli strict sur le nom.
+def _nom_fortement_identique(course, candidate):
+    """Preuve de nom très forte, indépendante de la numérotation R/C.
 
-    Les R/C différents ne sont pas une preuve d'absence de correspondance :
-    certaines réunions sont numérotées différemment par les éditeurs.
+    Un nom identique normalisé (ou les mêmes termes hors mots vides)
+    est accepté ; la similarité floue seule ne prouve pas une renumérotation.
+    """
+    source = norm(course.get('nom', ''))
+    target = nom_course_url(candidate.get('url', ''))
+    a, b = tokens(source), tokens(target)
+    if not a or not b:
+        return False
+    return source == target or (a == b and len(a) >= 2)
+
+
+def rapprocher(course, candidats, seuil=.83, ecart=.12):
+    """Associer date + hippodrome + nom ; R/C n'est qu'une preuve additionnelle.
+
+    Les éditeurs peuvent renuméroter les réunions. Si un code R/C diffère,
+    seuls un nom très fortement identique et une unicité par hippodrome/date
+    permettent le rapprochement ; une divergence est explicitement auditée.
     """
     r = _numero(course.get('num_reunion'))
     c = _numero(course.get('num_course'))
-    eligible = [cand for cand in candidats if _meme_date(course,cand) and _meme_hippodrome(course,cand)]
+    eligible = [cand for cand in candidats if _meme_date(course, cand) and _meme_hippodrome(course, cand)]
     direct = [cand for cand in eligible if r is not None and c is not None
               and cand.get('code_rc_verifie') and cand.get('r') == r and cand.get('c') == c]
-    if len(direct) == 1:
-        cand=direct[0]
-        # Le code R/C constitue une preuve forte, mais une grande contradiction
-        # de nom doit être explicitée plutôt que masquée.
-        score, preuve_nom=similarity(course,cand)
-        if score == 0 and course.get('nom'):
-            return {'statut':'CONFLIT_CODE_ET_NOM','candidats':1,
-                    'geny_id_candidat':cand['geny_id'],'preuves':preuve_nom}
-        return {'statut':'CORRESPONDANCE_CONFIRMEE','geny_id':cand['geny_id'],
-                'url':cand['url'],'score':1.0,
-                'methode':'DATE_HIPPODROME_RC',
-                'preuves':{'date':True,'hippodrome':True,'r':r,'c':c,'nom':preuve_nom}}
     if len(direct) > 1:
-        return {'statut':'CORRESPONDANCE_AMBIGUE','methode':'DATE_HIPPODROME_RC',
-                'candidats':len(direct)}
-    # Repli : seuls les candidats dont le code R/C n'est pas documenté
-    # peuvent être rapprochés au nom. Ceux avec un code connu différent
-    # nécessitent une vérification manuelle de la numérotation des réunions.
+        return {'statut': 'CORRESPONDANCE_AMBIGUE', 'methode': 'DATE_HIPPODROME_RC',
+                'candidats': len(direct)}
+    conflit_direct = None
+    if len(direct) == 1:
+        cand = direct[0]
+        score, preuve_nom = similarity(course, cand)
+        if score > 0 or not course.get('nom'):
+            return {'statut': 'CORRESPONDANCE_CONFIRMEE', 'geny_id': cand['geny_id'],
+                    'url': cand['url'], 'score': 1.0,
+                    'methode': 'DATE_HIPPODROME_RC',
+                    'preuves': {'date': True, 'hippodrome': True, 'r': r, 'c': c, 'nom': preuve_nom}}
+        conflit_direct = cand
+
+    # D'abord tester TOUS les noms très solides, y compris les candidats
+    # dotés d'un R/C différent. La différence de code n'est pas un rejet.
+    forts = [cand for cand in eligible if _nom_fortement_identique(course, cand)]
+    if len(forts) > 1:
+        return {'statut': 'CORRESPONDANCE_AMBIGUE', 'methode': 'NOM_FORT',
+                'candidats': len(forts)}
+    if len(forts) == 1:
+        cand = forts[0]
+        contradictoire = bool(cand.get('code_rc_verifie') and r is not None and c is not None
+                               and (cand.get('r'), cand.get('c')) != (r, c))
+        return {'statut': 'CORRESPONDANCE_CONFIRMEE', 'geny_id': cand['geny_id'],
+                'url': cand['url'], 'score': 1.0,
+                'methode': 'NOM_FORT_RC_DIFFERENT' if contradictoire else 'NOM_FORT',
+                'preuves': {'date': True, 'hippodrome': True, 'nom_identique': True,
+                            'code_rc_different': contradictoire,
+                            'pmu_rc': [r, c], 'geny_rc': [cand.get('r'), cand.get('c')]}}
+
+    # Les noms approximatifs restent autorisés uniquement pour les candidats
+    # non documentés R/C, avec seuil et marge de non-ambiguïté stricts.
     inconnus = [cand for cand in eligible if not cand.get('code_rc_verifie')]
-    matches=[]
+    matches = []
     for cand in inconnus:
-        score,preuves=similarity(course,cand)
+        score, preuves = similarity(course, cand)
         if score:
-            matches.append((score,cand,preuves))
-    matches.sort(key=lambda x:x[0],reverse=True)
-    if not matches or matches[0][0]<seuil:
-        return {'statut':'AUCUNE_CORRESPONDANCE_FIABLE','candidats':len(matches),
-                'meilleur_score':round(matches[0][0],3) if matches else 0,
-                'codes_differents':len(eligible)-len(inconnus)}
-    top=matches[0]
-    if len(matches)>1 and top[0]-matches[1][0]<ecart:
-        return {'statut':'CORRESPONDANCE_AMBIGUE','methode':'NOM_SECOURS',
-                'candidats':len(matches),'meilleur_score':round(top[0],3),
-                'second_score':round(matches[1][0],3)}
-    return {'statut':'CORRESPONDANCE_CONFIRMEE','geny_id':top[1]['geny_id'],
-            'url':top[1]['url'],'score':round(top[0],3),
-            'methode':'NOM_SECOURS','preuves':top[2]}
+            matches.append((score, cand, preuves))
+    matches.sort(key=lambda x: x[0], reverse=True)
+    if not matches or matches[0][0] < seuil:
+        if conflit_direct is not None:
+            return {'statut': 'CONFLIT_CODE_ET_NOM', 'candidats': len(eligible),
+                    'geny_id_candidat': conflit_direct['geny_id']}
+        return {'statut': 'AUCUNE_CORRESPONDANCE_FIABLE', 'candidats': len(matches),
+                'meilleur_score': round(matches[0][0], 3) if matches else 0,
+                'codes_differents': len(eligible) - len(inconnus)}
+    top = matches[0]
+    if len(matches) > 1 and top[0] - matches[1][0] < ecart:
+        return {'statut': 'CORRESPONDANCE_AMBIGUE', 'methode': 'NOM_SECOURS',
+                'candidats': len(matches), 'meilleur_score': round(top[0], 3),
+                'second_score': round(matches[1][0], 3)}
+    return {'statut': 'CORRESPONDANCE_CONFIRMEE', 'geny_id': top[1]['geny_id'],
+            'url': top[1]['url'], 'score': round(top[0], 3),
+            'methode': 'NOM_SECOURS', 'preuves': top[2]}
 
 
 def liens_programme_avec_contexte(page):

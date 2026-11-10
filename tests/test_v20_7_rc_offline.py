@@ -23,10 +23,10 @@ class TestRC(unittest.TestCase):
         self.assertEqual(rapprocher(COURSE,x)['statut'],'CONFLIT_CODE_ET_NOM')
     def test_fallback(self):
         x=index_from_anchors([{'href':BASE}], '2026-11-11')
-        self.assertEqual(rapprocher(COURSE,x)['methode'],'NOM_SECOURS')
-    def test_conflicting_codes_not_silently_name_matched(self):
+        self.assertEqual(rapprocher(COURSE,x)['methode'],'NOM_FORT')
+    def test_conflicting_codes_matched_only_when_name_strict(self):
         x=index_from_anchors([{'href':BASE,'r':2,'c':5}], '2026-11-11')
-        self.assertEqual(rapprocher(COURSE,x)['statut'],'AUCUNE_CORRESPONDANCE_FIABLE')
+        self.assertEqual(rapprocher(COURSE,x)['methode'],'NOM_FORT_RC_DIFFERENT')
     def test_index_keeps_rc(self):
         x=index_from_anchors([{'href':BASE,'text':'Partants','r':'2','c':'4'}, {'href':BASE+'/partants-pronostics','text':'Plus de texte'}], '2026-11-11')
         self.assertEqual((x[0]['r'],x[0]['c']),(2,4))

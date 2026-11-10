@@ -285,6 +285,12 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     raise LookupError('Index journalier Geny indisponible')
                 decision=rapprocher(c,geny_index['courses'])
                 entry['rapprochement_geny']=decision
+                print('RAPPROCHEMENT_GENY '+json.dumps({
+                    'date':date, 'course_pmu':key, 'hippodrome':c['hippodrome'],
+                    'nom_pmu':c['nom'], 'statut':decision.get('statut'),
+                    'methode':decision.get('methode'), 'geny_id':decision.get('geny_id'),
+                    'preuves':decision.get('preuves', {}),
+                },ensure_ascii=False), flush=True)
                 if decision['statut']!='CORRESPONDANCE_CONFIRMEE':
                     raise LookupError('Geny: '+decision['statut'])
                 # Une tentative de manifeste est une découverte lourde.

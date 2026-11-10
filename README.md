@@ -102,3 +102,7 @@ Voir `CORRECTIF_V20_5.md` pour la reconnaissance des hippodromes et le diagnosti
 
 ## V20.7 : association par R/C
 Voir `CORRECTIF_V20_7.md`.
+
+
+## Correctif V20.9
+Voir `CORRECTIF_V20_9.md` : rapprochement PMU–Geny sécurisé en cas de R/C renuméroté, journaux `RAPPROCHEMENT_GENY`.
