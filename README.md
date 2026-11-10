@@ -93,3 +93,7 @@ Après arrivée officielle enregistrée, le cycle `auto` génère `audits/AAAA-M
 - **Non-partants** : contrôle PMU dans les 6 h du départ (plus rapproché à H-1); chaque nouveau retrait confirmé est pris en compte dans la prévision actualisée. Pas de NP inventé en cas d'indisponibilité.
 - **Cotes** : conservées à titre informatif, jamais comme variables ML.
 - **Limites** : l'association de courses PMU/Geny et la disponibilité du flux PMU nécessitent toujours une validation en conditions réelles. Le nombre de nouvelles fiches Geny reste plafonné à trois par cycle complet, le quota de demain ne force aucune consultation supplémentaire dans l'implémentation actuelle. Les déclenchements GitHub Actions peuvent être retardés.
+
+## Correctif V20.5
+
+Voir `CORRECTIF_V20_5.md` pour la reconnaissance des hippodromes et le diagnostic J-1.

@@ -26,6 +26,14 @@ def normaliser(value):
     value = ''.join(c for c in value if not unicodedata.combining(c))
     return re.sub(r'[^a-z0-9]+',' ',value).strip()
 
+def normaliser_hippodrome(value):
+    """Identifiant canonique local : supprime les préfixes PMU sans confondre les sites."""
+    hp=normaliser(value)
+    hp=re.sub(r'^(?:hippodrome\s+(?:de\s+|d\s+|du\s+|des\s+|de\s+la\s+|de\s+l\s+)?)', '', hp)
+    hp=re.sub(r'^paris\s+', '', hp)
+    # Les qualifications officielles demeurent : Lyon-Parilly != Lyon-La-Soie.
+    return hp.strip()
+
 def discipline_course(course, reunion):
     """Priorité au champ propre à la course ; réunion utilisable si unique."""
     values=[]
@@ -73,10 +81,10 @@ def niveau(course,reunion,hippodrome,nombre_partants):
     """Retourne (niveau, motif, meta). None => exclusion traçable."""
     discipline=discipline_course(course,reunion)
     allocation=allocation_eur(course)
-    hp=normaliser(hippodrome)
+    hp=normaliser_hippodrome(hippodrome)
     groupe=groupe_course(course)
     meta={'discipline':discipline,'allocation_eur':allocation,'groupe':groupe,
-          'hippodrome':hippodrome,'nombre_partants':nombre_partants}
+          'hippodrome':hippodrome,'hippodrome_normalise':hp,'nombre_partants':nombre_partants}
     if discipline not in ('TROT_ATTELE','TROT_MONTE','TROT_SOUS_TYPE_INCONNU'):
         reason='DISCIPLINE_INCONNUE' if discipline=='DISCIPLINE_NON_VERIFIEE' else 'HORS_TROT'
         return None,reason,meta
