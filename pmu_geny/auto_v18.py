@@ -9,6 +9,7 @@ import argparse, json, os, re, sys, unicodedata
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
 from .export_v17 import exporter
@@ -57,35 +58,73 @@ def _str(doc,*fields):
         if isinstance(v,str) and v.strip():return v.strip()
     return ''
 
-def programme(doc, date):
-    reunions=_list(doc,'programme','reunions')
-    if not reunions and isinstance(doc,dict):
-        reunions=_list(doc.get('programme',{}),'reunions') if isinstance(doc.get('programme'),dict) else []
-    if not reunions: raise ValueError('Programme PMU non reconnu : aucune réunion')
+def _country_code(reunion):
+    """Inspecter les emplacements connus, sans déduire la France d'un nom."""
+    hippodrome=reunion.get('hippodrome') or {}
+    values=[]
+    for obj in (reunion,hippodrome):
+        if isinstance(obj,dict):
+            for key in ('pays','codePays','codePaysHippodrome','paysReunion'):
+                v=obj.get(key)
+                if isinstance(v,dict):
+                    values += [v.get(k) for k in ('code','codePays','codeIso','libelle','nom')]
+                else: values.append(v)
+    for v in values:
+        if v is not None and str(v).strip(): return str(v).strip().upper()
+    return ''
+
+
+def programme_diagnostic(doc, date):
+    """Retourne les courses et les compteurs exacts des exclusions PMU."""
+    root=doc.get('programme',doc) if isinstance(doc,dict) else doc
+    reunions=_list(root,'reunions')
+    if not reunions:
+        raise ValueError('Programme PMU non reconnu : clé reunions absente ou vide')
+    diag={'reunions_recues':len(reunions),'reunions_francaises':0,
+          'reunions_pays_inconnu':0,'reunions_etrangeres':0,
+          'courses_recues':0,'courses_retenues':0,
+          'exclusions':{},'pays_observes':{},'exemples_reunions':[]}
     output=[]
+    def exclusion(reason):
+        diag['exclusions'][reason]=diag['exclusions'].get(reason,0)+1
     for r in reunions:
-        if not isinstance(r,dict):continue
+        if not isinstance(r,dict):
+            exclusion('reunion_non_dict');continue
+        country=_country_code(r)
+        diag['pays_observes'][country or 'INCONNU']=diag['pays_observes'].get(country or 'INCONNU',0)+1
+        if len(diag['exemples_reunions'])<5:
+            diag['exemples_reunions'].append({'pays':country or 'INCONNU',
+                'champs_reunion':sorted(r.keys()),
+                'champs_hippodrome':sorted((r.get('hippodrome') or {}).keys()) if isinstance(r.get('hippodrome'),dict) else []})
+        entries=_list(r,'courses');diag['courses_recues']+=len(entries)
+        if country not in ('FRA','FR','FRANCE','250'):
+            if not country:diag['reunions_pays_inconnu']+=1;exclusion('pays_absent')
+            else:diag['reunions_etrangeres']+=1;exclusion('pays_etranger')
+            continue
+        diag['reunions_francaises']+=1
         numero_reunion=_num(r,'numOfficiel','numeroReunion','numReunion')
         hip=r.get('hippodrome') or {}
-        country=_str(hip,'pays','codePays') if isinstance(hip,dict) else ''
-        # Seules les réunions françaises CERTAINES sont prises en charge.
-        if country.upper() not in ('FRA','FR','FRANCE'): continue
         hp=_str(hip,'libelleLong','libelleCourt','nom') if isinstance(hip,dict) else str(hip)
-        for c in _list(r,'courses'):
-            if not isinstance(c,dict):continue
+        for c in entries:
+            if not isinstance(c,dict):exclusion('course_non_dict');continue
             no=_num(c,'numOrdre','numeroCourse','numCourse')
-            if no is None or numero_reunion is None:continue
+            if no is None or numero_reunion is None:exclusion('numero_manquant');continue
             depart=c.get('heureDepart') or c.get('heureDepartEstimee')
-            if not isinstance(depart,(int,float)):continue
+            if not isinstance(depart,(int,float)):exclusion('heure_depart_absente');continue
             instant=datetime.fromtimestamp(depart/1000 if depart>10**11 else depart, tz=timezone.utc).astimezone(PARIS)
-            if instant.date().isoformat()!=date:continue
+            if instant.date().isoformat()!=date:exclusion('date_incoherente');continue
             nb=_num(c,'nombreDeclaresPartants','nombrePartants','nbPartants')
-            if not nb or not 1<=nb<=30:continue
+            if not nb or not 1<=nb<=30:exclusion('partants_absents_ou_invalides');continue
             output.append({'date':date,'code':f'R{numero_reunion}C{no}','hippodrome':hp,'nom':_str(c,'libelle','nomCourse'),
                            'depart':instant.isoformat(),'nombre_declares':nb,'num_reunion':numero_reunion,'num_course':no,
                            'distance_m':_num(c,'distance','distanceMetres','distanceCourse'),
                            'discipline':_str(c,'discipline','typeCourse')})
-    return sorted(output,key=lambda x:x['depart'])
+    diag['courses_retenues']=len(output)
+    return sorted(output,key=lambda x:x['depart']),diag
+
+
+def programme(doc,date):
+    return programme_diagnostic(doc,date)[0]
 
 def normalize(s):
     s=unicodedata.normalize('NFD',s.casefold());s=''.join(c for c in s if not unicodedata.combining(c))
@@ -131,15 +170,33 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     now=now or datetime.now(PARIS)
     if now.tzinfo is None: raise ValueError("Heure de traitement sans fuseau")
     index=cache/'orchestration'/f'{date}.json'; state=load(index,{'date':date,'courses':{},'alertes':[]})
-    # Conservateur : absence PMU ≠ absence de NP.
+    # Les diagnostics sont persistés même en cas de source vide ou invalide.
+    # Une erreur de consultation ne signifie jamais "aucune course".
+    controle={'date':date,'horodatage_utc':datetime.now(timezone.utc).isoformat(),
+              'source_url':BASE+datetime.fromisoformat(date).strftime('%d%m%Y'),
+              'statut':'NON_VERIFIE','courses_retenues':0}
     try:
-        pmu=get_json(BASE+datetime.fromisoformat(date).strftime('%d%m%Y'))
-        courses=programme(pmu,date)
-        save(cache/'sources_pmu'/f'programme_{date}.json',{'date_controle_utc':datetime.now(timezone.utc).isoformat(),'programme':courses})
-        state['source_programme']='PMU_API';state['dernier_controle_pmu']=datetime.now(timezone.utc).isoformat()
+        pmu=get_json(controle['source_url'])
+        courses,stats=programme_diagnostic(pmu,date)
+        controle.update(stats)
+        if not courses:
+            controle['statut']='ZERO_COURSE_A_DIAGNOSTIQUER'
+            state['alertes'].append('PMU_ZERO_COURSE: programme reçu, aucun candidat retenu; voir diagnostics_pmu')
+        else:
+            controle['statut']='COURSES_DISPONIBLES'
+        save(cache/'sources_pmu'/f'programme_{date}.json',
+             {'date_controle_utc':controle['horodatage_utc'],'programme':courses})
+        state['source_programme']='PMU_API'
+        state['dernier_controle_pmu']=controle['horodatage_utc']
     except Exception as exc:
-        state['alertes'].append(f'Programme PMU indisponible: {type(exc).__name__}: {exc}')
+        controle['statut']='ERREUR_COLLECTE'
+        controle['erreur']=f'{type(exc).__name__}: {exc}'
+        state['alertes'].append(f"PMU_ERREUR_COLLECTE: {controle['erreur']}")
         courses=(load(cache/'sources_pmu'/f'programme_{date}.json',{}) or {}).get('programme',[])
+        controle['courses_depuis_cache']=len(courses)
+    state['diagnostic_pmu']=controle
+    save(cache/'sources_pmu'/f'diagnostic_{date}.json',controle)
+    print('DIAGNOSTIC_PMU '+json.dumps(controle,ensure_ascii=False))
     # Une course déjà partie n'entre JAMAIS en prédiction/collecte.
     # Les courses récentes peuvent seulement passer par la phase arrivées/audit.
     # Le lendemain est préparé dès 18 h (heure de Paris), sans trafic nocturne.
