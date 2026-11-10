@@ -2,8 +2,8 @@
   "date": "2026-11-11",
   "courses": {
     "R10C1": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1697677",
+      "etat": "MANIFESTE_PRESENT",
       "depart": "2026-11-11T13:10:00+01:00",
       "nom": "PRIX ALAIN LE GUEN",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
@@ -13,7 +13,34 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697677",
+        "url": "https://www.geny.com/course/1697677-2026-11-11-la-capelle-prix-alain-le-guen",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            10,
+            1
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "statut_np": "CONTROLE_DIFFERE",
+      "statut_prevision": "HORS_FENETRE_H1",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "NP_NON_VERIFIE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1697677/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R13C1": {
       "identifiant_geny": null,
@@ -152,7 +179,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
       "motif_attente_geny": "COOLDOWN_GENY"
     },
     "R4C1": {
@@ -172,11 +199,11 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-10T19:02:28.328335+00:00",
-  "fiches_geny_budget_consommees": 0,
+  "dernier_controle_pmu": "2026-11-10T20:07:46.951845+00:00",
+  "fiches_geny_budget_consommees": 3,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-10T19:02:28.328335+00:00",
+    "horodatage_utc": "2026-11-10T20:07:46.951845+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 19,
