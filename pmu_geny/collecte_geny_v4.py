@@ -76,6 +76,31 @@ def separer_qualifications(candidat: str) -> tuple[str, bool]:
     return '', True
 
 
+def lire_classement(cellules: list[str]) -> str:
+    """Lire uniquement le classement de fin de ligne, jamais une cote ou allocation.
+
+    Geny peut rendre les rangs en un bloc (« 12e »), en deux (« 12 | e »),
+    ou afficher un statut (« Dai »). Le chrono est facultatif.
+    """
+    cells = [normalize(str(c)) for c in cellules if normalize(str(c))]
+    if not cells:
+        return ""
+    # Une extraction DOM ajoute parfois des cellules vides ou des espaces.
+    dernier = cells[-1]
+    non_classes = {"dai", "disq", "nc", "np", "arr", "dist"}
+    if dernier.casefold() in non_classes:
+        return dernier
+    m = re.fullmatch(r"(\d{1,2})\s*(?:er|e|eme|ème|ᵉ)", dernier, re.I)
+    if m:
+        return m.group(1)
+    if len(cells) >= 2 and re.fullmatch(r"(?:er|e|eme|ème|ᵉ)", dernier, re.I):
+        if re.fullmatch(r"\d{1,2}", cells[-2]):
+            return cells[-2]
+    # Certaines structures placent une colonne sans valeur après « Rang ».
+    # Ne pas chercher dans toutes les cellules : cela confondrait courses et rang.
+    return ""
+
+
 def parse_career(body: str, dom_rows: list[str]) -> dict:
     """Extrait les dates de courses de carriere en privilegiant les lignes DOM.
 
@@ -126,18 +151,7 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
             if candidate_distance.isdigit() and 1000 <= int(candidate_distance) <= 5000:
                 distance=candidate_distance
             chrono=next((x for x in parts[4:] if re.fullmatch(r"\d['’]\d{2}(?:['’]{2}\d+)?", x)), "")
-            if parts[-1].casefold() in {"e","er","eme","ème"} and len(parts)>1 and re.fullmatch(r"\d{1,2}", parts[-2]):
-                rank=parts[-2]
-            elif parts[-1].casefold() in {"dai","disq","nc","np","arr","dist"}:
-                rank=parts[-1]
-            else:
-                # Une fiche de jeune cheval peut afficher une ligne de qualification
-                # immédiatement après sa performance. Elle est parfois concaténée
-                # à la dernière ligne DOM, si bien que "Dai" n'est plus le dernier
-                # élément. Chercher uniquement les classements explicites dans la
-                # ligne, sans transformer une cote ou une allocation en rang.
-                non_classes = {"dai", "disq", "nc", "np", "arr", "dist"}
-                rank = next((x for x in parts[4:] if x.casefold() in non_classes), "")
+            rank=lire_classement(parts[4:])
         else:
             # En cas de structure inconnue, conserver la ligne brute, sans inventer de champs.
             remain=txt[m.end():]
