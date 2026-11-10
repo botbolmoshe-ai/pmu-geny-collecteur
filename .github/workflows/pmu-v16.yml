@@ -1,4 +1,4 @@
-name: PMU - V20.7 R-C et rapprochement PMU-Geny
+name: PMU - V20.8 Chaine integree et tableau de bord
 
 on:
   schedule:
@@ -277,3 +277,13 @@ jobs:
             git -C /tmp/pmu-data-worktree push origin HEAD:refs/heads/pmu-data
             echo 'DONNEES SAUVEGARDEES : branche pmu-data'
           fi
+
+      - name: Synchroniser le registre Google Sheets (apres persistance)
+        if: always()
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+          PMU_CACHE: cache_pmu
+        run: |
+          python -m pip install -q google-auth==2.43.0 requests
+          python -m pmu_geny.sync_google_sheets
