@@ -32,7 +32,7 @@ def extraire_cheval(url: str, identifiant: str, sortie: Path) -> dict[str, Any]:
         result = json.loads(limitation.read_text(encoding='utf-8'))
         result.setdefault('nombre_extrait', 0)
     elif code == 3:
-        result = {'statut': 'ACCES_LIMITE_429', 'nombre_extrait': 0, 'source_url': url}
+        result = {'statut': 'ACCES_INDISPONIBLE', 'nombre_extrait': 0, 'source_url': url}
     elif path.exists():
         result = json.loads(path.read_text(encoding="utf-8"))
     else:

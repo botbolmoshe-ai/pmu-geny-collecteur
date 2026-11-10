@@ -12,7 +12,7 @@ PARTIELS = frozenset({"PARTIEL_A_CONTROLER", "PARTIEL_HISTORIQUE", "DONNEES_INCO
 
 def classifier(result: dict[str, Any]) -> tuple[str, list[str]]:
     statut = str(result.get("statut", ""))
-    if statut in {"ACCES_LIMITE_429", "ERREUR_NAVIGATION", "ERREUR"}:
+    if statut in {"ACCES_LIMITE_429", "ACCES_REFUSE_403", "ACCES_INDISPONIBLE", "ERREUR_NAVIGATION", "ERREUR"}:
         return statut, [statut]
     expected, extracted = result.get("nombre_annonce_geny"), result.get("nombre_extrait")
     rows = result.get("performances")

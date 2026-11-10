@@ -204,6 +204,15 @@ def diagnostic_acces(status: int | None, title: str, text: str, html: str) -> st
         re.search(r"error_status\s*:\s*['\"]429['\"]", html or "") or
         re.search(r"<title>\s*Trop de requ[eê]tes", html or "", re.I)):
         return 'ACCES_LIMITE_429'
+    # Geny peut servir une page de refus avec HTTP 200 côté navigation.
+    # Vérifier uniquement les marqueurs explicites de la page d'erreur,
+    # sans déduire un 403 de la simple absence de CARRIERE.
+    if (status == 403 or
+        re.search(r"error_status\s*:\s*['\"]403['\"]", html or "") or
+        re.search(r"<title>\s*Acc[eè]s refus[eé]\s*-\s*Geny\s*</title>", html or "", re.I) or
+        (re.search(r"(?m)^\s*403\s*$", (text or '')[:1200]) and
+         re.search(r"acc[eè]s refus[eé]", (text or '')[:1200], re.I))):
+        return 'ACCES_REFUSE_403'
     if status is not None and status >= 400:
         return f'HTTP_{status}'
     if re.search(r"(?im)^\s*CARRIÈRE\s*$", text or ""):
@@ -228,9 +237,9 @@ def sauvegarder_diagnostics(page, outdir: Path, text: str) -> None:
     (outdir / 'diagnostic_geny.html').write_text(page.content(), encoding='utf-8')
     page.screenshot(path=str(outdir / 'diagnostic_capture.png'), full_page=True)
 
-def sauver_limitation(outdir: Path, url: str, status: int | None, titre: str) -> None:
+def sauver_refus_ou_limitation(outdir: Path, url: str, status: int | None, titre: str, verdict: str) -> None:
     (outdir / 'etat_collecte.json').write_text(json.dumps({
-        'statut': 'ACCES_LIMITE_429', 'source_url': url,
+        'statut': verdict, 'source_url': url,
         'http': status, 'titre_page': titre,
         'extrait_utc': datetime.now(timezone.utc).isoformat(),
         'action': 'ARRET_IMMEDIAT_SANS_REESSAI'
@@ -265,10 +274,10 @@ def main() -> int:
             verdict = diagnostic_acces(http_status, title, initial_text, initial_html)
             print('Controle initial (sans requete supplementaire) :', verdict, flush=True)
             enregistrer_acces(outdir, verdict, args.url, http_status, title)
-            if verdict == 'ACCES_LIMITE_429':
-                sauver_limitation(outdir, args.url, http_status, title)
+            if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
+                sauver_refus_ou_limitation(outdir, args.url, http_status, title, verdict)
                 sauvegarder_diagnostics(page, outdir, initial_text)
-                print('ACCES_LIMITE_429 : arret immediat, sans nouvel essai.', flush=True)
+                print(f'{verdict} : arret immediat, sans nouvel essai.', flush=True)
                 return 3
             if verdict.startswith('HTTP_'):
                 sauvegarder_diagnostics(page, outdir, initial_text)
@@ -287,8 +296,8 @@ def main() -> int:
                 verdict = diagnostic_acces(http_status, page.title(), current_text, page.content())
                 print('Controle apres consentement :', verdict, flush=True)
                 enregistrer_acces(outdir, verdict, args.url, http_status, page.title(), cookie_status)
-                if verdict == 'ACCES_LIMITE_429':
-                    sauver_limitation(outdir, args.url, http_status, page.title())
+                if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
+                    sauver_refus_ou_limitation(outdir, args.url, http_status, page.title(), verdict)
                     sauvegarder_diagnostics(page, outdir, current_text)
                     return 3
                 if verdict != 'CARRIERE_ACCESSIBLE':
@@ -310,11 +319,11 @@ def main() -> int:
             page.wait_for_timeout(800)
             text=page.locator("body").inner_text(timeout=20000)
             controle_final = diagnostic_acces(http_status, page.title(), text, page.content())
-            if controle_final == 'ACCES_LIMITE_429':
-                sauver_limitation(outdir, args.url, http_status, page.title())
+            if controle_final in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
+                sauver_refus_ou_limitation(outdir, args.url, http_status, page.title(), controle_final)
                 enregistrer_acces(outdir, controle_final, args.url, http_status, page.title(), cookie_status)
                 sauvegarder_diagnostics(page, outdir, text)
-                print('ACCES_LIMITE_429 : arret immediat.', flush=True)
+                print(f'{controle_final} : arret immediat.', flush=True)
                 return 3
             if controle_final != 'CARRIERE_ACCESSIBLE':
                 enregistrer_acces(outdir, controle_final, args.url, http_status, page.title(), cookie_status)

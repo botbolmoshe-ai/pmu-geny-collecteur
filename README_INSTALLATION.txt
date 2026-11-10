@@ -26,3 +26,12 @@ COMPORTEMENT
 VALIDATION
 - Compilation syntaxique et scenarios simules executes localement.
 - Pas encore de preuve d'extraction reussie de 14/14 sur Github.
+
+V12 : correctif QUALIFICATION
+- Une qualification n'est pas une course et ne doit pas etre comptabilisee dans le nombre de performances Geny.
+- Le parseur exclut les lignes de qualification seules ou concatenees a une course,
+  sans effacer la performance precedente quand deux dates sont detectees.
+- Nouveau diagnostic : blocs_qualification_exclus.
+- Remplacer uniquement pmu_geny/collecte_geny_v4.py dans le depot existant,
+  puis Commit to main, Push origin et relancer PMU - V11 Course 14 chevaux (manuel).
+- Aucune requete supplementaire vers Geny pour cette correction.

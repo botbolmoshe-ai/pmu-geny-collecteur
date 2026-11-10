@@ -1,6 +1,6 @@
 """Orchestrateur pilote : contrôle Geny séparé du traitement global des courses.
 
-Une limitation 429 suspend SEULEMENT la collecte Geny pour le reste du run.
+Un refus 403 ou une limitation 429 suspend SEULEMENT la collecte Geny pour le reste du run.
 Le bilan reste exploitable par les étapes suivantes (dont TOP3 dégradé).
 Ce module ne calcule pas lui-même de pronostic et n'écrit pas Google Sheets.
 """
@@ -98,7 +98,7 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
             # Une unique nouvelle tentative est permise pour corriger les cas partiels.
             # Les comptes 429 ne consomment pas ce droit de correction.
             reprise_partielle = (ancien.get("statut") in PARTIELS or ancien.get("correction_en_attente", False)) and not ancien.get("correction_tentee", False)
-            if ancien.get("statut") not in (None, "ACCES_LIMITE_429", "NON_TENTE_ACCES_LIMITE_429", "NON_TENTE_LIMITE_TEST") and not reprise_partielle:
+            if ancien.get("statut") not in (None, "ACCES_LIMITE_429", "NON_TENTE_ACCES_LIMITE_429", "NON_TENTE_ACCES_REFUSE_403", "NON_TENTE_LIMITE_TEST") and not reprise_partielle:
                 # Conformément à la règle : les autres erreurs/partiels nécessitent un contrôle ciblé.
                 stats["chevaux"].append({"id": ident, "nom": nom, "statut": ancien["statut"],
                     "origine": "CACHE_A_CONTROLER", "nombre_extrait": ancien.get("nombre_extrait"),
@@ -108,7 +108,7 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
             if collecte_suspendue:
                 stats["chevaux"].append({
                     "id": ident, "nom": nom,
-                    "statut": "NON_TENTE_ACCES_LIMITE_429",
+                    "statut": "NON_TENTE_ACCES_REFUSE_403" if bilan["collecte_geny"] == "SUSPENDUE_403" else "NON_TENTE_ACCES_LIMITE_429",
                     "nombre_extrait": None,
                 })
                 continue
@@ -140,10 +140,11 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
                         shutil.copy2(f, dest / f.name)
                 journal[ident] = {**etat, "maj_utc": datetime.now(timezone.utc).isoformat()}
                 _ecrire_etat(etat_path, etat_persistant)
-                if statut == "ACCES_LIMITE_429":
+                if statut in ("ACCES_LIMITE_429", "ACCES_REFUSE_403"):
                     collecte_suspendue = True
-                    bilan["collecte_geny"] = "SUSPENDUE_429"
-                    print("Geny limite les requetes : suspension de la collecte Geny uniquement.", flush=True)
+                    cause = "403" if statut == "ACCES_REFUSE_403" else "429"
+                    bilan["collecte_geny"] = f"SUSPENDUE_{cause}"
+                    print(f"Geny refuse ou limite les requetes ({cause}) : suspension de la collecte Geny uniquement.", flush=True)
                     print("Le bilan de course reste disponible pour les etapes hors Geny.", flush=True)
             except Exception as exc:
                 record = {"id": ident, "nom": nom, "statut": "ERREUR", "erreur": str(exc), "correction_tentee": bool(reprise_partielle)}
@@ -157,13 +158,13 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
         # Les chevaux non tentés lors de cette exécution deviennent re-éligibles
         # à la prochaine exécution ; le blocage 429 reste enregistré.
         for item in stats["chevaux"]:
-            if item["statut"] in ("NON_TENTE_ACCES_LIMITE_429", "NON_TENTE_LIMITE_TEST"):
+            if item["statut"] in ("NON_TENTE_ACCES_LIMITE_429", "NON_TENTE_ACCES_REFUSE_403", "NON_TENTE_LIMITE_TEST"):
                 if item["id"] not in journal:
                     journal[item["id"]] = {**item, "maj_utc": datetime.now(timezone.utc).isoformat()}
         _ecrire_etat(etat_path, etat_persistant)
         states = [x["statut"] for x in stats["chevaux"]]
         if collecte_suspendue:
-            stats["collecte_geny"] = "SUSPENDUE_429"
+            stats["collecte_geny"] = bilan["collecte_geny"]
         elif limite_test:
             stats["collecte_geny"] = "LIMITE_TEST_ATTEINTE"
         elif all(x == "COMPLET" for x in states):
