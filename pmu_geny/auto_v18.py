@@ -372,18 +372,26 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 entry.get('erreur_decouverte','AUCUNE_ASSOCIATION_VERIFIEE'))
             continue
         entry['identifiant_geny']=manifest['courses'][0]['course_id'];entry['etat']='MANIFESTE_PRESENT'
-        if manifeste_decouvert_ce_cycle:
-            entry['historique_geny']='DIFFERE_APRES_DECOUVERTE'
-            print(f'HISTORIQUE_DIFFERE date={date} course={key} motif=EVITER_ENCHAINEMENT_DECOUVERTE_HISTORIQUE',flush=True)
-        if phase in ('auto','collecter') and not est_partie and remaining_new>0 and not cooldown and not manifeste_decouvert_ce_cycle:
+        # Toute course avec manifeste est eligible a la collecte incrementale.
+        # Si elle vient d'etre decouverte, une seule fiche nouvelle est tentee;
+        # le solde du quota global reste disponible pour les courses deja connues.
+        if phase in ('auto','collecter') and not est_partie and remaining_new>0 and not cooldown:
+            quota=1 if manifeste_decouvert_ce_cycle else remaining_new
             try:
-                result=traiter(manifest,cache/'diagnostics',remaining_new,cache/'etat_persistant.json',cooldown_heures=0.5)
-                # Le nombre réellement ouvert sera enregistré par le traitement.
-                # 1 course par cycle en collecte lourde ; les autres conservent leur manifeste.
-                remaining_new=0
+                entry['historique_geny']='COLLECTE_INCREMENTALE'
+                result=traiter(manifest,cache/'diagnostics',quota,
+                               cache/'etat_persistant.json',cooldown_heures=0.5)
+                remaining_new=max(0,remaining_new-quota)
+                entry['historique_collecte_resultat']=result.get('collecte_geny','NON_VERIFIE')
                 geny_state=load(cache/'etat_persistant.json',{}) or {}
-                if (geny_state.get('dernier_blocage_geny') or {}).get('utc'): cooldown=True
-            except Exception as exc:entry['erreur_collecte']=str(exc)
+                if (geny_state.get('dernier_blocage_geny') or {}).get('utc'):
+                    last_time=geny_state['dernier_blocage_geny']['utc']
+                    try:
+                        cooldown=datetime.now(timezone.utc)<datetime.fromisoformat(last_time)+timedelta(minutes=30)
+                    except (ValueError,TypeError):
+                        cooldown=True
+            except Exception as exc:
+                entry['erreur_collecte']=str(exc)
         raw=None
         # La veille, ne pas saturer PMU en consultant les participants de toutes
         # les courses: les controles NP recommencent le jour J.
