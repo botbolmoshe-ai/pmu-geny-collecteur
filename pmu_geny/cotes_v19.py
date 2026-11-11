@@ -36,6 +36,9 @@ def collecter(cache,course,participants,now=None):
     history=old.get('releves',[])
     history.append({'heure_utc':now.isoformat(),'chevaux':data})
     # Conserver l'ensemble des relevés pour audit. Dernier observé avant le départ.
+    count=sum(item['cote'] is not None for item in data)
     save(dest,{'date':course['date'],'course':course['code'],'depart':course['depart'],
-         'chevaux':data,'releves':history,'note':'Dernier relevé PMU avant départ; non forcément cote officielle finale.'})
-    return 'COTES_RELEVEES'
+         'chevaux':data,'releves':history,'cotes_extraites':count,
+         'statut':'COTES_RELEVEES' if count>=3 else 'COTES_NON_EXTRAITES' if count==0 else 'COTES_PARTIELLES',
+         'note':'Instantane PMU; absence de cote ne prouve pas indisponibilite chez PMU.'})
+    return 'COTES_RELEVEES' if count>=3 else 'COTES_NON_EXTRAITES' if count==0 else 'COTES_PARTIELLES'
