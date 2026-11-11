@@ -16,7 +16,7 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
 LIVE_RESET_DATE = '2026-11-12'
-COMPARE_COLUMNS = ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_rang','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','meteo_resume','meteo_statut')
+COMPARE_COLUMNS = ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','meteo_resume','meteo_statut')
 REPORT_COLUMNS = ('top3_direct_numeros','score_direct','top3_cotes_numeros','score_cotes','top3_ml_numeros','analyse_comparative','score_baseline','score_baseline_final','score_ml','etat_ml',
                   'source_export','derniere_sync_utc')
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
@@ -50,7 +50,6 @@ DISPLAY_NAMES = {
     'historique_maj_utc':'Historique · Mise à jour UTC',
     'actuel_statut':'Données actuelles · État',
     'actuel_maj_utc':'Données actuelles · Mise à jour UTC',
-    'source_pmu_url':'Source PMU',
     'statut_prevision':'Prévisions · État',
     'avis_pmu':'Avis expert PMU',
     'avis_geny':'Avis expert Geny',
@@ -61,7 +60,6 @@ DISPLAY_NAMES = {
     'ml_top3':'ML · Sélection',
     'ml_proba_podium':'ML · Probabilité calibrée',
     'ml_score_non_calibre':'ML · Score non calibré',
-    'top3_cotes_rang':'Cotes · Rang',
     'top3_cotes_valeur':'Cotes · Valeur',
     'top3_cotes_top3':'Cotes · Sélection',
     'top3_cotes_statut':'Cotes · État',
@@ -164,9 +162,8 @@ def source_rows(cache):
                  'historique_statut':historique.get('historique_statut',''),
                  'historique_nb_courses_datees':historique.get('nombre_performances_persistantes',''),
                  'historique_maj_utc':historique.get('historique_maj_utc',''),
-                 'actuel_statut':('PMU_PARTIEL' if actual else 'ACTUEL_NON_VERIFIE'),
+                 'actuel_statut':('PMU_FERRURE_DISPONIBLE' if (actual or {}).get('ferrure') else 'PMU_FERRURE_NON_RECUPEREE') if actual else 'PMU_PARTANTS_NON_RECUPERES',
                  'actuel_maj_utc':participant.get('capture_utc',''),
-                 'source_pmu_url':f"https://www.pmu.fr/turf/{date.replace('-','')}/{code.lower().replace('c','/c')}/",
                  'statut_prevision':forecast_state,
                  'fige_utc':frozen.get('frozen_at',''),
                  'mode_calcul_top3':'BASELINE_HISTORIQUE' if has_historical else ('ML' if has_ml else 'NON_CALCULE'),
@@ -261,14 +258,12 @@ def source_rows(cache):
                 'proprietaire':act.get('proprietaire',''),
                 'ferrure':act.get('ferrure',''),
                 'non_partant':act.get('statut_np','NP_NON_VERIFIE'),
-                'actuel_statut':'PMU_PARTIEL' if act else 'ACTUEL_NON_VERIFIE',
+                'actuel_statut':('PMU_FERRURE_DISPONIBLE' if act.get('ferrure') else 'PMU_FERRURE_NON_RECUPEREE') if act else 'PMU_PARTANTS_NON_RECUPERES',
                 'actuel_maj_utc':participant.get('capture_utc',''),
-                'source_pmu_url':participant.get('source',''),
                 'top3_direct_rang':direct_rank,
                 'top3_direct_score':direct_h.get('score_direct',''),
                 'top3_direct_top3':'OUI' if direct_rank and direct_rank<=3 else '',
                 'top3_direct_statut':direct.get('statut','NON_CALCULE'),
-                'top3_cotes_rang':cote_rank,
                 'top3_cotes_valeur':cote_h.get('cote',''),
                 'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
                 'top3_cotes_statut':cotes_etat,
