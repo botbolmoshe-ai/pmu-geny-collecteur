@@ -113,6 +113,30 @@ class V21PaliersTests(unittest.TestCase):
         self.assertEqual(list(out["Résultats & Analyse"]),["nouveau"])
         self.assertEqual(out["Historique chevaux"],src["Historique chevaux"])
 
+    def test_resultat_pmu_sans_manifest_geny(self):
+        from pmu_geny.resultats_v18 import enregistrer_resultats
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            day="2026-11-12"
+            course={"date":day,"code":"R2C1","depart":"2026-11-12T13:30:00+01:00",
+                    "hippodrome":"Vincennes"}
+            raw={"participants":[
+                {"numPmu":1,"ordreArrivee":3},
+                {"numPmu":2,"ordreArrivee":1},
+                {"numPmu":3,"ordreArrivee":2},
+                {"numPmu":4}]}
+            self.assertEqual(enregistrer_resultats(root,course,raw),"ARRIVEE_ENREGISTREE")
+            src=root/"sources_pmu"/f"programme_{day}.json"
+            src.parent.mkdir(parents=True,exist_ok=True)
+            src.write_text(json.dumps({"programme":[course]}),encoding="utf8")
+            output=source_rows(root)["Résultats & Analyse"]
+            self.assertEqual(len(output),1)
+            row=next(iter(output.values()))
+            self.assertEqual(row["arrivee_officielle_numeros"],"2,3,1")
+            self.assertEqual(row["statut_evaluation"],"ARRIVEE_SANS_TOP3_FIGE")
+            self.assertEqual(row["top3_prevu_numeros"],"")
+            self.assertEqual(row["score_sur_3"],"")
+
     def test_registre_11_novembre_reel(self):
         root=Path("reference_pmu")
         if not root.exists():self.skipTest("registre de production non charge")
