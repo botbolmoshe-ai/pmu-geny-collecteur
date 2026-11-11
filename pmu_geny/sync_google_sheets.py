@@ -115,6 +115,10 @@ def source_rows(cache):
                  'historique_ecart_geny':''}
             for c in COMPARE_COLUMNS:
                 if c not in doc:doc[c]=r.get(c,'')
+            # Un score brut ML n'est pas une probabilite calibree.
+            if ml.get('statut')!='ML_ENTRAINE_CALIBRE':
+                doc['ml_score_non_calibre']=r.get('ml_proba_podium','')
+                doc['ml_proba_podium']=''
             courses[row_key]=doc
             if official.get('arrivee'):
                 positions=[str(x.get('numero')) for x in sorted(official['arrivee'],key=lambda x:x.get('rang',999)) if x.get('rang') in (1,2,3)]
