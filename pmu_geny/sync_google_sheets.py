@@ -82,6 +82,10 @@ DISPLAY_NAMES = {
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
 
+def canonical_headers(visible):
+    return [INVERSE_NAMES.get(name,name) for name in visible]
+
+
 def read_csv(path):
     with open(path,encoding='utf-8-sig',newline='') as f:
         return list(csv.DictReader(f,delimiter=';'))
@@ -433,7 +437,7 @@ def main():
         if response.status_code!=200:
             print(f'SYNC_GOOGLE_SHEETS=ERREUR_LECTURE onglet={tab} http={response.status_code}');errors+=1;continue
         values=response.json().get('values',[])
-        headers=[INVERSE_NAMES.get(name,name) for name in (values[0] if values else [])]
+        headers=canonical_headers(values[0] if values else [])
         existing=[dict(zip(headers,row)) for row in values[1:]]
         try: all_headers,updates,appends=plan_sheet(headers,existing,source[tab],tab)
         except ValueError as exc:print('SYNC_GOOGLE_SHEETS=SCHEMA_INCOMPATIBLE',str(exc));errors+=1;continue
