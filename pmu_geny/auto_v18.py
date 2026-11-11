@@ -221,7 +221,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     correspondences=load(correspondences_path,{}) or {}
     geny_state=load(cache/'etat_persistant.json',{}) or {}
     last=(geny_state.get('dernier_blocage_geny') or {}).get('utc')
-    try: cooldown=bool(last and datetime.now(timezone.utc)<datetime.fromisoformat(last)+timedelta(hours=1))
+    try: cooldown=bool(last and datetime.now(timezone.utc)<datetime.fromisoformat(last)+timedelta(minutes=30))
     except (ValueError,TypeError): cooldown=False
     geny_index=None
     if remaining_discoveries>0 and not cooldown and any(datetime.fromisoformat(c['depart'])>now for c in selected):
@@ -360,7 +360,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             print(f'HISTORIQUE_DIFFERE date={date} course={key} motif=EVITER_ENCHAINEMENT_DECOUVERTE_HISTORIQUE',flush=True)
         if phase in ('auto','collecter') and not est_partie and remaining_new>0 and not cooldown and not manifeste_decouvert_ce_cycle:
             try:
-                result=traiter(manifest,cache/'diagnostics',remaining_new,cache/'etat_persistant.json',cooldown_heures=1)
+                result=traiter(manifest,cache/'diagnostics',remaining_new,cache/'etat_persistant.json',cooldown_heures=0.5)
                 # Le nombre réellement ouvert sera enregistré par le traitement.
                 # 1 course par cycle en collecte lourde ; les autres conservent leur manifeste.
                 remaining_new=0
