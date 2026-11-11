@@ -4,6 +4,7 @@ Aucune information inventée; les champs absents restent vides. Utilise un compt
 partagé comme éditeur sur le Google Sheet. Les secrets ne sont jamais loggés.
 """
 import csv
+import hashlib
 import json
 import os
 import re
@@ -82,13 +83,31 @@ def source_rows(cache):
                             'source_export':str(path.relative_to(cache)),
                             'derniere_sync_utc':datetime.now(timezone.utc).isoformat(),
                             'statut_evaluation':'ARRIVEE_RECUE_A_VERIFIER'}
+    # V21: une cle (cheval, date, hippodrome) ne suffit pas:
+    # un cheval peut courir deux fois le meme jour au meme hippodrome.
+    # Dedoublonner entre exports de courses, mais jamais deux lignes source
+    # distinctes. Conserver la cle historique pour la premiere performance
+    # afin de ne pas recreer toutes les lignes existantes dans Google Sheets.
+    grouped={}
     for path in sorted((cache/'exports').glob('GENY-*/performances.csv')):
         try: perfs=read_csv(path)
         except (OSError,ValueError):continue
         for r in perfs:
             ident=r.get('cheval_id','');date=r.get('date','');hip=r.get('hippodrome','')
             if not ident or not date:continue
-            k=f'{ident}|{date}|{hip.strip().upper()}'
+            base=f'{ident}|{date}|{hip.strip().upper()}'
+            source=' '.join(str(r.get('texte_source','')).split())
+            # Un texte source vide ne prouve pas une seconde performance.
+            signature=source or '|'.join(str(r.get(k,'')) for k in (
+                'discipline','distance_m','classement','chrono'))
+            grouped.setdefault(base,{}).setdefault(signature,r)
+    for base, variants in grouped.items():
+        for n,(signature,r) in enumerate(sorted(variants.items()),start=1):
+            if n==1:
+                k=base
+            else:
+                suffix=hashlib.sha256(signature.encode('utf-8')).hexdigest()[:16]
+                k=f'{base}|{suffix}'
             doc={out:r.get(inn,'') for out,inn in HIST_MAPPING.items()}
             doc['cle_performance']=k
             doc['statut_verification']='EXTRACTION_GENY'
