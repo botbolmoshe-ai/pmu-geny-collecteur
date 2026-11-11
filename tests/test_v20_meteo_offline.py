@@ -32,4 +32,28 @@ class TestContexteMeteo(unittest.TestCase):
   collecter_meteo(self.root,self.course,self.now,self.request,self.resolve)
   def fail(*args):raise AssertionError('unexpected request')
   self.assertEqual(collecter_meteo(self.root,self.course,self.now+timedelta(minutes=15),fail,fail),'METEO_RECENTE')
+ def test_verified_racetrack_locations_without_geocode_http(self):
+  from pmu_geny.contexte_meteo_v20 import _resolve_location
+  for name,lat in (('HIPPODROME DE PARIS-VINCENNES',48.820896),
+                   ("HIPPODROME D'AMIENS",49.89498)):
+   site=_resolve_location(self.root,name)
+   self.assertAlmostEqual(site['latitude'],lat)
+   self.assertEqual(site['precision'],'piste_hippodrome')
+ def test_sheet_consolidates_weather_without_fake_values(self):
+  from pmu_geny.sync_google_sheets import source_rows
+  day='2026-11-15';code='R2C1'
+  (self.root/'sources_pmu').mkdir(exist_ok=True)
+  (self.root/'sources_pmu'/f'programme_{day}.json').write_text(json.dumps(
+   {'programme':[self.course]}),encoding='utf-8')
+  self.assertEqual(collecter_meteo(self.root,self.course,self.now,self.request,self.resolve),'METEO_CAPTUREE_4')
+  (self.root/'partants_actuels').mkdir(exist_ok=True)
+  (self.root/'partants_actuels'/f'{day}_{code}.json').write_text(json.dumps(
+   {'chevaux':{'1':{'nom':'Test'}}}),encoding='utf-8')
+  rows=source_rows(self.root)['Courses & Prévisions']
+  self.assertEqual(len(rows),1)
+  row=next(iter(rows.values()))
+  self.assertIn('13.2 °C',row['meteo_resume'])
+  self.assertIn('2.3 mm pluie',row['meteo_resume'])
+  self.assertEqual(row['meteo_statut'],'PREVISION_CAPTUREE')
+
 if __name__=='__main__':unittest.main()
