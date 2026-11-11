@@ -234,20 +234,31 @@ def source_rows(cache):
         for mode,document in (('direct',direct),('cotes',marche),('ml',ml)):
             ranks[mode]={str(h.get('numero')):(i,h) for i,h in
                          enumerate(document.get('classement_complet',[]),start=1)}
+        from .liaison_chevaux_v22 import etablir
+        liens=etablir(cache,{'date':date,'code':code},[
+            {'numero':n,'nom':v.get('nom','')}
+            for n,v in (participant.get('chevaux') or {}).items()
+        ])
         for n,act in (participant.get('chevaux') or {}).items():
             krow=f'{k}|{n}'
             existing=courses.get(krow,{})
             direct_rank,direct_h=ranks['direct'].get(str(n),('',{}))
             cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
-            matches=known.get(normalize_horse_name(act.get('nom')),[])
-            hist_status='HISTO_OK' if len(matches)==1 else ('HISTO_AMBIGU' if len(matches)>1 else 'HISTO_NON_COLLECTE')
+            link=liens.get(str(n),{})
+            link_method=link.get('methode','NON_ASSOCIE')
+            hist=link.get('historique',{})
+            hist_status=(
+                'HISTO_OK_ID' if link_method=='ID_GENY_MANIFESTE_VERIFIE'
+                else 'HISTO_OK_NOM' if link_method=='NOM_EXACT_UNIQUE'
+                else 'HISTO_AMBIGU' if link_method=='NOM_AMBIGU'
+                else 'HISTO_NON_COLLECTE')
             current={
                 'meteo_resume':meteo_resume,
                 'meteo_statut':meteo_statut,
                 'historique_statut':hist_status,
-                'historique_nb_courses_datees':matches[0][1] if len(matches)==1 else '',
-                'historique_maj_utc':matches[0][2] if len(matches)==1 else '',
+                'historique_nb_courses_datees':len(hist.get('performances',[])) if hist else '',
+                'historique_maj_utc':status.get(link.get('cheval_id'),{}).get('maj_utc','') if hist else '',
                 'course_key':k,'date_course':date,'hippodrome':hip,'rncn':code,
                 'heure_depart_paris':info.get('depart',''),
                 'discipline':info.get('discipline',''),
