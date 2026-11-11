@@ -26,12 +26,23 @@ def classifier(result: dict[str, Any]) -> tuple[str, list[str]]:
     if not isinstance(rows, list) or len(rows) != extracted:
         reasons.append("LIGNES_DETAIL_INDISPONIBLES_OU_INCOHERENTES")
         return "DONNEES_INCOHERENTES", reasons
-    # Dates seules sont insuffisantes comme cle universelle ; pour une meme
-    # date et un meme hippodrome, la repetition est en revanche suspecte.
-    keys = [(str(r.get("date", "")).strip(), str(r.get("hippodrome", "")).strip().casefold()) for r in rows]
-    dupl = sum(n - 1 for n in Counter(keys).values() if n > 1)
-    if dupl or result.get("dates_uniques") is False:
-        reasons.append(f"DOUBLONS_OU_DATES_REPETEES:{dupl}")
+    # Plusieurs performances le meme jour au meme hippodrome peuvent etre
+    # reelles (cas Frank Gio, Naples, 03/05/2026, chronos distincts).
+    # Ne jamais fusionner ces lignes, ni deduire un doublon de la seule date.
+    # La ligne source complete sert de preuve primaire de non-duplication.
+    # Sans source, employer les attributs disponibles et rester prudent.
+    def cle_ligne(r):
+        texte = " ".join(str(r.get("texte_source") or "").casefold().split())
+        if texte:
+            return ("source", texte)
+        return ("champs",) + tuple(
+            str(r.get(k) or "").strip().casefold()
+            for k in ("date", "hippodrome", "discipline", "distance_m", "classement", "chrono")
+        )
+    counts = Counter(cle_ligne(r) for r in rows)
+    dupl = sum(n - 1 for n in counts.values() if n > 1)
+    if dupl:
+        reasons.append(f"LIGNES_IDENTIQUES_REPETEES:{dupl}")
         return "DONNEES_INCOHERENTES", reasons
     mandatory = ("date", "hippodrome", "discipline", "distance_m", "classement")
     missing = {field: sum(not str(r.get(field, "")).strip() for r in rows) for field in mandatory}
