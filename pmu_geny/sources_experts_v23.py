@@ -133,7 +133,8 @@ def parser_equidia(html, course, participants, code=None):
 
 def links(html, pattern):
     soup=BeautifulSoup(html,'html.parser')
-    return sorted({a['href'] for a in soup.select('a[href]') if re.fullmatch(pattern,a['href'])})
+    return sorted({urlparse(a['href']).path for a in soup.select('a[href]')
+                   if not urlparse(a['href']).netloc and re.fullmatch(pattern,urlparse(a['href']).path)})
 
 def parser_zeturf(html, course, participants):
     soup=BeautifulSoup(html,'html.parser')
@@ -274,6 +275,7 @@ def collecter(cache, course, raw, now=None, fetch=None):
             if old.get('version')==23 and prior.get('chevaux') and datetime.fromisoformat(prior['capture_utc'])<departure:
                 sources[source]={**prior,'dernier_controle':sources[source]}
     for source,doc in sources.items():
+        doc['pronostic']=[n for n in doc.get('pronostic',[]) if matched(participants,number(n),doc.get('chevaux',{}).get(str(n),{}).get('nom',''))]
         for n,item in doc.get('chevaux',{}).items():
             if not matched(participants,number(n),item.get('nom','')):continue
             out=results.setdefault(n,{'nom':item['nom']})

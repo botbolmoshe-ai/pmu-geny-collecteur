@@ -6,7 +6,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 from unittest.mock import patch
 from pmu_geny.sources_experts_v23 import (parser_equidia,parser_zeturf,parser_pmu,
-    collecter,champs_sheet,completer_partants)
+    collecter,champs_sheet,completer_partants,links)
 from pmu_geny.partants_actuels_v21 import enregistrer
 from pmu_geny.sync_google_sheets import plan_sheet
 C={'date':'2026-11-12','code':'R1C1','nom':'PRIX TEST','hippodrome':'HIPPODROME DE PARIS-VINCENNES','depart':'2026-11-12T13:55:00+01:00'}
@@ -54,6 +54,8 @@ class TestSources(unittest.TestCase):
   self.assertEqual(parser_zeturf(ZE.replace('Prix Test</h2>','Prix Test (Prix Ancien)</h2>'),C,P)['pronostic'],[1])
   d={'version':23,'sources':{'equidia':{}},'chevaux':{'1':{'nom':'TEST CHEVAL','avis_equidia':'ancien'}}}
   self.assertEqual(champs_sheet(d,'1','AUTRE CHEVAL')['avis_equidia'],'')
+ def test_same_race_links_with_bet_queries_are_one_candidate(self):
+  self.assertEqual(links('<a href="/fr/race?prefill=1">a</a><a href="/fr/race?prefill=3">b</a><a href="https://other.fr/fr/race">c</a>',r'/fr/race'),['/fr/race'])
  def test_after_depart_no_fetch_or_write(self):
   after=datetime(2026,11,12,14,tzinfo=timezone.utc)
   self.assertEqual(collecter(self.root,C,RAW,after,lambda _:self.fail('requête après départ')),'APRES_DEPART')

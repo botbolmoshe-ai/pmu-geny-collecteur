@@ -33,5 +33,5 @@ coefficients des modèles ni les sélections déjà figées. La couverture édit
 varie selon la course et l'heure de publication ; trois sites interrogés ne signifient
 pas trois pronostics toujours disponibles.
 
-Validation : régression hors ligne (103 tests, dont 2 archives optionnelles), et
+Validation : régression hors ligne (104 tests, dont 2 archives optionnelles), et
 collectes réelles avant départ du 12 novembre 2026 à Vincennes R1C1 et Amiens R4C1.
