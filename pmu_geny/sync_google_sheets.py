@@ -16,7 +16,7 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
 LIVE_RESET_DATE = '2026-11-12'
-COMPARE_COLUMNS = ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_rang','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','arrivee_podium','meteo_pluie_mm','meteo_vent_kmh','meteo_temperature_c','meteo_humidite_pct','meteo_capture_utc')
+COMPARE_COLUMNS = ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_rang','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','meteo_resume','meteo_statut')
 REPORT_COLUMNS = ('top3_direct_numeros','score_direct','top3_cotes_numeros','score_cotes','top3_ml_numeros','analyse_comparative','score_baseline','score_baseline_final','score_ml','etat_ml',
                   'source_export','derniere_sync_utc')
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
@@ -52,7 +52,6 @@ DISPLAY_NAMES = {
     'actuel_maj_utc':'Données actuelles · Mise à jour UTC',
     'source_pmu_url':'Source PMU',
     'statut_prevision':'Prévisions · État',
-    'historique_ecart_geny':'Historique · Écart collecte',
     'avis_pmu':'Avis expert PMU',
     'avis_geny':'Avis expert Geny',
     'avis_zone_turf':'Avis expert Zone-Turf',
@@ -69,12 +68,8 @@ DISPLAY_NAMES = {
     'top3_direct_utc':'TOP3 direct · Calcul UTC',
     'top3_cotes_utc':'TOP3 cotes · Calcul UTC',
     'arrivee_rang':'Arrivée · Rang officiel',
-    'arrivee_podium':'Arrivée · Podium',
-    'meteo_pluie_mm':'Météo · Pluie (mm)',
-    'meteo_vent_kmh':'Météo · Vent (km/h)',
-    'meteo_temperature_c':'Météo · Température (°C)',
-    'meteo_humidite_pct':'Météo · Humidité (%)',
-    'meteo_capture_utc':'Météo · Collecte UTC',
+    'meteo_resume':'Météo · Synthèse',
+    'meteo_statut':'Météo · État',
 }
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
@@ -179,7 +174,6 @@ def source_rows(cache):
                  'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
                  'secours_statut':'NON_CALCULE',
                  'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else '',
-                 'historique_ecart_geny':''}
             for c in COMPARE_COLUMNS:
                 if c not in doc:doc[c]=r.get(c,'')
             # Un score brut ML n'est pas une probabilite calibree.
@@ -222,6 +216,21 @@ def source_rows(cache):
             'COTES_NON_EXTRAITES' if cotes_source.get('chevaux') and not any(
                 h.get('cote') is not None for h in cotes_source['chevaux']) else 'PAS_DE_RELEVE')
         ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
+        contexte=load_json(cache/'contextes'/f'{date}_{code}.json')
+        observations={x.get('champ'):x.get('valeur') for x in contexte.get('observations',[])
+                      if isinstance(x,dict) and x.get('champ','').startswith('meteo_')}
+        meteo_resume=''
+        if observations:
+            parts=[]
+            for champ,unite in (('meteo_temperature_c','°C'),
+                                ('meteo_pluie_mm','mm pluie'),
+                                ('meteo_vent_kmh','km/h vent'),
+                                ('meteo_humidite_pct','% humidité')):
+                if observations.get(champ) is not None:
+                    parts.append(f"{observations[champ]:g} {unite}" if isinstance(observations[champ],(int,float))
+                                 else f"{observations[champ]} {unite}")
+            meteo_resume=' · '.join(parts)
+        meteo_statut=contexte.get('meteo_statut') if meteo_resume else 'METEO_NON_RECUPEREE'
         hip=info.get('hippodrome','')
         k=course_key(date,hip,code)
         ranks={}
@@ -237,6 +246,8 @@ def source_rows(cache):
             matches=known.get(normalize_horse_name(act.get('nom')),[])
             hist_status='HISTO_OK' if len(matches)==1 else ('HISTO_AMBIGU' if len(matches)>1 else 'HISTO_NON_COLLECTE')
             current={
+                'meteo_resume':meteo_resume,
+                'meteo_statut':meteo_statut,
                 'historique_statut':hist_status,
                 'historique_nb_courses_datees':matches[0][1] if len(matches)==1 else '',
                 'historique_maj_utc':matches[0][2] if len(matches)==1 else '',
