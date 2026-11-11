@@ -53,7 +53,7 @@ permissions:
 
 concurrency:
   group: pmu-donnees-production
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
   traiter-course:
@@ -103,22 +103,18 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
-      - name: Installer Playwright (decouverte ou collecte uniquement)
-        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'auto' || inputs.mode == 'decouvrir' || inputs.mode == 'collecter')) || github.event.schedule == '0,15,30,45 5-20 * * *'
+      - name: Installer dependances Python et navigateur optionnel
+        shell: bash
         run: |
-          # Le module Python Playwright est importé même sur les cycles légers.
-          # Installer les dépendances Python toujours, Chromium uniquement sur cycle lourd.
+          set -euo pipefail
           python -m pip install -r requirements.txt
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            MINUTE=$(TZ=Europe/Paris date +%M)
-            if [ "$MINUTE" -ge 15 ]; then
-              echo 'Cycle leger : navigateur Chromium non requis.'
-              exit 0
-            fi
+          # Le test de production PMU ne doit jamais attendre un navigateur Geny.
+          # Les cycles normaux tentent Chromium pendant 45 secondes au maximum.
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo 'MODE_PMU_PRIORITAIRE : navigateur Geny facultatif; synchronisation Sheets prioritaire'
+          else
+            timeout 45s python -m playwright install chromium || echo 'GENY_CHROMIUM_NON_DISPONIBLE : PMU et Google Sheets continuent'
           fi
-          # Eviter apt-get sur chaque run : DNS Ubuntu intermittent sur les runners.
-          # Les bibliotheques Chromium requises sont disponibles sur ubuntu-latest.
-          python -m playwright install chromium
       - name: Installer les dependances ML (cycles legers inclus)
         run: python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2
       - name: Cycle automatique quotidien (PMU puis Geny, sans doublons)
