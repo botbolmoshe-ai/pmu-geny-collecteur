@@ -19,11 +19,6 @@ CHEVAUX_VERIFIES = {
         "url": "https://www.geny.com/cheval/2788633-lombok-jiel/course/1698061",
         "course": "GENY-1698061",
     },
-    "2786432": {
-        "nom": "Frank Gio",
-        "url": "https://www.geny.com/cheval/2786432-frank-gio/course/1698061",
-        "course": "GENY-1698061",
-    },
 }
 
 def main() -> None:
