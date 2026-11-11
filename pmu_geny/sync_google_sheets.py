@@ -21,7 +21,8 @@ REPORT_COLUMNS = ('top3_direct_numeros','score_direct','top3_cotes_numeros','sco
                   'source_export','derniere_sync_utc')
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
                 'hippodrome':'hippodrome','discipline':'discipline','distance_m':'distance_m',
-                'classement':'classement','chrono':'chrono','source_url':'texte_source'}
+                'classement':'classement','chrono':'chrono','source_url':'texte_source',
+                'ferrure_course':'ferrure_course'}
 
 
 # Les libelles Google Sheets sont independants des noms techniques Python.
@@ -43,7 +44,10 @@ DISPLAY_NAMES = {
     'driver_jockey':'Driver / Jockey',
     'entraineur':'Entraîneur',
     'proprietaire':'Propriétaire',
-    'ferrure':'Ferrure',
+    'ferrure':'Ferrure · Course du jour',
+    'age_ans':'Âge (ans)',
+    'sexe':'Sexe',
+    'gains_euros':'Gains carrière (€)',
     'non_partant':'Non-partant (NP)',
     'historique_statut':'Historique · État',
     'historique_nb_courses_datees':'Historique · Nb performances récupérées',
@@ -68,6 +72,7 @@ DISPLAY_NAMES = {
     'arrivee_rang':'Arrivée · Rang officiel',
     'meteo_resume':'Météo · Synthèse',
     'meteo_statut':'Météo · État',
+    'ferrure_course':'Ferrure · Historique',
 }
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
@@ -247,6 +252,7 @@ def source_rows(cache):
             cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
             avis=(avis_experts.get('chevaux') or {}).get(str(n),{})
+            zone_profile=avis.get('profil_zone_turf',{}) if isinstance(avis.get('profil_zone_turf'),dict) else {}
             source_opinions=[avis[k] for k in ('avis_pmu','avis_geny','avis_zone_turf')
                              if isinstance(avis.get(k),str) and avis[k].strip()]
             # La synthèse n'est pas inventée: simplement les avis tracés disponibles.
@@ -277,7 +283,10 @@ def source_rows(cache):
                 'driver_jockey':act.get('driver_jockey',''),
                 'entraineur':act.get('entraineur',''),
                 'proprietaire':act.get('proprietaire',''),
-                'ferrure':act.get('ferrure',''),
+                'ferrure':act.get('ferrure') or zone_profile.get('ferrure',''),
+                'age_ans':act.get('age_ans') if act.get('age_ans') is not None else zone_profile.get('age_ans',''),
+                'sexe':act.get('sexe') or zone_profile.get('sexe',''),
+                'gains_euros':act.get('gains_euros') if act.get('gains_euros') is not None else zone_profile.get('gains_euros',''),
                 'non_partant':act.get('statut_np','NP_NON_VERIFIE'),
                 'actuel_statut':('PMU_FERRURE_DISPONIBLE' if act.get('ferrure') else 'PMU_FERRURE_NON_RECUPEREE') if act else 'PMU_PARTANTS_NON_RECUPERES',
                 'actuel_maj_utc':participant.get('capture_utc',''),
@@ -379,7 +388,10 @@ def source_rows(cache):
             signature=source or '|'.join(str(perf.get(k,'')) for k in (
                 'discipline','distance_m','classement','chrono'))
             base=f'{ident}|{date}|{hip.upper()}'
+            from .partants_actuels_v21 import ferrure_historique_explicite
             row={'cheval_id':ident,'nom':cheval,**perf}
+            if not row.get('ferrure_course'):
+                row['ferrure_course']=ferrure_historique_explicite(perf.get('texte_source',''))
             grouped.setdefault(base,{}).setdefault(signature,row)
     for base, variants in grouped.items():
         for n,(signature,r) in enumerate(sorted(variants.items()),start=1):
@@ -388,7 +400,10 @@ def source_rows(cache):
             else:
                 suffix=hashlib.sha256(signature.encode('utf-8')).hexdigest()[:16]
                 k=f'{base}|{suffix}'
+            from .partants_actuels_v21 import ferrure_historique_explicite
             doc={out:r.get(inn,'') for out,inn in HIST_MAPPING.items()}
+            if not doc.get('ferrure_course'):
+                doc['ferrure_course']=ferrure_historique_explicite(r.get('texte_source',''))
             doc['cle_performance']=k
             doc['statut_verification']='EXTRACTION_GENY'
             history[k]=doc
