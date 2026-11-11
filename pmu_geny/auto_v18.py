@@ -279,6 +279,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 entry['erreur_meteo']=f'{type(exc).__name__}: {exc}'
         # Pas de consultation Geny sur une course terminée.
         manifest=None; manifest_path=None
+        # Ne jamais enchainer decouverte de 17 fiches et historique dans le meme cycle.
+        manifeste_decouvert_ce_cycle=False
         for f in (cache/'manifestes').glob('GENY-*.json') if (cache/'manifestes').exists() else []:
             m=load(f,{})
             if not m or not m.get('courses'):continue
@@ -324,6 +326,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 manifest_path=cache/'manifestes'/f"{block['course_id']}.json"
                 save(manifest_path,data)
                 manifest=data
+                manifeste_decouvert_ce_cycle=True
                 correspondences[f'{date}_{key}']=block['course_id']
                 save(correspondences_path,correspondences)
                 entry['etat']='DECOUVERT'
@@ -338,7 +341,10 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 entry.get('erreur_decouverte','AUCUNE_ASSOCIATION_VERIFIEE'))
             continue
         entry['identifiant_geny']=manifest['courses'][0]['course_id'];entry['etat']='MANIFESTE_PRESENT'
-        if phase in ('auto','collecter') and not est_partie and remaining_new>0 and not cooldown:
+        if manifeste_decouvert_ce_cycle:
+            entry['historique_geny']='DIFFERE_APRES_DECOUVERTE'
+            print(f'HISTORIQUE_DIFFERE date={date} course={key} motif=EVITER_ENCHAINEMENT_DECOUVERTE_HISTORIQUE',flush=True)
+        if phase in ('auto','collecter') and not est_partie and remaining_new>0 and not cooldown and not manifeste_decouvert_ce_cycle:
             try:
                 result=traiter(manifest,cache/'diagnostics',remaining_new,cache/'etat_persistant.json',cooldown_heures=1)
                 # Le nombre réellement ouvert sera enregistré par le traitement.
