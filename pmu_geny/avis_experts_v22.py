@@ -13,7 +13,11 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.request import Request, urlopen
 from .ml_v19 import load, save
-from .liaison_chevaux_v22 import nom_normalise
+from .liaison_chevaux_v22 import nom_normalise as _nom_normalise
+
+# Parseurs legacy uniquement : vocabulaire éditorial analysé en minuscules.
+def nom_normalise(value):
+    return _nom_normalise(value).lower()
 
 WEEKDAYS=('lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche')
 MONTHS=('janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre')
@@ -235,3 +239,4 @@ def collecter(cache,course,raw,now=None,fetch=None):
                'chevaux':results,
                'regle':'Avis avant départ; noms et numéros exacts; indisponible != avis neutre'})
     return status
+

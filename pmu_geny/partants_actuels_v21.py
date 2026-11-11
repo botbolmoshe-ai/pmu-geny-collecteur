@@ -147,4 +147,7 @@ def enregistrer(cache:Path, course:dict, raw):
          "capture_utc":datetime.now(timezone.utc).isoformat(),
          "chevaux":{str(n):values for n,values in resultat.items()}}
     save(Path(cache)/"partants_actuels"/f'{course["date"]}_{course["code"]}.json',doc)
+    from .sources_experts_v23 import completer_partants
+    completer_partants(cache,course)
     return "PARTANTS_ACTUELS_ENREGISTRES"
+

@@ -127,7 +127,8 @@ def programme_diagnostic(doc, date):
             output.append({'priorite_metier':tier,'motif_selection':motif,'allocation_eur':metadata['allocation_eur'], 'date':date,'code':f'R{numero_reunion}C{no}','hippodrome':hp,'nom':_str(c,'libelle','nomCourse'),
                            'depart':instant.isoformat(),'nombre_declares':nb,'num_reunion':numero_reunion,'num_course':no,
                            'distance_m':_num(c,'distance','distanceMetres','distanceCourse'),
-                           'discipline':metadata['discipline']})
+                           'discipline':metadata['discipline'],
+                           'parametres_pmu':{k:c[k] for k in ('distance','discipline','specialite','parcours','conditions','conditionAge','conditionSexe','categorieParticularite','montantPrix','typePiste','corde','typeDepart') if c.get(k) is not None}})
     diag['courses_retenues']=len(output)
     diag['courses_p1']=sum(c['priorite_metier']=='P1' for c in output)
     diag['courses_p2']=sum(c['priorite_metier']=='P2' for c in output)
@@ -292,8 +293,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     # Commentaires sourcés, facultatifs : un accès tiers refusé
                     # n'empêche ni la préparation PMU, ni les captures ML.
                     try:
-                        from .avis_experts_v22 import collecter as collecter_avis
-                        entry['statut_avis_experts']=collecter_avis(cache,c,pmu_participants,now=now)
+                        from .sources_experts_v23 import collecter as collecter_avis
+                        entry['statut_avis_experts']=collecter_avis(cache,c,pmu_participants)
                     except Exception as exc:
                         entry['statut_avis_experts']='EXPERTS_NON_VERIFIES'
                         entry['erreur_avis_experts']=f'{type(exc).__name__}: {exc}'
@@ -489,3 +490,4 @@ def main():
     if a.max_nouvelles_fiches<0 or a.max_nouvelles_fiches>30:p.error('Nombre de fiches invalide')
     run(Path(a.cache),date,[x.strip().upper() for x in a.courses.split(',') if x.strip()],a.max_nouvelles_fiches,max_discoveries=a.max_decouvertes)
 if __name__=='__main__':main()
+

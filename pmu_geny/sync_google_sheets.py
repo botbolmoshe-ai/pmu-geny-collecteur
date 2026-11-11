@@ -16,7 +16,10 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
 LIVE_RESET_DATE = '2026-11-12'
-COMPARE_COLUMNS = ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','meteo_resume','meteo_statut')
+EXPERT_COLUMNS = ('avis_pmu','avis_equidia','avis_zeturf','prono_pmu','prono_equidia','prono_zeturf',
+                  'source_pmu','source_equidia','source_zeturf','couverture_experts',
+                  'divergences_sources','conditions_course','age_ans','sexe','gains_euros','synthese_actualite')
+COMPARE_COLUMNS = EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','meteo_resume','meteo_statut')
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_calcule_utc','score_direct',
                   'top3_cotes_numeros','score_cotes',
@@ -76,8 +79,17 @@ DISPLAY_NAMES = {
     'actuel_maj_utc':'Données actuelles · Mise à jour UTC',
     'statut_prevision':'Prévisions · État',
     'avis_pmu':'Avis expert PMU',
-    'avis_geny':'Avis expert Geny',
-    'avis_zone_turf':'Avis expert Zone-Turf',
+    'avis_equidia':'Avis expert Equidia',
+    'avis_zeturf':'Avis expert ZEturf',
+    'prono_pmu':'Pronostic PMU · Ordre publié',
+    'prono_equidia':'Pronostic Equidia · Ordre publié',
+    'prono_zeturf':'Pronostic ZEturf · Ordre publié',
+    'source_pmu':'Source PMU · URL et collecte UTC',
+    'source_equidia':'Source Equidia · URL et collecte UTC',
+    'source_zeturf':'Source ZEturf · URL et collecte UTC',
+    'couverture_experts':'Experts · Disponibilité par source',
+    'divergences_sources':'Sources · Divergences / avis identiques',
+    'conditions_course':'Conditions de course',
     'synthese_actualite':'Synthèse des avis',
     'ml_modele_statut':'ML · État du modèle',
     'ml_rang':'ML · Rang',
@@ -134,6 +146,7 @@ def course_key(date,hippodrome,code):
 def source_rows(cache):
     courses, history, reports = {}, {}, {}
     import unicodedata
+    from .sources_experts_v23 import champs_sheet
     def normalize_horse_name(value):
         s=unicodedata.normalize('NFKD',str(value or '').casefold())
         return ''.join(c for c in s if c.isalnum() and not unicodedata.combining(c))
@@ -271,11 +284,6 @@ def source_rows(cache):
             cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
             avis=(avis_experts.get('chevaux') or {}).get(str(n),{})
-            zone_profile=avis.get('profil_zone_turf',{}) if isinstance(avis.get('profil_zone_turf'),dict) else {}
-            source_opinions=[avis[k] for k in ('avis_pmu','avis_geny','avis_zone_turf')
-                             if isinstance(avis.get(k),str) and avis[k].strip()]
-            # La synthèse n'est pas inventée: simplement les avis tracés disponibles.
-            synthese=' | '.join(source_opinions) if len(source_opinions)>=2 else ''
             link=liens.get(str(n),{})
             link_method=link.get('methode','NON_ASSOCIE')
             hist=link.get('historique',{})
@@ -285,10 +293,7 @@ def source_rows(cache):
                 else 'HISTO_AMBIGU' if link_method=='NOM_AMBIGU'
                 else 'HISTO_NON_COLLECTE')
             current={
-                'avis_pmu':avis.get('avis_pmu',''),
-                'avis_geny':avis.get('avis_geny',''),
-                'avis_zone_turf':avis.get('avis_zone_turf',''),
-                'synthese_actualite':synthese,
+                **champs_sheet(avis_experts,n,act.get('nom','')),
                 'meteo_resume':meteo_resume,
                 'meteo_statut':meteo_statut,
                 'historique_statut':hist_status,
@@ -302,12 +307,12 @@ def source_rows(cache):
                 'driver_jockey':act.get('driver_jockey',''),
                 'entraineur':act.get('entraineur',''),
                 'proprietaire':act.get('proprietaire',''),
-                'ferrure':act.get('ferrure') or zone_profile.get('ferrure',''),
-                'age_ans':act.get('age_ans') if act.get('age_ans') is not None else zone_profile.get('age_ans',''),
-                'sexe':act.get('sexe') or zone_profile.get('sexe',''),
-                'gains_euros':act.get('gains_euros') if act.get('gains_euros') is not None else zone_profile.get('gains_euros',''),
+                'ferrure':act.get('ferrure',''),
+                'age_ans':act.get('age_ans') if act.get('age_ans') is not None else '',
+                'sexe':act.get('sexe',''),
+                'gains_euros':act.get('gains_euros') if act.get('gains_euros') is not None else '',
                 'non_partant':act.get('statut_np','NP_NON_VERIFIE'),
-                'actuel_statut':('PMU_FERRURE_DISPONIBLE' if act.get('ferrure') else 'PMU_FERRURE_NON_RECUPEREE') if act else 'PMU_PARTANTS_NON_RECUPERES',
+                'actuel_statut':('FERRURE_DISPONIBLE_SOURCEE' if act.get('ferrure') else 'FERRURE_NON_RECUPEREE') if act else 'PMU_PARTANTS_NON_RECUPERES',
                 'actuel_maj_utc':participant.get('capture_utc',''),
                 'top3_direct_rang':direct_rank,
                 'top3_direct_score':direct_h.get('score_direct',''),
@@ -326,9 +331,12 @@ def source_rows(cache):
                 'top3_cotes_utc':marche.get('calcul_utc',''),
                 'version_ml_utc':ml.get('calcul_utc',''),
             }
+            facts=act.get('divergences_sources',[])
+            if facts:
+                current['divergences_sources']+=' ; '+ '; '.join(f"{x['champ']}: {x['valeur_retenue']} / {x['source']}={x['valeur_tiers']}" for x in facts)
             # Conserver les informations Geny si deja plus riches et presentes.
             courses[krow]={**existing,**{key:value for key,value in current.items()
-                                         if value is not None and value!=''}}
+                                         if value is not None and (value!='' or key in EXPERT_COLUMNS)}}
     # Les arrivees PMU officielles peuvent exister sans manifeste Geny.
     # Enregistrer une ligne bilan par course meme sans TOP3.
     for arrival_file in sorted((cache/'arrivees').glob('????-??-??_R*C*.json')):
@@ -458,7 +466,7 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
         if k in present:
             # writes only values actually present/nonempty; leaves other cells untouched.
             for name,val in item.items():
-                if (name in headers and val is not None and str(val)!=''
+                if (name in headers and val is not None and (str(val)!='' or name in EXPERT_COLUMNS)
                         and str(existing_rows[present[k]-2].get(name,'')) != str(val)):
                     changes.append((present[k],headers.index(name)+1,str(val)))
         else:
@@ -506,6 +514,23 @@ def main():
         if response.status_code!=200:
             print(f'SYNC_GOOGLE_SHEETS=ERREUR_LECTURE onglet={tab} http={response.status_code}');errors+=1;continue
         values=response.json().get('values',[])
+        # Migration unique : aucune donnée Zone-Turf n'est attribuée à ZEturf.
+        legacy={'Avis expert Geny':'avis_equidia','avis_geny':'avis_equidia',
+                'Avis expert Zone-Turf':'avis_zeturf','avis_zone_turf':'avis_zeturf'}
+        migration=[]
+        for idx,label in enumerate(values[0] if values else []):
+            if label not in legacy:continue
+            key=legacy[label]
+            if DISPLAY_NAMES[key] in values[0] or key in values[0]:continue
+            migration.append({'range':f"'{tab}'!{colname(idx+1)}1:{colname(idx+1)}{max(1,len(values))}",
+                              'values':[[DISPLAY_NAMES[key]]]+[[''] for _ in values[1:]]})
+            values[0][idx]=DISPLAY_NAMES[key]
+            for row in values[1:]:
+                if len(row)>idx:row[idx]=''
+        if migration:
+            migrated=session.post(f'{base}/values:batchUpdate',json={'valueInputOption':'RAW','data':migration},timeout=45)
+            if migrated.status_code!=200:
+                print(f'SYNC_GOOGLE_SHEETS=ERREUR_MIGRATION_EXPERTS onglet={tab}');errors+=1;continue
         headers=canonical_headers(values[0] if values else [])
         existing=[dict(zip(headers,row)) for row in values[1:]]
         try: all_headers,updates,appends=plan_sheet(headers,existing,source[tab],tab)
@@ -546,3 +571,4 @@ def main():
     return 1 if errors else 0
 
 if __name__=='__main__':sys.exit(main())
+
