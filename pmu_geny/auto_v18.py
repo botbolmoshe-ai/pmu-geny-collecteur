@@ -335,8 +335,21 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 entry['erreur_decouverte']=f'{type(exc).__name__}: {exc}'
                 geny_state=load(cache/'etat_persistant.json',{}) or {}
                 if (geny_state.get('dernier_blocage_geny') or {}).get('utc'): cooldown=True
+        # Recuperer l'arrivee PMU meme lorsque Geny est indisponible ou non associe.
+        # Ce traitement n'engendre jamais de prevision apres le depart.
+        if manifest is None and est_partie:
+            try:
+                participants_resultat=get_json(
+                    BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+
+                    f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
+                from .resultats_v18 import enregistrer_resultats
+                entry['statut_arrivee']=enregistrer_resultats(cache,c,participants_resultat)
+                entry['etat']='ARRIVEE_PMU_SANS_GENY'
+            except Exception as exc:
+                entry['statut_arrivee']='ARRIVEE_NON_VERIFIEE'
+                entry['erreur_arrivee']=f'{type(exc).__name__}: {exc}'
         if manifest is None:
-            entry['etat']='GENY_NON_ASSOCIE'
+            if not est_partie:entry['etat']='GENY_NON_ASSOCIE'
             entry['motif_attente_geny']=('COOLDOWN_GENY' if cooldown else
                 'QUOTA_DECOUVERTE_ATTEINT' if remaining_discoveries<=0 else
                 entry.get('erreur_decouverte','AUCUNE_ASSOCIATION_VERIFIEE'))
