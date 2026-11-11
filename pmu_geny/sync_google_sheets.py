@@ -213,6 +213,7 @@ def source_rows(cache):
             'COTES_NON_EXTRAITES' if cotes_source.get('chevaux') and not any(
                 h.get('cote') is not None for h in cotes_source['chevaux']) else 'PAS_DE_RELEVE')
         ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
+        avis_experts=load_json(cache/'avis_experts'/f'{date}_{code}.json')
         contexte=load_json(cache/'contextes'/f'{date}_{code}.json')
         observations={x.get('champ'):x.get('valeur') for x in contexte.get('observations',[])
                       if isinstance(x,dict) and x.get('champ','').startswith('meteo_')}
@@ -245,6 +246,11 @@ def source_rows(cache):
             direct_rank,direct_h=ranks['direct'].get(str(n),('',{}))
             cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
+            avis=(avis_experts.get('chevaux') or {}).get(str(n),{})
+            source_opinions=[avis[k] for k in ('avis_pmu','avis_geny','avis_zone_turf')
+                             if isinstance(avis.get(k),str) and avis[k].strip()]
+            # La synthèse n'est pas inventée: simplement les avis tracés disponibles.
+            synthese=' | '.join(source_opinions) if len(source_opinions)>=2 else ''
             link=liens.get(str(n),{})
             link_method=link.get('methode','NON_ASSOCIE')
             hist=link.get('historique',{})
@@ -254,6 +260,10 @@ def source_rows(cache):
                 else 'HISTO_AMBIGU' if link_method=='NOM_AMBIGU'
                 else 'HISTO_NON_COLLECTE')
             current={
+                'avis_pmu':avis.get('avis_pmu',''),
+                'avis_geny':avis.get('avis_geny',''),
+                'avis_zone_turf':avis.get('avis_zone_turf',''),
+                'synthese_actualite':synthese,
                 'meteo_resume':meteo_resume,
                 'meteo_statut':meteo_statut,
                 'historique_statut':hist_status,
