@@ -205,14 +205,14 @@
     },
     "R13C3": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-11T14:35:00+01:00",
       "nom": "PRIX MONIQUE ET BERNARD LEDEZERT (GR B)",
       "hippodrome": "HIPPODROME DE GRAIGNES",
       "nombre_declares": 12,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
       "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
@@ -237,12 +237,13 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697687"
+      "geny_id_rapproche": "1697687",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R10C4": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-11T14:40:00+01:00",
+      "identifiant_geny": "GENY-1697678",
+      "etat": "MANIFESTE_PRESENT",
+      "depart": "2026-11-11T14:44:00+01:00",
       "nom": "PRIX FLAMME",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
       "nombre_declares": 12,
@@ -257,23 +258,29 @@
         "geny_id": "1697678",
         "url": "https://www.geny.com/course/1697678-2026-11-11-la-capelle-prix-flamme",
         "score": 1.0,
-        "methode": "NOM_FORT",
+        "methode": "DATE_HIPPODROME_RC",
         "preuves": {
           "date": true,
           "hippodrome": true,
-          "nom_identique": true,
-          "code_rc_different": false,
-          "pmu_rc": [
-            10,
-            4
-          ],
-          "geny_rc": [
-            null,
-            null
-          ]
+          "r": 10,
+          "c": 4,
+          "nom": {
+            "hippodrome": true,
+            "similarite_nom": 1.0
+          }
         }
       },
-      "geny_id_rapproche": "1697678"
+      "geny_id_rapproche": "1697678",
+      "historique_geny": "DIFFERE_APRES_DECOUVERTE",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "np_confirmes": 0,
+      "np_verification_utc": "2026-11-11T13:40:02.959736+00:00",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_prevision": "DONNEES_INSUFFISANTES",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1697678/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R13C4": {
       "identifiant_geny": null,
@@ -314,7 +321,7 @@
     "R10C5": {
       "identifiant_geny": null,
       "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-11T15:10:00+01:00",
+      "depart": "2026-11-11T15:13:00+01:00",
       "nom": "PRIX DE LAON",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
       "nombre_declares": 16,
@@ -350,7 +357,7 @@
     "R10C6": {
       "identifiant_geny": null,
       "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-11T15:40:00+01:00",
+      "depart": "2026-11-11T15:42:00+01:00",
       "nom": "PRIX JEAN FRERE",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
       "nombre_declares": 16,
@@ -490,15 +497,159 @@
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
       "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+    },
+    "R13C7": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697689",
+        "url": "https://www.geny.com/course/1697689-2026-11-11-graignes-prix-anciens-prisonniers-canton-st-jean-daye",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            13,
+            7
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697689",
+      "depart": "2026-11-11T16:45:00+01:00",
+      "nom": "ANCIENS PRISONNIERS CANTON ST JEAN DAYE",
+      "hippodrome": "HIPPODROME DE GRAIGNES",
+      "nombre_declares": 14,
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+    },
+    "R4C3": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697657",
+        "url": "https://www.geny.com/course/1697657-2026-11-11-lyon-la-soie-prix-gelinotte",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            4,
+            3
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697657",
+      "depart": "2026-11-11T17:17:00+01:00",
+      "nom": "PRIX GELINOTTE",
+      "hippodrome": "HIPPODROME DE LYON LA SOIE",
+      "nombre_declares": 15,
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+    },
+    "R4C4": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697656",
+        "url": "https://www.geny.com/course/1697656-2026-11-11-lyon-la-soie-prix-hadol-du-vivier",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            4,
+            4
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697656",
+      "depart": "2026-11-11T17:52:00+01:00",
+      "nom": "PRIX HADOL DU VIVIER",
+      "hippodrome": "HIPPODROME DE LYON LA SOIE",
+      "nombre_declares": 13,
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+    },
+    "R4C5": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697661",
+        "url": "https://www.geny.com/course/1697661-2026-11-11-lyon-la-soie-prix-bellino-ii",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            4,
+            5
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697661",
+      "depart": "2026-11-11T18:27:00+01:00",
+      "nom": "PRIX BELLINO II",
+      "hippodrome": "HIPPODROME DE LYON LA SOIE",
+      "nombre_declares": 16,
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T12:42:30.884599+00:00",
+  "dernier_controle_pmu": "2026-11-11T13:39:01.990978+00:00",
   "fiches_geny_budget_consommees": 0,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T12:42:30.884599+00:00",
+    "horodatage_utc": "2026-11-11T13:39:01.990978+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 17,
