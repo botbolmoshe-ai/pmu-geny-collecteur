@@ -230,6 +230,13 @@ jobs:
           python -m pmu_geny.export_v17 --manifest "$MANIFEST" --cache cache_pmu --sortie cache_pmu/exports
           mkdir -p "resultats/GENY-${CID}"
           cp -a "cache_pmu/exports/GENY-${CID}/." "resultats/GENY-${CID}/"
+      - name: Audit de completude des TOP3 et donnees courantes
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p resultats/qualite
+          python -m pmu_geny.qualite_registre_v21 --cache cache_pmu --debut 2026-11-12 --sortie resultats/qualite/couverture_registre.json
       - name: Publier les diagnostics et les bilans
         if: always()
         uses: actions/upload-artifact@v4
