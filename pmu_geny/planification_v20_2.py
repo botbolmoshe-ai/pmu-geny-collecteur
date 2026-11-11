@@ -8,16 +8,13 @@ PARIS=ZoneInfo('Europe/Paris')
 def selectionner_courses(courses, now, date, selection, complet, etat, max_courses=12):
     """Liste des courses pertinentes par priorité, sans travailler sur des archives.
 
-    Un cycle léger ne vérifie que les départs à <= 90 minutes et les arrivées
-    récentes. Un cycle complet prépare progressivement les départs futurs, y
-    compris demain après 18 h. Jamais de collecte ni prédiction après l'heure
-    programmée du départ; les arrivées récentes restent traitables.
+    Preparation J+1 des que le programme est disponible. Collecte incrementalement
+    et ne predit jamais apres le depart. Les arrivees recentes restent traitables.
     """
     if now.tzinfo is None: raise ValueError('Heure locale requise')
     today=now.astimezone(PARIS).date()
     day=datetime.fromisoformat(date).date()
     if day<today or day>today+timedelta(days=1):return []
-    if day>today and now.astimezone(PARIS).hour<18:return []
     previous=etat.get('courses',{})
     selected=[]
     for c in courses:
