@@ -36,3 +36,9 @@ Le chemin historique `.github/workflows/pmu-v16.yml` est conservé pour ne pas a
 - Aucune preuve de trois sources d'avis experts ni d'entraîneur/driver n'est fournie par cette V21 ; ne pas afficher ces indicateurs comme collectés.
 
 **Conservation** : pas d'effacement de données historiques et aucun processus de test ne doit écrire dans `pmu-data` ou Google Sheets.
+
+## Reprise finale contrôlée des 17 historiques
+
+Un workflow manuel `.github/workflows/reprise-historiques-v21.yml` permet de reprendre les cinq artefacts de test sans nouvelle requête Geny. Deux modes : `verifier` (simulation sans écriture) et `importer` (validation obligatoire des **17 historiques et 465 performances**, puis écriture atomique des fichiers de chaque cheval dans `pmu-data`, conservation des historiques complets antérieurs, mise à jour du journal et audit du registre).
+
+L'opération utilise le même verrou de concurrence que la production. Le contenu des artefacts est validé avant toute écriture, et les écarts font échouer l'exécution. L'import ne crée pas un manifeste de course artificiel, n'efface rien et ne contacte pas Geny. Les trois historiques incomplets du registre (2905469, 2907579, 2907581 : zéro performance extraite, nombre annoncé inconnu) **ne peuvent pas être réparés avec ces artefacts** ; ils restent à diagnostiquer séparément.
