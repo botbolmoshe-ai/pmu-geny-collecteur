@@ -24,6 +24,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Installer la dependance Python requise (sans navigateur)
+        run: python -m pip install playwright
       - name: Verifier les 2 codes sans acces web
         run: python -m pmu_geny.test_codes_geny
       - name: Archiver le resultat
