@@ -635,7 +635,7 @@
       "nombre_declares": 15,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
       "motif_attente_geny": "COOLDOWN_GENY",
@@ -654,11 +654,13 @@
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1697657/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R4C4": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1697656",
+      "etat": "MANIFESTE_PRESENT",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697656",
@@ -697,7 +699,17 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "historique_geny": "COLLECTE_INCREMENTALE",
+      "historique_collecte_resultat": "SUSPENDUE_429",
+      "np_confirmes": 0,
+      "np_verification_utc": "2026-11-11T16:27:14.437971+00:00",
+      "statut_prevision": "DONNEES_INSUFFISANTES",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1697656/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R4C5": {
       "identifiant_geny": null,
@@ -740,16 +752,17 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T16:16:53.804455+00:00",
-  "fiches_geny_budget_consommees": 0,
+  "dernier_controle_pmu": "2026-11-11T16:26:37.346465+00:00",
+  "fiches_geny_budget_consommees": 1,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T16:16:53.804455+00:00",
+    "horodatage_utc": "2026-11-11T16:26:37.346465+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 17,
