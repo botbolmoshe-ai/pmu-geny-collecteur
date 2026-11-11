@@ -1,9 +1,9 @@
 {
   "date": "2026-11-11",
-  "horodatage_utc": "2026-11-11T10:32:08.125657+00:00",
+  "horodatage_utc": "2026-11-11T11:39:04.392522+00:00",
   "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
   "statut": "COURSES_DISPONIBLES",
-  "courses_retenues": 19,
+  "courses_retenues": 17,
   "reunions_recues": 14,
   "reunions_francaises": 10,
   "reunions_pays_inconnu": 0,
@@ -11,8 +11,9 @@
   "courses_recues": 103,
   "exclusions": {
     "metier_hors_trot": 36,
-    "metier_allocation_inferieure_seuil_p2": 3,
+    "depart_hors_plage_08_19": 3,
     "pays_etranger": 4,
+    "metier_allocation_inferieure_seuil_p2": 2,
     "metier_hippodrome_hors_selection": 13,
     "metier_effectif_insuffisant_p2": 1
   },
@@ -182,7 +183,7 @@
     }
   ],
   "courses_p1": 0,
-  "courses_p2": 19,
+  "courses_p2": 17,
   "decisions_metier": [
     {
       "code": "R1C1",
@@ -513,39 +514,6 @@
       "hippodrome": "HIPPODROME DE LYON LA SOIE",
       "hippodrome_normalise": "lyon la soie",
       "nombre_partants": 16
-    },
-    {
-      "code": "R4C6",
-      "niveau": "P2",
-      "motif": "HIPPODROME_MAJEUR_P2",
-      "discipline": "TROT_MONTE",
-      "allocation_eur": 20000,
-      "groupe": false,
-      "hippodrome": "HIPPODROME DE LYON LA SOIE",
-      "hippodrome_normalise": "lyon la soie",
-      "nombre_partants": 8
-    },
-    {
-      "code": "R4C7",
-      "niveau": "P2",
-      "motif": "HIPPODROME_MAJEUR_P2",
-      "discipline": "TROT_ATTELE",
-      "allocation_eur": 17500,
-      "groupe": false,
-      "hippodrome": "HIPPODROME DE LYON LA SOIE",
-      "hippodrome_normalise": "lyon la soie",
-      "nombre_partants": 16
-    },
-    {
-      "code": "R4C8",
-      "niveau": "EXCLU",
-      "motif": "ALLOCATION_INFERIEURE_SEUIL_P2",
-      "discipline": "TROT_ATTELE",
-      "allocation_eur": 6000,
-      "groupe": false,
-      "hippodrome": "HIPPODROME DE LYON LA SOIE",
-      "hippodrome_normalise": "lyon la soie",
-      "nombre_partants": 12
     },
     {
       "code": "R6C1",
