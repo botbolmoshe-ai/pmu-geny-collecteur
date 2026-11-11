@@ -65,4 +65,36 @@ class TestExpertsAndIdentity(unittest.TestCase):
   got=etablir(self.root,COURSE,[{'numero':1,'nom':'Lombok Jiel'}])
   self.assertEqual(got['1']['methode'],'NOM_AMBIGU')
 
+ def test_partant_age_sexe_gains_ferrure(self):
+  from pmu_geny.partants_actuels_v21 import extraire_partants
+  d=extraire_partants({'participants':[{
+   'numPmu':1,'nomCheval':'LOMBOK JIEL','age':5,'sexe':'M',
+   'gainsCarriere':888175,'ferrure':'DP/PA','nonPartant':False}]})
+  self.assertEqual(d[1]['age_ans'],5)
+  self.assertEqual(d[1]['sexe'],'Mâle')
+  self.assertEqual(d[1]['gains_euros'],888175)
+  self.assertEqual(d[1]['ferrure'],'DP/PA')
+ def test_historic_ferrure_explicit_only(self):
+  from pmu_geny.partants_actuels_v21 import ferrure_historique_explicite
+  self.assertEqual(ferrure_historique_explicite('Vincennes 2100 D4 1e'),'D4')
+  self.assertEqual(ferrure_historique_explicite('Vincennes 2100 D - dur 5e'),'')
+ def test_real_archived_zone_profile(self):
+  from pmu_geny.avis_experts_v22 import parser_zone_profils
+  ref=Path('reference_pmu')
+  page=ref/'avis_experts/pages/2026-11-12_quinte.html'
+  entrants=ref/'partants_actuels/2026-11-12_R1C1.json'
+  if not page.exists() or not entrants.exists():self.skipTest('archives non montées')
+  raw=json.loads(entrants.read_text(encoding='utf-8'))
+  participants=raw['chevaux']
+  result=parser_zone_profils(page.read_text(encoding='utf-8'),COURSE,participants)
+  self.assertIn('1',result)
+  self.assertEqual(result['1']['age_ans'],5)
+  self.assertEqual(result['1']['sexe'],'Mâle')
+  self.assertEqual(result['1']['gains_euros'],888175)
+  self.assertEqual(result['1']['ferrure'],'DP/PA')
+ def test_report_fields_are_compact_and_essential(self):
+  from pmu_geny.sync_google_sheets import REPORT_COLUMNS,DISPLAY_NAMES,canonical_headers
+  self.assertEqual(len(REPORT_COLUMNS),19)
+  self.assertEqual(canonical_headers([DISPLAY_NAMES[x] for x in REPORT_COLUMNS]),list(REPORT_COLUMNS))
+
 if __name__=='__main__':unittest.main()
