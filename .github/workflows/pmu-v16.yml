@@ -97,6 +97,12 @@ jobs:
           else
             echo 'DONNEES PERSISTANTES : branche pmu-data absente, initialisation'
           fi
+      - name: Restaurer le cache du navigateur Playwright
+        if: github.event_name == 'push' || github.event_name == 'schedule' || inputs.mode == 'auto' || inputs.mode == 'decouvrir' || inputs.mode == 'collecter'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
       - name: Installer Playwright (decouverte ou collecte uniquement)
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'auto' || inputs.mode == 'decouvrir' || inputs.mode == 'collecter')) || github.event.schedule == '0,15,30,45 5-20 * * *'
         run: |
