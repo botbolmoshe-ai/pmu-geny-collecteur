@@ -177,6 +177,33 @@ class V21PaliersTests(unittest.TestCase):
             self.assertTrue(all(x.get("ml_modele_statut")=="ML_NON_ENTRAINE" for x in rows.values()))
             self.assertTrue(all(not x.get("ml_score_non_calibre") for x in rows.values()))
 
+    def test_v22_comparaison_trois_top3_avec_arrivee(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            day,code="2026-11-12","R2C2"
+            c={"date":day,"code":code,"depart":"2026-11-12T15:00:00+01:00",
+               "hippodrome":"Vincennes"}
+            def write(rel,data):
+                path=root/rel;path.parent.mkdir(parents=True,exist_ok=True)
+                path.write_text(json.dumps(data),encoding="utf-8")
+            write(f"sources_pmu/programme_{day}.json",{"programme":[c]})
+            write(f"pronostics/{day}_{code}_direct.json",{"top3":[
+                {"numero":1},{"numero":2},{"numero":3}]})
+            write(f"pronostics/{day}_{code}_cotes.json",{"top3":[
+                {"numero":2},{"numero":4},{"numero":5}]})
+            write(f"pronostics/{day}_{code}_ml_latest.json",{"statut":"ML_ENTRAINE_NON_CALIBRE",
+                "top3":[{"numero":1},{"numero":4},{"numero":5}]})
+            write(f"arrivees/{day}_{code}.json",{"source":"PMU_API_PARTICIPANTS",
+                "arrivee":[{"numero":1,"rang":1},{"numero":2,"rang":2},{"numero":5,"rang":3}]})
+            res=source_rows(root)["Résultats & Analyse"]
+            self.assertEqual(len(res),1)
+            row=next(iter(res.values()))
+            self.assertEqual(row["score_direct"],2)
+            self.assertEqual(row["score_cotes"],2)
+            self.assertEqual(row["score_ml"],2)
+            self.assertEqual(row["arrivee_officielle_numeros"],"1,2,5")
+            self.assertEqual(row["statut_evaluation"],"EVALUE")
+
     def test_registre_11_novembre_reel(self):
         root=Path("reference_pmu")
         if not root.exists():self.skipTest("registre de production non charge")
