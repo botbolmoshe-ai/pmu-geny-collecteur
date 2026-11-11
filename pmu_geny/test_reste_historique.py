@@ -32,7 +32,7 @@ def url_attestee(folder, n, ident):
 
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument("--lot",choices=sorted(LOTS),required=True)
+    ap.add_argument("--lot",choices=sorted(LOTS)+["tous"],required=True)
     ap.add_argument("--liens",default="precedent/diagnostic_decouverte")
     ap.add_argument("--sortie",default="resultats/test_reste")
     ap.add_argument("--pause-secondes",type=int,default=30)
@@ -40,7 +40,7 @@ def main():
     if not 20<=args.pause_secondes<=180: ap.error("pause attendue entre 20 et 180 secondes")
     out=Path(args.sortie)/f"lot_{args.lot}"
     out.mkdir(parents=True,exist_ok=True)
-    chevaux=LOTS[args.lot]
+    chevaux=LOTS["2"]+LOTS["3"] if args.lot=="tous" else LOTS[args.lot]
     bilan={"date":"2026-11-12","course":"R1C1","lot":args.lot,
            "horodatage_utc":datetime.now(timezone.utc).isoformat(),
            "mode":"SANS_REDECOUVERTE","chevaux_attendus":len(chevaux),
