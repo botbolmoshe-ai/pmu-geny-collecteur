@@ -125,7 +125,9 @@ jobs:
           if not 8 <= now.hour <= 20:
               print('Hors fenêtre V21: 08:00–20:59 Europe/Paris (arrivées seules après 19h)')
           else:
-              full=(now.minute < 15)
+              # En lancement manuel 'auto', forcer un vrai cycle complet quelle que soit la minute.
+              # Les déclenchements planifiés conservent leur rythme horaire habituel.
+              full=(now.minute < 15) or (str(__import__('os').environ.get('IS_SCHEDULED', '')).lower() == 'false')
               root=Path('cache_pmu')
               today=now.date().isoformat()
               today_state=run(root,today,[],3 if full else 0,
