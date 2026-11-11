@@ -10,7 +10,7 @@ from pathlib import Path
 from .ml_v19 import load
 
 def nom_normalise(value):
-    value=unicodedata.normalize('NFKD',str(value or '').casefold())
+    value=unicodedata.normalize('NFKD',str(value or '').upper())
     return ''.join(ch for ch in value if ch.isalnum() and not unicodedata.combining(ch))
 
 def etablir(cache, course, participants=None):
@@ -25,9 +25,9 @@ def etablir(cache, course, participants=None):
     journal=(load(cache/'etat_persistant.json',{}) or {}).get('chevaux',{})
     known={}
     for ident,meta in journal.items():
-        if meta.get('statut')!='COMPLET':continue
+        if meta.get('statut') not in ('COMPLET','PARTIEL'):continue
         doc=load(cache/'historiques'/str(ident)/'historique_geny.json',{}) or {}
-        if doc.get('statut')!='COMPLET' or not isinstance(doc.get('performances'),list):continue
+        if doc.get('statut') not in ('COMPLET','PARTIEL') or not isinstance(doc.get('performances'),list):continue
         key=nom_normalise(meta.get('nom',''))
         if key:known.setdefault(key,[]).append((str(ident),doc))
     by_number={}
@@ -43,7 +43,7 @@ def etablir(cache, course, participants=None):
                 if not num or not name or noms.get(num)!=name:continue
                 ident=str(h.get('id',''))
                 doc=load(cache/'historiques'/ident/'historique_geny.json',{}) or {}
-                if doc.get('statut')=='COMPLET' and isinstance(doc.get('performances'),list):
+                if doc.get('statut') in ('COMPLET','PARTIEL') and isinstance(doc.get('performances'),list):
                     by_number[num]=(ident,doc,'ID_GENY_MANIFESTE_VERIFIE')
     matches={}
     for numero,name in noms.items():
