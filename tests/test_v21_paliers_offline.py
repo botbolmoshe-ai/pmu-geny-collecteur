@@ -17,9 +17,10 @@ class V21PaliersTests(unittest.TestCase):
             {"numPmu":2,"driver":{"id":123}, "ferrure":None}
         ]}
         d=extraire_partants(raw)
-        self.assertEqual(d[1],{"driver_jockey":"A. Test","entraineur":"B. Test",
-                               "proprietaire":"Écurie Exemple","ferrure":"D4"})
-        self.assertEqual(d[2],{})
+        for key,value in {"driver_jockey":"A. Test","entraineur":"B. Test",
+                          "proprietaire":"Écurie Exemple","ferrure":"D4"}.items():
+            self.assertEqual(d[1][key],value)
+        self.assertEqual(d[2]["statut_np"],"NP_NON_VERIFIE")
 
     def test_deux_paliers_sans_inventer_ml(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -136,6 +137,45 @@ class V21PaliersTests(unittest.TestCase):
             self.assertEqual(row["statut_evaluation"],"ARRIVEE_SANS_TOP3_FIGE")
             self.assertEqual(row["top3_prevu_numeros"],"")
             self.assertEqual(row["score_sur_3"],"")
+
+    def test_v22_trois_niveaux_independants_du_manifeste(self):
+        from datetime import datetime, timezone
+        from pmu_geny.top3_independants_v22 import calculer
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            day="2026-11-12";code="R1C3"
+            course={"date":day,"code":code,"depart":"2026-11-12T15:00:00+01:00",
+                    "hippodrome":"Vincennes","nombre_declares":4}
+            raw={"participants":[
+                {"numPmu":1,"nomCheval":"A","musique":"1a2a3a","rapportDirect":4.2,"nonPartant":False},
+                {"numPmu":2,"nomCheval":"B","musique":"2a3a4a","rapportDirect":3.2,"nonPartant":False},
+                {"numPmu":3,"nomCheval":"C","musique":"4a5a6a","rapportDirect":9.4,"nonPartant":False},
+                {"numPmu":4,"nomCheval":"D","musique":"Da0a5a","rapportDirect":14.5,"nonPartant":False}]}
+            moment=datetime(2026,11,12,12,30,tzinfo=timezone.utc)
+            self.assertEqual(calculer(root,course,raw,moment),
+                            {"direct":"CALCULE_COMPLET","cotes":"CALCULE_COMPLET"})
+            dossier=root/"pronostics"
+            self.assertEqual([r["numero"] for r in json.loads(
+                (dossier/f"{day}_{code}_direct.json").read_text())["top3"]],[1,2,3])
+            self.assertEqual([r["numero"] for r in json.loads(
+                (dossier/f"{day}_{code}_cotes.json").read_text())["top3"]],[2,1,3])
+            self.assertFalse((dossier/f"{day}_{code}_ml_latest.json").exists())
+            self.assertEqual(calculer(root,course,raw,datetime(
+                2026,11,12,14,30,tzinfo=timezone.utc))["direct"],"APRES_DEPART")
+            programme=root/"sources_pmu"/f"programme_{day}.json"
+            programme.parent.mkdir(parents=True)
+            programme.write_text(json.dumps({"programme":[course]}),encoding="utf8")
+            current=root/"partants_actuels"/f"{day}_{code}.json"
+            current.parent.mkdir(parents=True)
+            current.write_text(json.dumps({"source":"PMU_API_PARTICIPANTS",
+                "chevaux":{str(x["numPmu"]):{"nom":x["nomCheval"],
+                "statut_np":"PARTANT"} for x in raw["participants"]}}),encoding="utf8")
+            rows=source_rows(root)["Courses & Prévisions"]
+            self.assertEqual(len(rows),4)
+            self.assertEqual(sum(x.get("top3_direct_top3")=="OUI" for x in rows.values()),3)
+            self.assertEqual(sum(x.get("top3_cotes_top3")=="OUI" for x in rows.values()),3)
+            self.assertTrue(all(x.get("ml_modele_statut")=="ML_NON_ENTRAINE" for x in rows.values()))
+            self.assertTrue(all(not x.get("ml_score_non_calibre") for x in rows.values()))
 
     def test_registre_11_novembre_reel(self):
         root=Path("reference_pmu")
