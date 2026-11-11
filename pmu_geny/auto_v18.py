@@ -483,7 +483,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--cache',default='cache_pmu');p.add_argument('--date',default='')
-    p.add_argument('--courses',default='',help='Ex R2C8,R1C4; vide = toutes');p.add_argument('--max-nouvelles-fiches',type=int,default=3)
+    p.add_argument('--courses',default='',help='Ex R2C8,R1C4; vide = toutes');p.add_argument('--max-nouvelles-fiches',type=int,default=6)
     p.add_argument('--max-decouvertes',type=int,default=2)
     a=p.parse_args();date=a.date or datetime.now(PARIS).date().isoformat()
     if a.max_nouvelles_fiches<0 or a.max_nouvelles_fiches>30:p.error('Nombre de fiches invalide')
