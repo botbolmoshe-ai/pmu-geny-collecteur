@@ -14,7 +14,8 @@ FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_12
             'jours_repos','distance_m','distance_ecart_m','aptitude_hippodrome',
             'taux_podium_distance','nb_partants','meteo_pluie_mm','meteo_vent_kmh','meteo_temperature_c','meteo_humidite_pct',
             'avis_experts_score','info_ecurie_score','driver_score','entraineur_score','pmu_score_direct',
-            'age_ans','gains_euros','sexe_male','sexe_femelle','sexe_hongre','ferrure_d4')
+            'age_ans','gains_euros','sexe_male','sexe_femelle','sexe_hongre',
+            'ferrure_d4','ferrure_dp','ferrure_da','ferrure_p4','ferrure_pa','ferrure_pp')
 MIN_COURSES_TRAIN = 100
 MIN_ROWS_TRAIN = 700
 
@@ -169,7 +170,12 @@ def snapshot_pmu(cache,course,raw,now=None):
             for label,feature in (('Mâle','sexe_male'),('Femelle','sexe_femelle'),('Hongre','sexe_hongre')):
                 c[feature]=1 if sexe==label else 0
         ferrure=profil.get('ferrure') or zone.get('ferrure','')
-        if ferrure:c['ferrure_d4']=1 if str(ferrure).upper()=='D4' else 0
+        if ferrure:
+            code=str(ferrure).upper()
+            for name,indicator in [('D4','ferrure_d4'),('DP','ferrure_dp'),
+                                   ('DA','ferrure_da'),('P4','ferrure_p4'),
+                                   ('PA','ferrure_pa'),('PP','ferrure_pp')]:
+                c[indicator]=1 if name in code.split('/') else 0
         features_values=features({'numero':numero,'nom':name},histo,course,c)
         rows.append({'numero':numero,'cheval_id':ident,'nom':name,
                      'historique_ok':bool(ident),'methode_liaison':link.get('methode','NON_ASSOCIE'),
