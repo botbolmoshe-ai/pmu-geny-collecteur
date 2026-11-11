@@ -4,6 +4,11 @@ on:
     branches: [main]
     paths:
       - 'tests/test_v21_paliers_offline.py'
+      - 'pmu_geny/qualite_registre_v21.py'
+      - 'pmu_geny/sync_google_sheets.py'
+      - 'pmu_geny/pronostics_v18.py'
+      - 'pmu_geny/auto_v18.py'
+      - 'pmu_geny/partants_actuels_v21.py'
       - '.github/workflows/validation-iterative-v21.yml'
   workflow_dispatch:
 permissions:
@@ -42,6 +47,12 @@ jobs:
           set -euo pipefail
           python -m pmu_geny.recette_finale_v21 --source reference_pmu --rapport resultats/validation/registre.json
           python -m unittest discover -s tests -p 'test_v21_paliers_offline.py' -v 2>&1 | tee resultats/validation/paliers.log
+      - name: Mesurer la completude reelle des courses du registre
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pmu_geny.qualite_registre_v21 --cache reference_pmu --debut 2026-11-11 --sortie resultats/validation/qualite_avant_reset.json
+          python -m pmu_geny.qualite_registre_v21 --cache reference_pmu --debut 2026-11-12 --sortie resultats/validation/qualite_nouveau_registre.json
       - name: Archiver les resultats
         if: always()
         uses: actions/upload-artifact@v4
