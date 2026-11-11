@@ -89,7 +89,7 @@ def _revalider_historique_cache(fichier: Path) -> dict | None:
         return None
 
 
-def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | None = None, cooldown_heures: int = 1) -> dict:
+def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | None = None, cooldown_heures: float = 0.5) -> dict:
     courses = manifest.get("courses", [])
     if not isinstance(courses, list) or not courses:
         raise ValueError("Manifeste sans liste 'courses' non vide")
@@ -118,7 +118,7 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
             pass
     if cooldown_actif:
         bilan["collecte_geny"] = "DIFFEREE_COOLDOWN"
-        print(f"COOLDOWN GENY : pas de requete pendant {cooldown_heures}h apres un 403/429.", flush=True)
+        print(f"COOLDOWN GENY : pas de requete pendant {cooldown_heures*60:g} minutes apres un 403/429.", flush=True)
     collecte_suspendue = False
     limite_test = False
     for course in courses:
@@ -268,10 +268,10 @@ def main() -> None:
     p.add_argument("--sortie", default="resultats")
     p.add_argument("--max-chevaux", type=int, default=14)
     p.add_argument("--etat", default="cache_pmu/etat_persistant.json", help="Journal des chevaux entre executions")
-    p.add_argument("--cooldown-heures", type=int, default=1, help="Minimum d heures sans demande Geny apres un refus")
+    p.add_argument("--cooldown-heures", type=float, default=0.5, help="Duree de suspension en heures (0.5 = 30 minutes)")
     args = p.parse_args()
-    if args.cooldown_heures < 1:
-        p.error("--cooldown-heures >= 1")
+    if args.cooldown_heures <= 0:
+        p.error("--cooldown-heures > 0")
     if args.max_chevaux < 1:
         p.error("--max-chevaux >= 1")
     manifest = json.loads(Path(args.manifest).read_text(encoding="utf-8"))
