@@ -50,9 +50,9 @@ def sexe_normalise(value):
         value=value.get('libelle') or value.get('code') or value.get('nom') or ''
     key=str(value or '').strip().upper()
     return {
-        'M':'Mâle','MALE':'Mâle','MÂLE':'Mâle','ENTIER':'Mâle',
-        'F':'Femelle','FEMELLE':'Femelle','JUMENT':'Femelle','POULICHE':'Femelle',
-        'H':'Hongre','HONGRE':'Hongre'
+        'M':'Mâle','MALE':'Mâle','MÂLE':'Mâle','MALES':'Mâle','MÂLES':'Mâle','ENTIER':'Mâle','ENTIERS':'Mâle',
+        'F':'Femelle','FEMELLE':'Femelle','FEMELLES':'Femelle','JUMENT':'Femelle','POULICHE':'Femelle',
+        'H':'Hongre','HONGRE':'Hongre','HONGRES':'Hongre'
     }.get(key,'')
 
 def ferrure_historique_explicite(value):
@@ -85,6 +85,8 @@ def extraire_partants(raw):
         for alias in FIELDS["sexe"]:
             sexe=sexe_normalise(item.get(alias))
             if sexe:fields['sexe']=sexe;break
+        if fields.get('sexe'):
+            fields['sexe']=sexe_normalise(fields['sexe']) or fields['sexe']
         for nom_key in ("nomCheval","nom","nomParticipant"):
             nom=_label(item.get(nom_key))
             if nom:
@@ -103,7 +105,10 @@ def enregistrer(cache:Path, course:dict, raw):
     resultat=extraire_partants(raw)
     if not resultat:
         return "PARTANTS_NON_VERIFIES"
+    samples=_list(raw,"participants","partants")
+    observed=sorted(str(k) for k in samples[0].keys()) if samples and isinstance(samples[0],dict) else []
     doc={"date":course["date"], "course":course["code"],
+         "champs_participant_pmu_observes":observed,
          "source":"PMU_API_PARTICIPANTS",
          "capture_utc":datetime.now(timezone.utc).isoformat(),
          "chevaux":{str(n):values for n,values in resultat.items()}}
