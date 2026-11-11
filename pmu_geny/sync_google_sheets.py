@@ -13,6 +13,9 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analyse')
+# Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
+# Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
+LIVE_RESET_DATE = '2026-11-12'
 COMPARE_COLUMNS = ('secours_rang','secours_top3','secours_statut','historique_modele_statut','ml_modele_statut','baseline_rang','baseline_top3','baseline_final_rang','baseline_final_top3',
                    'ml_rang','ml_top3','ml_proba_podium','cote_avant_depart','cote_heure_utc',
                    'arrivee_rang','arrivee_podium','ml_etat','meteo_pluie_mm','meteo_vent_kmh',
@@ -192,6 +195,15 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
     return headers,changes,append
 
 
+def limiter_cours_registre(source, date_debut=LIVE_RESET_DATE):
+    """Ne filtre que les onglets operationnels; ne touche jamais aux historiques."""
+    result=dict(source)
+    for onglet in ('Courses & Prévisions', 'Résultats & Analyse'):
+        result[onglet]={key:row for key,row in source[onglet].items()
+                        if str(row.get('date_course',''))>=date_debut}
+    return result
+
+
 def main():
     cache=Path(os.getenv('PMU_CACHE','cache_pmu'))
     spreadsheet=os.getenv('GOOGLE_SHEETS_ID','1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo')
@@ -208,7 +220,8 @@ def main():
     except (ImportError,ValueError,KeyError,TypeError) as exc:
         print(f'SYNC_GOOGLE_SHEETS=ERREUR_IDENTIFIANTS {type(exc).__name__}');return 2
     base=f'https://sheets.googleapis.com/v4/spreadsheets/{spreadsheet}'
-    source=source_rows(cache)
+    source=limiter_cours_registre(source_rows(cache))
+    print(f'REGISTRE_DEBUT_PRODUCTION={LIVE_RESET_DATE}; anciennes courses conservees hors Sheets')
     metadata=session.get(base,params={'fields':'sheets(properties(sheetId,title,gridProperties(columnCount)))'},timeout=30)
     if metadata.status_code != 200:
         print(f'SYNC_GOOGLE_SHEETS=ERREUR_META http={metadata.status_code}')
