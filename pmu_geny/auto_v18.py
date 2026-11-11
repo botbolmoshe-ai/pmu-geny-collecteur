@@ -331,6 +331,13 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     save(correspondences_path,correspondences)
             if match:
                 manifest,manifest_path=m,f;break
+        # Conserver l'identification certaine meme si la collecte de fiche est differee.
+        decision=decisions_geny.get(key)
+        if decision and decision.get('statut')=='CORRESPONDANCE_CONFIRMEE' and decision.get('geny_id'):
+            expected_cid=f"GENY-{decision['geny_id']}"
+            if correspondences.get(f'{date}_{key}')!=expected_cid:
+                correspondences[f'{date}_{key}']=expected_cid
+                save(correspondences_path,correspondences)
         # Correspondance explicite PMU RnCn -> Geny : jamais sur le seul numéro de course.
         if manifest is None and not cooldown and remaining_discoveries>0 and not est_partie:
             # Rechercher une course par son NOM dans le programme Geny du jour.
