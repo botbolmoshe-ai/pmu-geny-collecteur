@@ -271,6 +271,20 @@ class V21PaliersTests(unittest.TestCase):
             self.assertEqual(row['cheval'],'Fleur d Etoile')
             self.assertEqual(row['classement'],'2')
 
+    def test_v22_entetes_lisibles_et_moteur_inchange(self):
+        from pmu_geny.sync_google_sheets import canonical_headers, DISPLAY_NAMES
+        names=['course_key','numero','top3_direct_rang','top3_direct_score',
+               'top3_cotes_rang','ml_modele_statut']
+        display=[DISPLAY_NAMES[k] for k in names]
+        self.assertEqual(canonical_headers(display),names)
+        existing=[dict(zip(names,['2026-11-12|VINCENNES|R1C1','1','','','','']))]
+        incoming={'a':{'course_key':'2026-11-12|VINCENNES|R1C1','numero':'1',
+                       'top3_direct_rang':2,'top3_direct_score':8.5}}
+        headers,changes,add=plan_sheet(canonical_headers(display),existing,incoming,'Courses & Prévisions')
+        self.assertFalse(add)
+        self.assertEqual(len(changes),2)
+        self.assertEqual(headers[:len(names)],names)
+
     def test_registre_11_novembre_reel(self):
         root=Path("reference_pmu")
         if not root.exists():self.skipTest("registre de production non charge")
