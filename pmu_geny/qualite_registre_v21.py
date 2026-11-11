@@ -8,7 +8,7 @@ from pathlib import Path
 from .sync_google_sheets import source_rows, limiter_cours_registre
 
 FIELDS_ACTUELS=("driver_jockey","entraineur","proprietaire","ferrure")
-LEVELS=("secours_top3","baseline_top3","baseline_final_top3","ml_top3")
+LEVELS=("top3_direct_top3","top3_cotes_top3","secours_top3","baseline_top3","baseline_final_top3","ml_top3")
 
 def evaluer(cache, debut="2026-11-12"):
     rows=limiter_cours_registre(source_rows(Path(cache)),debut)
@@ -24,6 +24,8 @@ def evaluer(cache, debut="2026-11-12"):
                         "paliers_top3":tiers,
                         "top3_historique_fige":tiers["baseline_top3"]==3,
                         "top3_ml_disponible":tiers["ml_top3"]==3,
+                        "top3_direct_disponible":tiers["top3_direct_top3"]==3,
+                        "top3_cotes_disponible":tiers["top3_cotes_top3"]==3,
                         "arrivee_renseignee":sum(bool(str(p.get("arrivee_rang","")).strip()) for p in participants)})
     # Verifier le veritable etat du moteur, y compris les courses sans export Geny.
     orchestration=Path(cache)/"orchestration"
