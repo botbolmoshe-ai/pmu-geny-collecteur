@@ -32,7 +32,7 @@ def main():
             decision=rapprocher(course,index["courses"])
             report["rapprochement"]=decision
             if decision["statut"]!="CORRESPONDANCE_CONFIRMEE": raise RuntimeError("Correspondance non confirmee")
-            manifest=produire_manifest(decision["url"],"",course["nombre_declares"],root/"manifest.json",target/"diagnostic_decouverte","",root/"etat_persistant.json")
+            manifest=produire_manifest(decision["url"],"",course["nombre_declares"],target/"manifest_17_partants.json",target/"diagnostic_decouverte","",root/"etat_persistant.json")
             report["partants_identifies"]=len(manifest["courses"][0]["partants"])
             pilot=json.loads(json.dumps(manifest))
             pilot["courses"][0]["partants"]=pilot["courses"][0]["partants"][:a.max_chevaux]
