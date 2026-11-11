@@ -116,7 +116,9 @@ jobs:
               exit 0
             fi
           fi
-          python -m playwright install --with-deps chromium
+          # Eviter apt-get sur chaque run : DNS Ubuntu intermittent sur les runners.
+          # Les bibliotheques Chromium requises sont disponibles sur ubuntu-latest.
+          python -m playwright install chromium
       - name: Installer les dependances ML (cycles legers inclus)
         run: python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2
       - name: Cycle automatique quotidien (PMU puis Geny, sans doublons)
