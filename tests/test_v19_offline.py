@@ -26,7 +26,7 @@ class TestV19(unittest.TestCase):
   self.assertEqual(train(self.root)['etat'],'INSUFFISANT')
  def test_cotes_before_start_only(self):
   participants={'participants':[{'numPmu':1,'rapportDirect':4.8},{'numPmu':2,'rapportDirect':0}]}
-  self.assertEqual(collecter(self.root,self.course,participants,self.now),'COTES_RELEVEES')
+  self.assertEqual(collecter(self.root,self.course,participants,self.now),'COTES_PARTIELLES')
   data=json.loads((self.root/'cotes'/'2026-11-15_R2C1.json').read_text())
   self.assertEqual(data['chevaux'][0]['cote'],4.8)
   self.assertIsNone(data['chevaux'][1]['cote'])
