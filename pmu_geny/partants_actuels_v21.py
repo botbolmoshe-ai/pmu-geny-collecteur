@@ -43,7 +43,7 @@ def extraire_partants(raw):
                 break
         if item.get("nonPartant") is True or str(item.get("statut","")).upper() in ("NP","NON_PARTANT"):
             fields["statut_np"]="NON_PARTANT"
-        elif item.get("nonPartant") is False:
+        elif item.get("nonPartant") is False or str(item.get("statut","")).upper()=="PARTANT":
             fields["statut_np"]="PARTANT"
         else:
             fields["statut_np"]="NP_NON_VERIFIE"
