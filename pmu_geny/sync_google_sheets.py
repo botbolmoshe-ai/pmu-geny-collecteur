@@ -16,10 +16,7 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
 LIVE_RESET_DATE = '2026-11-12'
-COMPARE_COLUMNS = ('secours_rang','secours_top3','secours_statut','historique_modele_statut','ml_modele_statut','baseline_rang','baseline_top3','baseline_final_rang','baseline_final_top3',
-                   'top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_rang','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','cote_avant_depart','cote_heure_utc',
-                   'arrivee_rang','arrivee_podium','ml_etat','meteo_pluie_mm','meteo_vent_kmh',
-                   'meteo_temperature_c','meteo_humidite_pct','meteo_capture_utc')
+COMPARE_COLUMNS = ('historique_modele_statut','ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_rang','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','cote_avant_depart','cote_heure_utc','arrivee_rang','arrivee_podium','ml_etat','meteo_pluie_mm','meteo_vent_kmh','meteo_temperature_c','meteo_humidite_pct','meteo_capture_utc')
 REPORT_COLUMNS = ('top3_direct_numeros','score_direct','top3_cotes_numeros','score_cotes','top3_ml_numeros','analyse_comparative','score_baseline','score_baseline_final','score_ml','etat_ml',
                   'source_export','derniere_sync_utc')
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
