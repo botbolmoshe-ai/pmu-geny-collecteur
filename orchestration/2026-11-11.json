@@ -48,8 +48,8 @@
       "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R13C1": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1697686",
+      "etat": "MANIFESTE_PRESENT",
       "depart": "2026-11-11T13:35:00+01:00",
       "nom": "PRIX PIERRE MASSIEU",
       "hippodrome": "HIPPODROME DE GRAIGNES",
@@ -59,7 +59,38 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697686",
+        "url": "https://www.geny.com/course/1697686-2026-11-11-graignes-prix-pierre-massieu",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            13,
+            1
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697686",
+      "historique_geny": "DIFFERE_APRES_DECOUVERTE",
+      "np_confirmes": 0,
+      "np_verification_utc": "2026-11-11T12:25:11.574181+00:00",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_prevision": "HORS_FENETRE_H1",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1697686/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R10C2": {
       "identifiant_geny": null,
@@ -73,7 +104,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697679",
+        "url": "https://www.geny.com/course/1697679-2026-11-11-la-capelle-prix-claude-mathieu",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            10,
+            2
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697679"
     },
     "R13C2": {
       "identifiant_geny": null,
@@ -87,7 +140,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697688",
+        "url": "https://www.geny.com/course/1697688-2026-11-11-graignes-prix-monique-et-bernard-ledezert-gr-a",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            13,
+            2
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697688"
     },
     "R10C3": {
       "identifiant_geny": null,
@@ -101,7 +176,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697682",
+        "url": "https://www.geny.com/course/1697682-2026-11-11-la-capelle-prix-de-l-armistice",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            10,
+            3
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697682"
     },
     "R13C3": {
       "identifiant_geny": null,
@@ -115,7 +212,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697687",
+        "url": "https://www.geny.com/course/1697687-2026-11-11-graignes-prix-monique-et-bernard-ledezert-gr-b",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            13,
+            3
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697687"
     },
     "R10C4": {
       "identifiant_geny": null,
@@ -129,7 +248,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697678",
+        "url": "https://www.geny.com/course/1697678-2026-11-11-la-capelle-prix-flamme",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            10,
+            4
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697678"
     },
     "R13C4": {
       "identifiant_geny": null,
@@ -143,7 +284,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697685",
+        "url": "https://www.geny.com/course/1697685-2026-11-11-graignes-prix-marcel-delaunay",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            13,
+            4
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697685"
     },
     "R10C5": {
       "identifiant_geny": null,
@@ -157,7 +320,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697676",
+        "url": "https://www.geny.com/course/1697676-2026-11-11-la-capelle-prix-de-laon",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            10,
+            5
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697676"
     },
     "R10C6": {
       "identifiant_geny": null,
@@ -171,7 +356,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697681",
+        "url": "https://www.geny.com/course/1697681-2026-11-11-la-capelle-prix-jean-frere",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            10,
+            6
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697681"
     },
     "R13C5": {
       "identifiant_geny": null,
@@ -185,7 +392,29 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697684",
+        "url": "https://www.geny.com/course/1697684-2026-11-11-graignes-prix-maurice-marie",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            13,
+            5
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697684"
     },
     "R4C1": {
       "identifiant_geny": null,
@@ -199,16 +428,74 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697658",
+        "url": "https://www.geny.com/course/1697658-2026-11-11-lyon-la-soie-prix-abo-volo",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            4,
+            1
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697658"
+    },
+    "R4C2": {
+      "identifiant_geny": null,
+      "etat": "GENY_NON_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1697659",
+        "url": "https://www.geny.com/course/1697659-2026-11-11-lyon-la-soie-prix-ourasi",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            4,
+            2
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1697659",
+      "depart": "2026-11-11T16:42:00+01:00",
+      "nom": "PRIX OURASI",
+      "hippodrome": "HIPPODROME DE LYON LA SOIE",
+      "nombre_declares": 16,
+      "priorite_metier": "P2",
+      "motif_selection": "HIPPODROME_MAJEUR_P2",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T12:16:41.594037+00:00",
+  "dernier_controle_pmu": "2026-11-11T12:24:36.530961+00:00",
   "fiches_geny_budget_consommees": 0,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T12:16:41.594037+00:00",
+    "horodatage_utc": "2026-11-11T12:24:36.530961+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 17,
