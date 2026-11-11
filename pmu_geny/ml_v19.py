@@ -13,7 +13,8 @@ FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_12
             'victoires_120j','disqualifications_120j','score_forme','forme_30j','forme_ancien',
             'jours_repos','distance_m','distance_ecart_m','aptitude_hippodrome',
             'taux_podium_distance','nb_partants','meteo_pluie_mm','meteo_vent_kmh','meteo_temperature_c','meteo_humidite_pct',
-            'avis_experts_score','info_ecurie_score','driver_score','entraineur_score','pmu_score_direct')
+            'avis_experts_score','info_ecurie_score','driver_score','entraineur_score','pmu_score_direct',
+            'age_ans','gains_euros','sexe_male','sexe_femelle','sexe_hongre','ferrure_d4')
 MIN_COURSES_TRAIN = 100
 MIN_ROWS_TRAIN = 700
 
@@ -156,6 +157,19 @@ def snapshot_pmu(cache,course,raw,now=None):
         c={key:value for (num,key),value in context.items() if num in ('*',str(numero))}
         direct=_form_score(item)
         if direct is not None:c['pmu_score_direct']=direct
+        from .partants_actuels_v21 import extraire_partants
+        profil=extraire_partants({'participants':[item]}).get(numero,{})
+        zone=(load(cache/'avis_experts'/f"{course['date']}_{course['code']}.json",{}) or {}).get('chevaux',{}).get(str(numero),{}).get('profil_zone_turf',{})
+        for feature in ('age_ans','gains_euros'):
+            value=profil.get(feature)
+            if value is None:value=zone.get(feature)
+            if value is not None:c[feature]=value
+        sexe=profil.get('sexe') or zone.get('sexe','')
+        if sexe:
+            for label,feature in (('Mâle','sexe_male'),('Femelle','sexe_femelle'),('Hongre','sexe_hongre')):
+                c[feature]=1 if sexe==label else 0
+        ferrure=profil.get('ferrure') or zone.get('ferrure','')
+        if ferrure:c['ferrure_d4']=1 if str(ferrure).upper()=='D4' else 0
         features_values=features({'numero':numero,'nom':name},histo,course,c)
         rows.append({'numero':numero,'cheval_id':ident,'nom':name,
                      'historique_ok':bool(ident),'methode_liaison':link.get('methode','NON_ASSOCIE'),
@@ -165,7 +179,7 @@ def snapshot_pmu(cache,course,raw,now=None):
     if course.get('nombre_declares') and len(seen)!=int(course['nombre_declares']):
         return 'LISTE_PARTANTS_INCOMPLETE'
     save(base,{'date':course['date'],'code':course['code'],'depart':course['depart'],
-               'capture_utc':now.isoformat(),'features_schema':'v22.0',
+               'capture_utc':now.isoformat(),'features_schema':'v22.1',
                'source':'PMU_API_PARTICIPANTS','nombre_chevaux':len(rows),
                'historiques_complets_reutilises':with_history,
                'np_non_verifies':unknown_np,'chevaux':rows,
