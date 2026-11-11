@@ -211,7 +211,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     print('DIAGNOSTIC_PMU '+json.dumps(controle,ensure_ascii=False))
     # Une course déjà partie n'entre JAMAIS en prédiction/collecte.
     # Les courses récentes peuvent seulement passer par la phase arrivées/audit.
-    # Le lendemain est préparé dès 18 h (heure de Paris), sans trafic nocturne.
+    # Le lendemain est prepare des publication du programme PMU, sans limitation a 18h.
     from .planification_v20_2 import selectionner_courses
     selected=selectionner_courses(courses, now, date, selection, max_new>0 if selection_complete is None else selection_complete,
                                 state, max_courses=12)
@@ -281,7 +281,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         # PMU independant : produire les niveaux direct et cotes meme sans Geny.
         # Avant depart seulement. Ne jamais bloquer ces TOP3 sur les historiques.
         pmu_participants=None
-        if est_partie or departure-now<=timedelta(hours=6):
+        if est_partie or departure-now<=timedelta(hours=6) or date>now.astimezone(PARIS).date().isoformat():
             try:
                 pmu_participants=get_json(
                     BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+
@@ -395,7 +395,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         raw=None
         # La veille, ne pas saturer PMU en consultant les participants de toutes
         # les courses: les controles NP recommencent le jour J.
-        verifier_participants=est_partie or (departure-now)<=timedelta(hours=6)
+        verifier_participants=est_partie or (departure-now)<=timedelta(hours=6) or date>now.astimezone(PARIS).date().isoformat()
         try:
             if not verifier_participants: raise LookupError('CONTROLE_NP_DIFFERE_JUSQU_A_H6')
             raw=pmu_participants or get_json(BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
