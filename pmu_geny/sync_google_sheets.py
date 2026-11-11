@@ -22,7 +22,7 @@ REPORT_COLUMNS = ('top3_direct_numeros','score_direct','top3_cotes_numeros','sco
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
                 'hippodrome':'hippodrome','discipline':'discipline','distance_m':'distance_m',
                 'classement':'classement','chrono':'chrono','source_url':'texte_source',
-                'ferrure_course':'ferrure_course'}
+                'ferrure':'ferrure'}
 
 
 # Les libelles Google Sheets sont independants des noms techniques Python.
@@ -72,7 +72,6 @@ DISPLAY_NAMES = {
     'arrivee_rang':'Arrivée · Rang officiel',
     'meteo_resume':'Météo · Synthèse',
     'meteo_statut':'Météo · État',
-    'ferrure_course':'Ferrure · Historique',
 }
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
@@ -390,8 +389,8 @@ def source_rows(cache):
             base=f'{ident}|{date}|{hip.upper()}'
             from .partants_actuels_v21 import ferrure_historique_explicite
             row={'cheval_id':ident,'nom':cheval,**perf}
-            if not row.get('ferrure_course'):
-                row['ferrure_course']=ferrure_historique_explicite(perf.get('texte_source',''))
+            if not row.get('ferrure'):
+                row['ferrure']=ferrure_historique_explicite(perf.get('texte_source',''))
             grouped.setdefault(base,{}).setdefault(signature,row)
     for base, variants in grouped.items():
         for n,(signature,r) in enumerate(sorted(variants.items()),start=1):
@@ -402,8 +401,8 @@ def source_rows(cache):
                 k=f'{base}|{suffix}'
             from .partants_actuels_v21 import ferrure_historique_explicite
             doc={out:r.get(inn,'') for out,inn in HIST_MAPPING.items()}
-            if not doc.get('ferrure_course'):
-                doc['ferrure_course']=ferrure_historique_explicite(r.get('texte_source',''))
+            if not doc.get('ferrure'):
+                doc['ferrure']=ferrure_historique_explicite(r.get('texte_source',''))
             doc['cle_performance']=k
             doc['statut_verification']='EXTRACTION_GENY'
             history[k]=doc
