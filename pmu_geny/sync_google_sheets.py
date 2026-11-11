@@ -57,6 +57,19 @@ def course_key(date,hippodrome,code):
 
 def source_rows(cache):
     courses, history, reports = {}, {}, {}
+    import unicodedata
+    def normalize_horse_name(value):
+        s=unicodedata.normalize('NFKD',str(value or '').casefold())
+        return ''.join(c for c in s if c.isalnum() and not unicodedata.combining(c))
+    status=load_json(cache/'etat_persistant.json').get('chevaux',{})
+    known={}
+    for ident,item in status.items():
+        if item.get('statut')!='COMPLET':continue
+        doc=load_json(cache/'historiques'/str(ident)/'historique_geny.json')
+        if doc.get('statut')!='COMPLET' or not isinstance(doc.get('performances'),list):continue
+        key=normalize_horse_name(item.get('nom'))
+        if key:known.setdefault(key,[]).append((ident,len(doc['performances']),item.get('maj_utc','')))
+
     for path in sorted((cache/'exports').glob('GENY-*/comparatif_predictions.csv')):
         try: comparisons=read_csv(path)
         except (OSError,ValueError):continue
@@ -160,7 +173,12 @@ def source_rows(cache):
             direct_rank,direct_h=ranks['direct'].get(str(n),('',{}))
             cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
+            matches=known.get(normalize_horse_name(act.get('nom')),[])
+            hist_status='HISTO_OK' if len(matches)==1 else ('HISTO_AMBIGU' if len(matches)>1 else 'HISTO_NON_COLLECTE')
             current={
+                'historique_statut':hist_status,
+                'historique_nb_courses_datees':matches[0][1] if len(matches)==1 else '',
+                'historique_maj_utc':matches[0][2] if len(matches)==1 else '',
                 'course_key':k,'date_course':date,'hippodrome':hip,'rncn':code,
                 'heure_depart_paris':info.get('depart',''),
                 'discipline':info.get('discipline',''),
