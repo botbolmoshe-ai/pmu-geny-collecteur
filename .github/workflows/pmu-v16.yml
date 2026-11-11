@@ -1,4 +1,4 @@
-name: PMU - V20.9 Rapprochement PMU Geny et tableau de bord
+name: PMU - V21 - Rapprochement PMU Geny et tableau de bord
 
 on:
   schedule:
@@ -121,9 +121,9 @@ jobs:
           from pmu_geny.auto_v18 import run
           from pathlib import Path
           now=datetime.now(ZoneInfo('Europe/Paris'))
-          # Une seule plage 07:00-21:59 Paris: pas d'activité de nuit.
-          if not 7 <= now.hour <= 21:
-              print('En dehors du créneau 07:00–21:59 Europe/Paris')
+          # V21: previsions des departs 08:00-19:00 ; suivi des arrivees jusqu'a 20:59.
+          if not 8 <= now.hour <= 20:
+              print('Hors fenêtre V21: 08:00–20:59 Europe/Paris (arrivées seules après 19h)')
           else:
               full=(now.minute < 15)
               root=Path('cache_pmu')
