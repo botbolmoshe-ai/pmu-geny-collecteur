@@ -71,6 +71,33 @@ class V21PaliersTests(unittest.TestCase):
             self.assertEqual(v["secours_statut"],"NON_CALCULE")
             self.assertEqual(v["rang_top3"],"1")
 
+    def test_top3_np_inconnu_rattrapage_avant_depart(self):
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        from pmu_geny.pronostics_v18 import preparer_top3
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            course={"date":"2026-11-12","code":"R1C1",
+                    "depart":"2026-11-12T15:00:00+01:00"}
+            manifest={"courses":[{"course_id":"GENY-123",
+                      "partants":[{"numero":i,"id":str(i),"nom":f"Cheval {i}"} for i in range(1,5)]}]}
+            for i in range(1,5):
+                path=root/"historiques"/str(i)/"historique_geny.json"
+                path.parent.mkdir(parents=True,exist_ok=True)
+                path.write_text(json.dumps({"performances":[
+                    {"date":"2026-11-01","classement":str(i)},
+                    {"date":"2026-10-25","classement":str(i)}]}),encoding="utf8")
+            now=datetime(2026,11,12,14,30,tzinfo=ZoneInfo("Europe/Paris"))
+            result=preparer_top3(root,course,manifest,now)
+            self.assertEqual(result,"FIGE_BASELINE_EXPERIMENTALE")
+            forecast=json.loads((root/"pronostics"/"2026-11-12_R1C1_top3.json").read_text())
+            self.assertEqual(forecast["statut_np"],"NP_NON_VERIFIE")
+            self.assertEqual(forecast["qualite_horaire"],"RATTRAPAGE_AVANT_DEPART")
+            self.assertEqual([h["numero"] for h in forecast["top3"]],[1,2,3])
+            self.assertEqual(preparer_top3(root,course,manifest,
+                            datetime(2026,11,12,15,1,tzinfo=ZoneInfo("Europe/Paris"))),
+                            "DEJA_FIGE")
+
     def test_registre_11_novembre_reel(self):
         root=Path("reference_pmu")
         if not root.exists():self.skipTest("registre de production non charge")
