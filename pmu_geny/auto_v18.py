@@ -289,6 +289,15 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 from .partants_actuels_v21 import enregistrer
                 entry['statut_partants_actuels']=enregistrer(cache,c,pmu_participants)
                 if not est_partie:
+                    # Commentaires sourcés, facultatifs : un accès tiers refusé
+                    # n'empêche ni la préparation PMU, ni les captures ML.
+                    try:
+                        from .avis_experts_v22 import collecter as collecter_avis
+                        entry['statut_avis_experts']=collecter_avis(cache,c,pmu_participants,now=now)
+                    except Exception as exc:
+                        entry['statut_avis_experts']='EXPERTS_NON_VERIFIES'
+                        entry['erreur_avis_experts']=f'{type(exc).__name__}: {exc}'
+                if not est_partie:
                     from .top3_independants_v22 import calculer
                     from .cotes_v19 import collecter
                     entry['paliers_independants']=calculer(cache,c,pmu_participants)
