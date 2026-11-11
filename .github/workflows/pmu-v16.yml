@@ -130,9 +130,9 @@ jobs:
           if not 8 <= now.hour <= 20:
               print('Hors fenêtre V21: 08:00–20:59 Europe/Paris (arrivées seules après 19h)')
           else:
-              # En lancement manuel 'auto', forcer un vrai cycle complet quelle que soit la minute.
-              # Les déclenchements planifiés conservent leur rythme horaire habituel.
-              full=(now.minute < 15) or (str(__import__('os').environ.get('IS_SCHEDULED', '')).lower() == 'false')
+              # Même logique à chaque passage; pas de branche léger/complet.
+              # V22: un seul cycle fonctionnel ; les appels externes demeurent incrementaux et limites.
+              full=True
               root=Path('cache_pmu')
               today=now.date().isoformat()
               today_state=run(root,today,[],3 if full else 0,
@@ -152,7 +152,7 @@ jobs:
                       print(f'BILAN_J1 date={tomorrow} courses_selectionnees={sum(1 for x in tomorrow_state.get("courses",{}).values() if x.get("traitement")=="PREPARATION_AVANT_DEPART")} fiches_consommees={tomorrow_state.get("fiches_geny_budget_consommees",0)}',flush=True)
                   else:
                       print(f'PLANIFICATION_J1_DEJA_EFFECTUEE date={tomorrow}; collecte Geny au prochain cycle complet',flush=True)
-              print('Cycle complet' if full else 'Cycle PMU de proximité')
+              print('Cycle unique V22, collecte incrementale')
           PYRUN
       - name: Decouvrir les partants, sans collecter les historiques
         if: inputs.mode == 'decouvrir'
