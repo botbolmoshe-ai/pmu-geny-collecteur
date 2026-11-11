@@ -146,18 +146,12 @@ jobs:
               # J-1 : preparer des maintenant, des disponibilite du programme PMU.
               # Les courses du jour déjà parties ne consomment pas le budget Geny.
               # Si le jour J n'a plus de départ futur, tout le solde va à J+1.
-              if True:
-                  remaining=max(0,3-today_state.get('fiches_geny_budget_consommees',0)) if full else 0
-                  tomorrow=(now+timedelta(days=1)).date().isoformat()
-                  # J+1 est prepare a chaque passage ; les donnees restent incrementales.
-                  already=(root/'sources_pmu'/f'programme_{tomorrow}.json').is_file()
-                  if full or not already:
-                      print(f'PLANIFICATION_J1 date={tomorrow} cycle={"complet" if full else "leger"} budget_fiches={remaining} tentatives_decouverte={1 if full else 0}',flush=True)
-                      tomorrow_state=run(root,tomorrow,[],remaining,max_discoveries=1 if full else 0,
-                                         now=now,selection_complete=True)
-                      print(f'BILAN_J1 date={tomorrow} courses_selectionnees={sum(1 for x in tomorrow_state.get("courses",{}).values() if x.get("traitement")=="PREPARATION_AVANT_DEPART")} fiches_consommees={tomorrow_state.get("fiches_geny_budget_consommees",0)}',flush=True)
-                  else:
-                      print(f'PLANIFICATION_J1_DEJA_EFFECTUEE date={tomorrow}; collecte Geny au prochain cycle complet',flush=True)
+              remaining=max(0,3-today_state.get('fiches_geny_budget_consommees',0))
+              tomorrow=(now+timedelta(days=1)).date().isoformat()
+              print(f'PREPARATION_J1 date={tomorrow} budget_fiches={remaining}',flush=True)
+              tomorrow_state=run(root,tomorrow,[],remaining,max_discoveries=1,
+                                 now=now,selection_complete=True)
+              print(f'BILAN_J1 date={tomorrow} courses_selectionnees={sum(1 for x in tomorrow_state.get("courses",{}).values() if x.get("traitement")=="PREPARATION_AVANT_DEPART")} fiches_consommees={tomorrow_state.get("fiches_geny_budget_consommees",0)}',flush=True)
               print('Cycle unique V22, collecte incrementale')
           PYRUN
       - name: Decouvrir les partants, sans collecter les historiques
