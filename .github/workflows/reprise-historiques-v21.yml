@@ -1,0 +1,109 @@
+name: PMU - V21 - Reprise controlee des 17 historiques
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'verifier: aucune ecriture; importer: 17 historiques valides vers pmu-data'
+        required: true
+        type: choice
+        default: verifier
+        options:
+          - verifier
+          - importer
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: pmu-donnees-production
+  cancel-in-progress: false
+jobs:
+  reprise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Charger le code V21
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Charger le registre durable sans l'ecraser
+        uses: actions/checkout@v4
+        with:
+          ref: pmu-data
+          path: reference_pmu
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Charger Lombok Jiel (1 cheval)
+        uses: actions/download-artifact@v4
+        with:
+          name: diagnostic-fiche-geny-43004631634
+          run-id: 43004631634
+          repository: botbolmoshe-ai/pmu-geny-collecteur
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: archives/unique
+      - name: Charger Frank Gio et Lionheart (2 chevaux)
+        uses: actions/download-artifact@v4
+        with:
+          name: pmu-historiques-progressifs-43005276601
+          run-id: 43005276601
+          repository: botbolmoshe-ai/pmu-geny-collecteur
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: archives/progressif
+      - name: Charger quatre historiques intermediaires
+        uses: actions/download-artifact@v4
+        with:
+          name: pmu-test-suite-historique-43006086330
+          run-id: 43006086330
+          repository: botbolmoshe-ai/pmu-geny-collecteur
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: archives/suite
+      - name: Charger trois historiques suivants
+        uses: actions/download-artifact@v4
+        with:
+          name: pmu-historique-reste-lot-1-43007660594
+          run-id: 43007660594
+          repository: botbolmoshe-ai/pmu-geny-collecteur
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: archives/lot1
+      - name: Charger les sept derniers historiques
+        uses: actions/download-artifact@v4
+        with:
+          name: pmu-historique-reste-lot-tous-43008318050
+          run-id: 43008318050
+          repository: botbolmoshe-ai/pmu-geny-collecteur
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: archives/lot7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer les dependances Python du controle historique
+        run: python -m pip install -r requirements.txt
+      - name: Simuler obligatoirement la reprise et verifier les 465 performances
+        run: python -m pmu_geny.reprise_historiques_v21 --archives archives --cache reference_pmu --rapport resultats/reprise_v21/simulation.json
+      - name: Importer uniquement sur demande explicite
+        if: inputs.mode == 'importer'
+        run: python -m pmu_geny.reprise_historiques_v21 --archives archives --cache reference_pmu --rapport resultats/reprise_v21/import.json --appliquer
+      - name: Recontroler le registre apres reprise
+        if: inputs.mode == 'importer'
+        run: python -m pmu_geny.audit_generique_hors_ligne --source reference_pmu --sortie resultats/reprise_v21/audit_apres
+      - name: Persister sans ecraser les autres mises a jour
+        if: inputs.mode == 'importer'
+        run: |
+          set -euo pipefail
+          git -C reference_pmu config user.name 'github-actions[bot]'
+          git -C reference_pmu config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C reference_pmu add -- historiques etat_persistant.json
+          if git -C reference_pmu diff --cached --quiet; then
+            echo 'REPRISE_V21 aucun changement necessaire'
+          else
+            git -C reference_pmu commit -m "PMU V21: reprise des 17 historiques controles"
+            git -C reference_pmu push origin HEAD:refs/heads/pmu-data
+            echo 'REPRISE_V21 donnees persistees sur pmu-data'
+          fi
+      - name: Sauvegarder simulation, import et rapport d'audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pmu-v21-reprise-${{ github.run_id }}
+          path: resultats/reprise_v21/
+          if-no-files-found: warn
