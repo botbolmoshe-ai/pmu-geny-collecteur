@@ -134,7 +134,16 @@ def collecter(cache,course,raw,now=None,fetch=None):
         status=old.get('statut_zone_turf','ZONE_TURF_NON_VERIFIE')
     else:
         try:
-            html=(fetch or _fetch_zone)(url)
+            daily=cache/'avis_experts'/'pages'/f"{course['date']}_quinte.html"
+            if fetch is None and daily.exists():
+                from datetime import timedelta
+                age=now-datetime.fromtimestamp(daily.stat().st_mtime,tz=timezone.utc)
+                html=daily.read_text(encoding='utf-8') if age<timedelta(hours=1) else _fetch_zone(url)
+            else:
+                html=(fetch or _fetch_zone)(url)
+            if fetch is None:
+                daily.parent.mkdir(parents=True,exist_ok=True)
+                daily.write_text(html,encoding='utf-8')
             zone=parser_zone_quinte(html,course,names)
             for n,avis in zone.items():
                 original=results.get(n,{})
