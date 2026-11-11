@@ -17,8 +17,13 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
 LIVE_RESET_DATE = '2026-11-12'
 COMPARE_COLUMNS = ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','meteo_resume','meteo_statut')
-REPORT_COLUMNS = ('top3_direct_numeros','score_direct','top3_cotes_numeros','score_cotes','top3_ml_numeros','analyse_comparative','score_baseline','score_baseline_final','score_ml','etat_ml',
-                  'source_export','derniere_sync_utc')
+REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
+                  'top3_direct_numeros','top3_direct_calcule_utc','score_direct',
+                  'top3_cotes_numeros','score_cotes',
+                  'top3_ml_numeros','score_ml','etat_ml',
+                  'arrivee_officielle_numeros','arrivee_verifiee_utc',
+                  'statut_evaluation','analyse_comparative','conclusion',
+                  'derniere_sync_utc')
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
                 'hippodrome':'hippodrome','discipline':'discipline','distance_m':'distance_m',
                 'classement':'classement','chrono':'chrono','source_url':'texte_source',
@@ -45,6 +50,21 @@ DISPLAY_NAMES = {
     'entraineur':'Entraîneur',
     'proprietaire':'Propriétaire',
     'ferrure':'Ferrure · Course du jour',
+    'top3_direct_numeros':'TOP3 direct · Chevaux',
+    'top3_direct_calcule_utc':'TOP3 direct · Heure calcul UTC',
+    'score_direct':'TOP3 direct · Chevaux à l’arrivée (0–3)',
+    'top3_cotes_numeros':'TOP3 cotes · Chevaux',
+    'score_cotes':'TOP3 cotes · Chevaux à l’arrivée (0–3)',
+    'top3_ml_numeros':'TOP3 ML · Chevaux',
+    'score_ml':'TOP3 ML · Chevaux à l’arrivée (0–3)',
+    'etat_ml':'ML · Statut',
+    'arrivee_officielle_numeros':'Arrivée · N° officiels',
+    'arrivee_verifiee_utc':'Arrivée · Vérifiée UTC',
+    'statut_evaluation':'Évaluation · État',
+    'analyse_comparative':'Évaluation · Comparatif 3 méthodes',
+    'conclusion':'Évaluation · Conclusion',
+    'derniere_sync_utc':'Dernière synchronisation UTC',
+
     'age_ans':'Âge (ans)',
     'sexe':'Sexe',
     'gains_euros':'Gains carrière (€)',
@@ -338,7 +358,16 @@ def source_rows(cache):
         direct_nums,direct_hits=_eval_podium(direct)
         cote_nums,cote_hits=_eval_podium(marche)
         ml_nums,ml_hits=_eval_podium(ml)
+        scored=[(method,int(hits)) for method,hits in (
+            ('Direct',direct_hits),('Cotes',cote_hits),('ML',ml_hits))
+            if isinstance(hits,int)]
+        best=max((hits for method,hits in scored),default=None)
+        best_methods=', '.join(name for name,hits in scored if hits==best) if best is not None else ''
+        conclusion=(f"Meilleure méthode : {best_methods} ({best}/3)" if best is not None
+                    else 'Aucune prévision indépendante évaluable avant cette arrivée')
         reports[k]={**existing,
+                    'top3_direct_calcule_utc':direct.get('calcul_utc',''),
+                    'conclusion':conclusion,
                     'top3_direct_numeros':direct_nums,'score_direct':direct_hits,
                     'top3_cotes_numeros':cote_nums,'score_cotes':cote_hits,
                     'top3_ml_numeros':ml_nums,'score_ml':ml_hits,
