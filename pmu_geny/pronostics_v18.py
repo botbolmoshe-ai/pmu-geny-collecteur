@@ -16,25 +16,30 @@ def preparer_top3(cache, course, manifest, now=None):
     now=now or datetime.now(timezone.utc)
     depart=datetime.fromisoformat(course['depart'])
     if depart.tzinfo is None: raise ValueError('Heure de départ sans fuseau')
-    # Capture de reference dans la fenêtre H-1:15 à H-1, jamais après H-1.
-    debut=depart-timedelta(minutes=75); fin=depart-timedelta(minutes=60)
+    # Premiere prevision au plus tot H-1:15; rattrapage autorise jusqu'au depart.
+    # Un rattrapage apres H-1 est horodate et ne se fait jamais a posteriori.
+    debut=depart-timedelta(minutes=75); fin=depart
     file=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_top3.json"
     if file.exists():return 'DEJA_FIGE'
-    if not debut<=now.astimezone(depart.tzinfo)<=fin:return 'HORS_FENETRE_H1'
+    if not debut<=now.astimezone(depart.tzinfo)<fin:return 'HORS_FENETRE_AVANT_DEPART'
     cid=manifest['courses'][0]['course_id']
     np=read(Path(cache)/'participations'/f'{cid}.json')
     rows=np.get('chevaux',[])
     expected={int(p['numero']) for p in manifest['courses'][0]['partants']}
-    if set(int(r['numero']) for r in rows)!=expected:return 'NP_NON_VERIFIE'
-    try:last=datetime.fromisoformat(np['date_controle_utc'])
-    except (KeyError,TypeError,ValueError):return 'NP_NON_VERIFIE'
-    if now-last>timedelta(minutes=30):return 'NP_PERIME'
-    if any(r.get('statut_participation') not in ('PARTANT','NON_PARTANT') for r in rows):return 'NP_NON_VERIFIE'
-    np_by_number={int(r['numero']):r for r in rows}
+    np_by_number={int(r['numero']):r for r in rows if str(r.get('numero','')).isdigit() and int(r['numero']) in expected}
+    # Une verification NP impossible ne doit pas bloquer le TOP3.
+    # Seuls les retraits officiellement verifies sont exclus.
+    try:
+        checked=datetime.fromisoformat(np.get('date_controle_utc',''))
+        np_recent=(now-checked<=timedelta(minutes=30) and
+                   set(np_by_number)==expected and
+                   all(r.get('statut_participation') in ('PARTANT','NON_PARTANT') for r in np_by_number.values()))
+    except (ValueError,TypeError):
+        np_recent=False
     scores=[]
     for h in manifest['courses'][0]['partants']:
         n=int(h['numero'])
-        if np_by_number[n]['statut_participation']=='NON_PARTANT':continue
+        if np_by_number.get(n,{}).get('statut_participation')=='NON_PARTANT' and np_recent:continue
         doc=read(Path(cache)/'historiques'/str(h['id'])/'historique_geny.json')
         perfs=doc.get('performances',[])
         if not perfs:continue
@@ -60,7 +65,10 @@ def preparer_top3(cache, course, manifest, now=None):
     result={'date_course':course['date'],'course':course['code'],'course_id_geny':cid,
        'created_utc':now.isoformat(),'frozen_at':now.isoformat(),'depart':depart.isoformat(),
        'mode':'BASELINE_EXPERIMENTALE_NON_VALIDEE','note':'Scores non probabilistes; aucune garantie de gain',
-       'source_np':'PMU_API','np_verifie_utc':np['date_controle_utc'],
+       'qualite_horaire':'H1' if now<=depart-timedelta(minutes=60) else 'RATTRAPAGE_AVANT_DEPART',
+       'statut_np':'VERIFIE' if np_recent else 'NP_NON_VERIFIE',
+       'source_np':'PMU_API' if np_recent else 'NON_VERIFIE',
+       'np_verifie_utc':np.get('date_controle_utc','') if np_recent else '',
        'top3':ranked[:3],'classement_complet':ranked}
     save(file,result)
     return 'FIGE_BASELINE_EXPERIMENTALE'
