@@ -138,7 +138,7 @@ def source_rows(cache):
     # Les arrivees PMU officielles peuvent exister sans manifeste Geny.
     # Enregistrer une ligne bilan par course meme sans TOP3.
     for arrival_file in sorted((cache/'arrivees').glob('????-??-??_R*C*.json')):
-        match=re.fullmatch(r'(\\d{4}-\\d{2}-\\d{2})_(R\\d+C\\d+)\\.json',arrival_file.name)
+        match=re.fullmatch(r'(\d{4}-\d{2}-\d{2})_(R\d+C\d+)\.json',arrival_file.name)
         if not match:continue
         date,code=match.groups()
         info=course_info(cache,code,date)
