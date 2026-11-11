@@ -103,6 +103,8 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
     etat_persistant = _lire_etat(etat_path)
     journal = etat_persistant.setdefault("chevaux", {})
     compteur = 0
+    # Espacer les consultations Geny, selon les essais isoles valides.
+    intervalle_geny_secondes = 30
     # Un blocage recent impose une periode sans consultation Geny, y compris
     # au premier cheval du prochain run. Cette regle n'essaie pas de contourner
     # les restrictions du site.
@@ -233,7 +235,7 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
             compteur += 1
             _save_bilan(sortie, bilan)
             if not collecte_suspendue and compteur < max_chevaux:
-                time.sleep(15)  # cadence prudente, non garantie contre une limite 429
+                time.sleep(intervalle_geny_secondes)  # le serveur peut toujours limiter les requetes
         # Les chevaux non tentés lors de cette exécution deviennent re-éligibles
         # à la prochaine exécution ; le blocage 429 reste enregistré.
         for item in stats["chevaux"]:
