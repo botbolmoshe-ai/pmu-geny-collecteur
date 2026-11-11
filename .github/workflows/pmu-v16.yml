@@ -139,12 +139,12 @@ jobs:
               full=True
               root=Path('cache_pmu')
               today=now.date().isoformat()
-              today_state=run(root,today,[],3 if full else 0,
+              today_state=run(root,today,[],6 if full else 0,
                   max_discoveries=1 if full else 0,now=now)
               # J-1 : preparer des maintenant, des disponibilite du programme PMU.
               # Les courses du jour déjà parties ne consomment pas le budget Geny.
               # Si le jour J n'a plus de départ futur, tout le solde va à J+1.
-              remaining=max(0,3-today_state.get('fiches_geny_budget_consommees',0))
+              remaining=max(0,6-today_state.get('fiches_geny_budget_consommees',0))
               tomorrow=(now+timedelta(days=1)).date().isoformat()
               print(f'PREPARATION_J1 date={tomorrow} budget_fiches={remaining}',flush=True)
               tomorrow_state=run(root,tomorrow,[],remaining,max_discoveries=1,
