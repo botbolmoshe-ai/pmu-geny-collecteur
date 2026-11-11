@@ -13,6 +13,17 @@ from urllib.request import Request, urlopen
 
 FORECAST = 'https://api.open-meteo.com/v1/forecast'
 GEOCODE = 'https://geocoding-api.open-meteo.com/v1/search'
+# Localisations de piste vérifiées, sans géocodage externe ambigu.
+# Sources: office de tourisme Vincennes (48.820896,2.452039);
+# Recensement des équipements sportifs, piste de trot Amiens (49.89498,2.27037).
+KNOWN_TRACKS = {
+    'hippodromedeparisvincennes':(48.820896,2.452039,'Vincennes, Paris'),
+    'hippodromedevincennes':(48.820896,2.452039,'Vincennes, Paris'),
+    'vincennes':(48.820896,2.452039,'Vincennes, Paris'),
+    'hippodromedamiens':(49.89498,2.27037,'Amiens'),
+    'hippodromedu petitsaintjean':(49.89498,2.27037,'Amiens'),
+    'amiens':(49.89498,2.27037,'Amiens'),
+}
 WEATHER_FIELDS = {
     'precipitation': 'meteo_pluie_mm',
     'wind_speed_10m': 'meteo_vent_kmh',
@@ -43,6 +54,10 @@ def _resolve_location(cache:Path, hippodrome:str):
     """Géocodage d'une ville FR, jamais un résultat approximatif ambigu."""
     name=hippodrome.strip()
     key=_norm(name)
+    if key in KNOWN_TRACKS:
+        lat,lon,local=KNOWN_TRACKS[key]
+        return {'latitude':lat,'longitude':lon,'localite':local,
+                'source':'COORDONNEES_PISTE_REFERENCEES','precision':'piste_hippodrome'}
     path=cache/'contextes'/'geocodage_v20.json'
     data=_load(path,{}) or {}
     if key in data:
