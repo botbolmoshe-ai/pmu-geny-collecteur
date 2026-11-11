@@ -1,8 +1,8 @@
 """Lien stable entre partant PMU (course, numéro) et cheval Geny.
 
-L'identifiant Geny provient d'un manifeste de course vérifié, jamais du numéro
-PMU. Repli possible sur le nom normalisé strict et unique dans les historiques
-COMPLETS; aucune correspondance approximative.
+Le nom exact normalise est la cle logique d'identite, le numero de course sert
+uniquement au rattachement du partant actuel. L'identifiant Geny stable peut
+confirmer la correspondance et departager des homonymes.
 """
 from __future__ import annotations
 import unicodedata
@@ -47,16 +47,19 @@ def etablir(cache, course, participants=None):
                     by_number[num]=(ident,doc,'ID_GENY_MANIFESTE_VERIFIE')
     matches={}
     for numero,name in noms.items():
-        if numero in by_number:
-            ident,doc,method=by_number[num]
-            matches[numero]={'cheval_id':ident,'historique':doc,'methode':method}
-            continue
         candidates=known.get(name,[])
         if len(candidates)==1:
             ident,doc=candidates[0]
-            matches[numero]={'cheval_id':ident,'historique':doc,'methode':'NOM_EXACT_UNIQUE'}
+            method='NOM_EXACT_UNIQUE'
+            if numero in by_number and by_number[numero][0]==ident:
+                method='NOM_EXACT_ET_ID_GENY_CONFIRME'
+            matches[numero]={'cheval_id':ident,'historique':doc,'methode':method}
         elif len(candidates)>1:
-            matches[numero]={'cheval_id':'','historique':{},'methode':'NOM_AMBIGU'}
+            if numero in by_number and any(x[0]==by_number[numero][0] for x in candidates):
+                ident,doc,_=by_number[numero]
+                matches[numero]={'cheval_id':ident,'historique':doc,'methode':'NOM_AMBIGU_ID_CONFIRME'}
+            else:
+                matches[numero]={'cheval_id':'','historique':{},'methode':'NOM_AMBIGU'}
         else:
             matches[numero]={'cheval_id':'','historique':{},'methode':'NON_ASSOCIE'}
     return matches
