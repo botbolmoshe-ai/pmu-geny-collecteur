@@ -143,13 +143,13 @@ jobs:
               today=now.date().isoformat()
               today_state=run(root,today,[],3 if full else 0,
                   max_discoveries=1 if full else 0,now=now)
-              # J-1 : relancer le programme de demain à chaque cycle complet dès 18 h.
+              # J-1 : preparer des maintenant, des disponibilite du programme PMU.
               # Les courses du jour déjà parties ne consomment pas le budget Geny.
               # Si le jour J n'a plus de départ futur, tout le solde va à J+1.
-              if now.hour>=18:
+              if True:
                   remaining=max(0,3-today_state.get('fiches_geny_budget_consommees',0)) if full else 0
                   tomorrow=(now+timedelta(days=1)).date().isoformat()
-                  # Même un cycle léger prépare J+1 dès 18h si le programme n'est pas déjà en cache.
+                  # J+1 est prepare a chaque passage ; les donnees restent incrementales.
                   already=(root/'sources_pmu'/f'programme_{tomorrow}.json').is_file()
                   if full or not already:
                       print(f'PLANIFICATION_J1 date={tomorrow} cycle={"complet" if full else "leger"} budget_fiches={remaining} tentatives_decouverte={1 if full else 0}',flush=True)
