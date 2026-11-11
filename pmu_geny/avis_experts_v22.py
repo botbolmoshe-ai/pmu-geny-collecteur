@@ -83,7 +83,7 @@ def parser_zone_quinte(html,course,participants):
         row_text=nom_normalise(' '.join(row[1:]))
         if name not in row_text:continue
         opinions=[POSITIVE[token.casefold()] for cell in row for token in
-                  re.findall(r'(?i)\\b(?:positif|positive|neutre|negatif|négatif)\\b',
+                  re.findall(r'(?i)\b(?:positif|positive|neutre|negatif|négatif)\b',
                              cell.split('EXPERT_COMMENT:')[0])
                   if token.casefold() in POSITIVE]
         if len(set(opinions))==1 and opinions:
@@ -149,6 +149,9 @@ def collecter(cache,course,raw,now=None,fetch=None):
         try:attempt=(now-datetime.fromisoformat(previous)).total_seconds()>=3600
         except ValueError:attempt=True
     status='ZONE_TURF_NON_VERIFIE'
+    # Une erreur de parseur corrigée doit pouvoir être retestée dans le même jour.
+    if str(old.get('statut_zone_turf','')).startswith('ZONE_TURF_ERREUR_'):
+        attempt=True
     if not attempt:
         status=old.get('statut_zone_turf','ZONE_TURF_NON_VERIFIE')
     else:
@@ -171,9 +174,10 @@ def collecter(cache,course,raw,now=None,fetch=None):
                             'zone_source':url}
             status='ZONE_TURF_AVIS_RECUPERES' if zone else 'ZONE_TURF_AUCUN_AVIS_ASSOCIE'
         except Exception as exc:
-            status=f'ZONE_TURF_ERREUR_{type(exc).__name__}'
+            status=f'ZONE_TURF_ERREUR_{type(exc).__name__}'\n            error_detail=str(exc)[:160]
     save(path,{'date':course['date'],'course':course['code'],'capture_utc':now.isoformat(),
                'source_zone_turf':url,'zone_turf_controle_utc':now.isoformat() if attempt else previous,
-               'statut_zone_turf':status,'chevaux':results,
+               'statut_zone_turf':status,'erreur_zone_turf':locals().get('error_detail',''),
+               'chevaux':results,
                'regle':'Avis avant départ; noms et numéros exacts; indisponible != avis neutre'})
     return status
