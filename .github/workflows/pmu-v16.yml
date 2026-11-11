@@ -176,7 +176,7 @@ jobs:
           if statefile.exists():
               state=json.loads(statefile.read_text(encoding='utf-8'))
               t=(state.get('dernier_blocage_geny') or {}).get('utc')
-              if t and datetime.now(timezone.utc) < datetime.fromisoformat(t)+timedelta(hours=1):
+              if t and datetime.now(timezone.utc) < datetime.fromisoformat(t)+timedelta(minutes=30):
                   raise SystemExit('COOLDOWN GENY : decouverte differee sans nouvelle requete.')
           PYCOOLDOWN
             python -m pmu_geny.decouverte_partants \
@@ -204,7 +204,7 @@ jobs:
             --sortie resultats \
             --etat cache_pmu/etat_persistant.json \
             --max-chevaux "$MAX" \
-            --cooldown-heures 1
+            --cooldown-heures 0.5
       - name: Verifier les non-partants d'apres une consultation confirmee de PMU
         if: inputs.mode == 'controle_np'
         shell: bash
