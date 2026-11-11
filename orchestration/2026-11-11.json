@@ -181,7 +181,7 @@
       "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "motif_attente_geny": "COOLDOWN_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697682",
@@ -204,7 +204,8 @@
         }
       },
       "geny_id_rapproche": "1697682",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES"
     },
     "R13C3": {
       "identifiant_geny": null,
@@ -324,7 +325,7 @@
       },
       "geny_id_rapproche": "1697685",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R10C5": {
       "identifiant_geny": null,
@@ -362,7 +363,7 @@
       },
       "geny_id_rapproche": "1697676",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R10C6": {
       "identifiant_geny": "GENY-1697681",
@@ -408,7 +409,7 @@
       "historique_geny": "COLLECTE_INCREMENTALE",
       "historique_collecte_resultat": "SUSPENDUE_429",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-11T14:24:24.911799+00:00",
+      "np_verification_utc": "2026-11-11T14:40:50.345446+00:00",
       "statut_prevision": "DONNEES_INSUFFISANTES",
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
@@ -418,7 +419,7 @@
     "R13C5": {
       "identifiant_geny": null,
       "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-11T15:45:00+01:00",
+      "depart": "2026-11-11T15:48:00+01:00",
       "nom": "PRIX MAURICE MARIE",
       "hippodrome": "HIPPODROME DE GRAIGNES",
       "nombre_declares": 14,
@@ -566,7 +567,7 @@
         }
       },
       "geny_id_rapproche": "1697689",
-      "depart": "2026-11-11T16:45:00+01:00",
+      "depart": "2026-11-11T16:48:00+01:00",
       "nom": "ANCIENS PRISONNIERS CANTON ST JEAN DAYE",
       "hippodrome": "HIPPODROME DE GRAIGNES",
       "nombre_declares": 14,
@@ -658,7 +659,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "motif_attente_geny": "COOLDOWN_GENY",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -712,11 +713,11 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T14:23:45.414977+00:00",
-  "fiches_geny_budget_consommees": 1,
+  "dernier_controle_pmu": "2026-11-11T14:40:47.183537+00:00",
+  "fiches_geny_budget_consommees": 0,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T14:23:45.414977+00:00",
+    "horodatage_utc": "2026-11-11T14:40:47.183537+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 17,
@@ -822,7 +823,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
