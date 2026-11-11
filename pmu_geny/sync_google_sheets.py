@@ -222,6 +222,10 @@ def source_rows(cache):
         participant=load_json(participant_file)
         direct=load_json(cache/'pronostics'/f'{date}_{code}_direct.json')
         marche=load_json(cache/'pronostics'/f'{date}_{code}_cotes.json')
+        cotes_source=load_json(cache/'cotes'/f'{date}_{code}.json')
+        cotes_etat=marche.get('statut') or cotes_source.get('statut') or (
+            'COTES_NON_EXTRAITES' if cotes_source.get('chevaux') and not any(
+                h.get('cote') is not None for h in cotes_source['chevaux']) else 'PAS_DE_RELEVE')
         ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
         hip=info.get('hippodrome','')
         k=course_key(date,hip,code)
@@ -261,7 +265,7 @@ def source_rows(cache):
                 'top3_cotes_rang':cote_rank,
                 'top3_cotes_valeur':cote_h.get('cote',''),
                 'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
-                'top3_cotes_statut':marche.get('statut','NON_CALCULE'),
+                'top3_cotes_statut':cotes_etat,
                 'ml_rang':ml_rank,
                 'ml_score_non_calibre':ml_h.get('proba_podium_estimee',''),
                 'ml_top3':'OUI' if ml_rank and ml_rank<=3 else '',
