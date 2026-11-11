@@ -87,7 +87,10 @@ def lire_classement(cellules: list[str]) -> str:
         return ""
     # Une extraction DOM ajoute parfois des cellules vides ou des espaces.
     dernier = cells[-1]
-    non_classes = {"dai", "di", "disq", "nc", "np", "arr", "dist"}
+    # Codes de resultats explicitement affiches par Geny : ne jamais les
+    # transformer en rang numerique. R conserve sa valeur source sans
+    # interpretation semantique non verifiee.
+    non_classes = {"dai", "di", "disq", "nc", "np", "arr", "dist", "d", "r"}
     if dernier.casefold() in non_classes:
         return dernier
     m = re.fullmatch(r"(\d{1,2})\s*(?:er|e|eme|ème|ᵉ)", dernier, re.I)
@@ -163,17 +166,21 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
             "distance_m":distance,"classement":rank,"chrono":chrono,
             "texte_source":txt,
         })
-    # Une date répétée en DOM indique doublon ou artefact, jamais conformité.
+    # Une date repetee peut correspondre a deux courses differentes (Naples,
+    # Frank Gio, 03/05/2026). Rejeter les lignes source identiques, pas les dates.
     dates=[x["date"] for x in records]
-    unique=len(set(dates)) == len(dates)
-    count_ok=(expected is not None and len(records)==expected and unique)
+    dates_uniques=len(set(dates)) == len(dates)
+    signatures=[" ".join(x["texte_source"].casefold().split()) for x in records]
+    lignes_uniques=len(set(signatures)) == len(signatures)
+    count_ok=(expected is not None and len(records)==expected and lignes_uniques)
     # Le contrôle final exige également les attributs clés : pas de faux 'COMPLET'.
     detailed_ok=all(x["hippodrome"] and x["discipline"] and x["distance_m"] and x["classement"] for x in records)
     return {
         "nombre_annonce_geny":expected,
         "nombre_extrait":len(records),
         "blocs_qualification_exclus": qualifications_ignorees,
-        "dates_uniques":unique,
+        "dates_uniques":dates_uniques,
+        "lignes_uniques":lignes_uniques,
         "nombre_concordant":count_ok,
         "champs_detail_valides":detailed_ok,
         "complet":count_ok and detailed_ok,
