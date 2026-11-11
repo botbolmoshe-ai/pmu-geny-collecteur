@@ -2,8 +2,8 @@
   "date": "2026-11-12",
   "courses": {
     "R1C1": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1698061",
+      "etat": "MANIFESTE_PRESENT",
       "depart": "2026-11-12T13:55:00+01:00",
       "nom": "PRIX MARCEL LAURENT",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
@@ -11,7 +11,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -21,7 +21,38 @@
       "statut_cotes": "COTES_NON_EXTRAITES",
       "motif_attente_geny": "COOLDOWN_GENY",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AVIS_RECUPERES"
+      "statut_avis_experts": "ZONE_TURF_AVIS_RECUPERES",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698061",
+        "url": "https://www.geny.com/course/1698061-2026-11-12-vincennes-prix-marcel-laurent",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            1
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698061",
+      "historique_geny": "COLLECTE_INCREMENTALE",
+      "historique_collecte_resultat": "TERMINEE",
+      "np_confirmes": 1,
+      "np_verification_utc": "2026-11-11T17:55:03.135852+00:00",
+      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1698061/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R1C2": {
       "identifiant_geny": null,
@@ -33,7 +64,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -41,9 +72,15 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
+        "candidats": 0,
+        "meilleur_score": 0,
+        "codes_differents": 0
+      }
     },
     "R1C3": {
       "identifiant_geny": null,
@@ -55,7 +92,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -63,9 +100,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698062",
+        "url": "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            3
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698062"
     },
     "R1C4": {
       "identifiant_geny": null,
@@ -77,7 +136,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -85,9 +144,15 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
+        "candidats": 0,
+        "meilleur_score": 0,
+        "codes_differents": 0
+      }
     },
     "R1C5": {
       "identifiant_geny": null,
@@ -99,7 +164,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -107,9 +172,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698066",
+        "url": "https://www.geny.com/course/1698066-2026-11-12-vincennes-prix-ceneri-forcinal",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            5
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698066"
     },
     "R1C6": {
       "identifiant_geny": null,
@@ -121,7 +208,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -129,9 +216,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698067",
+        "url": "https://www.geny.com/course/1698067-2026-11-12-vincennes-prix-de-beauvoir",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            6
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698067"
     },
     "R4C1": {
       "identifiant_geny": null,
@@ -143,7 +252,7 @@
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME D'AMIENS (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -151,9 +260,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698053",
+        "url": "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            4,
+            1
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698053"
     },
     "R1C7": {
       "identifiant_geny": null,
@@ -165,7 +296,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -173,9 +304,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698069",
+        "url": "https://www.geny.com/course/1698069-2026-11-12-vincennes-prix-de-chateau-thierry",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            7
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698069"
     },
     "R4C2": {
       "identifiant_geny": null,
@@ -187,7 +340,7 @@
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME D'AMIENS (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -195,9 +348,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698060",
+        "url": "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            4,
+            2
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698060"
     },
     "R1C8": {
       "identifiant_geny": null,
@@ -209,7 +384,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -217,9 +392,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698064",
+        "url": "https://www.geny.com/course/1698064-2026-11-12-vincennes-prix-de-cognac",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            8
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698064"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -231,7 +428,7 @@
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME D'AMIENS (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -239,9 +436,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698059",
+        "url": "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            4,
+            3
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698059"
     },
     "R1C9": {
       "identifiant_geny": null,
@@ -253,7 +472,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "TimeoutError: The read operation timed out",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -261,9 +480,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698068",
+        "url": "https://www.geny.com/course/1698068-2026-11-12-vincennes-prix-d-azay-le-rideau",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            9
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698068"
     },
     "R4C4": {
       "identifiant_geny": null,
@@ -275,7 +516,7 @@
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_RECENTE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME D'AMIENS (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -284,16 +525,28 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698055",
+        "url": "https://www.geny.com/course/1698055-2026-11-12-amiens-prix-du-festival-international-du-film-d-amiens",
+        "score": 0.946,
+        "methode": "NOM_SECOURS",
+        "preuves": {
+          "hippodrome": true,
+          "similarite_nom": 0.907
+        }
+      },
+      "geny_id_rapproche": "1698055"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T17:01:15.275908+00:00",
+  "dernier_controle_pmu": "2026-11-11T17:53:59.948830+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-12",
-    "horodatage_utc": "2026-11-11T17:01:15.275908+00:00",
+    "horodatage_utc": "2026-11-11T17:53:59.948830+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
@@ -708,5 +961,5 @@
       }
     ]
   },
-  "fiches_geny_budget_consommees": 0
+  "fiches_geny_budget_consommees": 1
 }
