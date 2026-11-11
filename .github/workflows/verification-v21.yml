@@ -1,4 +1,4 @@
-name: PMU - V21 - Verification de coherence (sans production)
+name: PMU - V21 - Recette finale globale (lecture seule)
 on:
   workflow_dispatch:
 permissions:
@@ -13,6 +13,12 @@ jobs:
         with:
           ref: main
           persist-credentials: false
+      - name: Lire le registre durable sans modifier pmu-data
+        uses: actions/checkout@v4
+        with:
+          ref: pmu-data
+          path: reference_pmu
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -23,12 +29,18 @@ jobs:
       - name: Controler la syntaxe du programme
         run: python -m compileall -q pmu_geny tests
       - name: Executer tous les tests hors ligne
+        shell: bash
         run: |
+          set -euo pipefail
           mkdir -p resultats/v21
           python -m unittest discover -s tests -p 'test_*offline.py' -v 2>&1 | tee resultats/v21/tests_offline.log
           test ${PIPESTATUS[0]} -eq 0
           python -m unittest tests/test_v21_coherence_offline.py -v 2>&1 | tee resultats/v21/tests_v21.log
           test ${PIPESTATUS[0]} -eq 0
+      - name: Auditer le registre durable sans ecriture
+        run: python -m pmu_geny.audit_generique_hors_ligne --source reference_pmu --sortie resultats/v21/audit_registre
+      - name: Controler les 17 historiques importes, 465 performances et le journal
+        run: python -m pmu_geny.recette_finale_v21 --source reference_pmu --rapport resultats/v21/recette_finale.json
       - name: Archiver les controles
         if: always()
         uses: actions/upload-artifact@v4
