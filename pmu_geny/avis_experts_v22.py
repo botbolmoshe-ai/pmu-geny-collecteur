@@ -47,6 +47,8 @@ class TableRows(HTMLParser):
             vals=dict(attrs)
             alt=vals.get('alt','').strip()
             if alt:self.cell.append(alt)
+            description=vals.get('data-impression','').strip()
+            if description:self.cell.append('EXPERT_COMMENT:'+description)
     def handle_data(self,data):
         if self.active and self.in_td:self.cell.append(data)
     def handle_endtag(self,tag):
@@ -80,11 +82,28 @@ def parser_zone_quinte(html,course,participants):
         # Identité obligatoire: numéro + nom entier normalisé retrouvé dans la ligne.
         row_text=nom_normalise(' '.join(row[1:]))
         if name not in row_text:continue
-        opinions=[POSITIVE[token] for cell in row for token in
-                  re.findall(r'(?i)\b(?:positif|positive|neutre|negatif|négatif)\b',cell)
+        opinions=[POSITIVE[token.casefold()] for cell in row for token in
+                  re.findall(r'(?i)\\b(?:positif|positive|neutre|negatif|négatif)\\b',
+                             cell.split('EXPERT_COMMENT:')[0])
                   if token.casefold() in POSITIVE]
         if len(set(opinions))==1 and opinions:
-            answers[str(numero)]='Avis '+opinions[0].lower()+' (Zone-Turf)'
+            # Thèmes explicitement mentionnés dans les commentaires éditoriaux,
+            # reformulés plutôt que reproduits verbatim.
+            commentary=' '.join(' '.join(row).split('EXPERT_COMMENT:')[1:])
+            content=nom_normalise(commentary)
+            themes=[]
+            for label,keys in (
+                ('aptitude au parcours',('parcours','piste','vincennes')),
+                ('forme récente',('forme','victoire','triomph','performan')),
+                ('niveau de compétition',('generation','groupe','meilleurs','opposition')),
+                ('retour après absence',('absent','rentr','repos','retour')),
+                ('régularité',('regulier','regularite','constan')),
+                ('déferrage',('deferre','ferrure')),
+                ('risque de faute',('faute','disqualif','sagesse'))):
+                if any(nom_normalise(k) in content for k in keys):themes.append(label)
+            message='Avis '+opinions[0].lower()
+            if themes:message+=' — thèmes : '+', '.join(themes[:3])
+            answers[str(numero)]=message+' (Zone-Turf)'
     return answers
 
 def _pmu_opinion(item):
