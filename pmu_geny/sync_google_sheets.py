@@ -256,6 +256,25 @@ def source_rows(cache):
             signature=source or '|'.join(str(r.get(k,'')) for k in (
                 'discipline','distance_m','classement','chrono'))
             grouped.setdefault(base,{}).setdefault(signature,r)
+    # Source canonique V22 : historiques persistants independants des exports
+    # de course. Sans ce passage, les historiques importes sont invisibles dans Sheets.
+    journal=load_json(cache/'etat_persistant.json').get('chevaux',{})
+    for file in sorted((cache/'historiques').glob('*/historique_geny.json')):
+        ident=file.parent.name
+        doc=load_json(file)
+        if doc.get('statut')!='COMPLET' or not isinstance(doc.get('performances'),list):
+            continue
+        cheval=journal.get(ident,{}).get('nom','')
+        for perf in doc['performances']:
+            date=perf.get('date','')
+            hip=str(perf.get('hippodrome','')).strip()
+            if not date or not hip:continue
+            source=' '.join(str(perf.get('texte_source','')).split())
+            signature=source or '|'.join(str(perf.get(k,'')) for k in (
+                'discipline','distance_m','classement','chrono'))
+            base=f'{ident}|{date}|{hip.upper()}'
+            row={'cheval_id':ident,'nom':cheval,**perf}
+            grouped.setdefault(base,{}).setdefault(signature,row)
     for base, variants in grouped.items():
         for n,(signature,r) in enumerate(sorted(variants.items()),start=1):
             if n==1:
