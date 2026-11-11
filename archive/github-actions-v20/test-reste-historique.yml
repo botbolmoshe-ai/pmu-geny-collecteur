@@ -1,0 +1,54 @@
+name: PMU - Historique Vincennes R1C1 lots 8 a 17 (test)
+on:
+  workflow_dispatch:
+    inputs:
+      lot:
+        description: 'tous = 7 chevaux restants (11 a 17) ; ou lot 2 / lot 3'
+        required: true
+        default: 'tous'
+        type: choice
+        options:
+          - 'tous'
+          - '1'
+          - '2'
+          - '3'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: pmu-geny-historique-reste-isole
+  cancel-in-progress: false
+jobs:
+  collecter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Charger exclusivement le code de test
+        uses: actions/checkout@v4
+        with:
+          ref: test/rapprochement-2026-11-12
+          persist-credentials: false
+      - name: Recuperer les URL attestees sans retourner sur les 17 fiches
+        uses: actions/download-artifact@v4
+        with:
+          name: pmu-test-historique-43001015559
+          run-id: 43001015559
+          repository: botbolmoshe-ai/pmu-geny-collecteur
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: precedent
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer les dependances du collecteur
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: Lancer le lot de collecte avec 30 secondes entre les fiches
+        run: python -m pmu_geny.test_reste_historique --lot "${{ inputs.lot }}" --pause-secondes 30
+      - name: Sauvegarder les historiques et diagnostics pour controle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pmu-historique-reste-lot-${{ inputs.lot }}-${{ github.run_id }}
+          path: resultats/test_reste/
+          if-no-files-found: warn
