@@ -56,7 +56,7 @@ class TestExpertsAndIdentity(unittest.TestCase):
     'partants':[{'numero':1,'nom':'Lombok Jiel','id':'1111'}]}]})
   got=etablir(self.root,COURSE,[{'numero':1,'nom':'Lombok Jiel'}])
   self.assertEqual(got['1']['cheval_id'],'1111')
-  self.assertEqual(got['1']['methode'],'ID_GENY_MANIFESTE_VERIFIE')
+  self.assertEqual(got['1']['methode'],'NOM_AMBIGU_ID_CONFIRME')
   got=etablir(self.root,COURSE,[{'numero':1,'nom':'Autre Cheval'}])
   self.assertEqual(got['1']['methode'],'NON_ASSOCIE')
   got=etablir(self.root,COURSE,[{'numero':1,'nom':'Lombok Jiel'}])
