@@ -280,7 +280,7 @@ def source_rows(cache):
             link_method=link.get('methode','NON_ASSOCIE')
             hist=link.get('historique',{})
             hist_status=(
-                'HISTO_OK_ID' if link_method=='ID_GENY_MANIFESTE_VERIFIE'
+                'HISTO_OK_NOM_ID' if link_method in ('NOM_EXACT_ET_ID_GENY_CONFIRME','NOM_AMBIGU_ID_CONFIRME','ID_GENY_MANIFESTE_VERIFIE')
                 else 'HISTO_OK_NOM' if link_method=='NOM_EXACT_UNIQUE'
                 else 'HISTO_AMBIGU' if link_method=='NOM_AMBIGU'
                 else 'HISTO_NON_COLLECTE')
