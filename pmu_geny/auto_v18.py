@@ -293,6 +293,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     from .cotes_v19 import collecter
                     entry['paliers_independants']=calculer(cache,c,pmu_participants)
                     entry['statut_cotes']=collecter(cache,c,pmu_participants)
+                    # Desormais la capture ML ne depend ni de Geny ni des historiques.
+                    from .ml_v19 import snapshot_pmu
+                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=now)
             except Exception as exc:
                 entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
         # Pas de consultation Geny sur une course terminee.
