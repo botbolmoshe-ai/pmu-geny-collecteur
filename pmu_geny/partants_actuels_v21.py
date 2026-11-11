@@ -36,6 +36,17 @@ def extraire_partants(raw):
                 if val:
                     fields[label]=val
                     break
+        for nom_key in ("nomCheval","nom","nomParticipant"):
+            nom=_label(item.get(nom_key))
+            if nom:
+                fields["nom"]=nom
+                break
+        if item.get("nonPartant") is True or str(item.get("statut","")).upper() in ("NP","NON_PARTANT"):
+            fields["statut_np"]="NON_PARTANT"
+        elif item.get("nonPartant") is False:
+            fields["statut_np"]="PARTANT"
+        else:
+            fields["statut_np"]="NP_NON_VERIFIE"
         resultat[n]=fields
     return resultat
 
