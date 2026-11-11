@@ -49,7 +49,7 @@
     },
     "R13C1": {
       "identifiant_geny": "GENY-1697686",
-      "etat": "MANIFESTE_PRESENT",
+      "etat": "TERMINE_ARCHIVE",
       "depart": "2026-11-11T13:35:00+01:00",
       "nom": "PRIX PIERRE MASSIEU",
       "hippodrome": "HIPPODROME DE GRAIGNES",
@@ -97,7 +97,7 @@
     },
     "R10C2": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-11T13:40:00+01:00",
       "nom": "PRIX CLAUDE MATHIEU",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
@@ -129,18 +129,19 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697679"
+      "geny_id_rapproche": "1697679",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R13C2": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-11T14:05:00+01:00",
       "nom": "PRIX MONIQUE ET BERNARD LEDEZERT (GR A)",
       "hippodrome": "HIPPODROME DE GRAIGNES",
       "nombre_declares": 12,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
       "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
@@ -165,18 +166,19 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697688"
+      "geny_id_rapproche": "1697688",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R10C3": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-11T14:10:00+01:00",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
+      "depart": "2026-11-11T14:15:00+01:00",
       "nom": "PRIX DE L'ARMISTICE",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
       "nombre_declares": 12,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
       "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
@@ -201,7 +203,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697682"
+      "geny_id_rapproche": "1697682",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R13C3": {
       "identifiant_geny": null,
@@ -238,7 +241,7 @@
         }
       },
       "geny_id_rapproche": "1697687",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R10C4": {
       "identifiant_geny": "GENY-1697678",
@@ -249,7 +252,7 @@
       "nombre_declares": 12,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
       "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
@@ -280,7 +283,9 @@
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1697678/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R13C4": {
       "identifiant_geny": null,
@@ -645,11 +650,11 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T13:39:01.990978+00:00",
+  "dernier_controle_pmu": "2026-11-11T13:58:50.066397+00:00",
   "fiches_geny_budget_consommees": 0,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T13:39:01.990978+00:00",
+    "horodatage_utc": "2026-11-11T13:58:50.066397+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 17,
