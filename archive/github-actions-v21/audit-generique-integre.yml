@@ -1,0 +1,36 @@
+name: PMU - Test generique integre (lecture seule)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pmu-audit-generique-isole
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Charger le programme principal
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Charger le referentiel de production en lecture seule
+        uses: actions/checkout@v4
+        with:
+          ref: pmu-data
+          path: reference_pmu
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verifier les manifestes et historiques sans connexion aux sites
+        run: python -m pmu_geny.audit_generique_hors_ligne --source reference_pmu --sortie resultats/audit_generique
+      - name: Archiver le rapport
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pmu-audit-generique-${{ github.run_id }}
+          path: resultats/audit_generique/rapport.json
+          if-no-files-found: warn
