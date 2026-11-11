@@ -3,11 +3,12 @@ on:
   workflow_dispatch:
     inputs:
       lot:
-        description: 'Lot a collecter : 1 = chevaux 8-10, 2 = 11-13, 3 = 14-17'
+        description: 'tous = 7 chevaux restants (11 a 17) ; ou lot 2 / lot 3'
         required: true
-        default: '1'
+        default: 'tous'
         type: choice
         options:
+          - 'tous'
           - '1'
           - '2'
           - '3'
