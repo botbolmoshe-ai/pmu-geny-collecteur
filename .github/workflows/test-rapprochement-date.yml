@@ -1,0 +1,33 @@
+name: PMU - TEST ISOLE rapprochement 12 novembre
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date du programme PMU et Geny (AAAA-MM-JJ)'
+        required: true
+        default: '2026-11-12'
+        type: string
+permissions:
+  contents: read
+jobs:
+  rapprocher:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer Playwright et Chromium
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: Tester les rapprochements sans toucher à pmu-data ni Google Sheets
+        run: python -m pmu_geny.test_rapprochement_date --date "${{ inputs.date }}" --output resultats/rapprochement.json
+      - name: Publier le bilan
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-rapprochement-${{ github.run_id }}
+          path: resultats/rapprochement.json
+          if-no-files-found: warn
