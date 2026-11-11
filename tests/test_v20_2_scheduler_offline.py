@@ -10,9 +10,9 @@ def race(code, departure):
     return {'code':code,'depart':departure.isoformat(),'date':departure.date().isoformat()}
 
 class PlanningTests(unittest.TestCase):
-    def test_day_before_only_after_18_and_full(self):
+    def test_day_before_as_soon_as_programme_available(self):
         c=[race('R1C1',NOW+timedelta(hours=14))]
-        self.assertEqual(selectionner_courses(c,NOW.replace(hour=17),'2026-11-11',[],True,{}),[])
+        self.assertEqual(len(selectionner_courses(c,NOW.replace(hour=17),'2026-11-11',[],True,{})),1)
         self.assertEqual(len(selectionner_courses(c,NOW,'2026-11-11',[],True,{})),1)
         self.assertEqual(selectionner_courses(c,NOW,'2026-11-11',[],False,{}),[])
     def test_priority_and_no_future_on_light(self):
