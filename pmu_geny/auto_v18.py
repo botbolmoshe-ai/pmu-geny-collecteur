@@ -361,6 +361,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         try:
             if not verifier_participants: raise LookupError('CONTROLE_NP_DIFFERE_JUSQU_A_H6')
             raw=get_json(BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
+            # Enregistrer les caracteristiques explicites PMU independamment du controle NP.
+            from .partants_actuels_v21 import enregistrer as enregistrer_partants_actuels
+            entry['statut_partants_actuels']=enregistrer_partants_actuels(cache,c,raw)
             # Une course passée ne reçoit plus de nouvelles vérifications NP.
             # Les données brutes servent uniquement à confirmer l'arrivée.
             if not est_partie:
