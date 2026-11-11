@@ -74,6 +74,25 @@ class TestExpertsAndIdentity(unittest.TestCase):
   self.assertEqual(d[1]['sexe'],'Mâle')
   self.assertEqual(d[1]['gains_euros'],888175)
   self.assertEqual(d[1]['ferrure'],'DP/PA')
+ def test_public_pmu_centimes_and_shoeing_enums(self):
+  from pmu_geny.partants_actuels_v21 import extraire_partants
+  raw={'participants':[
+   {'numPmu':1,'nom':'LOMBOK JIEL','age':5,'sexe':'MALES',
+    'deferre':'PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS',
+    'gainsParticipant':{'gainsCarriere':88817500}},
+   {'numPmu':2,'nom':'FRANK GIO','age':5,'sexe':'MALES',
+    'deferre':'DEFERRE_ANTERIEURS',
+    'gainsParticipant':{'gainsCarriere':140059000}},
+   {'numPmu':3,'nom':'TROT TEST','age':5,'sexe':'HONGRES',
+    'deferre':'DEFERRE_ANTERIEURS_POSTERIEURS',
+    'gainsParticipant':{'gainsCarriere':3250000}}]}
+  d=extraire_partants(raw)
+  self.assertEqual((d[1]['ferrure'],d[1]['sexe'],d[1]['gains_euros']),
+                   ('DP/PA','Mâle',888175))
+  self.assertEqual((d[2]['ferrure'],d[2]['gains_euros']),('DA',1400590))
+  self.assertEqual((d[3]['ferrure'],d[3]['sexe'],d[3]['gains_euros']),
+                   ('D4','Hongre',32500))
+
  def test_historic_ferrure_explicit_only(self):
   from pmu_geny.partants_actuels_v21 import ferrure_historique_explicite
   self.assertEqual(ferrure_historique_explicite('Vincennes 2100 D4 1e'),'D4')
