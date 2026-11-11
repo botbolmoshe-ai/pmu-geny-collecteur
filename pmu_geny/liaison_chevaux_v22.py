@@ -33,7 +33,6 @@ def etablir(cache, course, participants=None):
     by_number={}
     correspondences=load(cache/'orchestration'/'correspondances_geny.json',{}) or {}
     cid=correspondences.get(f'{date}_{code}')
-    manifest=load(cache/'manifestes'/str(cid)+'.json',{}) if False else {}
     if cid:
         manifest=load(cache/'manifestes'/f'{cid}.json',{}) or {}
         blocks=manifest.get('courses',[])
