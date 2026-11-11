@@ -4,6 +4,9 @@ on:
     branches: [main]
     paths:
       - 'tests/test_v21_paliers_offline.py'
+      - 'tests/test_v20_2_scheduler_offline.py'
+      - 'pmu_geny/planification_v20_2.py'
+      - '.github/workflows/pmu-v16.yml'
       - 'pmu_geny/qualite_registre_v21.py'
       - 'pmu_geny/sync_google_sheets.py'
       - 'pmu_geny/pronostics_v18.py'
