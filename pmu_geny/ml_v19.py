@@ -13,7 +13,7 @@ FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_12
             'victoires_120j','disqualifications_120j','score_forme','forme_30j','forme_ancien',
             'jours_repos','distance_m','distance_ecart_m','aptitude_hippodrome',
             'taux_podium_distance','nb_partants','meteo_pluie_mm','meteo_vent_kmh','meteo_temperature_c','meteo_humidite_pct',
-            'avis_experts_score','info_ecurie_score','driver_score','entraineur_score')
+            'avis_experts_score','info_ecurie_score','driver_score','entraineur_score','pmu_score_direct')
 MIN_COURSES_TRAIN = 100
 MIN_ROWS_TRAIN = 700
 
@@ -114,6 +114,71 @@ def snapshot(cache,course,manifest,now=None):
                'capture_utc':now.isoformat(),'features_schema':'v19.1','chevaux':rows,
                'regle':'snapshot anterieur au depart; cotes et arrivees exclues des features'})
     return 'CAPTURE'
+
+
+def snapshot_pmu(cache,course,raw,now=None):
+    """Capture ML avant depart depuis les partants PMU, sans manifeste Geny.
+
+    Reutilise seulement les historiques Geny COMPLETS relies par un nom
+    normalise unique dans le journal persistant; aucun appariement approximatif.
+    """
+    import unicodedata
+    from .auto_v18 import _list, _num
+    from .top3_independants_v22 import _form_score
+    now=now or datetime.now(timezone.utc)
+    departure=datetime.fromisoformat(course['depart'])
+    if now.tzinfo is None or now>=departure:return 'TROP_TARD'
+    cache=Path(cache)
+    base=cache/'ml'/'instantanes'/f"{course['date']}_{course['code']}.json"
+    if base.exists():return 'DEJA_CAPTURE'
+    participants=_list(raw,'participants','partants')
+    if len(participants)<3:return 'PARTANTS_INSUFFISANTS'
+    journal=(load(cache/'etat_persistant.json',{}) or {}).get('chevaux',{})
+    def canonical(value):
+        value=unicodedata.normalize('NFKD',str(value).casefold())
+        return ''.join(ch for ch in value if not unicodedata.combining(ch) and ch.isalnum())
+    matched={}
+    for ident,item in journal.items():
+        if item.get('statut')!='COMPLET':continue
+        filepath=cache/'historiques'/str(ident)/'historique_geny.json'
+        if not filepath.exists():continue
+        doc=load(filepath,{}) or {}
+        if doc.get('statut')!='COMPLET' or not isinstance(doc.get('performances'),list):continue
+        name=canonical(item.get('nom',''))
+        if not name:continue
+        matched.setdefault(name,[]).append((str(ident),doc))
+    context=_valid_context(cache,course,now)
+    rows=[];seen=set();with_history=0;unknown_np=0
+    for item in participants:
+        if not isinstance(item,dict):continue
+        numero=_num(item,'numPmu','num','numero','numeroPmu')
+        if numero is None or numero in seen:return 'NUMEROS_PMU_INCOHERENTS'
+        seen.add(numero)
+        if item.get('nonPartant') is True or str(item.get('statut','')).upper() in ('NP','NON_PARTANT'):
+            continue
+        if item.get('nonPartant') is not False and str(item.get('statut','')).upper()!='PARTANT':
+            unknown_np+=1
+        name=next((str(item[k]).strip() for k in ('nomCheval','nom','nomParticipant') if isinstance(item.get(k),str) and item[k].strip()),'')
+        match=matched.get(canonical(name),[])
+        ident,histo=match[0] if len(match)==1 else ('',{})
+        if ident:with_history+=1
+        c={key:value for (num,key),value in context.items() if num in ('*',str(numero))}
+        direct=_form_score(item)
+        if direct is not None:c['pmu_score_direct']=direct
+        features_values=features({'numero':numero,'nom':name},histo,course,c)
+        rows.append({'numero':numero,'cheval_id':ident,'nom':name,
+                     'historique_ok':bool(ident),'score_direct_pmu':direct,
+                     'features':features_values})
+    if len(rows)<3:return 'PARTANTS_INSUFFISANTS'
+    if course.get('nombre_declares') and len(seen)!=int(course['nombre_declares']):
+        return 'LISTE_PARTANTS_INCOMPLETE'
+    save(base,{'date':course['date'],'code':course['code'],'depart':course['depart'],
+               'capture_utc':now.isoformat(),'features_schema':'v22.0',
+               'source':'PMU_API_PARTICIPANTS','nombre_chevaux':len(rows),
+               'historiques_complets_reutilises':with_history,
+               'np_non_verifies':unknown_np,'chevaux':rows,
+               'regle':'capture PMU pre-depart immutable, ni cote ni arrivee utilisee'})
+    return 'CAPTURE_PMU'
 
 def dataset(cache):
     """Reconstitue uniquement des exemples étiquetés via arrivée vérifiée postérieure à la capture."""
