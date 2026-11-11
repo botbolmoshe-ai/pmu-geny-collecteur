@@ -46,15 +46,12 @@ DISPLAY_NAMES = {
     'ferrure':'Ferrure',
     'non_partant':'Non-partant (NP)',
     'historique_statut':'Historique · État',
-    'historique_nb_courses_datees':'Historique · Courses',
+    'historique_nb_courses_datees':'Historique · Nb performances récupérées',
     'historique_maj_utc':'Historique · Mise à jour UTC',
     'actuel_statut':'Données actuelles · État',
     'actuel_maj_utc':'Données actuelles · Mise à jour UTC',
     'source_pmu_url':'Source PMU',
-    'source_geny_url':'Source Geny',
-    'source_zone_turf_url':'Source Zone-Turf',
     'statut_prevision':'Prévisions · État',
-    'historique_total_courses_geny':'Historique · Total annoncé Geny',
     'historique_ecart_geny':'Historique · Écart collecte',
     'avis_pmu':'Avis expert PMU',
     'avis_geny':'Avis expert Geny',
@@ -174,7 +171,6 @@ def source_rows(cache):
                  'historique_maj_utc':historique.get('historique_maj_utc',''),
                  'actuel_statut':('PMU_PARTIEL' if actual else 'ACTUEL_NON_VERIFIE'),
                  'actuel_maj_utc':participant.get('capture_utc',''),
-                 'source_geny_url':manifest.get('courses',[{}])[0].get('source_course_geny','') if manifest.get('courses') else '',
                  'source_pmu_url':f"https://www.pmu.fr/turf/{date.replace('-','')}/{code.lower().replace('c','/c')}/",
                  'statut_prevision':forecast_state,
                  'fige_utc':frozen.get('frozen_at',''),
@@ -183,7 +179,6 @@ def source_rows(cache):
                  'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
                  'secours_statut':'NON_CALCULE',
                  'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else '',
-                 'historique_total_courses_geny':historique.get('nombre_annonce_geny',''),
                  'historique_ecart_geny':''}
             for c in COMPARE_COLUMNS:
                 if c not in doc:doc[c]=r.get(c,'')
