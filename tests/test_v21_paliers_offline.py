@@ -217,6 +217,60 @@ class V21PaliersTests(unittest.TestCase):
         too_late=datetime(2026,11,12,18,30,tzinfo=ZoneInfo("Europe/Paris"))
         self.assertEqual(selectionner_courses(cours,too_late,"2026-11-12",[],True,{"courses":{}}),[])
 
+    def test_v22_capture_pmu_sans_manifest_avec_historique_cache(self):
+        from datetime import datetime, timezone
+        from pmu_geny.ml_v19 import snapshot_pmu, dataset
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            def write(rel,doc):
+                p=root/rel;p.parent.mkdir(parents=True,exist_ok=True)
+                p.write_text(json.dumps(doc),encoding='utf-8')
+            write('etat_persistant.json',{'chevaux':{'81235':{
+                'nom':'Étoile du Nord','statut':'COMPLET'}}})
+            perf={'date':'2026-10-31','hippodrome':'Vincennes','discipline':'Attelé',
+                  'distance_m':'2700','classement':'2','texte_source':'course test unique'}
+            write('historiques/81235/historique_geny.json',
+                  {'statut':'COMPLET','nombre_extrait':1,'performances':[perf]})
+            course={'date':'2026-11-12','code':'R1C1','depart':'2026-11-12T15:00:00+01:00',
+                    'nombre_declares':4,'hippodrome':'Vincennes','distance_m':2700}
+            raw={'participants':[
+                {'numPmu':1,'nomCheval':'Etoile du Nord','nonPartant':False,'musique':'2a3a4a'},
+                {'numPmu':2,'nomCheval':'B','nonPartant':False,'musique':'4a'},
+                {'numPmu':3,'nomCheval':'C','nonPartant':False,'musique':'1a'},
+                {'numPmu':4,'nomCheval':'D','nonPartant':False,'musique':'Da'}]}
+            before=datetime(2026,11,12,12,0,tzinfo=timezone.utc)
+            self.assertEqual(snapshot_pmu(root,course,raw,before),'CAPTURE_PMU')
+            self.assertEqual(snapshot_pmu(root,course,raw,before),'DEJA_CAPTURE')
+            snap=json.loads((root/'ml/instantanes/2026-11-12_R1C1.json').read_text())
+            self.assertEqual(snap['historiques_complets_reutilises'],1)
+            self.assertEqual(snap['chevaux'][0]['cheval_id'],'81235')
+            self.assertIsNotNone(snap['chevaux'][0]['features']['pmu_score_direct'])
+            self.assertEqual(snapshot_pmu(root,course,raw,datetime(2026,11,12,14,30,tzinfo=timezone.utc)),'TROP_TARD')
+            write('arrivees/2026-11-12_R1C1.json',{
+                'verifie_utc':'2026-11-12T15:00:00+00:00',
+                'arrivee':[{'numero':1,'rang':1},{'numero':2,'rang':2},{'numero':3,'rang':3}]})
+            samples,n=dataset(root)
+            self.assertEqual((n,len(samples)),(1,4))
+
+    def test_v22_historiques_canoniques_visibles_sans_export_geny(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            def write(rel,doc):
+                p=root/rel;p.parent.mkdir(parents=True,exist_ok=True)
+                p.write_text(json.dumps(doc),encoding='utf-8')
+            write('etat_persistant.json',{'chevaux':{'123456':{
+                'nom':'Fleur d Etoile','statut':'COMPLET'}}})
+            perf={'date':'2026-10-31','hippodrome':'Vincennes','discipline':'Attelé',
+                  'distance_m':'2700','classement':'2','texte_source':'historique source unique'}
+            write('historiques/123456/historique_geny.json',
+                  {'statut':'COMPLET','performances':[perf]})
+            hist=source_rows(root)['Historique chevaux']
+            self.assertEqual(len(hist),1)
+            row=next(iter(hist.values()))
+            self.assertEqual(row['identifiant_cheval'],'123456')
+            self.assertEqual(row['cheval'],'Fleur d Etoile')
+            self.assertEqual(row['classement'],'2')
+
     def test_registre_11_novembre_reel(self):
         root=Path("reference_pmu")
         if not root.exists():self.skipTest("registre de production non charge")
