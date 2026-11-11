@@ -277,7 +277,7 @@ class V21PaliersTests(unittest.TestCase):
     def test_v22_entetes_lisibles_et_moteur_inchange(self):
         from pmu_geny.sync_google_sheets import canonical_headers, DISPLAY_NAMES
         names=['course_key','numero','top3_direct_rang','top3_direct_score',
-               'top3_cotes_rang','ml_modele_statut']
+               'top3_cotes_valeur','ml_modele_statut']
         display=[DISPLAY_NAMES[k] for k in names]
         self.assertEqual(canonical_headers(display),names)
         existing=[dict(zip(names,['2026-11-12|VINCENNES|R1C1','1','','','','']))]
