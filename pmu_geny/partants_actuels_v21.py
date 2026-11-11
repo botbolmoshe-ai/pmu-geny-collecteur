@@ -2,13 +2,18 @@
 from __future__ import annotations
 from datetime import datetime, timezone
 from pathlib import Path
+import re
 from .auto_v18 import _list, _num, save
 
 FIELDS = {
     "driver_jockey": ("driver", "jockey", "nomDriver", "nomJockey", "driverJockey"),
     "entraineur": ("entraineur", "trainer", "nomEntraineur"),
     "proprietaire": ("proprietaire", "owner", "nomProprietaire"),
-    "ferrure": ("ferrure", "codeFerrure", "typeFerrure"),
+    "ferrure": ("ferrure", "codeFerrure", "typeFerrure", "ferrureCheval"),
+    "sexe": ("sexe", "sexeCheval", "sexeParticipant"),
+    "age_ans": ("age", "ageCheval", "ageParticipant"),
+    "gains_euros": ("gainsCarriere", "gainsParticipant", "gains", "gainCarriere",
+                     "montantGains", "gainTotal", "gainsCheval"),
 }
 
 def _label(value):
@@ -20,6 +25,35 @@ def _label(value):
             if isinstance(v, str) and v.strip():
                 return v.strip()
     return ""
+
+def age_valide(value):
+    if isinstance(value,bool):return None
+    raw=str(value or '').strip()
+    if re.fullmatch(r'\d{1,2}',raw):
+        age=int(raw)
+        return age if 2<=age<=25 else None
+    return None
+
+def gains_valides(value):
+    if isinstance(value,dict):
+        for key in ('montant','valeur','gains','total','montantGains'):
+            if key in value:return gains_valides(value[key])
+        return None
+    if isinstance(value,bool) or value is None:return None
+    text=str(value).replace('\u00a0','').replace(' ','').replace('€','').strip()
+    if not re.fullmatch(r'\d+(?:[.,]\d{1,2})?',text):return None
+    amount=float(text.replace(',','.'))
+    return round(amount,2) if 0<=amount<100_000_000 else None
+
+def sexe_normalise(value):
+    if isinstance(value,dict):
+        value=value.get('libelle') or value.get('code') or value.get('nom') or ''
+    key=str(value or '').strip().upper()
+    return {
+        'M':'Mâle','MALE':'Mâle','MÂLE':'Mâle','ENTIER':'Mâle',
+        'F':'Femelle','FEMELLE':'Femelle','JUMENT':'Femelle','POULICHE':'Femelle',
+        'H':'Hongre','HONGRE':'Hongre'
+    }.get(key,'')
 
 def extraire_partants(raw):
     resultat = {}
@@ -36,6 +70,15 @@ def extraire_partants(raw):
                 if val:
                     fields[label]=val
                     break
+        for alias in FIELDS["age_ans"]:
+            age=age_valide(item.get(alias))
+            if age is not None:fields['age_ans']=age;break
+        for alias in FIELDS["gains_euros"]:
+            gains=gains_valides(item.get(alias))
+            if gains is not None:fields['gains_euros']=gains;break
+        for alias in FIELDS["sexe"]:
+            sexe=sexe_normalise(item.get(alias))
+            if sexe:fields['sexe']=sexe;break
         for nom_key in ("nomCheval","nom","nomParticipant"):
             nom=_label(item.get(nom_key))
             if nom:
