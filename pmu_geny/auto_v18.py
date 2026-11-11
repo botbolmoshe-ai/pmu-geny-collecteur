@@ -231,6 +231,31 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             if geny_index.get('statut')=='GENY_BLOQUE':cooldown=True
         except Exception as exc:
             state['alertes'].append(f'INDEX_GENY: {type(exc).__name__}: {exc}')
+    # Rapprocher TOUTES les courses sélectionnées sur l'index journalier déjà
+    # consulté. L'association n'ouvre aucune fiche Geny et ne consomme pas le
+    # quota de découverte des partants. Ne pas confondre correspondance et
+    # manifeste complet.
+    decisions_geny = {}
+    if geny_index and geny_index.get('statut') == 'OK':
+        from .rapprochement_v20_6 import rapprocher
+        for candidate_course in selected:
+            if datetime.fromisoformat(candidate_course['depart']) <= now:
+                continue
+            code = candidate_course['code']
+            decision = rapprocher(candidate_course, geny_index['courses'])
+            decisions_geny[code] = decision
+            record = state['courses'].setdefault(code, {'identifiant_geny': None, 'etat': 'A_DECOUVRIR'})
+            record['rapprochement_geny'] = decision
+            if decision.get('statut') == 'CORRESPONDANCE_CONFIRMEE':
+                record['geny_id_rapproche'] = decision['geny_id']
+            else:
+                record.pop('geny_id_rapproche', None)
+            print('RAPPROCHEMENT_GENY '+json.dumps({
+                'date': date, 'course_pmu': code,
+                'statut': decision.get('statut'),
+                'methode': decision.get('methode'),
+                'geny_id': decision.get('geny_id')
+            }, ensure_ascii=False), flush=True)
     for c in selected:
         key=c['code']; entry=state['courses'].setdefault(key,{'identifiant_geny':None,'etat':'A_DECOUVRIR'})
         entry.update({'depart':c['depart'],'nom':c['nom'],'hippodrome':c['hippodrome'],'nombre_declares':c['nombre_declares'], 'priorite_metier':c.get('priorite_metier'), 'motif_selection':c.get('motif_selection')})
@@ -280,17 +305,11 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             # Le collecteur refuse une correspondance ambiguë.
             try:
                 from .decouverte_partants import produire_manifest
-                from .rapprochement_v20_6 import rapprocher
                 if not geny_index or geny_index.get('statut')!='OK':
                     raise LookupError('Index journalier Geny indisponible')
-                decision=rapprocher(c,geny_index['courses'])
-                entry['rapprochement_geny']=decision
-                print('RAPPROCHEMENT_GENY '+json.dumps({
-                    'date':date, 'course_pmu':key, 'hippodrome':c['hippodrome'],
-                    'nom_pmu':c['nom'], 'statut':decision.get('statut'),
-                    'methode':decision.get('methode'), 'geny_id':decision.get('geny_id'),
-                    'preuves':decision.get('preuves', {}),
-                },ensure_ascii=False), flush=True)
+                decision=decisions_geny.get(key)
+                if decision is None:
+                    raise LookupError('Rapprochement Geny non calculé')
                 if decision['statut']!='CORRESPONDANCE_CONFIRMEE':
                     raise LookupError('Geny: '+decision['statut'])
                 # Une tentative de manifeste est une découverte lourde.
