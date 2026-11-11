@@ -109,6 +109,13 @@ def enregistrer(cache:Path, course:dict, raw):
     observed=sorted(str(k) for k in samples[0].keys()) if samples and isinstance(samples[0],dict) else []
     doc={"date":course["date"], "course":course["code"],
          "champs_participant_pmu_observes":observed,
+         # Champs publics diagnostiques des trois premiers partants, sans
+         # déduction de la structure PMU.
+         "diagnostic_profils_pmu":[
+             {"nom":str(item.get("nom",""))[:80],
+              "deferre":item.get("deferre"),
+              "gainsParticipant":item.get("gainsParticipant")}
+             for item in samples[:3] if isinstance(item,dict)],
          "source":"PMU_API_PARTICIPANTS",
          "capture_utc":datetime.now(timezone.utc).isoformat(),
          "chevaux":{str(n):values for n,values in resultat.items()}}
