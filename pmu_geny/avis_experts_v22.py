@@ -194,6 +194,11 @@ def collecter(cache,course,raw,now=None,fetch=None):
     # Une erreur de parseur corrigée doit pouvoir être retestée dans le même jour.
     if str(old.get('statut_zone_turf','')).startswith('ZONE_TURF_ERREUR_'):
         attempt=True
+    # Reparser un fichier historique de page après ajout des profils,
+    # sans refaire une requête Zone-Turf et sans attendre le délai d'une heure.
+    has_profiles=any(x.get('profil_zone_turf') for x in results.values())
+    if not has_profiles and (cache/'avis_experts'/'pages'/f"{course['date']}_quinte.html").exists():
+        attempt=True
     if not attempt:
         status=old.get('statut_zone_turf','ZONE_TURF_NON_VERIFIE')
     else:
