@@ -42,7 +42,7 @@
       "comparatif_csv": "cache_pmu/exports/GENY-1697677/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-11T07:08:25.875565+00:00",
+      "np_verification_utc": "2026-11-11T09:43:52.943240+00:00",
       "statut_cotes": "COTES_RELEVEES"
     },
     "R13C1": {
@@ -202,11 +202,11 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T09:27:33.821761+00:00",
-  "fiches_geny_budget_consommees": 0,
+  "dernier_controle_pmu": "2026-11-11T09:43:04.386849+00:00",
+  "fiches_geny_budget_consommees": 3,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T09:27:33.821761+00:00",
+    "horodatage_utc": "2026-11-11T09:43:04.386849+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 19,
@@ -1191,5 +1191,113 @@
     "minimum_courses": 100,
     "minimum_lignes": 700,
     "etat": "INSUFFISANT"
-  }
+  },
+  "diagnostic_preparation_avant_cycle": {
+    "statut": "PREPARATION_INCOMPLETE",
+    "courses_controlees": 13,
+    "a_preparer": [
+      {
+        "course": "R4C2",
+        "motif": "MANIFESTE_ABSENT"
+      }
+    ],
+    "non_recuperables": [],
+    "bloquees": [
+      {
+        "course": "R13C1",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C2",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C2",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C3",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C3",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C4",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C4",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C5",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C6",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C5",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R4C1",
+        "motif": "MANIFESTE_ABSENT"
+      }
+    ],
+    "manquantes": [
+      {
+        "course": "R4C2",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C1",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C2",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C2",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C3",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C3",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C4",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C4",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C5",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R10C6",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R13C5",
+        "motif": "MANIFESTE_ABSENT"
+      },
+      {
+        "course": "R4C1",
+        "motif": "MANIFESTE_ABSENT"
+      }
+    ]
+  },
+  "cycle_effectif": "complet"
 }
