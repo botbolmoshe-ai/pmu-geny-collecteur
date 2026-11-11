@@ -55,6 +55,12 @@ def sexe_normalise(value):
         'H':'Hongre','HONGRE':'Hongre'
     }.get(key,'')
 
+def ferrure_historique_explicite(value):
+    """Codes explicites seulement, jamais un tiret ou 'D' isolé dans Geny."""
+    match=re.search(r'(?<![A-Za-z0-9])(?:DP/PA|DA/PP|D4|P4|DP|DA|PA|PP)(?![A-Za-z0-9])',
+                    str(value or ''),re.I)
+    return match.group(0).upper() if match else ''
+
 def extraire_partants(raw):
     resultat = {}
     for item in _list(raw, "participants", "partants"):
