@@ -21,6 +21,9 @@ class V21PaliersTests(unittest.TestCase):
                           "proprietaire":"Écurie Exemple","ferrure":"D4"}.items():
             self.assertEqual(d[1][key],value)
         self.assertEqual(d[2]["statut_np"],"NP_NON_VERIFIE")
+        explicite=extraire_partants({"participants":[{"numPmu":3,"statut":"PARTANT"},{"numPmu":4,"nonPartant":True}]})
+        self.assertEqual(explicite[3]["statut_np"],"PARTANT")
+        self.assertEqual(explicite[4]["statut_np"],"NON_PARTANT")
 
     def test_deux_paliers_sans_inventer_ml(self):
         with tempfile.TemporaryDirectory() as tmp:
