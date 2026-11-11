@@ -98,6 +98,21 @@ class V21PaliersTests(unittest.TestCase):
                             datetime(2026,11,12,15,1,tzinfo=ZoneInfo("Europe/Paris"))),
                             "DEJA_FIGE")
 
+    def test_reset_preserves_histories_and_blocks_old_courses(self):
+        from pmu_geny.sync_google_sheets import limiter_cours_registre
+        src={"Courses & Prévisions":{
+                 "ancien":{"date_course":"2026-11-11"},
+                 "nouveau":{"date_course":"2026-11-12"}},
+             "Résultats & Analyse":{
+                 "ancien":{"date_course":"2026-11-10"},
+                 "nouveau":{"date_course":"2026-11-12"}},
+             "Historique chevaux":{
+                 "historique":{"date_course_historique":"2026-06-27"}}}
+        out=limiter_cours_registre(src)
+        self.assertEqual(list(out["Courses & Prévisions"]),["nouveau"])
+        self.assertEqual(list(out["Résultats & Analyse"]),["nouveau"])
+        self.assertEqual(out["Historique chevaux"],src["Historique chevaux"])
+
     def test_registre_11_novembre_reel(self):
         root=Path("reference_pmu")
         if not root.exists():self.skipTest("registre de production non charge")
