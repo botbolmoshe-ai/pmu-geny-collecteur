@@ -13,7 +13,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analyse')
-COMPARE_COLUMNS = ('baseline_rang','baseline_top3','baseline_final_rang','baseline_final_top3',
+COMPARE_COLUMNS = ('secours_rang','secours_top3','secours_statut','historique_modele_statut','ml_modele_statut','baseline_rang','baseline_top3','baseline_final_rang','baseline_final_top3',
                    'ml_rang','ml_top3','ml_proba_podium','cote_avant_depart','cote_heure_utc',
                    'arrivee_rang','arrivee_podium','ml_etat','meteo_pluie_mm','meteo_vent_kmh',
                    'meteo_temperature_c','meteo_humidite_pct','meteo_capture_utc')
@@ -67,22 +67,71 @@ def source_rows(cache):
             if not info:continue
             hip=info.get('hippodrome','')
             k=course_key(date,hip,code);row_key=f'{k}|{n}'
+            cid=path.parent.name
+            manifest=load_json(cache/'manifestes'/f'{cid}.json')
+            horses=(manifest.get('courses') or [{}])[0].get('partants',[])
+            horse=next((h for h in horses if str(h.get('numero'))==str(n)),{})
+            participant=load_json(cache/'partants_actuels'/f'{date}_{code}.json')
+            actual=(participant.get('chevaux') or {}).get(str(n),{})
+            suivi_path=cache/'exports'/cid/'suivi_chevaux.csv'
+            try: suivi=read_csv(suivi_path)
+            except (OSError,ValueError):suivi=[]
+            historique=next((h for h in suivi if str(h.get('numero'))==str(n)),{})
+            frozen=load_json(cache/'pronostics'/f'{date}_{code}_top3.json')
+            latest=load_json(cache/'pronostics'/f'{date}_{code}_baseline_latest.json')
+            ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
+            depart=str(r.get('depart',''))
+            official=load_json(cache/'arrivees'/f'{date}_{code}.json')
+            has_historical=bool(frozen.get('top3'))
+            has_ml=bool(ml.get('top3'))
+            forecast_state=('FIGE_HISTORIQUE' if has_historical else
+                            'ML_SEUL_DISPONIBLE' if has_ml else 'TOP3_NON_FIGE')
             doc={'course_key':k,'date_course':date,'hippodrome':hip,'rncn':code,
-                 'heure_depart_paris':r.get('depart',''),'numero':n,'cheval':r.get('nom',''),
-                 'non_partant':r.get('statut_np',''),'historique_statut':'',
-                 'statut_prevision':r.get('ml_etat',''),'mode_calcul_top3':'BASELINE+ML'}
-            for c in COMPARE_COLUMNS:doc[c]=r.get(c,'')
+                 'heure_depart_paris':depart,'discipline':info.get('discipline',''),
+                 'distance_m':info.get('distance_m',''),'numero':n,'cheval':r.get('nom',''),
+                 'driver_jockey':actual.get('driver_jockey','') or horse.get('driver_jockey',''),
+                 'entraineur':actual.get('entraineur','') or horse.get('entraineur',''),
+                 'proprietaire':actual.get('proprietaire','') or horse.get('proprietaire',''),
+                 'ferrure':actual.get('ferrure','') or horse.get('ferrure',''),
+                 'non_partant':r.get('statut_np',''),
+                 'historique_statut':historique.get('historique_statut',''),
+                 'historique_nb_courses_datees':historique.get('nombre_performances_persistantes',''),
+                 'historique_maj_utc':historique.get('historique_maj_utc',''),
+                 'actuel_statut':('PMU_PARTIEL' if actual else 'ACTUEL_NON_VERIFIE'),
+                 'actuel_maj_utc':participant.get('capture_utc',''),
+                 'source_geny_url':manifest.get('courses',[{}])[0].get('source_course_geny','') if manifest.get('courses') else '',
+                 'source_pmu_url':f"https://www.pmu.fr/turf/{date.replace('-','')}/{code.lower().replace('c','/c')}/",
+                 'statut_prevision':forecast_state,
+                 'fige_utc':frozen.get('frozen_at',''),
+                 'mode_calcul_top3':'BASELINE_HISTORIQUE' if has_historical else ('ML' if has_ml else 'NON_CALCULE'),
+                 'historique_modele_statut':'FIGE' if has_historical else 'NON_CALCULE',
+                 'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
+                 'secours_statut':'NON_CALCULE',
+                 'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else '',
+                 'historique_total_courses_geny':historique.get('nombre_annonce_geny',''),
+                 'historique_ecart_geny':''}
+            for c in COMPARE_COLUMNS:
+                if c not in doc:doc[c]=r.get(c,'')
             courses[row_key]=doc
-            if r.get('arrivee_rang'):
+            if official.get('arrivee'):
+                positions=[str(x.get('numero')) for x in sorted(official['arrivee'],key=lambda x:x.get('rang',999)) if x.get('rang') in (1,2,3)]
+                if len(positions)!=3:continue
+                comparison_present=bool(has_historical or has_ml)
                 reports[k]={'course_key':k,'date_course':date,'hippodrome':hip,'rncn':code,
-                            'heure_depart_paris':r.get('depart',''),
+                            'heure_depart_paris':depart,
+                            'top3_prevu_numeros':','.join(str(x.get('numero')) for x in (latest or frozen).get('top3',[])) if has_historical else '',
+                            'fige_utc':frozen.get('frozen_at',''),
+                            'arrivee_officielle_numeros':','.join(positions),
+                            'source_arrivee_url':'PMU_API_PARTICIPANTS',
+                            'arrivee_verifiee_utc':official.get('verifie_utc',''),
                             'score_baseline':r.get('baseline_hits_course',''),
                             'score_baseline_final':r.get('baseline_final_hits_course',''),
                             'score_ml':r.get('ml_hits_course',''),
-                            'etat_ml':r.get('ml_etat',''),
+                            'score_sur_3':r.get('baseline_final_hits_course','') if has_historical else '',
+                            'etat_ml':ml.get('statut','ML_NON_ENTRAINE'),
                             'source_export':str(path.relative_to(cache)),
                             'derniere_sync_utc':datetime.now(timezone.utc).isoformat(),
-                            'statut_evaluation':'ARRIVEE_RECUE_A_VERIFIER'}
+                            'statut_evaluation':'EVALUE' if comparison_present and r.get('baseline_final_hits_course') else 'ARRIVEE_SANS_TOP3_FIGE'}
     # V21: une cle (cheval, date, hippodrome) ne suffit pas:
     # un cheval peut courir deux fois le meme jour au meme hippodrome.
     # Dedoublonner entre exports de courses, mais jamais deux lignes source
