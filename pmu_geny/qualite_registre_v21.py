@@ -25,7 +25,33 @@ def evaluer(cache, debut="2026-11-12"):
                         "top3_historique_fige":tiers["baseline_top3"]==3,
                         "top3_ml_disponible":tiers["ml_top3"]==3,
                         "arrivee_renseignee":sum(bool(str(p.get("arrivee_rang","")).strip()) for p in participants)})
-    result={"date_debut":debut,"courses":courses,
+    # Verifier le veritable etat du moteur, y compris les courses sans export Geny.
+    orchestration=Path(cache)/"orchestration"
+    documents=sorted(orchestration.glob("????-??-??.json")) if orchestration.exists() else []
+    dernier={}
+    if documents:
+        try:dernier=json.loads(documents[-1].read_text(encoding="utf-8"))
+        except (OSError,ValueError):dernier={}
+    fiches=dernier.get("courses",{})
+    etats={}
+    for course_code,fiche in fiches.items():
+        if not isinstance(fiche,dict):continue
+        etats[course_code]={
+            "traitement":fiche.get("traitement","NON_TRAITE"),
+            "association_geny":fiche.get("identifiant_geny") or "NON_ASSOCIE",
+            "prevision":fiche.get("statut_prevision","TOP3_NON_CALCULE"),
+            "ml":fiche.get("statut_ml","ML_NON_CALCULE"),
+            "arrivee":fiche.get("statut_arrivee","ARRIVEE_NON_VERIFIEE"),
+            "motif_attente":fiche.get("motif_attente_geny","")}
+    diagnostic_traitement={
+        "date":dernier.get("date",""),
+        "courses_suivies":len(etats),
+        "top3_figes":sum(v["prevision"] in ("FIGE_BASELINE_EXPERIMENTALE","DEJA_FIGE") for v in etats.values()),
+        "previsions_donnees_insuffisantes":sum(v["prevision"]=="DONNEES_INSUFFISANTES" for v in etats.values()),
+        "sans_geny":sum(v["association_geny"]=="NON_ASSOCIE" for v in etats.values()),
+        "arrivees_recues":sum(v["arrivee"] in ("ARRIVEE_ENREGISTREE","ARRIVEE_DEJA_ENREGISTREE") for v in etats.values()),
+        "details":etats}
+    result={"date_debut":debut,"courses":courses,"diagnostic_traitement":diagnostic_traitement,
             "nombre_courses":len(courses),"nombre_partants":sum(x["partants"] for x in courses),
             "nombre_bilans":len(rows["Résultats & Analyse"]),
             "nombre_performances_historiques":len(rows["Historique chevaux"]),
