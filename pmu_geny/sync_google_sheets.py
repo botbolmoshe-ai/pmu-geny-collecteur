@@ -48,7 +48,7 @@ DISPLAY_NAMES = {
     'historique_statut':'Historique · État',
     'historique_nb_courses_datees':'Historique · Nb performances récupérées',
     'historique_maj_utc':'Historique · Mise à jour UTC',
-    'actuel_statut':'Données actuelles · État',
+    'actuel_statut':'PMU · Complétude fiche',
     'actuel_maj_utc':'Données actuelles · Mise à jour UTC',
     'statut_prevision':'Prévisions · État',
     'avis_pmu':'Avis expert PMU',
