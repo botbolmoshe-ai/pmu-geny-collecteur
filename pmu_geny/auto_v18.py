@@ -214,7 +214,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     # Le lendemain est prepare des publication du programme PMU, sans limitation a 18h.
     from .planification_v20_2 import selectionner_courses
     selected=selectionner_courses(courses, now, date, selection, max_new>0 if selection_complete is None else selection_complete,
-                                state, max_courses=12)
+                                state, max_courses=len(courses))
     remaining_new=max_new
     remaining_discoveries=max_discoveries
     correspondences_path=cache/'orchestration'/'correspondances_geny.json'
