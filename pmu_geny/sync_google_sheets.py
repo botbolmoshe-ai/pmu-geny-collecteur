@@ -173,7 +173,7 @@ def source_rows(cache):
                  'historique_modele_statut':'FIGE' if has_historical else 'NON_CALCULE',
                  'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
                  'secours_statut':'NON_CALCULE',
-                 'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else '',
+                 'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else ''}
             for c in COMPARE_COLUMNS:
                 if c not in doc:doc[c]=r.get(c,'')
             # Un score brut ML n'est pas une probabilite calibree.
