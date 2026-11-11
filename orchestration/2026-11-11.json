@@ -218,7 +218,7 @@
       "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "motif_attente_geny": "COOLDOWN_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697687",
@@ -241,11 +241,12 @@
         }
       },
       "geny_id_rapproche": "1697687",
-      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES"
     },
     "R10C4": {
       "identifiant_geny": "GENY-1697678",
-      "etat": "MANIFESTE_PRESENT",
+      "etat": "TERMINE_ARCHIVE",
       "depart": "2026-11-11T14:44:00+01:00",
       "nom": "PRIX FLAMME",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
@@ -289,17 +290,17 @@
     },
     "R13C4": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-11T15:05:00+01:00",
       "nom": "PRIX MARCEL DELAUNAY",
       "hippodrome": "HIPPODROME DE GRAIGNES",
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "motif_attente_geny": "COOLDOWN_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697685",
@@ -321,21 +322,23 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697685"
+      "geny_id_rapproche": "1697685",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R10C5": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-11T15:13:00+01:00",
       "nom": "PRIX DE LAON",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
       "nombre_declares": 16,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "motif_attente_geny": "COOLDOWN_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697676",
@@ -357,11 +360,13 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697676"
+      "geny_id_rapproche": "1697676",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R10C6": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1697681",
+      "etat": "MANIFESTE_PRESENT",
       "depart": "2026-11-11T15:42:00+01:00",
       "nom": "PRIX JEAN FRERE",
       "hippodrome": "HIPPODROME DE LA CAPELLE",
@@ -393,7 +398,22 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697681"
+      "geny_id_rapproche": "1697681",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_RELEVEES",
+      "historique_geny": "COLLECTE_INCREMENTALE",
+      "historique_collecte_resultat": "SUSPENDUE_429",
+      "np_confirmes": 0,
+      "np_verification_utc": "2026-11-11T14:24:24.911799+00:00",
+      "statut_prevision": "DONNEES_INSUFFISANTES",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1697681/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R13C5": {
       "identifiant_geny": null,
@@ -407,7 +427,7 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "motif_attente_geny": "COOLDOWN_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697684",
@@ -429,7 +449,13 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697684"
+      "geny_id_rapproche": "1697684",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_RELEVEES"
     },
     "R4C1": {
       "identifiant_geny": null,
@@ -443,7 +469,7 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "motif_attente_geny": "COOLDOWN_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697658",
@@ -465,7 +491,13 @@
           ]
         }
       },
-      "geny_id_rapproche": "1697658"
+      "geny_id_rapproche": "1697658",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_RELEVEES"
     },
     "R4C2": {
       "identifiant_geny": null,
@@ -501,7 +533,13 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_RELEVEES"
     },
     "R13C7": {
       "identifiant_geny": null,
@@ -537,7 +575,13 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_RELEVEES"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -573,7 +617,13 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_RELEVEES"
     },
     "R4C4": {
       "identifiant_geny": null,
@@ -609,7 +659,13 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_RELEVEES"
     },
     "R4C5": {
       "identifiant_geny": null,
@@ -645,16 +701,22 @@
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_RELEVEES"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T13:58:50.066397+00:00",
-  "fiches_geny_budget_consommees": 0,
+  "dernier_controle_pmu": "2026-11-11T14:23:45.414977+00:00",
+  "fiches_geny_budget_consommees": 1,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T13:58:50.066397+00:00",
+    "horodatage_utc": "2026-11-11T14:23:45.414977+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 17,
@@ -730,7 +792,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
