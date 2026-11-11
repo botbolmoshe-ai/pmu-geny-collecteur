@@ -17,10 +17,10 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
 LIVE_RESET_DATE = '2026-11-12'
 COMPARE_COLUMNS = ('secours_rang','secours_top3','secours_statut','historique_modele_statut','ml_modele_statut','baseline_rang','baseline_top3','baseline_final_rang','baseline_final_top3',
-                   'ml_rang','ml_top3','ml_proba_podium','cote_avant_depart','cote_heure_utc',
+                   'top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_rang','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','cote_avant_depart','cote_heure_utc',
                    'arrivee_rang','arrivee_podium','ml_etat','meteo_pluie_mm','meteo_vent_kmh',
                    'meteo_temperature_c','meteo_humidite_pct','meteo_capture_utc')
-REPORT_COLUMNS = ('score_baseline','score_baseline_final','score_ml','etat_ml',
+REPORT_COLUMNS = ('top3_direct_numeros','score_direct','top3_cotes_numeros','score_cotes','top3_ml_numeros','analyse_comparative','score_baseline','score_baseline_final','score_ml','etat_ml',
                   'source_export','derniere_sync_utc')
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
                 'hippodrome':'hippodrome','discipline':'discipline','distance_m':'distance_m',
@@ -135,6 +135,65 @@ def source_rows(cache):
                             'source_export':str(path.relative_to(cache)),
                             'derniere_sync_utc':datetime.now(timezone.utc).isoformat(),
                             'statut_evaluation':'EVALUE' if comparison_present and r.get('baseline_final_hits_course') else 'ARRIVEE_SANS_TOP3_FIGE'}
+    # PMU seul : creer la fiche de chaque partant meme sans manifeste/historique Geny.
+    # Les trois paliers sont independants; aucun score n'est invente.
+    for participant_file in sorted((cache/'partants_actuels').glob('????-??-??_R*C*.json')):
+        match=re.fullmatch(r'(\d{4}-\d{2}-\d{2})_(R\d+C\d+)\.json',participant_file.name)
+        if not match:continue
+        date,code=match.groups()
+        info=course_info(cache,code,date)
+        if not info:continue
+        participant=load_json(participant_file)
+        direct=load_json(cache/'pronostics'/f'{date}_{code}_direct.json')
+        marche=load_json(cache/'pronostics'/f'{date}_{code}_cotes.json')
+        ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
+        hip=info.get('hippodrome','')
+        k=course_key(date,hip,code)
+        ranks={}
+        for mode,document in (('direct',direct),('cotes',marche),('ml',ml)):
+            ranks[mode]={str(h.get('numero')):(i,h) for i,h in
+                         enumerate(document.get('classement_complet',[]),start=1)}
+        for n,act in (participant.get('chevaux') or {}).items():
+            krow=f'{k}|{n}'
+            existing=courses.get(krow,{})
+            direct_rank,direct_h=ranks['direct'].get(str(n),('',{}))
+            cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
+            ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
+            current={
+                'course_key':k,'date_course':date,'hippodrome':hip,'rncn':code,
+                'heure_depart_paris':info.get('depart',''),
+                'discipline':info.get('discipline',''),
+                'distance_m':info.get('distance_m',''),
+                'numero':str(n),'cheval':act.get('nom','') or existing.get('cheval',''),
+                'driver_jockey':act.get('driver_jockey',''),
+                'entraineur':act.get('entraineur',''),
+                'proprietaire':act.get('proprietaire',''),
+                'ferrure':act.get('ferrure',''),
+                'non_partant':act.get('statut_np','NP_NON_VERIFIE'),
+                'actuel_statut':'PMU_PARTIEL' if act else 'ACTUEL_NON_VERIFIE',
+                'actuel_maj_utc':participant.get('capture_utc',''),
+                'source_pmu_url':participant.get('source',''),
+                'top3_direct_rang':direct_rank,
+                'top3_direct_score':direct_h.get('score_direct',''),
+                'top3_direct_top3':'OUI' if direct_rank and direct_rank<=3 else '',
+                'top3_direct_statut':direct.get('statut','NON_CALCULE'),
+                'top3_cotes_rang':cote_rank,
+                'top3_cotes_valeur':cote_h.get('cote',''),
+                'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
+                'top3_cotes_statut':marche.get('statut','NON_CALCULE'),
+                'ml_rang':ml_rank,
+                'ml_score_non_calibre':ml_h.get('proba_podium_estimee',''),
+                'ml_top3':'OUI' if ml_rank and ml_rank<=3 else '',
+                'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
+                'statut_prevision':'PREVISIONS_DISPONIBLES' if direct_rank or cote_rank or ml_rank else 'TOP3_NON_CALCULE',
+                'mode_calcul_top3':'DIRECT+COTES+ML_SEPARES',
+                'top3_direct_utc':direct.get('calcul_utc',''),
+                'top3_cotes_utc':marche.get('calcul_utc',''),
+                'version_ml_utc':ml.get('calcul_utc',''),
+            }
+            # Conserver les informations Geny si deja plus riches et presentes.
+            courses[krow]={**existing,**{key:value for key,value in current.items()
+                                         if value is not None and value!=''}}
     # Les arrivees PMU officielles peuvent exister sans manifeste Geny.
     # Enregistrer une ligne bilan par course meme sans TOP3.
     for arrival_file in sorted((cache/'arrivees').glob('????-??-??_R*C*.json')):
@@ -155,7 +214,20 @@ def source_rows(cache):
         predicted=(latest or forecast).get('top3',[])
         nums=[str(x['numero']) for x in predicted]
         scores=len(set(nums)&{str(x['numero']) for x in podium}) if len(nums)==3 else ''
+        direct=load_json(cache/'pronostics'/f'{date}_{code}_direct.json')
+        marche=load_json(cache/'pronostics'/f'{date}_{code}_cotes.json')
+        ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
+        def _eval_podium(doc):
+            nums=[str(x['numero']) for x in doc.get('top3',[])]
+            return (','.join(nums),len(set(nums)&{str(x['numero']) for x in podium})) if len(nums)==3 else ('','')
+        direct_nums,direct_hits=_eval_podium(direct)
+        cote_nums,cote_hits=_eval_podium(marche)
+        ml_nums,ml_hits=_eval_podium(ml)
         reports[k]={**existing,
+                    'top3_direct_numeros':direct_nums,'score_direct':direct_hits,
+                    'top3_cotes_numeros':cote_nums,'score_cotes':cote_hits,
+                    'top3_ml_numeros':ml_nums,'score_ml':ml_hits,
+                    'analyse_comparative':('DIRECT='+str(direct_hits)+'; COTES='+str(cote_hits)+'; ML='+str(ml_hits)),
                     'course_key':k,'date_course':date,'hippodrome':info.get('hippodrome',''),
                     'rncn':code,'heure_depart_paris':info.get('depart',''),
                     'top3_prevu_numeros':','.join(nums),
@@ -164,7 +236,7 @@ def source_rows(cache):
                     'source_arrivee_url':arrivee.get('source','PMU_API_PARTICIPANTS'),
                     'arrivee_verifiee_utc':arrivee.get('verifie_utc',''),
                     'score_sur_3':scores,
-                    'statut_evaluation':'EVALUE' if scores!='' else 'ARRIVEE_SANS_TOP3_FIGE'}
+                    'statut_evaluation':'EVALUE' if any(x!='' for x in (scores,direct_hits,cote_hits,ml_hits)) else 'ARRIVEE_SANS_TOP3_FIGE'}
     # V21: une cle (cheval, date, hippodrome) ne suffit pas:
     # un cheval peut courir deux fois le meme jour au meme hippodrome.
     # Dedoublonner entre exports de courses, mais jamais deux lignes source
