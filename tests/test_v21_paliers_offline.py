@@ -204,6 +204,19 @@ class V21PaliersTests(unittest.TestCase):
             self.assertEqual(row["arrivee_officielle_numeros"],"1,2,5")
             self.assertEqual(row["statut_evaluation"],"EVALUE")
 
+    def test_preparation_j1_avant_18h(self):
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        from pmu_geny.planification_v20_2 import selectionner_courses
+        now=datetime(2026,11,11,15,30,tzinfo=ZoneInfo("Europe/Paris"))
+        cours=[{"code":"R1C1","depart":"2026-11-12T12:00:00+01:00","priorite_metier":"P1"}]
+        selected=selectionner_courses(cours,now,"2026-11-12",[],True,{"courses":{}})
+        self.assertEqual([x["code"] for x in selected],["R1C1"])
+        after=datetime(2026,11,12,12,1,tzinfo=ZoneInfo("Europe/Paris"))
+        self.assertEqual(selectionner_courses(cours,after,"2026-11-12",[],True,{"courses":{}}),cours)
+        too_late=datetime(2026,11,12,18,30,tzinfo=ZoneInfo("Europe/Paris"))
+        self.assertEqual(selectionner_courses(cours,too_late,"2026-11-12",[],True,{"courses":{}}),[])
+
     def test_registre_11_novembre_reel(self):
         root=Path("reference_pmu")
         if not root.exists():self.skipTest("registre de production non charge")
