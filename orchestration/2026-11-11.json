@@ -518,7 +518,7 @@
     },
     "R4C2": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697659",
@@ -547,7 +547,7 @@
       "nombre_declares": 16,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON LA SOIE (0 correspondances)",
       "motif_attente_geny": "COOLDOWN_GENY",
@@ -557,11 +557,12 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
     },
     "R13C7": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697689",
@@ -590,7 +591,7 @@
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE GRAIGNES (0 correspondances)",
       "motif_attente_geny": "COOLDOWN_GENY",
@@ -600,11 +601,12 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
     },
     "R4C3": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1697657",
+      "etat": "MANIFESTE_PRESENT",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697657",
@@ -643,7 +645,16 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "historique_geny": "COLLECTE_INCREMENTALE",
+      "historique_collecte_resultat": "SUSPENDUE_429",
+      "np_confirmes": 0,
+      "np_verification_utc": "2026-11-11T15:48:48.368845+00:00",
+      "statut_prevision": "DONNEES_INSUFFISANTES",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1697657/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R4C4": {
       "identifiant_geny": null,
@@ -734,11 +745,11 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T15:25:22.483817+00:00",
-  "fiches_geny_budget_consommees": 0,
+  "dernier_controle_pmu": "2026-11-11T15:48:11.328090+00:00",
+  "fiches_geny_budget_consommees": 1,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T15:25:22.483817+00:00",
+    "horodatage_utc": "2026-11-11T15:48:11.328090+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 17,
