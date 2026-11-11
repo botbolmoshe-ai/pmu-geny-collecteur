@@ -16,13 +16,67 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
 LIVE_RESET_DATE = '2026-11-12'
-COMPARE_COLUMNS = ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_rang','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','cote_avant_depart','cote_heure_utc','arrivee_rang','arrivee_podium','ml_etat','meteo_pluie_mm','meteo_vent_kmh','meteo_temperature_c','meteo_humidite_pct','meteo_capture_utc')
+COMPARE_COLUMNS = ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_rang','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','arrivee_podium','meteo_pluie_mm','meteo_vent_kmh','meteo_temperature_c','meteo_humidite_pct','meteo_capture_utc')
 REPORT_COLUMNS = ('top3_direct_numeros','score_direct','top3_cotes_numeros','score_cotes','top3_ml_numeros','analyse_comparative','score_baseline','score_baseline_final','score_ml','etat_ml',
                   'source_export','derniere_sync_utc')
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
                 'hippodrome':'hippodrome','discipline':'discipline','distance_m':'distance_m',
                 'classement':'classement','chrono':'chrono','source_url':'texte_source'}
 
+
+# Les libelles Google Sheets sont independants des noms techniques Python.
+# Une seule correspondance stable permet de conserver la synchronisation idempotente.
+DISPLAY_NAMES = {
+    'course_key':'Clé course (technique)',
+    'date_course':'Date',
+    'hippodrome':'Hippodrome',
+    'rncn':'Course R/C',
+    'heure_depart_paris':'Départ (Paris)',
+    'discipline':'Discipline',
+    'distance_m':'Distance (m)',
+    'numero':'N°',
+    'cheval':'Cheval',
+    'top3_direct_rang':'TOP3 direct · Rang',
+    'top3_direct_score':'TOP3 direct · Score',
+    'top3_direct_top3':'TOP3 direct · Sélection',
+    'top3_direct_statut':'TOP3 direct · Couverture',
+    'driver_jockey':'Driver / Jockey',
+    'entraineur':'Entraîneur',
+    'proprietaire':'Propriétaire',
+    'ferrure':'Ferrure',
+    'non_partant':'Non-partant (NP)',
+    'historique_statut':'Historique · État',
+    'historique_nb_courses_datees':'Historique · Courses',
+    'historique_maj_utc':'Historique · Mise à jour UTC',
+    'actuel_statut':'Données actuelles · État',
+    'actuel_maj_utc':'Données actuelles · Mise à jour UTC',
+    'source_pmu_url':'Source PMU',
+    'source_geny_url':'Source Geny',
+    'avis_pmu':'Avis expert PMU',
+    'avis_geny':'Avis expert Geny',
+    'avis_zone_turf':'Avis expert Zone-Turf',
+    'synthese_actualite':'Synthèse des avis',
+    'ml_modele_statut':'ML · État du modèle',
+    'ml_rang':'ML · Rang',
+    'ml_top3':'ML · Sélection',
+    'ml_proba_podium':'ML · Probabilité calibrée',
+    'ml_score_non_calibre':'ML · Score non calibré',
+    'top3_cotes_rang':'Cotes · Rang',
+    'top3_cotes_valeur':'Cotes · Valeur',
+    'top3_cotes_top3':'Cotes · Sélection',
+    'top3_cotes_statut':'Cotes · État',
+    'top3_direct_utc':'TOP3 direct · Calcul UTC',
+    'top3_cotes_utc':'TOP3 cotes · Calcul UTC',
+    'arrivee_rang':'Arrivée · Rang officiel',
+    'arrivee_podium':'Arrivée · Podium',
+    'meteo_pluie_mm':'Météo · Pluie (mm)',
+    'meteo_vent_kmh':'Météo · Vent (km/h)',
+    'meteo_temperature_c':'Météo · Température (°C)',
+    'meteo_humidite_pct':'Météo · Humidité (%)',
+    'meteo_capture_utc':'Météo · Collecte UTC',
+}
+INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
+assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
 
 def read_csv(path):
     with open(path,encoding='utf-8-sig',newline='') as f:
@@ -375,7 +429,7 @@ def main():
         if response.status_code!=200:
             print(f'SYNC_GOOGLE_SHEETS=ERREUR_LECTURE onglet={tab} http={response.status_code}');errors+=1;continue
         values=response.json().get('values',[])
-        headers=values[0] if values else []
+        headers=[INVERSE_NAMES.get(name,name) for name in (values[0] if values else [])]
         existing=[dict(zip(headers,row)) for row in values[1:]]
         try: all_headers,updates,appends=plan_sheet(headers,existing,source[tab],tab)
         except ValueError as exc:print('SYNC_GOOGLE_SHEETS=SCHEMA_INCOMPATIBLE',str(exc));errors+=1;continue
@@ -395,7 +449,7 @@ def main():
                 print(f'SYNC_GOOGLE_SHEETS=ERREUR_COLONNES onglet={tab} http={response.status_code}')
                 errors+=1;continue
         if extra:
-            updates_cells.append({'range':f"'{tab}'!{colname(len(headers)+1)}1:{colname(len(all_headers))}1",'values':[extra]})
+            updates_cells.append({'range':f"'{tab}'!{colname(len(headers)+1)}1:{colname(len(all_headers))}1",'values':[[DISPLAY_NAMES.get(k,k) for k in extra]]})
         for r,c,v in updates:
             updates_cells.append({'range':f"'{tab}'!{colname(c)}{r}",'values':[[v]]})
         # Use a single batchUpdate per tab, plus append for new rows.
