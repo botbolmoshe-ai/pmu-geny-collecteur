@@ -1,0 +1,51 @@
+name: PMU V21 - Validation iterative du moteur (lecture seule)
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tests/test_v21_paliers_offline.py'
+      - '.github/workflows/validation-iterative-v21.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/checkout@v4
+        with:
+          ref: pmu-data
+          path: reference_pmu
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer les dependances
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2
+      - name: Syntaxe
+        run: python -m compileall -q pmu_geny tests
+      - name: Regression complete (lecture seule)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p resultats/validation
+          python -m unittest discover -s tests -p 'test_*offline.py' -v 2>&1 | tee resultats/validation/regression.log
+      - name: Audit du registre et des paliers
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pmu_geny.recette_finale_v21 --source reference_pmu --rapport resultats/validation/registre.json
+          python -m unittest tests.test_v21_paliers_offline -v 2>&1 | tee resultats/validation/paliers.log
+      - name: Archiver les resultats
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-iterative-v21-${{ github.run_id }}
+          path: resultats/validation
+          if-no-files-found: warn
