@@ -60,7 +60,7 @@ class TestExpertsAndIdentity(unittest.TestCase):
   got=etablir(self.root,COURSE,[{'numero':1,'nom':'Autre Cheval'}])
   self.assertEqual(got['1']['methode'],'NON_ASSOCIE')
   got=etablir(self.root,COURSE,[{'numero':1,'nom':'Lombok Jiel'}])
-  self.assertEqual(got['1']['methode'],'ID_GENY_MANIFESTE_VERIFIE')
+  self.assertEqual(got['1']['methode'],'NOM_AMBIGU_ID_CONFIRME')
   (self.root/'orchestration/correspondances_geny.json').unlink()
   got=etablir(self.root,COURSE,[{'numero':1,'nom':'Lombok Jiel'}])
   self.assertEqual(got['1']['methode'],'NOM_AMBIGU')
