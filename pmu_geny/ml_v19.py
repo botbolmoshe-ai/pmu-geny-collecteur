@@ -133,20 +133,11 @@ def snapshot_pmu(cache,course,raw,now=None):
     if base.exists():return 'DEJA_CAPTURE'
     participants=_list(raw,'participants','partants')
     if len(participants)<3:return 'PARTANTS_INSUFFISANTS'
-    journal=(load(cache/'etat_persistant.json',{}) or {}).get('chevaux',{})
-    def canonical(value):
-        value=unicodedata.normalize('NFKD',str(value).casefold())
-        return ''.join(ch for ch in value if not unicodedata.combining(ch) and ch.isalnum())
-    matched={}
-    for ident,item in journal.items():
-        if item.get('statut')!='COMPLET':continue
-        filepath=cache/'historiques'/str(ident)/'historique_geny.json'
-        if not filepath.exists():continue
-        doc=load(filepath,{}) or {}
-        if doc.get('statut')!='COMPLET' or not isinstance(doc.get('performances'),list):continue
-        name=canonical(item.get('nom',''))
-        if not name:continue
-        matched.setdefault(name,[]).append((str(ident),doc))
+    from .liaison_chevaux_v22 import etablir
+    names=[{'numero':h.get('numPmu',h.get('numero')),
+            'nom':h.get('nomCheval',h.get('nom',h.get('nomParticipant','')))}
+           for h in participants if isinstance(h,dict)]
+    association=etablir(cache,course,names)
     context=_valid_context(cache,course,now)
     rows=[];seen=set();with_history=0;unknown_np=0
     for item in participants:
@@ -159,15 +150,16 @@ def snapshot_pmu(cache,course,raw,now=None):
         if item.get('nonPartant') is not False and str(item.get('statut','')).upper()!='PARTANT':
             unknown_np+=1
         name=next((str(item[k]).strip() for k in ('nomCheval','nom','nomParticipant') if isinstance(item.get(k),str) and item[k].strip()),'')
-        match=matched.get(canonical(name),[])
-        ident,histo=match[0] if len(match)==1 else ('',{})
+        link=association.get(str(numero),{})
+        ident,histo=link.get('cheval_id',''),link.get('historique',{})
         if ident:with_history+=1
         c={key:value for (num,key),value in context.items() if num in ('*',str(numero))}
         direct=_form_score(item)
         if direct is not None:c['pmu_score_direct']=direct
         features_values=features({'numero':numero,'nom':name},histo,course,c)
         rows.append({'numero':numero,'cheval_id':ident,'nom':name,
-                     'historique_ok':bool(ident),'score_direct_pmu':direct,
+                     'historique_ok':bool(ident),'methode_liaison':link.get('methode','NON_ASSOCIE'),
+                     'score_direct_pmu':direct,
                      'features':features_values})
     if len(rows)<3:return 'PARTANTS_INSUFFISANTS'
     if course.get('nombre_declares') and len(seen)!=int(course['nombre_declares']):
