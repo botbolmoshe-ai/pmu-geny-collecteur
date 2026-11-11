@@ -278,7 +278,24 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             except Exception as exc:
                 entry['statut_meteo']='METEO_NON_VERIFIEE'
                 entry['erreur_meteo']=f'{type(exc).__name__}: {exc}'
-        # Pas de consultation Geny sur une course terminée.
+        # PMU independant : produire les niveaux direct et cotes meme sans Geny.
+        # Avant depart seulement. Ne jamais bloquer ces TOP3 sur les historiques.
+        pmu_participants=None
+        if est_partie or departure-now<=timedelta(hours=6):
+            try:
+                pmu_participants=get_json(
+                    BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+
+                    f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
+                from .partants_actuels_v21 import enregistrer
+                entry['statut_partants_actuels']=enregistrer(cache,c,pmu_participants)
+                if not est_partie:
+                    from .top3_independants_v22 import calculer
+                    from .cotes_v19 import collecter
+                    entry['paliers_independants']=calculer(cache,c,pmu_participants)
+                    entry['statut_cotes']=collecter(cache,c,pmu_participants)
+            except Exception as exc:
+                entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
+        # Pas de consultation Geny sur une course terminee.
         manifest=None; manifest_path=None
         # Ne jamais enchainer decouverte de 17 fiches et historique dans le meme cycle.
         manifeste_decouvert_ce_cycle=False
@@ -339,7 +356,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         # Ce traitement n'engendre jamais de prevision apres le depart.
         if manifest is None and est_partie:
             try:
-                participants_resultat=get_json(
+                participants_resultat=pmu_participants or get_json(
                     BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+
                     f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
                 from .resultats_v18 import enregistrer_resultats
@@ -373,7 +390,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         verifier_participants=est_partie or (departure-now)<=timedelta(hours=6)
         try:
             if not verifier_participants: raise LookupError('CONTROLE_NP_DIFFERE_JUSQU_A_H6')
-            raw=get_json(BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
+            raw=pmu_participants or get_json(BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
             # Enregistrer les caracteristiques explicites PMU independamment du controle NP.
             from .partants_actuels_v21 import enregistrer as enregistrer_partants_actuels
             entry['statut_partants_actuels']=enregistrer_partants_actuels(cache,c,raw)
