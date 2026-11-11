@@ -135,6 +135,36 @@ def source_rows(cache):
                             'source_export':str(path.relative_to(cache)),
                             'derniere_sync_utc':datetime.now(timezone.utc).isoformat(),
                             'statut_evaluation':'EVALUE' if comparison_present and r.get('baseline_final_hits_course') else 'ARRIVEE_SANS_TOP3_FIGE'}
+    # Les arrivees PMU officielles peuvent exister sans manifeste Geny.
+    # Enregistrer une ligne bilan par course meme sans TOP3.
+    for arrival_file in sorted((cache/'arrivees').glob('????-??-??_R*C*.json')):
+        match=re.fullmatch(r'(\\d{4}-\\d{2}-\\d{2})_(R\\d+C\\d+)\\.json',arrival_file.name)
+        if not match:continue
+        date,code=match.groups()
+        info=course_info(cache,code,date)
+        if not info:continue
+        arrivee=load_json(arrival_file)
+        podium=sorted(
+            (x for x in arrivee.get('arrivee',[]) if x.get('rang') in (1,2,3)),
+            key=lambda x:x['rang'])
+        if len(podium)!=3 or [x['rang'] for x in podium]!=[1,2,3]:continue
+        k=course_key(date,info.get('hippodrome',''),code)
+        existing=reports.get(k,{})
+        forecast=load_json(cache/'pronostics'/f'{date}_{code}_top3.json')
+        latest=load_json(cache/'pronostics'/f'{date}_{code}_baseline_latest.json')
+        predicted=(latest or forecast).get('top3',[])
+        nums=[str(x['numero']) for x in predicted]
+        scores=len(set(nums)&{str(x['numero']) for x in podium}) if len(nums)==3 else ''
+        reports[k]={**existing,
+                    'course_key':k,'date_course':date,'hippodrome':info.get('hippodrome',''),
+                    'rncn':code,'heure_depart_paris':info.get('depart',''),
+                    'top3_prevu_numeros':','.join(nums),
+                    'fige_utc':forecast.get('frozen_at',''),
+                    'arrivee_officielle_numeros':','.join(str(x['numero']) for x in podium),
+                    'source_arrivee_url':arrivee.get('source','PMU_API_PARTICIPANTS'),
+                    'arrivee_verifiee_utc':arrivee.get('verifie_utc',''),
+                    'score_sur_3':scores,
+                    'statut_evaluation':'EVALUE' if scores!='' else 'ARRIVEE_SANS_TOP3_FIGE'}
     # V21: une cle (cheval, date, hippodrome) ne suffit pas:
     # un cheval peut courir deux fois le meme jour au meme hippodrome.
     # Dedoublonner entre exports de courses, mais jamais deux lignes source
