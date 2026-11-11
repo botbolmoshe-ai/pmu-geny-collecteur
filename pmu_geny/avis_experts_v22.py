@@ -174,7 +174,8 @@ def collecter(cache,course,raw,now=None,fetch=None):
                             'zone_source':url}
             status='ZONE_TURF_AVIS_RECUPERES' if zone else 'ZONE_TURF_AUCUN_AVIS_ASSOCIE'
         except Exception as exc:
-            status=f'ZONE_TURF_ERREUR_{type(exc).__name__}'\n            error_detail=str(exc)[:160]
+            status=f'ZONE_TURF_ERREUR_{type(exc).__name__}'
+            error_detail=str(exc)[:160]
     save(path,{'date':course['date'],'course':course['code'],'capture_utc':now.isoformat(),
                'source_zone_turf':url,'zone_turf_controle_utc':now.isoformat() if attempt else previous,
                'statut_zone_turf':status,'erreur_zone_turf':locals().get('error_detail',''),
