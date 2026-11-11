@@ -9,7 +9,7 @@ FIELDS = {
     "driver_jockey": ("driver", "jockey", "nomDriver", "nomJockey", "driverJockey"),
     "entraineur": ("entraineur", "trainer", "nomEntraineur"),
     "proprietaire": ("proprietaire", "owner", "nomProprietaire"),
-    "ferrure": ("ferrure", "codeFerrure", "typeFerrure", "ferrureCheval"),
+    "ferrure": ("deferre", "ferrure", "codeFerrure", "typeFerrure", "ferrureCheval"),
     "sexe": ("sexe", "sexeCheval", "sexeParticipant"),
     "age_ans": ("age", "ageCheval", "ageParticipant"),
     "gains_euros": ("gainsCarriere", "gainsParticipant", "gains", "gainCarriere",
@@ -35,6 +35,12 @@ def age_valide(value):
     return None
 
 def gains_valides(value):
+    # PMU gainsParticipant.gainsCarriere est publie en centimes : 88817500
+    # correspond a 888175 EUR (croise avec la page Zone-Turf du Quinté).
+    if isinstance(value,dict) and 'gainsCarriere' in value:
+        raw=value['gainsCarriere']
+        if isinstance(raw,bool) or not isinstance(raw,(int,float)) or raw<0:return None
+        return round(raw/100,2) if raw/100<100_000_000 else None
     if isinstance(value,dict):
         for key in ('montant','valeur','gains','total','montantGains'):
             if key in value:return gains_valides(value[key])
@@ -53,6 +59,25 @@ def sexe_normalise(value):
         'M':'Mâle','MALE':'Mâle','MÂLE':'Mâle','MALES':'Mâle','MÂLES':'Mâle','ENTIER':'Mâle','ENTIERS':'Mâle',
         'F':'Femelle','FEMELLE':'Femelle','FEMELLES':'Femelle','JUMENT':'Femelle','POULICHE':'Femelle',
         'H':'Hongre','HONGRE':'Hongre','HONGRES':'Hongre'
+    }.get(key,'')
+
+def ferrure_normalisee(value):
+    if value is None:return ''
+    key=str(value).strip().upper()
+    # Correspondances confirmées sur le flux public PMU du 12 novembre :
+    # D4 = 4 pieds déferrés, P4 = 4 pieds protégés/plaqués.
+    return {
+        'DEFERRE_ANTERIEURS_POSTERIEURS':'D4',
+        'DEFERRE_ANTERIEURS':'DA',
+        'DEFERRE_POSTERIEURS':'DP',
+        'PROTEGE_ANTERIEURS_POSTERIEURS':'P4',
+        'PROTEGE_ANTERIEURS':'PA',
+        'PROTEGE_POSTERIEURS':'PP',
+        'PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS':'DP/PA',
+        'PROTEGE_ANTERIEURS_DEFERRE_POSTERIEURS':'DP/PA',
+        'DEFERRE_ANTERIEURS_PROTEGE_POSTERIEURS':'DA/PP',
+        'D4':'D4','DA':'DA','DP':'DP','P4':'P4','PA':'PA','PP':'PP',
+        'DP/PA':'DP/PA','DA/PP':'DA/PP'
     }.get(key,'')
 
 def ferrure_historique_explicite(value):
@@ -87,6 +112,8 @@ def extraire_partants(raw):
             if sexe:fields['sexe']=sexe;break
         if fields.get('sexe'):
             fields['sexe']=sexe_normalise(fields['sexe']) or fields['sexe']
+        if fields.get('ferrure'):
+            fields['ferrure']=ferrure_normalisee(fields['ferrure']) or fields['ferrure']
         for nom_key in ("nomCheval","nom","nomParticipant"):
             nom=_label(item.get(nom_key))
             if nom:
