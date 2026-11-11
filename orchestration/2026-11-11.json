@@ -107,7 +107,7 @@
       "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LA CAPELLE (0 correspondances)",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "motif_attente_geny": "COOLDOWN_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1697679",
@@ -130,7 +130,8 @@
         }
       },
       "geny_id_rapproche": "1697679",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES"
     },
     "R13C2": {
       "identifiant_geny": null,
@@ -464,7 +465,7 @@
     },
     "R4C1": {
       "identifiant_geny": "GENY-1697658",
-      "etat": "MANIFESTE_PRESENT",
+      "etat": "TERMINE_ARCHIVE",
       "depart": "2026-11-11T16:07:00+01:00",
       "nom": "PRIX ABO VOLO",
       "hippodrome": "HIPPODROME DE LYON LA SOIE",
@@ -556,7 +557,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_RELEVEES",
-      "statut_snapshot_ml": "CAPTURE_PMU"
+      "statut_snapshot_ml": "DEJA_CAPTURE"
     },
     "R13C7": {
       "identifiant_geny": null,
@@ -599,7 +600,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_RELEVEES",
-      "statut_snapshot_ml": "CAPTURE_PMU"
+      "statut_snapshot_ml": "DEJA_CAPTURE"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -642,7 +643,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_RELEVEES",
-      "statut_snapshot_ml": "CAPTURE_PMU"
+      "statut_snapshot_ml": "DEJA_CAPTURE"
     },
     "R4C4": {
       "identifiant_geny": null,
@@ -685,7 +686,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_RELEVEES",
-      "statut_snapshot_ml": "CAPTURE_PMU"
+      "statut_snapshot_ml": "DEJA_CAPTURE"
     },
     "R4C5": {
       "identifiant_geny": null,
@@ -728,16 +729,16 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_RELEVEES",
-      "statut_snapshot_ml": "CAPTURE_PMU"
+      "statut_snapshot_ml": "DEJA_CAPTURE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-11T15:18:59.746100+00:00",
+  "dernier_controle_pmu": "2026-11-11T15:22:43.477152+00:00",
   "fiches_geny_budget_consommees": 0,
   "diagnostic_pmu": {
     "date": "2026-11-11",
-    "horodatage_utc": "2026-11-11T15:18:59.746100+00:00",
+    "horodatage_utc": "2026-11-11T15:22:43.477152+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 17,
