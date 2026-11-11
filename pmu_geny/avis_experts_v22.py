@@ -106,6 +106,48 @@ def parser_zone_quinte(html,course,participants):
             answers[str(numero)]=message+' (Zone-Turf)'
     return answers
 
+def parser_zone_profils(html,course,participants):
+    """Profil hippique de la page officielle Zone-Turf, seulement course vérifiée.
+
+    Numéro + nom entier exact dans la ligne ; les codes absents restent absents.
+    """
+    from .partants_actuels_v21 import gains_valides
+    from html import unescape
+    visible=' '.join(re.sub(r'<[^>]+>',' ',html).split())
+    track=nom_normalise(course.get('hippodrome',''))
+    track='vincennes' if 'vincennes' in track else 'amiens' if 'amiens' in track else track
+    title=nom_normalise(course.get('nom',''))
+    if track not in nom_normalise(visible[:15000]) or (title and title not in nom_normalise(visible[:25000])):
+        return {}
+    parser=TableRows()
+    parser.feed(html)
+    output={}
+    for row in parser.rows:
+        if len(row)<3 or not re.fullmatch(r'\d{1,2}',row[0].strip()):continue
+        number=row[0].strip()
+        horse=participants.get(number)
+        if not horse:continue
+        name=nom_normalise(horse.get('nom',''))
+        if not name or name not in nom_normalise(row[1]):continue
+        details=' '.join(row[1:3])
+        props={}
+        # Ferrure explicitement décrite dans la cellule du cheval.
+        ferr=re.search(r'(?<![A-Za-z0-9])(?:D4|DP/PA|DA/PP|DP|DA|P4|PA|PP)(?![A-Za-z0-9])',details,re.I)
+        if ferr:props['ferrure']=ferr.group(0).upper()
+        age_sex=re.search(r'(?<![A-Za-z0-9])([MHF])\s*(\d{1,2})(?![A-Za-z0-9])',details,re.I)
+        if age_sex:
+            sex={'M':'Mâle','H':'Hongre','F':'Femelle'}[age_sex.group(1).upper()]
+            age=int(age_sex.group(2))
+            if 2<=age<=25:props.update({'sexe':sex,'age_ans':age})
+        for cell in row[2:]:
+            val=unescape(cell)
+            match=re.fullmatch(r'\s*(\d[\d\s\u00a0]*)\s*€\s*',val)
+            if match:
+                amount=gains_valides(match.group(1))
+                if amount is not None:props['gains_euros']=amount;break
+        if props:output[number]=props
+    return output
+
 def _pmu_opinion(item):
     for key in ('commentaireEntraineur','avisEntraineur','commentaireExpert','avisExpert'):
         value=item.get(key)
@@ -166,6 +208,12 @@ def collecter(cache,course,raw,now=None,fetch=None):
             if fetch is None:
                 daily.parent.mkdir(parents=True,exist_ok=True)
                 daily.write_text(html,encoding='utf-8')
+            profils=parser_zone_profils(html,course,names)
+            for n,profile in profils.items():
+                prior=results.get(n,{})
+                results[n]={**prior,'profil_zone_turf':profile,
+                            'profil_collecte_utc':now.isoformat(),
+                            'profil_source':url}
             zone=parser_zone_quinte(html,course,names)
             for n,avis in zone.items():
                 original=results.get(n,{})
