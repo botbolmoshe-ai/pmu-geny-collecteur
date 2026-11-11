@@ -212,6 +212,17 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     # Les courses récentes peuvent seulement passer par la phase arrivées/audit.
     # Le lendemain est préparé dès 18 h (heure de Paris), sans trafic nocturne.
     from .planification_v20_2 import selectionner_courses
+    from .priorite_cycle_v20_9 import choisir_cycle
+    cycle_demande = 'complet' if max_new > 0 else 'leger'
+    cycle_effectif, diagnostic_preparation = choisir_cycle(courses, state, now, cycle_demande)
+    # Ne pas réinterpréter les cycles explicites J+1; préserver le quota Geny.
+    if cycle_effectif == 'complet' and max_new == 0 and selection_complete is None:
+        max_new = 3
+        max_discoveries = max(max_discoveries, 1)
+    state['diagnostic_preparation_avant_cycle'] = diagnostic_preparation
+    state['cycle_effectif'] = cycle_effectif
+    print('DECISION_CYCLE '+json.dumps({'demande':cycle_demande,
+        'effectif':cycle_effectif, **diagnostic_preparation},ensure_ascii=False),flush=True)
     selected=selectionner_courses(courses, now, date, selection, max_new>0 if selection_complete is None else selection_complete,
                                 state, max_courses=12)
     remaining_new=max_new
