@@ -872,12 +872,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 13,
+      "preuves": {
+        "nom": "MERIBEL",
+        "debut_utc": "2026-11-12T23:01:50.891942+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2838457",
+          "numero": 18,
+          "nom": "Meribel",
+          "url_geny": "https://www.geny.com/cheval/2838457-meribel/course/1698067"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 13,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MERIBEL/1/2838457",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2838457-meribel/course/1698067",
+          "http": 200,
+          "titre_page": "Meribel - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:01:51.750940+00:00"
+        },
+        "fin_utc": "2026-11-12T23:01:56.527528+00:00"
+      }
     },
     "MERRYRIVER": {
       "nom": "MERRY RIVER",
@@ -7645,14 +7674,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:01:27.152559+00:00",
+  "maj_utc": "2026-11-12T23:01:56.559005+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 9,
+    "collectes_completes": 10,
     "synchronises": 9,
     "statuts": {
-      "COMPLET": 9,
-      "A_FAIRE": 154
+      "COMPLET": 10,
+      "A_FAIRE": 153
     }
   }
 }
