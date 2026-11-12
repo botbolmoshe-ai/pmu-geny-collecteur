@@ -2962,12 +2962,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 35,
+      "preuves": {
+        "nom": "KOMPANY VINCENT",
+        "debut_utc": "2026-11-12T23:14:55.355598+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2761944",
+          "numero": 12,
+          "nom": "Kompany Vincent",
+          "url_geny": "https://www.geny.com/cheval/2761944-kompany-vincent/course/1698064"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 35,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/KOMPANYVINCENT/1/2761944",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2761944-kompany-vincent/course/1698064",
+          "http": 200,
+          "titre_page": "Kompany Vincent - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:14:56.208523+00:00"
+        },
+        "fin_utc": "2026-11-12T23:15:00.544077+00:00"
+      }
     },
     "KROONERDHERIPRE": {
       "nom": "KROONER D'HERIPRE",
@@ -8679,14 +8708,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:14:30.208053+00:00",
+  "maj_utc": "2026-11-12T23:15:00.580506+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 31,
+    "collectes_completes": 32,
     "synchronises": 31,
     "statuts": {
-      "COMPLET": 31,
-      "A_FAIRE": 132
+      "COMPLET": 32,
+      "A_FAIRE": 131
     }
   }
 }
