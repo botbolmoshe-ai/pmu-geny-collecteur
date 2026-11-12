@@ -40,6 +40,27 @@ jobs:
           mkdir -p cache_pmu resultats
           git archive origin/pmu-data | tar -x -C cache_pmu
           test -s "cache_pmu/manifestes/GENY-${GENY_ID}.json" || { echo "Manifeste absent : aucune decouverte automatique"; exit 2; }
+          python - "$GENY_ID" <<'PY'
+          import json, pathlib, sys
+          from urllib.parse import urlparse
+          cid=sys.argv[1]
+          doc=json.loads(pathlib.Path(f"cache_pmu/manifestes/GENY-{cid}.json").read_text())
+          courses=doc.get("courses", [])
+          if len(courses)!=1 or str(courses[0].get("course_id"))!=cid:
+              raise SystemExit("Manifeste incompatible")
+          partants=courses[0].get("partants", [])
+          attendu=courses[0].get("nombre_partants_attendu")
+          if not partants or (attendu is not None and len(partants)!=int(attendu)):
+              raise SystemExit("Partants incomplets")
+          ids=set()
+          for p in partants:
+              ident=str(p.get("id", ""))
+              url=urlparse(str(p.get("url_geny", "")))
+              if not ident.isdigit() or ident in ids or url.scheme!="https" or url.hostname not in ("geny.com","www.geny.com"):
+                  raise SystemExit("Identifiant, URL ou doublon invalide")
+              ids.add(ident)
+          print(f"PREFLIGHT_OK course={cid} partants={len(partants)}")
+          PY
           echo "MANIFESTE=cache_pmu/manifestes/GENY-${GENY_ID}.json" >> "$GITHUB_ENV"
           echo "MAX_CHEVAUX=$MAX_CHEVAUX" >> "$GITHUB_ENV"
       - name: Installer uniquement les dependances necessaires
