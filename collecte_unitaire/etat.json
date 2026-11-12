@@ -113,11 +113,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 25,
       "preuves": {
         "nom": "MAGIE DE CHAHAINS",
@@ -146,7 +146,25 @@
           "extrait_utc": "2026-11-12T22:57:09.087973+00:00"
         },
         "fin_utc": "2026-11-12T22:57:13.723504+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 25,
+          "cellules_actualisees": 0,
+          "lignes_source": 25
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T22:57:18.903026+00:00",
+      "erreur": ""
     },
     "MAGIEMESLOISE": {
       "nom": "MAGIE MESLOISE",
@@ -7298,11 +7316,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T22:57:13.783069+00:00",
+  "maj_utc": "2026-11-12T22:57:18.903060+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 2,
-    "synchronises": 1,
+    "synchronises": 2,
     "statuts": {
       "COMPLET": 2,
       "A_FAIRE": 161
