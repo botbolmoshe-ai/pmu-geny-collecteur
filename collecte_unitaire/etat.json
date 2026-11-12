@@ -3723,11 +3723,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 62,
       "preuves": {
         "nom": "ISIA DU CHENE",
@@ -3756,7 +3756,25 @@
           "extrait_utc": "2026-11-12T23:19:43.506571+00:00"
         },
         "fin_utc": "2026-11-12T23:19:48.329109+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 62,
+          "cellules_actualisees": 0,
+          "lignes_source": 62
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:19:53.191143+00:00",
+      "erreur": ""
     },
     "IZIASLAVTEK": {
       "nom": "IZIASLAV TEK",
@@ -9084,11 +9102,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:19:48.406758+00:00",
+  "maj_utc": "2026-11-12T23:19:53.191167+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 40,
-    "synchronises": 39,
+    "synchronises": 40,
     "statuts": {
       "COMPLET": 40,
       "A_FAIRE": 123
