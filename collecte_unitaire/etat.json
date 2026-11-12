@@ -6368,11 +6368,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 13,
       "preuves": {
         "nom": "NORD AMERICAINE",
@@ -6400,7 +6400,25 @@
           "extrait_utc": "2026-11-12T23:53:15.768166+00:00"
         },
         "fin_utc": "2026-11-12T23:53:20.280919+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 13,
+          "cellules_actualisees": 0,
+          "lignes_source": 13
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:53:25.508623+00:00",
+      "erreur": ""
     },
     "NOVATIM": {
       "nom": "NOVA TIM",
@@ -10403,11 +10421,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:53:20.356708+00:00",
+  "maj_utc": "2026-11-12T23:53:25.508643+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 66,
-    "synchronises": 65,
+    "synchronises": 66,
     "statuts": {
       "COMPLET": 66,
       "ERREUR": 4,
