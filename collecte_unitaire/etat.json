@@ -3628,11 +3628,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 54,
       "preuves": {
         "nom": "IROKO DU CAIEU",
@@ -3661,7 +3661,25 @@
           "extrait_utc": "2026-11-12T23:19:07.726693+00:00"
         },
         "fin_utc": "2026-11-12T23:19:12.421929+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 54,
+          "cellules_actualisees": 0,
+          "lignes_source": 54
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:19:16.976994+00:00",
+      "erreur": ""
     },
     "ISIADUCHENE": {
       "nom": "ISIA DU CHENE",
@@ -9037,11 +9055,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:19:12.449988+00:00",
+  "maj_utc": "2026-11-12T23:19:16.977015+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 39,
-    "synchronises": 38,
+    "synchronises": 39,
     "statuts": {
       "COMPLET": 39,
       "A_FAIRE": 124
