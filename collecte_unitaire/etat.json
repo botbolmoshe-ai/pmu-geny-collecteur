@@ -3722,12 +3722,41 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 62,
+      "preuves": {
+        "nom": "ISIA DU CHENE",
+        "debut_utc": "2026-11-12T23:19:42.534663+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2690247",
+          "numero": 4,
+          "nom": "Isia du Chêne",
+          "url_geny": "https://www.geny.com/cheval/2690247-isia-du-chene/course/1698055"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 62,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/ISIADUCHENE/1/2690247",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2690247-isia-du-chene/course/1698055",
+          "http": 200,
+          "titre_page": "Isia du Chêne - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:19:43.506571+00:00"
+        },
+        "fin_utc": "2026-11-12T23:19:48.329109+00:00"
+      }
     },
     "IZIASLAVTEK": {
       "nom": "IZIASLAV TEK",
@@ -9055,14 +9084,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:19:16.977015+00:00",
+  "maj_utc": "2026-11-12T23:19:48.406758+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 39,
+    "collectes_completes": 40,
     "synchronises": 39,
     "statuts": {
-      "COMPLET": 39,
-      "A_FAIRE": 124
+      "COMPLET": 40,
+      "A_FAIRE": 123
     }
   }
 }
