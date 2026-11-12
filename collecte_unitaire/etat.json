@@ -5372,11 +5372,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 76,
       "preuves": {
         "nom": "JARDIN D'ERABLE",
@@ -5404,7 +5404,25 @@
           "extrait_utc": "2026-11-12T23:38:49.114655+00:00"
         },
         "fin_utc": "2026-11-12T23:38:53.966437+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 76,
+          "cellules_actualisees": 0,
+          "lignes_source": 76
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:38:59.286445+00:00",
+      "erreur": ""
     },
     "JUNONDESROSES": {
       "nom": "JUNON DES ROSES",
@@ -9923,11 +9941,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:38:54.047706+00:00",
+  "maj_utc": "2026-11-12T23:38:59.286469+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 57,
-    "synchronises": 56,
+    "synchronises": 57,
     "statuts": {
       "COMPLET": 57,
       "ERREUR": 1,
