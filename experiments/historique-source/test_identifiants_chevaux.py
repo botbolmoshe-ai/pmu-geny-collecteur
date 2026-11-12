@@ -19,9 +19,9 @@ def main():
  result["chevaux_disponibles"]=len(horses)
  result["cles_participant"]=sorted(horses[0]) if horses else []
  for horse in horses[:3]:
-  name=horse.get("nom");ids={k:v for k,v in horse.items() if re.search("id|ident|ref|code|numero",k,re.I) and isinstance(v,(int,str))}
-  item={"nom":name,"identifiants":ids,"historique_valide":False,"performances_validees":0,"essais":[]}
-  # Ne sonder que des chemins de fiches individuels pour des identifiants explicitement exposes.
+  name=horse.get("nom");ids={k:v for k,v in horse.items() if re.search("id|ident|ref|code|numero",k,re.I) and not isinstance(v,bool) and isinstance(v,(int,str))}
+  item={"nom":name,"identifiants":ids,"musique_brute":horse.get("musique"),"nombre_courses_declare":horse.get("nombreCourses"),"historique_valide":False,"performances_validees":0,"essais":[]}
+  # La musique et le nombre de courses sont des indicateurs agreges, pas des lignes historiques datees.\n  # Ne sonder que des chemins de fiches individuels pour des identifiants explicitement exposes.
   for key,val in list(ids.items())[:2]:
    if not re.search("cheval|participant|id",key,re.I) or not str(val).isdigit():continue
    for url in [f"https://online.turfinfo.api.pmu.fr/rest/client/1/cheval/{val}",f"https://online.turfinfo.api.pmu.fr/rest/client/1/chevaux/{val}/performances"]:
