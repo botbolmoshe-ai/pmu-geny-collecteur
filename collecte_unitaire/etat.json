@@ -3912,12 +3912,41 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 50,
+      "preuves": {
+        "nom": "JACANA",
+        "debut_utc": "2026-11-12T23:20:54.881992+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2739105",
+          "numero": 7,
+          "nom": "Jacana",
+          "url_geny": "https://www.geny.com/cheval/2739105-jacana/course/1698055"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 50,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/JACANA/1/2739105",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2739105-jacana/course/1698055",
+          "http": 200,
+          "titre_page": "Jacana - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:20:55.897254+00:00"
+        },
+        "fin_utc": "2026-11-12T23:21:00.970614+00:00"
+      }
     },
     "JAMAIS": {
       "nom": "JAMAIS",
@@ -9149,14 +9178,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:20:29.666343+00:00",
+  "maj_utc": "2026-11-12T23:21:01.045161+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 41,
+    "collectes_completes": 42,
     "synchronises": 41,
     "statuts": {
-      "COMPLET": 41,
-      "A_FAIRE": 122
+      "COMPLET": 42,
+      "A_FAIRE": 121
     }
   }
 }
