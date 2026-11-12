@@ -17,5 +17,17 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verifier syntaxe Python
         run: python -m py_compile experiments/historique-source/sonde.py
-      - name: Sonder une URL publique (aucune collecte ni ecriture Sheets)
-        run: python experiments/historique-source/sonde.py --source pmu --url 'https://www.pmu.fr/'
+      - name: Sonder une URL publique et produire une preuve JSON
+        shell: bash
+        run: |
+          mkdir -p resultats-diagnostic
+          python experiments/historique-source/sonde.py --source pmu --url 'https://www.pmu.fr/' | tee resultats-diagnostic/pmu.json
+          python -m json.tool resultats-diagnostic/pmu.json >/dev/null
+      - name: Conserver les preuves meme si la sonde echoue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostic-historique-pmu-${{ github.run_id }}
+          path: resultats-diagnostic/
+          if-no-files-found: warn
+          retention-days: 14
