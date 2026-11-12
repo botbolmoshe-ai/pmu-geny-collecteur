@@ -2297,12 +2297,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 50,
+      "preuves": {
+        "nom": "KENO PETTEVINIERE",
+        "debut_utc": "2026-11-12T23:10:44.798104+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2751312",
+          "numero": 10,
+          "nom": "Keno Pettevinière",
+          "url_geny": "https://www.geny.com/cheval/2751312-keno-petteviniere/course/1698064"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 50,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/KENOPETTEVINIERE/1/2751312",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2751312-keno-petteviniere/course/1698064",
+          "http": 200,
+          "titre_page": "Keno Pettevinière - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:10:45.868765+00:00"
+        },
+        "fin_utc": "2026-11-12T23:10:50.615814+00:00"
+      }
     },
     "KEVINPRINCE": {
       "nom": "KEVIN PRINCE",
@@ -8350,14 +8379,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:10:20.738310+00:00",
+  "maj_utc": "2026-11-12T23:10:50.670947+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 24,
+    "collectes_completes": 25,
     "synchronises": 24,
     "statuts": {
-      "COMPLET": 24,
-      "A_FAIRE": 139
+      "COMPLET": 25,
+      "A_FAIRE": 138
     }
   }
 }
