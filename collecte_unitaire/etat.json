@@ -5151,7 +5151,11 @@
       "code": "R1C2",
       "numero": 5,
       "ligne_sheet": 37,
-      "geny": null,
+      "geny": {
+        "id": "2665134",
+        "nom": "IVALO DU BOCAGE",
+        "url_geny": "https://www.geny.com/cheval/2665134-ivalo-du-bocage/course/1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -5181,12 +5185,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 78,
+      "preuves": {
+        "nom": "IVALO DU BOCAGE",
+        "debut_utc": "2026-11-12T23:35:13.608412+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2665134",
+          "nom": "IVALO DU BOCAGE",
+          "url_geny": "https://www.geny.com/cheval/2665134-ivalo-du-bocage/course/1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 78,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/IVALODUBOCAGE/1/2665134",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2665134-ivalo-du-bocage/course/1698063",
+          "http": 200,
+          "titre_page": "Ivalo du Bocage - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:35:55.824096+00:00"
+        },
+        "fin_utc": "2026-11-12T23:36:00.495433+00:00"
+      }
     },
     "JACKSONHILL": {
       "nom": "JACKSON HILL",
@@ -9791,15 +9823,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:34:48.619535+00:00",
+  "maj_utc": "2026-11-12T23:36:00.536982+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 54,
+    "collectes_completes": 55,
     "synchronises": 54,
     "statuts": {
-      "COMPLET": 54,
+      "COMPLET": 55,
       "ERREUR": 1,
-      "A_FAIRE": 108
+      "A_FAIRE": 107
     }
   }
 }
