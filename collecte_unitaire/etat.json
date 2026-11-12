@@ -6041,7 +6041,11 @@
       "code": "R1C3",
       "numero": 13,
       "ligne_sheet": 59,
-      "geny": null,
+      "geny": {
+        "id": "2856268",
+        "nom": "NIKKI BEACH JISCE",
+        "url_geny": "https://www.geny.com/cheval/2856268-nikki-beach-jisce/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -6071,12 +6075,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 9,
+      "preuves": {
+        "nom": "NIKKI BEACH JISCE",
+        "debut_utc": "2026-11-12T23:47:57.102675+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2856268",
+          "nom": "NIKKI BEACH JISCE",
+          "url_geny": "https://www.geny.com/cheval/2856268-nikki-beach-jisce/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 9,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NIKKIBEACHJISCE/1/2856268",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2856268-nikki-beach-jisce/course/1698062",
+          "http": 200,
+          "titre_page": "Nikki Beach Jiscé - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:48:40.374901+00:00"
+        },
+        "fin_utc": "2026-11-12T23:48:44.803960+00:00"
+      }
     },
     "NINATIME": {
       "nom": "NINA TIME",
@@ -10251,15 +10283,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:47:27.021700+00:00",
+  "maj_utc": "2026-11-12T23:48:44.863830+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 63,
+    "collectes_completes": 64,
     "synchronises": 63,
     "statuts": {
-      "COMPLET": 63,
+      "COMPLET": 64,
       "ERREUR": 2,
-      "A_FAIRE": 98
+      "A_FAIRE": 97
     }
   }
 }
