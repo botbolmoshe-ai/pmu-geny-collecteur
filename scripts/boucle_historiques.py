@@ -23,7 +23,19 @@ def choisir(state,instant):
     waiting=pending or sync_pending
     return None,'ATTENTE' if waiting else 'TERMINE'
 
-def enregistrer(state,message):
+def pousser_checkpoint():
+    for attempt in range(3):
+        try:
+            git('push','origin','HEAD:refs/heads/'+BRANCH)
+            return
+        except subprocess.CalledProcessError:
+            if attempt==2:raise
+            time.sleep(5*(attempt+1))
+            git('fetch','origin',BRANCH)
+            # Ne jamais ecraser une modification concurrente de la branche.
+            git('merge-base','--is-ancestor','origin/'+BRANCH,'HEAD')
+
+def enregistrer(state,message,publier=True):
     state['maj_utc']=now().isoformat()
     state['bilan']={'total':len(state['chevaux']),'collectes_completes':sum(h['collecte']=='COMPLET' for h in state['chevaux'].values()),
                     'synchronises':sum(h['sync']=='OK' for h in state['chevaux'].values()),
@@ -32,10 +44,11 @@ def enregistrer(state,message):
     with (ROOT/'collecte_unitaire/progression.csv').open('w',encoding='utf-8-sig',newline='') as f:
         w=csv.writer(f,delimiter=';');w.writerow(['cheval','collecte','sheets','performances','tentatives','erreur'])
         for h in state['chevaux'].values():w.writerow([h['nom'],h['collecte'],h['sync'],h.get('nombre_extrait',0),h['tentatives'],h.get('erreur','')])
-    git('add','collecte_unitaire')
-    if subprocess.run(['git','diff','--cached','--quiet'],cwd=ROOT).returncode:
-        git('commit','-m',message)
-        git('push','origin','HEAD:refs/heads/'+BRANCH)
+    if publier:
+        git('add','collecte_unitaire')
+        if subprocess.run(['git','diff','--cached','--quiet'],cwd=ROOT).returncode:
+            git('commit','-m',message)
+            pousser_checkpoint()
     print('PROGRESSION '+json.dumps(state['bilan'],ensure_ascii=False),flush=True)
 
 def main():
@@ -62,7 +75,7 @@ def main():
             if delay:time.sleep(delay)
             h.update(collecte='EN_COURS',tentatives=h['tentatives']+1)
             h['tentatives_execution']+=1
-            enregistrer(state,'Collecte individuelle : '+h['nom'])
+            enregistrer(state,'Collecte individuelle : '+h['nom'],publier=False)
             result_path=ROOT/'collecte_unitaire/dernier_resultat.json';result_path.unlink(missing_ok=True)
             try:
                 subprocess.run([sys.executable,str(ROOT/'scripts/collecter_un_cheval.py'),'--cle',key],cwd=ROOT,timeout=240,check=True)
@@ -89,7 +102,7 @@ def main():
             h['sync_tentatives_execution']+=1
             if not h.get('stockage_durable_ok'):
                 persister(h);h['stockage_durable_ok']=True
-                enregistrer(state,'Historique sauvegarde dans pmu-data : '+h['nom'])
+                enregistrer(state,'Historique sauvegarde dans pmu-data : '+h['nom'],publier=False)
             h['sync_details']=synchroniser(h,state['spreadsheet_id'])
             h.update(sync='OK',sync_utc=now().isoformat(),erreur='')
         except Exception as exc:

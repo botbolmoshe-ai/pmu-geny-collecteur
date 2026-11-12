@@ -1,12 +1,25 @@
 import unittest
 from datetime import datetime,timedelta,timezone
 from scripts.boucle_historiques import choisir
+from unittest.mock import patch
+import subprocess
 
 NOW=datetime(2026,11,12,22,tzinfo=timezone.utc)
 def horse(collecte='A_FAIRE',sync='A_FAIRE',tentatives=0):
     return {'collecte':collecte,'sync':sync,'tentatives':tentatives,'sync_tentatives':0}
 
 class BoucleTests(unittest.TestCase):
+    def test_git_checkpoint_is_retried_after_transient_rejection(self):
+        from scripts.boucle_historiques import pousser_checkpoint
+        calls=[]
+        def fake_git(*args):
+            calls.append(args)
+            if args[0]=='push' and sum(c[0]=='push' for c in calls)==1:
+                raise subprocess.CalledProcessError(1,['git',*args])
+        with patch('scripts.boucle_historiques.git',side_effect=fake_git),patch('scripts.boucle_historiques.time.sleep'):
+            pousser_checkpoint()
+        self.assertEqual(sum(c[0]=='push' for c in calls),2)
+        self.assertTrue(any(c[0]=='merge-base' for c in calls))
     def test_success_already_synced_is_never_collected_again(self):
         state={'chevaux':{'done':horse('COMPLET','OK'),'next':horse()}}
         self.assertEqual(choisir(state,NOW),('next','COLLECTE'))
