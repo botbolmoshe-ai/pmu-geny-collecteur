@@ -3533,11 +3533,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 84,
       "preuves": {
         "nom": "INDY DE LA FYE",
@@ -3566,7 +3566,25 @@
           "extrait_utc": "2026-11-12T23:18:31.324265+00:00"
         },
         "fin_utc": "2026-11-12T23:18:36.289894+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 84,
+          "cellules_actualisees": 0,
+          "lignes_source": 84
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:18:41.125759+00:00",
+      "erreur": ""
     },
     "IROKODUCAIEU": {
       "nom": "IROKO DU CAIEU",
@@ -8990,11 +9008,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:18:36.348020+00:00",
+  "maj_utc": "2026-11-12T23:18:41.125785+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 38,
-    "synchronises": 37,
+    "synchronises": 38,
     "statuts": {
       "COMPLET": 38,
       "A_FAIRE": 125
