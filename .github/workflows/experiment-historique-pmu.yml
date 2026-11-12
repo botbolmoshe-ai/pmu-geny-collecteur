@@ -8,26 +8,72 @@ on:
       - ".github/workflows/experiment-historique-pmu.yml"
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: diagnostic-historique-pmu
+  cancel-in-progress: false
 jobs:
   diagnostic:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - name: Verifier syntaxe Python
         run: python -m py_compile experiments/historique-source/sonde.py
-      - name: Sonder une URL publique et produire une preuve JSON
+      - name: Sonder une URL publique
         shell: bash
         run: |
           mkdir -p resultats-diagnostic
-          python experiments/historique-source/sonde.py --source pmu --url 'https://www.pmu.fr/' | tee resultats-diagnostic/pmu.json
+          python experiments/historique-source/sonde.py --source pmu --url 'https://www.pmu.fr/' > resultats-diagnostic/pmu.json
           python -m json.tool resultats-diagnostic/pmu.json >/dev/null
-      - name: Conserver les preuves meme si la sonde echoue
+      - name: Publier un bilan JSON lisible via API GitHub
+        if: always()
+        shell: bash
+        env:
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_RUN_ID: ${{ github.run_id }}
+          GH_RUN_ATTEMPT: ${{ github.run_attempt }}
+          GH_REF_NAME: ${{ github.ref_name }}
+          GH_SHA: ${{ github.sha }}
+          GH_JOB_STATUS: ${{ job.status }}
+        run: |
+          python - <<'PY'
+          import datetime,json,os,pathlib
+          source="pmu"
+          p=pathlib.Path("resultats-diagnostic")/f"{source}.json"
+          try:
+              sonde=json.loads(p.read_text(encoding="utf-8"))
+          except (OSError,ValueError):
+              sonde={"statut":"NON_EXECUTEE","erreur":"Sonde absente ou JSON invalide"}
+          # Aucun chiffre de collecte n'est infere d'un diagnostic HTTP.
+          bilan={"schema_version":1,"source":source,"test_type":"HTTP_ONLY",
+              "date_utc":datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              "run_id":os.environ["GH_RUN_ID"],"run_attempt":os.environ["GH_RUN_ATTEMPT"],
+              "run_url":f"https://github.com/{os.environ['GH_REPOSITORY']}/actions/runs/{os.environ['GH_RUN_ID']}",
+              "branche":os.environ["GH_REF_NAME"],"commit_teste":os.environ["GH_SHA"],
+              "job_status":os.environ["GH_JOB_STATUS"],"sonde":sonde,
+              "extraction_historique_validee":False,"chevaux_extraits":None,
+              "performances_extraites":None,"taux_completude":None}
+          dest=pathlib.Path("suivi-historique")/f"{source}-dernier-test.json"
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(bilan,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "suivi-historique/pmu-dernier-test.json"
+          if ! git diff --cached --quiet; then
+            git commit -m "ci: publier diagnostic pmu (HTTP uniquement) [skip ci]"
+            git push origin "HEAD:refs/heads/experiment/historique-pmu"
+          fi
+      - name: Conserver les preuves comme artefact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: diagnostic-historique-pmu-${{ github.run_id }}
-          path: resultats-diagnostic/
+          path: |
+            resultats-diagnostic/
+            suivi-historique/
           if-no-files-found: warn
           retention-days: 14
