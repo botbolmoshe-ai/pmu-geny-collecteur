@@ -777,12 +777,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 12,
+      "preuves": {
+        "nom": "MELODICA BELLA",
+        "debut_utc": "2026-11-12T23:01:15.387526+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2858661",
+          "numero": 4,
+          "nom": "Melodica Bella",
+          "url_geny": "https://www.geny.com/cheval/2858661-melodica-bella/course/1698067"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 12,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MELODICABELLA/1/2858661",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2858661-melodica-bella/course/1698067",
+          "http": 200,
+          "titre_page": "Fiche Cheval Melodica Bella - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:01:16.219229+00:00"
+        },
+        "fin_utc": "2026-11-12T23:01:20.745943+00:00"
+      }
     },
     "MERIBEL": {
       "nom": "MERIBEL",
@@ -7598,14 +7627,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:00:49.704933+00:00",
+  "maj_utc": "2026-11-12T23:01:20.815115+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 8,
+    "collectes_completes": 9,
     "synchronises": 8,
     "statuts": {
-      "COMPLET": 8,
-      "A_FAIRE": 155
+      "COMPLET": 9,
+      "A_FAIRE": 154
     }
   }
 }
