@@ -3532,12 +3532,41 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 84,
+      "preuves": {
+        "nom": "INDY DE LA FYE",
+        "debut_utc": "2026-11-12T23:18:29.873856+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2701088",
+          "numero": 8,
+          "nom": "Indy de la Fye",
+          "url_geny": "https://www.geny.com/cheval/2701088-indy-de-la-fye/course/1698055"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 84,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/INDYDELAFYE/1/2701088",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2701088-indy-de-la-fye/course/1698055",
+          "http": 200,
+          "titre_page": "Indy de la Fye - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:18:31.324265+00:00"
+        },
+        "fin_utc": "2026-11-12T23:18:36.289894+00:00"
+      }
     },
     "IROKODUCAIEU": {
       "nom": "IROKO DU CAIEU",
@@ -8961,14 +8990,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:18:04.893067+00:00",
+  "maj_utc": "2026-11-12T23:18:36.348020+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 37,
+    "collectes_completes": 38,
     "synchronises": 37,
     "statuts": {
-      "COMPLET": 37,
-      "A_FAIRE": 126
+      "COMPLET": 38,
+      "A_FAIRE": 125
     }
   }
 }
