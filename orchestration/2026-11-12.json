@@ -47,9 +47,9 @@
       "historique_geny": "COLLECTE_INCREMENTALE",
       "historique_collecte_resultat": "TERMINEE",
       "np_confirmes": 1,
-      "np_verification_utc": "2026-11-12T10:50:52.165123+00:00",
-      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
-      "statut_maj_np": "H1_NON_FIGE",
+      "np_verification_utc": "2026-11-12T11:47:42.374763+00:00",
+      "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
+      "statut_maj_np": "ACTUALISE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698061/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE"
@@ -93,7 +93,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -253,7 +253,7 @@
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
+      "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -395,7 +395,7 @@
       "statut_cotes": "COTES_NON_EXTRAITES",
       "motif_attente_geny": "COOLDOWN_GENY",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698064",
@@ -433,13 +433,13 @@
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME D'AMIENS (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
-        "direct": "CALCULE_PARTIEL",
+        "direct": "ANCIEN_RELEVE_PLUS_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "motif_attente_geny": "COOLDOWN_GENY",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698059",
@@ -483,7 +483,7 @@
       "statut_cotes": "COTES_NON_EXTRAITES",
       "motif_attente_geny": "COOLDOWN_GENY",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_avis_experts": "ZONE_TURF_AUCUN_AVIS_ASSOCIE",
+      "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698068",
@@ -544,10 +544,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-12T10:50:43.699879+00:00",
+  "dernier_controle_pmu": "2026-11-12T11:47:40.282137+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-12",
-    "horodatage_utc": "2026-11-12T10:50:43.699879+00:00",
+    "horodatage_utc": "2026-11-12T11:47:40.282137+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
