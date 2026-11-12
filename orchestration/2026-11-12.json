@@ -3,7 +3,7 @@
   "courses": {
     "R1C1": {
       "identifiant_geny": "GENY-1698061",
-      "etat": "MANIFESTE_PRESENT",
+      "etat": "TERMINE_ARCHIVE",
       "depart": "2026-11-12T13:55:00+01:00",
       "nom": "PRIX MARCEL LAURENT",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
@@ -84,7 +84,7 @@
         "codes_differents": 0
       },
       "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R1C3": {
       "identifiant_geny": null,
@@ -129,18 +129,18 @@
         }
       },
       "geny_id_rapproche": "1698062",
-      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C4": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-12T15:40:00+01:00",
       "nom": "COUPE DES AMATEURS (GR B)",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 14,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -158,18 +158,19 @@
         "meilleur_score": 0,
         "codes_differents": 0
       },
-      "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE"
+      "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C5": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-12T16:15:00+01:00",
       "nom": "PRIX CENERI FORCINAL",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 10,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -202,11 +203,12 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698066"
+      "geny_id_rapproche": "1698066",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C6": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1698067",
+      "etat": "MANIFESTE_PRESENT",
       "depart": "2026-11-12T16:50:00+01:00",
       "nom": "PRIX DE BEAUVOIR",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
@@ -246,7 +248,16 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698067"
+      "geny_id_rapproche": "1698067",
+      "historique_geny": "COLLECTE_INCREMENTALE",
+      "historique_collecte_resultat": "SUSPENDUE_429",
+      "np_confirmes": 0,
+      "np_verification_utc": "2026-11-12T15:48:28.126409+00:00",
+      "statut_prevision": "DONNEES_INSUFFISANTES",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1698067/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R4C1": {
       "identifiant_geny": null,
@@ -346,8 +357,8 @@
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME D'AMIENS (0 correspondances)",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
@@ -549,10 +560,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-12T14:06:49.665972+00:00",
+  "dernier_controle_pmu": "2026-11-12T15:47:41.221358+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-12",
-    "horodatage_utc": "2026-11-12T14:06:49.665972+00:00",
+    "horodatage_utc": "2026-11-12T15:47:41.221358+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
@@ -655,7 +666,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
@@ -966,5 +976,5 @@
       }
     ]
   },
-  "fiches_geny_budget_consommees": 0
+  "fiches_geny_budget_consommees": 1
 }
