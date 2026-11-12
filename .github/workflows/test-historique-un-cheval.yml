@@ -1,0 +1,48 @@
+name: Test isole - historique individuel Marvina Bella
+
+on:
+  push:
+    branches: [test/historique-marvina-bella]
+    paths:
+      - '.github/workflows/test-historique-un-cheval.yml'
+      - 'scripts/test_historique_individuel.py'
+      - 'experiments/test-individuel/tirage.json'
+
+permissions:
+  contents: read
+
+jobs:
+  historique-individuel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Conserver la preuve du tirage
+        run: |
+          mkdir -p resultats/test-individuel
+          cp experiments/test-individuel/tirage.json resultats/test-individuel/tirage.json
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+      - name: Installer le collecteur et Chromium
+        run: |
+          python -m pip install -q -r requirements.txt
+          python -m playwright install chromium
+      - name: Extraire uniquement le cheval tire au hasard
+        run: python scripts/test_historique_individuel.py
+      - name: Conserver le resultat et les preuves
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-historique-marvina-bella-${{ github.run_id }}
+          path: resultats/test-individuel/
+          retention-days: 14
+          if-no-files-found: warn
