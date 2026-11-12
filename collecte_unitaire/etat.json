@@ -3817,12 +3817,41 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 77,
+      "preuves": {
+        "nom": "IZIASLAV TEK",
+        "debut_utc": "2026-11-12T23:20:18.492972+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2692026",
+          "numero": 13,
+          "nom": "Iziaslav Tek",
+          "url_geny": "https://www.geny.com/cheval/2692026-iziaslav-tek/course/1698055"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 77,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/IZIASLAVTEK/1/2692026",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2692026-iziaslav-tek/course/1698055",
+          "http": 200,
+          "titre_page": "Fiche Cheval Iziaslav Tek - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:20:19.945373+00:00"
+        },
+        "fin_utc": "2026-11-12T23:20:24.693626+00:00"
+      }
     },
     "JACANA": {
       "nom": "JACANA",
@@ -9102,14 +9131,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:19:53.191167+00:00",
+  "maj_utc": "2026-11-12T23:20:24.769338+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 40,
+    "collectes_completes": 41,
     "synchronises": 40,
     "statuts": {
-      "COMPLET": 40,
-      "A_FAIRE": 123
+      "COMPLET": 41,
+      "A_FAIRE": 122
     }
   }
 }
