@@ -2,27 +2,27 @@
   "schema_version": 1,
   "source": "pmu",
   "test_type": "HTTP_ET_DONNEES_REELLES_NON_HISTORIQUES",
-  "date_utc": "2026-11-12T16:31:42.004074+00:00",
-  "run_id": "43259420227",
+  "date_utc": "2026-11-12T16:40:46.237466+00:00",
+  "run_id": "43260607855",
   "run_attempt": "1",
-  "run_url": "https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43259420227",
+  "run_url": "https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43260607855",
   "branche": "experiment/historique-pmu",
-  "commit_teste": "629fdd5cf4bd0c44857584b54014252757aca6cf",
+  "commit_teste": "85629697bbd742b099e663d0a3607ae367f3c7a7",
   "job_status": "success",
   "sonde": {
     "source": "pmu",
     "url": "https://www.pmu.fr/",
-    "utc": "2026-11-12T16:31:09.725639+00:00",
+    "utc": "2026-11-12T16:37:31.010644+00:00",
     "statut": "ACCESSIBLE",
     "http": 200,
     "type_contenu": "text/html; charset=utf-8",
     "octets_lus": 2557,
-    "duree_ms": 594
+    "duree_ms": 542
   },
   "test_donnees": {
     "source": "pmu",
     "test_type": "DONNEES_COURSE_REELLES",
-    "date_utc": "2026-11-12T16:31:10.449592+00:00",
+    "date_utc": "2026-11-12T16:37:31.636944+00:00",
     "sondes": [
       {
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
@@ -30,7 +30,7 @@
         "chevaux_identifies": 0,
         "performances_historiques": 0,
         "historique_valide": false,
-        "octets": 309535,
+        "octets": 310455,
         "json_valide": true,
         "cles_racine": [
           "programme",
@@ -63,7 +63,7 @@
   "test_historique": {
     "source": "pmu",
     "type": "IDENTIFIANTS_ET_HISTORIQUES",
-    "utc": "2026-11-12T16:31:11.288446+00:00",
+    "utc": "2026-11-12T16:37:32.976595+00:00",
     "http_participants": 200,
     "chevaux_testes": 3,
     "performances_historiques_validees": 0,
@@ -164,6 +164,70 @@
     "performances": [],
     "erreurs": [],
     "limite": "3 jours et 90 courses maximum; ne mesure pas la completude de l'historique total"
+  },
+  "test_turf_bzh": {
+    "source": "turf.bzh",
+    "cle_configuree": false,
+    "sondes": [
+      {
+        "test": "recherche_cheval",
+        "http": 401,
+        "json_valide": true,
+        "historique_verifie": false,
+        "cles_racine": [
+          "error"
+        ]
+      },
+      {
+        "test": "dossier_course",
+        "http": 401,
+        "json_valide": true,
+        "historique_verifie": false,
+        "cles_racine": [
+          "error"
+        ]
+      }
+    ],
+    "note": "Validation de structure uniquement; historiques non valides tant que dates et classements ne sont pas extraits."
+  },
+  "test_prochaine_course": {
+    "source": "pmu",
+    "course_cible": "2026-11-12 R1C7",
+    "type": "COLLECTE_HISTORIQUE_PAR_ARCHIVES",
+    "http_partants": 200,
+    "partants_identifies": 14,
+    "chevaux_avec_historique": 2,
+    "performances_historiques_validees": 2,
+    "courses_archives_lues": 500,
+    "dates_archives_lues": 12,
+    "performances": [
+      {
+        "cheval": "NOCCATO D'ORLY",
+        "idCheval": "NOCCATO D'ORLY-TOCCATA DE CARSI-DRAGON DES RACQUES",
+        "date": "2026-11-03",
+        "course": "R3C3",
+        "classement": 1,
+        "driver": "F. GUERINEAU",
+        "entraineur": "A. RIPOLL RIGO",
+        "ferrure": "PROTEGE_ANTERIEURS",
+        "preuve": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/03112026/R3/C3/participants"
+      },
+      {
+        "cheval": "NEMROD BUROIS",
+        "idCheval": "NEMROD BUROIS-FLEUR DU GAULTIER-QUAKER JET",
+        "date": "2026-11-01",
+        "course": "R1C2",
+        "classement": 7,
+        "driver": "B. ROBIN",
+        "entraineur": "B. ROBIN",
+        "ferrure": null,
+        "preuve": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/01112026/R1/C2/participants"
+      }
+    ],
+    "erreurs": [],
+    "taux_couverture_chevaux": 0.143,
+    "taux_completude_historique": null,
+    "limite": "Fenetre 14 jours, maximum 500 courses; aucune inference sur l'historique total."
   },
   "extraction_historique_validee": false,
   "chevaux_extraits": null,
