@@ -873,11 +873,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 13,
       "preuves": {
         "nom": "MERIBEL",
@@ -906,7 +906,25 @@
           "extrait_utc": "2026-11-12T23:01:51.750940+00:00"
         },
         "fin_utc": "2026-11-12T23:01:56.527528+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 13,
+          "cellules_actualisees": 0,
+          "lignes_source": 13
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:02:01.066189+00:00",
+      "erreur": ""
     },
     "MERRYRIVER": {
       "nom": "MERRY RIVER",
@@ -7674,11 +7692,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:01:56.559005+00:00",
+  "maj_utc": "2026-11-12T23:02:01.066211+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 10,
-    "synchronises": 9,
+    "synchronises": 10,
     "statuts": {
       "COMPLET": 10,
       "A_FAIRE": 153
