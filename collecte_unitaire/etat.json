@@ -4965,7 +4965,11 @@
       "code": "R1C2",
       "numero": 9,
       "ligne_sheet": 41,
-      "geny": null,
+      "geny": {
+        "id": "2659766",
+        "nom": "IOKINA DE KERYANN",
+        "url_geny": "https://www.geny.com/cheval/2659766-iokina-de-keryann/course/1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -4995,12 +4999,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 76,
+      "preuves": {
+        "nom": "IOKINA DE KERYANN",
+        "debut_utc": "2026-11-12T23:31:45.531612+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2659766",
+          "nom": "IOKINA DE KERYANN",
+          "url_geny": "https://www.geny.com/cheval/2659766-iokina-de-keryann/course/1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 76,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/IOKINADEKERYANN/1/2659766",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2659766-iokina-de-keryann/course/1698063",
+          "http": 200,
+          "titre_page": "Fiche Cheval Iokina de Keryann - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:32:28.022780+00:00"
+        },
+        "fin_utc": "2026-11-12T23:32:33.548110+00:00"
+      }
     },
     "IQUEMMARVIC": {
       "nom": "IQUEM MARVIC",
@@ -9691,15 +9723,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:31:20.416623+00:00",
+  "maj_utc": "2026-11-12T23:32:33.582618+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 52,
+    "collectes_completes": 53,
     "synchronises": 52,
     "statuts": {
-      "COMPLET": 52,
+      "COMPLET": 53,
       "ERREUR": 1,
-      "A_FAIRE": 110
+      "A_FAIRE": 109
     }
   }
 }
