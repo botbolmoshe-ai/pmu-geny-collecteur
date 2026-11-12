@@ -1823,11 +1823,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 49,
       "preuves": {
         "nom": "JEREMY D'AS",
@@ -1856,7 +1856,25 @@
           "extrait_utc": "2026-11-12T23:07:48.065354+00:00"
         },
         "fin_utc": "2026-11-12T23:07:52.671524+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 49,
+          "cellules_actualisees": 0,
+          "lignes_source": 49
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:07:57.208814+00:00",
+      "erreur": ""
     },
     "JERICHODURIB": {
       "nom": "JERICHO DU RIB",
@@ -8144,11 +8162,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:07:52.728983+00:00",
+  "maj_utc": "2026-11-12T23:07:57.208835+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 20,
-    "synchronises": 19,
+    "synchronises": 20,
     "statuts": {
       "COMPLET": 20,
       "A_FAIRE": 143
