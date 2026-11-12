@@ -5616,7 +5616,11 @@
       "code": "R1C2",
       "numero": 10,
       "ligne_sheet": 42,
-      "geny": null,
+      "geny": {
+        "id": "2769195",
+        "nom": "KLARCK DE VANDEL",
+        "url_geny": "https://www.geny.com/cheval/2769195-klarck-de-vandel/course/1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -5646,12 +5650,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 45,
+      "preuves": {
+        "nom": "KLARCK DE VANDEL",
+        "debut_utc": "2026-11-12T23:41:59.619708+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2769195",
+          "nom": "KLARCK DE VANDEL",
+          "url_geny": "https://www.geny.com/cheval/2769195-klarck-de-vandel/course/1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 45,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/KLARCKDEVANDEL/1/2769195",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2769195-klarck-de-vandel/course/1698063",
+          "http": 200,
+          "titre_page": "Klarck de Vandel - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:42:42.020028+00:00"
+        },
+        "fin_utc": "2026-11-12T23:42:46.722875+00:00"
+      }
     },
     "NACREDUMOUTHIEUX": {
       "nom": "NACRE DU MOUTHIEUX",
@@ -10041,15 +10073,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:41:34.577779+00:00",
+  "maj_utc": "2026-11-12T23:42:46.745744+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 59,
+    "collectes_completes": 60,
     "synchronises": 59,
     "statuts": {
-      "COMPLET": 59,
+      "COMPLET": 60,
       "ERREUR": 1,
-      "A_FAIRE": 103
+      "A_FAIRE": 102
     }
   }
 }
