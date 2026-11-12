@@ -3627,12 +3627,41 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 54,
+      "preuves": {
+        "nom": "IROKO DU CAIEU",
+        "debut_utc": "2026-11-12T23:19:06.425910+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2705587",
+          "numero": 12,
+          "nom": "Iroko du Caïeu",
+          "url_geny": "https://www.geny.com/cheval/2705587-iroko-du-caieu/course/1698055"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 54,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/IROKODUCAIEU/1/2705587",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2705587-iroko-du-caieu/course/1698055",
+          "http": 200,
+          "titre_page": "Iroko du Caïeu - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:19:07.726693+00:00"
+        },
+        "fin_utc": "2026-11-12T23:19:12.421929+00:00"
+      }
     },
     "ISIADUCHENE": {
       "nom": "ISIA DU CHENE",
@@ -9008,14 +9037,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:18:41.125785+00:00",
+  "maj_utc": "2026-11-12T23:19:12.449988+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 38,
+    "collectes_completes": 39,
     "synchronises": 38,
     "statuts": {
-      "COMPLET": 38,
-      "A_FAIRE": 125
+      "COMPLET": 39,
+      "A_FAIRE": 124
     }
   }
 }
