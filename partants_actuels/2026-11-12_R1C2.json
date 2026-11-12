@@ -6,6 +6,8 @@
     "allure",
     "avisEntraineur",
     "deferre",
+    "dernierRapportDirect",
+    "dernierRapportReference",
     "driver",
     "driverChange",
     "eleveur",
@@ -72,7 +74,7 @@
     }
   ],
   "source": "PMU_API_PARTICIPANTS",
-  "capture_utc": "2026-11-11T19:56:26.417106+00:00",
+  "capture_utc": "2026-11-12T08:31:10.406163+00:00",
   "chevaux": {
     "1": {
       "driver_jockey": "Mlle A. RENAULT",
@@ -83,7 +85,34 @@
       "age_ans": 6,
       "gains_euros": 77465.0,
       "nom": "KARINA JOSSELYN",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "2": {
       "driver_jockey": "F. BERTHAULT",
@@ -94,7 +123,34 @@
       "age_ans": 8,
       "gains_euros": 94755.0,
       "nom": "INTRIGUE DE VIETTE",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "3": {
       "driver_jockey": "Mme M. VER HULST",
@@ -104,7 +160,37 @@
       "age_ans": 10,
       "gains_euros": 102665.0,
       "nom": "GIORGIO DU VIVIER",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": [
+        {
+          "champ": "gains_euros",
+          "valeur_retenue": 102665.0,
+          "valeur_tiers": 102605.0,
+          "source": "equidia"
+        }
+      ]
     },
     "4": {
       "driver_jockey": "Y. ACKER",
@@ -115,7 +201,34 @@
       "age_ans": 7,
       "gains_euros": 104840.0,
       "nom": "JARDIN D'ERABLE",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "5": {
       "driver_jockey": "Mlle E. GOETZ",
@@ -126,7 +239,34 @@
       "age_ans": 8,
       "gains_euros": 105410.0,
       "nom": "IVALO DU BOCAGE",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "6": {
       "driver_jockey": "F. CHAPDELAINE",
@@ -137,7 +277,34 @@
       "age_ans": 8,
       "gains_euros": 105575.0,
       "nom": "IQUEM MARVIC",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "7": {
       "driver_jockey": "CH. BACHE",
@@ -148,7 +315,34 @@
       "age_ans": 8,
       "gains_euros": 106190.0,
       "nom": "INGENIOUS BOND",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "8": {
       "driver_jockey": "Mme C. CHAZAL",
@@ -159,7 +353,34 @@
       "age_ans": 7,
       "gains_euros": 107650.0,
       "nom": "JUNON DES ROSES",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "9": {
       "driver_jockey": "A. MOURAUD",
@@ -170,7 +391,34 @@
       "age_ans": 8,
       "gains_euros": 109210.0,
       "nom": "IOKINA DE KERYANN",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "10": {
       "driver_jockey": "S. LABOUTIQUE",
@@ -181,7 +429,34 @@
       "age_ans": 6,
       "gains_euros": 110508.0,
       "nom": "KLARCK DE VANDEL",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "11": {
       "driver_jockey": "TH. CLAIRET",
@@ -192,7 +467,34 @@
       "age_ans": 8,
       "gains_euros": 114260.0,
       "nom": "ILOVIROIZ DI LEONE",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "12": {
       "driver_jockey": "J. ROUX",
@@ -203,7 +505,34 @@
       "age_ans": 9,
       "gains_euros": 114360.0,
       "nom": "HOKITOLOVE",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "13": {
       "driver_jockey": "Mlle AUXANE HALLAIS",
@@ -213,7 +542,30 @@
       "age_ans": 8,
       "gains_euros": 116740.0,
       "nom": "ILLINOIS",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     },
     "14": {
       "driver_jockey": "Mlle F. AUBER",
@@ -224,7 +576,34 @@
       "age_ans": 7,
       "gains_euros": 118195.0,
       "nom": "JACKSON HILL",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T08:31:10.406163+00:00"
+        }
+      },
+      "divergences_sources": []
     }
   }
 }
