@@ -10,7 +10,7 @@
       "nombre_declares": 17,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -52,18 +52,20 @@
       "statut_maj_np": "INCHANGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698061/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R1C2": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-12T14:30:00+01:00",
       "nom": "COUPE DES AMATEURS (GR A)",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 14,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -81,18 +83,19 @@
         "meilleur_score": 0,
         "codes_differents": 0
       },
-      "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE"
+      "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C3": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-12T15:05:00+01:00",
       "nom": "PRIX DE VAUMAS",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 13,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -125,7 +128,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698062"
+      "geny_id_rapproche": "1698062",
+      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
     },
     "R1C4": {
       "identifiant_geny": null,
@@ -153,7 +157,8 @@
         "candidats": 0,
         "meilleur_score": 0,
         "codes_differents": 0
-      }
+      },
+      "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE"
     },
     "R1C5": {
       "identifiant_geny": null,
@@ -253,7 +258,7 @@
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
@@ -544,10 +549,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-12T12:51:38.199764+00:00",
+  "dernier_controle_pmu": "2026-11-12T14:06:49.665972+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-12",
-    "horodatage_utc": "2026-11-12T12:51:38.199764+00:00",
+    "horodatage_utc": "2026-11-12T14:06:49.665972+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
@@ -961,5 +966,5 @@
       }
     ]
   },
-  "fiches_geny_budget_consommees": 6
+  "fiches_geny_budget_consommees": 0
 }
