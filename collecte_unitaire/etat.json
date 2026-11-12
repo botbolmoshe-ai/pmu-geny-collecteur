@@ -45,14 +45,31 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 0,
       "sync_tentatives": 1,
       "preuves": "Test GitHub 43321181833, identite verifiee",
       "nombre_extrait": 19,
       "tentatives_execution": 0,
       "sync_tentatives_execution": 1,
-      "stockage_durable_ok": true
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 19,
+          "cellules_actualisees": 0,
+          "lignes_source": 19
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T22:55:18.993923+00:00",
+      "erreur": ""
     },
     "MAGIEDECHAHAINS": {
       "nom": "MAGIE DE CHAHAINS",
@@ -7252,11 +7269,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T22:55:13.837523+00:00",
+  "maj_utc": "2026-11-12T22:55:18.993945+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 1,
-    "synchronises": 0,
+    "synchronises": 1,
     "statuts": {
       "COMPLET": 1,
       "A_FAIRE": 162
