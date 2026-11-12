@@ -3438,11 +3438,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 63,
       "preuves": {
         "nom": "IDAO NAY",
@@ -3471,7 +3471,25 @@
           "extrait_utc": "2026-11-12T23:17:55.117171+00:00"
         },
         "fin_utc": "2026-11-12T23:17:59.748453+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 63,
+          "cellules_actualisees": 0,
+          "lignes_source": 63
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:18:04.893029+00:00",
+      "erreur": ""
     },
     "INDYDELAFYE": {
       "nom": "INDY DE LA FYE",
@@ -8943,11 +8961,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:17:59.796577+00:00",
+  "maj_utc": "2026-11-12T23:18:04.893067+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 37,
-    "synchronises": 36,
+    "synchronises": 37,
     "statuts": {
       "COMPLET": 37,
       "A_FAIRE": 126
