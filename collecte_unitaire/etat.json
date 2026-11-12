@@ -2107,12 +2107,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 37,
+      "preuves": {
+        "nom": "KEEP YOUR DREAMS",
+        "debut_utc": "2026-11-12T23:09:33.809813+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2775954",
+          "numero": 5,
+          "nom": "Keep Your Dreams",
+          "url_geny": "https://www.geny.com/cheval/2775954-keep-your-dreams/course/1698064"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 37,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/KEEPYOURDREAMS/1/2775954",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2775954-keep-your-dreams/course/1698064",
+          "http": 200,
+          "titre_page": "Keep Your Dreams - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:09:34.711620+00:00"
+        },
+        "fin_utc": "2026-11-12T23:09:39.105226+00:00"
+      }
     },
     "KELMEC": {
       "nom": "KELMEC",
@@ -8256,14 +8285,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:09:08.487470+00:00",
+  "maj_utc": "2026-11-12T23:09:39.128281+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 22,
+    "collectes_completes": 23,
     "synchronises": 22,
     "statuts": {
-      "COMPLET": 22,
-      "A_FAIRE": 141
+      "COMPLET": 23,
+      "A_FAIRE": 140
     }
   }
 }
