@@ -4872,7 +4872,11 @@
       "code": "R1C2",
       "numero": 2,
       "ligne_sheet": 34,
-      "geny": null,
+      "geny": {
+        "id": "2690991",
+        "nom": "INTRIGUE DE VIETTE",
+        "url_geny": "https://www.geny.com/cheval/2690991-intrigue-de-viette/course/1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -4902,12 +4906,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 85,
+      "preuves": {
+        "nom": "INTRIGUE DE VIETTE",
+        "debut_utc": "2026-11-12T23:30:29.920241+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2690991",
+          "nom": "INTRIGUE DE VIETTE",
+          "url_geny": "https://www.geny.com/cheval/2690991-intrigue-de-viette/course/1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 85,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/INTRIGUEDEVIETTE/1/2690991",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2690991-intrigue-de-viette/course/1698063",
+          "http": 200,
+          "titre_page": "Fiche Cheval Intrigue de Viette - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:31:10.878868+00:00"
+        },
+        "fin_utc": "2026-11-12T23:31:15.407100+00:00"
+      }
     },
     "IOKINADEKERYANN": {
       "nom": "IOKINA DE KERYANN",
@@ -9641,15 +9673,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:30:05.515897+00:00",
+  "maj_utc": "2026-11-12T23:31:15.459164+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 51,
+    "collectes_completes": 52,
     "synchronises": 51,
     "statuts": {
-      "COMPLET": 51,
+      "COMPLET": 52,
       "ERREUR": 1,
-      "A_FAIRE": 111
+      "A_FAIRE": 110
     }
   }
 }
