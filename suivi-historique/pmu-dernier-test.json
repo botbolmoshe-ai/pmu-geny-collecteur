@@ -2,27 +2,27 @@
   "schema_version": 1,
   "source": "pmu",
   "test_type": "HTTP_ET_DONNEES_REELLES_NON_HISTORIQUES",
-  "date_utc": "2026-11-12T16:30:15.045760+00:00",
-  "run_id": "43259276818",
+  "date_utc": "2026-11-12T16:31:42.004074+00:00",
+  "run_id": "43259420227",
   "run_attempt": "1",
-  "run_url": "https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43259276818",
+  "run_url": "https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43259420227",
   "branche": "experiment/historique-pmu",
-  "commit_teste": "5e152a58b94532167aa4a2a75e9d96fad7733ec8",
+  "commit_teste": "629fdd5cf4bd0c44857584b54014252757aca6cf",
   "job_status": "success",
   "sonde": {
     "source": "pmu",
     "url": "https://www.pmu.fr/",
-    "utc": "2026-11-12T16:30:04.200774+00:00",
+    "utc": "2026-11-12T16:31:09.725639+00:00",
     "statut": "ACCESSIBLE",
     "http": 200,
     "type_contenu": "text/html; charset=utf-8",
     "octets_lus": 2557,
-    "duree_ms": 606
+    "duree_ms": 594
   },
   "test_donnees": {
     "source": "pmu",
     "test_type": "DONNEES_COURSE_REELLES",
-    "date_utc": "2026-11-12T16:30:04.940435+00:00",
+    "date_utc": "2026-11-12T16:31:10.449592+00:00",
     "sondes": [
       {
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
@@ -30,7 +30,7 @@
         "chevaux_identifies": 0,
         "performances_historiques": 0,
         "historique_valide": false,
-        "octets": 307201,
+        "octets": 309535,
         "json_valide": true,
         "cles_racine": [
           "programme",
@@ -63,7 +63,7 @@
   "test_historique": {
     "source": "pmu",
     "type": "IDENTIFIANTS_ET_HISTORIQUES",
-    "utc": "2026-11-12T16:30:06.643928+00:00",
+    "utc": "2026-11-12T16:31:11.288446+00:00",
     "http_participants": 200,
     "chevaux_testes": 3,
     "performances_historiques_validees": 0,
@@ -155,15 +155,15 @@
       "FRANK GIO",
       "LIONHEART"
     ],
-    "dates_testees": 21,
-    "courses_testees": 21,
+    "dates_testees": 1,
+    "courses_testees": 90,
     "chevaux_avec_historique": 0,
     "performances_historiques_validees": 0,
     "taux_couverture_chevaux": 0.0,
     "taux_completude_historique": null,
     "performances": [],
     "erreurs": [],
-    "limite": "R1C1 uniquement; ne mesure pas la completude de l'historique total"
+    "limite": "3 jours et 90 courses maximum; ne mesure pas la completude de l'historique total"
   },
   "extraction_historique_validee": false,
   "chevaux_extraits": null,
