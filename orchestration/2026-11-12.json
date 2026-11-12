@@ -179,7 +179,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
@@ -279,7 +279,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
@@ -324,7 +324,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
@@ -369,7 +369,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
@@ -398,7 +398,7 @@
     },
     "R1C8": {
       "identifiant_geny": "GENY-1698064",
-      "etat": "MANIFESTE_PRESENT",
+      "etat": "TERMINE_ARCHIVE",
       "depart": "2026-11-12T18:00:00+01:00",
       "nom": "PRIX DE COGNAC",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
@@ -469,7 +469,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
@@ -494,7 +494,7 @@
         }
       },
       "geny_id_rapproche": "1698059",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R1C9": {
       "identifiant_geny": null,
@@ -514,7 +514,7 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "rapprochement_geny": {
@@ -539,7 +539,7 @@
         }
       },
       "geny_id_rapproche": "1698068",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R4C4": {
       "identifiant_geny": "GENY-1698055",
@@ -550,7 +550,7 @@
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -582,15 +582,17 @@
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698055/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-12T17:43:27.951586+00:00",
+  "dernier_controle_pmu": "2026-11-12T18:40:38.405495+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-12",
-    "horodatage_utc": "2026-11-12T17:43:27.951586+00:00",
+    "horodatage_utc": "2026-11-12T18:40:38.405495+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
@@ -1002,5 +1004,5 @@
       }
     ]
   },
-  "fiches_geny_budget_consommees": 1
+  "fiches_geny_budget_consommees": 0
 }
