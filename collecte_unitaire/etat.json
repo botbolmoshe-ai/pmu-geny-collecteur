@@ -5058,7 +5058,11 @@
       "code": "R1C2",
       "numero": 6,
       "ligne_sheet": 38,
-      "geny": null,
+      "geny": {
+        "id": "2704057",
+        "nom": "IQUEM MARVIC",
+        "url_geny": "https://www.geny.com/cheval/2704057-iquem-marvic/course/1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -5088,12 +5092,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 104,
+      "preuves": {
+        "nom": "IQUEM MARVIC",
+        "debut_utc": "2026-11-12T23:33:51.937542+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2704057",
+          "nom": "IQUEM MARVIC",
+          "url_geny": "https://www.geny.com/cheval/2704057-iquem-marvic/course/1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 104,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/IQUEMMARVIC/1/2704057",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2704057-iquem-marvic/course/1698063",
+          "http": 200,
+          "titre_page": "Iquem Marvic - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:34:38.874057+00:00"
+        },
+        "fin_utc": "2026-11-12T23:34:43.457349+00:00"
+      }
     },
     "IVALODUBOCAGE": {
       "nom": "IVALO DU BOCAGE",
@@ -9741,15 +9773,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:33:21.859775+00:00",
+  "maj_utc": "2026-11-12T23:34:43.527003+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 53,
+    "collectes_completes": 54,
     "synchronises": 53,
     "statuts": {
-      "COMPLET": 53,
+      "COMPLET": 54,
       "ERREUR": 1,
-      "A_FAIRE": 109
+      "A_FAIRE": 108
     }
   }
 }
