@@ -2,27 +2,27 @@
   "schema_version": 1,
   "source": "pmu",
   "test_type": "HTTP_ET_DONNEES_REELLES_NON_HISTORIQUES",
-  "date_utc": "2026-11-12T15:37:26.852449+00:00",
-  "run_id": "43249749278",
+  "date_utc": "2026-11-12T16:00:24.182418+00:00",
+  "run_id": "43253884077",
   "run_attempt": "1",
-  "run_url": "https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43249749278",
+  "run_url": "https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43253884077",
   "branche": "experiment/historique-pmu",
-  "commit_teste": "e8d4eb6a3a629b136591dc06f39817b29853b98d",
+  "commit_teste": "1692559f1018f2658187dc0947e8ecb3bc98cc51",
   "job_status": "success",
   "sonde": {
     "source": "pmu",
     "url": "https://www.pmu.fr/",
-    "utc": "2026-11-12T15:37:24.343266+00:00",
+    "utc": "2026-11-12T16:00:22.278950+00:00",
     "statut": "ACCESSIBLE",
     "http": 200,
     "type_contenu": "text/html; charset=utf-8",
     "octets_lus": 2557,
-    "duree_ms": 658
+    "duree_ms": 762
   },
   "test_donnees": {
     "source": "pmu",
     "test_type": "DONNEES_COURSE_REELLES",
-    "date_utc": "2026-11-12T15:37:25.128379+00:00",
+    "date_utc": "2026-11-12T16:00:23.152710+00:00",
     "sondes": [
       {
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
@@ -30,7 +30,7 @@
         "chevaux_identifies": 0,
         "performances_historiques": 0,
         "historique_valide": false,
-        "octets": 308778,
+        "octets": 309037,
         "json_valide": true,
         "cles_racine": [
           "programme",
@@ -63,7 +63,7 @@
   "test_historique": {
     "source": "pmu",
     "type": "IDENTIFIANTS_ET_HISTORIQUES",
-    "utc": "2026-11-12T15:37:26.756192+00:00",
+    "utc": "2026-11-12T16:00:24.087939+00:00",
     "http_participants": 200,
     "chevaux_testes": 3,
     "performances_historiques_validees": 0,
@@ -72,9 +72,10 @@
       {
         "nom": "LOMBOK JIEL",
         "identifiants": {
-          "idCheval": "LOMBOK JIEL-SURABAYA JIEL-ENINO DU POMMEREUX",
-          "poidsConditionMonteChange": false
+          "idCheval": "LOMBOK JIEL-SURABAYA JIEL-ENINO DU POMMEREUX"
         },
+        "musique_brute": "0a5a6a7a5aDa1a6a2a3a",
+        "nombre_courses_declare": 35,
         "historique_valide": false,
         "performances_validees": 0,
         "essais": []
@@ -82,9 +83,10 @@
       {
         "nom": "FRANK GIO",
         "identifiants": {
-          "idCheval": "FRANK GIO-ZARINA GIO-FACE TIME BOURBON",
-          "poidsConditionMonteChange": false
+          "idCheval": "FRANK GIO-ZARINA GIO-FACE TIME BOURBON"
         },
+        "musique_brute": "1a4a2a2a4a6a",
+        "nombre_courses_declare": 25,
         "historique_valide": false,
         "performances_validees": 0,
         "essais": []
@@ -92,9 +94,10 @@
       {
         "nom": "LIONHEART",
         "identifiants": {
-          "idCheval": "LIONHEART-DECADENCE-FALCAO DE LAURMA",
-          "poidsConditionMonteChange": false
+          "idCheval": "LIONHEART-DECADENCE-FALCAO DE LAURMA"
         },
+        "musique_brute": "4a2a9a1m7a0a9a3m2m1m",
+        "nombre_courses_declare": 29,
         "historique_valide": false,
         "performances_validees": 0,
         "essais": []
