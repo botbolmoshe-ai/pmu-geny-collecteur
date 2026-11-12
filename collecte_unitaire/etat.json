@@ -5744,11 +5744,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 13,
       "preuves": {
         "nom": "NACRE DU MOUTHIEUX",
@@ -5776,7 +5776,25 @@
           "extrait_utc": "2026-11-12T23:44:00.025813+00:00"
         },
         "fin_utc": "2026-11-12T23:44:04.067869+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 13,
+          "cellules_actualisees": 0,
+          "lignes_source": 13
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:44:09.126066+00:00",
+      "erreur": ""
     },
     "NAFIDEREVEDOR": {
       "nom": "NAFI DE REVE D'OR",
@@ -10123,11 +10141,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:44:04.137716+00:00",
+  "maj_utc": "2026-11-12T23:44:09.126080+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 61,
-    "synchronises": 60,
+    "synchronises": 61,
     "statuts": {
       "COMPLET": 61,
       "ERREUR": 1,
