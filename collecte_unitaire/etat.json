@@ -208,11 +208,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 15,
       "preuves": {
         "nom": "MAGIE MESLOISE",
@@ -241,7 +241,25 @@
           "extrait_utc": "2026-11-12T22:57:44.711169+00:00"
         },
         "fin_utc": "2026-11-12T22:57:48.805682+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 15,
+          "cellules_actualisees": 0,
+          "lignes_source": 15
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T22:57:53.680483+00:00",
+      "erreur": ""
     },
     "MALIBERTE": {
       "nom": "MA LIBERTE",
@@ -7345,11 +7363,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T22:57:48.830582+00:00",
+  "maj_utc": "2026-11-12T22:57:53.680503+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 3,
-    "synchronises": 2,
+    "synchronises": 3,
     "statuts": {
       "COMPLET": 3,
       "A_FAIRE": 160
