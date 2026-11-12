@@ -1,0 +1,637 @@
+{
+  "date": "2026-11-13",
+  "course": "R3C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NOUBA DU CABARET",
+      "deferre": "PROTEGE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1770000,
+        "gainsVictoires": 945000,
+        "gainsPlace": 825000,
+        "gainsAnneeEnCours": 1770000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NEXPRESSO BLEU",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1615500,
+        "gainsVictoires": 945000,
+        "gainsPlace": 670500,
+        "gainsAnneeEnCours": 1615500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NOW AND THEN",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1632000,
+        "gainsVictoires": 0,
+        "gainsPlace": 1632000,
+        "gainsAnneeEnCours": 1632000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-12T07:16:54.112118+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "B. RUET",
+      "entraineur": "D.J. HENRY",
+      "proprietaire": "D.J. HENRY",
+      "ferrure": "PP",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 17700.0,
+      "nom": "NOUBA DU CABARET",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "N. CORMY",
+      "entraineur": "MICKAEL CORMY",
+      "proprietaire": "M. GALLIER",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 16155.0,
+      "nom": "NEXPRESSO BLEU",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "L. GARCIA",
+      "entraineur": "L. GARCIA",
+      "proprietaire": "Ecurie du VIEUX CHENE",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 16320.0,
+      "nom": "NOW AND THEN",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "E. LOCCISANO",
+      "entraineur": "Edoardo LOCCISANO",
+      "proprietaire": "Scuderia 4 A.B. SAS",
+      "ferrure": "PA",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 16553.0,
+      "nom": "NOBILUS BAR",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "X. BOVAY",
+      "entraineur": "M.A. BOVAY",
+      "proprietaire": "CH. FAIVRE PIERRET",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 16797.0,
+      "nom": "NORFOLK DE TILLARD",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "LAURENT GOUT",
+      "entraineur": "L. GOUT",
+      "proprietaire": "G. LHERPINIERE",
+      "ferrure": "P4",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 18035.0,
+      "nom": "NOVA DE VISAIS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "N. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie Jean Michel BAZIRE",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 17555.0,
+      "nom": "NIKITA DU PONT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "PH. GAILLARD",
+      "proprietaire": "Mme P. SAVIGNY",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 17960.0,
+      "nom": "NETFLIX MADRIK",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "A. GAUDIN",
+      "entraineur": "A. GAUDIN",
+      "proprietaire": "A. GAUDIN",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 15140.0,
+      "nom": "NUNZIATA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "MARTIAL GAUVIN",
+      "entraineur": "MARTIAL GAUVIN",
+      "proprietaire": "Ecurie Martial GAUVIN",
+      "ferrure": "PA",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 15320.0,
+      "nom": "NOBLE WINNER",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "ELEVAGE ALWAYS WITH ME",
+      "ferrure": "PA",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 13340.0,
+      "nom": "NARDECH DE HOUELLE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "LILIAN BERTIN",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "Ecurie Alexis GRIMAULT",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 10050.0,
+      "nom": "NINJA LANDIA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "M.J. BARCELO BISQUERRA",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "Th. BOURGAULT",
+      "ferrure": "PA",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 14490.0,
+      "nom": "NATIF DU MANOLET",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "A. TINTILLIER",
+      "entraineur": "Sté. Ent. Anthony TINTILLIER",
+      "proprietaire": "J. RATTINA",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 13775.0,
+      "nom": "NOVERRIO",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "L. VERRIERE",
+      "entraineur": "L. VERRIERE",
+      "proprietaire": "L. VERRIERE",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 8445.0,
+      "nom": "NEED YOU SAMAC",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "L. LAMAZIERE",
+      "entraineur": "R. DESPRES",
+      "proprietaire": "Sébastien DUMAS",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 10100.0,
+      "nom": "NEWTON CASTELETS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:54.112118+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

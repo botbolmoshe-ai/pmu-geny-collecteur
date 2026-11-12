@@ -1,0 +1,487 @@
+{
+  "date": "2026-11-13",
+  "course": "R3C1",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MOLENE DE L'ITON",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 107000,
+        "gainsVictoires": 0,
+        "gainsPlace": 107000,
+        "gainsAnneeEnCours": 107000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MAJESTRIA FILI",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 643500,
+        "gainsVictoires": 0,
+        "gainsPlace": 643500,
+        "gainsAnneeEnCours": 546000,
+        "gainsAnneePrecedente": 97500
+      }
+    },
+    {
+      "nom": "LISE DE LA MARFEE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1047000,
+        "gainsVictoires": 0,
+        "gainsPlace": 1047000,
+        "gainsAnneeEnCours": 99500,
+        "gainsAnneePrecedente": 900000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-12T07:16:52.902498+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "D.A. HAON",
+      "entraineur": "J.M. ROUBAUD",
+      "proprietaire": "C. BIANAY",
+      "ferrure": "D4",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 1070.0,
+      "nom": "MOLENE DE L'ITON",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "Mlle S. CORTIAL",
+      "entraineur": "L. BROUST",
+      "proprietaire": "L. BROUST",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 6435.0,
+      "nom": "MAJESTRIA FILI",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mlle M. HEYMANS",
+      "entraineur": "G. ALAINE",
+      "proprietaire": "G. ALAINE",
+      "ferrure": "D4",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 10470.0,
+      "nom": "LISE DE LA MARFEE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Q. SEGUIN",
+      "entraineur": "J.M. ROUBAUD",
+      "proprietaire": "J.CL. SANTAMARIA",
+      "ferrure": "D4",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18150.0,
+      "nom": "MOLLY FLIGNY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "E. HANOT",
+      "entraineur": "Mme G. MASSCHAELE",
+      "proprietaire": "Mme E. HENDRICKX",
+      "ferrure": "D4",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 20360.0,
+      "nom": "LOU DE LOSQUE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "ELEVAGE ALWAYS WITH ME",
+      "ferrure": "DP",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 22400.0,
+      "nom": "MAGENO DE HOUELLE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "Mlle E. DUMAS",
+      "entraineur": "J.M. BOUVARD",
+      "proprietaire": "J.M. BOUVARD",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 24650.0,
+      "nom": "LOOK DES FANES",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "A. GENDROT",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie DUB'S",
+      "ferrure": "D4",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 25660.0,
+      "nom": "MAJOR DES ROSEAUX",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "LILIAN BERTIN",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "DILIN BV",
+      "ferrure": "D4",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 34200.0,
+      "nom": "MERARU QUANDO",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "Mlle E. CALLIER",
+      "entraineur": "Joris FILOGRASSO",
+      "proprietaire": "M. ALADENISE",
+      "ferrure": "D4",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 35430.0,
+      "nom": "MAGYC BERRY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "J. FERRON",
+      "entraineur": "CH. MOTTIER",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "DP/PA",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 47990.0,
+      "nom": "LAMIRAL D'ERABLE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-12T07:16:52.902498+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
