@@ -1062,12 +1062,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 15,
+      "preuves": {
+        "nom": "MIGRAINE DE CONNEE",
+        "debut_utc": "2026-11-12T23:03:02.192355+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2862333",
+          "numero": 15,
+          "nom": "Migraine de Connée",
+          "url_geny": "https://www.geny.com/cheval/2862333-migraine-de-connee/course/1698067"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 15,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MIGRAINEDECONNEE/1/2862333",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2862333-migraine-de-connee/course/1698067",
+          "http": 200,
+          "titre_page": "Migraine de Connée - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:03:03.041369+00:00"
+        },
+        "fin_utc": "2026-11-12T23:03:07.638644+00:00"
+      }
     },
     "MILANTERA": {
       "nom": "MILANTERA",
@@ -7739,14 +7768,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:02:36.604294+00:00",
+  "maj_utc": "2026-11-12T23:03:07.665706+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 11,
+    "collectes_completes": 12,
     "synchronises": 11,
     "statuts": {
-      "COMPLET": 11,
-      "A_FAIRE": 152
+      "COMPLET": 12,
+      "A_FAIRE": 151
     }
   }
 }
