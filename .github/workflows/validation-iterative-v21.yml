@@ -56,6 +56,8 @@ jobs:
           set -euo pipefail
           mkdir -p resultats/validation
           python -m unittest discover -s tests -p 'test_*offline.py' -v 2>&1 | tee resultats/validation/regression.log
+      - name: Tests du scoring Geny exploratoire
+        run: python -m unittest discover -s tests -p 'test_scoring_geny_exploratoire.py' -v
       - name: Audit du registre et des paliers
         shell: bash
         run: |
