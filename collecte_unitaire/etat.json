@@ -5709,7 +5709,11 @@
       "code": "R1C3",
       "numero": 11,
       "ligne_sheet": 57,
-      "geny": null,
+      "geny": {
+        "id": "2860422",
+        "nom": "NACRE DU MOUTHIEUX",
+        "url_geny": "https://www.geny.com/cheval/2860422-nacre-du-mouthieux/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -5739,12 +5743,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 13,
+      "preuves": {
+        "nom": "NACRE DU MOUTHIEUX",
+        "debut_utc": "2026-11-12T23:43:16.818539+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2860422",
+          "nom": "NACRE DU MOUTHIEUX",
+          "url_geny": "https://www.geny.com/cheval/2860422-nacre-du-mouthieux/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 13,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NACREDUMOUTHIEUX/1/2860422",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2860422-nacre-du-mouthieux/course/1698062",
+          "http": 200,
+          "titre_page": "Nacre du Mouthieux - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:44:00.025813+00:00"
+        },
+        "fin_utc": "2026-11-12T23:44:04.067869+00:00"
+      }
     },
     "NAFIDEREVEDOR": {
       "nom": "NAFI DE REVE D'OR",
@@ -10091,15 +10123,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:42:51.957304+00:00",
+  "maj_utc": "2026-11-12T23:44:04.137716+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 60,
+    "collectes_completes": 61,
     "synchronises": 60,
     "statuts": {
-      "COMPLET": 60,
+      "COMPLET": 61,
       "ERREUR": 1,
-      "A_FAIRE": 102
+      "A_FAIRE": 101
     }
   }
 }
