@@ -28,6 +28,11 @@ jobs:
           mkdir -p resultats-diagnostic
           python experiments/historique-source/sonde.py --source zeturf --url 'https://www.zeturf.fr/' > resultats-diagnostic/zeturf.json
           python -m json.tool resultats-diagnostic/zeturf.json >/dev/null
+      - name: Tester fiche cheval reelle sans authentification
+        shell: bash
+        run: |
+          python experiments/historique-source/test_fiche_zeturf.py | tee resultats-diagnostic/zeturf-fiche-cheval.json
+          python -m json.tool resultats-diagnostic/zeturf-fiche-cheval.json >/dev/null
       - name: Publier un bilan JSON lisible via API GitHub
         if: always()
         shell: bash
