@@ -2678,11 +2678,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 49,
       "preuves": {
         "nom": "KINGSLAND DE SIMM",
@@ -2711,7 +2711,25 @@
           "extrait_utc": "2026-11-12T23:13:09.260496+00:00"
         },
         "fin_utc": "2026-11-12T23:13:13.865976+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 49,
+          "cellules_actualisees": 0,
+          "lignes_source": 49
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:13:19.343992+00:00",
+      "erreur": ""
     },
     "KNOCKONWOOD": {
       "nom": "KNOCKONWOOD",
@@ -8567,11 +8585,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:13:13.922083+00:00",
+  "maj_utc": "2026-11-12T23:13:19.344012+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 29,
-    "synchronises": 28,
+    "synchronises": 29,
     "statuts": {
       "COMPLET": 29,
       "A_FAIRE": 134
