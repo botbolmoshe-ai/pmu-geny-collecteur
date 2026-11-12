@@ -6164,12 +6164,22 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "ERREUR",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "preuves": {
+        "nom": "NINA TIME",
+        "debut_utc": "2026-11-12T23:49:14.940000+00:00",
+        "complet": false,
+        "statut": "ERREUR",
+        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+        "fin_utc": "2026-11-12T23:49:47.210710+00:00"
+      },
+      "prochain_essai_utc": "2026-11-12T23:54:47.295023+00:00"
     },
     "NISSALABELLA": {
       "nom": "NISSA LA BELLA",
@@ -10301,15 +10311,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:48:50.091545+00:00",
+  "maj_utc": "2026-11-12T23:49:47.295066+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 64,
     "synchronises": 64,
     "statuts": {
       "COMPLET": 64,
-      "ERREUR": 2,
-      "A_FAIRE": 97
+      "ERREUR": 3,
+      "A_FAIRE": 96
     }
   }
 }
