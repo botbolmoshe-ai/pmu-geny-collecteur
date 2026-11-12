@@ -28,6 +28,11 @@ jobs:
           mkdir -p resultats-diagnostic
           python experiments/historique-source/sonde.py --source pmu --url 'https://www.pmu.fr/' > resultats-diagnostic/pmu.json
           python -m json.tool resultats-diagnostic/pmu.json >/dev/null
+      - name: Tester les donnees hippiques publiques pmu
+        shell: bash
+        run: |
+          python experiments/historique-source/test_donnees_reelles.py | tee resultats-diagnostic/pmu-donnees-reelles.json
+          python -m json.tool resultats-diagnostic/pmu-donnees-reelles.json >/dev/null
       - name: Publier un bilan JSON lisible via API GitHub
         if: always()
         shell: bash
@@ -48,12 +53,13 @@ jobs:
           except (OSError,ValueError):
               sonde={"statut":"NON_EXECUTEE","erreur":"Sonde absente ou JSON invalide"}
           # Aucun chiffre de collecte n'est infere d'un diagnostic HTTP.
-          bilan={"schema_version":1,"source":source,"test_type":"HTTP_ONLY",
+          bilan={"schema_version":1,"source":source,"test_type":"HTTP_ET_DONNEES_REELLES_NON_HISTORIQUES",
               "date_utc":datetime.datetime.now(datetime.timezone.utc).isoformat(),
               "run_id":os.environ["GH_RUN_ID"],"run_attempt":os.environ["GH_RUN_ATTEMPT"],
               "run_url":f"https://github.com/{os.environ['GH_REPOSITORY']}/actions/runs/{os.environ['GH_RUN_ID']}",
               "branche":os.environ["GH_REF_NAME"],"commit_teste":os.environ["GH_SHA"],
               "job_status":os.environ["GH_JOB_STATUS"],"sonde":sonde,
+              "test_donnees":json.loads((pathlib.Path("resultats-diagnostic")/f"{source}-donnees-reelles.json").read_text(encoding="utf-8")) if (pathlib.Path("resultats-diagnostic")/f"{source}-donnees-reelles.json").exists() else None,
               "extraction_historique_validee":False,"chevaux_extraits":None,
               "performances_extraites":None,"taux_completude":None}
           dest=pathlib.Path("suivi-historique")/f"{source}-dernier-test.json"
