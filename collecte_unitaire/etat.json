@@ -2202,12 +2202,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 24,
+      "preuves": {
+        "nom": "KELMEC",
+        "debut_utc": "2026-11-12T23:10:09.199197+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2768380",
+          "numero": 2,
+          "nom": "Kelmec",
+          "url_geny": "https://www.geny.com/cheval/2768380-kelmec/course/1698064"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 24,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/KELMEC/1/2768380",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2768380-kelmec/course/1698064",
+          "http": 200,
+          "titre_page": "Kelmec - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:10:10.145164+00:00"
+        },
+        "fin_utc": "2026-11-12T23:10:14.690892+00:00"
+      }
     },
     "KENOPETTEVINIERE": {
       "nom": "KENO PETTEVINIERE",
@@ -8303,14 +8332,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:09:43.793739+00:00",
+  "maj_utc": "2026-11-12T23:10:14.717549+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 23,
+    "collectes_completes": 24,
     "synchronises": 23,
     "statuts": {
-      "COMPLET": 23,
-      "A_FAIRE": 140
+      "COMPLET": 24,
+      "A_FAIRE": 139
     }
   }
 }
