@@ -1,0 +1,76 @@
+name: PMU - Collecte historiques independante (pilote)
+on:
+  workflow_dispatch:
+    inputs:
+      geny_id:
+        description: "Identifiant Geny d'un manifeste deja stocke"
+        required: true
+        type: string
+      max_chevaux:
+        description: "Maximum de fiches a tenter"
+        required: true
+        default: "3"
+        type: choice
+        options: ["1", "2", "3", "6"]
+permissions:
+  contents: write
+concurrency:
+  group: pmu-donnees-production
+  cancel-in-progress: false
+jobs:
+  historiques:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Restaurer donnees persistantes sans appel PMU/Geny
+        shell: bash
+        env:
+          GENY_ID: ${{ inputs.geny_id }}
+          MAX_CHEVAUX: ${{ inputs.max_chevaux }}
+        run: |
+          set -euo pipefail
+          [[ "$GENY_ID" =~ ^[0-9]{4,12}$ ]] || { echo "Identifiant Geny invalide"; exit 2; }
+          git fetch --no-tags origin pmu-data
+          mkdir -p cache_pmu resultats
+          git archive origin/pmu-data | tar -x -C cache_pmu
+          test -s "cache_pmu/manifestes/GENY-${GENY_ID}.json" || { echo "Manifeste absent : aucune decouverte automatique"; exit 2; }
+          echo "MANIFESTE=cache_pmu/manifestes/GENY-${GENY_ID}.json" >> "$GITHUB_ENV"
+          echo "MAX_CHEVAUX=$MAX_CHEVAUX" >> "$GITHUB_ENV"
+      - name: Installer uniquement les dependances necessaires
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install chromium
+      - name: Collecte depuis manifeste deja connu
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pmu_geny.traitement_course --manifest "$MANIFESTE" --sortie resultats/historiques --etat cache_pmu/etat_persistant.json --max-chevaux "$MAX_CHEVAUX" --cooldown-heures 0.5
+      - name: Sauvegarder le cache durable uniquement apres succes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach /tmp/pmu-hist-data origin/pmu-data
+          git -C /tmp/pmu-hist-data switch -C pmu-data origin/pmu-data
+          cp -a cache_pmu/. /tmp/pmu-hist-data/
+          git -C /tmp/pmu-hist-data config user.name 'github-actions[bot]'
+          git -C /tmp/pmu-hist-data config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C /tmp/pmu-hist-data add -A
+          if ! git -C /tmp/pmu-hist-data diff --cached --quiet; then
+            git -C /tmp/pmu-hist-data commit -m "PMU historiques: collecte independante ${{ github.run_id }}"
+            git -C /tmp/pmu-hist-data push origin HEAD:refs/heads/pmu-data
+          fi
+      - name: Publier le bilan technique
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: collecte-historiques-${{ github.run_id }}
+          path: |
+            resultats/historiques/
+            cache_pmu/etat_persistant.json
+          if-no-files-found: warn
