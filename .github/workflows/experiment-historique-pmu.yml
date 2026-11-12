@@ -48,6 +48,13 @@ jobs:
         run: |
           python experiments/historique-source/test_prochaine_course.py | tee resultats-diagnostic/pmu-prochaine-course.json
           python -m json.tool resultats-diagnostic/pmu-prochaine-course.json >/dev/null
+      - name: Sonder fournisseur d'historiques Turf BZH
+        shell: bash
+        env:
+          TURF_BZH_API_KEY: ${{ secrets.TURF_BZH_API_KEY }}
+        run: |
+          python experiments/historique-source/test_turf_bzh.py | tee resultats-diagnostic/turf-bzh.json
+          python -m json.tool resultats-diagnostic/turf-bzh.json >/dev/null
       - name: Publier un bilan JSON lisible via API GitHub
         if: always()
         shell: bash
@@ -77,6 +84,7 @@ jobs:
               "test_donnees":json.loads((pathlib.Path("resultats-diagnostic")/f"{source}-donnees-reelles.json").read_text(encoding="utf-8")) if (pathlib.Path("resultats-diagnostic")/f"{source}-donnees-reelles.json").exists() else None,
               "test_historique":json.loads((pathlib.Path("resultats-diagnostic")/"pmu-identifiants-historiques.json").read_text(encoding="utf-8")) if (pathlib.Path("resultats-diagnostic")/"pmu-identifiants-historiques.json").exists() else None,
               "test_archives":json.loads((pathlib.Path("resultats-diagnostic")/"pmu-archives-historiques.json").read_text(encoding="utf-8")) if (pathlib.Path("resultats-diagnostic")/"pmu-archives-historiques.json").exists() else None,
+              "test_turf_bzh":json.loads((pathlib.Path("resultats-diagnostic")/"turf-bzh.json").read_text(encoding="utf-8")) if (pathlib.Path("resultats-diagnostic")/"turf-bzh.json").exists() else None,
               "test_prochaine_course":json.loads((pathlib.Path("resultats-diagnostic")/"pmu-prochaine-course.json").read_text(encoding="utf-8")) if (pathlib.Path("resultats-diagnostic")/"pmu-prochaine-course.json").exists() else None,
               "extraction_historique_validee":False,"chevaux_extraits":None,
               "performances_extraites":None,"taux_completude":None}
