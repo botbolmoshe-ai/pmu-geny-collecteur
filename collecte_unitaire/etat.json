@@ -5558,11 +5558,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 56,
       "preuves": {
         "nom": "KARINA JOSSELYN",
@@ -5590,7 +5590,25 @@
           "extrait_utc": "2026-11-12T23:41:25.138153+00:00"
         },
         "fin_utc": "2026-11-12T23:41:29.484811+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 56,
+          "cellules_actualisees": 0,
+          "lignes_source": 56
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:41:34.577766+00:00",
+      "erreur": ""
     },
     "KLARCKDEVANDEL": {
       "nom": "KLARCK DE VANDEL",
@@ -10023,11 +10041,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:41:29.543034+00:00",
+  "maj_utc": "2026-11-12T23:41:34.577779+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 59,
-    "synchronises": 58,
+    "synchronises": 59,
     "statuts": {
       "COMPLET": 59,
       "ERREUR": 1,
