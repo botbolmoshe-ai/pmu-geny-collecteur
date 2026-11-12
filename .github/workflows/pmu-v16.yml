@@ -7,8 +7,8 @@ on:
     paths:
       - 'pilotage/declencher-production-v21.txt'
   schedule:
-    # Chaque quart d'heure; gate Europe/Paris dans Python (été/hiver).
-    - cron: '0,15,30,45 5-20 * * *'
+    # Toutes les heures; gate Europe/Paris dans Python (été/hiver).
+    - cron: '0 5-20 * * *'
   workflow_dispatch:
     inputs:
       mode:
