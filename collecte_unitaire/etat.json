@@ -3248,11 +3248,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 85,
       "preuves": {
         "nom": "HORACE D'ARTHENAY",
@@ -3281,7 +3281,25 @@
           "extrait_utc": "2026-11-12T23:16:43.067277+00:00"
         },
         "fin_utc": "2026-11-12T23:16:47.851162+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 85,
+          "cellules_actualisees": 0,
+          "lignes_source": 85
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:16:53.140820+00:00",
+      "erreur": ""
     },
     "IASELMA": {
       "nom": "IASELMA",
@@ -8849,11 +8867,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:16:47.886026+00:00",
+  "maj_utc": "2026-11-12T23:16:53.140842+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 35,
-    "synchronises": 34,
+    "synchronises": 35,
     "statuts": {
       "COMPLET": 35,
       "A_FAIRE": 128
