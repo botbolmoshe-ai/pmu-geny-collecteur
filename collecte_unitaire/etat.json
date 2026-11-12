@@ -5930,11 +5930,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 11,
       "preuves": {
         "nom": "NALA DE SMARVES",
@@ -5962,7 +5962,25 @@
           "extrait_utc": "2026-11-12T23:46:33.624985+00:00"
         },
         "fin_utc": "2026-11-12T23:46:38.122542+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 11,
+          "cellules_actualisees": 0,
+          "lignes_source": 11
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:46:43.314051+00:00",
+      "erreur": ""
     },
     "NEWWAVE": {
       "nom": "NEW WAVE",
@@ -10223,11 +10241,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:46:38.170022+00:00",
+  "maj_utc": "2026-11-12T23:46:43.314075+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 63,
-    "synchronises": 62,
+    "synchronises": 63,
     "statuts": {
       "COMPLET": 63,
       "ERREUR": 1,
