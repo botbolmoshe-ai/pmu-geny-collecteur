@@ -1252,12 +1252,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 20,
+      "preuves": {
+        "nom": "MIROITANTE DE PADD",
+        "debut_utc": "2026-11-12T23:04:13.339929+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2839279",
+          "numero": 17,
+          "nom": "Miroitante de Padd",
+          "url_geny": "https://www.geny.com/cheval/2839279-miroitante-de-padd/course/1698067"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 20,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MIROITANTEDEPADD/1/2839279",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2839279-miroitante-de-padd/course/1698067",
+          "http": 200,
+          "titre_page": "Miroitante de Padd - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:04:14.445751+00:00"
+        },
+        "fin_utc": "2026-11-12T23:04:18.985733+00:00"
+      }
     },
     "MOONLIGHTSTAR": {
       "nom": "MOONLIGHT STAR",
@@ -7833,14 +7862,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:03:47.865370+00:00",
+  "maj_utc": "2026-11-12T23:04:19.021364+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 13,
+    "collectes_completes": 14,
     "synchronises": 13,
     "statuts": {
-      "COMPLET": 13,
-      "A_FAIRE": 150
+      "COMPLET": 14,
+      "A_FAIRE": 149
     }
   }
 }
