@@ -967,12 +967,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 22,
+      "preuves": {
+        "nom": "MERRY RIVER",
+        "debut_utc": "2026-11-12T23:02:26.629288+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2839274",
+          "numero": 8,
+          "nom": "Merry River",
+          "url_geny": "https://www.geny.com/cheval/2839274-merry-river/course/1698067"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 22,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MERRYRIVER/1/2839274",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2839274-merry-river/course/1698067",
+          "http": 200,
+          "titre_page": "Merry River - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:02:27.458589+00:00"
+        },
+        "fin_utc": "2026-11-12T23:02:32.093972+00:00"
+      }
     },
     "MIGRAINEDECONNEE": {
       "nom": "MIGRAINE DE CONNEE",
@@ -7692,14 +7721,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:02:01.066211+00:00",
+  "maj_utc": "2026-11-12T23:02:32.113797+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 10,
+    "collectes_completes": 11,
     "synchronises": 10,
     "statuts": {
-      "COMPLET": 10,
-      "A_FAIRE": 153
+      "COMPLET": 11,
+      "A_FAIRE": 152
     }
   }
 }
