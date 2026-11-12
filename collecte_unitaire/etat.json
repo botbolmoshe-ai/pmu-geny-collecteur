@@ -5093,11 +5093,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 104,
       "preuves": {
         "nom": "IQUEM MARVIC",
@@ -5125,7 +5125,25 @@
           "extrait_utc": "2026-11-12T23:34:38.874057+00:00"
         },
         "fin_utc": "2026-11-12T23:34:43.457349+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 104,
+          "cellules_actualisees": 0,
+          "lignes_source": 104
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:34:48.619522+00:00",
+      "erreur": ""
     },
     "IVALODUBOCAGE": {
       "nom": "IVALO DU BOCAGE",
@@ -9773,11 +9791,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:34:43.527003+00:00",
+  "maj_utc": "2026-11-12T23:34:48.619535+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 54,
-    "synchronises": 53,
+    "synchronises": 54,
     "statuts": {
       "COMPLET": 54,
       "ERREUR": 1,
