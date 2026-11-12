@@ -2773,11 +2773,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 59,
       "preuves": {
         "nom": "KNOCKONWOOD",
@@ -2806,7 +2806,25 @@
           "extrait_utc": "2026-11-12T23:13:45.017581+00:00"
         },
         "fin_utc": "2026-11-12T23:13:49.502426+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 59,
+          "cellules_actualisees": 0,
+          "lignes_source": 59
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:13:54.349188+00:00",
+      "erreur": ""
     },
     "KOALABLUE": {
       "nom": "KOALA BLUE",
@@ -8614,11 +8632,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:13:49.527840+00:00",
+  "maj_utc": "2026-11-12T23:13:54.349210+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 30,
-    "synchronises": 29,
+    "synchronises": 30,
     "statuts": {
       "COMPLET": 30,
       "A_FAIRE": 133
