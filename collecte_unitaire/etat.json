@@ -1158,11 +1158,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 31,
       "preuves": {
         "nom": "MILANTERA",
@@ -1191,7 +1191,25 @@
           "extrait_utc": "2026-11-12T23:03:38.625007+00:00"
         },
         "fin_utc": "2026-11-12T23:03:43.196101+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 31,
+          "cellules_actualisees": 0,
+          "lignes_source": 31
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:03:47.865347+00:00",
+      "erreur": ""
     },
     "MIROITANTEDEPADD": {
       "nom": "MIROITANTE DE PADD",
@@ -7815,11 +7833,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:03:43.264036+00:00",
+  "maj_utc": "2026-11-12T23:03:47.865370+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 13,
-    "synchronises": 12,
+    "synchronises": 13,
     "statuts": {
       "COMPLET": 13,
       "A_FAIRE": 150
