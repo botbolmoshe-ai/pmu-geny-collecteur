@@ -26,7 +26,8 @@ def main():
   if status!=200 or not isinstance(program,dict):out["erreurs"].append({"date":str(day),"http":status,"etape":"programme"});continue
   out["dates_archives_lues"]+=1
   for meeting in program.get("programme",{}).get("reunions",[]):
-   if meeting.get("pays",{}).get("code") not in (None,"FRA","FR") and isinstance(meeting.get("pays"),dict):continue
+   pays=meeting.get("pays")
+   if isinstance(pays,dict) and pays.get("code") not in (None,"FRA","FR"):continue
    r=meeting.get("numOfficiel")
    for race in meeting.get("courses",[]):
     c=race.get("numOrdre")
