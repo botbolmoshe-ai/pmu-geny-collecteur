@@ -6572,7 +6572,11 @@
       "code": "R1C3",
       "numero": 1,
       "ligne_sheet": 47,
-      "geny": null,
+      "geny": {
+        "id": "2885686",
+        "nom": "UNDER PRESSURE",
+        "url_geny": "https://www.geny.com/cheval/2885686-under-pressure/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -6602,12 +6606,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 9,
+      "preuves": {
+        "nom": "UNDER PRESSURE",
+        "debut_utc": "2026-11-12T23:58:46.480475+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2885686",
+          "nom": "UNDER PRESSURE",
+          "url_geny": "https://www.geny.com/cheval/2885686-under-pressure/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 9,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/UNDERPRESSURE/1/2885686",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2885686-under-pressure/course/1698062",
+          "http": 200,
+          "titre_page": "Fiche Cheval Under Pressure - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:59:44.105468+00:00"
+        },
+        "fin_utc": "2026-11-12T23:59:48.217579+00:00"
+      }
     },
     "GRANDRESTAURANT": {
       "nom": "GRAND RESTAURANT",
@@ -10481,15 +10513,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:58:21.770604+00:00",
+  "maj_utc": "2026-11-12T23:59:48.312625+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 67,
+    "collectes_completes": 68,
     "synchronises": 67,
     "statuts": {
-      "COMPLET": 67,
+      "COMPLET": 68,
       "ERREUR": 5,
-      "A_FAIRE": 91
+      "A_FAIRE": 90
     }
   }
 }
