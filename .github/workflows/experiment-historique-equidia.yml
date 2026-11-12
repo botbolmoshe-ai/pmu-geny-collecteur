@@ -1,0 +1,21 @@
+name: "Experiment historique equidia - diagnostic lecture seule"
+on:
+  push:
+    branches:
+      - experiment/historique-equidia
+    paths:
+      - "experiments/historique-source/**"
+      - ".github/workflows/experiment-historique-equidia.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verifier syntaxe Python
+        run: python -m py_compile experiments/historique-source/sonde.py
+      - name: Sonder une URL publique (aucune collecte ni ecriture Sheets)
+        run: python experiments/historique-source/sonde.py --source equidia --url 'https://www.equidia.fr/'
