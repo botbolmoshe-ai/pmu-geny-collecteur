@@ -493,11 +493,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 22,
       "preuves": {
         "nom": "MANDARINA DE LOU",
@@ -526,7 +526,25 @@
           "extrait_utc": "2026-11-12T22:59:30.149182+00:00"
         },
         "fin_utc": "2026-11-12T22:59:34.732853+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 22,
+          "cellules_actualisees": 0,
+          "lignes_source": 22
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T22:59:39.150254+00:00",
+      "erreur": ""
     },
     "MARIBELLA": {
       "nom": "MARIBELLA",
@@ -7486,11 +7504,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T22:59:34.769704+00:00",
+  "maj_utc": "2026-11-12T22:59:39.150273+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 6,
-    "synchronises": 5,
+    "synchronises": 6,
     "statuts": {
       "COMPLET": 6,
       "A_FAIRE": 157
