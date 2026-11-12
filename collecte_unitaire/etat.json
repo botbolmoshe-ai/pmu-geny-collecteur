@@ -1632,12 +1632,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 24,
+      "preuves": {
+        "nom": "MOUSTACHE",
+        "debut_utc": "2026-11-12T23:06:35.960480+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2818484",
+          "numero": 14,
+          "nom": "Moustache",
+          "url_geny": "https://www.geny.com/cheval/2818484-moustache/course/1698067"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 24,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MOUSTACHE/1/2818484",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2818484-moustache/course/1698067",
+          "http": 200,
+          "titre_page": "Moustache - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:06:36.869366+00:00"
+        },
+        "fin_utc": "2026-11-12T23:06:41.188456+00:00"
+      }
     },
     "HAPPYPACHA": {
       "nom": "HAPPY PACHA",
@@ -8021,14 +8050,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:06:10.779652+00:00",
+  "maj_utc": "2026-11-12T23:06:41.236105+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 17,
+    "collectes_completes": 18,
     "synchronises": 17,
     "statuts": {
-      "COMPLET": 17,
-      "A_FAIRE": 146
+      "COMPLET": 18,
+      "A_FAIRE": 145
     }
   }
 }
