@@ -3437,12 +3437,41 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 63,
+      "preuves": {
+        "nom": "IDAO NAY",
+        "debut_utc": "2026-11-12T23:17:54.164933+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2685623",
+          "numero": 11,
+          "nom": "Idao Nay",
+          "url_geny": "https://www.geny.com/cheval/2685623-idao-nay/course/1698055"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 63,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/IDAONAY/1/2685623",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2685623-idao-nay/course/1698055",
+          "http": 200,
+          "titre_page": "Idao Nay - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:17:55.117171+00:00"
+        },
+        "fin_utc": "2026-11-12T23:17:59.748453+00:00"
+      }
     },
     "INDYDELAFYE": {
       "nom": "INDY DE LA FYE",
@@ -8914,14 +8943,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:17:29.312074+00:00",
+  "maj_utc": "2026-11-12T23:17:59.796577+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 36,
+    "collectes_completes": 37,
     "synchronises": 36,
     "statuts": {
-      "COMPLET": 36,
-      "A_FAIRE": 127
+      "COMPLET": 37,
+      "A_FAIRE": 126
     }
   }
 }
