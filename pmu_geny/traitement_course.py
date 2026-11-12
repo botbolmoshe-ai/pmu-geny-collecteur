@@ -113,8 +113,11 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
     if dernier_blocage.get("utc"):
         try:
             debut = datetime.fromisoformat(dernier_blocage["utc"])
+            if debut.tzinfo is None:
+                # Ancien journal sans fuseau : conserver une interpretation UTC prudente.
+                debut = debut.replace(tzinfo=timezone.utc)
             cooldown_actif = datetime.now(timezone.utc) < debut + timedelta(hours=cooldown_heures)
-        except (ValueError, TypeError):
+        except (ValueError, TypeError, OverflowError):
             pass
     if cooldown_actif:
         bilan["collecte_geny"] = "DIFFEREE_COOLDOWN"
