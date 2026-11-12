@@ -968,11 +968,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 22,
       "preuves": {
         "nom": "MERRY RIVER",
@@ -1001,7 +1001,25 @@
           "extrait_utc": "2026-11-12T23:02:27.458589+00:00"
         },
         "fin_utc": "2026-11-12T23:02:32.093972+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 22,
+          "cellules_actualisees": 0,
+          "lignes_source": 22
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:02:36.604271+00:00",
+      "erreur": ""
     },
     "MIGRAINEDECONNEE": {
       "nom": "MIGRAINE DE CONNEE",
@@ -7721,11 +7739,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:02:32.113797+00:00",
+  "maj_utc": "2026-11-12T23:02:36.604294+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 11,
-    "synchronises": 10,
+    "synchronises": 11,
     "statuts": {
       "COMPLET": 11,
       "A_FAIRE": 152
