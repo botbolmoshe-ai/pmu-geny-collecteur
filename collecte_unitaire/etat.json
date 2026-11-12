@@ -5244,7 +5244,11 @@
       "code": "R1C2",
       "numero": 14,
       "ligne_sheet": 46,
-      "geny": null,
+      "geny": {
+        "id": "2703650",
+        "nom": "JACKSON HILL",
+        "url_geny": "https://www.geny.com/cheval/2703650-jackson-hill/course/1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -5274,12 +5278,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 86,
+      "preuves": {
+        "nom": "JACKSON HILL",
+        "debut_utc": "2026-11-12T23:36:30.616736+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2703650",
+          "nom": "JACKSON HILL",
+          "url_geny": "https://www.geny.com/cheval/2703650-jackson-hill/course/1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 86,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/JACKSONHILL/1/2703650",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2703650-jackson-hill/course/1698063",
+          "http": 200,
+          "titre_page": "Jackson Hill - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:37:27.089385+00:00"
+        },
+        "fin_utc": "2026-11-12T23:37:32.138284+00:00"
+      }
     },
     "JARDINDERABLE": {
       "nom": "JARDIN D'ERABLE",
@@ -9841,15 +9873,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:36:05.724204+00:00",
+  "maj_utc": "2026-11-12T23:37:32.309633+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 55,
+    "collectes_completes": 56,
     "synchronises": 55,
     "statuts": {
-      "COMPLET": 55,
+      "COMPLET": 56,
       "ERREUR": 1,
-      "A_FAIRE": 107
+      "A_FAIRE": 106
     }
   }
 }
