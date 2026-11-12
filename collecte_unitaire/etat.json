@@ -6240,7 +6240,11 @@
       "code": "R1C3",
       "numero": 9,
       "ligne_sheet": 55,
-      "geny": null,
+      "geny": {
+        "id": "2869477",
+        "nom": "NOIRE INTENSE",
+        "url_geny": "https://www.geny.com/cheval/2869477-noire-intense/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -6270,12 +6274,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 11,
+      "preuves": {
+        "nom": "NOIRE INTENSE",
+        "debut_utc": "2026-11-12T23:51:04.443479+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2869477",
+          "nom": "NOIRE INTENSE",
+          "url_geny": "https://www.geny.com/cheval/2869477-noire-intense/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 11,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NOIREINTENSE/1/2869477",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2869477-noire-intense/course/1698062",
+          "http": 200,
+          "titre_page": "Noire Intense - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:51:46.073570+00:00"
+        },
+        "fin_utc": "2026-11-12T23:51:50.217124+00:00"
+      }
     },
     "NORDAMERICAINE": {
       "nom": "NORD AMERICAINE",
@@ -10321,15 +10353,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:50:34.367476+00:00",
+  "maj_utc": "2026-11-12T23:51:50.277817+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 64,
+    "collectes_completes": 65,
     "synchronises": 64,
     "statuts": {
-      "COMPLET": 64,
+      "COMPLET": 65,
       "ERREUR": 4,
-      "A_FAIRE": 95
+      "A_FAIRE": 94
     }
   }
 }
