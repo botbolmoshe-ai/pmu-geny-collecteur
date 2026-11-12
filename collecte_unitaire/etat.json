@@ -4007,12 +4007,41 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 47,
+      "preuves": {
+        "nom": "JAMAIS",
+        "debut_utc": "2026-11-12T23:21:31.124789+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2702223",
+          "numero": 1,
+          "nom": "Jamais",
+          "url_geny": "https://www.geny.com/cheval/2702223-jamais/course/1698055"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 47,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/JAMAIS/1/2702223",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2702223-jamais/course/1698055",
+          "http": 200,
+          "titre_page": "Jamais - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:21:32.311400+00:00"
+        },
+        "fin_utc": "2026-11-12T23:21:36.624201+00:00"
+      }
     },
     "JOVIALHAUFOR": {
       "nom": "JOVIAL HAUFOR",
@@ -9196,14 +9225,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:21:05.960091+00:00",
+  "maj_utc": "2026-11-12T23:21:36.650875+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 42,
+    "collectes_completes": 43,
     "synchronises": 42,
     "statuts": {
-      "COMPLET": 42,
-      "A_FAIRE": 121
+      "COMPLET": 43,
+      "A_FAIRE": 120
     }
   }
 }
