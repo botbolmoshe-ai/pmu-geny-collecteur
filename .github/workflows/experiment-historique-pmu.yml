@@ -33,6 +33,11 @@ jobs:
         run: |
           python experiments/historique-source/test_donnees_reelles.py | tee resultats-diagnostic/pmu-donnees-reelles.json
           python -m json.tool resultats-diagnostic/pmu-donnees-reelles.json >/dev/null
+      - name: Tester identifiants et fiches historiques PMU
+        shell: bash
+        run: |
+          python experiments/historique-source/test_identifiants_chevaux.py | tee resultats-diagnostic/pmu-identifiants-historiques.json
+          python -m json.tool resultats-diagnostic/pmu-identifiants-historiques.json >/dev/null
       - name: Publier un bilan JSON lisible via API GitHub
         if: always()
         shell: bash
@@ -60,6 +65,7 @@ jobs:
               "branche":os.environ["GH_REF_NAME"],"commit_teste":os.environ["GH_SHA"],
               "job_status":os.environ["GH_JOB_STATUS"],"sonde":sonde,
               "test_donnees":json.loads((pathlib.Path("resultats-diagnostic")/f"{source}-donnees-reelles.json").read_text(encoding="utf-8")) if (pathlib.Path("resultats-diagnostic")/f"{source}-donnees-reelles.json").exists() else None,
+              "test_historique":json.loads((pathlib.Path("resultats-diagnostic")/"pmu-identifiants-historiques.json").read_text(encoding="utf-8")) if (pathlib.Path("resultats-diagnostic")/"pmu-identifiants-historiques.json").exists() else None,
               "extraction_historique_validee":False,"chevaux_extraits":None,
               "performances_extraites":None,"taux_completude":None}
           dest=pathlib.Path("suivi-historique")/f"{source}-dernier-test.json"
