@@ -2963,11 +2963,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 35,
       "preuves": {
         "nom": "KOMPANY VINCENT",
@@ -2996,7 +2996,25 @@
           "extrait_utc": "2026-11-12T23:14:56.208523+00:00"
         },
         "fin_utc": "2026-11-12T23:15:00.544077+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 35,
+          "cellules_actualisees": 0,
+          "lignes_source": 35
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:15:06.111679+00:00",
+      "erreur": ""
     },
     "KROONERDHERIPRE": {
       "nom": "KROONER D'HERIPRE",
@@ -8708,11 +8726,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:15:00.580506+00:00",
+  "maj_utc": "2026-11-12T23:15:06.111700+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 32,
-    "synchronises": 31,
+    "synchronises": 32,
     "statuts": {
       "COMPLET": 32,
       "A_FAIRE": 131
