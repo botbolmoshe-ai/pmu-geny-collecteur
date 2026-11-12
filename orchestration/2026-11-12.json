@@ -129,7 +129,7 @@
         }
       },
       "geny_id_rapproche": "1698062",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R1C4": {
       "identifiant_geny": null,
@@ -159,7 +159,7 @@
         "codes_differents": 0
       },
       "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R1C5": {
       "identifiant_geny": null,
@@ -204,7 +204,7 @@
         }
       },
       "geny_id_rapproche": "1698066",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R1C6": {
       "identifiant_geny": "GENY-1698067",
@@ -215,7 +215,7 @@
       "nombre_declares": 18,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -257,18 +257,20 @@
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698067/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R4C1": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-12T17:07:00+01:00",
       "nom": "PRIX DE LA FETE DES ARTISANS DE RIVERY",
       "hippodrome": "HIPPODROME D'AMIENS",
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -301,18 +303,19 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698053"
+      "geny_id_rapproche": "1698053",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C7": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-12T17:25:00+01:00",
       "nom": "PRIX DE CHATEAU-THIERRY",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 14,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE PARIS-VINCENNES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -345,18 +348,19 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698069"
+      "geny_id_rapproche": "1698069",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R4C2": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-12T17:42:00+01:00",
       "nom": "PRIX FOOD AMIENS 2026",
       "hippodrome": "HIPPODROME D'AMIENS",
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -389,11 +393,12 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698060"
+      "geny_id_rapproche": "1698060",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C8": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1698064",
+      "etat": "MANIFESTE_PRESENT",
       "depart": "2026-11-12T18:00:00+01:00",
       "nom": "PRIX DE COGNAC",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
@@ -433,7 +438,16 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698064"
+      "geny_id_rapproche": "1698064",
+      "historique_geny": "COLLECTE_INCREMENTALE",
+      "historique_collecte_resultat": "SUSPENDUE_429",
+      "np_confirmes": 0,
+      "np_verification_utc": "2026-11-12T16:51:39.767447+00:00",
+      "statut_prevision": "DONNEES_INSUFFISANTES",
+      "statut_maj_np": "H1_NON_FIGE",
+      "statut_ml": "ML_NON_ENTRAINE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1698064/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -533,8 +547,8 @@
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME D'AMIENS (0 correspondances)",
+      "statut_meteo": "METEO_NON_VERIFIEE",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
@@ -560,10 +574,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-12T15:47:41.221358+00:00",
+  "dernier_controle_pmu": "2026-11-12T16:50:53.504888+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-12",
-    "horodatage_utc": "2026-11-12T15:47:41.221358+00:00",
+    "horodatage_utc": "2026-11-12T16:50:53.504888+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
