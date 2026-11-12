@@ -4447,7 +4447,11 @@
       "code": "R1C2",
       "numero": 3,
       "ligne_sheet": 35,
-      "geny": null,
+      "geny": {
+        "id": "2615056",
+        "nom": "GIORGIO DU VIVIER",
+        "url_geny": "https://www.geny.com/cheval/2615056-giorgio-du-vivier/course/1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -4477,12 +4481,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 142,
+      "preuves": {
+        "nom": "GIORGIO DU VIVIER",
+        "debut_utc": "2026-11-12T23:24:30.685250+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2615056",
+          "nom": "GIORGIO DU VIVIER",
+          "url_geny": "https://www.geny.com/cheval/2615056-giorgio-du-vivier/course/1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 142,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/GIORGIODUVIVIER/1/2615056",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2615056-giorgio-du-vivier/course/1698063",
+          "http": 200,
+          "titre_page": "Fiche Cheval Giorgio du Vivier - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:25:14.285624+00:00"
+        },
+        "fin_utc": "2026-11-12T23:25:20.258748+00:00"
+      }
     },
     "HOKITOLOVE": {
       "nom": "HOKITOLOVE",
@@ -9431,14 +9463,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:24:05.387502+00:00",
+  "maj_utc": "2026-11-12T23:25:20.298500+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 47,
+    "collectes_completes": 48,
     "synchronises": 47,
     "statuts": {
-      "COMPLET": 47,
-      "A_FAIRE": 116
+      "COMPLET": 48,
+      "A_FAIRE": 115
     }
   }
 }
