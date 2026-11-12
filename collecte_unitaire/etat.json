@@ -682,12 +682,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 16,
+      "preuves": {
+        "nom": "MELICIANA",
+        "debut_utc": "2026-11-12T23:00:39.942567+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2836959",
+          "numero": 13,
+          "nom": "Meliciana",
+          "url_geny": "https://www.geny.com/cheval/2836959-meliciana/course/1698067"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 16,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MELICIANA/1/2836959",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2836959-meliciana/course/1698067",
+          "http": 200,
+          "titre_page": "Meliciana - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:00:40.786644+00:00"
+        },
+        "fin_utc": "2026-11-12T23:00:45.267885+00:00"
+      }
     },
     "MELODICABELLA": {
       "nom": "MELODICA BELLA",
@@ -7551,14 +7580,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:00:14.548462+00:00",
+  "maj_utc": "2026-11-12T23:00:45.313013+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 7,
+    "collectes_completes": 8,
     "synchronises": 7,
     "statuts": {
-      "COMPLET": 7,
-      "A_FAIRE": 156
+      "COMPLET": 8,
+      "A_FAIRE": 155
     }
   }
 }
