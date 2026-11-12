@@ -2203,11 +2203,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 24,
       "preuves": {
         "nom": "KELMEC",
@@ -2236,7 +2236,25 @@
           "extrait_utc": "2026-11-12T23:10:10.145164+00:00"
         },
         "fin_utc": "2026-11-12T23:10:14.690892+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 24,
+          "cellules_actualisees": 0,
+          "lignes_source": 24
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:10:20.738289+00:00",
+      "erreur": ""
     },
     "KENOPETTEVINIERE": {
       "nom": "KENO PETTEVINIERE",
@@ -8332,11 +8350,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:10:14.717549+00:00",
+  "maj_utc": "2026-11-12T23:10:20.738310+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 24,
-    "synchronises": 23,
+    "synchronises": 24,
     "statuts": {
       "COMPLET": 24,
       "A_FAIRE": 139
