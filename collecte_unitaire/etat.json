@@ -207,12 +207,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 15,
+      "preuves": {
+        "nom": "MAGIE MESLOISE",
+        "debut_utc": "2026-11-12T22:57:43.860066+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2834238",
+          "numero": 12,
+          "nom": "Magie Mesloise",
+          "url_geny": "https://www.geny.com/cheval/2834238-magie-mesloise/course/1698067"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 15,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MAGIEMESLOISE/1/2834238",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2834238-magie-mesloise/course/1698067",
+          "http": 200,
+          "titre_page": "Magie Mesloise - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T22:57:44.711169+00:00"
+        },
+        "fin_utc": "2026-11-12T22:57:48.805682+00:00"
+      }
     },
     "MALIBERTE": {
       "nom": "MA LIBERTE",
@@ -7316,14 +7345,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T22:57:18.903060+00:00",
+  "maj_utc": "2026-11-12T22:57:48.830582+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 2,
+    "collectes_completes": 3,
     "synchronises": 2,
     "statuts": {
-      "COMPLET": 2,
-      "A_FAIRE": 161
+      "COMPLET": 3,
+      "A_FAIRE": 160
     }
   }
 }
