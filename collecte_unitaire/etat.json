@@ -3342,12 +3342,41 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 71,
+      "preuves": {
+        "nom": "IASELMA",
+        "debut_utc": "2026-11-12T23:17:17.963242+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2706308",
+          "numero": 3,
+          "nom": "Iaselma",
+          "url_geny": "https://www.geny.com/cheval/2706308-iaselma/course/1698055"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 71,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/IASELMA/1/2706308",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2706308-iaselma/course/1698055",
+          "http": 200,
+          "titre_page": "Iaselma - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:17:19.296289+00:00"
+        },
+        "fin_utc": "2026-11-12T23:17:24.037567+00:00"
+      }
     },
     "IDAONAY": {
       "nom": "IDAO NAY",
@@ -8867,14 +8896,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:16:53.140842+00:00",
+  "maj_utc": "2026-11-12T23:17:24.088093+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 35,
+    "collectes_completes": 36,
     "synchronises": 35,
     "statuts": {
-      "COMPLET": 35,
-      "A_FAIRE": 128
+      "COMPLET": 36,
+      "A_FAIRE": 127
     }
   }
 }
