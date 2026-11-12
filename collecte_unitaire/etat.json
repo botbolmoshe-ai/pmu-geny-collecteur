@@ -3058,11 +3058,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 26,
       "preuves": {
         "nom": "KROONER D'HERIPRE",
@@ -3091,7 +3091,25 @@
           "extrait_utc": "2026-11-12T23:15:31.519212+00:00"
         },
         "fin_utc": "2026-11-12T23:15:36.052792+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 26,
+          "cellules_actualisees": 0,
+          "lignes_source": 26
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:15:40.940468+00:00",
+      "erreur": ""
     },
     "HILTONDUHOULET": {
       "nom": "HILTON DU HOULET",
@@ -8755,11 +8773,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:15:36.079901+00:00",
+  "maj_utc": "2026-11-12T23:15:40.940490+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 33,
-    "synchronises": 32,
+    "synchronises": 33,
     "statuts": {
       "COMPLET": 33,
       "A_FAIRE": 130
