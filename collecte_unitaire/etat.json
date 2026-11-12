@@ -4008,11 +4008,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 47,
       "preuves": {
         "nom": "JAMAIS",
@@ -4041,7 +4041,25 @@
           "extrait_utc": "2026-11-12T23:21:32.311400+00:00"
         },
         "fin_utc": "2026-11-12T23:21:36.624201+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 47,
+          "cellules_actualisees": 0,
+          "lignes_source": 47
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:21:41.478267+00:00",
+      "erreur": ""
     },
     "JOVIALHAUFOR": {
       "nom": "JOVIAL HAUFOR",
@@ -9225,11 +9243,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:21:36.650875+00:00",
+  "maj_utc": "2026-11-12T23:21:41.478291+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 43,
-    "synchronises": 42,
+    "synchronises": 43,
     "statuts": {
       "COMPLET": 43,
       "A_FAIRE": 120
