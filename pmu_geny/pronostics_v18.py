@@ -11,6 +11,25 @@ def read(file):
     try:return json.loads(Path(file).read_text(encoding='utf-8'))
     except (OSError,ValueError):return {}
 
+def _controle_np(data, expected, now):
+    """Un retrait atteste ne devient pas un partant lorsque le controle vieillit."""
+    mapping={}
+    try:
+        checked=datetime.fromisoformat(data['date_controle_utc'])
+        if checked.tzinfo is None or checked>now:return {},False
+    except (KeyError,ValueError,TypeError):return {},False
+    for row in data.get('chevaux',[]):
+        try:
+            n=int(row['numero'])
+            observed=datetime.fromisoformat(row.get('date_verification_np') or data['date_controle_utc'])
+            if n not in expected or observed.tzinfo is None or observed>now:continue
+        except (KeyError,TypeError,ValueError):continue
+        if n in mapping:return {},False
+        mapping[n]=row.get('statut_participation')
+    recent=(timedelta(0)<=now-checked<=timedelta(minutes=30) and set(mapping)==expected and
+            all(v in ('PARTANT','NON_PARTANT') for v in mapping.values()))
+    return mapping,recent
+
 def preparer_top3(cache, course, manifest, now=None):
     from .auto_v18 import save
     now=now or datetime.now(timezone.utc)
@@ -24,22 +43,14 @@ def preparer_top3(cache, course, manifest, now=None):
     if not debut<=now.astimezone(depart.tzinfo)<fin:return 'HORS_FENETRE_AVANT_DEPART'
     cid=manifest['courses'][0]['course_id']
     np=read(Path(cache)/'participations'/f'{cid}.json')
-    rows=np.get('chevaux',[])
     expected={int(p['numero']) for p in manifest['courses'][0]['partants']}
-    np_by_number={int(r['numero']):r for r in rows if str(r.get('numero','')).isdigit() and int(r['numero']) in expected}
     # Une verification NP impossible ne doit pas bloquer le TOP3.
     # Seuls les retraits officiellement verifies sont exclus.
-    try:
-        checked=datetime.fromisoformat(np.get('date_controle_utc',''))
-        np_recent=(now-checked<=timedelta(minutes=30) and
-                   set(np_by_number)==expected and
-                   all(r.get('statut_participation') in ('PARTANT','NON_PARTANT') for r in np_by_number.values()))
-    except (ValueError,TypeError):
-        np_recent=False
+    np_by_number,np_recent=_controle_np(np,expected,now)
     scores=[]
     for h in manifest['courses'][0]['partants']:
         n=int(h['numero'])
-        if np_by_number.get(n,{}).get('statut_participation')=='NON_PARTANT' and np_recent:continue
+        if np_by_number.get(n)=='NON_PARTANT':continue
         doc=read(Path(cache)/'historiques'/str(h['id'])/'historique_geny.json')
         perfs=doc.get('performances',[])
         if not perfs:continue
@@ -67,6 +78,7 @@ def preparer_top3(cache, course, manifest, now=None):
        'mode':'BASELINE_EXPERIMENTALE_NON_VALIDEE','note':'Scores non probabilistes; aucune garantie de gain',
        'qualite_horaire':'H1' if now<=depart-timedelta(minutes=60) else 'RATTRAPAGE_AVANT_DEPART',
        'statut_np':'VERIFIE' if np_recent else 'NP_NON_VERIFIE',
+       'non_partants_confirmes':sorted(n for n,s in np_by_number.items() if s=='NON_PARTANT'),
        'source_np':'PMU_API' if np_recent else 'NON_VERIFIE',
        'np_verifie_utc':np.get('date_controle_utc','') if np_recent else '',
        'top3':ranked[:3],'classement_complet':ranked}
@@ -85,28 +97,33 @@ def actualiser_top3_np(cache, course, manifest, now=None):
     if not initial:return 'H1_NON_FIGE'
     cid=manifest['courses'][0]['course_id']
     data=read(Path(cache)/'participations'/f'{cid}.json')
-    try:
-        check=datetime.fromisoformat(data['date_controle_utc'])
-        if now-check>timedelta(minutes=30):return 'NP_PERIME'
-    except (KeyError,ValueError,TypeError):return 'NP_NON_VERIFIE'
-    mapping={int(x['numero']):x.get('statut_participation') for x in data.get('chevaux',[])}
-    expected={int(h['numero']) for h in manifest['courses'][0]['partants']}
-    if set(mapping)!=expected or any(x not in ('PARTANT','NON_PARTANT') for x in mapping.values()):return 'NP_NON_VERIFIE'
-    # Recalcul du classement via scores initiaux et changement de contexte NP.
-    # Pas de faux recalcul des scores tactiques : baseline reste un score de forme.
-    remaining=[x for x in initial['classement_complet'] if mapping.get(int(x['numero']))=='PARTANT']
-    if len(remaining)<3:return 'PARTANTS_INSUFFISANTS'
     latest=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_baseline_latest.json"
     previous=read(latest)
-    new_top=[int(x['numero']) for x in remaining[:3]]
-    if previous and [int(x['numero']) for x in previous.get('top3',[])]==new_top:
+    expected={int(h['numero']) for h in manifest['courses'][0]['partants']}
+    mapping,recent=_controle_np(data,expected,now)
+    if not mapping:return 'NP_NON_VERIFIE'
+    withdrawn={int(n) for n in initial.get('non_partants_confirmes',[])}
+    withdrawn.update(int(n) for n in previous.get('non_partants_confirmes',[]))
+    withdrawn.update(n for n,s in mapping.items() if s=='NON_PARTANT')
+    if recent:withdrawn.difference_update(n for n,s in mapping.items() if s=='PARTANT')
+    if not recent and not withdrawn:return 'NP_PERIME'
+    # Recalcul du classement via scores initiaux et changement de contexte NP.
+    # Pas de faux recalcul des scores tactiques : baseline reste un score de forme.
+    remaining=[x for x in initial['classement_complet'] if int(x['numero']) not in withdrawn]
+    sufficient=len(remaining)>=3
+    new_top=[int(x['numero']) for x in remaining[:3]] if sufficient else []
+    if (previous and [int(x['numero']) for x in previous.get('top3',[])]==new_top
+            and set(previous.get('non_partants_confirmes',[]))==withdrawn):
         return 'INCHANGE'
     stamp={'date_course':course['date'],'course':course['code'],'depart':course['depart'],
       'created_utc':now.isoformat(),'mode':'BASELINE_RECALCULEE_APRES_NP',
       'origine_h1':initial['created_utc'],'source_np':'PMU_API',
-      'np_verifie_utc':data['date_controle_utc'],'top3':remaining[:3],
-      'classement_complet':remaining}
+      'statut_np':'VERIFIE' if recent else 'CONTROLE_ANCIEN_RETRAITS_CONSERVES',
+      'non_partants_confirmes':sorted(withdrawn),
+      'np_verifie_utc':data['date_controle_utc'],'top3':remaining[:3] if sufficient else [],
+      'statut':'COMPLET' if sufficient else 'PARTANTS_INSUFFISANTS',
+      'classement_complet':remaining if sufficient else []}
     save(latest,stamp)
-    archive=Path(cache)/'pronostics'/'versions'/f"{course['date']}_{course['code']}_baseline_{now.strftime('%Y%m%dT%H%M%SZ')}.json"
+    archive=Path(cache)/'pronostics'/'versions'/f"{course['date']}_{course['code']}_baseline_{now.astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')}.json"
     save(archive,stamp)
-    return 'ACTUALISE'
+    return 'ACTUALISE' if sufficient else 'PARTANTS_INSUFFISANTS'
