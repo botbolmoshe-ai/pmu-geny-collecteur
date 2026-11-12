@@ -1,5 +1,7 @@
 name: PMU V21 - Validation iterative du moteur (lecture seule)
 on:
+  pull_request:
+    branches: [main]
   push:
     branches: [main]
     paths:
@@ -17,6 +19,9 @@ on:
       - 'pmu_geny/qualite_registre_v21.py'
       - 'pmu_geny/sync_google_sheets.py'
       - 'pmu_geny/pronostics_v18.py'
+      - 'pmu_geny/top3_independants_v22.py'
+      - 'pmu_geny/kpi_registre.py'
+      - 'tests/test_v24_fiabilite_offline.py'
       - 'pmu_geny/auto_v18.py'
       - 'pmu_geny/partants_actuels_v21.py'
       - '.github/workflows/validation-iterative-v21.yml'
@@ -30,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/checkout@v4
         with:
           ref: pmu-data

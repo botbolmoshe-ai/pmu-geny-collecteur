@@ -27,6 +27,18 @@ REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_p
                   'arrivee_officielle_numeros','arrivee_verifiee_utc',
                   'statut_evaluation','analyse_comparative','conclusion',
                   'derniere_sync_utc')
+NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
+                            'score_baseline','score_baseline_final'})
+CLEARABLE_COLUMNS = frozenset(EXPERT_COLUMNS) | frozenset({
+    'top3_direct_rang','top3_direct_score','top3_direct_top3',
+    'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
+    'ml_proba_podium','ml_score_non_calibre'})
+
+def sheet_value(field, value):
+    if value is None:return ''
+    if field in NUMERIC_SCORES and str(value) in ('0','1','2','3'):
+        return int(value)
+    return str(value)
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
                 'hippodrome':'hippodrome','discipline':'discipline','distance_m':'distance_m',
                 'classement':'classement','chrono':'chrono','source_url':'texte_source',
@@ -207,6 +219,8 @@ def source_rows(cache):
                  'historique_modele_statut':'FIGE' if has_historical else 'NON_CALCULE',
                  'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
                  'secours_statut':'NON_CALCULE',
+                 'baseline_top3':'OUI' if any(str(h.get('numero'))==str(n) for h in frozen.get('top3',[])) else '',
+                 'baseline_final_top3':'OUI' if any(str(h.get('numero'))==str(n) for h in (latest or frozen).get('top3',[])) else '',
                  'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else ''}
             for c in COMPARE_COLUMNS:
                 if c not in doc:doc[c]=r.get(c,'')
@@ -466,11 +480,16 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
         if k in present:
             # writes only values actually present/nonempty; leaves other cells untouched.
             for name,val in item.items():
-                if (name in headers and val is not None and (str(val)!='' or name in EXPERT_COLUMNS)
-                        and str(existing_rows[present[k]-2].get(name,'')) != str(val)):
-                    changes.append((present[k],headers.index(name)+1,str(val)))
+                value=sheet_value(name,val)
+                before=existing_rows[present[k]-2].get(name,'')
+                differs=((before!=value or (isinstance(value,int) and
+                           (not isinstance(before,(int,float)) or isinstance(before,bool))))
+                         if name in NUMERIC_SCORES else str(before)!=str(value))
+                if (name in headers and val is not None and (str(val)!='' or name in CLEARABLE_COLUMNS)
+                        and differs):
+                    changes.append((present[k],headers.index(name)+1,value))
         else:
-            append.append([str(item.get(h,'')) if item.get(h) is not None else '' for h in headers]);present[k]=-1
+            append.append([sheet_value(h,item.get(h,'')) for h in headers]);present[k]=-1
     return headers,changes,append
 
 
@@ -568,6 +587,21 @@ def main():
                 print(f'SYNC_GOOGLE_SHEETS=ERREUR_AJOUT onglet={tab} http={res.status_code}');errors+=1
         print(f'SYNC_GOOGLE_SHEETS onglet={tab} lignes_source={len(source[tab])} '
               f'cellules_mises_a_jour={len(updates)} lignes_ajoutees={len(appends)}')
+    # L'onglet KPI existant est alimente depuis les memes sources, sans formule
+    # liee a une ligne fixe et sans lecture supplementaire des trois grandes tables.
+    from .kpi_registre import KPI_TAB, calculer_kpi, plan_kpi
+    if KPI_TAB in by_name:
+        quoted=urllib.parse.quote("'"+KPI_TAB+"'!A1:D100",safe='!:\'')
+        response=session.get(f'{base}/values/{quoted}',timeout=30)
+        if response.status_code!=200:
+            print(f'SYNC_GOOGLE_SHEETS=ERREUR_LECTURE onglet={KPI_TAB} http={response.status_code}');errors+=1
+        else:
+            updates=plan_kpi(response.json().get('values',[]),calculer_kpi(cache,source))
+            if updates:
+                response=session.post(f'{base}/values:batchUpdate',json={'valueInputOption':'RAW','data':updates},timeout=45)
+                if response.status_code!=200:
+                    print(f'SYNC_GOOGLE_SHEETS=ERREUR_MAJ onglet={KPI_TAB} http={response.status_code}');errors+=1
+            print(f'SYNC_GOOGLE_SHEETS onglet={KPI_TAB} indicateurs_actualises={len(updates)}')
     return 1 if errors else 0
 
 if __name__=='__main__':sys.exit(main())
