@@ -5279,11 +5279,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 86,
       "preuves": {
         "nom": "JACKSON HILL",
@@ -5311,7 +5311,25 @@
           "extrait_utc": "2026-11-12T23:37:27.089385+00:00"
         },
         "fin_utc": "2026-11-12T23:37:32.138284+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 86,
+          "cellules_actualisees": 0,
+          "lignes_source": 86
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:37:37.577550+00:00",
+      "erreur": ""
     },
     "JARDINDERABLE": {
       "nom": "JARDIN D'ERABLE",
@@ -9873,11 +9891,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:37:32.309633+00:00",
+  "maj_utc": "2026-11-12T23:37:37.577575+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 56,
-    "synchronises": 55,
+    "synchronises": 56,
     "statuts": {
       "COMPLET": 56,
       "ERREUR": 1,
