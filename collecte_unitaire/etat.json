@@ -4663,12 +4663,22 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "ERREUR",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "preuves": {
+        "nom": "ILLINOIS",
+        "debut_utc": "2026-11-12T23:27:08.131145+00:00",
+        "complet": false,
+        "statut": "ERREUR",
+        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+        "fin_utc": "2026-11-12T23:27:26.410806+00:00"
+      },
+      "prochain_essai_utc": "2026-11-12T23:32:26.441369+00:00"
     },
     "ILOVIROIZDILEONE": {
       "nom": "ILOVIROIZ DI LEONE",
@@ -9531,14 +9541,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:26:42.884830+00:00",
+  "maj_utc": "2026-11-12T23:27:26.441395+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 49,
     "synchronises": 49,
     "statuts": {
       "COMPLET": 49,
-      "A_FAIRE": 114
+      "ERREUR": 1,
+      "A_FAIRE": 113
     }
   }
 }
