@@ -4686,7 +4686,11 @@
       "code": "R1C2",
       "numero": 11,
       "ligne_sheet": 43,
-      "geny": null,
+      "geny": {
+        "id": "2692064",
+        "nom": "ILOVIROIZ DI LEONE",
+        "url_geny": "https://www.geny.com/cheval/2692064-iloviroiz-di-leone/course/1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -4716,12 +4720,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 66,
+      "preuves": {
+        "nom": "ILOVIROIZ DI LEONE",
+        "debut_utc": "2026-11-12T23:27:56.514270+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2692064",
+          "nom": "ILOVIROIZ DI LEONE",
+          "url_geny": "https://www.geny.com/cheval/2692064-iloviroiz-di-leone/course/1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 66,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/ILOVIROIZDILEONE/1/2692064",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2692064-iloviroiz-di-leone/course/1698063",
+          "http": 200,
+          "titre_page": "Iloviroiz Di Leone - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:28:39.239589+00:00"
+        },
+        "fin_utc": "2026-11-12T23:28:43.728274+00:00"
+      }
     },
     "INGENIOUSBOND": {
       "nom": "INGENIOUS BOND",
@@ -9541,15 +9573,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:27:26.441395+00:00",
+  "maj_utc": "2026-11-12T23:28:43.761486+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 49,
+    "collectes_completes": 50,
     "synchronises": 49,
     "statuts": {
-      "COMPLET": 49,
+      "COMPLET": 50,
       "ERREUR": 1,
-      "A_FAIRE": 113
+      "A_FAIRE": 112
     }
   }
 }
