@@ -2,27 +2,27 @@
   "schema_version": 1,
   "source": "pmu",
   "test_type": "HTTP_ET_DONNEES_REELLES_NON_HISTORIQUES",
-  "date_utc": "2026-11-12T16:00:24.182418+00:00",
-  "run_id": "43253884077",
+  "date_utc": "2026-11-12T16:30:15.045760+00:00",
+  "run_id": "43259276818",
   "run_attempt": "1",
-  "run_url": "https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43253884077",
+  "run_url": "https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43259276818",
   "branche": "experiment/historique-pmu",
-  "commit_teste": "1692559f1018f2658187dc0947e8ecb3bc98cc51",
+  "commit_teste": "5e152a58b94532167aa4a2a75e9d96fad7733ec8",
   "job_status": "success",
   "sonde": {
     "source": "pmu",
     "url": "https://www.pmu.fr/",
-    "utc": "2026-11-12T16:00:22.278950+00:00",
+    "utc": "2026-11-12T16:30:04.200774+00:00",
     "statut": "ACCESSIBLE",
     "http": 200,
     "type_contenu": "text/html; charset=utf-8",
     "octets_lus": 2557,
-    "duree_ms": 762
+    "duree_ms": 606
   },
   "test_donnees": {
     "source": "pmu",
     "test_type": "DONNEES_COURSE_REELLES",
-    "date_utc": "2026-11-12T16:00:23.152710+00:00",
+    "date_utc": "2026-11-12T16:30:04.940435+00:00",
     "sondes": [
       {
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026",
@@ -30,7 +30,7 @@
         "chevaux_identifies": 0,
         "performances_historiques": 0,
         "historique_valide": false,
-        "octets": 309037,
+        "octets": 307201,
         "json_valide": true,
         "cles_racine": [
           "programme",
@@ -63,7 +63,7 @@
   "test_historique": {
     "source": "pmu",
     "type": "IDENTIFIANTS_ET_HISTORIQUES",
-    "utc": "2026-11-12T16:00:24.087939+00:00",
+    "utc": "2026-11-12T16:30:06.643928+00:00",
     "http_participants": 200,
     "chevaux_testes": 3,
     "performances_historiques_validees": 0,
@@ -146,6 +146,24 @@
       "tempsObtenu",
       "urlCasaque"
     ]
+  },
+  "test_archives": {
+    "source": "pmu",
+    "type": "HISTORIQUE_RECONSTRUIT_PAR_COURSES",
+    "chevaux_cibles": [
+      "LOMBOK JIEL",
+      "FRANK GIO",
+      "LIONHEART"
+    ],
+    "dates_testees": 21,
+    "courses_testees": 21,
+    "chevaux_avec_historique": 0,
+    "performances_historiques_validees": 0,
+    "taux_couverture_chevaux": 0.0,
+    "taux_completude_historique": null,
+    "performances": [],
+    "erreurs": [],
+    "limite": "R1C1 uniquement; ne mesure pas la completude de l'historique total"
   },
   "extraction_historique_validee": false,
   "chevaux_extraits": null,
