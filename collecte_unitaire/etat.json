@@ -1917,12 +1917,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 50,
+      "preuves": {
+        "nom": "JERICHO DU RIB",
+        "debut_utc": "2026-11-12T23:08:22.803664+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2731920",
+          "numero": 6,
+          "nom": "Jéricho du Rib",
+          "url_geny": "https://www.geny.com/cheval/2731920-jericho-du-rib/course/1698064"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 50,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/JERICHODURIB/1/2731920",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2731920-jericho-du-rib/course/1698064",
+          "http": 200,
+          "titre_page": "Jéricho du Rib - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:08:23.688061+00:00"
+        },
+        "fin_utc": "2026-11-12T23:08:27.951242+00:00"
+      }
     },
     "JERZINHOSPORT": {
       "nom": "JERZINHO SPORT",
@@ -8162,14 +8191,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:07:57.208835+00:00",
+  "maj_utc": "2026-11-12T23:08:27.980141+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 20,
+    "collectes_completes": 21,
     "synchronises": 20,
     "statuts": {
-      "COMPLET": 20,
-      "A_FAIRE": 143
+      "COMPLET": 21,
+      "A_FAIRE": 142
     }
   }
 }
