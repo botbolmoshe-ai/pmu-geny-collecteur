@@ -22,6 +22,9 @@ on:
       - 'pmu_geny/top3_independants_v22.py'
       - 'pmu_geny/kpi_registre.py'
       - 'tests/test_v24_fiabilite_offline.py'
+      - 'tests/test_v25_collecte_offline.py'
+      - 'scripts/simuler_collecte.py'
+      - 'pmu_geny/traitement_course.py'
       - 'pmu_geny/auto_v18.py'
       - 'pmu_geny/partants_actuels_v21.py'
       - '.github/workflows/validation-iterative-v21.yml'
@@ -36,6 +39,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
       - uses: actions/checkout@v4
         with:
           ref: pmu-data

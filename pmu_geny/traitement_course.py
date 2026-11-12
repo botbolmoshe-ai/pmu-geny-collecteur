@@ -258,6 +258,11 @@ def traiter(manifest: dict, sortie: Path, max_chevaux: int, etat_path: Path | No
         _save_bilan(sortie, bilan)
     if not collecte_suspendue and not cooldown_actif:
         bilan["collecte_geny"] = "LIMITE_TEST_ATTEINTE" if limite_test else "TERMINEE"
+    # Le quota concerne les consultations effectivement tentees, pas les chevaux
+    # deja presents en cache. Une erreur ou un refus consomme une tentative.
+    bilan['tentatives_effectuees'] = compteur
+    bilan['historiques_reutilises'] = sum(h.get('origine')=='CACHE_PERSISTANT'
+        for c in bilan['courses'] for h in c['chevaux'])
     _save_bilan(sortie, bilan)
     return bilan
 

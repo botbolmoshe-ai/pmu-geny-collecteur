@@ -401,7 +401,10 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 entry['historique_geny']='COLLECTE_INCREMENTALE'
                 result=traiter(manifest,cache/'diagnostics',quota,
                                cache/'etat_persistant.json',cooldown_heures=0.5)
-                remaining_new=max(0,remaining_new-quota)
+                attempted=result.get('tentatives_effectuees',quota)
+                remaining_new=max(0,remaining_new-min(quota,max(0,int(attempted))))
+                entry['fiches_geny_tentees_ce_cycle']=attempted
+                entry['historiques_reutilises_ce_cycle']=result.get('historiques_reutilises',0)
                 entry['historique_collecte_resultat']=result.get('collecte_geny','NON_VERIFIE')
                 geny_state=load(cache/'etat_persistant.json',{}) or {}
                 if (geny_state.get('dernier_blocage_geny') or {}).get('utc'):

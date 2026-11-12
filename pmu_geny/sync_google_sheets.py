@@ -265,6 +265,8 @@ def source_rows(cache):
                 h.get('cote') is not None for h in cotes_source['chevaux']) else 'PAS_DE_RELEVE')
         ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
         avis_experts=load_json(cache/'avis_experts'/f'{date}_{code}.json')
+        official=load_json(cache/'arrivees'/f'{date}_{code}.json')
+        arrival_ranks={str(h.get('numero')):h.get('rang') for h in official.get('arrivee',[]) if h.get('rang') is not None}
         contexte=load_json(cache/'contextes'/f'{date}_{code}.json')
         observations={x.get('champ'):x.get('valeur') for x in contexte.get('observations',[])
                       if isinstance(x,dict) and x.get('champ','').startswith('meteo_')}
@@ -330,14 +332,15 @@ def source_rows(cache):
                 'actuel_maj_utc':participant.get('capture_utc',''),
                 'top3_direct_rang':direct_rank,
                 'top3_direct_score':direct_h.get('score_direct',''),
-                'top3_direct_top3':'OUI' if direct_rank and direct_rank<=3 else '',
+                'top3_direct_top3':('OUI' if direct_rank<=3 else 'NON') if direct_rank else ('NON_PARTANT' if act.get('statut_np')=='NON_PARTANT' else 'NON_CALCULE'),
                 'top3_direct_statut':direct.get('statut','NON_CALCULE'),
                 'top3_cotes_valeur':cote_h.get('cote',''),
-                'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
+                'top3_cotes_top3':('OUI' if cote_rank<=3 else 'NON') if cote_rank else ('NON_PARTANT' if act.get('statut_np')=='NON_PARTANT' else 'NON_CALCULE'),
                 'top3_cotes_statut':cotes_etat,
                 'ml_rang':ml_rank,
                 'ml_score_non_calibre':ml_h.get('proba_podium_estimee',''),
-                'ml_top3':'OUI' if ml_rank and ml_rank<=3 else '',
+                'ml_top3':('OUI' if ml_rank<=3 else 'NON') if ml_rank else ('NON_PARTANT' if act.get('statut_np')=='NON_PARTANT' else 'NON_CALCULE'),
+                'arrivee_rang':arrival_ranks.get(str(n),''),
                 'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
                 'statut_prevision':'PREVISIONS_DISPONIBLES' if direct_rank or cote_rank or ml_rank else existing.get('statut_prevision','TOP3_NON_CALCULE'),
                 'mode_calcul_top3':'DIRECT+COTES+ML_SEPARES' if direct_rank or cote_rank or ml_rank else existing.get('mode_calcul_top3','NON_CALCULE'),
