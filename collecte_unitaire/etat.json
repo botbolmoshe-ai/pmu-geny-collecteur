@@ -5802,7 +5802,11 @@
       "code": "R1C3",
       "numero": 8,
       "ligne_sheet": 54,
-      "geny": null,
+      "geny": {
+        "id": "2866199",
+        "nom": "NAFI DE REVE D'OR",
+        "url_geny": "https://www.geny.com/cheval/2866199-nafi-de-reve-d-or/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -5832,12 +5836,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 13,
+      "preuves": {
+        "nom": "NAFI DE REVE D'OR",
+        "debut_utc": "2026-11-12T23:44:34.211934+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2866199",
+          "nom": "NAFI DE REVE D'OR",
+          "url_geny": "https://www.geny.com/cheval/2866199-nafi-de-reve-d-or/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 13,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NAFIDEREVEDOR/1/2866199",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2866199-nafi-de-reve-d-or/course/1698062",
+          "http": 200,
+          "titre_page": "Nafi de Rêve d'Or - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:45:16.003565+00:00"
+        },
+        "fin_utc": "2026-11-12T23:45:20.517908+00:00"
+      }
     },
     "NALADESMARVES": {
       "nom": "NALA DE SMARVES",
@@ -10141,15 +10173,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:44:09.126080+00:00",
+  "maj_utc": "2026-11-12T23:45:20.578657+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 61,
+    "collectes_completes": 62,
     "synchronises": 61,
     "statuts": {
-      "COMPLET": 61,
+      "COMPLET": 62,
       "ERREUR": 1,
-      "A_FAIRE": 101
+      "A_FAIRE": 100
     }
   }
 }
