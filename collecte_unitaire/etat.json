@@ -2392,12 +2392,41 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 50,
+      "preuves": {
+        "nom": "KEVIN PRINCE",
+        "debut_utc": "2026-11-12T23:11:20.744147+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2765620",
+          "numero": 4,
+          "nom": "Kévin Prince",
+          "url_geny": "https://www.geny.com/cheval/2765620-kevin-prince/course/1698064"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 50,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/KEVINPRINCE/1/2765620",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2765620-kevin-prince/course/1698064",
+          "http": 200,
+          "titre_page": "Kévin Prince - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-12T23:11:21.763161+00:00"
+        },
+        "fin_utc": "2026-11-12T23:11:26.808017+00:00"
+      }
     },
     "KINGDELOUEST": {
       "nom": "KING DE L'OUEST",
@@ -8397,14 +8426,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:10:56.292877+00:00",
+  "maj_utc": "2026-11-12T23:11:26.871357+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 25,
+    "collectes_completes": 26,
     "synchronises": 25,
     "statuts": {
-      "COMPLET": 25,
-      "A_FAIRE": 138
+      "COMPLET": 26,
+      "A_FAIRE": 137
     }
   }
 }
