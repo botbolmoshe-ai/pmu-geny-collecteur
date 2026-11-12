@@ -44,5 +44,5 @@ def main():
    if checked>=90:break
   if checked>=90:break
  matched=len(set(x["idCheval"] for x in found))
- print(json.dumps({"source":"pmu","type":"HISTORIQUE_RECONSTRUIT_PAR_COURSES","chevaux_cibles":[h.get("nom") for h in target],"dates_testees":days_checked,"courses_testees":checked,"chevaux_avec_historique":matched,"performances_historiques_validees":len(found),"taux_couverture_chevaux":round(matched/len(target),3) if target else None,"taux_completude_historique":None,"performances":found,"erreurs":errors,"limite":"R1C1 uniquement; ne mesure pas la completude de l'historique total"},ensure_ascii=False))
+ print(json.dumps({"source":"pmu","type":"HISTORIQUE_RECONSTRUIT_PAR_COURSES","chevaux_cibles":[h.get("nom") for h in target],"dates_testees":days_checked,"courses_testees":checked,"chevaux_avec_historique":matched,"performances_historiques_validees":len(found),"taux_couverture_chevaux":round(matched/len(target),3) if target else None,"taux_completude_historique":None,"performances":found,"erreurs":errors,"limite":"3 jours et 90 courses maximum; ne mesure pas la completude de l'historique total"},ensure_ascii=False))
 if __name__=="__main__":main()
