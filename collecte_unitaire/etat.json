@@ -4482,11 +4482,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 142,
       "preuves": {
         "nom": "GIORGIO DU VIVIER",
@@ -4514,7 +4514,25 @@
           "extrait_utc": "2026-11-12T23:25:14.285624+00:00"
         },
         "fin_utc": "2026-11-12T23:25:20.258748+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 142,
+          "cellules_actualisees": 0,
+          "lignes_source": 142
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-12T23:25:26.198091+00:00",
+      "erreur": ""
     },
     "HOKITOLOVE": {
       "nom": "HOKITOLOVE",
@@ -9463,11 +9481,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:25:20.298500+00:00",
+  "maj_utc": "2026-11-12T23:25:26.198113+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 48,
-    "synchronises": 47,
+    "synchronises": 48,
     "statuts": {
       "COMPLET": 48,
       "A_FAIRE": 115
