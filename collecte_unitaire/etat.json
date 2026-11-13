@@ -4669,12 +4669,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "ILLINOIS",
         "debut_utc": "2026-11-13T08:57:29.151319+00:00",
@@ -4704,7 +4704,24 @@
         "fin_utc": "2026-11-13T08:57:35.119691+00:00"
       },
       "prochain_essai_utc": "2026-11-12T23:38:21.859751+00:00",
-      "nombre_extrait": 77
+      "nombre_extrait": 77,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 77,
+          "cellules_actualisees": 0,
+          "lignes_source": 77
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T08:57:42.213283+00:00"
     },
     "ILOVIROIZDILEONE": {
       "nom": "ILOVIROIZ DI LEONE",
@@ -14068,11 +14085,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T08:57:35.177025+00:00",
+  "maj_utc": "2026-11-13T08:57:42.213307+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 134,
-    "synchronises": 133,
+    "synchronises": 134,
     "statuts": {
       "COMPLET": 134,
       "ERREUR": 29
