@@ -9121,7 +9121,11 @@
       "code": "R1C7",
       "numero": 5,
       "ligne_sheet": 106,
-      "geny": null,
+      "geny": {
+        "id": "2875108",
+        "nom": "NON STOP DE FOOT",
+        "url_geny": "https://www.geny.com/cheval/2875108-non-stop-de-foot/course/1698069"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698069-2026-11-12-vincennes-prix-de-chateau-thierry/partants-pronostics"
       ],
@@ -9151,12 +9155,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 13,
+      "preuves": {
+        "nom": "NON STOP DE FOOT",
+        "debut_utc": "2026-11-13T00:47:32.437111+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2875108",
+          "nom": "NON STOP DE FOOT",
+          "url_geny": "https://www.geny.com/cheval/2875108-non-stop-de-foot/course/1698069"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 13,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NONSTOPDEFOOT/1/2875108",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2875108-non-stop-de-foot/course/1698069",
+          "http": 200,
+          "titre_page": "Non Stop de Foot - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:48:14.746199+00:00"
+        },
+        "fin_utc": "2026-11-13T00:48:19.236429+00:00"
+      }
     },
     "NORMANPIERJI": {
       "nom": "NORMAN PIERJI",
@@ -11611,15 +11643,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:47:07.407464+00:00",
+  "maj_utc": "2026-11-13T00:48:19.296951+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 87,
+    "collectes_completes": 88,
     "synchronises": 87,
     "statuts": {
-      "COMPLET": 87,
+      "COMPLET": 88,
       "ERREUR": 18,
-      "A_FAIRE": 58
+      "A_FAIRE": 57
     }
   }
 }
