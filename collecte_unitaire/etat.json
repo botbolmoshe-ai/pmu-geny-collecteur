@@ -12648,7 +12648,11 @@
       "code": "R4C2",
       "numero": 1,
       "ligne_sheet": 157,
-      "geny": null,
+      "geny": {
+        "id": "2894488",
+        "nom": "NORDIC VICKING",
+        "url_geny": "https://www.geny.com/cheval/2894488-nordic-vicking/course/1698060"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026/partants-pronostics"
       ],
@@ -12678,12 +12682,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 9,
+      "preuves": {
+        "nom": "NORDIC VICKING",
+        "debut_utc": "2026-11-13T01:47:31.229558+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2894488",
+          "nom": "NORDIC VICKING",
+          "url_geny": "https://www.geny.com/cheval/2894488-nordic-vicking/course/1698060"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 9,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NORDICVICKING/1/2894488",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2894488-nordic-vicking/course/1698060",
+          "http": 200,
+          "titre_page": "Nordic Vicking - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:48:12.698329+00:00"
+        },
+        "fin_utc": "2026-11-13T01:48:17.133216+00:00"
+      }
     },
     "NORTONKEN": {
       "nom": "NORTON KEN",
@@ -13332,16 +13364,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:47:06.619599+00:00",
+  "maj_utc": "2026-11-13T01:48:17.179327+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 119,
+    "collectes_completes": 120,
     "synchronises": 119,
     "statuts": {
-      "COMPLET": 119,
+      "COMPLET": 120,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 16
+      "A_FAIRE": 15
     }
   }
 }
