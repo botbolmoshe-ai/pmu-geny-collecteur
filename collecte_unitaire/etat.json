@@ -9745,11 +9745,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 2,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 0,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "erreur": "",
       "preuves": {
         "nom": "MARIO DE LOU",
@@ -9782,7 +9782,7 @@
       },
       "prochain_essai_utc": "2026-11-13T01:10:18.114594+00:00",
       "nombre_extrait": 18,
-      "stockage_durable_ok": false,
+      "stockage_durable_ok": true,
       "correction_source": [
         {
           "date": "2025-08-15",
@@ -9790,7 +9790,23 @@
           "valeur": "Dpg",
           "preuve": "15/08/25 | Vittel | Attelé | 2 700 | D | - | Herbe | Crse H | 12 500 € | J. Raffestin | Dpg"
         }
-      ]
+      ],
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 18,
+          "cellules_actualisees": 0,
+          "lignes_source": 18
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T08:57:28.000653+00:00"
     },
     "MARTINDOL": {
       "nom": "MARTIN DOL",
@@ -14031,11 +14047,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T08:57:18.959016+00:00",
+  "maj_utc": "2026-11-13T08:57:28.000678+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 133,
-    "synchronises": 132,
+    "synchronises": 133,
     "statuts": {
       "COMPLET": 133,
       "ERREUR": 30
