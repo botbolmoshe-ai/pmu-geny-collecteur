@@ -6700,11 +6700,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 114,
       "preuves": {
         "nom": "GRAND RESTAURANT",
@@ -6732,7 +6732,25 @@
           "extrait_utc": "2026-11-13T00:01:02.676960+00:00"
         },
         "fin_utc": "2026-11-13T00:01:08.216234+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 114,
+          "cellules_actualisees": 0,
+          "lignes_source": 114
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T00:01:13.569051+00:00",
+      "erreur": ""
     },
     "HILKADEBERTRANGE": {
       "nom": "HILKA DE BERTRANGE",
@@ -10563,11 +10581,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:01:08.292316+00:00",
+  "maj_utc": "2026-11-13T00:01:13.569080+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 69,
-    "synchronises": 68,
+    "synchronises": 69,
     "statuts": {
       "COMPLET": 69,
       "ERREUR": 5,
