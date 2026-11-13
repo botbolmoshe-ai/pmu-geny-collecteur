@@ -7373,12 +7373,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "JAB KISS",
         "debut_utc": "2026-11-13T09:04:59.892712+00:00",
@@ -7407,7 +7407,24 @@
         "fin_utc": "2026-11-13T09:05:47.757012+00:00"
       },
       "prochain_essai_utc": "2026-11-13T00:19:38.160933+00:00",
-      "nombre_extrait": 70
+      "nombre_extrait": 70,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 70,
+          "cellules_actualisees": 0,
+          "lignes_source": 70
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:05:54.502150+00:00"
     },
     "JALMAROSA": {
       "nom": "JALMAROSA",
@@ -14314,11 +14331,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:05:47.816477+00:00",
+  "maj_utc": "2026-11-13T09:05:54.502167+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 140,
-    "synchronises": 139,
+    "synchronises": 140,
     "statuts": {
       "COMPLET": 140,
       "ERREUR": 23
