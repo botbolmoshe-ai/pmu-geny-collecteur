@@ -115,10 +115,10 @@ def programme_diagnostic(doc, date):
             if not isinstance(depart,(int,float)):exclusion('heure_depart_absente');continue
             instant=datetime.fromtimestamp(depart/1000 if depart>10**11 else depart, tz=timezone.utc).astimezone(PARIS)
             if instant.date().isoformat()!=date:exclusion('date_incoherente');continue
-            # V21 : départs en France entre 08h00 et 19h00 inclus (Europe/Paris).
-            # Les cycles apres 19h servent uniquement aux arrivees, sans nouvelle course.
-            if not (8 <= instant.hour < 19 or (instant.hour == 19 and instant.minute == 0)):
-                exclusion('depart_hors_plage_08_19');continue
+            # Plage métier unique : départs entre 07h00 et 21h00 inclus (Europe/Paris).
+            # Les courses déjà parties ne reçoivent jamais de nouvelle prévision.
+            if not (7 <= instant.hour < 21 or (instant.hour == 21 and instant.minute == 0)):
+                exclusion('depart_hors_plage_07_21');continue
             nb=_num(c,'nombreDeclaresPartants','nombrePartants','nbPartants')
             if not nb or not 1<=nb<=30:exclusion('partants_absents_ou_invalides');continue
             tier,motif,metadata=niveau(c,r,hp,nb)
