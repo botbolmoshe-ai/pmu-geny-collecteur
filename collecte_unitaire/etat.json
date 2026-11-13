@@ -7467,12 +7467,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "JALMAROSA",
         "debut_utc": "2026-11-13T09:06:17.896118+00:00",
@@ -7501,7 +7501,24 @@
         "fin_utc": "2026-11-13T09:07:05.075629+00:00"
       },
       "prochain_essai_utc": "2026-11-13T00:20:27.857471+00:00",
-      "nombre_extrait": 72
+      "nombre_extrait": 72,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 72,
+          "cellules_actualisees": 0,
+          "lignes_source": 72
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:07:11.489590+00:00"
     },
     "JOCONDEDERHEVE": {
       "nom": "JOCONDE DE RHEVE",
@@ -14355,11 +14372,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:07:05.141710+00:00",
+  "maj_utc": "2026-11-13T09:07:11.489615+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 141,
-    "synchronises": 140,
+    "synchronises": 141,
     "statuts": {
       "COMPLET": 141,
       "ERREUR": 22
