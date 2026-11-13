@@ -9242,12 +9242,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "ISMAELE",
         "debut_utc": "2026-11-13T09:16:52.740402+00:00",
@@ -9276,7 +9276,24 @@
         "fin_utc": "2026-11-13T09:17:53.937625+00:00"
       },
       "prochain_essai_utc": "2026-11-13T00:48:39.765534+00:00",
-      "nombre_extrait": 24
+      "nombre_extrait": 24,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 24,
+          "cellules_actualisees": 0,
+          "lignes_source": 24
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:18:00.801751+00:00"
     },
     "NELSONDUPONT": {
       "nom": "NELSON DU PONT",
@@ -14683,11 +14700,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:17:53.977570+00:00",
+  "maj_utc": "2026-11-13T09:18:00.801783+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 149,
-    "synchronises": 148,
+    "synchronises": 149,
     "statuts": {
       "COMPLET": 149,
       "ERREUR": 14
