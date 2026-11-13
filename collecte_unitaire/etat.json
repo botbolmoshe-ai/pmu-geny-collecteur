@@ -11738,7 +11738,11 @@
       "code": "R4C1",
       "numero": 10,
       "ligne_sheet": 152,
-      "geny": null,
+      "geny": {
+        "id": "2816166",
+        "nom": "MANZANA",
+        "url_geny": "https://www.geny.com/cheval/2816166-manzana/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -11768,22 +11772,42 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "MANZANA",
-        "debut_utc": "2026-11-13T01:24:39.475835+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T01:24:56.853896+00:00"
+        "debut_utc": "2026-11-13T09:29:08.441575+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2816166",
+          "nom": "MANZANA",
+          "url_geny": "https://www.geny.com/cheval/2816166-manzana/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 29,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MANZANA/3/2816166",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2816166-manzana/course/1698053",
+          "http": 200,
+          "titre_page": "Fiche Cheval Manzana - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:29:51.382338+00:00"
+        },
+        "fin_utc": "2026-11-13T09:29:55.597040+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T01:29:56.905580+00:00"
+      "prochain_essai_utc": "2026-11-13T01:29:56.905580+00:00",
+      "nombre_extrait": 29
     },
     "MECDERCOURT": {
       "nom": "MEC D'ERCOURT",
@@ -15028,14 +15052,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:28:44.563432+00:00",
+  "maj_utc": "2026-11-13T09:29:55.634547+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 157,
+    "collectes_completes": 158,
     "synchronises": 157,
     "statuts": {
-      "COMPLET": 157,
-      "ERREUR": 6
+      "COMPLET": 158,
+      "ERREUR": 5
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
