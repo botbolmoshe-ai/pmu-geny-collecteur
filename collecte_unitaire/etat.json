@@ -12771,12 +12771,22 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "ERREUR",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "preuves": {
+        "nom": "NORTON KEN",
+        "debut_utc": "2026-11-13T01:48:47.260552+00:00",
+        "complet": false,
+        "statut": "ERREUR",
+        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+        "fin_utc": "2026-11-13T01:49:05.331397+00:00"
+      },
+      "prochain_essai_utc": "2026-11-13T01:54:05.369700+00:00"
     },
     "NOZKANTHOURJAN": {
       "nom": "NOZKAN THOURJAN",
@@ -13382,16 +13392,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:48:22.361529+00:00",
+  "maj_utc": "2026-11-13T01:49:05.369726+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 120,
     "synchronises": 120,
     "statuts": {
       "COMPLET": 120,
-      "ERREUR": 27,
+      "ERREUR": 28,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 15
+      "A_FAIRE": 14
     }
   }
 }
