@@ -6253,12 +6253,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "NINA TIME",
         "debut_utc": "2026-11-13T08:59:24.264457+00:00",
@@ -6287,7 +6287,24 @@
         "fin_utc": "2026-11-13T09:00:10.565023+00:00"
       },
       "prochain_essai_utc": "2026-11-13T00:00:52.111449+00:00",
-      "nombre_extrait": 10
+      "nombre_extrait": 10,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 10,
+          "cellules_actualisees": 0,
+          "lignes_source": 10
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:00:18.179499+00:00"
     },
     "NISSALABELLA": {
       "nom": "NISSA LA BELLA",
@@ -14150,11 +14167,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:00:10.609924+00:00",
+  "maj_utc": "2026-11-13T09:00:18.179513+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 136,
-    "synchronises": 135,
+    "synchronises": 136,
     "statuts": {
       "COMPLET": 136,
       "ERREUR": 27
