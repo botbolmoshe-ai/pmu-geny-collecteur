@@ -6312,7 +6312,11 @@
       "code": "R1C3",
       "numero": 5,
       "ligne_sheet": 51,
-      "geny": null,
+      "geny": {
+        "id": "2880609",
+        "nom": "NISSA LA BELLA",
+        "url_geny": "https://www.geny.com/cheval/2880609-nissa-la-bella/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -6342,22 +6346,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "NISSA LA BELLA",
-        "debut_utc": "2026-11-12T23:56:22.192240+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-12T23:56:55.432254+00:00"
+        "debut_utc": "2026-11-13T09:00:40.687848+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2880609",
+          "nom": "NISSA LA BELLA",
+          "url_geny": "https://www.geny.com/cheval/2880609-nissa-la-bella/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 15,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NISSALABELLA/3/2880609",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2880609-nissa-la-bella/course/1698062",
+          "http": 200,
+          "titre_page": "Nissa la Bella - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:01:37.265730+00:00"
+        },
+        "fin_utc": "2026-11-13T09:01:41.344345+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:01:55.546665+00:00"
+      "prochain_essai_utc": "2026-11-13T00:01:55.546665+00:00",
+      "nombre_extrait": 15
     },
     "NOIREINTENSE": {
       "nom": "NOIRE INTENSE",
@@ -14167,14 +14191,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:00:18.179513+00:00",
+  "maj_utc": "2026-11-13T09:01:41.432716+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 136,
+    "collectes_completes": 137,
     "synchronises": 136,
     "statuts": {
-      "COMPLET": 136,
-      "ERREUR": 27
+      "COMPLET": 137,
+      "ERREUR": 26
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
