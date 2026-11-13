@@ -6665,7 +6665,11 @@
       "code": "R1C4",
       "numero": 7,
       "ligne_sheet": 66,
-      "geny": null,
+      "geny": {
+        "id": "2588490",
+        "nom": "GRAND RESTAURANT",
+        "url_geny": "https://www.geny.com/cheval/2588490-grand-restaurant/course/1698065"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698065-2026-11-12-vincennes-coupe-des-amateurs-gr-b/partants-pronostics"
       ],
@@ -6695,12 +6699,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 114,
+      "preuves": {
+        "nom": "GRAND RESTAURANT",
+        "debut_utc": "2026-11-13T00:00:18.455716+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2588490",
+          "nom": "GRAND RESTAURANT",
+          "url_geny": "https://www.geny.com/cheval/2588490-grand-restaurant/course/1698065"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 114,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/GRANDRESTAURANT/1/2588490",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2588490-grand-restaurant/course/1698065",
+          "http": 200,
+          "titre_page": "Grand Restaurant - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:01:02.676960+00:00"
+        },
+        "fin_utc": "2026-11-13T00:01:08.216234+00:00"
+      }
     },
     "HILKADEBERTRANGE": {
       "nom": "HILKA DE BERTRANGE",
@@ -10531,15 +10563,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-12T23:59:53.144119+00:00",
+  "maj_utc": "2026-11-13T00:01:08.292316+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 68,
+    "collectes_completes": 69,
     "synchronises": 68,
     "statuts": {
-      "COMPLET": 68,
+      "COMPLET": 69,
       "ERREUR": 5,
-      "A_FAIRE": 90
+      "A_FAIRE": 89
     }
   }
 }
