@@ -13915,12 +13915,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "NORTON KEN",
         "debut_utc": "2026-11-13T09:33:03.328113+00:00",
@@ -13949,7 +13949,24 @@
         "fin_utc": "2026-11-13T09:33:50.195989+00:00"
       },
       "prochain_essai_utc": "2026-11-13T02:01:13.557648+00:00",
-      "nombre_extrait": 5
+      "nombre_extrait": 5,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 5,
+          "cellules_actualisees": 0,
+          "lignes_source": 5
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:33:56.701444+00:00"
     },
     "NOZKANTHOURJAN": {
       "nom": "NOZKAN THOURJAN",
@@ -15175,11 +15192,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:33:50.227307+00:00",
+  "maj_utc": "2026-11-13T09:33:56.701468+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 161,
-    "synchronises": 160,
+    "synchronises": 161,
     "statuts": {
       "COMPLET": 161,
       "ERREUR": 2
