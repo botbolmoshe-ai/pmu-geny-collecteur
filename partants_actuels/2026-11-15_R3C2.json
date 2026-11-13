@@ -1,0 +1,394 @@
+{
+  "date": "2026-11-15",
+  "course": "R3C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NINON DU GUELIER",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1488500,
+        "gainsVictoires": 1192500,
+        "gainsPlace": 296000,
+        "gainsAnneeEnCours": 1488500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NEW D'ARAC",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2521000,
+        "gainsVictoires": 900000,
+        "gainsPlace": 1621000,
+        "gainsAnneeEnCours": 2521000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NOUMEA D'AMOUR",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2970500,
+        "gainsVictoires": 1035000,
+        "gainsPlace": 1935500,
+        "gainsAnneeEnCours": 2970500,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-13T23:37:02.259212+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "N.R. BROSSARD",
+      "entraineur": "Nicolas Richard BROSSARD",
+      "proprietaire": "Mlle Margaux BROSSARD",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 14885.0,
+      "nom": "NINON DU GUELIER",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "F. MARTY",
+      "entraineur": "F. MARTY",
+      "proprietaire": "Ecurie Franck MARTY",
+      "ferrure": "P4",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 25210.0,
+      "nom": "NEW D'ARAC",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "S. LALOUM",
+      "entraineur": "S. LALOUM",
+      "proprietaire": "A. LALOUM",
+      "ferrure": "P4",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 29705.0,
+      "nom": "NOUMEA D'AMOUR",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "N. LANGLOIS",
+      "entraineur": "N. LANGLOIS",
+      "proprietaire": "Ecurie Noël LANGLOIS",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 30970.0,
+      "nom": "NIGHT DE JANEIRO",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "CH. FEYTE",
+      "entraineur": "CH. FEYTE",
+      "proprietaire": "Ecurie LOUISE B",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 38415.0,
+      "nom": "NOUBA D'ATOUT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Q. MACHET",
+      "entraineur": "Q. MACHET",
+      "proprietaire": "Q. MACHET",
+      "ferrure": "P4",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 38600.0,
+      "nom": "NOSTARMAGNAC",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "P. GERAY",
+      "entraineur": "N. LANGLOIS",
+      "proprietaire": "Ecurie CHORT",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 40500.0,
+      "nom": "NUIT A LA GRAVE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "M. GRASSET",
+      "entraineur": "Y. HUREL",
+      "proprietaire": "Mme J. HUREL",
+      "ferrure": "PA",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 45725.0,
+      "nom": "NOT ALONE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "V. CABOS",
+      "entraineur": "R. WESTERINK",
+      "proprietaire": "Ecurie des CHARMES",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 87385.0,
+      "nom": "NANO UP STAR",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:37:02.259212+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

@@ -1,0 +1,525 @@
+{
+  "date": "2026-11-15",
+  "course": "R4C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KRAC AU VENT",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4456000,
+        "gainsVictoires": 1237500,
+        "gainsPlace": 3218500,
+        "gainsAnneeEnCours": 126000,
+        "gainsAnneePrecedente": 2324000
+      }
+    },
+    {
+      "nom": "KALOU DE TESS",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4754000,
+        "gainsVictoires": 1462500,
+        "gainsPlace": 3291500,
+        "gainsAnneeEnCours": 2338500,
+        "gainsAnneePrecedente": 488000
+      }
+    },
+    {
+      "nom": "JE T'ADORE JARL",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 6614500,
+        "gainsVictoires": 1530000,
+        "gainsPlace": 5084500,
+        "gainsAnneeEnCours": 2234000,
+        "gainsAnneePrecedente": 1921000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-13T23:38:23.544863+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "Mlle A. BARTHELEMY",
+      "entraineur": "S. PILLON",
+      "proprietaire": "S. PILLON",
+      "ferrure": "D4",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 44560.0,
+      "nom": "KRAC AU VENT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "J. FERRON",
+      "entraineur": "A. CLERIN",
+      "proprietaire": "A. CLERIN",
+      "ferrure": "PA",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 47540.0,
+      "nom": "KALOU DE TESS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mme Z. LE PARC",
+      "entraineur": "LOIC GROUSSARD",
+      "proprietaire": "LOIC GROUSSARD",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 66145.0,
+      "nom": "JE T'ADORE JARL",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Mlle L. PLANCHENAULT",
+      "entraineur": "J. CHEVREUX",
+      "proprietaire": "J. CHEVREUX",
+      "ferrure": "D4",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 66685.0,
+      "nom": "KARALY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "S. DIEUDONNE",
+      "proprietaire": "S. DIEUDONNE",
+      "ferrure": "D4",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 67090.0,
+      "nom": "JAMY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "P. PELLEROT",
+      "proprietaire": "Ecurie Pierre PELLEROT",
+      "ferrure": "D4",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 71080.0,
+      "nom": "KENZO D'EVA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "Mme L. THORAVAL",
+      "entraineur": "William SOUCHET",
+      "proprietaire": "William SOUCHET",
+      "ferrure": "DP",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 71705.0,
+      "nom": "JEWEL OF SEBHA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "S.E. PASQUIER",
+      "entraineur": "Bruno Charles RIVIERE",
+      "proprietaire": "Bruno Charles RIVIERE",
+      "ferrure": "D4",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 71780.0,
+      "nom": "JULIETTA VICI",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "TH. PELTIER",
+      "entraineur": "A. LEDUC",
+      "proprietaire": "Ecurie Arnaud LEDUC",
+      "ferrure": "D4",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 72540.0,
+      "nom": "JUNIOR INTRIGANT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "J.P. MARMION",
+      "proprietaire": "Ecurie Jean Paul MARMION",
+      "ferrure": "D4",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 72660.0,
+      "nom": "KAVALE D'ERQUY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "M. POTIER",
+      "entraineur": "V. GOUIN",
+      "proprietaire": "Mme M.J. MARQUET",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 78880.0,
+      "nom": "KOALA DES ARCS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "Bastien JOSEPH",
+      "proprietaire": "Mme Alizé GECELE",
+      "ferrure": "PA",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 140830.0,
+      "nom": "KENTUCKY DANICA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-13T23:38:23.544863+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
