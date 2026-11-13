@@ -8192,7 +8192,11 @@
       "code": "R1C5",
       "numero": 10,
       "ligne_sheet": 83,
-      "geny": null,
+      "geny": {
+        "id": "2822418",
+        "nom": "MISS DES BESACES",
+        "url_geny": "https://www.geny.com/cheval/2822418-miss-des-besaces/course/1698066"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698066-2026-11-12-vincennes-prix-ceneri-forcinal/partants-pronostics"
       ],
@@ -8222,12 +8226,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 33,
+      "preuves": {
+        "nom": "MISS DES BESACES",
+        "debut_utc": "2026-11-13T00:27:07.898266+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2822418",
+          "nom": "MISS DES BESACES",
+          "url_geny": "https://www.geny.com/cheval/2822418-miss-des-besaces/course/1698066"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 33,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MISSDESBESACES/1/2822418",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2822418-miss-des-besaces/course/1698066",
+          "http": 200,
+          "titre_page": "Miss des Besaces 61kg - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:27:50.922951+00:00"
+        },
+        "fin_utc": "2026-11-13T00:27:55.197557+00:00"
+      }
     },
     "MISSYDEJIEL": {
       "nom": "MISSY DE JIEL",
@@ -11241,15 +11273,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:26:37.815178+00:00",
+  "maj_utc": "2026-11-13T00:27:55.264919+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 81,
+    "collectes_completes": 82,
     "synchronises": 81,
     "statuts": {
-      "COMPLET": 81,
+      "COMPLET": 82,
       "ERREUR": 11,
-      "A_FAIRE": 71
+      "A_FAIRE": 70
     }
   }
 }
