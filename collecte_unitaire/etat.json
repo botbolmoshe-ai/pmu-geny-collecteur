@@ -11532,7 +11532,11 @@
       "code": "R4C1",
       "numero": 9,
       "ligne_sheet": 151,
-      "geny": null,
+      "geny": {
+        "id": "2843063",
+        "nom": "MUST PLEIN CHENE",
+        "url_geny": "https://www.geny.com/cheval/2843063-must-plein-chene/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -11562,12 +11566,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 22,
+      "preuves": {
+        "nom": "MUST PLEIN CHENE",
+        "debut_utc": "2026-11-13T01:32:10.317203+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2843063",
+          "nom": "MUST PLEIN CHENE",
+          "url_geny": "https://www.geny.com/cheval/2843063-must-plein-chene/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 22,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MUSTPLEINCHENE/1/2843063",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2843063-must-plein-chene/course/1698053",
+          "http": 200,
+          "titre_page": "Must Plein Chêne - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:32:51.412744+00:00"
+        },
+        "fin_utc": "2026-11-13T01:32:55.528133+00:00"
+      }
     },
     "NADJATERBLEKTE": {
       "nom": "NADJA TER BLEKTE",
@@ -12732,16 +12764,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:31:45.414946+00:00",
+  "maj_utc": "2026-11-13T01:32:55.576664+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 107,
+    "collectes_completes": 108,
     "synchronises": 107,
     "statuts": {
-      "COMPLET": 107,
+      "COMPLET": 108,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 28
+      "A_FAIRE": 27
     }
   }
 }
