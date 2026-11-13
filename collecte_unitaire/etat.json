@@ -6031,7 +6031,11 @@
       "code": "R1C3",
       "numero": 7,
       "ligne_sheet": 53,
-      "geny": null,
+      "geny": {
+        "id": "2856362",
+        "nom": "NEW WAVE",
+        "url_geny": "https://www.geny.com/cheval/2856362-new-wave/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -6061,22 +6065,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "NEW WAVE",
-        "debut_utc": "2026-11-12T23:53:50.433843+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-12T23:54:08.549323+00:00"
+        "debut_utc": "2026-11-13T08:58:05.293280+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2856362",
+          "nom": "NEW WAVE",
+          "url_geny": "https://www.geny.com/cheval/2856362-new-wave/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 17,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NEWWAVE/3/2856362",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2856362-new-wave/course/1698062",
+          "http": 200,
+          "titre_page": "New Wave - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T08:58:49.608697+00:00"
+        },
+        "fin_utc": "2026-11-13T08:58:54.115289+00:00"
       },
-      "prochain_essai_utc": "2026-11-12T23:59:08.607120+00:00"
+      "prochain_essai_utc": "2026-11-12T23:59:08.607120+00:00",
+      "nombre_extrait": 17
     },
     "NIKKIBEACHJISCE": {
       "nom": "NIKKI BEACH JISCE",
@@ -14085,14 +14109,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T08:57:42.213307+00:00",
+  "maj_utc": "2026-11-13T08:58:54.182440+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 134,
+    "collectes_completes": 135,
     "synchronises": 134,
     "statuts": {
-      "COMPLET": 134,
-      "ERREUR": 29
+      "COMPLET": 135,
+      "ERREUR": 28
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
