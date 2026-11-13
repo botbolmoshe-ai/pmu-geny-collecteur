@@ -7714,7 +7714,11 @@
       "code": "R1C4",
       "numero": 8,
       "ligne_sheet": 67,
-      "geny": null,
+      "geny": {
+        "id": "2749087",
+        "nom": "KRONOS D'ERPION",
+        "url_geny": "https://www.geny.com/cheval/2749087-kronos-d-erpion/course/1698065"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698065-2026-11-12-vincennes-coupe-des-amateurs-gr-b/partants-pronostics"
       ],
@@ -7744,12 +7748,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 58,
+      "preuves": {
+        "nom": "KRONOS D'ERPION",
+        "debut_utc": "2026-11-13T00:19:34.286141+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2749087",
+          "nom": "KRONOS D'ERPION",
+          "url_geny": "https://www.geny.com/cheval/2749087-kronos-d-erpion/course/1698065"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 58,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/KRONOSDERPION/1/2749087",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2749087-kronos-d-erpion/course/1698065",
+          "http": 200,
+          "titre_page": "Kronos d'Erpion - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:20:16.246274+00:00"
+        },
+        "fin_utc": "2026-11-13T00:20:20.781933+00:00"
+      }
     },
     "MALICECAILLERIE": {
       "nom": "MALICE CAILLERIE",
@@ -11021,15 +11053,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:19:09.274701+00:00",
+  "maj_utc": "2026-11-13T00:20:20.814497+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 77,
+    "collectes_completes": 78,
     "synchronises": 77,
     "statuts": {
-      "COMPLET": 77,
+      "COMPLET": 78,
       "ERREUR": 9,
-      "A_FAIRE": 77
+      "A_FAIRE": 76
     }
   }
 }
