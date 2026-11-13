@@ -6997,7 +6997,11 @@
       "code": "R1C4",
       "numero": 10,
       "ligne_sheet": 69,
-      "geny": null,
+      "geny": {
+        "id": "2660413",
+        "nom": "ISA DU PRESSOIR",
+        "url_geny": "https://www.geny.com/cheval/2660413-isa-du-pressoir/course/1698065"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698065-2026-11-12-vincennes-coupe-des-amateurs-gr-b/partants-pronostics"
       ],
@@ -7027,12 +7031,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 78,
+      "preuves": {
+        "nom": "ISA DU PRESSOIR",
+        "debut_utc": "2026-11-13T00:06:21.001153+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2660413",
+          "nom": "ISA DU PRESSOIR",
+          "url_geny": "https://www.geny.com/cheval/2660413-isa-du-pressoir/course/1698065"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 78,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/ISADUPRESSOIR/1/2660413",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2660413-isa-du-pressoir/course/1698065",
+          "http": 200,
+          "titre_page": "Isa du Pressoir - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:07:14.351373+00:00"
+        },
+        "fin_utc": "2026-11-13T00:07:18.962948+00:00"
+      }
     },
     "JABKISS": {
       "nom": "JAB KISS",
@@ -10691,15 +10723,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:05:56.722678+00:00",
+  "maj_utc": "2026-11-13T00:07:19.045394+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 71,
+    "collectes_completes": 72,
     "synchronises": 71,
     "statuts": {
-      "COMPLET": 71,
+      "COMPLET": 72,
       "ERREUR": 6,
-      "A_FAIRE": 86
+      "A_FAIRE": 85
     }
   }
 }
