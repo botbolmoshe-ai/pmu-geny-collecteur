@@ -10269,12 +10269,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "RAM JAM",
         "debut_utc": "2026-11-13T09:22:14.121539+00:00",
@@ -10303,7 +10303,24 @@
         "fin_utc": "2026-11-13T09:23:05.969594+00:00"
       },
       "prochain_essai_utc": "2026-11-13T01:04:59.972636+00:00",
-      "nombre_extrait": 13
+      "nombre_extrait": 13,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 13,
+          "cellules_actualisees": 0,
+          "lignes_source": 13
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:23:12.926159+00:00"
     },
     "USDARBY": {
       "nom": "US DARBY",
@@ -14847,11 +14864,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:23:06.021204+00:00",
+  "maj_utc": "2026-11-13T09:23:12.926184+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 153,
-    "synchronises": 152,
+    "synchronises": 153,
     "statuts": {
       "COMPLET": 153,
       "ERREUR": 10
