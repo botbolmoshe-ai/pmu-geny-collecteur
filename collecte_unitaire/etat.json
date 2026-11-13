@@ -13923,7 +13923,11 @@
       "code": "R4C3",
       "numero": 13,
       "ligne_sheet": 183,
-      "geny": null,
+      "geny": {
+        "id": "2888567",
+        "nom": "NUIT DE FOLIE",
+        "url_geny": "https://www.geny.com/cheval/2888567-nuit-de-folie/course/1698059"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne/partants-pronostics"
       ],
@@ -13953,25 +13957,52 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 6,
+      "preuves": {
+        "nom": "NUIT DE FOLIE",
+        "debut_utc": "2026-11-13T02:08:58.284988+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2888567",
+          "nom": "NUIT DE FOLIE",
+          "url_geny": "https://www.geny.com/cheval/2888567-nuit-de-folie/course/1698059"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 6,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NUITDEFOLIE/1/2888567",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2888567-nuit-de-folie/course/1698059",
+          "http": 200,
+          "titre_page": "Nuit de Folie - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T02:09:40.486421+00:00"
+        },
+        "fin_utc": "2026-11-13T02:09:44.812327+00:00"
+      }
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T02:08:28.201447+00:00",
+  "maj_utc": "2026-11-13T02:09:44.873402+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 131,
+    "collectes_completes": 132,
     "synchronises": 131,
     "statuts": {
-      "COMPLET": 131,
+      "COMPLET": 132,
       "ERREUR": 30,
-      "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 1
+      "DONNEES_INCOMPLETES": 1
     }
   }
 }
