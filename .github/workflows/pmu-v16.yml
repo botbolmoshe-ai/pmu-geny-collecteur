@@ -130,9 +130,9 @@ jobs:
           from pmu_geny.auto_v18 import run
           from pathlib import Path
           now=datetime.now(ZoneInfo('Europe/Paris'))
-          # V21: previsions des departs 08:00-19:00 ; suivi des arrivees jusqu'a 20:59.
-          if not 8 <= now.hour <= 20:
-              print('Hors fenêtre V21: 08:00–20:59 Europe/Paris (arrivées seules après 19h)')
+          # Fenetre métier unique 07:00-21:00 Europe/Paris ; pas de nouvelles prévisions après départ.
+          if not 7 <= now.hour <= 21:
+              print('Hors fenêtre métier: 07:00–21:59 Europe/Paris')
               if '${{ github.event_name }}' == 'push':
                   # Publication contrôlée après la journée : enrichir J+1 sans nouvelle fiche Geny.
                   tomorrow=(now+timedelta(days=1)).date().isoformat()
