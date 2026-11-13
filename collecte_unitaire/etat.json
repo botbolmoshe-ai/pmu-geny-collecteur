@@ -12794,7 +12794,11 @@
       "code": "R4C2",
       "numero": 2,
       "ligne_sheet": 158,
-      "geny": null,
+      "geny": {
+        "id": "2896577",
+        "nom": "NOZKAN THOURJAN",
+        "url_geny": "https://www.geny.com/cheval/2896577-nozkan-thourjan/course/1698060"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026/partants-pronostics"
       ],
@@ -12824,12 +12828,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 6,
+      "preuves": {
+        "nom": "NOZKAN THOURJAN",
+        "debut_utc": "2026-11-13T01:49:35.450934+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2896577",
+          "nom": "NOZKAN THOURJAN",
+          "url_geny": "https://www.geny.com/cheval/2896577-nozkan-thourjan/course/1698060"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 6,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NOZKANTHOURJAN/1/2896577",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2896577-nozkan-thourjan/course/1698060",
+          "http": 200,
+          "titre_page": "Nozkan Thourjan - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:50:17.130558+00:00"
+        },
+        "fin_utc": "2026-11-13T01:50:21.699045+00:00"
+      }
     },
     "NAELLEDEMIELOUI": {
       "nom": "NAELLE DE MIELOUI",
@@ -13392,16 +13424,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:49:05.369726+00:00",
+  "maj_utc": "2026-11-13T01:50:21.744774+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 120,
+    "collectes_completes": 121,
     "synchronises": 120,
     "statuts": {
-      "COMPLET": 120,
+      "COMPLET": 121,
       "ERREUR": 28,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 14
+      "A_FAIRE": 13
     }
   }
 }
