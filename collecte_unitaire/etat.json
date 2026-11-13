@@ -10536,7 +10536,11 @@
       "code": "R4C1",
       "numero": 12,
       "ligne_sheet": 154,
-      "geny": null,
+      "geny": {
+        "id": "2844534",
+        "nom": "MAGIC D'ESPACE",
+        "url_geny": "https://www.geny.com/cheval/2844534-magic-d-espace/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -10566,12 +10570,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 15,
+      "preuves": {
+        "nom": "MAGIC D'ESPACE",
+        "debut_utc": "2026-11-13T01:15:49.554799+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2844534",
+          "nom": "MAGIC D'ESPACE",
+          "url_geny": "https://www.geny.com/cheval/2844534-magic-d-espace/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 15,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MAGICDESPACE/1/2844534",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2844534-magic-d-espace/course/1698053",
+          "http": 200,
+          "titre_page": "Magic d'Espace - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:16:31.067151+00:00"
+        },
+        "fin_utc": "2026-11-13T01:16:35.910616+00:00"
+      }
     },
     "MANGANOUDUDOME": {
       "nom": "MANGANOU DU DOME",
@@ -12252,16 +12284,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:15:25.285248+00:00",
+  "maj_utc": "2026-11-13T01:16:35.947234+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 98,
+    "collectes_completes": 99,
     "synchronises": 98,
     "statuts": {
-      "COMPLET": 98,
+      "COMPLET": 99,
       "ERREUR": 24,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 40
+      "A_FAIRE": 39
     }
   }
 }
