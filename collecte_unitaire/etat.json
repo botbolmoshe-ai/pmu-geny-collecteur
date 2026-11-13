@@ -13219,7 +13219,11 @@
       "code": "R4C3",
       "numero": 8,
       "ligne_sheet": 178,
-      "geny": null,
+      "geny": {
+        "id": "2894219",
+        "nom": "NEPALE D'ALCI",
+        "url_geny": "https://www.geny.com/cheval/2894219-nepale-d-alci/course/1698059"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne/partants-pronostics"
       ],
@@ -13249,12 +13253,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 4,
+      "preuves": {
+        "nom": "NEPALE D'ALCI",
+        "debut_utc": "2026-11-13T01:56:43.634096+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2894219",
+          "nom": "NEPALE D'ALCI",
+          "url_geny": "https://www.geny.com/cheval/2894219-nepale-d-alci/course/1698059"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 4,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NEPALEDALCI/1/2894219",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2894219-nepale-d-alci/course/1698059",
+          "http": 200,
+          "titre_page": "Népale d'Alci - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:57:38.985832+00:00"
+        },
+        "fin_utc": "2026-11-13T01:57:43.073190+00:00"
+      }
     },
     "NEWLIFECHARDET": {
       "nom": "NEW LIFE CHARDET",
@@ -13602,16 +13634,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:56:13.557677+00:00",
+  "maj_utc": "2026-11-13T01:57:43.184184+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 124,
+    "collectes_completes": 125,
     "synchronises": 124,
     "statuts": {
-      "COMPLET": 124,
+      "COMPLET": 125,
       "ERREUR": 29,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 9
+      "A_FAIRE": 8
     }
   }
 }
