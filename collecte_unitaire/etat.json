@@ -9113,7 +9113,11 @@
       "code": "R1C7",
       "numero": 3,
       "ligne_sheet": 104,
-      "geny": null,
+      "geny": {
+        "id": "2872144",
+        "nom": "ICEBERG BI",
+        "url_geny": "https://www.geny.com/cheval/2872144-iceberg-bi/course/1698069"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698069-2026-11-12-vincennes-prix-de-chateau-thierry/partants-pronostics"
       ],
@@ -9143,22 +9147,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "ICEBERG BI",
-        "debut_utc": "2026-11-13T00:41:41.361899+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:42:00.129754+00:00"
+        "debut_utc": "2026-11-13T09:15:35.648856+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2872144",
+          "nom": "ICEBERG BI",
+          "url_geny": "https://www.geny.com/cheval/2872144-iceberg-bi/course/1698069"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 18,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/ICEBERGBI/3/2872144",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2872144-iceberg-bi/course/1698069",
+          "http": 200,
+          "titre_page": "Iceberg Bi - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:16:17.977233+00:00"
+        },
+        "fin_utc": "2026-11-13T09:16:22.603422+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:47:00.187534+00:00"
+      "prochain_essai_utc": "2026-11-13T00:47:00.187534+00:00",
+      "nombre_extrait": 18
     },
     "ISMAELE": {
       "nom": "ISMAELE",
@@ -14618,14 +14642,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:15:11.723387+00:00",
+  "maj_utc": "2026-11-13T09:16:22.656196+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 147,
+    "collectes_completes": 148,
     "synchronises": 147,
     "statuts": {
-      "COMPLET": 147,
-      "ERREUR": 16
+      "COMPLET": 148,
+      "ERREUR": 15
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
