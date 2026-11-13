@@ -9019,7 +9019,11 @@
       "code": "R1C5",
       "numero": 6,
       "ligne_sheet": 79,
-      "geny": null,
+      "geny": {
+        "id": "2845424",
+        "nom": "MUZE MAKER",
+        "url_geny": "https://www.geny.com/cheval/2845424-muze-maker/course/1698066"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698066-2026-11-12-vincennes-prix-ceneri-forcinal/partants-pronostics"
       ],
@@ -9049,22 +9053,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "MUZE MAKER",
-        "debut_utc": "2026-11-13T00:40:39.711859+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:41:11.231674+00:00"
+        "debut_utc": "2026-11-13T09:14:17.988191+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2845424",
+          "nom": "MUZE MAKER",
+          "url_geny": "https://www.geny.com/cheval/2845424-muze-maker/course/1698066"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 14,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MUZEMAKER/3/2845424",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2845424-muze-maker/course/1698066",
+          "http": 200,
+          "titre_page": "Muze Maker - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:15:01.230605+00:00"
+        },
+        "fin_utc": "2026-11-13T09:15:05.514334+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:46:11.279517+00:00"
+      "prochain_essai_utc": "2026-11-13T00:46:11.279517+00:00",
+      "nombre_extrait": 14
     },
     "ICEBERGBI": {
       "nom": "ICEBERG BI",
@@ -14577,14 +14601,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:13:54.459297+00:00",
+  "maj_utc": "2026-11-13T09:15:05.558771+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 146,
+    "collectes_completes": 147,
     "synchronises": 146,
     "statuts": {
-      "COMPLET": 146,
-      "ERREUR": 17
+      "COMPLET": 147,
+      "ERREUR": 16
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
