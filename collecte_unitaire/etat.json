@@ -4668,22 +4668,43 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "ILLINOIS",
-        "debut_utc": "2026-11-12T23:33:03.657322+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-12T23:33:21.829261+00:00"
+        "debut_utc": "2026-11-13T08:57:29.151319+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2703596",
+          "nom": "ILLINOIS",
+          "url_geny": "https://www.geny.com/cheval/2703596-illinois/course/1698063",
+          "preuve": "Nom exact Illinois, numero 13, course 1698063"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 77,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/ILLINOIS/3/2703596",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2703596-illinois/course/1698063",
+          "http": 200,
+          "titre_page": "Fiche Cheval Illinois - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T08:57:30.291788+00:00"
+        },
+        "fin_utc": "2026-11-13T08:57:35.119691+00:00"
       },
-      "prochain_essai_utc": "2026-11-12T23:38:21.859751+00:00"
+      "prochain_essai_utc": "2026-11-12T23:38:21.859751+00:00",
+      "nombre_extrait": 77
     },
     "ILOVIROIZDILEONE": {
       "nom": "ILOVIROIZ DI LEONE",
@@ -14047,14 +14068,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T08:57:28.000678+00:00",
+  "maj_utc": "2026-11-13T08:57:35.177025+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 133,
+    "collectes_completes": 134,
     "synchronises": 133,
     "statuts": {
-      "COMPLET": 133,
-      "ERREUR": 30
+      "COMPLET": 134,
+      "ERREUR": 29
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
