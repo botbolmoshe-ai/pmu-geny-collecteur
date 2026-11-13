@@ -13,7 +13,6 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
 from .export_v17 import exporter
-from .traitement_course import traiter
 
 PARIS=ZoneInfo('Europe/Paris')
 BASE='https://online.turfinfo.api.pmu.fr/rest/client/1/programme/'
@@ -214,7 +213,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     # Les courses récentes peuvent seulement passer par la phase arrivées/audit.
     # Le lendemain est prepare des publication du programme PMU, sans limitation a 18h.
     from .planification_v20_2 import selectionner_courses
-    selected=selectionner_courses(courses, now, date, selection, max_new>0 if selection_complete is None else selection_complete,
+    selected=selectionner_courses(courses, now, date, selection, True if selection_complete is None else selection_complete,
                                 state, max_courses=len(courses))
     remaining_new=max_new
     remaining_discoveries=max_discoveries
@@ -263,6 +262,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         entry.update({'depart':c['depart'],'nom':c['nom'],'hippodrome':c['hippodrome'],'nombre_declares':c['nombre_declares'], 'priorite_metier':c.get('priorite_metier'), 'motif_selection':c.get('motif_selection')})
         departure=datetime.fromisoformat(c['depart'])
         est_partie=now>=departure
+        from .planification_v20_2 import decision_autorisee
+        fenetre_decision=decision_autorisee(now,date,departure)
         # Aucune prévision rétroactive, même si PMU n'a pas encore communiqué le statut.
         if est_partie:
             entry['traitement']='RESULTATS_SEULEMENT'
@@ -282,36 +283,33 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         # PMU independant : produire les niveaux direct et cotes meme sans Geny.
         # Avant depart seulement. Ne jamais bloquer ces TOP3 sur les historiques.
         pmu_participants=None
-        if est_partie or departure-now<=timedelta(hours=6) or date>now.astimezone(PARIS).date().isoformat():
-            try:
-                pmu_participants=get_json(
-                    BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+
-                    f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
-                from .partants_actuels_v21 import enregistrer
-                entry['statut_partants_actuels']=enregistrer(cache,c,pmu_participants)
-                if not est_partie:
-                    # Commentaires sourcés, facultatifs : un accès tiers refusé
-                    # n'empêche ni la préparation PMU, ni les captures ML.
-                    try:
-                        from .sources_experts_v23 import collecter as collecter_avis
-                        entry['statut_avis_experts']=collecter_avis(cache,c,pmu_participants)
-                    except Exception as exc:
-                        entry['statut_avis_experts']='EXPERTS_NON_VERIFIES'
-                        entry['erreur_avis_experts']=f'{type(exc).__name__}: {exc}'
-                if not est_partie:
-                    from .top3_independants_v22 import calculer
-                    from .cotes_v19 import collecter
-                    entry['paliers_independants']=calculer(cache,c,pmu_participants)
-                    entry['statut_cotes']=collecter(cache,c,pmu_participants)
-                    # Desormais la capture ML ne depend ni de Geny ni des historiques.
-                    from .ml_v19 import snapshot_pmu
-                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=now)
-            except Exception as exc:
-                entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
+        try:
+            pmu_participants=get_json(
+                BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+
+                f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
+            from .partants_actuels_v21 import enregistrer
+            entry['statut_partants_actuels']=enregistrer(cache,c,pmu_participants)
+            if not est_partie:
+                # Commentaires sourcés, facultatifs : un accès tiers refusé
+                # n'empêche ni la préparation PMU, ni les captures ML.
+                try:
+                    from .sources_experts_v23 import collecter as collecter_avis
+                    entry['statut_avis_experts']=collecter_avis(cache,c,pmu_participants)
+                except Exception as exc:
+                    entry['statut_avis_experts']='EXPERTS_NON_VERIFIES'
+                    entry['erreur_avis_experts']=f'{type(exc).__name__}: {exc}'
+            if fenetre_decision:
+                from .top3_independants_v22 import calculer
+                from .cotes_v19 import collecter
+                entry['paliers_independants']=calculer(cache,c,pmu_participants)
+                entry['statut_cotes']=collecter(cache,c,pmu_participants)
+                # Desormais la capture ML ne depend ni de Geny ni des historiques.
+                from .ml_v19 import snapshot_pmu
+                entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=now)
+        except Exception as exc:
+            entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
         # Pas de consultation Geny sur une course terminee.
         manifest=None; manifest_path=None
-        # Ne jamais enchainer decouverte de 17 fiches et historique dans le meme cycle.
-        manifeste_decouvert_ce_cycle=False
         for f in (cache/'manifestes').glob('GENY-*.json') if (cache/'manifestes').exists() else []:
             m=load(f,{})
             if not m or not m.get('courses'):continue
@@ -340,38 +338,10 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 correspondences[f'{date}_{key}']=expected_cid
                 save(correspondences_path,correspondences)
         # Correspondance explicite PMU RnCn -> Geny : jamais sur le seul numéro de course.
-        if manifest is None and not cooldown and remaining_discoveries>0 and not est_partie:
-            # Rechercher une course par son NOM dans le programme Geny du jour.
-            # Le collecteur refuse une correspondance ambiguë.
-            try:
-                from .decouverte_partants import produire_manifest
-                if not geny_index or geny_index.get('statut')!='OK':
-                    raise LookupError('Index journalier Geny indisponible')
-                decision=decisions_geny.get(key)
-                if decision is None:
-                    raise LookupError('Rapprochement Geny non calculé')
-                if decision['statut']!='CORRESPONDANCE_CONFIRMEE':
-                    raise LookupError('Geny: '+decision['statut'])
-                # Une tentative de manifeste est une découverte lourde.
-                remaining_discoveries-=1
-                temp=cache/'orchestration'/'decouvertes'/f'{date}_{key}.json'
-                data=produire_manifest(decision['url'], '', c['nombre_declares'], temp,
-                         cache/'diagnostics'/'decouverte'/f'{date}_{key}', '',
-                         cache/'etat_persistant.json')
-                block=data['courses'][0]
-                if str(block['course_id'])!=f"GENY-{decision['geny_id']}":
-                    raise ValueError('Geny: identifiant fiche incompatible avec l’index')
-                manifest_path=cache/'manifestes'/f"{block['course_id']}.json"
-                save(manifest_path,data)
-                manifest=data
-                manifeste_decouvert_ce_cycle=True
-                correspondences[f'{date}_{key}']=block['course_id']
-                save(correspondences_path,correspondences)
-                entry['etat']='DECOUVERT'
-            except Exception as exc:
-                entry['erreur_decouverte']=f'{type(exc).__name__}: {exc}'
-                geny_state=load(cache/'etat_persistant.json',{}) or {}
-                if (geny_state.get('dernier_blocage_geny') or {}).get('utc'): cooldown=True
+        if manifest is None and not est_partie:
+            # Le worker résout une fiche exacte à la fois. Ne plus ouvrir toutes
+            # les fiches pour découvrir un manifeste avant de commencer la collecte.
+            entry['historique_geny']='FILE_INCREMENTALE_INDEPENDANTE'
         # Recuperer l'arrivee PMU meme lorsque Geny est indisponible ou non associe.
         # Ce traitement n'engendre jamais de prevision apres le depart.
         if manifest is None and est_partie:
@@ -392,26 +362,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 entry.get('erreur_decouverte','AUCUNE_ASSOCIATION_VERIFIEE'))
             continue
         entry['identifiant_geny']=manifest['courses'][0]['course_id'];entry['etat']='MANIFESTE_PRESENT'
-        # Toute course avec manifeste est eligible a la collecte incrementale.
-        # Si elle vient d'etre decouverte, une seule fiche nouvelle est tentee;
-        # le solde du quota global reste disponible pour les courses deja connues.
-        if phase in ('auto','collecter') and not est_partie and remaining_new>0 and not cooldown:
-            quota=1 if manifeste_decouvert_ce_cycle else remaining_new
-            try:
-                entry['historique_geny']='COLLECTE_INCREMENTALE'
-                result=traiter(manifest,cache/'diagnostics',quota,
-                               cache/'etat_persistant.json',cooldown_heures=0.5)
-                remaining_new=max(0,remaining_new-quota)
-                entry['historique_collecte_resultat']=result.get('collecte_geny','NON_VERIFIE')
-                geny_state=load(cache/'etat_persistant.json',{}) or {}
-                if (geny_state.get('dernier_blocage_geny') or {}).get('utc'):
-                    last_time=geny_state['dernier_blocage_geny']['utc']
-                    try:
-                        cooldown=datetime.now(timezone.utc)<datetime.fromisoformat(last_time)+timedelta(minutes=30)
-                    except (ValueError,TypeError):
-                        cooldown=True
-            except Exception as exc:
-                entry['erreur_collecte']=str(exc)
+        # Le cycle de décision utilise le cache ; le worker enrichit la file séparément.
+        if not est_partie:
+            entry['historique_geny']='FILE_INCREMENTALE_INDEPENDANTE'
         raw=None
         # La veille, ne pas saturer PMU en consultant les participants de toutes
         # les courses: les controles NP recommencent le jour J.
@@ -424,7 +377,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             entry['statut_partants_actuels']=enregistrer_partants_actuels(cache,c,raw)
             # Une course passée ne reçoit plus de nouvelles vérifications NP.
             # Les données brutes servent uniquement à confirmer l'arrivée.
-            if not est_partie:
+            if fenetre_decision:
                 info=update_np(cache,c,manifest,raw)
                 entry['np_confirmes']=sum(x['statut_participation']=='NON_PARTANT' for x in info['chevaux'])
                 entry['np_verification_utc']=info['date_controle_utc']
@@ -444,7 +397,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 from .cotes_v19 import collecter
                 entry['statut_cotes']=collecter(cache,c,raw)
             except Exception as exc:entry['erreur_cotes']=f'{type(exc).__name__}: {exc}'
-        if not est_partie:
+        if fenetre_decision:
             try:
                 from .pronostics_v18 import preparer_top3, actualiser_top3_np
                 entry['statut_prevision']=preparer_top3(cache,c,manifest)
@@ -476,6 +429,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         except Exception as exc:state['alertes'].append(f'ENTRAINEMENT_ML: {type(exc).__name__}: {exc}')
     state['fiches_geny_budget_consommees']=max_new-remaining_new
     save(index,state)
+    from .historiques_incrementaux import alimenter
+    alimenter(cache,now)  # Aucune consultation Geny ni écriture Sheets ici.
     print(json.dumps({'date':date,'courses_pmu':len(courses),'courses_selectionnees':len(selected),
                       'manifestes_associes':sum(e.get('identifiant_geny') is not None for e in state['courses'].values()),
                       'rapprochements_ambigus':sum(e.get('rapprochement_geny',{}).get('statut')=='CORRESPONDANCE_AMBIGUE' for e in state['courses'].values()),

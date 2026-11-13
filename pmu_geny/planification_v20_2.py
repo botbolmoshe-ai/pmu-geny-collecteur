@@ -1,9 +1,16 @@
 """Planification J-1 / jour J, avec arrêt strict des prédictions au départ."""
 from __future__ import annotations
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 from zoneinfo import ZoneInfo
 
 PARIS=ZoneInfo('Europe/Paris')
+
+def decision_autorisee(now, date, depart):
+    if now.tzinfo is None or depart.tzinfo is None:
+        raise ValueError('Horodatages avec fuseau requis')
+    local=now.astimezone(PARIS)
+    return (date==local.date().isoformat() and
+            time(7)<=local.time().replace(tzinfo=None)<=time(21) and now<depart)
 
 def selectionner_courses(courses, now, date, selection, complet, etat, max_courses=12):
     """Liste des courses pertinentes par priorité, sans travailler sur des archives.
