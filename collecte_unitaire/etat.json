@@ -11067,7 +11067,11 @@
       "code": "R4C1",
       "numero": 7,
       "ligne_sheet": 149,
-      "geny": null,
+      "geny": {
+        "id": "2848794",
+        "nom": "MILORD DU LORAULT",
+        "url_geny": "https://www.geny.com/cheval/2848794-milord-du-lorault/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -11097,12 +11101,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 22,
+      "preuves": {
+        "nom": "MILORD DU LORAULT",
+        "debut_utc": "2026-11-13T01:23:23.356310+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2848794",
+          "nom": "MILORD DU LORAULT",
+          "url_geny": "https://www.geny.com/cheval/2848794-milord-du-lorault/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 22,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MILORDDULORAULT/1/2848794",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2848794-milord-du-lorault/course/1698053",
+          "http": 200,
+          "titre_page": "Milord du Lorault - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:24:04.886588+00:00"
+        },
+        "fin_utc": "2026-11-13T01:24:09.364756+00:00"
+      }
     },
     "MOANADEWALLIS": {
       "nom": "MOANA DE WALLIS",
@@ -12482,16 +12514,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:22:53.277578+00:00",
+  "maj_utc": "2026-11-13T01:24:09.399501+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 102,
+    "collectes_completes": 103,
     "synchronises": 102,
     "statuts": {
-      "COMPLET": 102,
+      "COMPLET": 103,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 33
+      "A_FAIRE": 32
     }
   }
 }
