@@ -12590,11 +12590,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 7,
       "preuves": {
         "nom": "NO EXPECTATIONS",
@@ -12622,7 +12622,25 @@
           "extrait_utc": "2026-11-13T01:46:57.102253+00:00"
         },
         "fin_utc": "2026-11-13T01:47:01.115695+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 7,
+          "cellules_actualisees": 0,
+          "lignes_source": 7
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T01:47:06.619580+00:00",
+      "erreur": ""
     },
     "NORDICVICKING": {
       "nom": "NORDIC VICKING",
@@ -13314,11 +13332,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:47:01.151897+00:00",
+  "maj_utc": "2026-11-13T01:47:06.619599+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 119,
-    "synchronises": 118,
+    "synchronises": 119,
     "statuts": {
       "COMPLET": 119,
       "ERREUR": 27,
