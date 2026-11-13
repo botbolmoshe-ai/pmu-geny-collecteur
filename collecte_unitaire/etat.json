@@ -10629,7 +10629,11 @@
       "code": "R4C1",
       "numero": 13,
       "ligne_sheet": 155,
-      "geny": null,
+      "geny": {
+        "id": "2863263",
+        "nom": "MANGANOU DU DOME",
+        "url_geny": "https://www.geny.com/cheval/2863263-manganou-du-dome/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -10659,12 +10663,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 13,
+      "preuves": {
+        "nom": "MANGANOU DU DOME",
+        "debut_utc": "2026-11-13T01:17:06.030188+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2863263",
+          "nom": "MANGANOU DU DOME",
+          "url_geny": "https://www.geny.com/cheval/2863263-manganou-du-dome/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 13,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MANGANOUDUDOME/1/2863263",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2863263-manganou-du-dome/course/1698053",
+          "http": 200,
+          "titre_page": "Manganou du Dôme - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:17:47.454471+00:00"
+        },
+        "fin_utc": "2026-11-13T01:17:52.043887+00:00"
+      }
     },
     "MANZANA": {
       "nom": "MANZANA",
@@ -12302,16 +12334,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:16:41.492352+00:00",
+  "maj_utc": "2026-11-13T01:17:52.086220+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 99,
+    "collectes_completes": 100,
     "synchronises": 99,
     "statuts": {
-      "COMPLET": 99,
+      "COMPLET": 100,
       "ERREUR": 24,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 39
+      "A_FAIRE": 38
     }
   }
 }
