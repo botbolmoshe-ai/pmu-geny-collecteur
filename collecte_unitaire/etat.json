@@ -4633,7 +4633,12 @@
       "code": "R1C2",
       "numero": 13,
       "ligne_sheet": 45,
-      "geny": null,
+      "geny": {
+        "id": "2703596",
+        "nom": "ILLINOIS",
+        "url_geny": "https://www.geny.com/cheval/2703596-illinois/course/1698063",
+        "preuve": "Nom exact Illinois, numero 13, course 1698063"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698063-2026-11-12-vincennes-coupe-des-amateurs-gr-a/partants-pronostics"
       ],
@@ -9705,7 +9710,11 @@
       "code": "R1C9",
       "numero": 1,
       "ligne_sheet": 131,
-      "geny": null,
+      "geny": {
+        "id": "2857173",
+        "nom": "MARIO DE LOU",
+        "url_geny": "https://www.geny.com/cheval/2857173-mario-de-lou/course/1698068"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698068-2026-11-12-vincennes-prix-d-azay-le-rideau/partants-pronostics"
       ],
@@ -9735,13 +9744,13 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "DONNEES_INCOMPLETES",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
       "tentatives": 2,
       "sync_tentatives": 0,
       "tentatives_execution": 2,
       "sync_tentatives_execution": 0,
-      "erreur": "['CHAMP_MANQUANT:classement:1']",
+      "erreur": "",
       "preuves": {
         "nom": "MARIO DE LOU",
         "debut_utc": "2026-11-13T01:04:30.990857+00:00",
@@ -9771,7 +9780,17 @@
         },
         "fin_utc": "2026-11-13T01:05:18.045524+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T01:10:18.114594+00:00"
+      "prochain_essai_utc": "2026-11-13T01:10:18.114594+00:00",
+      "nombre_extrait": 18,
+      "stockage_durable_ok": false,
+      "correction_source": [
+        {
+          "date": "2025-08-15",
+          "champ": "classement",
+          "valeur": "Dpg",
+          "preuve": "15/08/25 | Vittel | Attelé | 2 700 | D | - | Herbe | Crse H | 12 500 € | J. Raffestin | Dpg"
+        }
+      ]
     },
     "MARTINDOL": {
       "nom": "MARTIN DOL",
@@ -14015,7 +14034,7 @@
   "maj_utc": "2026-11-13T02:09:52.028875+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 132,
+    "collectes_completes": 133,
     "synchronises": 132,
     "statuts": {
       "COMPLET": 132,
@@ -14024,5 +14043,15 @@
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
-  "execution_statut": "PARTIELLE_REPRENABLE"
+  "execution_statut": "REPRISE_CIBLEE_EN_ATTENTE",
+  "reprise_ciblee": {
+    "date_utc": "2026-11-13T08:54:35.097223+00:00",
+    "nombre_cibles": 31,
+    "corrections": [
+      "clic_sur_nom_exact",
+      "attente_rendu_partant",
+      "code_source_Dpg"
+    ],
+    "succes_precedents_conserves": 132
+  }
 }

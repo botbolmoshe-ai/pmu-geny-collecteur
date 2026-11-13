@@ -18,7 +18,7 @@ from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeo
 DEFAULT_URL = "https://www.geny.com/cheval/2775817-kelle-belle-jasma/course/1683699"
 DATE_RE = re.compile(r"(?<!\d)(\d{2})/(\d{2})/(20\d{2}|\d{2})(?!\d)")
 COUNT_RE = re.compile(r"\bsur\s+(\d{1,4})\s+courses\b", re.I)
-RANK_RE = re.compile(r"(?<!\w)(Dai|Di|Disq|Nc|NP|(?:\d{1,2})\s*(?:er|e|eme|ème|ᵉ))(?!\w)", re.I)
+RANK_RE = re.compile(r"(?<!\w)(Dpg|Dai|Di|Disq|Nc|NP|(?:\d{1,2})\s*(?:er|e|eme|ème|ᵉ))(?!\w)", re.I)
 DIST_RE = re.compile(r"(?<!\d)(\d{4})\s*(?:m|\b)")
 
 
@@ -90,7 +90,7 @@ def lire_classement(cellules: list[str]) -> str:
     # Codes de resultats explicitement affiches par Geny : ne jamais les
     # transformer en rang numerique. R conserve sa valeur source sans
     # interpretation semantique non verifiee.
-    non_classes = {"dai", "di", "disq", "nc", "np", "arr", "dist", "d", "r"}
+    non_classes = {"dpg", "dai", "di", "disq", "nc", "np", "arr", "dist", "d", "r"}
     if dernier.casefold() in non_classes:
         return dernier
     m = re.fullmatch(r"(\d{1,2})\s*(?:er|e|eme|ème|ᵉ)", dernier, re.I)

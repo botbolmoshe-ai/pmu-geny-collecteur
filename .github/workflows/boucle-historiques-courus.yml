@@ -46,7 +46,7 @@ jobs:
       - name: Un cheval, sortie du processus, sauvegarde, Sheets, suivant
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
-        run: python scripts/boucle_historiques.py --max-minutes 210
+        run: python scripts/boucle_historiques.py --max-minutes 75
       - name: Archiver le bilan et les diagnostics
         if: always()
         uses: actions/upload-artifact@v4

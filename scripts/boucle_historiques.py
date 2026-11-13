@@ -57,6 +57,8 @@ def main():
     if git('branch','--show-current')!=BRANCH:raise RuntimeError('Branche de travail inattendue')
     if not STATE.exists():shutil.copy2(ROOT/'collecte_unitaire/etat_initial.json',STATE)
     state=json.loads(STATE.read_text());deadline=time.monotonic()+a.max_minutes*60
+    state['execution_statut']='EN_COURS'
+    state['execution_debut_utc']=now().isoformat()
     # Un sous-processus tue avant le checkpoint reste reprenable.
     for h in state['chevaux'].values():
         if h['collecte']=='EN_COURS':h['collecte']='A_REPRENDRE'

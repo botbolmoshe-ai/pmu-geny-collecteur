@@ -10,6 +10,21 @@ from pmu_geny.liaison_chevaux_v22 import nom_normalise
 from pmu_geny.decouverte_partants import get_rows,participants_from_rows,try_direct_url
 from pmu_geny.collecte_geny_v4 import diagnostic_acces,dismiss_consent
 
+def cliquer_nom(cell,nom):
+    # Le nom est le controle interactif ; le centre du td peut etre une zone vide.
+    target=cell.get_by_text(nom,exact=True)
+    if target.count()!=1:raise ValueError('NOM_CLIQUABLE_AMBIGU')
+    target.click(timeout=8000)
+
+def attendre_partant(page,horse,timeout=20):
+    deadline=time.monotonic()+timeout
+    while time.monotonic()<deadline:
+        rows=participants_from_rows(get_rows(page))
+        matched=[r for r in rows if nom_normalise(r['nom'])==nom_normalise(horse['nom']) and r['numero']==horse['numero']]
+        if matched:return matched
+        page.wait_for_timeout(500)
+    return []
+
 def resolve(horse,out):
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
@@ -25,13 +40,12 @@ def resolve(horse,out):
                 actual=re.search(r'/course/(\d+)',page.url)
                 if not expected or not actual or expected[1]!=actual[1]:continue
                 dismiss_consent(page)
-                rows=participants_from_rows(get_rows(page))
-                matched=[r for r in rows if nom_normalise(r['nom'])==nom_normalise(horse['nom']) and r['numero']==horse['numero']]
+                matched=attendre_partant(page,horse)
                 if len(matched)!=1:continue
                 index=matched[0]['row_index'];direct=try_direct_url(page,index)
                 if not direct:
                     before=page.url;pages=set(ctx.pages)
-                    page.locator('tr').nth(index).locator('td').nth(2).click(timeout=8000)
+                    cliquer_nom(page.locator('tr').nth(index).locator('td').nth(2),matched[0]['nom'])
                     for _ in range(30):
                         new=[x for x in ctx.pages if x not in pages]
                         if new or page.url!=before:
@@ -41,6 +55,8 @@ def resolve(horse,out):
                 m=re.search(r'/cheval/(\d+)',direct or '')
                 if m and urlparse(direct).hostname in ('geny.com','www.geny.com'):
                     return {'id':m[1],'nom':horse['nom'],'url_geny':direct.replace('https://geny.com/','https://www.geny.com/')}
+            (out/'diagnostic_resolution.html').write_text(page.content(),encoding='utf-8')
+            (out/'diagnostic_resolution_lignes.json').write_text(json.dumps(get_rows(page),ensure_ascii=False,indent=2))
             raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
         finally:browser.close()
 
