@@ -8364,7 +8364,11 @@
       "code": "R1C5",
       "numero": 8,
       "ligne_sheet": 81,
-      "geny": null,
+      "geny": {
+        "id": "2831866",
+        "nom": "MHUM FLYNG",
+        "url_geny": "https://www.geny.com/cheval/2831866-mhum-flyng/course/1698066"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698066-2026-11-12-vincennes-prix-ceneri-forcinal/partants-pronostics"
       ],
@@ -8394,22 +8398,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "MHUM FLYNG",
-        "debut_utc": "2026-11-13T00:30:26.423231+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:30:44.992610+00:00"
+        "debut_utc": "2026-11-13T09:08:53.074076+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2831866",
+          "nom": "MHUM FLYNG",
+          "url_geny": "https://www.geny.com/cheval/2831866-mhum-flyng/course/1698066"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 22,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MHUMFLYNG/3/2831866",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2831866-mhum-flyng/course/1698066",
+          "http": 200,
+          "titre_page": "Fiche Cheval Mhum Flyng - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:09:50.123558+00:00"
+        },
+        "fin_utc": "2026-11-13T09:09:54.885367+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:35:45.039944+00:00"
+      "prochain_essai_utc": "2026-11-13T00:35:45.039944+00:00",
+      "nombre_extrait": 22
     },
     "MIMIDAUTHISE": {
       "nom": "MIMI D'AUTHISE",
@@ -14413,14 +14437,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:08:29.679050+00:00",
+  "maj_utc": "2026-11-13T09:09:55.028864+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 142,
+    "collectes_completes": 143,
     "synchronises": 142,
     "statuts": {
-      "COMPLET": 142,
-      "ERREUR": 21
+      "COMPLET": 143,
+      "ERREUR": 20
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
