@@ -263,6 +263,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         entry.update({'depart':c['depart'],'nom':c['nom'],'hippodrome':c['hippodrome'],'nombre_declares':c['nombre_declares'], 'priorite_metier':c.get('priorite_metier'), 'motif_selection':c.get('motif_selection')})
         departure=datetime.fromisoformat(c['depart'])
         est_partie=now>=departure
+        # Collecte possible en amont, mais décisions TOP3/NP/ML uniquement le jour J.
+        jour_j=(date==now.astimezone(PARIS).date().isoformat())
+        fenetre_decision=jour_j and 7<=now.astimezone(PARIS).hour<=21 and not est_partie
         # Aucune prévision rétroactive, même si PMU n'a pas encore communiqué le statut.
         if est_partie:
             entry['traitement']='RESULTATS_SEULEMENT'
@@ -298,7 +301,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     except Exception as exc:
                         entry['statut_avis_experts']='EXPERTS_NON_VERIFIES'
                         entry['erreur_avis_experts']=f'{type(exc).__name__}: {exc}'
-                if not est_partie:
+                if fenetre_decision:
                     from .top3_independants_v22 import calculer
                     from .cotes_v19 import collecter
                     entry['paliers_independants']=calculer(cache,c,pmu_participants)
@@ -424,7 +427,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             entry['statut_partants_actuels']=enregistrer_partants_actuels(cache,c,raw)
             # Une course passée ne reçoit plus de nouvelles vérifications NP.
             # Les données brutes servent uniquement à confirmer l'arrivée.
-            if not est_partie:
+            if fenetre_decision:
                 info=update_np(cache,c,manifest,raw)
                 entry['np_confirmes']=sum(x['statut_participation']=='NON_PARTANT' for x in info['chevaux'])
                 entry['np_verification_utc']=info['date_controle_utc']
@@ -444,7 +447,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 from .cotes_v19 import collecter
                 entry['statut_cotes']=collecter(cache,c,raw)
             except Exception as exc:entry['erreur_cotes']=f'{type(exc).__name__}: {exc}'
-        if not est_partie:
+        if fenetre_decision:
             try:
                 from .pronostics_v18 import preparer_top3, actualiser_top3_np
                 entry['statut_prevision']=preparer_top3(cache,c,manifest)
