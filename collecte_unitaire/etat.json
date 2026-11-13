@@ -7032,11 +7032,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 78,
       "preuves": {
         "nom": "ISA DU PRESSOIR",
@@ -7064,7 +7064,25 @@
           "extrait_utc": "2026-11-13T00:07:14.351373+00:00"
         },
         "fin_utc": "2026-11-13T00:07:18.962948+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 78,
+          "cellules_actualisees": 0,
+          "lignes_source": 78
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T00:07:24.245499+00:00",
+      "erreur": ""
     },
     "JABKISS": {
       "nom": "JAB KISS",
@@ -10723,11 +10741,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:07:19.045394+00:00",
+  "maj_utc": "2026-11-13T00:07:24.245521+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 72,
-    "synchronises": 71,
+    "synchronises": 72,
     "statuts": {
       "COMPLET": 72,
       "ERREUR": 6,
