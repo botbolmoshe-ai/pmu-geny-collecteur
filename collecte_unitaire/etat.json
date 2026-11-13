@@ -7840,12 +7840,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "JUTLAND",
         "debut_utc": "2026-11-13T09:07:35.227082+00:00",
@@ -7874,7 +7874,24 @@
         "fin_utc": "2026-11-13T09:08:22.945878+00:00"
       },
       "prochain_essai_utc": "2026-11-13T00:27:28.011494+00:00",
-      "nombre_extrait": 68
+      "nombre_extrait": 68,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 68,
+          "cellules_actualisees": 0,
+          "lignes_source": 68
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:08:29.679023+00:00"
     },
     "KARADEPIERREPONT": {
       "nom": "KARA DE PIERREPONT",
@@ -14396,11 +14413,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:08:22.988826+00:00",
+  "maj_utc": "2026-11-13T09:08:29.679050+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 142,
-    "synchronises": 141,
+    "synchronises": 142,
     "statuts": {
       "COMPLET": 142,
       "ERREUR": 21
