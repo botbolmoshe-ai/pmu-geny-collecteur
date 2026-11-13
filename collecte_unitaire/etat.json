@@ -6627,12 +6627,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "NOVA TIM",
         "debut_utc": "2026-11-13T09:02:11.515402+00:00",
@@ -6661,7 +6661,24 @@
         "fin_utc": "2026-11-13T09:03:11.994441+00:00"
       },
       "prochain_essai_utc": "2026-11-13T00:07:11.171850+00:00",
-      "nombre_extrait": 20
+      "nombre_extrait": 20,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 20,
+          "cellules_actualisees": 0,
+          "lignes_source": 20
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:03:18.219772+00:00"
     },
     "NYMPHEDELLE": {
       "nom": "NYMPHE D'ELLE",
@@ -14232,11 +14249,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:03:12.055408+00:00",
+  "maj_utc": "2026-11-13T09:03:18.219796+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 138,
-    "synchronises": 137,
+    "synchronises": 138,
     "statuts": {
       "COMPLET": 138,
       "ERREUR": 25
