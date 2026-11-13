@@ -13126,7 +13126,11 @@
       "code": "R4C3",
       "numero": 4,
       "ligne_sheet": 174,
-      "geny": null,
+      "geny": {
+        "id": "2883037",
+        "nom": "NANOU DE BONELLE",
+        "url_geny": "https://www.geny.com/cheval/2883037-nanou-de-bonelle/course/1698059"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne/partants-pronostics"
       ],
@@ -13156,12 +13160,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 11,
+      "preuves": {
+        "nom": "NANOU DE BONELLE",
+        "debut_utc": "2026-11-13T01:54:12.271732+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2883037",
+          "nom": "NANOU DE BONELLE",
+          "url_geny": "https://www.geny.com/cheval/2883037-nanou-de-bonelle/course/1698059"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 11,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NANOUDEBONELLE/1/2883037",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2883037-nanou-de-bonelle/course/1698059",
+          "http": 200,
+          "titre_page": "Nanou de Bonelle - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:55:07.800341+00:00"
+        },
+        "fin_utc": "2026-11-13T01:55:11.807951+00:00"
+      }
     },
     "NEPALEDALCI": {
       "nom": "NEPALE D'ALCI",
@@ -13552,16 +13584,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:53:42.190854+00:00",
+  "maj_utc": "2026-11-13T01:55:11.857140+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 123,
+    "collectes_completes": 124,
     "synchronises": 123,
     "statuts": {
-      "COMPLET": 123,
+      "COMPLET": 124,
       "ERREUR": 29,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 10
+      "A_FAIRE": 9
     }
   }
 }
