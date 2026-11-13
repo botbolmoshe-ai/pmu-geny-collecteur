@@ -9214,7 +9214,11 @@
       "code": "R1C7",
       "numero": 4,
       "ligne_sheet": 105,
-      "geny": null,
+      "geny": {
+        "id": "2877488",
+        "nom": "NORMAN PIERJI",
+        "url_geny": "https://www.geny.com/cheval/2877488-norman-pierji/course/1698069"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698069-2026-11-12-vincennes-prix-de-chateau-thierry/partants-pronostics"
       ],
@@ -9244,12 +9248,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 9,
+      "preuves": {
+        "nom": "NORMAN PIERJI",
+        "debut_utc": "2026-11-13T00:49:37.904930+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2877488",
+          "nom": "NORMAN PIERJI",
+          "url_geny": "https://www.geny.com/cheval/2877488-norman-pierji/course/1698069"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 9,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NORMANPIERJI/1/2877488",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2877488-norman-pierji/course/1698069",
+          "http": 200,
+          "titre_page": "Norman Pierji - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:50:20.545904+00:00"
+        },
+        "fin_utc": "2026-11-13T00:50:24.787949+00:00"
+      }
     },
     "NOTHINGELSEMATTERS": {
       "nom": "NOTHINGELSEMATTERS",
@@ -11661,15 +11693,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:49:07.822086+00:00",
+  "maj_utc": "2026-11-13T00:50:24.856592+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 88,
+    "collectes_completes": 89,
     "synchronises": 88,
     "statuts": {
-      "COMPLET": 88,
+      "COMPLET": 89,
       "ERREUR": 18,
-      "A_FAIRE": 57
+      "A_FAIRE": 56
     }
   }
 }
