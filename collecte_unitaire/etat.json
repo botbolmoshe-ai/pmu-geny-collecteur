@@ -14719,7 +14719,11 @@
       "code": "R4C3",
       "numero": 3,
       "ligne_sheet": 173,
-      "geny": null,
+      "geny": {
+        "id": "2881518",
+        "nom": "NIMAGINE",
+        "url_geny": "https://www.geny.com/cheval/2881518-nimagine/course/1698059"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne/partants-pronostics"
       ],
@@ -14749,22 +14753,42 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "NIMAGINE",
-        "debut_utc": "2026-11-13T02:08:10.050752+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T02:08:28.149021+00:00"
+        "debut_utc": "2026-11-13T09:35:35.844724+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2881518",
+          "nom": "NIMAGINE",
+          "url_geny": "https://www.geny.com/cheval/2881518-nimagine/course/1698059"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 15,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NIMAGINE/3/2881518",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2881518-nimagine/course/1698059",
+          "http": 200,
+          "titre_page": "Nimagine - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:36:16.992790+00:00"
+        },
+        "fin_utc": "2026-11-13T09:36:21.139162+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T02:13:28.201422+00:00"
+      "prochain_essai_utc": "2026-11-13T02:13:28.201422+00:00",
+      "nombre_extrait": 15
     },
     "NINASUPREME": {
       "nom": "NINA SUPREME",
@@ -15233,14 +15257,13 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:35:12.524495+00:00",
+  "maj_utc": "2026-11-13T09:36:21.189931+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 162,
+    "collectes_completes": 163,
     "synchronises": 162,
     "statuts": {
-      "COMPLET": 162,
-      "ERREUR": 1
+      "COMPLET": 163
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
