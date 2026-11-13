@@ -8643,7 +8643,11 @@
       "code": "R1C7",
       "numero": 8,
       "ligne_sheet": 109,
-      "geny": null,
+      "geny": {
+        "id": "2867293",
+        "nom": "NELSON DU PONT",
+        "url_geny": "https://www.geny.com/cheval/2867293-nelson-du-pont/course/1698069"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698069-2026-11-12-vincennes-prix-de-chateau-thierry/partants-pronostics"
       ],
@@ -8673,12 +8677,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 11,
+      "preuves": {
+        "nom": "NELSON DU PONT",
+        "debut_utc": "2026-11-13T00:37:52.725701+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2867293",
+          "nom": "NELSON DU PONT",
+          "url_geny": "https://www.geny.com/cheval/2867293-nelson-du-pont/course/1698069"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 11,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NELSONDUPONT/1/2867293",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2867293-nelson-du-pont/course/1698069",
+          "http": 200,
+          "titre_page": "Nelson du Pont - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:38:34.662461+00:00"
+        },
+        "fin_utc": "2026-11-13T00:38:38.979239+00:00"
+      }
     },
     "NEMRODBUROIS": {
       "nom": "NEMROD BUROIS",
@@ -11391,15 +11423,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:37:22.646499+00:00",
+  "maj_utc": "2026-11-13T00:38:39.064558+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 83,
+    "collectes_completes": 84,
     "synchronises": 83,
     "statuts": {
-      "COMPLET": 83,
+      "COMPLET": 84,
       "ERREUR": 16,
-      "A_FAIRE": 64
+      "A_FAIRE": 63
     }
   }
 }
