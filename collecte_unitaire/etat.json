@@ -7528,7 +7528,11 @@
       "code": "R1C4",
       "numero": 12,
       "ligne_sheet": 71,
-      "geny": null,
+      "geny": {
+        "id": "2768313",
+        "nom": "KARA DE PIERREPONT",
+        "url_geny": "https://www.geny.com/cheval/2768313-kara-de-pierrepont/course/1698065"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698065-2026-11-12-vincennes-coupe-des-amateurs-gr-b/partants-pronostics"
       ],
@@ -7558,12 +7562,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 47,
+      "preuves": {
+        "nom": "KARA DE PIERREPONT",
+        "debut_utc": "2026-11-13T00:16:46.639791+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2768313",
+          "nom": "KARA DE PIERREPONT",
+          "url_geny": "https://www.geny.com/cheval/2768313-kara-de-pierrepont/course/1698065"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 47,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/KARADEPIERREPONT/1/2768313",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2768313-kara-de-pierrepont/course/1698065",
+          "http": 200,
+          "titre_page": "Kara de Pierrepont - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:17:29.562876+00:00"
+        },
+        "fin_utc": "2026-11-13T00:17:34.252828+00:00"
+      }
     },
     "KIMIDUDOME": {
       "nom": "KIMI DU DOME",
@@ -10921,15 +10953,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:16:16.562428+00:00",
+  "maj_utc": "2026-11-13T00:17:34.300119+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 75,
+    "collectes_completes": 76,
     "synchronises": 75,
     "statuts": {
-      "COMPLET": 75,
+      "COMPLET": 76,
       "ERREUR": 9,
-      "A_FAIRE": 79
+      "A_FAIRE": 78
     }
   }
 }
