@@ -7805,7 +7805,11 @@
       "code": "R1C4",
       "numero": 2,
       "ligne_sheet": 61,
-      "geny": null,
+      "geny": {
+        "id": "2746623",
+        "nom": "JUTLAND",
+        "url_geny": "https://www.geny.com/cheval/2746623-jutland/course/1698065"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698065-2026-11-12-vincennes-coupe-des-amateurs-gr-b/partants-pronostics"
       ],
@@ -7835,22 +7839,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "JUTLAND",
-        "debut_utc": "2026-11-13T00:22:07.480850+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:22:27.975875+00:00"
+        "debut_utc": "2026-11-13T09:07:35.227082+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2746623",
+          "nom": "JUTLAND",
+          "url_geny": "https://www.geny.com/cheval/2746623-jutland/course/1698065"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 68,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/JUTLAND/3/2746623",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2746623-jutland/course/1698065",
+          "http": 200,
+          "titre_page": "Jutland - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:08:18.112083+00:00"
+        },
+        "fin_utc": "2026-11-13T09:08:22.945878+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:27:28.011494+00:00"
+      "prochain_essai_utc": "2026-11-13T00:27:28.011494+00:00",
+      "nombre_extrait": 68
     },
     "KARADEPIERREPONT": {
       "nom": "KARA DE PIERREPONT",
@@ -14372,14 +14396,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:07:11.489615+00:00",
+  "maj_utc": "2026-11-13T09:08:22.988826+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 141,
+    "collectes_completes": 142,
     "synchronises": 141,
     "statuts": {
-      "COMPLET": 141,
-      "ERREUR": 22
+      "COMPLET": 142,
+      "ERREUR": 21
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
