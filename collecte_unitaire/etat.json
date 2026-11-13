@@ -8046,7 +8046,11 @@
       "code": "R1C5",
       "numero": 3,
       "ligne_sheet": 76,
-      "geny": null,
+      "geny": {
+        "id": "2851056",
+        "nom": "MIMI D'AUTHISE",
+        "url_geny": "https://www.geny.com/cheval/2851056-mimi-d-authise/course/1698066"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698066-2026-11-12-vincennes-prix-ceneri-forcinal/partants-pronostics"
       ],
@@ -8076,12 +8080,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 15,
+      "preuves": {
+        "nom": "MIMI D'AUTHISE",
+        "debut_utc": "2026-11-13T00:25:02.372915+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2851056",
+          "nom": "MIMI D'AUTHISE",
+          "url_geny": "https://www.geny.com/cheval/2851056-mimi-d-authise/course/1698066"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 15,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MIMIDAUTHISE/1/2851056",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2851056-mimi-d-authise/course/1698066",
+          "http": 200,
+          "titre_page": "Fiche Cheval Mimi d'Authise - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:25:45.460469+00:00"
+        },
+        "fin_utc": "2026-11-13T00:25:49.629505+00:00"
+      }
     },
     "MINADRY": {
       "nom": "MINA DRY",
@@ -11181,15 +11213,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:24:32.286596+00:00",
+  "maj_utc": "2026-11-13T00:25:49.668585+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 80,
+    "collectes_completes": 81,
     "synchronises": 80,
     "statuts": {
-      "COMPLET": 80,
+      "COMPLET": 81,
       "ERREUR": 10,
-      "A_FAIRE": 73
+      "A_FAIRE": 72
     }
   }
 }
