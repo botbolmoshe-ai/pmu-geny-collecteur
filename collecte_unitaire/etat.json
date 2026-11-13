@@ -9978,7 +9978,11 @@
       "code": "R1C9",
       "numero": 9,
       "ligne_sheet": 139,
-      "geny": null,
+      "geny": {
+        "id": "2839125",
+        "nom": "MILLIUM QUESNOT",
+        "url_geny": "https://www.geny.com/cheval/2839125-millium-quesnot/course/1698068"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698068-2026-11-12-vincennes-prix-d-azay-le-rideau/partants-pronostics"
       ],
@@ -10008,12 +10012,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 25,
+      "preuves": {
+        "nom": "MILLIUM QUESNOT",
+        "debut_utc": "2026-11-13T01:06:36.719547+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2839125",
+          "nom": "MILLIUM QUESNOT",
+          "url_geny": "https://www.geny.com/cheval/2839125-millium-quesnot/course/1698068"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 25,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MILLIUMQUESNOT/1/2839125",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2839125-millium-quesnot/course/1698068",
+          "http": 200,
+          "titre_page": "Millium Quesnot - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:07:17.720270+00:00"
+        },
+        "fin_utc": "2026-11-13T01:07:22.224594+00:00"
+      }
     },
     "MILORDDARLING": {
       "nom": "MILORD DARLING",
@@ -11952,16 +11984,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:06:06.641342+00:00",
+  "maj_utc": "2026-11-13T01:07:22.284806+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 92,
+    "collectes_completes": 93,
     "synchronises": 92,
     "statuts": {
-      "COMPLET": 92,
+      "COMPLET": 93,
       "ERREUR": 24,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 46
+      "A_FAIRE": 45
     }
   }
 }
