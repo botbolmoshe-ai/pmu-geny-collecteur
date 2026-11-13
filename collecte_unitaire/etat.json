@@ -9616,12 +9616,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "NEW MONEY",
         "debut_utc": "2026-11-13T09:19:40.704113+00:00",
@@ -9650,7 +9650,24 @@
         "fin_utc": "2026-11-13T09:20:27.148887+00:00"
       },
       "prochain_essai_utc": "2026-11-13T00:56:14.759365+00:00",
-      "nombre_extrait": 17
+      "nombre_extrait": 17,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 17,
+          "cellules_actualisees": 0,
+          "lignes_source": 17
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:20:33.717121+00:00"
     },
     "NOBELSPEED": {
       "nom": "NOBEL SPEED",
@@ -14765,11 +14782,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:20:27.205638+00:00",
+  "maj_utc": "2026-11-13T09:20:33.717144+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 151,
-    "synchronises": 150,
+    "synchronises": 151,
     "statuts": {
       "COMPLET": 151,
       "ERREUR": 12
