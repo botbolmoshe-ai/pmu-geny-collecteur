@@ -10752,12 +10752,22 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "ERREUR",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "preuves": {
+        "nom": "MANZANA",
+        "debut_utc": "2026-11-13T01:18:22.165824+00:00",
+        "complet": false,
+        "statut": "ERREUR",
+        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+        "fin_utc": "2026-11-13T01:18:42.774972+00:00"
+      },
+      "prochain_essai_utc": "2026-11-13T01:23:42.850467+00:00"
     },
     "MECDERCOURT": {
       "nom": "MEC D'ERCOURT",
@@ -12352,16 +12362,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:17:57.687763+00:00",
+  "maj_utc": "2026-11-13T01:18:42.850498+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 100,
     "synchronises": 100,
     "statuts": {
       "COMPLET": 100,
-      "ERREUR": 24,
+      "ERREUR": 25,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 38
+      "A_FAIRE": 37
     }
   }
 }
