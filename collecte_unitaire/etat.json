@@ -7842,11 +7842,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 26,
       "preuves": {
         "nom": "MALICE CAILLERIE",
@@ -7874,7 +7874,25 @@
           "extrait_utc": "2026-11-13T00:21:32.876325+00:00"
         },
         "fin_utc": "2026-11-13T00:21:37.357555+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 26,
+          "cellules_actualisees": 0,
+          "lignes_source": 26
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T00:21:42.320522+00:00",
+      "erreur": ""
     },
     "MARIODELAVALLEE": {
       "nom": "MARIO DE LA VALLEE",
@@ -11103,11 +11121,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:21:37.401987+00:00",
+  "maj_utc": "2026-11-13T00:21:42.320546+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 79,
-    "synchronises": 78,
+    "synchronises": 79,
     "statuts": {
       "COMPLET": 79,
       "ERREUR": 9,
