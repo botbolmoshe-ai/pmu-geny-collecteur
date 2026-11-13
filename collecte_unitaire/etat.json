@@ -12090,7 +12090,11 @@
       "code": "R4C2",
       "numero": 13,
       "ligne_sheet": 169,
-      "geny": null,
+      "geny": {
+        "id": "2875864",
+        "nom": "NEVADA PIERJI",
+        "url_geny": "https://www.geny.com/cheval/2875864-nevada-pierji/course/1698060"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026/partants-pronostics"
       ],
@@ -12120,12 +12124,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 5,
+      "preuves": {
+        "nom": "NEVADA PIERJI",
+        "debut_utc": "2026-11-13T01:39:48.335913+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2875864",
+          "nom": "NEVADA PIERJI",
+          "url_geny": "https://www.geny.com/cheval/2875864-nevada-pierji/course/1698060"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 5,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NEVADAPIERJI/1/2875864",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2875864-nevada-pierji/course/1698060",
+          "http": 200,
+          "titre_page": "Nevada Pierji - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:40:30.008104+00:00"
+        },
+        "fin_utc": "2026-11-13T01:40:34.425889+00:00"
+      }
     },
     "NEWTONNOIR": {
       "nom": "NEWTON NOIR",
@@ -13032,16 +13064,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:39:23.515990+00:00",
+  "maj_utc": "2026-11-13T01:40:34.449615+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 113,
+    "collectes_completes": 114,
     "synchronises": 113,
     "statuts": {
-      "COMPLET": 113,
+      "COMPLET": 114,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 22
+      "A_FAIRE": 21
     }
   }
 }
