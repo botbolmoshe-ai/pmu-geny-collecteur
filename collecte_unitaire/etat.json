@@ -10991,12 +10991,22 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "ERREUR",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "preuves": {
+        "nom": "MERGINIO",
+        "debut_utc": "2026-11-13T01:21:46.870228+00:00",
+        "complet": false,
+        "statut": "ERREUR",
+        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+        "fin_utc": "2026-11-13T01:22:04.282296+00:00"
+      },
+      "prochain_essai_utc": "2026-11-13T01:27:04.331233+00:00"
     },
     "MIAMI": {
       "nom": "MIAMI",
@@ -12462,16 +12472,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:21:22.261440+00:00",
+  "maj_utc": "2026-11-13T01:22:04.331261+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 102,
     "synchronises": 102,
     "statuts": {
       "COMPLET": 102,
-      "ERREUR": 25,
+      "ERREUR": 26,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 35
+      "A_FAIRE": 34
     }
   }
 }
