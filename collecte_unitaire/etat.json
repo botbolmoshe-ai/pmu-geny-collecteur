@@ -12887,7 +12887,11 @@
       "code": "R4C3",
       "numero": 9,
       "ligne_sheet": 179,
-      "geny": null,
+      "geny": {
+        "id": "2881468",
+        "nom": "NAELLE DE MIELOUI",
+        "url_geny": "https://www.geny.com/cheval/2881468-naelle-de-mieloui/course/1698059"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne/partants-pronostics"
       ],
@@ -12917,12 +12921,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 9,
+      "preuves": {
+        "nom": "NAELLE DE MIELOUI",
+        "debut_utc": "2026-11-13T01:50:51.827603+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2881468",
+          "nom": "NAELLE DE MIELOUI",
+          "url_geny": "https://www.geny.com/cheval/2881468-naelle-de-mieloui/course/1698059"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 9,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NAELLEDEMIELOUI/1/2881468",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2881468-naelle-de-mieloui/course/1698059",
+          "http": 200,
+          "titre_page": "Naëlle de Mieloui - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:51:32.599510+00:00"
+        },
+        "fin_utc": "2026-11-13T01:51:37.128836+00:00"
+      }
     },
     "NAKANODOURVILLE": {
       "nom": "NAKANO D'OURVILLE",
@@ -13442,16 +13474,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:50:27.343711+00:00",
+  "maj_utc": "2026-11-13T01:51:37.172712+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 121,
+    "collectes_completes": 122,
     "synchronises": 121,
     "statuts": {
-      "COMPLET": 121,
+      "COMPLET": 122,
       "ERREUR": 28,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 13
+      "A_FAIRE": 12
     }
   }
 }
