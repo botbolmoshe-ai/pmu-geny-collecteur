@@ -12555,7 +12555,11 @@
       "code": "R4C2",
       "numero": 9,
       "ligne_sheet": 165,
-      "geny": null,
+      "geny": {
+        "id": "2896116",
+        "nom": "NO EXPECTATIONS",
+        "url_geny": "https://www.geny.com/cheval/2896116-no-expectations/course/1698060"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026/partants-pronostics"
       ],
@@ -12585,12 +12589,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 7,
+      "preuves": {
+        "nom": "NO EXPECTATIONS",
+        "debut_utc": "2026-11-13T01:46:13.016095+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2896116",
+          "nom": "NO EXPECTATIONS",
+          "url_geny": "https://www.geny.com/cheval/2896116-no-expectations/course/1698060"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 7,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NOEXPECTATIONS/1/2896116",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2896116-no-expectations/course/1698060",
+          "http": 200,
+          "titre_page": "Fiche Cheval No Expectations - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:46:57.102253+00:00"
+        },
+        "fin_utc": "2026-11-13T01:47:01.115695+00:00"
+      }
     },
     "NORDICVICKING": {
       "nom": "NORDIC VICKING",
@@ -13282,16 +13314,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:45:49.109313+00:00",
+  "maj_utc": "2026-11-13T01:47:01.151897+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 118,
+    "collectes_completes": 119,
     "synchronises": 118,
     "statuts": {
-      "COMPLET": 118,
+      "COMPLET": 119,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 17
+      "A_FAIRE": 16
     }
   }
 }
