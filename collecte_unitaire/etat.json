@@ -6218,7 +6218,11 @@
       "code": "R1C3",
       "numero": 4,
       "ligne_sheet": 50,
-      "geny": null,
+      "geny": {
+        "id": "2866423",
+        "nom": "NINA TIME",
+        "url_geny": "https://www.geny.com/cheval/2866423-nina-time/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -6248,22 +6252,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "NINA TIME",
-        "debut_utc": "2026-11-12T23:55:34.798989+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-12T23:55:52.068001+00:00"
+        "debut_utc": "2026-11-13T08:59:24.264457+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2866423",
+          "nom": "NINA TIME",
+          "url_geny": "https://www.geny.com/cheval/2866423-nina-time/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 10,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NINATIME/3/2866423",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2866423-nina-time/course/1698062",
+          "http": 200,
+          "titre_page": "Nina Time - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:00:06.060216+00:00"
+        },
+        "fin_utc": "2026-11-13T09:00:10.565023+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:00:52.111449+00:00"
+      "prochain_essai_utc": "2026-11-13T00:00:52.111449+00:00",
+      "nombre_extrait": 10
     },
     "NISSALABELLA": {
       "nom": "NISSA LA BELLA",
@@ -14126,14 +14150,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T08:59:01.775730+00:00",
+  "maj_utc": "2026-11-13T09:00:10.609924+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 135,
+    "collectes_completes": 136,
     "synchronises": 135,
     "statuts": {
-      "COMPLET": 135,
-      "ERREUR": 28
+      "COMPLET": 136,
+      "ERREUR": 27
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
