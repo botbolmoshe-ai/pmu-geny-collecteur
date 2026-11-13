@@ -11381,11 +11381,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 18,
       "preuves": {
         "nom": "MORGANE DE HOERDT",
@@ -11413,7 +11413,25 @@
           "extrait_utc": "2026-11-13T01:30:19.733535+00:00"
         },
         "fin_utc": "2026-11-13T01:30:23.797447+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 18,
+          "cellules_actualisees": 0,
+          "lignes_source": 18
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T01:30:28.856562+00:00",
+      "erreur": ""
     },
     "MURANODUGANEP": {
       "nom": "MURANO DU GANEP",
@@ -12664,11 +12682,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:30:23.826591+00:00",
+  "maj_utc": "2026-11-13T01:30:28.856583+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 106,
-    "synchronises": 105,
+    "synchronises": 106,
     "statuts": {
       "COMPLET": 106,
       "ERREUR": 27,
