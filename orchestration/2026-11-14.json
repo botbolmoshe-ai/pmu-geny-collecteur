@@ -21,14 +21,15 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE",
       "rapprochement_geny": {
         "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
         "candidats": 1,
         "meilleur_score": 0.789,
         "codes_differents": 0
       },
-      "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE"
+      "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R3C2": {
       "identifiant_geny": null,
@@ -50,13 +51,14 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
         "candidats": 0,
         "meilleur_score": 0,
         "codes_differents": 0
-      }
+      },
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R3C3": {
       "identifiant_geny": null,
@@ -78,13 +80,14 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
         "candidats": 1,
         "meilleur_score": 0.782,
         "codes_differents": 0
-      }
+      },
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C1": {
       "identifiant_geny": null,
@@ -97,7 +100,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -106,7 +109,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698232",
@@ -128,7 +131,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698232"
+      "geny_id_rapproche": "1698232",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R3C4": {
       "identifiant_geny": null,
@@ -150,7 +154,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698477",
@@ -172,7 +176,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698477"
+      "geny_id_rapproche": "1698477",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C2": {
       "identifiant_geny": null,
@@ -194,7 +199,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698225",
@@ -216,7 +221,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698225"
+      "geny_id_rapproche": "1698225",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R3C5": {
       "identifiant_geny": null,
@@ -229,7 +235,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -238,7 +244,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698470",
@@ -260,7 +266,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698470"
+      "geny_id_rapproche": "1698470",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C3": {
       "identifiant_geny": null,
@@ -282,7 +289,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698229",
@@ -304,7 +311,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698229"
+      "geny_id_rapproche": "1698229",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R3C6": {
       "identifiant_geny": null,
@@ -326,7 +334,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698476",
@@ -348,7 +356,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698476"
+      "geny_id_rapproche": "1698476",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C1": {
       "identifiant_geny": null,
@@ -360,7 +369,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -369,7 +378,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698466",
@@ -392,7 +401,8 @@
         }
       },
       "geny_id_rapproche": "1698466",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C4": {
       "identifiant_geny": null,
@@ -414,7 +424,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698230",
@@ -436,7 +446,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698230"
+      "geny_id_rapproche": "1698230",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R3C7": {
       "identifiant_geny": null,
@@ -458,7 +469,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698472",
@@ -480,7 +491,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698472"
+      "geny_id_rapproche": "1698472",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C2": {
       "identifiant_geny": null,
@@ -501,7 +513,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698464",
@@ -524,7 +536,8 @@
         }
       },
       "geny_id_rapproche": "1698464",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C5": {
       "identifiant_geny": null,
@@ -546,7 +559,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698231",
@@ -568,7 +581,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698231"
+      "geny_id_rapproche": "1698231",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R3C8": {
       "identifiant_geny": null,
@@ -590,7 +604,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698474",
@@ -612,7 +626,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698474"
+      "geny_id_rapproche": "1698474",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C6": {
       "identifiant_geny": null,
@@ -634,7 +649,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698228",
@@ -656,7 +671,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698228"
+      "geny_id_rapproche": "1698228",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C3": {
       "identifiant_geny": null,
@@ -677,7 +693,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698461",
@@ -700,7 +716,8 @@
         }
       },
       "geny_id_rapproche": "1698461",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C7": {
       "identifiant_geny": null,
@@ -713,7 +730,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -722,7 +739,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698227",
@@ -744,7 +761,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698227"
+      "geny_id_rapproche": "1698227",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C4": {
       "identifiant_geny": null,
@@ -756,7 +774,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -765,7 +783,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698463",
@@ -788,7 +806,8 @@
         }
       },
       "geny_id_rapproche": "1698463",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C8": {
       "identifiant_geny": null,
@@ -810,7 +829,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698226",
@@ -832,7 +851,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698226"
+      "geny_id_rapproche": "1698226",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C5": {
       "identifiant_geny": null,
@@ -854,7 +874,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698462",
@@ -876,7 +896,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698462"
+      "geny_id_rapproche": "1698462",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R8C9": {
       "identifiant_geny": null,
@@ -898,7 +919,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698224",
@@ -920,7 +941,8 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698224"
+      "geny_id_rapproche": "1698224",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C6": {
       "identifiant_geny": null,
@@ -941,7 +963,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698468",
@@ -964,7 +986,8 @@
         }
       },
       "geny_id_rapproche": "1698468",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C7": {
       "identifiant_geny": null,
@@ -985,7 +1008,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698467",
@@ -1008,7 +1031,8 @@
         }
       },
       "geny_id_rapproche": "1698467",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C8": {
       "identifiant_geny": null,
@@ -1020,7 +1044,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -1029,7 +1053,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698465",
@@ -1052,7 +1076,8 @@
         }
       },
       "geny_id_rapproche": "1698465",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     },
     "R1C9": {
       "identifiant_geny": null,
@@ -1074,7 +1099,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698469",
@@ -1096,15 +1121,16 @@
           ]
         }
       },
-      "geny_id_rapproche": "1698469"
+      "geny_id_rapproche": "1698469",
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-13T14:06:11.623928+00:00",
+  "dernier_controle_pmu": "2026-11-13T15:36:00.651796+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-14",
-    "horodatage_utc": "2026-11-13T14:06:11.623928+00:00",
+    "horodatage_utc": "2026-11-13T15:36:00.651796+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/14112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 26,
