@@ -9735,12 +9735,43 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "DONNEES_INCOMPLETES",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "['CHAMP_MANQUANT:classement:1']",
+      "preuves": {
+        "nom": "MARIO DE LOU",
+        "debut_utc": "2026-11-13T00:57:33.533539+00:00",
+        "complet": false,
+        "geny": {
+          "id": "2857173",
+          "nom": "MARIO DE LOU",
+          "url_geny": "https://www.geny.com/cheval/2857173-mario-de-lou/course/1698068"
+        },
+        "statut": "DONNEES_INCOMPLETES",
+        "motifs": [
+          "CHAMP_MANQUANT:classement:1"
+        ],
+        "identite_verifiee": true,
+        "nombre_extrait": 18,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MARIODELOU/1/2857173",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": false,
+          "source_url": "https://www.geny.com/cheval/2857173-mario-de-lou/course/1698068",
+          "http": 200,
+          "titre_page": "Mario de Lou - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:58:15.955088+00:00"
+        },
+        "fin_utc": "2026-11-13T00:58:20.460292+00:00"
+      },
+      "prochain_essai_utc": "2026-11-13T01:03:20.517669+00:00"
     },
     "MARTINDOL": {
       "nom": "MARTIN DOL",
@@ -11851,7 +11882,7 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:57:08.824362+00:00",
+  "maj_utc": "2026-11-13T00:58:20.517696+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 91,
@@ -11859,7 +11890,8 @@
     "statuts": {
       "COMPLET": 91,
       "ERREUR": 22,
-      "A_FAIRE": 50
+      "DONNEES_INCOMPLETES": 1,
+      "A_FAIRE": 49
     }
   }
 }
