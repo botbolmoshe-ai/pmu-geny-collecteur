@@ -10350,7 +10350,11 @@
       "code": "R1C9",
       "numero": 7,
       "ligne_sheet": 137,
-      "geny": null,
+      "geny": {
+        "id": "2846696",
+        "nom": "MY WAY DE QUELETTE",
+        "url_geny": "https://www.geny.com/cheval/2846696-my-way-de-quelette/course/1698068"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698068-2026-11-12-vincennes-prix-d-azay-le-rideau/partants-pronostics"
       ],
@@ -10380,12 +10384,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 18,
+      "preuves": {
+        "nom": "MY WAY DE QUELETTE",
+        "debut_utc": "2026-11-13T01:13:16.878420+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2846696",
+          "nom": "MY WAY DE QUELETTE",
+          "url_geny": "https://www.geny.com/cheval/2846696-my-way-de-quelette/course/1698068"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 18,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MYWAYDEQUELETTE/1/2846696",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2846696-my-way-de-quelette/course/1698068",
+          "http": 200,
+          "titre_page": "Fiche Cheval My Way de Quelette - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:13:59.305974+00:00"
+        },
+        "fin_utc": "2026-11-13T01:14:03.817228+00:00"
+      }
     },
     "MAFIARINGEAT": {
       "nom": "MAFIA RINGEAT",
@@ -12152,16 +12184,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:12:46.803512+00:00",
+  "maj_utc": "2026-11-13T01:14:03.864844+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 96,
+    "collectes_completes": 97,
     "synchronises": 96,
     "statuts": {
-      "COMPLET": 96,
+      "COMPLET": 97,
       "ERREUR": 24,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 42
+      "A_FAIRE": 41
     }
   }
 }
