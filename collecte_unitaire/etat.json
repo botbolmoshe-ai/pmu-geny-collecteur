@@ -13312,7 +13312,11 @@
       "code": "R4C3",
       "numero": 14,
       "ligne_sheet": 184,
-      "geny": null,
+      "geny": {
+        "id": "2898057",
+        "nom": "NEW LIFE CHARDET",
+        "url_geny": "https://www.geny.com/cheval/2898057-new-life-chardet/course/1698059"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne/partants-pronostics"
       ],
@@ -13342,12 +13346,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 6,
+      "preuves": {
+        "nom": "NEW LIFE CHARDET",
+        "debut_utc": "2026-11-13T01:58:13.263373+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2898057",
+          "nom": "NEW LIFE CHARDET",
+          "url_geny": "https://www.geny.com/cheval/2898057-new-life-chardet/course/1698059"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 6,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NEWLIFECHARDET/1/2898057",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2898057-new-life-chardet/course/1698059",
+          "http": 200,
+          "titre_page": "New Life Chardet - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:59:09.810282+00:00"
+        },
+        "fin_utc": "2026-11-13T01:59:13.926411+00:00"
+      }
     },
     "NIKITADEMONCHEL": {
       "nom": "NIKITA DE MONCHEL",
@@ -13652,16 +13684,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:57:48.960667+00:00",
+  "maj_utc": "2026-11-13T01:59:14.064400+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 125,
+    "collectes_completes": 126,
     "synchronises": 125,
     "statuts": {
-      "COMPLET": 125,
+      "COMPLET": 126,
       "ERREUR": 29,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 8
+      "A_FAIRE": 7
     }
   }
 }
