@@ -13644,7 +13644,11 @@
       "code": "R4C3",
       "numero": 1,
       "ligne_sheet": 171,
-      "geny": null,
+      "geny": {
+        "id": "2860777",
+        "nom": "NORMA CASTELLE",
+        "url_geny": "https://www.geny.com/cheval/2860777-norma-castelle/course/1698059"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne/partants-pronostics"
       ],
@@ -13674,12 +13678,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 17,
+      "preuves": {
+        "nom": "NORMA CASTELLE",
+        "debut_utc": "2026-11-13T02:04:06.073237+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2860777",
+          "nom": "NORMA CASTELLE",
+          "url_geny": "https://www.geny.com/cheval/2860777-norma-castelle/course/1698059"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 17,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NORMACASTELLE/1/2860777",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2860777-norma-castelle/course/1698059",
+          "http": 200,
+          "titre_page": "Norma Castelle - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T02:04:46.731332+00:00"
+        },
+        "fin_utc": "2026-11-13T02:04:51.219580+00:00"
+      }
     },
     "NUANCEDUHOULET": {
       "nom": "NUANCE DU HOULET",
@@ -13812,16 +13844,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T02:03:41.063483+00:00",
+  "maj_utc": "2026-11-13T02:04:51.290946+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 128,
+    "collectes_completes": 129,
     "synchronises": 128,
     "statuts": {
-      "COMPLET": 128,
+      "COMPLET": 129,
       "ERREUR": 30,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 4
+      "A_FAIRE": 3
     }
   }
 }
