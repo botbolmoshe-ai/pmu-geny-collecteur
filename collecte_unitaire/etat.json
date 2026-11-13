@@ -10868,7 +10868,11 @@
       "code": "R4C1",
       "numero": 8,
       "ligne_sheet": 150,
-      "geny": null,
+      "geny": {
+        "id": "2839122",
+        "nom": "MEC D'ERLANGER",
+        "url_geny": "https://www.geny.com/cheval/2839122-mec-d-erlanger/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -10898,12 +10902,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 20,
+      "preuves": {
+        "nom": "MEC D'ERLANGER",
+        "debut_utc": "2026-11-13T01:20:29.466752+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2839122",
+          "nom": "MEC D'ERLANGER",
+          "url_geny": "https://www.geny.com/cheval/2839122-mec-d-erlanger/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 20,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MECDERLANGER/1/2839122",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2839122-mec-d-erlanger/course/1698053",
+          "http": 200,
+          "titre_page": "Mec d'Erlanger - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:21:12.190541+00:00"
+        },
+        "fin_utc": "2026-11-13T01:21:16.724742+00:00"
+      }
     },
     "MERGINIO": {
       "nom": "MERGINIO",
@@ -12412,16 +12444,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:20:04.711112+00:00",
+  "maj_utc": "2026-11-13T01:21:16.786376+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 101,
+    "collectes_completes": 102,
     "synchronises": 101,
     "statuts": {
-      "COMPLET": 101,
+      "COMPLET": 102,
       "ERREUR": 25,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 36
+      "A_FAIRE": 35
     }
   }
 }
