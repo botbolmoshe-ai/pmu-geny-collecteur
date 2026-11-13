@@ -8771,11 +8771,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 19,
       "preuves": {
         "nom": "NEMROD BUROIS",
@@ -8803,7 +8803,25 @@
           "extrait_utc": "2026-11-13T00:40:05.022455+00:00"
         },
         "fin_utc": "2026-11-13T00:40:09.545692+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 19,
+          "cellules_actualisees": 0,
+          "lignes_source": 19
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T00:40:14.837693+00:00",
+      "erreur": ""
     },
     "NETMONEY": {
       "nom": "NET MONEY",
@@ -11473,11 +11491,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:40:09.628005+00:00",
+  "maj_utc": "2026-11-13T00:40:14.837716+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 85,
-    "synchronises": 84,
+    "synchronises": 85,
     "statuts": {
       "COMPLET": 85,
       "ERREUR": 16,
