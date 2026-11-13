@@ -11195,11 +11195,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 23,
       "preuves": {
         "nom": "MOANA DE WALLIS",
@@ -11227,7 +11227,25 @@
           "extrait_utc": "2026-11-13T01:26:09.123562+00:00"
         },
         "fin_utc": "2026-11-13T01:26:13.588272+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 23,
+          "cellules_actualisees": 0,
+          "lignes_source": 23
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T01:26:19.481624+00:00",
+      "erreur": ""
     },
     "MONEYDIMALAVITA": {
       "nom": "MONEY DI MALAVITA",
@@ -12564,11 +12582,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:26:13.611721+00:00",
+  "maj_utc": "2026-11-13T01:26:19.481638+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 104,
-    "synchronises": 103,
+    "synchronises": 104,
     "statuts": {
       "COMPLET": 104,
       "ERREUR": 27,
