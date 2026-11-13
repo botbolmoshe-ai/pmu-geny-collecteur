@@ -11346,7 +11346,11 @@
       "code": "R4C1",
       "numero": 1,
       "ligne_sheet": 143,
-      "geny": null,
+      "geny": {
+        "id": "2826431",
+        "nom": "MORGANE DE HOERDT",
+        "url_geny": "https://www.geny.com/cheval/2826431-morgane-de-hoerdt/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -11376,12 +11380,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 18,
+      "preuves": {
+        "nom": "MORGANE DE HOERDT",
+        "debut_utc": "2026-11-13T01:29:37.525395+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2826431",
+          "nom": "MORGANE DE HOERDT",
+          "url_geny": "https://www.geny.com/cheval/2826431-morgane-de-hoerdt/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 18,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MORGANEDEHOERDT/1/2826431",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2826431-morgane-de-hoerdt/course/1698053",
+          "http": 200,
+          "titre_page": "Fiche Cheval Morgane de Hoerdt - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:30:19.733535+00:00"
+        },
+        "fin_utc": "2026-11-13T01:30:23.797447+00:00"
+      }
     },
     "MURANODUGANEP": {
       "nom": "MURANO DU GANEP",
@@ -12632,16 +12664,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:29:07.444387+00:00",
+  "maj_utc": "2026-11-13T01:30:23.826591+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 105,
+    "collectes_completes": 106,
     "synchronises": 105,
     "statuts": {
-      "COMPLET": 105,
+      "COMPLET": 106,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 30
+      "A_FAIRE": 29
     }
   }
 }
