@@ -10164,7 +10164,11 @@
       "code": "R1C9",
       "numero": 12,
       "ligne_sheet": 142,
-      "geny": null,
+      "geny": {
+        "id": "2833038",
+        "nom": "MOJI DE VANDEL",
+        "url_geny": "https://www.geny.com/cheval/2833038-moji-de-vandel/course/1698068"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698068-2026-11-12-vincennes-prix-d-azay-le-rideau/partants-pronostics"
       ],
@@ -10194,12 +10198,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 20,
+      "preuves": {
+        "nom": "MOJI DE VANDEL",
+        "debut_utc": "2026-11-13T01:09:56.410030+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2833038",
+          "nom": "MOJI DE VANDEL",
+          "url_geny": "https://www.geny.com/cheval/2833038-moji-de-vandel/course/1698068"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 20,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MOJIDEVANDEL/1/2833038",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2833038-moji-de-vandel/course/1698068",
+          "http": 200,
+          "titre_page": "Moji de Vandel - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:10:38.227755+00:00"
+        },
+        "fin_utc": "2026-11-13T01:10:42.398595+00:00"
+      }
     },
     "MYTHIQUEJOSSELYN": {
       "nom": "MYTHIQUE JOSSELYN",
@@ -12052,16 +12084,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:09:26.320141+00:00",
+  "maj_utc": "2026-11-13T01:10:42.434722+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 94,
+    "collectes_completes": 95,
     "synchronises": 94,
     "statuts": {
-      "COMPLET": 94,
+      "COMPLET": 95,
       "ERREUR": 24,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 44
+      "A_FAIRE": 43
     }
   }
 }
