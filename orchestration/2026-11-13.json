@@ -220,7 +220,7 @@
     },
     "R3C5": {
       "identifiant_geny": "GENY-1698194",
-      "etat": "MANIFESTE_PRESENT",
+      "etat": "TERMINE_ARCHIVE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698194",
@@ -275,7 +275,7 @@
     },
     "R3C6": {
       "identifiant_geny": "GENY-1698192",
-      "etat": "MANIFESTE_PRESENT",
+      "etat": "TERMINE_ARCHIVE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698192",
@@ -357,7 +357,7 @@
       "nombre_declares": 16,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON-PARILLY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -375,9 +375,11 @@
       "statut_maj_np": "ACTUALISE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698197/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE",
+      "audit_predictif": "AUDIT_ENREGISTRE",
       "historique_geny": "COLLECTE_INCREMENTALE",
-      "historique_collecte_resultat": "LIMITE_TEST_ATTEINTE"
+      "historique_collecte_resultat": "LIMITE_TEST_ATTEINTE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R3C8": {
       "identifiant_geny": "GENY-1698196",
@@ -410,7 +412,7 @@
       "nombre_declares": 10,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LYON-PARILLY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -428,7 +430,9 @@
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698196/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R1C1": {
       "identifiant_geny": "GENY-1698190",
@@ -462,7 +466,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
+      "statut_meteo": "METEO_NON_VERIFIEE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -472,15 +476,17 @@
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
-      "np_confirmes": 0,
-      "np_verification_utc": "2026-11-13T12:52:39.938110+00:00",
+      "np_confirmes": 1,
+      "np_verification_utc": "2026-11-13T14:05:49.956138+00:00",
       "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698190/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE",
       "statut_np": "CONTROLE_DIFFERE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "historique_geny": "COLLECTE_INCREMENTALE",
+      "historique_collecte_resultat": "LIMITE_TEST_ATTEINTE"
     },
     "R1C2": {
       "identifiant_geny": "GENY-1698185",
@@ -514,7 +520,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
+      "statut_meteo": "METEO_NON_VERIFIEE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -532,15 +538,15 @@
       "audit_predictif": "ARRIVEE_NON_VERIFIEE",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "np_confirmes": 1,
-      "np_verification_utc": "2026-11-13T12:52:42.991482+00:00"
+      "np_verification_utc": "2026-11-13T14:06:10.286428+00:00"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-13T12:49:14.464952+00:00",
+  "dernier_controle_pmu": "2026-11-13T14:02:19.632211+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-13",
-    "horodatage_utc": "2026-11-13T12:49:14.464952+00:00",
+    "horodatage_utc": "2026-11-13T14:02:19.632211+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/13112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 10,
@@ -642,7 +648,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "regionHippique",
           "specialites",
           "statut",

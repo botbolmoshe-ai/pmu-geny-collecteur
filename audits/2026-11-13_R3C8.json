@@ -1,0 +1,174 @@
+{
+  "course": "2026-11-13_R3C8",
+  "course_id": "GENY-1698196",
+  "audit_utc": "2026-11-13T14:06:10.971875+00:00",
+  "arrivee_source": "PMU_API_PARTICIPANTS",
+  "comparaison": {
+    "baseline_h1": {
+      "statut": "NON_DISPONIBLE",
+      "hits_top3": null,
+      "top3": []
+    },
+    "baseline_finale": {
+      "statut": "NON_DISPONIBLE",
+      "hits_top3": null,
+      "top3": []
+    },
+    "ml": {
+      "statut": "NON_DISPONIBLE",
+      "hits_top3": null,
+      "top3": []
+    },
+    "marche_indicatif": {
+      "statut": "NON_DISPONIBLE",
+      "hits_top3": null,
+      "top3": []
+    }
+  },
+  "diagnostic": {
+    "outsiders_detectes": 0,
+    "outsiders_manques": 0,
+    "favoris_marche_manques_par_ml": 0,
+    "avertissement": "Cotes ex post pour diagnostic uniquement. Un classement de marche n est pas une probabilite validee.",
+    "comparaison_ml_marche": "NON_COMPARABLE"
+  },
+  "chevaux": [
+    {
+      "numero": 1,
+      "nom": "Lord de Loiron",
+      "arrivee_podium": true,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 2,
+      "nom": "Kiss Me Julry",
+      "arrivee_podium": true,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 3,
+      "nom": "Jakabino",
+      "arrivee_podium": false,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 4,
+      "nom": "Kandie d'Orco",
+      "arrivee_podium": false,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 5,
+      "nom": "Ludivine",
+      "arrivee_podium": false,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 6,
+      "nom": "Koala",
+      "arrivee_podium": false,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 7,
+      "nom": "Gédéon Dairpet",
+      "arrivee_podium": false,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 8,
+      "nom": "Koureas d'Ela",
+      "arrivee_podium": false,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 9,
+      "nom": "Henrique",
+      "arrivee_podium": false,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    },
+    {
+      "numero": 10,
+      "nom": "Lord Délo",
+      "arrivee_podium": true,
+      "baseline_rang": null,
+      "baseline_final_rang": null,
+      "ml_rang": null,
+      "rang_cote": null,
+      "cote_avant_depart": null,
+      "outsider_detecte": false,
+      "outsider_manque": false,
+      "favori_marche_manque_par_ml": false
+    }
+  ],
+  "garde_fous": [
+    "Aucune cote parmi les features ML",
+    "Ne pas changer les poids apres une course isolee",
+    "Verifier que les predictions precedaient le depart",
+    "Aucune conclusion causale sans preuve",
+    "Comparer les memes courses et conditions de disponibilite"
+  ]
+}
