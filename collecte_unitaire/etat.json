@@ -12980,7 +12980,11 @@
       "code": "R4C3",
       "numero": 12,
       "ligne_sheet": 182,
-      "geny": null,
+      "geny": {
+        "id": "2882483",
+        "nom": "NAKANO D'OURVILLE",
+        "url_geny": "https://www.geny.com/cheval/2882483-nakano-d-ourville/course/1698059"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698059-2026-11-12-amiens-prix-de-la-nuit-du-cirque-jules-verne/partants-pronostics"
       ],
@@ -13010,12 +13014,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 6,
+      "preuves": {
+        "nom": "NAKANO D'OURVILLE",
+        "debut_utc": "2026-11-13T01:52:07.248147+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2882483",
+          "nom": "NAKANO D'OURVILLE",
+          "url_geny": "https://www.geny.com/cheval/2882483-nakano-d-ourville/course/1698059"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 6,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NAKANODOURVILLE/1/2882483",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2882483-nakano-d-ourville/course/1698059",
+          "http": 200,
+          "titre_page": "Nakano d'Ourville - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:52:49.240588+00:00"
+        },
+        "fin_utc": "2026-11-13T01:52:53.819892+00:00"
+      }
     },
     "NALAFAB": {
       "nom": "NALA FAB",
@@ -13492,16 +13524,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:51:42.558029+00:00",
+  "maj_utc": "2026-11-13T01:52:53.904278+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 122,
+    "collectes_completes": 123,
     "synchronises": 122,
     "statuts": {
-      "COMPLET": 122,
+      "COMPLET": 123,
       "ERREUR": 28,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 12
+      "A_FAIRE": 11
     }
   }
 }
