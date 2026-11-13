@@ -12369,7 +12369,11 @@
       "code": "R4C2",
       "numero": 12,
       "ligne_sheet": 168,
-      "geny": null,
+      "geny": {
+        "id": "2888693",
+        "nom": "NOBLE DU CORTA",
+        "url_geny": "https://www.geny.com/cheval/2888693-noble-du-corta/course/1698060"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026/partants-pronostics"
       ],
@@ -12399,12 +12403,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 5,
+      "preuves": {
+        "nom": "NOBLE DU CORTA",
+        "debut_utc": "2026-11-13T01:43:37.014195+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2888693",
+          "nom": "NOBLE DU CORTA",
+          "url_geny": "https://www.geny.com/cheval/2888693-noble-du-corta/course/1698060"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 5,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NOBLEDUCORTA/1/2888693",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2888693-noble-du-corta/course/1698060",
+          "http": 200,
+          "titre_page": "Noble du Corta - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:44:22.485142+00:00"
+        },
+        "fin_utc": "2026-11-13T01:44:26.662927+00:00"
+      }
     },
     "NOEDUBLEQUIN": {
       "nom": "NOE DU BLEQUIN",
@@ -13182,16 +13214,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:43:12.648378+00:00",
+  "maj_utc": "2026-11-13T01:44:26.729208+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 116,
+    "collectes_completes": 117,
     "synchronises": 116,
     "statuts": {
-      "COMPLET": 116,
+      "COMPLET": 117,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 19
+      "A_FAIRE": 18
     }
   }
 }
