@@ -11811,7 +11811,11 @@
       "code": "R4C2",
       "numero": 5,
       "ligne_sheet": 161,
-      "geny": null,
+      "geny": {
+        "id": "2885617",
+        "nom": "NAPOLEON DE NIELES",
+        "url_geny": "https://www.geny.com/cheval/2885617-napoleon-de-nieles/course/1698060"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026/partants-pronostics"
       ],
@@ -11841,12 +11845,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 7,
+      "preuves": {
+        "nom": "NAPOLEON DE NIELES",
+        "debut_utc": "2026-11-13T01:36:00.215236+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2885617",
+          "nom": "NAPOLEON DE NIELES",
+          "url_geny": "https://www.geny.com/cheval/2885617-napoleon-de-nieles/course/1698060"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 7,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NAPOLEONDENIELES/1/2885617",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2885617-napoleon-de-nieles/course/1698060",
+          "http": 200,
+          "titre_page": "Napoléon de Nieles - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:36:41.459569+00:00"
+        },
+        "fin_utc": "2026-11-13T01:36:45.458019+00:00"
+      }
     },
     "NAUTILUSDESPRES": {
       "nom": "NAUTILUS DES PRES",
@@ -12882,16 +12914,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:35:35.314584+00:00",
+  "maj_utc": "2026-11-13T01:36:45.520719+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 110,
+    "collectes_completes": 111,
     "synchronises": 110,
     "statuts": {
-      "COMPLET": 110,
+      "COMPLET": 111,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 25
+      "A_FAIRE": 24
     }
   }
 }
