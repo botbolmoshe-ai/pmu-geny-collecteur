@@ -8368,12 +8368,22 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "ERREUR",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "preuves": {
+        "nom": "MOLLY MADRIK",
+        "debut_utc": "2026-11-13T00:29:24.710645+00:00",
+        "complet": false,
+        "statut": "ERREUR",
+        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+        "fin_utc": "2026-11-13T00:29:56.254969+00:00"
+      },
+      "prochain_essai_utc": "2026-11-13T00:34:56.340649+00:00"
     },
     "MUNHOAVEDAQUAISE": {
       "nom": "MUNHOA VEDAQUAISE",
@@ -11301,15 +11311,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:28:54.629794+00:00",
+  "maj_utc": "2026-11-13T00:29:56.340677+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 82,
     "synchronises": 82,
     "statuts": {
       "COMPLET": 82,
-      "ERREUR": 12,
-      "A_FAIRE": 69
+      "ERREUR": 13,
+      "A_FAIRE": 68
     }
   }
 }
