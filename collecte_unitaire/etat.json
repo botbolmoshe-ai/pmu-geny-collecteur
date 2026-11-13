@@ -12276,7 +12276,11 @@
       "code": "R4C2",
       "numero": 4,
       "ligne_sheet": 160,
-      "geny": null,
+      "geny": {
+        "id": "2898886",
+        "nom": "NILANO DE HOUELLE",
+        "url_geny": "https://www.geny.com/cheval/2898886-nilano-de-houelle/course/1698060"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026/partants-pronostics"
       ],
@@ -12306,12 +12310,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 6,
+      "preuves": {
+        "nom": "NILANO DE HOUELLE",
+        "debut_utc": "2026-11-13T01:42:20.338594+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2898886",
+          "nom": "NILANO DE HOUELLE",
+          "url_geny": "https://www.geny.com/cheval/2898886-nilano-de-houelle/course/1698060"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 6,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NILANODEHOUELLE/1/2898886",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2898886-nilano-de-houelle/course/1698060",
+          "http": 200,
+          "titre_page": "Fiche Cheval Nilano de Houelle - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:43:02.419611+00:00"
+        },
+        "fin_utc": "2026-11-13T01:43:06.895273+00:00"
+      }
     },
     "NOBLEDUCORTA": {
       "nom": "NOBLE DU CORTA",
@@ -13132,16 +13164,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:41:55.659302+00:00",
+  "maj_utc": "2026-11-13T01:43:06.939496+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 115,
+    "collectes_completes": 116,
     "synchronises": 115,
     "statuts": {
-      "COMPLET": 115,
+      "COMPLET": 116,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 20
+      "A_FAIRE": 19
     }
   }
 }
