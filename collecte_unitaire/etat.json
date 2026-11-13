@@ -12497,11 +12497,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 11,
       "preuves": {
         "nom": "NOE DU BLEQUIN",
@@ -12529,7 +12529,25 @@
           "extrait_utc": "2026-11-13T01:45:38.710148+00:00"
         },
         "fin_utc": "2026-11-13T01:45:42.868931+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 11,
+          "cellules_actualisees": 0,
+          "lignes_source": 11
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T01:45:49.109288+00:00",
+      "erreur": ""
     },
     "NOEXPECTATIONS": {
       "nom": "NO EXPECTATIONS",
@@ -13264,11 +13282,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:45:42.938127+00:00",
+  "maj_utc": "2026-11-13T01:45:49.109313+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 118,
-    "synchronises": 117,
+    "synchronises": 118,
     "statuts": {
       "COMPLET": 118,
       "ERREUR": 27,
