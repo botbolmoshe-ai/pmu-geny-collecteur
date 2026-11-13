@@ -14754,12 +14754,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "NIMAGINE",
         "debut_utc": "2026-11-13T09:35:35.844724+00:00",
@@ -14788,7 +14788,24 @@
         "fin_utc": "2026-11-13T09:36:21.139162+00:00"
       },
       "prochain_essai_utc": "2026-11-13T02:13:28.201422+00:00",
-      "nombre_extrait": 15
+      "nombre_extrait": 15,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 15,
+          "cellules_actualisees": 0,
+          "lignes_source": 15
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:36:27.488542+00:00"
     },
     "NINASUPREME": {
       "nom": "NINA SUPREME",
@@ -15257,11 +15274,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:36:21.189931+00:00",
+  "maj_utc": "2026-11-13T09:36:27.488565+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 163,
-    "synchronises": 162,
+    "synchronises": 163,
     "statuts": {
       "COMPLET": 163
     }
