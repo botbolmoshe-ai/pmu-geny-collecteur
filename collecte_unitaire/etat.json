@@ -11904,7 +11904,11 @@
       "code": "R4C2",
       "numero": 8,
       "ligne_sheet": 164,
-      "geny": null,
+      "geny": {
+        "id": "2889149",
+        "nom": "NAUTILUS DES PRES",
+        "url_geny": "https://www.geny.com/cheval/2889149-nautilus-des-pres/course/1698060"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698060-2026-11-12-amiens-prix-food-amiens-2026/partants-pronostics"
       ],
@@ -11934,12 +11938,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 10,
+      "preuves": {
+        "nom": "NAUTILUS DES PRES",
+        "debut_utc": "2026-11-13T01:37:15.595430+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2889149",
+          "nom": "NAUTILUS DES PRES",
+          "url_geny": "https://www.geny.com/cheval/2889149-nautilus-des-pres/course/1698060"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 10,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NAUTILUSDESPRES/1/2889149",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2889149-nautilus-des-pres/course/1698060",
+          "http": 200,
+          "titre_page": "Nautilus des Prés - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:37:57.890219+00:00"
+        },
+        "fin_utc": "2026-11-13T01:38:02.307441+00:00"
+      }
     },
     "NECTARDUDOME": {
       "nom": "NECTAR DU DOME",
@@ -12932,16 +12964,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:36:50.812996+00:00",
+  "maj_utc": "2026-11-13T01:38:02.370508+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 111,
+    "collectes_completes": 112,
     "synchronises": 111,
     "statuts": {
-      "COMPLET": 111,
+      "COMPLET": 112,
       "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 24
+      "A_FAIRE": 23
     }
   }
 }
