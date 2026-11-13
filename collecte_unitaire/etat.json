@@ -11773,12 +11773,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "MANZANA",
         "debut_utc": "2026-11-13T09:29:08.441575+00:00",
@@ -11807,7 +11807,24 @@
         "fin_utc": "2026-11-13T09:29:55.597040+00:00"
       },
       "prochain_essai_utc": "2026-11-13T01:29:56.905580+00:00",
-      "nombre_extrait": 29
+      "nombre_extrait": 29,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 29,
+          "cellules_actualisees": 0,
+          "lignes_source": 29
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:30:02.106577+00:00"
     },
     "MECDERCOURT": {
       "nom": "MEC D'ERCOURT",
@@ -15052,11 +15069,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:29:55.634547+00:00",
+  "maj_utc": "2026-11-13T09:30:02.106599+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 158,
-    "synchronises": 157,
+    "synchronises": 158,
     "statuts": {
       "COMPLET": 158,
       "ERREUR": 5
