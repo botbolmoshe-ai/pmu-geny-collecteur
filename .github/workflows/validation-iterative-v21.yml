@@ -23,6 +23,12 @@ on:
       - 'pmu_geny/kpi_registre.py'
       - 'tests/test_v24_fiabilite_offline.py'
       - 'pmu_geny/auto_v18.py'
+      - 'pmu_geny/historiques_incrementaux.py'
+      - 'pmu_geny/historique_individuel.py'
+      - 'scripts/synchroniser_un_historique.py'
+      - 'tests/test_v26_incremental_offline.py'
+      - 'tests/test_v26_chaine_offline.py'
+      - '.github/workflows/historiques-incrementaux.yml'
       - 'pmu_geny/partants_actuels_v21.py'
       - '.github/workflows/validation-iterative-v21.yml'
   workflow_dispatch:
@@ -47,9 +53,9 @@ jobs:
       - name: Installer les dependances
         run: |
           python -m pip install -r requirements.txt
-          python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2
+          python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2 google-auth==2.43.0 requests pyyaml
       - name: Syntaxe
-        run: python -m compileall -q pmu_geny tests
+        run: python -m compileall -q pmu_geny scripts tests
       - name: Regression complete (lecture seule)
         shell: bash
         run: |

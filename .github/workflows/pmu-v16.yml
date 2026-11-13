@@ -8,7 +8,7 @@ on:
       - 'pilotage/declencher-production-v21.txt'
   schedule:
     # Toutes les heures; gate Europe/Paris dans Python (été/hiver).
-    - cron: '0 5-20 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
     inputs:
       mode:
@@ -53,7 +53,7 @@ permissions:
 
 concurrency:
   group: pmu-donnees-production
-  cancel-in-progress: ${{ github.event_name == 'push' }}
+  cancel-in-progress: false
 
 jobs:
   traiter-course:
@@ -77,6 +77,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p cache_pmu resultats
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           python - <<'PYVALID'
           import os, re
           from urllib.parse import urlparse
@@ -130,32 +132,13 @@ jobs:
           from pmu_geny.auto_v18 import run
           from pathlib import Path
           now=datetime.now(ZoneInfo('Europe/Paris'))
-          # V21: previsions des departs 08:00-19:00 ; suivi des arrivees jusqu'a 20:59.
-          if not 8 <= now.hour <= 20:
-              print('Hors fenêtre V21: 08:00–20:59 Europe/Paris (arrivées seules après 19h)')
-              if '${{ github.event_name }}' == 'push':
-                  # Publication contrôlée après la journée : enrichir J+1 sans nouvelle fiche Geny.
-                  tomorrow=(now+timedelta(days=1)).date().isoformat()
-                  state=run(Path('cache_pmu'),tomorrow,[],0,max_discoveries=0,now=now,selection_complete=True)
-                  print(f'ENRICHISSEMENT_SOURCES_J1 date={tomorrow} courses={len(state.get("courses",{}))}',flush=True)
-          else:
-              # Même logique à chaque passage; pas de branche léger/complet.
-              # V22: un seul cycle fonctionnel ; les appels externes demeurent incrementaux et limites.
-              full=True
-              root=Path('cache_pmu')
-              today=now.date().isoformat()
-              today_state=run(root,today,[],6 if full else 0,
-                  max_discoveries=1 if full else 0,now=now)
-              # J-1 : preparer des maintenant, des disponibilite du programme PMU.
-              # Les courses du jour déjà parties ne consomment pas le budget Geny.
-              # Si le jour J n'a plus de départ futur, tout le solde va à J+1.
-              remaining=max(0,6-today_state.get('fiches_geny_budget_consommees',0))
-              tomorrow=(now+timedelta(days=1)).date().isoformat()
-              print(f'PREPARATION_J1 date={tomorrow} budget_fiches={remaining}',flush=True)
-              tomorrow_state=run(root,tomorrow,[],remaining,max_discoveries=1,
-                                 now=now,selection_complete=True)
-              print(f'BILAN_J1 date={tomorrow} courses_selectionnees={sum(1 for x in tomorrow_state.get("courses",{}).values() if x.get("traitement")=="PREPARATION_AVANT_DEPART")} fiches_consommees={tomorrow_state.get("fiches_geny_budget_consommees",0)}',flush=True)
-              print('Cycle unique V22, collecte incrementale')
+          # Collecte et préparation 24h/24 ; gate décision jour J dans auto_v18.
+          root=Path('cache_pmu')
+          today=now.date().isoformat()
+          run(root,today,[],0,max_discoveries=1,now=now,selection_complete=True)
+          tomorrow=(now+timedelta(days=1)).date().isoformat()
+          run(root,tomorrow,[],0,max_discoveries=1,now=now,selection_complete=True)
+          print('Collecte historique confiée au worker incrémental indépendant')
           PYRUN
       - name: Decouvrir les partants, sans collecter les historiques
         if: inputs.mode == 'decouvrir'
@@ -189,10 +172,12 @@ jobs:
               --diagnostic "resultats/decouverte-${CID}" \
               --etat cache_pmu/etat_persistant.json
           fi
-      - name: Collecter depuis le manifeste stocke, sans decouverte
+      - name: Collecter depuis la file incrementale persistante
         if: inputs.mode == 'collecter'
         env:
           MAX: ${{ inputs.max_chevaux || 18 }}
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
         shell: bash
         run: |
           set -euo pipefail
@@ -202,12 +187,10 @@ jobs:
             echo "ERREUR : aucun manifeste pour GENY-${CID}. Lancer d'abord le mode decouvrir." >&2
             exit 2
           fi
-          python -m pmu_geny.traitement_course \
-            --manifest "$MANIFEST" \
-            --sortie resultats \
-            --etat cache_pmu/etat_persistant.json \
-            --max-chevaux "$MAX" \
-            --cooldown-heures 0.5
+          # Même chemin que le worker permanent, aucune ancienne collecte par lots.
+          python -m pip install -q google-auth==2.43.0 requests
+          python -m pmu_geny.historiques_incrementaux --cache cache_pmu \
+            --max-minutes 15 --max-chevaux "$MAX" --publier
       - name: Verifier les non-partants d'apres une consultation confirmee de PMU
         if: inputs.mode == 'controle_np'
         shell: bash
@@ -276,6 +259,7 @@ jobs:
             echo 'Aucune donnee a sauvegarder.'
             exit 0
           fi
+          git fetch --no-tags origin pmu-data
           mkdir -p /tmp/pmu-data-worktree
           if git show-ref --verify --quiet refs/remotes/origin/pmu-data; then
             git worktree add --detach /tmp/pmu-data-worktree origin/pmu-data
