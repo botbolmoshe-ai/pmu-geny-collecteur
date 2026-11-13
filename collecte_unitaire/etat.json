@@ -10443,7 +10443,11 @@
       "code": "R4C1",
       "numero": 2,
       "ligne_sheet": 144,
-      "geny": null,
+      "geny": {
+        "id": "2851938",
+        "nom": "MAFIA RINGEAT",
+        "url_geny": "https://www.geny.com/cheval/2851938-mafia-ringeat/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -10473,12 +10477,40 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 19,
+      "preuves": {
+        "nom": "MAFIA RINGEAT",
+        "debut_utc": "2026-11-13T01:14:33.945012+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2851938",
+          "nom": "MAFIA RINGEAT",
+          "url_geny": "https://www.geny.com/cheval/2851938-mafia-ringeat/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 19,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MAFIARINGEAT/1/2851938",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2851938-mafia-ringeat/course/1698053",
+          "http": 200,
+          "titre_page": "Mafia Ringeat - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T01:15:14.874206+00:00"
+        },
+        "fin_utc": "2026-11-13T01:15:19.435238+00:00"
+      }
     },
     "MAGICDESPACE": {
       "nom": "MAGIC D'ESPACE",
@@ -12202,16 +12234,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:14:10.215565+00:00",
+  "maj_utc": "2026-11-13T01:15:19.477363+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 97,
+    "collectes_completes": 98,
     "synchronises": 97,
     "statuts": {
-      "COMPLET": 97,
+      "COMPLET": 98,
       "ERREUR": 24,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 41
+      "A_FAIRE": 40
     }
   }
 }
