@@ -9581,7 +9581,11 @@
       "code": "R1C7",
       "numero": 6,
       "ligne_sheet": 107,
-      "geny": null,
+      "geny": {
+        "id": "2866140",
+        "nom": "NEW MONEY",
+        "url_geny": "https://www.geny.com/cheval/2866140-new-money/course/1698069"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698069-2026-11-12-vincennes-prix-de-chateau-thierry/partants-pronostics"
       ],
@@ -9611,22 +9615,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "NEW MONEY",
-        "debut_utc": "2026-11-13T00:50:54.938841+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:51:14.694862+00:00"
+        "debut_utc": "2026-11-13T09:19:40.704113+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2866140",
+          "nom": "NEW MONEY",
+          "url_geny": "https://www.geny.com/cheval/2866140-new-money/course/1698069"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 17,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NEWMONEY/3/2866140",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2866140-new-money/course/1698069",
+          "http": 200,
+          "titre_page": "New Money - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:20:23.012701+00:00"
+        },
+        "fin_utc": "2026-11-13T09:20:27.148887+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:56:14.759365+00:00"
+      "prochain_essai_utc": "2026-11-13T00:56:14.759365+00:00",
+      "nombre_extrait": 17
     },
     "NOBELSPEED": {
       "nom": "NOBEL SPEED",
@@ -14741,14 +14765,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:19:17.251105+00:00",
+  "maj_utc": "2026-11-13T09:20:27.205638+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 150,
+    "collectes_completes": 151,
     "synchronises": 150,
     "statuts": {
-      "COMPLET": 150,
-      "ERREUR": 13
+      "COMPLET": 151,
+      "ERREUR": 12
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
