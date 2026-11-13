@@ -10903,11 +10903,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 20,
       "preuves": {
         "nom": "MEC D'ERLANGER",
@@ -10935,7 +10935,25 @@
           "extrait_utc": "2026-11-13T01:21:12.190541+00:00"
         },
         "fin_utc": "2026-11-13T01:21:16.724742+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 20,
+          "cellules_actualisees": 0,
+          "lignes_source": 20
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T01:21:22.261417+00:00",
+      "erreur": ""
     },
     "MERGINIO": {
       "nom": "MERGINIO",
@@ -12444,11 +12462,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:21:16.786376+00:00",
+  "maj_utc": "2026-11-13T01:21:22.261440+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 102,
-    "synchronises": 101,
+    "synchronises": 102,
     "statuts": {
       "COMPLET": 102,
       "ERREUR": 25,
