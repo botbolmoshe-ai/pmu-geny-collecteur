@@ -11044,12 +11044,22 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "ERREUR",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "preuves": {
+        "nom": "MIAMI",
+        "debut_utc": "2026-11-13T01:22:34.407300+00:00",
+        "complet": false,
+        "statut": "ERREUR",
+        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+        "fin_utc": "2026-11-13T01:22:53.216455+00:00"
+      },
+      "prochain_essai_utc": "2026-11-13T01:27:53.277550+00:00"
     },
     "MILORDDULORAULT": {
       "nom": "MILORD DU LORAULT",
@@ -12472,16 +12482,16 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:22:04.331261+00:00",
+  "maj_utc": "2026-11-13T01:22:53.277578+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 102,
     "synchronises": 102,
     "statuts": {
       "COMPLET": 102,
-      "ERREUR": 26,
+      "ERREUR": 27,
       "DONNEES_INCOMPLETES": 1,
-      "A_FAIRE": 34
+      "A_FAIRE": 33
     }
   }
 }
