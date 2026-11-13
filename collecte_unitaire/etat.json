@@ -8832,7 +8832,11 @@
       "code": "R1C5",
       "numero": 7,
       "ligne_sheet": 80,
-      "geny": null,
+      "geny": {
+        "id": "2846221",
+        "nom": "MOLLY MADRIK",
+        "url_geny": "https://www.geny.com/cheval/2846221-molly-madrik/course/1698066"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698066-2026-11-12-vincennes-prix-ceneri-forcinal/partants-pronostics"
       ],
@@ -8862,22 +8866,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "MOLLY MADRIK",
-        "debut_utc": "2026-11-13T00:36:01.646749+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:36:33.891614+00:00"
+        "debut_utc": "2026-11-13T09:13:02.352141+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2846221",
+          "nom": "MOLLY MADRIK",
+          "url_geny": "https://www.geny.com/cheval/2846221-molly-madrik/course/1698066"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 22,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MOLLYMADRIK/3/2846221",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2846221-molly-madrik/course/1698066",
+          "http": 200,
+          "titre_page": "Fiche Cheval Molly Madrik - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:13:43.320124+00:00"
+        },
+        "fin_utc": "2026-11-13T09:13:47.848933+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:41:33.993124+00:00"
+      "prochain_essai_utc": "2026-11-13T00:41:33.993124+00:00",
+      "nombre_extrait": 22
     },
     "MUNHOAVEDAQUAISE": {
       "nom": "MUNHOA VEDAQUAISE",
@@ -14536,14 +14560,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:12:39.357257+00:00",
+  "maj_utc": "2026-11-13T09:13:47.900414+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 145,
+    "collectes_completes": 146,
     "synchronises": 145,
     "statuts": {
-      "COMPLET": 145,
-      "ERREUR": 18
+      "COMPLET": 146,
+      "ERREUR": 17
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
