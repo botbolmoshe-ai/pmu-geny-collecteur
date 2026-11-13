@@ -12018,7 +12018,11 @@
       "code": "R4C1",
       "numero": 4,
       "ligne_sheet": 146,
-      "geny": null,
+      "geny": {
+        "id": "2847583",
+        "nom": "MERGINIO",
+        "url_geny": "https://www.geny.com/cheval/2847583-merginio/course/1698053"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698053-2026-11-12-amiens-prix-de-la-fete-des-artisans-de-rivery/partants-pronostics"
       ],
@@ -12048,22 +12052,42 @@
           "corde": "CORDE_DROITE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "MERGINIO",
-        "debut_utc": "2026-11-13T01:28:00.144276+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T01:28:18.633732+00:00"
+        "debut_utc": "2026-11-13T09:30:25.720196+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2847583",
+          "nom": "MERGINIO",
+          "url_geny": "https://www.geny.com/cheval/2847583-merginio/course/1698053"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 21,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MERGINIO/3/2847583",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2847583-merginio/course/1698053",
+          "http": 200,
+          "titre_page": "Merginio - TROT : Dernières Courses et Statistiques 2026 | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:31:11.149616+00:00"
+        },
+        "fin_utc": "2026-11-13T09:31:15.675433+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T01:33:18.658445+00:00"
+      "prochain_essai_utc": "2026-11-13T01:33:18.658445+00:00",
+      "nombre_extrait": 21
     },
     "MIAMI": {
       "nom": "MIAMI",
@@ -15069,14 +15093,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:30:02.106599+00:00",
+  "maj_utc": "2026-11-13T09:31:15.730451+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 158,
+    "collectes_completes": 159,
     "synchronises": 158,
     "statuts": {
-      "COMPLET": 158,
-      "ERREUR": 5
+      "COMPLET": 159,
+      "ERREUR": 4
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
