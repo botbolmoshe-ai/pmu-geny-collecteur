@@ -8586,12 +8586,12 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 3,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
-      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "sync_tentatives_execution": 1,
+      "erreur": "",
       "preuves": {
         "nom": "MINA DRY",
         "debut_utc": "2026-11-13T09:10:25.119406+00:00",
@@ -8620,7 +8620,24 @@
         "fin_utc": "2026-11-13T09:11:15.192758+00:00"
       },
       "prochain_essai_utc": "2026-11-13T00:38:05.246724+00:00",
-      "nombre_extrait": 17
+      "nombre_extrait": 17,
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 17,
+          "cellules_actualisees": 0,
+          "lignes_source": 17
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T09:11:22.626323+00:00"
     },
     "MISSDESBESACES": {
       "nom": "MISS DES BESACES",
@@ -14478,11 +14495,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:11:15.276147+00:00",
+  "maj_utc": "2026-11-13T09:11:22.626349+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 144,
-    "synchronises": 143,
+    "synchronises": 144,
     "statuts": {
       "COMPLET": 144,
       "ERREUR": 19
