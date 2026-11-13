@@ -7432,7 +7432,11 @@
       "code": "R1C4",
       "numero": 13,
       "ligne_sheet": 72,
-      "geny": null,
+      "geny": {
+        "id": "2726564",
+        "nom": "JALMAROSA",
+        "url_geny": "https://www.geny.com/cheval/2726564-jalmarosa/course/1698065"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698065-2026-11-12-vincennes-coupe-des-amateurs-gr-b/partants-pronostics"
       ],
@@ -7462,22 +7466,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "JALMAROSA",
-        "debut_utc": "2026-11-13T00:15:08.237427+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:15:27.794843+00:00"
+        "debut_utc": "2026-11-13T09:06:17.896118+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2726564",
+          "nom": "JALMAROSA",
+          "url_geny": "https://www.geny.com/cheval/2726564-jalmarosa/course/1698065"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 72,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/JALMAROSA/3/2726564",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2726564-jalmarosa/course/1698065",
+          "http": 200,
+          "titre_page": "Jalmarosa - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:07:00.414395+00:00"
+        },
+        "fin_utc": "2026-11-13T09:07:05.075629+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:20:27.857471+00:00"
+      "prochain_essai_utc": "2026-11-13T00:20:27.857471+00:00",
+      "nombre_extrait": 72
     },
     "JOCONDEDERHEVE": {
       "nom": "JOCONDE DE RHEVE",
@@ -14331,14 +14355,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:05:54.502167+00:00",
+  "maj_utc": "2026-11-13T09:07:05.141710+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 140,
+    "collectes_completes": 141,
     "synchronises": 140,
     "statuts": {
-      "COMPLET": 140,
-      "ERREUR": 23
+      "COMPLET": 141,
+      "ERREUR": 22
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
