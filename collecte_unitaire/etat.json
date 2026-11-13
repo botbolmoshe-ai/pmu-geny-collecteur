@@ -7058,7 +7058,11 @@
       "code": "R1C4",
       "numero": 1,
       "ligne_sheet": 60,
-      "geny": null,
+      "geny": {
+        "id": "2673401",
+        "nom": "IDUNN",
+        "url_geny": "https://www.geny.com/cheval/2673401-idunn/course/1698065"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698065-2026-11-12-vincennes-coupe-des-amateurs-gr-b/partants-pronostics"
       ],
@@ -7088,22 +7092,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "IDUNN",
-        "debut_utc": "2026-11-13T00:10:57.228013+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:11:15.474752+00:00"
+        "debut_utc": "2026-11-13T09:03:42.137134+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2673401",
+          "nom": "IDUNN",
+          "url_geny": "https://www.geny.com/cheval/2673401-idunn/course/1698065"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 87,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/IDUNN/3/2673401",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2673401-idunn/course/1698065",
+          "http": 200,
+          "titre_page": "Fiche Cheval Idunn - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:04:24.767189+00:00"
+        },
+        "fin_utc": "2026-11-13T09:04:29.749910+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:16:15.523513+00:00"
+      "prochain_essai_utc": "2026-11-13T00:16:15.523513+00:00",
+      "nombre_extrait": 87
     },
     "IMAGINEGIRL": {
       "nom": "IMAGINE GIRL",
@@ -14249,14 +14273,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:03:18.219796+00:00",
+  "maj_utc": "2026-11-13T09:04:29.800606+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 138,
+    "collectes_completes": 139,
     "synchronises": 138,
     "statuts": {
-      "COMPLET": 138,
-      "ERREUR": 25
+      "COMPLET": 139,
+      "ERREUR": 24
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
