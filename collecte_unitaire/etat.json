@@ -9536,12 +9536,22 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "ERREUR",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+      "preuves": {
+        "nom": "US DARBY",
+        "debut_utc": "2026-11-13T00:54:40.052196+00:00",
+        "complet": false,
+        "statut": "ERREUR",
+        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
+        "fin_utc": "2026-11-13T00:54:57.794089+00:00"
+      },
+      "prochain_essai_utc": "2026-11-13T00:59:57.859014+00:00"
     },
     "MALIBU": {
       "nom": "MALIBU",
@@ -11781,15 +11791,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:54:09.971374+00:00",
+  "maj_utc": "2026-11-13T00:54:57.859064+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 90,
     "synchronises": 90,
     "statuts": {
       "COMPLET": 90,
-      "ERREUR": 20,
-      "A_FAIRE": 53
+      "ERREUR": 21,
+      "A_FAIRE": 52
     }
   }
 }
