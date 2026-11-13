@@ -9867,11 +9867,11 @@
         }
       },
       "collecte": "COMPLET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "tentatives": 1,
-      "sync_tentatives": 0,
+      "sync_tentatives": 1,
       "tentatives_execution": 1,
-      "sync_tentatives_execution": 0,
+      "sync_tentatives_execution": 1,
       "nombre_extrait": 21,
       "preuves": {
         "nom": "MEC DE MUTRECY",
@@ -9899,7 +9899,25 @@
           "extrait_utc": "2026-11-13T01:03:56.797781+00:00"
         },
         "fin_utc": "2026-11-13T01:04:00.843792+00:00"
-      }
+      },
+      "stockage_durable_ok": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 21,
+          "cellules_actualisees": 0,
+          "lignes_source": 21
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        },
+        "Data Quality & KPI": {
+          "indicateurs_actualises": 25
+        }
+      },
+      "sync_utc": "2026-11-13T01:04:07.379241+00:00",
+      "erreur": ""
     },
     "MEXICAIN": {
       "nom": "MEXICAIN",
@@ -11924,11 +11942,11 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T01:04:00.916889+00:00",
+  "maj_utc": "2026-11-13T01:04:07.379254+00:00",
   "bilan": {
     "total": 163,
     "collectes_completes": 92,
-    "synchronises": 91,
+    "synchronises": 92,
     "statuts": {
       "COMPLET": 92,
       "ERREUR": 23,
