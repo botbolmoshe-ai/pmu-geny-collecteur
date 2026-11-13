@@ -7338,7 +7338,11 @@
       "code": "R1C4",
       "numero": 14,
       "ligne_sheet": 73,
-      "geny": null,
+      "geny": {
+        "id": "2711060",
+        "nom": "JAB KISS",
+        "url_geny": "https://www.geny.com/cheval/2711060-jab-kiss/course/1698065"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698065-2026-11-12-vincennes-coupe-des-amateurs-gr-b/partants-pronostics"
       ],
@@ -7368,22 +7372,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "JAB KISS",
-        "debut_utc": "2026-11-13T00:14:21.112376+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:14:38.123263+00:00"
+        "debut_utc": "2026-11-13T09:04:59.892712+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2711060",
+          "nom": "JAB KISS",
+          "url_geny": "https://www.geny.com/cheval/2711060-jab-kiss/course/1698065"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 70,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/JABKISS/3/2711060",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2711060-jab-kiss/course/1698065",
+          "http": 200,
+          "titre_page": "Jab Kiss - TROT : Performances et Statistiques Turf | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:05:43.203611+00:00"
+        },
+        "fin_utc": "2026-11-13T09:05:47.757012+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:19:38.160933+00:00"
+      "prochain_essai_utc": "2026-11-13T00:19:38.160933+00:00",
+      "nombre_extrait": 70
     },
     "JALMAROSA": {
       "nom": "JALMAROSA",
@@ -14290,14 +14314,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:04:36.269842+00:00",
+  "maj_utc": "2026-11-13T09:05:47.816477+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 139,
+    "collectes_completes": 140,
     "synchronises": 139,
     "statuts": {
-      "COMPLET": 139,
-      "ERREUR": 24
+      "COMPLET": 140,
+      "ERREUR": 23
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
