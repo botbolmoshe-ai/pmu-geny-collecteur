@@ -6592,7 +6592,11 @@
       "code": "R1C3",
       "numero": 10,
       "ligne_sheet": 56,
-      "geny": null,
+      "geny": {
+        "id": "2858231",
+        "nom": "NOVA TIM",
+        "url_geny": "https://www.geny.com/cheval/2858231-nova-tim/course/1698062"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698062-2026-11-12-vincennes-prix-de-vaumas/partants-pronostics"
       ],
@@ -6622,22 +6626,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "NOVA TIM",
-        "debut_utc": "2026-11-13T00:01:38.367999+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:02:11.086230+00:00"
+        "debut_utc": "2026-11-13T09:02:11.515402+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2858231",
+          "nom": "NOVA TIM",
+          "url_geny": "https://www.geny.com/cheval/2858231-nova-tim/course/1698062"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 20,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/NOVATIM/3/2858231",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2858231-nova-tim/course/1698062",
+          "http": 200,
+          "titre_page": "Fiche Cheval Nova Tim - TROT - Résultats & Carrière Hippique | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:03:07.483925+00:00"
+        },
+        "fin_utc": "2026-11-13T09:03:11.994441+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T00:07:11.171850+00:00"
+      "prochain_essai_utc": "2026-11-13T00:07:11.171850+00:00",
+      "nombre_extrait": 20
     },
     "NYMPHEDELLE": {
       "nom": "NYMPHE D'ELLE",
@@ -14208,14 +14232,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:01:48.213729+00:00",
+  "maj_utc": "2026-11-13T09:03:12.055408+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 137,
+    "collectes_completes": 138,
     "synchronises": 137,
     "statuts": {
-      "COMPLET": 137,
-      "ERREUR": 26
+      "COMPLET": 138,
+      "ERREUR": 25
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
