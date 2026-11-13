@@ -10234,7 +10234,11 @@
       "code": "R1C7",
       "numero": 2,
       "ligne_sheet": 103,
-      "geny": null,
+      "geny": {
+        "id": "2862042",
+        "nom": "RAM JAM",
+        "url_geny": "https://www.geny.com/cheval/2862042-ram-jam/course/1698069"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698069-2026-11-12-vincennes-prix-de-chateau-thierry/partants-pronostics"
       ],
@@ -10264,22 +10268,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "RAM JAM",
-        "debut_utc": "2026-11-13T00:59:39.655247+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T00:59:59.935414+00:00"
+        "debut_utc": "2026-11-13T09:22:14.121539+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2862042",
+          "nom": "RAM JAM",
+          "url_geny": "https://www.geny.com/cheval/2862042-ram-jam/course/1698069"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 13,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/RAMJAM/3/2862042",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2862042-ram-jam/course/1698069",
+          "http": 200,
+          "titre_page": "Ram Jam - TROT - Analyse et Pronostics Courses Hippiques | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:23:01.546076+00:00"
+        },
+        "fin_utc": "2026-11-13T09:23:05.969594+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T01:04:59.972636+00:00"
+      "prochain_essai_utc": "2026-11-13T01:04:59.972636+00:00",
+      "nombre_extrait": 13
     },
     "USDARBY": {
       "nom": "US DARBY",
@@ -14823,14 +14847,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:21:51.005860+00:00",
+  "maj_utc": "2026-11-13T09:23:06.021204+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 152,
+    "collectes_completes": 153,
     "synchronises": 152,
     "statuts": {
-      "COMPLET": 152,
-      "ERREUR": 11
+      "COMPLET": 153,
+      "ERREUR": 10
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
