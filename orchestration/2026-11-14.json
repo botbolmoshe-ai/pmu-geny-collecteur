@@ -20,8 +20,15 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
+        "candidats": 1,
+        "meilleur_score": 0.789,
+        "codes_differents": 0
+      },
+      "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE"
     },
     "R3C2": {
       "identifiant_geny": null,
@@ -42,8 +49,14 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
+        "candidats": 0,
+        "meilleur_score": 0,
+        "codes_differents": 0
+      }
     },
     "R3C3": {
       "identifiant_geny": null,
@@ -64,8 +77,14 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
+        "candidats": 1,
+        "meilleur_score": 0.782,
+        "codes_differents": 0
+      }
     },
     "R8C1": {
       "identifiant_geny": null,
@@ -86,8 +105,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698232",
+        "url": "https://www.geny.com/course/1698232-2026-11-14-caen-prix-des-heucheres",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            1
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698232"
     },
     "R3C4": {
       "identifiant_geny": null,
@@ -108,8 +149,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698477",
+        "url": "https://www.geny.com/course/1698477-2026-11-14-marseille-borely-prix-du-cercle-des-phoceens",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            3,
+            4
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698477"
     },
     "R8C2": {
       "identifiant_geny": null,
@@ -130,8 +193,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698225",
+        "url": "https://www.geny.com/course/1698225-2026-11-14-caen-prix-des-symphorines-gr-a",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            2
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698225"
     },
     "R3C5": {
       "identifiant_geny": null,
@@ -152,8 +237,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698470",
+        "url": "https://www.geny.com/course/1698470-2026-11-14-marseille-borely-prix-cantini",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            3,
+            5
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698470"
     },
     "R8C3": {
       "identifiant_geny": null,
@@ -174,8 +281,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698229",
+        "url": "https://www.geny.com/course/1698229-2026-11-14-caen-prix-des-symphorines-gr-b",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            3
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698229"
     },
     "R3C6": {
       "identifiant_geny": null,
@@ -196,8 +325,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698476",
+        "url": "https://www.geny.com/course/1698476-2026-11-14-marseille-borely-prix-de-berre",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            3,
+            6
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698476"
     },
     "R1C1": {
       "identifiant_geny": null,
@@ -217,8 +368,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698466",
+        "url": "https://www.geny.com/course/1698466-2026-11-14-vincennes-prix-jean-maurice-beteau",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            1
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698466"
     },
     "R8C4": {
       "identifiant_geny": null,
@@ -239,8 +412,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698230",
+        "url": "https://www.geny.com/course/1698230-2026-11-14-caen-prix-des-vermiculaires-gr-a",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            4
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698230"
     },
     "R3C7": {
       "identifiant_geny": null,
@@ -261,8 +456,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698472",
+        "url": "https://www.geny.com/course/1698472-2026-11-14-marseille-borely-prix-de-la-callelongue",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            3,
+            7
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698472"
     },
     "R1C2": {
       "identifiant_geny": null,
@@ -274,7 +491,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
+      "statut_meteo": "METEO_NON_VERIFIEE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -282,8 +499,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698464",
+        "url": "https://www.geny.com/course/1698464-2026-11-14-vincennes-prix-de-bellerive",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            2
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698464",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
     },
     "R8C5": {
       "identifiant_geny": null,
@@ -296,7 +536,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_2_SUR_3",
       "paliers_independants": {
@@ -304,8 +544,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698231",
+        "url": "https://www.geny.com/course/1698231-2026-11-14-caen-prix-des-vermiculaires-gr-b",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            5
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698231"
     },
     "R3C8": {
       "identifiant_geny": null,
@@ -326,8 +588,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698474",
+        "url": "https://www.geny.com/course/1698474-2026-11-14-marseille-borely-prix-de-la-pourraque",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            3,
+            8
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698474"
     },
     "R8C6": {
       "identifiant_geny": null,
@@ -340,7 +624,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -348,8 +632,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698228",
+        "url": "https://www.geny.com/course/1698228-2026-11-14-caen-prix-des-celosies",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            6
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698228"
     },
     "R1C3": {
       "identifiant_geny": null,
@@ -369,8 +675,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698461",
+        "url": "https://www.geny.com/course/1698461-2026-11-14-vincennes-prix-de-la-bresse",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            3
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698461"
     },
     "R8C7": {
       "identifiant_geny": null,
@@ -383,7 +711,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -391,8 +719,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698227",
+        "url": "https://www.geny.com/course/1698227-2026-11-14-caen-prix-des-bergenies",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            7
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698227"
     },
     "R1C4": {
       "identifiant_geny": null,
@@ -404,7 +754,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
+      "statut_meteo": "METEO_NON_VERIFIEE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -412,8 +762,31 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698463",
+        "url": "https://www.geny.com/course/1698463-2026-11-14-vincennes-prix-atlantic",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            4
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698463",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
     },
     "R8C8": {
       "identifiant_geny": null,
@@ -434,8 +807,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698226",
+        "url": "https://www.geny.com/course/1698226-2026-11-14-caen-prix-des-airelles",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            8
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698226"
     },
     "R1C5": {
       "identifiant_geny": null,
@@ -447,7 +842,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
@@ -456,8 +851,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698462",
+        "url": "https://www.geny.com/course/1698462-2026-11-14-vincennes-prix-de-dunkerque",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            5
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698462"
     },
     "R8C9": {
       "identifiant_geny": null,
@@ -470,7 +887,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -478,8 +895,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698224",
+        "url": "https://www.geny.com/course/1698224-2026-11-14-caen-prix-des-liatris",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            8,
+            9
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698224"
     },
     "R1C6": {
       "identifiant_geny": null,
@@ -499,8 +938,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698468",
+        "url": "https://www.geny.com/course/1698468-2026-11-14-vincennes-prix-de-brioude",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            6
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698468"
     },
     "R1C7": {
       "identifiant_geny": null,
@@ -520,8 +981,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698467",
+        "url": "https://www.geny.com/course/1698467-2026-11-14-vincennes-prix-du-languedoc",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            7
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698467"
     },
     "R1C8": {
       "identifiant_geny": null,
@@ -541,8 +1024,30 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698465",
+        "url": "https://www.geny.com/course/1698465-2026-11-14-vincennes-prix-de-mandelieu",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            8
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698465"
     },
     "R1C9": {
       "identifiant_geny": null,
@@ -563,39 +1068,95 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "CAPTURE_PMU",
-      "motif_attente_geny": "COOLDOWN_GENY"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "motif_attente_geny": "COOLDOWN_GENY",
+      "rapprochement_geny": {
+        "statut": "CORRESPONDANCE_CONFIRMEE",
+        "geny_id": "1698469",
+        "url": "https://www.geny.com/course/1698469-2026-11-14-vincennes-prix-d-argentan",
+        "score": 1.0,
+        "methode": "NOM_FORT",
+        "preuves": {
+          "date": true,
+          "hippodrome": true,
+          "nom_identique": true,
+          "code_rc_different": false,
+          "pmu_rc": [
+            1,
+            9
+          ],
+          "geny_rc": [
+            null,
+            null
+          ]
+        }
+      },
+      "geny_id_rapproche": "1698469"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-13T08:12:21.298683+00:00",
+  "dernier_controle_pmu": "2026-11-13T09:51:02.214449+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-14",
-    "horodatage_utc": "2026-11-13T08:12:21.298683+00:00",
+    "horodatage_utc": "2026-11-13T09:51:02.214449+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/14112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 26,
-    "reunions_recues": 9,
+    "reunions_recues": 12,
     "reunions_francaises": 5,
     "reunions_pays_inconnu": 0,
-    "reunions_etrangeres": 4,
-    "courses_recues": 68,
+    "reunions_etrangeres": 7,
+    "courses_recues": 89,
     "exclusions": {
+      "pays_etranger": 7,
       "metier_hors_trot": 12,
-      "depart_hors_plage_08_19": 5,
-      "pays_etranger": 4
+      "depart_hors_plage_08_19": 5
     },
     "pays_observes": {
       "FRA": 5,
+      "HKG": 1,
+      "BEL": 1,
       "CHL": 1,
       "AUS": 1,
       "GBR": 1,
-      "SWE": 1
+      "SWE": 1,
+      "USA": 1
     },
     "exemples_reunions": [
       {
         "pays": "FRA",
+        "champs_reunion": [
+          "audience",
+          "cached",
+          "cagnottes",
+          "courses",
+          "dateReunion",
+          "derniereReunion",
+          "disciplinesMere",
+          "hippodrome",
+          "meteo",
+          "nature",
+          "numExterne",
+          "numOfficiel",
+          "numOfficielReunionPrecedente",
+          "numOfficielReunionSuivante",
+          "offresInternet",
+          "parisEvenement",
+          "pays",
+          "prochaineCourse",
+          "specialites",
+          "statut",
+          "timezoneOffset"
+        ],
+        "champs_hippodrome": [
+          "code",
+          "libelleCourt",
+          "libelleLong"
+        ]
+      },
+      {
+        "pays": "HKG",
         "champs_reunion": [
           "audience",
           "cached",
@@ -658,7 +1219,7 @@
         ]
       },
       {
-        "pays": "FRA",
+        "pays": "BEL",
         "champs_reunion": [
           "audience",
           "cached",
@@ -690,37 +1251,6 @@
       },
       {
         "pays": "FRA",
-        "champs_reunion": [
-          "audience",
-          "cached",
-          "cagnottes",
-          "courses",
-          "dateReunion",
-          "derniereReunion",
-          "disciplinesMere",
-          "hippodrome",
-          "meteo",
-          "nature",
-          "numExterne",
-          "numOfficiel",
-          "numOfficielReunionPrecedente",
-          "numOfficielReunionSuivante",
-          "offresInternet",
-          "parisEvenement",
-          "pays",
-          "prochaineCourse",
-          "specialites",
-          "statut",
-          "timezoneOffset"
-        ],
-        "champs_hippodrome": [
-          "code",
-          "libelleCourt",
-          "libelleLong"
-        ]
-      },
-      {
-        "pays": "CHL",
         "champs_reunion": [
           "audience",
           "cached",
