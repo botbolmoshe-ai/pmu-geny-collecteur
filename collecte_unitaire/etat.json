@@ -7900,7 +7900,11 @@
       "code": "R1C5",
       "numero": 4,
       "ligne_sheet": 77,
-      "geny": null,
+      "geny": {
+        "id": "2860314",
+        "nom": "MARIO DE LA VALLEE",
+        "url_geny": "https://www.geny.com/cheval/2860314-mario-de-la-vallee/course/1698066"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698066-2026-11-12-vincennes-prix-ceneri-forcinal/partants-pronostics"
       ],
@@ -7930,12 +7934,40 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "A_FAIRE",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 0,
+      "tentatives": 1,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
-      "sync_tentatives_execution": 0
+      "tentatives_execution": 1,
+      "sync_tentatives_execution": 0,
+      "nombre_extrait": 15,
+      "preuves": {
+        "nom": "MARIO DE LA VALLEE",
+        "debut_utc": "2026-11-13T00:22:58.095568+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2860314",
+          "nom": "MARIO DE LA VALLEE",
+          "url_geny": "https://www.geny.com/cheval/2860314-mario-de-la-vallee/course/1698066"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 15,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/MARIODELAVALLEE/1/2860314",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2860314-mario-de-la-vallee/course/1698066",
+          "http": 200,
+          "titre_page": "Mario de la Vallée - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T00:23:38.500883+00:00"
+        },
+        "fin_utc": "2026-11-13T00:23:42.674277+00:00"
+      }
     },
     "MHUMFLYNG": {
       "nom": "MHUM FLYNG",
@@ -11121,15 +11153,15 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T00:22:28.011523+00:00",
+  "maj_utc": "2026-11-13T00:23:42.735438+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 79,
+    "collectes_completes": 80,
     "synchronises": 79,
     "statuts": {
-      "COMPLET": 79,
+      "COMPLET": 80,
       "ERREUR": 9,
-      "A_FAIRE": 75
+      "A_FAIRE": 74
     }
   }
 }
