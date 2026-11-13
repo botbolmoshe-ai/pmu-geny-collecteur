@@ -10328,7 +10328,11 @@
       "code": "R1C7",
       "numero": 14,
       "ligne_sheet": 115,
-      "geny": null,
+      "geny": {
+        "id": "2863184",
+        "nom": "US DARBY",
+        "url_geny": "https://www.geny.com/cheval/2863184-us-darby/course/1698069"
+      },
       "course_urls": [
         "https://www.geny.com/course/1698069-2026-11-12-vincennes-prix-de-chateau-thierry/partants-pronostics"
       ],
@@ -10358,22 +10362,42 @@
           "corde": "CORDE_GAUCHE"
         }
       },
-      "collecte": "ERREUR",
+      "collecte": "COMPLET",
       "sync": "A_FAIRE",
-      "tentatives": 2,
+      "tentatives": 3,
       "sync_tentatives": 0,
-      "tentatives_execution": 0,
+      "tentatives_execution": 1,
       "sync_tentatives_execution": 0,
       "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
       "preuves": {
         "nom": "US DARBY",
-        "debut_utc": "2026-11-13T01:00:30.052692+00:00",
-        "complet": false,
-        "statut": "ERREUR",
-        "erreur": "ValueError: FICHE_EXACTE_NON_IDENTIFIEE",
-        "fin_utc": "2026-11-13T01:00:48.097855+00:00"
+        "debut_utc": "2026-11-13T09:23:36.105769+00:00",
+        "complet": true,
+        "geny": {
+          "id": "2863184",
+          "nom": "US DARBY",
+          "url_geny": "https://www.geny.com/cheval/2863184-us-darby/course/1698069"
+        },
+        "statut": "COMPLET",
+        "motifs": [],
+        "identite_verifiee": true,
+        "nombre_extrait": 15,
+        "dossier": "/home/runner/work/pmu-geny-collecteur/pmu-geny-collecteur/resultats/boucle/USDARBY/3/2863184",
+        "acces": {
+          "statut_acces": "CARRIERE_ACCESSIBLE",
+          "carriere_accessible": true,
+          "historique_extrait": true,
+          "historique_complet": true,
+          "source_url": "https://www.geny.com/cheval/2863184-us-darby/course/1698069",
+          "http": 200,
+          "titre_page": "Us Darby - TROT - Performances Turf et PMU | Geny",
+          "consentement": "NON_TESTE",
+          "extrait_utc": "2026-11-13T09:24:29.774494+00:00"
+        },
+        "fin_utc": "2026-11-13T09:24:34.275782+00:00"
       },
-      "prochain_essai_utc": "2026-11-13T01:05:48.160913+00:00"
+      "prochain_essai_utc": "2026-11-13T01:05:48.160913+00:00",
+      "nombre_extrait": 15
     },
     "MALIBU": {
       "nom": "MALIBU",
@@ -14864,14 +14888,14 @@
     }
   },
   "prochain_acces_geny_utc": null,
-  "maj_utc": "2026-11-13T09:23:12.926184+00:00",
+  "maj_utc": "2026-11-13T09:24:34.361757+00:00",
   "bilan": {
     "total": 163,
-    "collectes_completes": 153,
+    "collectes_completes": 154,
     "synchronises": 153,
     "statuts": {
-      "COMPLET": 153,
-      "ERREUR": 10
+      "COMPLET": 154,
+      "ERREUR": 9
     }
   },
   "execution_terminee_utc": "2026-11-13T02:09:52.028849+00:00",
