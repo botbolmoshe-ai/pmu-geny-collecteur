@@ -1,6 +1,5 @@
-"""V22: deux TOP3 independants de Geny, de l'historique et du modele ML.
-Analyse directe = musique/forme visible sur fiche PMU actuelle uniquement.
-Marche = cotes PMU horodatees uniquement. Jamais de resultats futurs.
+"""TOP3 direct avec contexte PMU/Geny verifie; TOP3 cotes independant.
+Jamais de cotes dans la methode directe, ni de donnees apres depart.
 """
 from __future__ import annotations
 import re
@@ -9,7 +8,7 @@ from pathlib import Path
 from .ml_v19 import load, save, numeric
 from .auto_v18 import _list, _num
 
-VERSION_MOTEUR = 'direct-v24-fiabilite'
+VERSION_MOTEUR = 'direct-v32-contextuel'
 
 def _musique(value):
     if isinstance(value,dict):
@@ -45,6 +44,19 @@ def calculer(cache,course,raw,now=None):
     if now>=depart:return {'direct':'APRES_DEPART','cotes':'APRES_DEPART'}
     participants=_list(raw,'participants','partants')
     if not participants:return {'direct':'PARTANTS_ABSENTS','cotes':'PARTANTS_ABSENTS'}
+    from .formes_contextuelles_v32 import noter_partant
+    from .liaison_chevaux_v22 import etablir
+    from .partants_actuels_v21 import extraire_partants
+    profils=extraire_partants(raw)
+    identites=[]
+    for partant in participants:
+        if not isinstance(partant,dict):continue
+        num=_num(partant,'numPmu','num','numero','numeroPmu')
+        nom=next((str(partant.get(k,'')).strip() for k in ('nomCheval','nom','nomParticipant')
+                  if isinstance(partant.get(k),str) and partant.get(k).strip()),'')
+        if num is not None and nom:identites.append({'numero':num,'nom':nom})
+    # Un nom exact unique ou un identifiant Geny confirme est obligatoire.
+    liens=etablir(cache,course,identites)
     base=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}"
     expected=course.get('nombre_declares')
     old_docs={mode:load(Path(str(base)+f'_{mode}.json'),{}) or {} for mode in ('direct','cotes')}
@@ -70,8 +82,17 @@ def calculer(cache,course,raw,now=None):
         if n in known_np:continue
         eligible.append(n)
         label=next((str(item.get(k,'')) for k in ('nomCheval','nom','nomParticipant') if item.get(k)),'')
-        score=_form_score(item)
-        if score is not None:direct.append({'numero':n,'nom':label,'score_direct':score})
+        info=noter_partant(item,course,liens.get(str(n),{}),profils.get(n,{}))
+        if info['score'] is not None and label:
+            direct.append({'numero':n,'nom':label,'score_direct':info['score'],
+                           'source_forme':info['source_forme'],
+                           'qualite_score':info['qualite'],
+                           'musique_exploitable':info['musique_exploitable'],
+                           'historique_exploitable':info['historique_exploitable'],
+                           'distance_proche':info.get('distance_proche',0),
+                           'comparabilite_moyenne':info.get('comparabilite_moyenne'),
+                           'ferrures_historiques_comparees':info.get('ferrures_historiques_comparees',0),
+                           'identifiant_historique':info.get('identifiant_historique')})
         cote=None
         for field in ('rapportDirect','coteDirect','cote','rapportProbable'):
             raw_cote=item.get(field)
@@ -89,7 +110,7 @@ def calculer(cache,course,raw,now=None):
             old_usable=(datetime.fromisoformat(old['calcul_utc'])<=now and
                         old.get('depart')==course['depart'] and old.get('version_moteur')==VERSION_MOTEUR)
         except (KeyError,ValueError,TypeError):pass
-        complete_list=expected is None or len(all_numbers)==int(expected)
+        complete_list=expected is not None and len(all_numbers)==int(expected)
         # Comparer la couverture APRES exclusion des retraits, jamais le nombre brut.
         if old_usable and len(old_ranking)>len(ranking) and not (complete_list and len(eligible)<3):
             if known_np==set(old.get('non_partants_confirmes',[])):
@@ -106,7 +127,18 @@ def calculer(cache,course,raw,now=None):
              'statut':('COMPLET' if complete_list and len(ranking)==len(eligible) else 'PARTIEL') if sufficient else 'DONNEES_INSUFFISANTES',
              'observations':len(ranking),'partants_eligibles':len(eligible),
              'classement_complet':ranking if sufficient else [],'top3':ranking[:3] if sufficient else [],
-             'note':'Classement exploratoire, pas une probabilite. Sources PMU du jour.'}
+             'note':('Direct heuristique: musique PMU et historiques Geny anterieurs'
+                     ' ponderes par discipline, distance, hippodrome, ferrure documentee'
+                     ' et anciennete. Scores non calibres; facteurs manquants explicites.'
+                     if mode=='direct' else 'Cotes PMU: palier de marche independant.')}
+        if mode=='direct':
+            doc['couverture_sources']={
+                'pmu_musique':sum(h.get('musique_exploitable',0)>0 for h in ranking),
+                'geny_historique':sum(h.get('historique_exploitable',0)>0 for h in ranking),
+                'pmu_seul':sum(h.get('source_forme')=='PMU_MUSIQUE_SEULE' for h in ranking),
+                'sans_score':max(0,len(eligible)-len(ranking)),
+                'effectif_declare_confirme':complete_list,
+            }
         filename=Path(str(base)+f'_{mode}.json')
         if not sufficient and not old and not known_np:
             output[mode]='DONNEES_INSUFFISANTES'
