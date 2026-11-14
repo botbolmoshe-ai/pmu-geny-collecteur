@@ -551,131 +551,21 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000):
 
 
 def main():
-    from .controle_sync_sheets import (HISTORY, BlocageSynchronisation,
-        lire_cles_independantes, verifier_avant, verifier_apres)
+    from .moteur_sheets import SynchroniseurSheets
     cache=Path(os.getenv('PMU_CACHE','cache_pmu'))
     spreadsheet=os.getenv('GOOGLE_SHEETS_ID','1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo')
-    secret=os.getenv('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON','')
-    if not secret:
+    if not os.getenv('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON'):
         print('SYNC_GOOGLE_SHEETS=NON_CONFIGURE: secret absent');return 0
+    engine=None
     try:
-        import google.oauth2.service_account
-        from google.auth.transport.requests import AuthorizedSession
-        info=json.loads(secret)
-        creds=google.oauth2.service_account.Credentials.from_service_account_info(
-            info,scopes=['https://www.googleapis.com/auth/spreadsheets'])
-        session=AuthorizedSession(creds)
-    except (ImportError,ValueError,KeyError,TypeError) as exc:
-        print(f'SYNC_GOOGLE_SHEETS=ERREUR_IDENTIFIANTS {type(exc).__name__}');return 2
-    base=f'https://sheets.googleapis.com/v4/spreadsheets/{spreadsheet}'
-    source=limiter_cours_registre(source_rows(cache))
-    print(f'REGISTRE_DEBUT_PRODUCTION={LIVE_RESET_DATE}; anciennes courses conservees hors Sheets')
-    metadata=session.get(base,params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)))'},timeout=30)
-    if metadata.status_code != 200:
-        print(f'SYNC_GOOGLE_SHEETS=ERREUR_META http={metadata.status_code}')
-        return 2
-    by_name={x['properties']['title']:x['properties'] for x in metadata.json().get('sheets',[])}
-    errors=0
-    for tab in SHEET_TABS:
-        import urllib.parse
-        properties=by_name.get(tab)
-        if properties is None:
-            print(f'SYNC_GOOGLE_SHEETS=ONGLET_ABSENT {tab}');errors+=1;continue
-        try:values=lire_feuille_complete(session,base,tab,properties)
-        except (RuntimeError,ValueError) as exc:
-            print(f'SYNC_GOOGLE_SHEETS=ERREUR_LECTURE {exc}');errors+=1;continue
-        # Migration unique : aucune donnée Zone-Turf n'est attribuée à ZEturf.
-        legacy={'Avis expert Geny':'avis_equidia','avis_geny':'avis_equidia',
-                'Avis expert Zone-Turf':'avis_zeturf','avis_zone_turf':'avis_zeturf'}
-        migration=[]
-        for idx,label in enumerate(values[0] if values else []):
-            if label not in legacy:continue
-            key=legacy[label]
-            if DISPLAY_NAMES[key] in values[0] or key in values[0]:continue
-            migration.append({'range':f"'{tab}'!{colname(idx+1)}1:{colname(idx+1)}{max(1,len(values))}",
-                              'values':[[DISPLAY_NAMES[key]]]+[[''] for _ in values[1:]]})
-            values[0][idx]=DISPLAY_NAMES[key]
-            for row in values[1:]:
-                if len(row)>idx:row[idx]=''
-        if migration:
-            migrated=session.post(f'{base}/values:batchUpdate',json={'valueInputOption':'RAW','data':migration},timeout=45)
-            if migrated.status_code!=200:
-                print(f'SYNC_GOOGLE_SHEETS=ERREUR_MIGRATION_EXPERTS onglet={tab}');errors+=1;continue
-        headers=canonical_headers(values[0] if values else [])
-        existing=[dict(zip(headers,row)) for row in values[1:]]
-        try: all_headers,updates,appends=plan_sheet(headers,existing,source[tab],tab)
-        except ValueError as exc:print('SYNC_GOOGLE_SHEETS=SCHEMA_INCOMPATIBLE',str(exc));errors+=1;continue
-        control=None
-        if tab==HISTORY:
-            try:
-                independent=lire_cles_independantes(session,base,tab,properties,headers)
-                control=verifier_avant(all_headers,existing,source[tab],appends,
-                                      full_source=True,observed_keys=independent)
-            except BlocageSynchronisation:
-                errors+=1;continue
-        updates_cells=[]
-        # Only write bridge-owned fields of existing rows (the user retains all other cells).
-        extra=all_headers[len(headers):]
-        # Dimensionner la grille avant toute écriture hors limite actuelle.
-        properties=by_name.get(tab)
-        if properties is None:
-            print(f'SYNC_GOOGLE_SHEETS=ONGLET_ABSENT {tab}');errors+=1;continue
-        current_width=properties.get('gridProperties',{}).get('columnCount',0)
-        if len(all_headers)>current_width:
-            grow={'requests':[{'appendDimension':{'sheetId':properties['sheetId'],
-                  'dimension':'COLUMNS','length':len(all_headers)-current_width}}]}
-            response=session.post(base+':batchUpdate',json=grow,timeout=30)
-            if response.status_code!=200:
-                print(f'SYNC_GOOGLE_SHEETS=ERREUR_COLONNES onglet={tab} http={response.status_code}')
-                errors+=1;continue
-        if extra:
-            updates_cells.append({'range':f"'{tab}'!{colname(len(headers)+1)}1:{colname(len(all_headers))}1",'values':[[DISPLAY_NAMES.get(k,k) for k in extra]]})
-        for r,c,v in updates:
-            updates_cells.append({'range':f"'{tab}'!{colname(c)}{r}",'values':[[v]]})
-        # Use a single batchUpdate per tab, plus append for new rows.
-        for offset in range(0,len(updates_cells),350):
-            chunk=updates_cells[offset:offset+350]
-            res=session.post(f'{base}/values:batchUpdate',json={'valueInputOption':'RAW','data':chunk},timeout=45)
-            if res.status_code!=200:
-                print(f'SYNC_GOOGLE_SHEETS=ERREUR_MAJ onglet={tab} http={res.status_code}');errors+=1;break
-        if appends:
-            url=f'{base}/values/'+urllib.parse.quote("'"+tab+"'!A1",safe='!:\'')+':append'
-            res=session.post(url,params={'valueInputOption':'RAW','insertDataOption':'INSERT_ROWS'},
-                             json={'values':appends},timeout=45)
-            if res.status_code!=200:
-                print(f'SYNC_GOOGLE_SHEETS=ERREUR_AJOUT onglet={tab} http={res.status_code}');errors+=1
-        if control:
-            try:
-                if updates or appends:
-                    checked=session.get(base,params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)))'},timeout=30)
-                    if checked.status_code!=200:raise RuntimeError('Dimensions apres ecriture non verifiables')
-                    fresh=next(s['properties'] for s in checked.json()['sheets'] if s['properties']['title']==tab)
-                    after=lire_feuille_complete(session,base,tab,fresh)
-                    if canonical_headers(after[0])!=all_headers:raise ValueError('En-tetes modifies pendant synchronisation')
-                    after_rows=[dict(zip(all_headers,row)) for row in after[1:]]
-                else:after_rows=existing
-                verifier_apres(control,after_rows)
-            except (BlocageSynchronisation,RuntimeError,ValueError,KeyError,StopIteration) as exc:
-                print(f'::error title=Controle Sheets apres ecriture::Verification incomplete : {type(exc).__name__}')
-                errors+=1
-        print(f'SYNC_GOOGLE_SHEETS onglet={tab} lignes_source={len(source[tab])} '
-              f'cellules_mises_a_jour={len(updates)} lignes_ajoutees={len(appends)}')
-    # L'onglet KPI existant est alimente depuis les memes sources, sans formule
-    # liee a une ligne fixe et sans lecture supplementaire des trois grandes tables.
-    from .kpi_registre import KPI_TAB, calculer_kpi, plan_kpi
-    if KPI_TAB in by_name:
-        quoted=urllib.parse.quote("'"+KPI_TAB+"'!A1:D100",safe='!:\'')
-        response=session.get(f'{base}/values/{quoted}',timeout=30)
-        if response.status_code!=200:
-            print(f'SYNC_GOOGLE_SHEETS=ERREUR_LECTURE onglet={KPI_TAB} http={response.status_code}');errors+=1
-        else:
-            updates=plan_kpi(response.json().get('values',[]),calculer_kpi(cache,source))
-            if updates:
-                response=session.post(f'{base}/values:batchUpdate',json={'valueInputOption':'RAW','data':updates},timeout=45)
-                if response.status_code!=200:
-                    print(f'SYNC_GOOGLE_SHEETS=ERREUR_MAJ onglet={KPI_TAB} http={response.status_code}');errors+=1
-            print(f'SYNC_GOOGLE_SHEETS onglet={KPI_TAB} indicateurs_actualises={len(updates)}')
-    return 1 if errors else 0
+        engine=SynchroniseurSheets(cache,spreadsheet)
+        engine.synchroniser_cycle()
+        return 0
+    except Exception as exc:
+        print(f'::error title=Synchronisation Sheets::Echec du moteur unique : {type(exc).__name__}')
+        return 1
+    finally:
+        if engine:engine.fermer()
 
 if __name__=='__main__':sys.exit(main())
 

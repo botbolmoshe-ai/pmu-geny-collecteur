@@ -320,6 +320,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     if blocked and now < blocked+timedelta(minutes=30):
         state['prochain_acces_geny_utc'] = (blocked+timedelta(minutes=30)).isoformat()
     attempts, count = {}, 0
+    sheets_engine=None
     deadline = time.monotonic()+max_minutes*60
     def save():
         state['maj_utc'] = datetime.now(UTC).isoformat()
@@ -383,8 +384,11 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             if sync:
                 horse['sync_details'] = sync(horse)
             elif publier:
-                from scripts.synchroniser_un_historique import synchroniser
-                horse['sync_details'] = synchroniser(horse, os.environ['GOOGLE_SHEETS_ID'], cache=cache)
+                from .moteur_sheets import SynchroniseurSheets
+                if sheets_engine is None:
+                    sheets_engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
+                state['sync_kpi']='A_REPRENDRE'
+                horse['sync_details']=sheets_engine.synchroniser_cheval(horse,include_kpi=False)
             else:
                 raise RuntimeError('SYNCHRONISATION_NON_CONFIGUREE')
             horse.update(sync='OK', sync_utc=datetime.now(UTC).isoformat(), erreur='')
@@ -392,8 +396,10 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             horse.update(sync='A_FAIRE', erreur=f'{type(exc).__name__}: {exc}',
                          prochaine_sync_utc=(datetime.now(UTC)+timedelta(minutes=10)).isoformat())
             from .controle_sync_sheets import BlocageSynchronisation
-            if isinstance(exc,BlocageSynchronisation):
+            from .moteur_sheets import SynchronisationOccupee
+            if isinstance(exc,(BlocageSynchronisation,SynchronisationOccupee)):
                 save()
+                if sheets_engine:sheets_engine.fermer()
                 raise  # Incident visible en échec Actions ; ne pas continuer silencieusement.
         save()
         if action == 'COLLECTE':
@@ -403,6 +409,16 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                       'actualisations_en_attente': sum(bool(h.get('motif_actualisation')) for h in state['chevaux'].values())}
     state['statut'] = ('PARTIEL_REPRENABLE' if state['bilan']['actualisations_en_attente'] or
                        state['bilan']['synchronisations_en_attente'] else 'A_JOUR')
+    if publier and sync is None and (sheets_engine is not None or state.get('sync_kpi')=='A_REPRENDRE'):
+        from .moteur_sheets import SynchroniseurSheets
+        if sheets_engine is None:sheets_engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
+        try:
+            state['sync_kpi_details']=sheets_engine.synchroniser_kpi()
+            state['sync_kpi']='OK'
+        except Exception:
+            state['sync_kpi']='A_REPRENDRE';save()
+            raise
+        finally:sheets_engine.fermer()
     save()
     return state
 

@@ -1,5 +1,7 @@
 Processus actuel de collecte des historiques : voir
 [`COLLECTE_INCREMENTALE_PRODUCTION.md`](COLLECTE_INCREMENTALE_PRODUCTION.md).
+Synchronisation commune aux déclencheurs :
+[`MOTEUR_SHEETS_UNIQUE.md`](MOTEUR_SHEETS_UNIQUE.md).
 Il remplace la collecte par lots décrite dans les anciennes versions ci-dessous.
 
 Voir `CORRECTIF_V20_6.md` pour les changements de l’ordonnanceur J-1 et du rapprochement PMU–Geny.
