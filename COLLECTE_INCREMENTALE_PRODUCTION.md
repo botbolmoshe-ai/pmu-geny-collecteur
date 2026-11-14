@@ -37,6 +37,14 @@ engagement évite une consultation quotidienne inutile. Une arrivée non encore
 publiée dans la carrière Geny reste `PUBLICATION_GENY_EN_ATTENTE`, retentable
 après six heures ; une simple consultation réussie ne prouve pas cette couverture.
 
+Entre 21 h et 7 h, heure de Paris, les partants sans historique complet daté sont
+prioritaires : engagements du jour et du lendemain, puis partants récents encore
+incomplets, puis simples actualisations. Les liens de courses peuvent être
+retrouvés depuis l'index Geny déjà sauvegardé, avec le même rapprochement prudent
+que le rattrapage global et sans nouvelle requête au programme. Les liens ambigus
+restent non résolus. La sélection diurne et la pause partagée après 403/429 restent
+inchangées ; la nuit n'autorise aucun accès pendant cette pause.
+
 ## Reprise et intégrité
 
 La file, les historiques et le journal de production sont sauvegardés sur

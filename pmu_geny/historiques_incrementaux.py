@@ -70,6 +70,45 @@ def actualisation_requise(horse, now, ttl_heures=24):
     return ''
 
 
+def nuit_collecte(now):
+    hour=now.astimezone(ZoneInfo('Europe/Paris')).hour
+    return hour>=21 or hour<7
+
+
+def priorite_engagement(horse,now,*,manquant):
+    engagement=str(horse.get('engagement_prioritaire') or horse.get('engagement',''))
+    day=engagement[:10] if re.fullmatch(r'\d{4}-\d{2}-\d{2}_R\d+C\d+',engagement) else ''
+    future=bool(day and day>=now.astimezone(ZoneInfo('Europe/Paris')).date().isoformat())
+    if nuit_collecte(now):
+        if manquant and future:return 0
+        if manquant and day:return 1
+        if future:return 2
+        return 3
+    return 0 if future else 1
+
+
+def course_geny_connue(cache,engagement):
+    """Rapprocher un engagement à partir des seules preuves déjà sauvegardées."""
+    cache=Path(cache)
+    match=re.fullmatch(r'(\d{4}-\d{2}-\d{2})_R(\d+)C(\d+)',engagement)
+    if not match:return ''
+    day=match[1];code='R'+match[2]+'C'+match[3]
+    course=lire(cache/'orchestration'/f'{day}.json').get('courses',{}).get(code,{})
+    cid=lire(cache/'orchestration/correspondances_geny.json').get(engagement) or course.get('identifiant_geny') or ''
+    mapping=course.get('rapprochement_geny',{})
+    if not cid and mapping.get('statut')=='CORRESPONDANCE_CONFIRMEE' and mapping.get('geny_id'):
+        cid='GENY-'+str(mapping['geny_id'])
+    if not cid:
+        index=lire(cache/'sources_geny'/f'index_{day}.json')
+        if index.get('statut')=='OK':
+            from .rapprochement_v20_6 import rapprocher
+            decision=rapprocher({**course,'date':day,'num_reunion':int(match[2]),
+                                 'num_course':int(match[3])},index.get('courses',[]))
+            if decision.get('statut')=='CORRESPONDANCE_CONFIRMEE':
+                cid='GENY-'+str(decision['geny_id'])
+    return cid if re.fullmatch(r'GENY-\d+',str(cid)) else ''
+
+
 def alimenter(cache, now):
     """PMU est la liste de référence ; les manifests ne servent qu'à l'identité Geny."""
     cache = Path(cache)
@@ -82,7 +121,6 @@ def alimenter(cache, now):
         name = nom_normalise(meta.get('nom'))
         if name:
             known.setdefault(name, []).append(str(ident))
-    correspondences = lire(cache/'orchestration/correspondances_geny.json')
     for path in sorted((cache/'partants_actuels').glob('????-??-??_R*C*.json')):
         code = path.stem
         day = datetime.fromisoformat(code[:10]).date()
@@ -93,11 +131,7 @@ def alimenter(cache, now):
         participants = lire(path).get('chevaux', {})
         date, rncn = code.split('_')
         course = lire(cache/'orchestration'/f'{date}.json').get('courses', {}).get(rncn, {})
-        cid = correspondences.get(code) or course.get('identifiant_geny') or ''
-        if not cid:
-            gid = (course.get('rapprochement_geny') or {}).get('geny_id')
-            if (course.get('rapprochement_geny') or {}).get('statut') == 'CORRESPONDANCE_CONFIRMEE' and gid:
-                cid = 'GENY-'+str(gid)
+        cid = course_geny_connue(cache,code)
         manifest = lire(cache/'manifestes'/f'{cid}.json') if cid else {}
         blocks = manifest.get('courses') or []
         by_number = {str(h['numero']): h for h in blocks[0].get('partants', [])} if len(blocks) == 1 else {}
@@ -207,9 +241,9 @@ def prochaine_tache(state, now, attempts):
         if not h.get('geny') and not h.get('course_url'):
             h['collecte'] = 'LIEN_GENY_A_RESOUDRE'
             continue
-        # Engagements futurs d'abord, puis rattrapage récent. Ordre reproductible.
-        future = h['engagement'][:10] >= now.astimezone(ZoneInfo('Europe/Paris')).date().isoformat()
-        candidates.append(((not future, h['engagement'], key), key))
+        # La nuit, combler les carrières absentes avant les actualisations.
+        priority=priorite_engagement(h,now,manquant=h.get('motif_actualisation')=='HISTORIQUE_ABSENT_OU_NON_DATE')
+        candidates.append(((priority,h['engagement'],key),key))
     if candidates:
         return min(candidates)[1], 'COLLECTE'
     return None, 'TERMINE'
@@ -323,6 +357,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     queue=reprise.QUEUE if reprise else QUEUE
     state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
     state['passage_utc'] = now.isoformat()
+    state['priorite_collecte']='PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR'
     state.pop('motif_fin_passage',None)
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
