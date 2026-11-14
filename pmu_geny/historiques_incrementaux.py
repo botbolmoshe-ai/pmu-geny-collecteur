@@ -224,7 +224,7 @@ def executer_enfant(horse, out):
     return lire(out/'resultat.json')
 
 
-def accepter(cache, horse, report):
+def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'):
     """Ne jamais remplacer un historique complet par un partiel ou une régression."""
     if not report.get('complet') or not report.get('identite_verifiee'):
         raise ValueError('HISTORIQUE_NON_VALIDE')
@@ -276,11 +276,11 @@ def accepter(cache, horse, report):
         'nombre_extrait': doc['nombre_extrait'], 'nombre_annonce_geny': doc['nombre_annonce_geny'],
         'maj_utc': stamp, 'historique_complet_au_utc': stamp,
         'prochaine_verification_utc': horse['prochaine_verification_utc'],
-        'origine': 'COLLECTE_INCREMENTALE_PRODUCTION'}
+        'origine': origine}
     ecrire(cache/'etat_persistant.json', journal)
 
 
-def checkpoint_distant(cache):
+def checkpoint_distant(cache, *, queue=QUEUE):
     """Publier seulement les fichiers de collecte sous le verrou partagé des workflows."""
     root = Path(__file__).resolve().parents[1]
     def git(*args, cwd=root):
@@ -290,12 +290,14 @@ def checkpoint_distant(cache):
         target = Path(tmp)/'data'
         git('worktree', 'add', '--detach', str(target), 'origin/pmu-data')
         try:
-            ecrire(target/QUEUE, lire(cache/QUEUE))
+            ecrire(target/queue, lire(cache/queue))
+            if queue!=QUEUE:
+                shutil.copytree(cache/queue.parent,target/queue.parent,dirs_exist_ok=True)
             for name in ('historiques', 'historiques_versions', 'manifestes'):
                 if (cache/name).exists():
                     shutil.copytree(cache/name, target/name, dirs_exist_ok=True)
             shutil.copy2(cache/'etat_persistant.json', target/'etat_persistant.json')
-            git('add', 'collecte_incrementale', 'historiques', 'etat_persistant.json', cwd=target)
+            git('add', str(queue.parent), 'historiques', 'etat_persistant.json', cwd=target)
             if (target/'manifestes').exists():
                 git('add', 'manifestes', cwd=target)
             if (target/'historiques_versions').exists():
@@ -310,11 +312,18 @@ def checkpoint_distant(cache):
 
 
 def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
-        collect=executer_enfant, checkpoint=None, sync=None):
+        collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None):
     cache = Path(cache)
     now = datetime.now(UTC)
-    state = alimenter(cache, now)
+    reprise=None
+    if mode=='rattrapage':
+        from . import rattrapage_historiques as reprise
+    elif mode!='production':
+        raise ValueError('MODE_COLLECTE_INCONNU')
+    queue=reprise.QUEUE if reprise else QUEUE
+    state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
     state['passage_utc'] = now.isoformat()
+    state.pop('motif_fin_passage',None)
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
     if blocked and now < blocked+timedelta(minutes=30):
@@ -324,15 +333,22 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     deadline = time.monotonic()+max_minutes*60
     def save():
         state['maj_utc'] = datetime.now(UTC).isoformat()
-        materialiser_manifestes(cache, state)
-        ecrire(cache/QUEUE, state)
+        if reprise:reprise.bilan(state)
+        else:materialiser_manifestes(cache, state)
+        ecrire(cache/queue, state)
         if checkpoint:
             checkpoint(cache)
         elif publier:
-            checkpoint_distant(cache)
+            if reprise:checkpoint_distant(cache,queue=queue)
+            else:checkpoint_distant(cache)
     save()
     while time.monotonic() < deadline:
-        key, action = prochaine_tache(state, datetime.now(UTC), attempts)
+        reason=stop_requested() if stop_requested else None
+        if reason:
+            state['motif_fin_passage']=str(reason)
+            break
+        choisir=reprise.prochaine_tache if reprise else prochaine_tache
+        key, action = choisir(state, datetime.now(UTC), attempts)
         if key is None:
             break
         if action == 'COLLECTE' and count >= max_chevaux:
@@ -348,14 +364,15 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                 report = collect(horse, out)
                 if report.get('statut') in ('ACCES_REFUSE_403', 'ACCES_LIMITE_429'):
                     raise PermissionError(report['statut'])
-                accepter(cache, horse, report)
+                if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
+                else:accepter(cache, horse, report)
                 ident = horse['id']
-                if key != ident:
+                if not reprise and key != ident:
                     state['chevaux'][ident] = horse
                     del state['chevaux'][key]
                     key = ident
                 # Date de vérification != couverture : Geny peut publier la nouvelle course plus tard.
-                race = instant(horse.get('derniere_course_officielle_utc'))
+                race = instant(horse.get('derniere_course_officielle_utc')) if not reprise else None
                 if race and horse.get('derniere_performance_date', '') < race.date().isoformat():
                     doc = capture_valide(cache, ident)
                     horse['derniere_performance_date'] = max((r.get('date', '') for r in doc['performances']), default='')
@@ -388,10 +405,14 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                 if sheets_engine is None:
                     sheets_engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
                 state['sync_kpi']='A_REPRENDRE'
-                horse['sync_details']=sheets_engine.synchroniser_cheval(horse,include_kpi=False)
+                if reprise:
+                    horse['sync_details']=sheets_engine.synchroniser_cheval(
+                        horse,include_kpi=False,include_courses=False)
+                else:horse['sync_details']=sheets_engine.synchroniser_cheval(horse,include_kpi=False)
             else:
                 raise RuntimeError('SYNCHRONISATION_NON_CONFIGUREE')
             horse.update(sync='OK', sync_utc=datetime.now(UTC).isoformat(), erreur='')
+            if reprise:reprise.valider_sync(state,horse)
         except Exception as exc:
             horse.update(sync='A_FAIRE', erreur=f'{type(exc).__name__}: {exc}',
                          prochaine_sync_utc=(datetime.now(UTC)+timedelta(minutes=10)).isoformat())
