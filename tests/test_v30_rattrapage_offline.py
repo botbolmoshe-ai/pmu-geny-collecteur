@@ -326,5 +326,22 @@ class RepriseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'LIEN_CANDIDAT_NON_VERIFIE'):
                 verifier_candidat(horse,final,status,text,self.cache)
 
+    def test_inventaire_reconnait_une_performance_sous_sa_cle_deja_publiee(self):
+        session=SheetsSession()
+        session.tables['Historique chevaux']=[
+            ['cle_performance','identifiant_cheval','cheval','classement','date_course_historique',
+             'hippodrome','discipline','distance_m','chrono'],
+            ['ancienne','123456','Test','3','2020-01-01','Vincennes','Attelé','2700',"1'15"]]
+        source={'Historique chevaux':{'nouvelle':{'cle_performance':'nouvelle','identifiant_cheval':'123456',
+            'cheval':'Test','classement':'3','date_course_historique':'2020-01-01','hippodrome':'Vincennes',
+            'discipline':'Attelé','distance_m':'2700','chrono':"1'15"}},
+            'Courses & Prévisions':{},'Résultats & Analyse':{}}
+        with patch.dict(os.environ,{'PMU_SHEETS_LOCK_DIR':str(self.cache),
+             'PMU_SHEETS_CONTROLES':str(self.cache/'controle.jsonl'),'GITHUB_STEP_SUMMARY':''}), \
+             patch('pmu_geny.sync_google_sheets.source_rows',return_value=source),patch('builtins.print'):
+            inventory=SynchroniseurSheets(self.cache,'fake',session=session).inventaire_rattrapage()
+        self.assertEqual(inventory['ids_couverts'],['123456'])
+        self.assertEqual(session.writes,[])
+
 
 if __name__=='__main__':unittest.main()

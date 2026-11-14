@@ -199,7 +199,7 @@ class SynchroniseurSheets:
     def inventaire_rattrapage(self):
         """Lecture complète seule : inventaire et preuve des clés déjà publiées."""
         from datetime import datetime,timezone
-        from .sync_google_sheets import lire_feuille_complete,canonical_headers
+        from .sync_google_sheets import lire_feuille_complete,canonical_headers,reconcilier_cles_historiques
         with verrou_local(self.spreadsheet):
             tables=self.metadata();horses=[];seen=set();keys=set();rows=[];control=None
             for tab in (HISTORY,'Courses & Prévisions'):
@@ -225,7 +225,7 @@ class SynchroniseurSheets:
                         'engagement':row.get('course_key',''), 'numero':str(row.get('numero','')),
                         'origine':'SHEETS:'+tab})
             expected={}
-            for row in self.source()[HISTORY].values():
+            for row in reconcilier_cles_historiques(rows,self.source()[HISTORY]).values():
                 expected.setdefault(str(row.get('identifiant_cheval','')),set()).add(row['cle_performance'])
             return {'capture_utc':datetime.now(timezone.utc).isoformat(),'chevaux':horses,
                 'ids_couverts':[ident for ident,wanted in expected.items() if wanted<=keys],
