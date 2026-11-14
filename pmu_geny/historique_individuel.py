@@ -28,7 +28,12 @@ def resolve(horse, out):
         try:
             ctx = browser.new_context(locale='fr-FR', timezone_id='Europe/Paris')
             page = ctx.new_page()
-            url = horse['course_url']
+            candidate=horse.get('lien_candidat')
+            if candidate:
+                ident=str(horse.get('id',''))
+                if not re.fullmatch(r'\d{4,15}',ident) or candidate!='https://www.geny.com/cheval/'+ident:
+                    raise ValueError('LIEN_CANDIDAT_NON_CONCORDANT')
+            url = candidate or horse['course_url']
             parsed = urlparse(url)
             if parsed.scheme != 'https' or parsed.hostname not in ('geny.com', 'www.geny.com'):
                 raise ValueError('URL_COURSE_INVALIDE')
@@ -37,6 +42,9 @@ def resolve(horse, out):
                                        page.locator('body').inner_text(), page.content())
             if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
                 raise RuntimeError(verdict)
+            if candidate:
+                return verifier_candidat(horse,page.url,response.status if response else None,
+                                        page.locator('body').inner_text(),out)
             expected = re.search(r'/course/(\d+)', url)
             actual = re.search(r'/course/(\d+)', page.url)
             if not response or response.status != 200 or not expected or not actual or expected[1] != actual[1]:
@@ -73,6 +81,20 @@ def resolve(horse, out):
                     'url_geny': direct.replace('https://geny.com/', 'https://www.geny.com/')}
         finally:
             browser.close()
+
+
+def verifier_candidat(horse,url,status,text,out):
+    """Un ID déjà recensé donne une URL candidate, jamais une identité acceptée."""
+    ident=str(horse.get('id',''));parsed=urlparse(url)
+    actual=re.match(r'/cheval/(\d+)(?:\D|$)',parsed.path)
+    identity=bool(horse.get('nom') and nom_normalise(horse['nom']) in nom_normalise(text[:6000]))
+    proof={'identifiant_attendu':ident,'url_finale':url,'http':status,'nom_verifie':identity,
+           'verification_utc':datetime.now(timezone.utc).isoformat()}
+    (out/'verification_lien_candidat.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2),encoding='utf-8')
+    if (status!=200 or parsed.scheme!='https' or parsed.hostname not in ('geny.com','www.geny.com')
+            or not actual or actual[1]!=ident or not identity):
+        raise ValueError('LIEN_CANDIDAT_NON_VERIFIE_HTTP_'+str(status))
+    return {'id':ident,'nom':horse['nom'],'url_geny':url.replace('https://geny.com/','https://www.geny.com/')}
 
 
 def collecter(horse, out):

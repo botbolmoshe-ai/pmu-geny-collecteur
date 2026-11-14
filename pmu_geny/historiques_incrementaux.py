@@ -336,6 +336,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         if reprise:reprise.bilan(state)
         else:materialiser_manifestes(cache, state)
         ecrire(cache/queue, state)
+        if reprise:ecrire(cache/queue.parent/'bilan.json',reprise.rapport(state))
         if checkpoint:
             checkpoint(cache)
         elif publier:

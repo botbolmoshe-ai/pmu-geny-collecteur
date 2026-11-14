@@ -17,6 +17,25 @@ QUEUE=Path('rattrapage_historiques/etat.json')
 INVENTAIRE=QUEUE.parent/'inventaire_sheets.json'
 
 
+def engagement_canonique(value):
+    value=str(value or '')
+    match=re.fullmatch(r'(\d{4}-\d{2}-\d{2})\|[^|]+\|(R\d+C\d+)',value)
+    return match[1]+'_'+match[2] if match else value
+
+
+def cle_contexte(horse):
+    signature='|'.join((nom_normalise(horse.get('nom')),engagement_canonique(horse.get('engagement')),
+                        str(horse.get('numero',''))))
+    return 'contexte:'+hashlib.sha256(signature.encode()).hexdigest()[:24]
+
+
+def contexte_verifiable(horse):
+    day=engagement_canonique(horse.get('engagement'))
+    if re.fullmatch(r'\d{4}-\d{2}-\d{2}_R\d+C\d+',day) and str(horse.get('numero','')).isdigit():
+        return (nom_normalise(horse.get('nom')),day,str(horse['numero']))
+    return None
+
+
 def url_cheval(url,ident):
     parsed=urlparse(str(url or ''))
     match=re.match(r'/cheval/(\d+)(?:\D|$)',parsed.path)
@@ -93,9 +112,11 @@ def inventaire_local(cache,sheets):
         if ident and url_cheval(url,ident):
             target['geny']={'id':ident,'nom':target.get('nom',''),
                             'url_geny':url.replace('https://geny.com/','https://www.geny.com/')}
+        if record.get('numero') and not target.get('numero'):
+            target['numero']=str(record['numero'])
         if url_course(record.get('course_url')) and record.get('numero'):
             target.update(course_url=record['course_url'],numero=str(record['numero']))
-        if record.get('engagement'):target['engagement']=record['engagement']
+        if record.get('engagement'):target['engagement']=engagement_canonique(record['engagement'])
         if record.get('prochain_essai_utc'):target['prochain_essai_utc']=record['prochain_essai_utc']
     for record in records:
         ident=str(record.get('id',''))
@@ -113,8 +134,7 @@ def inventaire_local(cache,sheets):
             merge(targets[next(iter(ids))],record)
         else:
             # Les contextes non identifiés ne sont pas fusionnés sur le seul nom.
-            signature='|'.join((nom_normalise(record['nom']),str(record.get('engagement','')),str(record.get('numero',''))))
-            key='contexte:'+hashlib.sha256(signature.encode()).hexdigest()[:24]
+            key=cle_contexte(record)
             merge(targets.setdefault(key,{'nom':record['nom']}),record)
     return targets
 
@@ -135,21 +155,38 @@ def preparer(cache,now):
             'chevaux':targets,'sync_kpi':'A_REPRENDRE',
             'lignes_historique_initiales':sheets.get('lignes_historique')}
     local=inventaire_local(cache,sheets)
+    state['dernier_controle_inventaire']={k:sheets.get(k) for k in ('capture_utc','lignes_historique','controle')}
     # Le dénominateur est figé. La production peut néanmoins avoir complété une cible.
     journal=inc.lire(cache/'etat_persistant.json',{'chevaux':{}})['chevaux']
     names={}
     for ident,h in journal.items():names.setdefault(nom_normalise(h.get('nom')),set()).add(str(ident))
+    for h in local.values():
+        if h.get('id') and not h.get('conflit_identite'):
+            names.setdefault(nom_normalise(h.get('nom')),set()).add(h['id'])
     covered=set(sheets.get('ids_couverts',[]))
+    observed_numbers={}
+    for row in sheets['chevaux']:
+        context=contexte_verifiable(row)
+        if context:observed_numbers.setdefault(context[:2],set()).add(context[2])
     for key,h in state['chevaux'].items():
+        canonical=engagement_canonique(h.get('engagement'))
+        if canonical and canonical!=h.get('engagement'):
+            h.setdefault('engagement_source',h['engagement']);h['engagement']=canonical
+        if not h.get('numero'):
+            numbers=observed_numbers.get((nom_normalise(h.get('nom')),canonical),set())
+            if len(numbers)==1:
+                h['numero']=next(iter(numbers));h['numero_reconcilie_depuis_snapshot']=True
         h.setdefault('sync','SANS_MODIFICATION')
         if h.get('rattrapage_complet_au_utc'):continue
         if not h.get('id'):
             ids=names.get(nom_normalise(h.get('nom')),set())
             if len(ids)==1:h['id']=next(iter(ids))
-        fresh=local.get(h.get('id')) or local.get(key) or {}
+        fresh=local.get(h.get('id')) or local.get(key) or local.get(cle_contexte(h)) or {}
         if nom_normalise(fresh.get('nom'))==nom_normalise(h.get('nom')):
             for field in ('geny','course_url','numero','conflit_identite'):
                 if fresh.get(field):h[field]=fresh[field]
+        if h.get('geny') or url_course(h.get('course_url')) and h.get('numero'):
+            h.pop('lien_candidat',None)
         ident=h.get('id','');doc=inc.capture_valide(cache,ident) if ident else None
         stamp=inc.instant(doc.get('extrait_utc')) if doc else None
         if h.get('conflit_identite') or not h.get('nom'):
@@ -168,8 +205,25 @@ def preparer(cache,now):
             else:h['sync']='A_FAIRE'
         else:
             h.update(collecte='A_REPRENDRE',motif_actualisation='HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE')
+            if ident and not h.get('geny') and not h.get('course_url'):
+                h['lien_candidat']='https://www.geny.com/cheval/'+ident
             if not h.get('geny') and not (url_course(h.get('course_url')) and h.get('numero')):
-                h['collecte']='LIEN_GENY_A_RESOUDRE'
+                if not h.get('lien_candidat'):h['collecte']='LIEN_GENY_A_RESOUDRE'
+    groups={}
+    for key,h in state['chevaux'].items():
+        h.pop('cible_equivalente_a',None)
+        context=contexte_verifiable(h)
+        if context:groups.setdefault(context,[]).append(key)
+    for keys in groups.values():
+        if len(keys)<2:continue
+        members=[state['chevaux'][k] for k in keys]
+        if len({h['id'] for h in members if h.get('id')})>1:continue
+        primary=min(keys,key=lambda k:(not bool(state['chevaux'][k].get('rattrapage_complet_au_utc')),
+                                       not bool(state['chevaux'][k].get('geny')),k))
+        for key in keys:
+            if key!=primary:state['chevaux'][key]['cible_equivalente_a']=primary
+        if state['chevaux'][primary].get('rattrapage_complet_au_utc'):
+            propager_preuve(state,state['chevaux'][primary])
     bilan(state)
     return state
 
@@ -177,6 +231,7 @@ def preparer(cache,now):
 def prochaine_tache(state,now,attempts):
     # Une publication en échec est reprise sans nouvelle consultation Geny.
     for key,h in state['chevaux'].items():
+        if h.get('cible_equivalente_a'):continue
         if h.get('sync')=='A_FAIRE' and attempts.get(('SYNC',key),0)<1:
             retry=inc.instant(h.get('prochaine_sync_utc'))
             if not retry or retry<=now:return key,'SYNC'
@@ -184,11 +239,13 @@ def prochaine_tache(state,now,attempts):
     if cooldown and cooldown>now:return None,'COOLDOWN'
     candidates=[]
     for key,h in state['chevaux'].items():
+        if h.get('cible_equivalente_a'):continue
         if h.get('rattrapage_complet_au_utc') or not h.get('motif_actualisation'):continue
         if h.get('collecte') in ('LIEN_GENY_A_RESOUDRE','IDENTITE_A_VERIFIER'):continue
         retry=inc.instant(h.get('prochain_essai_utc'))
         if attempts.get(('COLLECTE',key),0) or retry and retry>now:continue
-        candidates.append(((not bool(h.get('geny')),h.get('engagement',''),key),key))
+        priority=0 if h.get('geny') else 1 if h.get('course_url') else 2
+        candidates.append(((priority,h.get('engagement',''),key),key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 
@@ -197,12 +254,20 @@ def valider_sync(state,horse):
     if not inc.instant(stamp):raise ValueError('CAPTURE_NON_DATEE')
     horse.update(rattrapage_complet_au_utc=stamp,motif_actualisation='')
     horse['ajouts_confirmes']=horse.get('ajouts_confirmes',0)+horse.get('sync_details',{}).get('Historique chevaux',{}).get('lignes_ajoutees',0)
+    propager_preuve(state,horse)
+
+
+def propager_preuve(state,horse):
+    stamp=horse['rattrapage_complet_au_utc']
     # Les contextes répétés d'une identité désormais vérifiée partagent la preuve.
     for other in state['chevaux'].values():
         if other is horse or other.get('conflit_identite'):continue
-        if other.get('id')==horse['id'] and nom_normalise(other.get('nom'))==nom_normalise(horse['nom']):
+        same_context=bool(contexte_verifiable(horse) and contexte_verifiable(horse)==contexte_verifiable(other))
+        same_id=other.get('id')==horse['id']
+        if (same_id or same_context and not other.get('id')) and nom_normalise(other.get('nom'))==nom_normalise(horse['nom']):
             other.update(rattrapage_complet_au_utc=stamp,sync='OK',motif_actualisation='',
-                         historique_complet_au_utc=stamp,preuve_sync='MEME_IDENTIFIANT_VERIFIE')
+                         id=horse['id'],collecte='COMPLET',geny=horse.get('geny',{}),
+                         historique_complet_au_utc=stamp,preuve_sync='MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE')
 
 
 def bilan(state):
@@ -211,6 +276,8 @@ def bilan(state):
     previous=state.get('bilan',{})
     state['bilan']={'cibles_inventoriees':len(horses),'cibles_completees':complete,
         'cibles_restantes':len(horses)-complete,
+        'cibles_equivalentes':sum(bool(h.get('cible_equivalente_a')) for h in horses),
+        'travaux_distincts_restants':sum(not h.get('cible_equivalente_a') and not h.get('rattrapage_complet_au_utc') for h in horses),
         'identifiants_geny_distincts':len({h['id'] for h in horses if h.get('id')}),
         'identites_non_resolues':sum(not h.get('id') for h in horses),
         'liens_a_resoudre':sum(h.get('collecte')=='LIEN_GENY_A_RESOUDRE' for h in horses),
@@ -222,6 +289,16 @@ def bilan(state):
     if state['statut']=='TERMINE' and not state.get('termine_utc'):
         state['termine_utc']=datetime.now(inc.UTC).isoformat()
     return state['bilan']
+
+
+def rapport(state):
+    keys=('version','mode','inventaire_id','inventaire_utc','passage_utc','maj_utc','statut',
+          'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire')
+    report={k:state[k] for k in keys if k in state}
+    proofs=[h.get('sync_details',{}).get('Historique chevaux',{}).get('controle',{}) for h in state['chevaux'].values()]
+    proofs=[p for p in proofs if p.get('statut')=='VALIDE']
+    if proofs:report['derniere_ecriture_controlee']=max(proofs,key=lambda p:p.get('controle_utc',''))
+    return report
 
 
 def priorite_production():

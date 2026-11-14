@@ -18,7 +18,19 @@ son contexte de course ; des homonymes ne sont pas fusionnés arbitrairement.
 Le bilan compte donc des **cibles d'inventaire**, pas un nombre supposé de chevaux
 uniques tant que toutes les identités ne sont pas résolues. Les provenances et
 contextes restent dans l'état. Un conflit de nom pour un même identifiant reste
-à vérifier. Aucun identifiant ni lien de cheval n'est inventé.
+à vérifier. Aucun identifiant de cheval n'est inventé. Pour un identifiant déjà
+observé sans URL, le chemin canonique `/cheval/<id>` est seulement un candidat,
+traité après les liens déjà prouvés : HTTP 200, URL finale portant le même ID et
+nom de cheval présent doivent être réellement vérifiés avant l'extraction.
+Le diagnostic de cette vérification est conservé ; un échec n'est pas une identité
+acceptée et les refus d'accès conservent la pause partagée.
+
+Les clés de courses Sheets `date|hippodrome|RnCn` sont rapprochées du format PMU
+`date_RnCn`. Une observation déjà inventoriée n'est jamais supprimée : si nom,
+date, course et numéro concordent, elle est reliée à sa cible équivalente. Seule
+la cible principale déclenche une collecte et sa preuve est partagée après
+validation. Deux courses différentes ne sont pas fusionnées sur le seul nom.
+Le bilan distingue les cibles conservées et les travaux distincts restants.
 
 L'inventaire du lot est figé : les passages suivants ne perdent pas les anciennes
 cibles et n'ajoutent pas automatiquement les nouveaux engagements. Ces derniers
@@ -85,6 +97,10 @@ de lot, dénominateurs, ajouts confirmés et blocages.
 Lancement manuel : « PMU - Rattrapage global des historiques », `max_minutes`
 entre 1 et 15. Les diagnostics et l'état sont archivés 30 jours dans Actions ;
 l'état durable reste dans `pmu-data`.
+
+Le résumé compact `rattrapage_historiques/bilan.json` est sauvegardé dans le même
+commit que l'état complet. Il permet à la supervision de lire la progression et
+la dernière écriture contrôlée sans charger toute la file.
 
 Un inventaire local sans réseau nécessite le snapshot Sheets déjà contrôlé :
 
