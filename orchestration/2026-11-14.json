@@ -30,7 +30,7 @@
       },
       "erreur_decouverte": "LookupError: Geny: AUCUNE_CORRESPONDANCE_FIABLE",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R3C2": {
       "identifiant_geny": null,
@@ -60,18 +60,18 @@
         "codes_differents": 0
       },
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R3C3": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-14T11:40:00+01:00",
       "nom": "PRIX JEAN BOILLEREAU",
       "hippodrome": "HIPPODROME DE MARSEILLE BORELY",
       "nombre_declares": 8,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -89,18 +89,19 @@
         "meilleur_score": 0.782,
         "codes_differents": 0
       },
-      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R8C1": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-14T12:00:00+01:00",
       "nom": "PRIX DES HEUCHERES",
       "hippodrome": "HIPPODROME DE CAEN",
       "nombre_declares": 18,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -134,18 +135,19 @@
         }
       },
       "geny_id_rapproche": "1698232",
-      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R3C4": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-14T12:10:00+01:00",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
+      "depart": "2026-11-14T12:12:00+01:00",
       "nom": "PRIX DU CERCLE DES PHOCEENS",
       "hippodrome": "HIPPODROME DE MARSEILLE BORELY",
       "nombre_declares": 16,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -179,7 +181,8 @@
         }
       },
       "geny_id_rapproche": "1698477",
-      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R8C2": {
       "identifiant_geny": null,
@@ -371,7 +374,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -409,9 +412,9 @@
       "comparatif_csv": "cache_pmu/exports/GENY-1698466/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T10:34:30.840521+00:00",
-      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
-      "statut_maj_np": "H1_NON_FIGE",
+      "np_verification_utc": "2026-11-14T11:29:53.043897+00:00",
+      "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
+      "statut_maj_np": "ACTUALISE",
       "statut_ml": "ML_NON_ENTRAINE"
     },
     "R8C4": {
@@ -470,7 +473,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -514,7 +517,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -694,7 +697,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -735,7 +738,7 @@
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T10:35:08.347586+00:00"
+      "np_verification_utc": "2026-11-14T11:30:25.527299+00:00"
     },
     "R8C7": {
       "identifiant_geny": null,
@@ -748,7 +751,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -792,7 +795,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -882,7 +885,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
@@ -923,7 +926,7 @@
       "comparatif_csv": "cache_pmu/exports/GENY-1698462/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T10:35:42.108301+00:00"
+      "np_verification_utc": "2026-11-14T11:30:51.592575+00:00"
     },
     "R8C9": {
       "identifiant_geny": null,
@@ -936,7 +939,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -980,7 +983,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -1015,7 +1018,7 @@
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T10:35:59.149077+00:00",
+      "np_verification_utc": "2026-11-14T11:31:11.191949+00:00",
       "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
@@ -1032,7 +1035,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -1067,7 +1070,7 @@
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T10:36:14.830333+00:00",
+      "np_verification_utc": "2026-11-14T11:31:14.292153+00:00",
       "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
@@ -1084,7 +1087,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "paliers_independants": {
@@ -1129,7 +1132,7 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_NON_VERIFIEE",
+      "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
@@ -1167,10 +1170,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-14T10:33:50.157334+00:00",
+  "dernier_controle_pmu": "2026-11-14T11:29:19.445449+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-14",
-    "horodatage_utc": "2026-11-14T10:33:50.157334+00:00",
+    "horodatage_utc": "2026-11-14T11:29:19.445449+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/14112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 26,
