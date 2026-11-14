@@ -179,7 +179,7 @@ class SynchroniseurSheets:
         return self.synchroniser_tables({tab:source[tab] for tab in SHEET_TABS},scope='CYCLE_PMU',
             full_source=True,allow_structure=True,kpi_source=source)
 
-    def synchroniser_cheval(self,horse,*,include_kpi=True):
+    def synchroniser_cheval(self,horse,*,include_kpi=True,include_courses=True):
         from .liaison_chevaux_v22 import nom_normalise
         source=self.source();ident=horse['geny']['id']
         history={k:v for k,v in source[HISTORY].items() if str(v.get('identifiant_cheval'))==ident}
@@ -189,8 +189,45 @@ class SynchroniseurSheets:
         courses={k:{f:v for f,v in row.items() if f in allowed} for k,row in source['Courses & Prévisions'].items()
                  if nom_normalise(row.get('cheval'))==nom_normalise(horse['nom'])
                  and str(row.get('historique_statut','')).startswith('HISTO_OK')}
-        return self.synchroniser_tables({HISTORY:history,'Courses & Prévisions':courses},scope='CHEVAL',
+        tables={HISTORY:history}
+        if include_courses:tables['Courses & Prévisions']=courses
+        return self.synchroniser_tables(tables,scope='CHEVAL' if include_courses else 'RATTRAPAGE',
             kpi_source=source if include_kpi else None)
+
+    def inventaire_rattrapage(self):
+        """Lecture complète seule : inventaire et preuve des clés déjà publiées."""
+        from datetime import datetime,timezone
+        from .sync_google_sheets import lire_feuille_complete,canonical_headers
+        with verrou_local(self.spreadsheet):
+            tables=self.metadata();horses=[];seen=set();keys=set();rows=[];control=None
+            for tab in (HISTORY,'Courses & Prévisions'):
+                if tab not in tables:raise ErreurSynchronisation('Onglet absent : '+tab)
+                values=lire_feuille_complete(self.session,self.base,tab,tables[tab])
+                if not values:raise ErreurSynchronisation('Onglet sans en-tetes : '+tab)
+                headers=canonical_headers(values[0])
+                data=[dict(zip(headers,row)) for row in values[1:]]
+                if tab==HISTORY:
+                    rows=data
+                    independent=lire_cles_independantes(self.session,self.base,tab,tables[tab],headers)
+                    control=verifier_apres(verifier_avant(headers,data,{},[],
+                        full_source=False,observed_keys=independent),data)
+                    keys={str(row.get('cle_performance','')) for row in data}
+                for row in data:
+                    if not row.get('cheval') and not row.get('identifiant_cheval'):continue
+                    identity=(tab,str(row.get('identifiant_cheval','')),str(row.get('cheval','')),
+                              str(row.get('course_key','')),str(row.get('numero','')))
+                    if identity in seen:continue
+                    seen.add(identity)
+                    horses.append({'nom':row.get('cheval',''),
+                        'id':str(row.get('identifiant_cheval','')) if tab==HISTORY else '',
+                        'engagement':row.get('course_key',''), 'numero':str(row.get('numero','')),
+                        'origine':'SHEETS:'+tab})
+            expected={}
+            for row in self.source()[HISTORY].values():
+                expected.setdefault(str(row.get('identifiant_cheval','')),set()).add(row['cle_performance'])
+            return {'capture_utc':datetime.now(timezone.utc).isoformat(),'chevaux':horses,
+                'ids_couverts':[ident for ident,wanted in expected.items() if wanted<=keys],
+                'lignes_historique':len(rows),'controle':control}
 
     def synchroniser_kpi(self):
         with verrou_local(self.spreadsheet):return self._synchroniser_kpi(self.metadata(),self.source())

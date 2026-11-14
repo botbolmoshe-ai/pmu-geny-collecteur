@@ -1,0 +1,80 @@
+name: PMU - Rattrapage global des historiques
+on:
+  schedule:
+    - cron: '15,45 * * * *'
+  workflow_dispatch:
+    inputs:
+      max_minutes:
+        description: 'Budget de collecte du passage (1 a 15 minutes)'
+        type: number
+        default: 10
+        required: true
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: pmu-donnees-production
+  cancel-in-progress: false
+jobs:
+  rattrapage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Restaurer les donnees et verifier si le lot reste actif
+        id: etat
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin pmu-data
+          mkdir -p cache_pmu resultats/rattrapage
+          git archive origin/pmu-data | tar -x -C cache_pmu
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          path=Path('cache_pmu/rattrapage_historiques/etat.json')
+          state=json.loads(path.read_text()) if path.exists() else {}
+          done=state.get('statut')=='TERMINE'
+          if done:
+              assert state['sync_kpi']=='OK'
+              assert state['bilan']['cibles_completees']==len(state['chevaux'])
+              print('RATTRAPAGE_DEJA_TERMINE',json.dumps(state['bilan']))
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              f.write('actif='+('false' if done else 'true')+'\n')
+          PY
+      - uses: actions/cache@v4
+        if: steps.etat.outputs.actif == 'true'
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+      - name: Installer les dependances
+        if: steps.etat.outputs.actif == 'true'
+        run: |
+          python -m pip install -q -r requirements.txt google-auth==2.43.0 requests
+          python -m playwright install chromium
+      - name: Inventorier tout le stock puis reprendre les historiques
+        if: steps.etat.outputs.actif == 'true'
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+          MAX_MINUTES: ${{ inputs.max_minutes || 10 }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier
+      - name: Archiver le bilan et les controles
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rattrapage-historiques-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            resultats/incremental/
+            resultats/rattrapage/
+            resultats/synchronisation/
+            cache_pmu/rattrapage_historiques/
+          retention-days: 30
