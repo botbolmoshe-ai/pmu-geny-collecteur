@@ -32,7 +32,8 @@ NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3
 CLEARABLE_COLUMNS = frozenset(EXPERT_COLUMNS) | frozenset({
     'top3_direct_rang','top3_direct_score','top3_direct_top3',
     'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
-    'ml_proba_podium','ml_score_non_calibre'})
+    'ml_proba_podium','ml_score_non_calibre',
+    'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites'})
 
 def sheet_value(field, value):
     if value is None:return ''
@@ -61,6 +62,10 @@ DISPLAY_NAMES = {
     'top3_direct_score':'TOP3 direct · Score',
     'top3_direct_top3':'TOP3 direct · Sélection',
     'top3_direct_statut':'TOP3 direct · Couverture',
+    'top3_direct_source_forme':'TOP3 direct · Source de forme',
+    'top3_direct_qualite':'TOP3 direct · Qualité du contexte',
+    'top3_direct_historiques_exploites':'TOP3 direct · Performances comparées',
+    'musique_pmu':'Musique PMU',
     'driver_jockey':'Driver / Jockey',
     'entraineur':'Entraîneur',
     'proprietaire':'Propriétaire',
@@ -322,6 +327,7 @@ def source_rows(cache):
                 'entraineur':act.get('entraineur',''),
                 'proprietaire':act.get('proprietaire',''),
                 'ferrure':act.get('ferrure',''),
+                'musique_pmu':act.get('musique_pmu',''),
                 'age_ans':act.get('age_ans') if act.get('age_ans') is not None else '',
                 'sexe':act.get('sexe',''),
                 'gains_euros':act.get('gains_euros') if act.get('gains_euros') is not None else '',
@@ -332,6 +338,9 @@ def source_rows(cache):
                 'top3_direct_score':direct_h.get('score_direct',''),
                 'top3_direct_top3':'OUI' if direct_rank and direct_rank<=3 else '',
                 'top3_direct_statut':direct.get('statut','NON_CALCULE'),
+                'top3_direct_source_forme':direct_h.get('source_forme',''),
+                'top3_direct_qualite':direct_h.get('qualite_score',''),
+                'top3_direct_historiques_exploites':direct_h.get('historique_exploitable','') if direct_rank else '',
                 'top3_cotes_valeur':cote_h.get('cote',''),
                 'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
                 'top3_cotes_statut':cotes_etat,
