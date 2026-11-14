@@ -21886,11 +21886,20 @@
       "course_url": "https://www.geny.com/course/1698538/partants-pronostics",
       "numero": "4",
       "engagement": "2026-11-15_R11C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-15_R11C1",
-      "cible_equivalente_a": "contexte:0c0a08142361c5c5585f28d0"
+      "cible_equivalente_a": "contexte:0c0a08142361c5c5585f28d0",
+      "rattrapage_complet_au_utc": "2026-11-14T23:46:51.993283+00:00",
+      "id": "2797550",
+      "geny": {
+        "id": "2797550",
+        "nom": "LYFISANO",
+        "url_geny": "https://www.geny.com/cheval/2797550-lyfisano/course/1698538"
+      },
+      "historique_complet_au_utc": "2026-11-14T23:46:51.993283+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE"
     },
     "contexte:8a0d774b9b1255983736e789": {
       "nom": "LOVE ME BECO",
@@ -30157,7 +30166,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-15_R11C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-15|CHARTRES|R11C1",
@@ -30176,7 +30185,32 @@
       "prochaine_verification_utc": "2026-11-15T23:46:51.993283+00:00",
       "nombre_performances": 32,
       "erreur": "",
-      "derniere_performance_date": "2026-10-25"
+      "derniere_performance_date": "2026-10-25",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 32,
+          "cellules_actualisees": 0,
+          "lignes_source": 32,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 32,
+            "lignes_avant": 14500,
+            "cles_avant": 14500,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 1450,
+            "import_initial_explicite": false,
+            "lignes_attendues": 14532,
+            "lignes_apres": 14532,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-14T23:47:07.579451+00:00",
+      "rattrapage_complet_au_utc": "2026-11-14T23:46:51.993283+00:00",
+      "ajouts_confirmes": 32
     },
     "contexte:7d4813177c8ff3d09233a510": {
       "nom": "LOVE ME BECO",
@@ -34784,21 +34818,21 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 1787,
-    "cibles_completees": 472,
-    "cibles_restantes": 1315,
+    "cibles_completees": 474,
+    "cibles_restantes": 1313,
     "cibles_equivalentes": 536,
-    "travaux_distincts_restants": 790,
+    "travaux_distincts_restants": 789,
     "identifiants_geny_distincts": 605,
-    "identites_non_resolues": 1171,
+    "identites_non_resolues": 1170,
     "liens_a_resoudre": 80,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 588,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 620,
     "tentatives_collecte": 3
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-14T23:44:19.359028+00:00",
-  "maj_utc": "2026-11-14T23:46:52.070596+00:00",
+  "maj_utc": "2026-11-14T23:47:07.589405+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 25
