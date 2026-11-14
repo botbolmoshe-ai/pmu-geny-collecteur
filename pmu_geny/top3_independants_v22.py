@@ -50,7 +50,7 @@ def calculer(cache,course,raw,now=None):
     profils=extraire_partants(raw)
     # Ferrure complementaire seulement si l'identite, la source et son
     # horodatage sont verifies AVANT le depart (jamais depuis une ancienne course).
-    current=load(Path(cache)/'partants_actuels'/f"{course['date']}_{course['code']}.json',{}) or {}
+    current=load(Path(cache)/'partants_actuels'/f"{course['date']}_{course['code']}.json",{}) or {}
     if current.get('date')==course['date'] and current.get('course')==course['code']:
         try:
             capture=datetime.fromisoformat(current['capture_utc'])
