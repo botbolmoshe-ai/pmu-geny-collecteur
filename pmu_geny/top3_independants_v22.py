@@ -65,7 +65,7 @@ def calculer(cache,course,raw,now=None):
                 if num not in profils or profils[num].get('ferrure'):continue
                 if nom_normalise(profils[num].get('nom'))!=nom_normalise(profile.get('nom')):continue
                 provenance=(profile.get('provenance_champs') or {}).get('ferrure') or {}
-                if provenance.get('source') not in ('equidia','zeturf'):continue
+                if provenance.get('source') != 'equidia':continue
                 if not str(provenance.get('url') or '').startswith('https://'):continue
                 try:
                     checked=datetime.fromisoformat(provenance['capture_utc'])
