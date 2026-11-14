@@ -81,11 +81,11 @@ def _facteur_niveau(course, row):
     except (TypeError, ValueError):
         return 1.0, False
     source = str(row.get("texte_source") or "")
-    montants = re.findall(r"(?<!\\d)(\\d{1,3}(?:[ \\u00a0]\\d{3})+)\\s*€", source)
+    montants = re.findall(r"(?<!\d)(\d{1,3}(?:[ \u00a0]\d{3})+)\s*€", source)
     # On ne deduit rien lorsque plusieurs montants sont possibles.
     if cible <= 0 or len(montants) != 1:
         return 1.0, False
-    montant = float(re.sub(r"\\s+", "", montants[0]))
+    montant = float(re.sub(r"\s+", "", montants[0]))
     if montant <= 0:
         return 1.0, False
     ratio = cible / montant
