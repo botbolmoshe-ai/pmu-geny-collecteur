@@ -697,7 +697,7 @@
       },
       "geny_id_rapproche": "1698228",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R1C3": {
       "identifiant_geny": "GENY-1698461",
@@ -798,7 +798,7 @@
       },
       "geny_id_rapproche": "1698227",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R1C4": {
       "identifiant_geny": null,
@@ -844,18 +844,18 @@
       "geny_id_rapproche": "1698463",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R8C8": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-14T15:40:00+01:00",
       "nom": "PRIX DES AIRELLES",
       "hippodrome": "HIPPODROME DE CAEN",
       "nombre_declares": 18,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -889,7 +889,8 @@
         }
       },
       "geny_id_rapproche": "1698226",
-      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C5": {
       "identifiant_geny": "GENY-1698462",
@@ -900,7 +901,7 @@
       "nombre_declares": 11,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -940,20 +941,22 @@
       "statut_maj_np": "INCHANGE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698462/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE",
+      "audit_predictif": "AUDIT_ENREGISTRE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T14:35:49.918937+00:00"
+      "np_verification_utc": "2026-11-14T14:35:49.918937+00:00",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R8C9": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
-      "depart": "2026-11-14T16:00:00+01:00",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
+      "depart": "2026-11-14T16:10:00+01:00",
       "nom": "PRIX DES LIATRIS",
       "hippodrome": "HIPPODROME DE CAEN",
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CAEN (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -987,18 +990,19 @@
         }
       },
       "geny_id_rapproche": "1698224",
-      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE"
+      "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C6": {
       "identifiant_geny": "GENY-1698468",
       "etat": "MANIFESTE_PRESENT",
-      "depart": "2026-11-14T16:25:00+01:00",
+      "depart": "2026-11-14T16:27:00+01:00",
       "nom": "PRIX DE BRIOUDE",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 13,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
@@ -1039,7 +1043,8 @@
       "statut_maj_np": "ACTUALISE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698468/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE",
+      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
     },
     "R1C7": {
       "identifiant_geny": "GENY-1698467",
@@ -1086,9 +1091,9 @@
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T14:35:52.480986+00:00",
-      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
-      "statut_maj_np": "H1_NON_FIGE",
+      "np_verification_utc": "2026-11-14T15:29:48.657624+00:00",
+      "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
+      "statut_maj_np": "ACTUALISE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698467/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE"
@@ -1138,9 +1143,9 @@
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T14:35:53.066176+00:00",
-      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
-      "statut_maj_np": "H1_NON_FIGE",
+      "np_verification_utc": "2026-11-14T15:29:52.075790+00:00",
+      "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
+      "statut_maj_np": "ACTUALISE",
       "statut_ml": "ML_NON_ENTRAINE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698465/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE"
@@ -1190,7 +1195,7 @@
       "geny_id_rapproche": "1698469",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-14T14:35:53.617069+00:00",
+      "np_verification_utc": "2026-11-14T15:29:55.342355+00:00",
       "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
       "statut_maj_np": "H1_NON_FIGE",
       "statut_ml": "ML_NON_ENTRAINE",
@@ -1200,10 +1205,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-14T14:35:46.657011+00:00",
+  "dernier_controle_pmu": "2026-11-14T15:29:38.622929+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-14",
-    "horodatage_utc": "2026-11-14T14:35:46.657011+00:00",
+    "horodatage_utc": "2026-11-14T15:29:38.622929+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/14112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 26,
