@@ -1,0 +1,515 @@
+{
+  "date": "2026-11-16",
+  "course": "R6C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MERVEILLE DU FRENE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MYLOVELYMATCH",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1153500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1153500,
+        "gainsAnneeEnCours": 805500,
+        "gainsAnneePrecedente": 348000
+      }
+    },
+    {
+      "nom": "MASSETTA BELLA",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1577000,
+        "gainsVictoires": 540000,
+        "gainsPlace": 1037000,
+        "gainsAnneeEnCours": 833000,
+        "gainsAnneePrecedente": 744000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-14T23:15:09.825527+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "M. MOREAU",
+      "entraineur": "M. MOREAU",
+      "proprietaire": "Ecurie de MO",
+      "musique_pmu": "DaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 0.0,
+      "nom": "MERVEILLE DU FRENE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "L. LABBE",
+      "entraineur": "Lucas LABBE",
+      "proprietaire": "Lucas LABBE",
+      "musique_pmu": "0a7a0a8a6aDa3a5a7a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 11535.0,
+      "nom": "MYLOVELYMATCH",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mme A.F. DONATI MARCILLAC",
+      "entraineur": "Mme A.F. DONATI MARCILLAC",
+      "proprietaire": "Ecurie MARCILLAC",
+      "ferrure": "PA",
+      "musique_pmu": "DaDa4a7aDm9a8a9aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 15770.0,
+      "nom": "MASSETTA BELLA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "TH. CHALON",
+      "entraineur": "CH. CHALON",
+      "proprietaire": "Ecurie TEJY",
+      "musique_pmu": "DaDm5mDmDmDa3m1m2mDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16780.0,
+      "nom": "MAC GYVER",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "N. PICARD",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "G. LEBLANC",
+      "ferrure": "DA",
+      "musique_pmu": "DaDa0aDaDmDa4a2m2aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17270.0,
+      "nom": "MISTER DE HOUELLE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Y.R. LE MEE",
+      "entraineur": "Y.R. LE MEE",
+      "proprietaire": "Y.R. LE MEE",
+      "musique_pmu": "0a5a6aDa2aDa4a5a5aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18415.0,
+      "nom": "MAEVA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "R. GOUGEON",
+      "entraineur": "R. GOUGEON",
+      "proprietaire": "Alexandre MARANTZ",
+      "ferrure": "DP",
+      "musique_pmu": "4a2a0a7aDa8a7a9aDa0a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 19000.0,
+      "nom": "MILZANO DU BOSSU",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "S. PILLON",
+      "entraineur": "S. PILLON",
+      "proprietaire": "S. PILLON",
+      "musique_pmu": "6a9a5a6a6a2aDa6a3aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 19200.0,
+      "nom": "MAGIC DE BELAISE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "J. DUBREIL",
+      "entraineur": "J. DUBREIL",
+      "proprietaire": "J. DUBREIL",
+      "ferrure": "D4",
+      "musique_pmu": "Da7a6a1a1a6a(25)5a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 19400.0,
+      "nom": "MISS DE GUEZ",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "F. GENCE",
+      "entraineur": "F. GENCE",
+      "proprietaire": "Ec.J. MOUCHARD",
+      "ferrure": "DP",
+      "musique_pmu": "5a4a5aDaDaDa6a9a4a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 19855.0,
+      "nom": "MALICE DU GERS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "D.G. CHAVATTE",
+      "entraineur": "D.G. CHAVATTE",
+      "proprietaire": "D.G. CHAVATTE",
+      "musique_pmu": "8aDaDa9a3aDaDaDaDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 20430.0,
+      "nom": "MUSE DU LOISIR",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "O. RAFFIN",
+      "entraineur": "S. FERCHAUD",
+      "proprietaire": "S. FERCHAUD",
+      "ferrure": "D4",
+      "musique_pmu": "2a1aDa1aDa4a8aDa4a6a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 20850.0,
+      "nom": "MUFASA ACE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:09.825527+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

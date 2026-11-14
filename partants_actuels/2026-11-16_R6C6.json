@@ -1,0 +1,682 @@
+{
+  "date": "2026-11-16",
+  "course": "R6C6",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KAISER LUDOIS",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5269500,
+        "gainsVictoires": 1980000,
+        "gainsPlace": 3289500,
+        "gainsAnneeEnCours": 2560500,
+        "gainsAnneePrecedente": 2596500
+      }
+    },
+    {
+      "nom": "KISS ME JIVE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5309000,
+        "gainsVictoires": 1440000,
+        "gainsPlace": 3869000,
+        "gainsAnneeEnCours": 465500,
+        "gainsAnneePrecedente": 3256000
+      }
+    },
+    {
+      "nom": "KETTY PETTEVINIERE",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5313000,
+        "gainsVictoires": 2227500,
+        "gainsPlace": 3085500,
+        "gainsAnneeEnCours": 1623000,
+        "gainsAnneePrecedente": 1381000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-14T23:15:53.568902+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "F. GENCE",
+      "entraineur": "S. BOURLIER",
+      "proprietaire": "AL. GERALD",
+      "ferrure": "D4",
+      "musique_pmu": "2a1a6a0a1aDa2a8a8a1a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 52695.0,
+      "nom": "KAISER LUDOIS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "N. PACHA",
+      "entraineur": "CH.A. MARY",
+      "proprietaire": "Jacky GEFFROY",
+      "ferrure": "D4",
+      "musique_pmu": "5a6mDmDm4mDm3m7a(25)0m",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 53090.0,
+      "nom": "KISS ME JIVE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "E. BEUDARD",
+      "entraineur": "E. BEUDARD",
+      "proprietaire": "E. BEUDARD",
+      "ferrure": "DP/PA",
+      "musique_pmu": "2m1aDmDa8a6a4a6a6a2a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 53130.0,
+      "nom": "KETTY PETTEVINIERE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "G. MARIN",
+      "entraineur": "D. HEON",
+      "proprietaire": "D. HEON",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da6a4a3a7aDaDaDaDa(25)",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 53270.0,
+      "nom": "KRALL DE CORDAY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "CEDRIC TERRY",
+      "entraineur": "CH. DAGNICOURT",
+      "proprietaire": "CH. DAGNICOURT",
+      "musique_pmu": "Da0aDa4a1a5a0aDa(25)1a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 54055.0,
+      "nom": "KISS ME DU THENNEY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "O. RAFFIN",
+      "entraineur": "D. CHEVRIER",
+      "proprietaire": "D. CHEVRIER",
+      "ferrure": "D4",
+      "musique_pmu": "6a0m0aDa9aDa4m9mDa3m",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 54085.0,
+      "nom": "JISKA DE DREAM",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "J. LAVAINNE",
+      "entraineur": "Mlle M. LE BOURHIS",
+      "proprietaire": "Mlle M. LE BOURHIS",
+      "ferrure": "DP",
+      "musique_pmu": "7mDa6a0mDaDm9m0a4a0a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 54370.0,
+      "nom": "JACOMO DANICA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "H. SIONNEAU",
+      "entraineur": "H. SIONNEAU",
+      "proprietaire": "Ecurie Hervé SIONNEAU",
+      "ferrure": "DP",
+      "musique_pmu": "8aDa5a7a1a0a6a0a6a9a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 54465.0,
+      "nom": "KERATINE GLAM",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "T. OUVRIE",
+      "entraineur": "B. GOOP",
+      "proprietaire": "Stall GOOP AB",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0a5aDa1a2a1a5a8a(25)4a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 94365.0,
+      "nom": "JAVLAR",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. WIELS",
+      "entraineur": "J.P. MARMION",
+      "proprietaire": "Ecurie Jean Paul MARMION",
+      "musique_pmu": "2aDa3a2a1aDa1a1aDa(25)",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 96195.0,
+      "nom": "KELRAPIDE DU LUPIN",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "P. MONTHULE",
+      "entraineur": "P. MONTHULE",
+      "proprietaire": "Ecurie JPB ROMET",
+      "ferrure": "D4",
+      "musique_pmu": "9a4a6a2a3a1a9a1a4a2a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 96420.0,
+      "nom": "KIM DE BEAUM",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "L. LABBE",
+      "entraineur": "D. FRIQUET",
+      "proprietaire": "D. FRIQUET",
+      "musique_pmu": "9aDa0m0aDaDa0a8a4a0a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 101940.0,
+      "nom": "ILDA DE BERTRANGE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "O. PICARD",
+      "entraineur": "O. PICARD",
+      "proprietaire": "D. POINSIGNON",
+      "musique_pmu": "Da9a0aDa8a5a6a0a(25)7a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 103650.0,
+      "nom": "JUJU DE NORTHEN",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "Y.J. LE BEZVOET",
+      "entraineur": "Y.J. LE BEZVOET",
+      "proprietaire": "Ecurie du CLOSET",
+      "ferrure": "PA",
+      "musique_pmu": "0a(25)6a2a1aDa6a(24)9a7a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 106210.0,
+      "nom": "INTERACTIVE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "ALEXANDRE BODIN",
+      "entraineur": "CH. MOTTIER",
+      "proprietaire": "Stall LIVING DREAM",
+      "ferrure": "D4",
+      "musique_pmu": "5a2a8a1a5a8a1a5a3a(25)",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 107810.0,
+      "nom": "KONTESSA DREAM",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "CL. FRECELLE",
+      "entraineur": "CH.A. MALLET",
+      "proprietaire": "Ecurie Christophe MALLET",
+      "ferrure": "D4",
+      "musique_pmu": "Da0a8a0aDa7a1a1a4a4a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 109675.0,
+      "nom": "KIWI DE CONNEE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:53.568902+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

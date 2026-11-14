@@ -1,0 +1,531 @@
+{
+  "date": "2026-11-16",
+  "course": "R1C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MEGANE DE CERISY",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 4199500,
+        "gainsVictoires": 1035000,
+        "gainsPlace": 3164500,
+        "gainsAnneeEnCours": 1625000,
+        "gainsAnneePrecedente": 2126500
+      }
+    },
+    {
+      "nom": "MEDINA DREAM",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 4281000,
+        "gainsVictoires": 2340000,
+        "gainsPlace": 1941000,
+        "gainsAnneeEnCours": 3659500,
+        "gainsAnneePrecedente": 621500
+      }
+    },
+    {
+      "nom": "MILKA DES THUYAS",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4321000,
+        "gainsVictoires": 2250000,
+        "gainsPlace": 2071000,
+        "gainsAnneeEnCours": 990000,
+        "gainsAnneePrecedente": 3331000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-14T23:15:57.004281+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "N. RAIMBEAUX",
+      "proprietaire": "N. RAIMBEAUX",
+      "musique_pmu": "Dm5mDmDmDa4a5mDa3aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 41995.0,
+      "nom": "MEGANE DE CERISY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "W. DERSOIR-HABIB",
+      "entraineur": "L.M. DAVID",
+      "proprietaire": "Ecurie L.M. DAVID",
+      "musique_pmu": "Da5a2a4a5a6a9a1m1m3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 42810.0,
+      "nom": "MEDINA DREAM",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mme CL. VERVA",
+      "entraineur": "P.Y. VERVA",
+      "proprietaire": "Ecurie des THUYAS SARL",
+      "ferrure": "DP",
+      "musique_pmu": "Da3mDa7a4a0a6a9a(25)1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 43210.0,
+      "nom": "MILKA DES THUYAS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "J.J. BAILLON",
+      "proprietaire": "J.J. BAILLON",
+      "ferrure": "D4",
+      "musique_pmu": "2m7mDm6m3mDm9m(25)Dm6m",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 43465.0,
+      "nom": "MARBELLA CHAFS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "B. CONSTANTIN",
+      "proprietaire": "Mathieu CAFARO",
+      "ferrure": "DP/PA",
+      "musique_pmu": "3m0a5m9a0a0a(25)1mDaDm",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 44130.0,
+      "nom": "MELINDA DU LOISIR",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Mme CH. L. DAVID",
+      "entraineur": "P. BELLOCHE",
+      "proprietaire": "Ecurie B",
+      "ferrure": "D4",
+      "musique_pmu": "5a5m5a5m(25)3m6a5m4aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 44330.0,
+      "nom": "MADINA MESLOISE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "M. BEZIER",
+      "proprietaire": "Ecurie M. BEZIER",
+      "ferrure": "DP/PA",
+      "musique_pmu": "7a5a3a6a1a2a7a6a3a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 44335.0,
+      "nom": "MINDIE DES PRES",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "V. SAUSSAYE",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "Ecurie du GRAND BUISSON",
+      "ferrure": "DA",
+      "musique_pmu": "4mDa3m1m3m6mDmDa(25)1m",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 44830.0,
+      "nom": "MAYBE DU CEBE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "Mme G. MASSCHAELE",
+      "proprietaire": "F. GEIRNAERT",
+      "musique_pmu": "6a8a6a5a7aDa2aDa6a0a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 46855.0,
+      "nom": "MANOU DU CHENE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "M. CHAMPENOIS",
+      "entraineur": "Mlle C. CHASSAGNE",
+      "proprietaire": "Mlle C. CHASSAGNE",
+      "ferrure": "PA",
+      "musique_pmu": "2m7mDmDmDa3mDmDmDm4m",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 48045.0,
+      "nom": "MAJUSCULE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "Antoine LHERETE",
+      "proprietaire": "Ecurie VAUMOISSON",
+      "ferrure": "D4",
+      "musique_pmu": "DaDaDmDm2mDm1mDaDa1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 48680.0,
+      "nom": "MAMMA MIA DE LOU",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "J.PH. MONCLIN",
+      "proprietaire": "Ec. J.Ph. MONCLIN",
+      "ferrure": "DP/PA",
+      "musique_pmu": "2a1aDmDm3m1mDmDm3m3m",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 49740.0,
+      "nom": "MISS SPEED",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "age_ans": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "sexe": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "gains_euros": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "driver_jockey": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        },
+        "entraineur": {
+          "source": "PMU_API_PARTICIPANTS",
+          "capture_utc": "2026-11-14T23:15:57.004281+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
