@@ -403,26 +403,49 @@ def source_rows(cache):
                     'arrivee_verifiee_utc':arrivee.get('verifie_utc',''),
                     'score_sur_3':scores,
                     'statut_evaluation':'EVALUE' if any(x!='' for x in (scores,direct_hits,cote_hits,ml_hits)) else 'ARRIVEE_SANS_TOP3_FIGE'}
-    # V21: une cle (cheval, date, hippodrome) ne suffit pas:
-    # un cheval peut courir deux fois le meme jour au meme hippodrome.
-    # Dedoublonner entre exports de courses, mais jamais deux lignes source
-    # distinctes. Conserver la cle historique pour la premiere performance
-    # afin de ne pas recreer toutes les lignes existantes dans Google Sheets.
+    # V31: la provenance textuelle (URL ou descriptif) n'est PAS une
+    # identite de course. Les memes performances sont presentes dans les
+    # exports de course et les captures persistantes par cheval.
+    # Ne jamais doubler un historique lorsque la provenance change.
     grouped={}
+
+    def identite_sportive(r):
+        """Champs stables d'une performance, independants de sa provenance Geny."""
+        return tuple(str(r.get(field) or '').strip().upper() for field in
+                     ('discipline', 'distance_m', 'classement', 'chrono'))
+
+    def qualite_source(value):
+        s=str(value or '').strip()
+        return (bool(s) and not s.lower().startswith(('http://', 'https://')), len(s))
+
+    def ajouter_performance(ident, r):
+        date=str(r.get('date') or '').strip()
+        hip=str(r.get('hippodrome') or '').strip()
+        if not ident or not date or not hip:
+            return
+        base=f'{ident}|{date}|{hip.upper()}'
+        identite=identite_sportive(r)
+        variants=grouped.setdefault(base,{})
+        if identite not in variants:
+            variants[identite]=dict(r)
+            return
+        # Fusion non destructive : completer les champs absents, donner la
+        # priorite au descriptif detaille par rapport a l'URL contextuelle.
+        saved=variants[identite]
+        old_source=saved.get('texte_source','')
+        for field,value in r.items():
+            if value is not None and str(value) and not str(saved.get(field) or ''):
+                saved[field]=value
+        if qualite_source(r.get('texte_source'))>qualite_source(old_source):
+            saved['texte_source']=r['texte_source']
+
     for path in sorted((cache/'exports').glob('GENY-*/performances.csv')):
         try: perfs=read_csv(path)
         except (OSError,ValueError):continue
         for r in perfs:
-            ident=r.get('cheval_id','');date=r.get('date','');hip=r.get('hippodrome','')
-            if not ident or not date:continue
-            base=f'{ident}|{date}|{hip.strip().upper()}'
-            source=' '.join(str(r.get('texte_source','')).split())
-            # Un texte source vide ne prouve pas une seconde performance.
-            signature=source or '|'.join(str(r.get(k,'')) for k in (
-                'discipline','distance_m','classement','chrono'))
-            grouped.setdefault(base,{}).setdefault(signature,r)
-    # Source canonique V22 : historiques persistants independants des exports
-    # de course. Sans ce passage, les historiques importes sont invisibles dans Sheets.
+            ajouter_performance(str(r.get('cheval_id') or '').strip(),r)
+    # Les captures persistantes contiennent les memes courses mais parfois
+    # un texte plus riche. Elles enrichissent plutot qu'elles ne dupliquent.
     journal=load_json(cache/'etat_persistant.json').get('chevaux',{})
     for file in sorted((cache/'historiques').glob('*/historique_geny.json')):
         ident=file.parent.name
@@ -431,23 +454,22 @@ def source_rows(cache):
             continue
         cheval=journal.get(ident,{}).get('nom','')
         for perf in doc['performances']:
-            date=perf.get('date','')
-            hip=str(perf.get('hippodrome','')).strip()
-            if not date or not hip:continue
-            source=' '.join(str(perf.get('texte_source','')).split())
-            signature=source or '|'.join(str(perf.get(k,'')) for k in (
-                'discipline','distance_m','classement','chrono'))
-            base=f'{ident}|{date}|{hip.upper()}'
             from .partants_actuels_v21 import ferrure_historique_explicite
             row={'cheval_id':ident,'nom':cheval,**perf}
             if not row.get('ferrure'):
                 row['ferrure']=ferrure_historique_explicite(perf.get('texte_source',''))
-            grouped.setdefault(base,{}).setdefault(signature,row)
-    for base, variants in grouped.items():
-        for n,(signature,r) in enumerate(sorted(variants.items()),start=1):
+            ajouter_performance(ident,row)
+    for base,variants in grouped.items():
+        # Reprendre l'ordre historique par provenance pour garder les cles
+        # secondaires existantes si deux vraies courses ont eu lieu le meme jour.
+        ordered=sorted(variants.values(),key=lambda r:str(r.get('texte_source') or ''))
+        for n,r in enumerate(ordered,start=1):
             if n==1:
                 k=base
             else:
+                source=' '.join(str(r.get('texte_source','')).split())
+                signature=source or '|'.join(str(r.get(field,'')) for field in
+                                            ('discipline','distance_m','classement','chrono'))
                 suffix=hashlib.sha256(signature.encode('utf-8')).hexdigest()[:16]
                 k=f'{base}|{suffix}'
             from .partants_actuels_v21 import ferrure_historique_explicite
@@ -505,6 +527,32 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
         else:
             append.append([sheet_value(h,item.get(h,'')) for h in headers]);present[k]=-1
     return headers,changes,append
+
+
+
+def reconcilier_cles_historiques(existing_rows, incoming):
+    """Rejouer sous la cle deja publiee si la signature technique a evolue.
+
+    Evite les nouveaux doublons lorsque le texte Geny change ou lorsqu'un
+    second hippodrome/course est decouvert au fil des captures.
+    """
+    from .controle_sync_sheets import cle_sportive
+    known={}
+    for row in existing_rows:
+        identity=cle_sportive(row)
+        if identity is not None:
+            known[identity]=str(row.get('cle_performance') or '').strip()
+    output={}
+    for row in incoming.values():
+        candidate=dict(row)
+        identity=cle_sportive(candidate)
+        if identity is not None and identity in known:
+            candidate['cle_performance']=known[identity]
+        key=str(candidate.get('cle_performance') or '').strip()
+        if key in output:
+            raise ValueError('DOUBLON_CLE_APRES_RAPPROCHEMENT_HISTORIQUE: '+key)
+        output[key]=candidate
+    return output
 
 
 def limiter_cours_registre(source, date_debut=LIVE_RESET_DATE):

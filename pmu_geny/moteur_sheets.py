@@ -96,12 +96,14 @@ class SynchroniseurSheets:
             json={'valueInputOption':'RAW','data':migration},timeout=45))
 
     def _synchroniser_onglet(self,tab,incoming,properties,*,full_source,allow_structure):
-        from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES
+        from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques
         values=lire_feuille_complete(self.session,self.base,tab,properties)
         if not values:raise ErreurSynchronisation('Onglet sans en-tetes : '+tab)
         if allow_structure:self._migrer_entetes(tab,values)
         headers=canonical_headers(values[0])
         existing=[dict(zip(headers,row)) for row in values[1:]]
+        if tab==HISTORY:
+            incoming=reconcilier_cles_historiques(existing,incoming)
         all_headers,updates,appends=plan_sheet(headers,existing,incoming,tab)
         effective_headers=all_headers if allow_structure else headers
         if not allow_structure:

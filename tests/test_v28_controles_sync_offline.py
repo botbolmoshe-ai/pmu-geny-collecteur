@@ -51,12 +51,11 @@ class ControlesTests(unittest.TestCase):
             self.control(old,{})
         self.assertEqual(len(old),2)
 
-    def test_variantes_existantes_ne_sont_pas_confondues_avec_des_copies(self):
+    def test_variantes_existantes_de_meme_cle_sont_bloquees(self):
         old=[{'cle_performance':'1','cheval':'TEST','classement':'3'},
              {'cle_performance':'1','cheval':'TEST','classement':'4'}]
-        control=self.control(old,{'x':old[0]})
-        self.assertEqual(control['report']['cles_avec_variantes'],1)
-        verifier_apres(control,old)
+        with self.assertRaisesRegex(BlocageSynchronisation,'CLES_PERFORMANCE_DUPLIQUEES'):
+            self.control(old,{'x':old[0]})
 
     def test_croissance_anormale_refusee(self):
         source={str(i):{'cle_performance':str(i)} for i in range(501)}
