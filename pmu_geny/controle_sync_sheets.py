@@ -12,6 +12,16 @@ from pathlib import Path
 
 HISTORY = 'Historique chevaux'
 KEY = 'cle_performance'
+SPORT_FIELDS = ('identifiant_cheval','date_course_historique','hippodrome',
+                'discipline','distance_m','classement','chrono')
+
+
+def cle_sportive(row):
+    """Identite independante de la provenance ; ignorer les lignes incomplètes."""
+    if not all(str(row.get(f) or '').strip() for f in SPORT_FIELDS[:3]):
+        return None
+    return tuple(str(row.get(f) or '').strip().upper() for f in SPORT_FIELDS)
+
 
 
 class BlocageSynchronisation(ValueError):
@@ -44,10 +54,12 @@ def inventaire(headers, rows):
     records = [r for r in rows if any(v is not None and str(v) != '' for v in r.values())]
     keys = Counter(str(r.get(KEY) or '').strip() for r in records)
     signatures = Counter(tuple('' if r.get(h) is None else str(r.get(h)) for h in headers) for r in records)
+    sports=Counter(key for r in records if (key:=cle_sportive(r)) is not None)
     return {'rows': len(records), 'keys': keys,
             'missing_keys': keys.get('', 0),
             'duplicates': sum(n-1 for n in signatures.values() if n>1),
-            'variants': sum(n>1 for k,n in keys.items() if k)}
+            'variants': sum(n>1 for k,n in keys.items() if k),
+            'sport_duplicates': sum(n-1 for n in sports.values() if n>1)}
 
 
 def lire_cles_independantes(session, base, tab, properties, headers):
@@ -92,7 +104,15 @@ def verifier_avant(headers, existing, incoming, appends, *, full_source=False, o
         bloquer(report, 'LIGNES_EXISTANTES_SANS_CLE')
     if before['duplicates']:
         bloquer(report, 'COPIES_DE_VALEURS_EXISTANTES_A_CONTROLER')
+    if before['variants']:
+        bloquer(report, 'CLES_PERFORMANCE_DUPLIQUEES')
+    if before['sport_duplicates']:
+        bloquer(report, 'PERFORMANCES_SPORTIVES_DUPLIQUEES')
     source = verifier_source(incoming)
+    sports_source=[cle_sportive(r) for r in incoming.values()]
+    sports_source=[k for k in sports_source if k is not None]
+    if len(sports_source)!=len(set(sports_source)):
+        bloquer(report, 'PERFORMANCES_SPORTIVES_DUPLIQUEES_DANS_SOURCE')
     if full_source and before['rows'] and not source:
         bloquer(report, 'SOURCE_COMPLETE_INATTENDUE_VIDE')
     index = headers.index(KEY)
@@ -128,6 +148,8 @@ def verifier_apres(control, rows):
         bloquer(report, 'NOMBRE_DE_LIGNES_APRES_ECRITURE_INATTENDU')
     if after['duplicates']:
         bloquer(report, 'DOUBLONS_DE_VALEURS_APRES_ECRITURE')
+    if after['variants'] or after['sport_duplicates']:
+        bloquer(report, 'DOUBLONS_DE_PERFORMANCE_APRES_ECRITURE')
     report.update(statut='VALIDE', motif='COMPTAGES_ET_CLES_CONFORMES')
     journaliser(report)
     return report
