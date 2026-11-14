@@ -129,7 +129,7 @@ class IntegrationV32(unittest.TestCase):
             self.assertEqual((cache/"pronostics/2026-11-15_R1C2_direct.json").read_text(), avant)
 
     def test_ferrure_tierce_utilisee_seulement_avec_preuve_et_heure(self):
-        def run_with(capture, name="Etoile", url="https://www.equidia.fr/course-test"):
+        def run_with(capture, name="Etoile", url="https://www.equidia.fr/course-test", source="equidia"):
             with tempfile.TemporaryDirectory() as tmp:
                 cache = Path(tmp)
                 def write(rel, doc):
@@ -143,7 +143,7 @@ class IntegrationV32(unittest.TestCase):
                     "date": "2026-11-15", "course": "R1C2",
                     "capture_utc": "2026-11-15T07:00:00+00:00",
                     "chevaux": {"1": {"nom": name, "ferrure": "D4", "provenance_champs": {
-                        "ferrure": {"source": "equidia", "url": url,
+                        "ferrure": {"source": source, "url": url,
                                     "capture_utc": capture}}}}
                 })
                 partants=[{"numPmu":i, "nomCheval":("Etoile" if i==1 else "Cheval "+str(i)),
@@ -158,6 +158,7 @@ class IntegrationV32(unittest.TestCase):
         self.assertEqual(run_with("2026-11-15T13:20:00+00:00"), (0,"NON_DOCUMENTEE"))
         self.assertEqual(run_with("2026-11-15T08:00:00+00:00",name="Autre"), (0,"NON_DOCUMENTEE"))
         self.assertEqual(run_with("2026-11-15T08:00:00+00:00",url=""), (0,"NON_DOCUMENTEE"))
+        self.assertEqual(run_with("2026-11-15T08:00:00+00:00",source="zeturf"), (0,"NON_DOCUMENTEE"))
 
     def test_non_partant_exclu_et_pas_de_score_invente(self):
         with tempfile.TemporaryDirectory() as tmp:
