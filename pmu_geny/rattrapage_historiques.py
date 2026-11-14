@@ -295,9 +295,13 @@ def rapport(state):
     keys=('version','mode','inventaire_id','inventaire_utc','passage_utc','maj_utc','statut',
           'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire')
     report={k:state[k] for k in keys if k in state}
-    proofs=[h.get('sync_details',{}).get('Historique chevaux',{}).get('controle',{}) for h in state['chevaux'].values()]
-    proofs=[p for p in proofs if p.get('statut')=='VALIDE']
-    if proofs:report['derniere_ecriture_controlee']=max(proofs,key=lambda p:p.get('controle_utc',''))
+    proofs=[]
+    for horse in state['chevaux'].values():
+        control=horse.get('sync_details',{}).get('Historique chevaux',{}).get('controle',{})
+        stamp=horse.get('sync_utc') or control.get('controle_utc')
+        if control.get('statut')=='VALIDE' and inc.instant(stamp):
+            proofs.append((inc.instant(stamp),{'sync_utc':stamp,**control}))
+    if proofs:report['derniere_ecriture_controlee']=max(proofs,key=lambda item:item[0])[1]
     return report
 
 
