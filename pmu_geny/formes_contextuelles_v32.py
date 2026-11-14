@@ -28,7 +28,7 @@ def _discipline(value):
 
 def _classement(value):
     s = str(value or "").strip().casefold()
-    if s in ("d", "da", "dai", "di", "disq", "dpg", "dist", "ta", "tm", "arr", "r", "nc"):
+    if s in ("d", "da", "dai", "di", "disq", "dpg", "dist", "ta", "tm", "arr", "r", "nc", "a", "t"):
         return 0.0
     if s in ("np", "non partant", ""):
         return None
