@@ -291,3 +291,12 @@ jobs:
           python -m pip install -q google-auth==2.43.0 requests
           python -m pmu_geny.sync_google_sheets
 
+      - name: Conserver les controles de synchronisation Sheets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: controles-sheets-${{ github.run_id }}-${{ github.run_attempt }}
+          path: resultats/synchronisation/
+          retention-days: 30
+          if-no-files-found: warn
+

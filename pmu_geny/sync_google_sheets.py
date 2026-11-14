@@ -466,6 +466,9 @@ def ensure_headers(existing, additions):
 
 def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
     """Planning sans mutation: met à jour uniquement les colonnes propriétaires du bridge."""
+    if tab=='Historique chevaux':
+        from .controle_sync_sheets import verifier_source
+        verifier_source(new_items)
     keys={'Courses & Prévisions':('course_key','numero'),
           'Historique chevaux':('cle_performance',),
           'Résultats & Analyse':('course_key',)}[tab]
@@ -548,6 +551,8 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000):
 
 
 def main():
+    from .controle_sync_sheets import (HISTORY, BlocageSynchronisation,
+        lire_cles_independantes, verifier_avant, verifier_apres)
     cache=Path(os.getenv('PMU_CACHE','cache_pmu'))
     spreadsheet=os.getenv('GOOGLE_SHEETS_ID','1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo')
     secret=os.getenv('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON','')
@@ -600,6 +605,14 @@ def main():
         existing=[dict(zip(headers,row)) for row in values[1:]]
         try: all_headers,updates,appends=plan_sheet(headers,existing,source[tab],tab)
         except ValueError as exc:print('SYNC_GOOGLE_SHEETS=SCHEMA_INCOMPATIBLE',str(exc));errors+=1;continue
+        control=None
+        if tab==HISTORY:
+            try:
+                independent=lire_cles_independantes(session,base,tab,properties,headers)
+                control=verifier_avant(all_headers,existing,source[tab],appends,
+                                      full_source=True,observed_keys=independent)
+            except BlocageSynchronisation:
+                errors+=1;continue
         updates_cells=[]
         # Only write bridge-owned fields of existing rows (the user retains all other cells).
         extra=all_headers[len(headers):]
@@ -631,6 +644,20 @@ def main():
                              json={'values':appends},timeout=45)
             if res.status_code!=200:
                 print(f'SYNC_GOOGLE_SHEETS=ERREUR_AJOUT onglet={tab} http={res.status_code}');errors+=1
+        if control:
+            try:
+                if updates or appends:
+                    checked=session.get(base,params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)))'},timeout=30)
+                    if checked.status_code!=200:raise RuntimeError('Dimensions apres ecriture non verifiables')
+                    fresh=next(s['properties'] for s in checked.json()['sheets'] if s['properties']['title']==tab)
+                    after=lire_feuille_complete(session,base,tab,fresh)
+                    if canonical_headers(after[0])!=all_headers:raise ValueError('En-tetes modifies pendant synchronisation')
+                    after_rows=[dict(zip(all_headers,row)) for row in after[1:]]
+                else:after_rows=existing
+                verifier_apres(control,after_rows)
+            except (BlocageSynchronisation,RuntimeError,ValueError,KeyError,StopIteration) as exc:
+                print(f'::error title=Controle Sheets apres ecriture::Verification incomplete : {type(exc).__name__}')
+                errors+=1
         print(f'SYNC_GOOGLE_SHEETS onglet={tab} lignes_source={len(source[tab])} '
               f'cellules_mises_a_jour={len(updates)} lignes_ajoutees={len(appends)}')
     # L'onglet KPI existant est alimente depuis les memes sources, sans formule

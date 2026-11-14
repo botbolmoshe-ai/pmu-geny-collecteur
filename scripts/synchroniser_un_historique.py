@@ -8,6 +8,7 @@ def synchroniser(horse,spreadsheet,cache=None):
     from google.oauth2.service_account import Credentials
     from google.auth.transport.requests import AuthorizedSession
     from pmu_geny.sync_google_sheets import source_rows,limiter_cours_registre,canonical_headers,plan_sheet,colname
+    from pmu_geny.controle_sync_sheets import HISTORY,lire_cles_independantes,verifier_avant,verifier_apres
     from pmu_geny.liaison_chevaux_v22 import nom_normalise
     info=json.loads(os.environ['GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON'])
     session=AuthorizedSession(Credentials.from_service_account_info(info,scopes=['https://www.googleapis.com/auth/spreadsheets']))
@@ -30,6 +31,10 @@ def synchroniser(horse,spreadsheet,cache=None):
         if not values:raise ValueError('Onglet sans en-tetes : '+tab)
         headers=canonical_headers(values[0]);existing=[dict(zip(headers,row)) for row in values[1:]]
         new_headers,updates,appends=plan_sheet(headers,existing,incoming,tab)
+        control=None
+        if tab==HISTORY:
+            independent=lire_cles_independantes(session,base,tab,prop,headers)
+            control=verifier_avant(headers,existing,incoming,appends,observed_keys=independent)
         # Aucun changement de structure dans cette synchronisation individuelle.
         updates=[{'range':f"'{tab}'!{colname(c)}{r}",'values':[[v]]} for r,c,v in updates if c<=len(headers)]
         for n in range(0,len(updates),200):check(session.post(base+'/values:batchUpdate',json={'valueInputOption':'RAW','data':updates[n:n+200]},timeout=45))
@@ -37,6 +42,17 @@ def synchroniser(horse,spreadsheet,cache=None):
             rows=[row[:len(headers)] for row in appends]
             check(session.post(base+'/values/'+quote("'"+tab+"'!A1",safe='!:\'')+':append',params={'valueInputOption':'RAW','insertDataOption':'INSERT_ROWS'},json={'values':rows},timeout=45))
         counts[tab]={'lignes_ajoutees':len(appends),'cellules_actualisees':len(updates),'lignes_source':len(incoming)}
+        if control:
+            if updates or appends:
+                fresh=check(session.get(base,params={'fields':'sheets(properties(sheetId,title,gridProperties))'},timeout=30))
+                prop=next(s['properties'] for s in fresh['sheets'] if s['properties']['title']==tab)
+                end=colname(prop['gridProperties']['columnCount'])+str(prop['gridProperties']['rowCount'])
+                path=quote("'"+tab+"'!A1:"+end,safe='!:\'')
+                after=check(session.get(base+'/values/'+path,timeout=60)).get('values',[])
+                if not after or canonical_headers(after[0])!=headers:raise ValueError('En-tetes apres synchronisation non conformes')
+                after_rows=[dict(zip(headers,row)) for row in after[1:]]
+            else:after_rows=existing
+            counts[tab]['controle']=verifier_apres(control,after_rows)
     from pmu_geny.kpi_registre import KPI_TAB,calculer_kpi,plan_kpi
     if KPI_TAB in tables:
         values=check(session.get(base+'/values/'+quote("'"+KPI_TAB+"'!A1:D100",safe='!:\''),timeout=30)).get('values',[])

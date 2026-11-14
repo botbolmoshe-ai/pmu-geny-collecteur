@@ -13,6 +13,7 @@ from scripts.synchroniser_un_historique import synchroniser
 
 
 class Response:
+    status_code=200
     def __init__(self, data):
         self.data = data
     def raise_for_status(self):
@@ -35,8 +36,17 @@ class SheetsSession:
             return Response({'sheets': [{'properties': {'title': tab, 'sheetId': i,
                         'gridProperties': {'columnCount': len(rows[0]), 'rowCount': 100}}}
                         for i, (tab, rows) in enumerate(self.tables.items())]})
-        tab = unquote(url.split('/values/')[1]).split('!')[0].strip("'")
-        return Response({'values': [row[:] for row in self.tables[tab]]})
+        tab, bounds = unquote(url.split('/values/')[1]).split('!')
+        tab=tab.strip("'")
+        match=re.fullmatch(r'([A-Z]+)(\d+):([A-Z]+)(\d+)',bounds)
+        if not match:return Response({'values':[row[:] for row in self.tables[tab]]})
+        def column(label):
+            result=0
+            for ch in label:result=result*26+ord(ch)-64
+            return result
+        first,last=column(match[1])-1,column(match[3])
+        rows=[row[first:last] for row in self.tables[tab][int(match[2])-1:int(match[4])]]
+        return Response({'values':rows})
     def post(self, url, **kwargs):
         data = kwargs['json']
         self.writes.append((url, data))
@@ -59,6 +69,23 @@ class SheetsSession:
 
 
 class ChaineTests(unittest.TestCase):
+    def test_plan_corrompu_bloque_avant_tout_post_sheets(self):
+        from pmu_geny.controle_sync_sheets import BlocageSynchronisation
+        session=SheetsSession()
+        session.tables['Historique chevaux'].append(['perf','123456','Test','3'])
+        source={'Historique chevaux':{'x':{'cle_performance':'perf','identifiant_cheval':'123456','cheval':'Test','classement':'3'}},
+                'Courses & Prévisions':{},'Résultats & Analyse':{}}
+        with tempfile.TemporaryDirectory() as tmp, \
+             patch.dict('os.environ',{'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON':'{}','PMU_SHEETS_CONTROLES':str(Path(tmp)/'controle.jsonl')}), \
+             patch('google.oauth2.service_account.Credentials.from_service_account_info',return_value=object()), \
+             patch('google.auth.transport.requests.AuthorizedSession',return_value=session), \
+             patch('pmu_geny.sync_google_sheets.source_rows',return_value=source), \
+             patch('pmu_geny.sync_google_sheets.plan_sheet',return_value=(session.tables['Historique chevaux'][0],[],[['perf','123456','Test','3']])), \
+             patch('builtins.print'):
+            with self.assertRaisesRegex(BlocageSynchronisation,'REINSERTION'):
+                synchroniser({'nom':'Test','geny':{'id':'123456'}},'fake',cache=Path(tmp))
+        self.assertEqual(session.writes,[])
+
     def test_cycle_pmu_alimente_file_sans_collecte_geny_et_respecte_jour_j(self):
         from datetime import datetime, timedelta
         from zoneinfo import ZoneInfo
