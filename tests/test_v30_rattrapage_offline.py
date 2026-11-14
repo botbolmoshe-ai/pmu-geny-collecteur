@@ -343,5 +343,16 @@ class RepriseTests(unittest.TestCase):
         self.assertEqual(inventory['ids_couverts'],['123456'])
         self.assertEqual(session.writes,[])
 
+    def test_bilan_retient_le_dernier_controle_date_meme_apres_nettoyage_des_lignes(self):
+        state={'chevaux':{
+            'ancien':{'sync_utc':'2026-11-14T21:00:00+00:00','sync_details':{'Historique chevaux':{
+                'controle':{'statut':'VALIDE','lignes_apres':15647}}}},
+            'recent':{'sync_utc':'2026-11-14T23:00:00+00:00','sync_details':{'Historique chevaux':{
+                'controle':{'statut':'VALIDE','lignes_apres':14465}}}},
+            'sans-date':{'sync_details':{'Historique chevaux':{'controle':{'statut':'VALIDE','lignes_apres':99999}}}}}}
+        report=back.rapport(state)
+        self.assertEqual(report['derniere_ecriture_controlee']['lignes_apres'],14465)
+        self.assertEqual(report['derniere_ecriture_controlee']['sync_utc'],'2026-11-14T23:00:00+00:00')
+
 
 if __name__=='__main__':unittest.main()
