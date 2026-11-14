@@ -10,6 +10,7 @@ FIELDS = {
     "entraineur": ("entraineur", "trainer", "nomEntraineur"),
     "proprietaire": ("proprietaire", "owner", "nomProprietaire"),
     "ferrure": ("deferre", "ferrure", "codeFerrure", "typeFerrure", "ferrureCheval"),
+    "musique_pmu": ("musique", "musiqueCheval", "derniereMusique"),
     "sexe": ("sexe", "sexeCheval", "sexeParticipant"),
     "age_ans": ("age", "ageCheval", "ageParticipant"),
     "gains_euros": ("gainsCarriere", "gainsParticipant", "gains", "gainCarriere",
