@@ -529,6 +529,32 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
     return headers,changes,append
 
 
+
+def reconcilier_cles_historiques(existing_rows, incoming):
+    """Rejouer sous la cle deja publiee si la signature technique a evolue.
+
+    Evite les nouveaux doublons lorsque le texte Geny change ou lorsqu'un
+    second hippodrome/course est decouvert au fil des captures.
+    """
+    from .controle_sync_sheets import cle_sportive
+    known={}
+    for row in existing_rows:
+        identity=cle_sportive(row)
+        if identity is not None:
+            known[identity]=str(row.get('cle_performance') or '').strip()
+    output={}
+    for row in incoming.values():
+        candidate=dict(row)
+        identity=cle_sportive(candidate)
+        if identity is not None and identity in known:
+            candidate['cle_performance']=known[identity]
+        key=str(candidate.get('cle_performance') or '').strip()
+        if key in output:
+            raise ValueError('DOUBLON_CLE_APRES_RAPPROCHEMENT_HISTORIQUE: '+key)
+        output[key]=candidate
+    return output
+
+
 def limiter_cours_registre(source, date_debut=LIVE_RESET_DATE):
     """Ne filtre que les onglets operationnels; ne touche jamais aux historiques."""
     result=dict(source)
