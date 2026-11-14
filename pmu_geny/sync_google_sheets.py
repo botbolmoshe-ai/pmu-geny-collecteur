@@ -502,6 +502,40 @@ def limiter_cours_registre(source, date_debut=LIVE_RESET_DATE):
     return result
 
 
+def lire_feuille_complete(session, base, tab, properties, page_rows=2000):
+    """Lire toutes les lignes sans perdre les positions des plages vides.
+
+    Une lecture limitée aux 5000 premières lignes faisait réinsérer les clés
+    déjà présentes plus bas. La pagination borne la taille des réponses API.
+    Aucune écriture n'est autorisée si une page n'a pas pu être lue.
+    """
+    import urllib.parse
+    import time
+    grid=properties.get('gridProperties',{})
+    height=grid.get('rowCount',0);width=grid.get('columnCount',0)
+    if height<1 or width<1 or page_rows<1:
+        raise ValueError('Dimensions de feuille absentes ou invalides')
+    values=[]
+    for start in range(1,height+1,page_rows):
+        end=min(height,start+page_rows-1)
+        name="'"+tab.replace("'","''")+"'!A"+str(start)+":"+colname(width)+str(end)
+        quoted=urllib.parse.quote(name,safe="!:'")
+        for attempt in range(4):
+            response=session.get(base+'/values/'+quoted,timeout=60)
+            if response.status_code==200:break
+            if response.status_code not in (429,500,502,503,504) or attempt==3:
+                raise RuntimeError(f'Lecture incomplete {tab} lignes {start}:{end}, HTTP {response.status_code}')
+            try:delay=max(2**attempt,float(response.headers.get('Retry-After',0)))
+            except (ValueError,TypeError):delay=2**attempt
+            time.sleep(min(delay,60))
+        rows=response.json().get('values',[])
+        if len(rows)>end-start+1:raise ValueError('Page Sheets trop longue')
+        values.extend(rows)
+        values.extend([[] for _ in range(end-start+1-len(rows))])
+    while values and not values[-1]:values.pop()
+    return values
+
+
 def main():
     cache=Path(os.getenv('PMU_CACHE','cache_pmu'))
     spreadsheet=os.getenv('GOOGLE_SHEETS_ID','1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo')
@@ -520,7 +554,7 @@ def main():
     base=f'https://sheets.googleapis.com/v4/spreadsheets/{spreadsheet}'
     source=limiter_cours_registre(source_rows(cache))
     print(f'REGISTRE_DEBUT_PRODUCTION={LIVE_RESET_DATE}; anciennes courses conservees hors Sheets')
-    metadata=session.get(base,params={'fields':'sheets(properties(sheetId,title,gridProperties(columnCount)))'},timeout=30)
+    metadata=session.get(base,params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)))'},timeout=30)
     if metadata.status_code != 200:
         print(f'SYNC_GOOGLE_SHEETS=ERREUR_META http={metadata.status_code}')
         return 2
@@ -528,11 +562,12 @@ def main():
     errors=0
     for tab in SHEET_TABS:
         import urllib.parse
-        quoted=urllib.parse.quote("'"+tab.replace("'","''")+"'!A1:BS5000",safe='!:\'')
-        response=session.get(f'{base}/values/{quoted}',timeout=30)
-        if response.status_code!=200:
-            print(f'SYNC_GOOGLE_SHEETS=ERREUR_LECTURE onglet={tab} http={response.status_code}');errors+=1;continue
-        values=response.json().get('values',[])
+        properties=by_name.get(tab)
+        if properties is None:
+            print(f'SYNC_GOOGLE_SHEETS=ONGLET_ABSENT {tab}');errors+=1;continue
+        try:values=lire_feuille_complete(session,base,tab,properties)
+        except (RuntimeError,ValueError) as exc:
+            print(f'SYNC_GOOGLE_SHEETS=ERREUR_LECTURE {exc}');errors+=1;continue
         # Migration unique : aucune donnée Zone-Turf n'est attribuée à ZEturf.
         legacy={'Avis expert Geny':'avis_equidia','avis_geny':'avis_equidia',
                 'Avis expert Zone-Turf':'avis_zeturf','avis_zone_turf':'avis_zeturf'}
