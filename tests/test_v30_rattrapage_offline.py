@@ -190,7 +190,7 @@ class RepriseTests(unittest.TestCase):
 
     def test_aucune_tache_eligible_ne_signifie_pas_stock_termine(self):
         snapshot=inc.lire(self.cache/back.INVENTAIRE)
-        snapshot['chevaux']=[{'id':'999999','nom':'Sans lien'}];inc.ecrire(self.cache/back.INVENTAIRE,snapshot)
+        snapshot['chevaux']=[{'nom':'Sans lien'}];inc.ecrire(self.cache/back.INVENTAIRE,snapshot)
         state=back.preparer(self.cache,self.now);state['sync_kpi']='OK';back.bilan(state)
         self.assertEqual(back.prochaine_tache(state,self.now,{}),(None,'TERMINE_PASSAGE'))
         self.assertEqual(state['statut'],'PARTIEL_REPRENABLE')
@@ -253,6 +253,78 @@ class RepriseTests(unittest.TestCase):
             self.assertEqual(back.priorite_production(),'PRIORITE_PRODUCTION_EN_ATTENTE')
             get.side_effect=RuntimeError('API indisponible')
             self.assertEqual(back.priorite_production(),'PRIORITE_PRODUCTION_NON_VERIFIABLE')
+
+    def test_formats_sheet_et_pmu_designent_un_seul_contexte(self):
+        day='2020-01-01'
+        inc.ecrire(self.cache/'partants_actuels'/f'{day}_R1C1.json',{'chevaux':{'1':{'nom':'Test'}}})
+        targets=back.inventaire_local(self.cache,{'chevaux':[{'nom':'Test','numero':'1',
+            'engagement':day+'|VINCENNES|R1C1','origine':'SHEETS:Courses & Prévisions'}]})
+        self.assertEqual(len(targets),1)
+        self.assertEqual(next(iter(targets.values()))['engagement'],day+'_R1C1')
+
+    def test_lot_existant_conserve_deux_observations_mais_ne_collecte_qu_une_fois(self):
+        day='2020-01-01'
+        snapshot=inc.lire(self.cache/back.INVENTAIRE)
+        snapshot['chevaux']=[{'nom':'Test','numero':'1','engagement':day+'|VINCENNES|R1C1'}]
+        inc.ecrire(self.cache/back.INVENTAIRE,snapshot)
+        inc.ecrire(self.cache/'partants_actuels'/f'{day}_R1C1.json',{'chevaux':{'1':{'nom':'Test'}}})
+        inc.ecrire(self.cache/'orchestration/correspondances_geny.json',{day+'_R1C1':'GENY-1698061'})
+        inc.ecrire(self.cache/back.QUEUE,{'version':1,'mode':'RATTRAPAGE_GLOBAL','inventaire_id':'lot-fige',
+            'sync_kpi':'A_REPRENDRE','chevaux':{
+                'ancien-a':{'nom':'Test','numero':'1','engagement':day+'_R1C1'},
+                'ancien-b':{'nom':'Test','engagement':day+'|VINCENNES|R1C1'}}})
+        collect=Mock(side_effect=self.collect)
+        state=inc.run(self.cache,mode='rattrapage',collect=collect,
+            sync=lambda h:{'Historique chevaux':{'lignes_ajoutees':1}})
+        self.assertEqual(state['inventaire_id'],'lot-fige')
+        self.assertEqual(set(state['chevaux']),{'ancien-a','ancien-b'})
+        self.assertEqual(collect.call_count,1)
+        self.assertEqual(state['bilan']['cibles_completees'],2)
+        self.assertEqual(state['bilan']['cibles_equivalentes'],1)
+        self.assertEqual(state['bilan']['ajouts_confirmes'],1)
+        again=back.preparer(self.cache,datetime.now(timezone.utc))
+        self.assertEqual(again['bilan']['ajouts_confirmes'],1)
+        report=inc.lire(self.cache/back.QUEUE.parent/'bilan.json')
+        self.assertNotIn('chevaux',report);self.assertEqual(report['inventaire_id'],'lot-fige')
+
+    def test_deux_courses_differentes_ne_sont_pas_des_alias_sur_le_seul_nom(self):
+        snapshot=inc.lire(self.cache/back.INVENTAIRE)
+        snapshot['chevaux']=[{'nom':'Homonyme','numero':'1','engagement':'2020-01-01|VINCENNES|R1C1'},
+                             {'nom':'Homonyme','numero':'1','engagement':'2020-01-02|VINCENNES|R1C1'}]
+        inc.ecrire(self.cache/back.INVENTAIRE,snapshot)
+        state=back.preparer(self.cache,self.now)
+        self.assertEqual(state['bilan']['cibles_inventoriees'],2)
+        self.assertEqual(state['bilan']['cibles_equivalentes'],0)
+
+    def test_numero_absent_reste_non_resolu_si_nom_ambigu_dans_la_meme_course(self):
+        day='2020-01-01';engagement=day+'|VINCENNES|R1C1'
+        snapshot=inc.lire(self.cache/back.INVENTAIRE)
+        snapshot['chevaux']=[{'nom':'Test','numero':'1','engagement':engagement},
+                             {'nom':'Test','numero':'2','engagement':engagement}]
+        inc.ecrire(self.cache/back.INVENTAIRE,snapshot)
+        inc.ecrire(self.cache/back.QUEUE,{'version':1,'inventaire_id':'fige','chevaux':{
+            'ancienne-cible':{'nom':'Test','engagement':engagement}}})
+        state=back.preparer(self.cache,self.now)
+        self.assertFalse(state['chevaux']['ancienne-cible'].get('numero'))
+        self.assertEqual(state['bilan']['liens_a_resoudre'],1)
+
+    def test_identifiant_observe_sans_url_n_est_qu_un_candidat_a_verifier(self):
+        snapshot=inc.lire(self.cache/back.INVENTAIRE)
+        snapshot['chevaux']=[{'id':'999999','nom':'Vu dans Sheet'}]
+        inc.ecrire(self.cache/back.INVENTAIRE,snapshot)
+        state=back.preparer(self.cache,self.now);horse=state['chevaux']['999999']
+        self.assertNotIn('geny',horse)
+        self.assertEqual(horse['lien_candidat'],'https://www.geny.com/cheval/999999')
+        self.assertEqual(back.prochaine_tache(state,self.now,{}),('999999','COLLECTE'))
+
+    def test_page_candidate_exige_http_identifiant_final_et_nom(self):
+        from pmu_geny.historique_individuel import verifier_candidat
+        horse={'id':'123456','nom':'Test'};url='https://www.geny.com/cheval/123456-test'
+        self.assertEqual(verifier_candidat(horse,url,200,'Cheval TEST',self.cache)['id'],'123456')
+        for final,status,text in [(url,404,'Test'),('https://www.geny.com/cheval/999999',200,'Test'),
+                                   (url,200,'Autre cheval'),('https://example.com/cheval/123456',200,'Test')]:
+            with self.assertRaisesRegex(ValueError,'LIEN_CANDIDAT_NON_VERIFIE'):
+                verifier_candidat(horse,final,status,text,self.cache)
 
 
 if __name__=='__main__':unittest.main()
