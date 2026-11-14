@@ -105,6 +105,7 @@ class RepriseTests(unittest.TestCase):
         self.assertEqual(collect.call_count,1);engine.synchroniser_cheval.assert_called_once()
         self.assertEqual(engine.synchroniser_cheval.call_args.kwargs,{'include_kpi':False,'include_courses':False})
         self.assertEqual(first['bilan']['ajouts_confirmes'],1)
+        self.assertEqual(inc.lire(self.cache/'etat_persistant.json')['chevaux']['123456']['origine'],'RATTRAPAGE_GLOBAL')
         self.assertEqual(before,{name:(self.cache/name).read_bytes() for name in protected})
 
     def test_publication_echouee_reprise_sans_geny(self):

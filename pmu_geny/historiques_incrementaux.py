@@ -224,7 +224,7 @@ def executer_enfant(horse, out):
     return lire(out/'resultat.json')
 
 
-def accepter(cache, horse, report):
+def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'):
     """Ne jamais remplacer un historique complet par un partiel ou une régression."""
     if not report.get('complet') or not report.get('identite_verifiee'):
         raise ValueError('HISTORIQUE_NON_VALIDE')
@@ -276,7 +276,7 @@ def accepter(cache, horse, report):
         'nombre_extrait': doc['nombre_extrait'], 'nombre_annonce_geny': doc['nombre_annonce_geny'],
         'maj_utc': stamp, 'historique_complet_au_utc': stamp,
         'prochaine_verification_utc': horse['prochaine_verification_utc'],
-        'origine': 'COLLECTE_INCREMENTALE_PRODUCTION'}
+        'origine': origine}
     ecrire(cache/'etat_persistant.json', journal)
 
 
@@ -364,7 +364,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                 report = collect(horse, out)
                 if report.get('statut') in ('ACCES_REFUSE_403', 'ACCES_LIMITE_429'):
                     raise PermissionError(report['statut'])
-                accepter(cache, horse, report)
+                if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
+                else:accepter(cache, horse, report)
                 ident = horse['id']
                 if not reprise and key != ident:
                     state['chevaux'][ident] = horse
