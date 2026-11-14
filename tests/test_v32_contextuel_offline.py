@@ -47,6 +47,15 @@ class ScoresV32(unittest.TestCase):
         self.assertEqual(proche["ferrures_comparees"], 2)
         self.assertEqual(proche["courses_distance_proche"], 2)
 
+    def test_allocation_inferieure_reduit_comparabilite(self):
+        from pmu_geny.formes_contextuelles_v32 import _facteur_niveau
+        cible={**COURSE, "allocation_eur": 120000}
+        basse={"texte_source": "12/10/26 | Caen | Attelé | 2 700 | Crse D | 20 000 €"}
+        proche={"texte_source": "12/10/26 | Vincennes | Attelé | 2 700 | 120 000 €"}
+        self.assertEqual(_facteur_niveau(cible,basse),(0.70,True))
+        self.assertEqual(_facteur_niveau(cible,proche),(1.0,True))
+        self.assertEqual(_facteur_niveau(cible,{"texte_source":""}),(1.0,False))
+
     def test_disqualifications_et_pas_de_reconstruction_des_ferrures(self):
         données = hist([perf(rang="Dai", ferrure=""),
                         perf("2026-10-20", rang="2", ferrure="")])
