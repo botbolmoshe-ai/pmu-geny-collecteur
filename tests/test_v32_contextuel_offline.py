@@ -128,6 +128,38 @@ class IntegrationV32(unittest.TestCase):
                              "APRES_DEPART")
             self.assertEqual((cache/"pronostics/2026-11-15_R1C2_direct.json").read_text(), avant)
 
+    def test_ferrure_tierce_utilisee_seulement_avec_preuve_et_heure(self):
+        def run_with(capture, name="Etoile", url="https://www.equidia.fr/course-test", source="equidia"):
+            with tempfile.TemporaryDirectory() as tmp:
+                cache = Path(tmp)
+                def write(rel, doc):
+                    path = cache/rel
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text(json.dumps(doc), encoding="utf-8")
+                write("etat_persistant.json", {"chevaux": {"42": {"nom": "Etoile", "statut": "COMPLET"}}})
+                write("historiques/42/historique_geny.json",
+                      hist([perf("2026-11-01", "2"), perf("2026-10-15", "1")]))
+                write("partants_actuels/2026-11-15_R1C2.json", {
+                    "date": "2026-11-15", "course": "R1C2",
+                    "capture_utc": "2026-11-15T07:00:00+00:00",
+                    "chevaux": {"1": {"nom": name, "ferrure": "D4", "provenance_champs": {
+                        "ferrure": {"source": source, "url": url,
+                                    "capture_utc": capture}}}}
+                })
+                partants=[{"numPmu":i, "nomCheval":("Etoile" if i==1 else "Cheval "+str(i)),
+                           "musique":"2a3a", "nonPartant":False}
+                          for i in range(1,5)]
+                calculer(cache, COURSE, {"participants":partants}, NOW)
+                doc=json.loads((cache/"pronostics/2026-11-15_R1C2_direct.json").read_text())
+                h=next(x for x in doc["classement_complet"] if x["numero"]==1)
+                return h["ferrures_historiques_comparees"], h["source_ferrure_courante"]
+
+        self.assertEqual(run_with("2026-11-15T08:00:00+00:00"), (2,"SOURCEE_EQUIDIA"))
+        self.assertEqual(run_with("2026-11-15T13:20:00+00:00"), (0,"NON_DOCUMENTEE"))
+        self.assertEqual(run_with("2026-11-15T08:00:00+00:00",name="Autre"), (0,"NON_DOCUMENTEE"))
+        self.assertEqual(run_with("2026-11-15T08:00:00+00:00",url=""), (0,"NON_DOCUMENTEE"))
+        self.assertEqual(run_with("2026-11-15T08:00:00+00:00",source="zeturf"), (0,"NON_DOCUMENTEE"))
+
     def test_non_partant_exclu_et_pas_de_score_invente(self):
         with tempfile.TemporaryDirectory() as tmp:
             participants = [
