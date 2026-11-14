@@ -74,6 +74,24 @@ def _distance_factor(d1, d2):
             else 0.55 if ecart <= 500 else 0.25), True
 
 
+def _facteur_niveau(course, row):
+    """L'allocation est un proxy imparfait du niveau, jamais un classement etabli."""
+    try:
+        cible = float(course.get("allocation_eur"))
+    except (TypeError, ValueError):
+        return 1.0, False
+    source = str(row.get("texte_source") or "")
+    montants = re.findall(r"(?<!\\d)(\\d{1,3}(?:[ \\u00a0]\\d{3})+)\\s*€", source)
+    # On ne deduit rien lorsque plusieurs montants sont possibles.
+    if cible <= 0 or len(montants) != 1:
+        return 1.0, False
+    montant = float(re.sub(r"\\s+", "", montants[0]))
+    if montant <= 0:
+        return 1.0, False
+    ratio = cible / montant
+    return (0.70 if ratio > 2 else 0.85 if ratio > 1.35 else 1.0), True
+
+
 def _historique_contextuel(historique, course, profil):
     """Pondere les performances passees selon les conditions de la course cible."""
     try:
@@ -87,7 +105,7 @@ def _historique_contextuel(historique, course, profil):
     n = n_proches = 0
     dates = set()
     facteurs = []
-    ferrures_comparees = 0
+    ferrures_comparees = niveaux_documentes = 0
     for row in historique.get("performances", []):
         if not isinstance(row, dict):
             continue
@@ -115,15 +133,17 @@ def _historique_contextuel(historique, course, profil):
             ferrure_factor = 1.0 if current_ferrure == ferrure_histo else 0.65
         else:
             ferrure_factor = 0.85  # Incertitude, pas une ferrure inventee.
+        niveau_factor, niveau_connu = _facteur_niveau(course, row)
+        niveaux_documentes += int(niveau_connu)
         temps = (1.0 if age_jours <= 30 else 0.85 if age_jours <= 90
                  else 0.65 if age_jours <= 180 else 0.40)
-        poids = distance * piste_factor * ferrure_factor * temps
+        poids = distance * piste_factor * ferrure_factor * niveau_factor * temps
         total += poids * points
         poids_total += poids
         n += 1
         n_proches += int(distance_documentee and distance >= 0.85)
         dates.add(date.isoformat())
-        facteurs.append(round(distance * piste_factor * ferrure_factor, 3))
+        facteurs.append(round(distance * piste_factor * ferrure_factor * niveau_factor, 3))
     if n == 0:
         return None
     # Evite qu'une victoire isolee sur un parcours different vaille 5/5.
@@ -135,6 +155,7 @@ def _historique_contextuel(historique, course, profil):
         "courses_distance_proche": n_proches,
         "jours_distincts": len(dates),
         "ferrures_comparees": ferrures_comparees,
+        "niveaux_documentes": niveaux_documentes,
         "poids_total": round(poids_total, 4),
         "comparabilite_moyenne": round(sum(facteurs) / n, 4),
     }
@@ -173,11 +194,13 @@ def noter_partant(participant, course, lien, profil):
                 "historique_exploitable": 0, "qualite": "INSUFFISANTE"}
     n_histo = hist["performances_valides"] if hist else 0
     qualite = ("CONTEXTE_DOCUMENTE" if n_histo >= 3 and hist["courses_distance_proche"] >= 2
+               and (not profil.get("ferrure") or hist["ferrures_comparees"] >= 2)
                else "CONTEXTE_PARTIEL" if hist else "PMU_NON_CONTEXTUALISE")
     return {"score": round(score, 4), "source_forme": source,
             "musique_exploitable": n_pmu, "historique_exploitable": n_histo,
             "distance_proche": hist["courses_distance_proche"] if hist else 0,
             "comparabilite_moyenne": hist["comparabilite_moyenne"] if hist else None,
             "ferrures_historiques_comparees": hist["ferrures_comparees"] if hist else 0,
+            "niveaux_historiques_documentes": hist["niveaux_documentes"] if hist else 0,
             "qualite": qualite,
             "identifiant_historique": lien.get("cheval_id") if hist else None}
