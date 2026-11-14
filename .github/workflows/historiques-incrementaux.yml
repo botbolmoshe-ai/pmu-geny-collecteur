@@ -59,5 +59,6 @@ jobs:
           name: historiques-incrementaux-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             resultats/incremental/
+            resultats/synchronisation/
             cache_pmu/collecte_incrementale/etat.json
           retention-days: 14

@@ -391,6 +391,10 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         except Exception as exc:
             horse.update(sync='A_FAIRE', erreur=f'{type(exc).__name__}: {exc}',
                          prochaine_sync_utc=(datetime.now(UTC)+timedelta(minutes=10)).isoformat())
+            from .controle_sync_sheets import BlocageSynchronisation
+            if isinstance(exc,BlocageSynchronisation):
+                save()
+                raise  # Incident visible en échec Actions ; ne pas continuer silencieusement.
         save()
         if action == 'COLLECTE':
             time.sleep(30)
