@@ -73,26 +73,8 @@ def inventaire_local(cache,sheets):
     for key,h in inc.lire(cache/inc.QUEUE,{'chevaux':{}})['chevaux'].items():
         records.append({**h,'url_geny':h.get('geny',{}).get('url_geny',''),
                         'origine':'FILE_PRODUCTION:'+key})
-    correspondence=inc.lire(cache/'orchestration/correspondances_geny.json')
     for file in sorted((cache/'partants_actuels').glob('????-??-??_R*C*.json')):
-        day,code=file.stem.split('_',1)
-        course=inc.lire(cache/'orchestration'/f'{day}.json').get('courses',{}).get(code,{})
-        cid=correspondence.get(file.stem,'')
-        if not cid:
-            cid=course.get('identifiant_geny','')
-            mapping=course.get('rapprochement_geny',{})
-            if not cid and mapping.get('statut')=='CORRESPONDANCE_CONFIRMEE':
-                cid='GENY-'+str(mapping.get('geny_id',''))
-        if not cid:
-            # Réutiliser l'index déjà observé, y compris pour les anciennes courses.
-            from .rapprochement_v20_6 import rapprocher
-            index=inc.lire(cache/'sources_geny'/f'index_{day}.json')
-            rc=re.fullmatch(r'R(\d+)C(\d+)',code)
-            if index.get('statut')=='OK' and rc:
-                decision=rapprocher({**course,'date':day,'num_reunion':int(rc[1]),
-                                     'num_course':int(rc[2])},index.get('courses',[]))
-                if decision.get('statut')=='CORRESPONDANCE_CONFIRMEE':
-                    cid='GENY-'+str(decision['geny_id'])
+        cid=inc.course_geny_connue(cache,file.stem)
         course_url='https://www.geny.com/course/'+cid[5:]+'/partants-pronostics' if re.fullmatch(r'GENY-\d+',str(cid)) else ''
         for number,h in inc.lire(file).get('chevaux',{}).items():
             records.append({'nom':h.get('nom',''),'numero':str(number),'engagement':file.stem,
@@ -185,6 +167,7 @@ def preparer(cache,now):
         if nom_normalise(fresh.get('nom'))==nom_normalise(h.get('nom')):
             for field in ('geny','course_url','numero','conflit_identite'):
                 if fresh.get(field):h[field]=fresh[field]
+            if fresh.get('engagement'):h['engagement_prioritaire']=fresh['engagement']
         if h.get('geny') or url_course(h.get('course_url')) and h.get('numero'):
             h.pop('lien_candidat',None)
         ident=h.get('id','');doc=inc.capture_valide(cache,ident) if ident else None
@@ -245,7 +228,8 @@ def prochaine_tache(state,now,attempts):
         retry=inc.instant(h.get('prochain_essai_utc'))
         if attempts.get(('COLLECTE',key),0) or retry and retry>now:continue
         priority=0 if h.get('geny') else 1 if h.get('course_url') else 2
-        candidates.append(((priority,h.get('engagement',''),key),key))
+        night=inc.priorite_engagement(h,now,manquant=True) if inc.nuit_collecte(now) else 0
+        candidates.append(((night,priority,h.get('engagement',''),key),key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 
@@ -292,7 +276,7 @@ def bilan(state):
 
 
 def rapport(state):
-    keys=('version','mode','inventaire_id','inventaire_utc','passage_utc','maj_utc','statut',
+    keys=('version','mode','inventaire_id','inventaire_utc','passage_utc','maj_utc','statut','priorite_collecte',
           'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire')
     report={k:state[k] for k in keys if k in state}
     proofs=[]

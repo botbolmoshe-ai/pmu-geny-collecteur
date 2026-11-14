@@ -82,6 +82,13 @@ Un sous-processus déjà commencé peut terminer après le budget ; sa limite re
 pause partagée de 30 minutes ; aucun accès n'est contourné. Les autres échecs
 conservent un motif et une prochaine tentative après six heures.
 
+Entre 21 h et 7 h Europe/Paris, les cibles déjà engagées dans les courses du jour
+et du lendemain passent avant les anciennes carrières sans engagement. Les
+partants récents encore incomplets viennent ensuite. Cette priorité nocturne
+est partagée avec le collecteur courant ; elle réutilise les index sauvegardés
+pour retrouver les contextes de courses. Aucune collecte n'a lieu pendant une
+pause Geny active et une publication en attente reste reprise sans recollecte.
+
 `TERMINE` exige toutes les cibles complétées, leur synchronisation confirmée et
 les KPI `OK`. L'absence de tâche actuellement éligible ne suffit jamais. Les
 carrières inaccessibles ou sans lien fiable maintiennent `PARTIEL_REPRENABLE`,
