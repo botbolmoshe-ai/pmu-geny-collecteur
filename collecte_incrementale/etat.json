@@ -20167,7 +20167,7 @@
     },
     "2722261": {
       "nom": "JILORD VIVA",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "8",
       "engagement": "2026-11-14_R1C7",
       "vu_utc": "2026-11-14T20:10:45.385890+00:00",
@@ -20189,20 +20189,32 @@
       "derniere_performance_date": "2026-11-14",
       "sync_details": {
         "Historique chevaux": {
-          "lignes_ajoutees": 66,
+          "lignes_ajoutees": 1,
           "cellules_actualisees": 0,
-          "lignes_source": 66
+          "lignes_source": 67,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 1,
+            "lignes_avant": 15476,
+            "cles_avant": 13433,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 2043,
+            "seuil_ajouts": 1344,
+            "import_initial_explicite": false,
+            "lignes_attendues": 15477,
+            "lignes_apres": 15477,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
         },
         "Courses & Prévisions": {
           "lignes_ajoutees": 0,
-          "cellules_actualisees": 3,
+          "cellules_actualisees": 2,
           "lignes_source": 1
-        },
-        "Data Quality & KPI": {
-          "indicateurs_actualises": 25
         }
       },
-      "sync_utc": "2026-11-14T10:25:17.155436+00:00",
+      "sync_utc": "2026-11-14T20:11:21.768171+00:00",
       "derniere_course_officielle_utc": "2026-11-14T16:07:00+00:00"
     },
     "2696992": {
@@ -21102,12 +21114,13 @@
     }
   },
   "passage_utc": "2026-11-14T20:10:45.385890+00:00",
-  "maj_utc": "2026-11-14T20:10:59.613290+00:00",
+  "maj_utc": "2026-11-14T20:11:21.768191+00:00",
   "bilan": {
     "chevaux_suivis": 1145,
     "tentatives_collecte": 14,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 798
   },
-  "statut": "PARTIEL_REPRENABLE"
+  "statut": "PARTIEL_REPRENABLE",
+  "sync_kpi": "A_REPRENDRE"
 }
