@@ -10,6 +10,7 @@ FIELDS = {
     "entraineur": ("entraineur", "trainer", "nomEntraineur"),
     "proprietaire": ("proprietaire", "owner", "nomProprietaire"),
     "ferrure": ("deferre", "ferrure", "codeFerrure", "typeFerrure", "ferrureCheval"),
+    "musique_pmu": ("musique", "musiqueCheval", "derniereMusique"),
     "sexe": ("sexe", "sexeCheval", "sexeParticipant"),
     "age_ans": ("age", "ageCheval", "ageParticipant"),
     "gains_euros": ("gainsCarriere", "gainsParticipant", "gains", "gainCarriere",
@@ -77,7 +78,8 @@ def ferrure_normalisee(value):
         'PROTEGE_ANTERIEURS_DEFERRE_POSTERIEURS':'DP/PA',
         'DEFERRE_ANTERIEURS_PROTEGE_POSTERIEURS':'DA/PP',
         'D4':'D4','DA':'DA','DP':'DP','P4':'P4','PA':'PA','PP':'PP',
-        'DP/PA':'DP/PA','DA/PP':'DA/PP'
+        'DP/PA':'DP/PA','DA/PP':'DA/PP',
+        'FERRE':'F','FERRÉ':'F','F':'F'
     }.get(key,'')
 
 def ferrure_historique_explicite(value):
