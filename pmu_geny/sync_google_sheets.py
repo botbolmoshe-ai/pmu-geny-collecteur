@@ -474,10 +474,21 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
     if not all(x in headers for x in keys):raise ValueError(f'Colonnes cle manquantes pour {tab}: {keys}')
     def rowkey(row):return '|'.join(str(row.get(x,'')).strip() for x in keys)
     present={rowkey(r):idx+2 for idx,r in enumerate(existing_rows) if all(str(r.get(k,'')).strip() for k in keys)}
+    # Plusieurs variantes conservées pour une même performance ne doivent pas
+    # être arbitrées en écrasant silencieusement la dernière ligne rencontrée.
+    ambiguous=set()
+    if tab=='Historique chevaux':
+        seen=set()
+        for row in existing_rows:
+            if not all(str(row.get(k,'')).strip() for k in keys):continue
+            key=rowkey(row)
+            if key in seen:ambiguous.add(key)
+            seen.add(key)
     changes=[];append=[]
     for item in new_items.values():
         k=rowkey(item)
         if k in present:
+            if k in ambiguous:continue
             # writes only values actually present/nonempty; leaves other cells untouched.
             for name,val in item.items():
                 value=sheet_value(name,val)

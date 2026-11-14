@@ -46,5 +46,13 @@ class PaginationTests(unittest.TestCase):
     def test_dimensions_absentes_refusees(self):
         with self.assertRaises(ValueError):lire_feuille_complete(None,'unused','Historique chevaux',{})
 
+    def test_variantes_meme_cle_conservees_sans_ecrasement_ni_reinsertion(self):
+        headers=['cle_performance','cheval','classement','source_url']
+        existing=[{'cle_performance':'id|date|piste','cheval':'TEST','classement':'3','source_url':'preuve A'},
+                  {'cle_performance':'id|date|piste','cheval':'TEST','classement':'4','source_url':'preuve B'}]
+        incoming={'x':{'cle_performance':'id|date|piste','cheval':'TEST','classement':'3','source_url':'preuve A'}}
+        _,updates,appends=plan_sheet(headers,existing,incoming,'Historique chevaux')
+        self.assertEqual(updates,[]);self.assertEqual(appends,[])
+
 
 if __name__=='__main__':unittest.main()
