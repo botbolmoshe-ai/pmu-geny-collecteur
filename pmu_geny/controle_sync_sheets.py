@@ -113,6 +113,15 @@ def verifier_avant(headers, existing, incoming, appends, *, full_source=False, o
     sports_source=[k for k in sports_source if k is not None]
     if len(sports_source)!=len(set(sports_source)):
         bloquer(report, 'PERFORMANCES_SPORTIVES_DUPLIQUEES_DANS_SOURCE')
+    # Une variation de signature ne doit jamais réinsérer une performance
+    # déjà présente sous une autre clé technique.
+    sport_existing={cle_sportive(row):str(row.get(KEY) or '').strip()
+                    for row in existing if cle_sportive(row) is not None}
+    for row in incoming.values():
+        sem=cle_sportive(row)
+        if sem is not None and sem in sport_existing and (
+                sport_existing[sem] != str(row.get(KEY) or '').strip()):
+            bloquer(report, 'REINSERTION_MEME_PERFORMANCE_SOUS_AUTRE_CLE')
     if full_source and before['rows'] and not source:
         bloquer(report, 'SOURCE_COMPLETE_INATTENDUE_VIDE')
     index = headers.index(KEY)
