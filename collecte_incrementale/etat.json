@@ -20390,7 +20390,7 @@
     },
     "2765144": {
       "nom": "KEPI ROUGE",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "11",
       "engagement": "2026-11-14_R1C8",
       "vu_utc": "2026-11-14T21:09:42.450158+00:00",
@@ -20412,20 +20412,32 @@
       "derniere_performance_date": "2026-11-14",
       "sync_details": {
         "Historique chevaux": {
-          "lignes_ajoutees": 46,
+          "lignes_ajoutees": 1,
           "cellules_actualisees": 0,
-          "lignes_source": 46
+          "lignes_source": 47,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 1,
+            "lignes_avant": 15585,
+            "cles_avant": 13542,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 2043,
+            "seuil_ajouts": 1355,
+            "import_initial_explicite": false,
+            "lignes_attendues": 15586,
+            "lignes_apres": 15586,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
         },
         "Courses & Prévisions": {
           "lignes_ajoutees": 0,
-          "cellules_actualisees": 3,
+          "cellules_actualisees": 2,
           "lignes_source": 1
-        },
-        "Data Quality & KPI": {
-          "indicateurs_actualises": 25
         }
       },
-      "sync_utc": "2026-11-14T11:12:50.338551+00:00",
+      "sync_utc": "2026-11-14T21:10:12.862295+00:00",
       "derniere_course_officielle_utc": "2026-11-14T16:40:00+00:00"
     },
     "2759646": {
@@ -21198,7 +21210,7 @@
     }
   },
   "passage_utc": "2026-11-14T21:09:42.450158+00:00",
-  "maj_utc": "2026-11-14T21:09:56.702547+00:00",
+  "maj_utc": "2026-11-14T21:10:12.862314+00:00",
   "bilan": {
     "chevaux_suivis": 1145,
     "tentatives_collecte": 6,
@@ -21206,7 +21218,7 @@
     "actualisations_en_attente": 787
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 25
