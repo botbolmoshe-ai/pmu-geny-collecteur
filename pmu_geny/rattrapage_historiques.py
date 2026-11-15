@@ -192,7 +192,10 @@ def preparer(cache,now):
         from .ferrures_geny import manquantes
         cached=inc.capture_valide(cache,h['id']) if h.get('id') else None
         h['ferrures_manquantes']=manquantes(cached) if cached else 0
-        if h.get('rattrapage_complet_au_utc') and cached and not h['ferrures_manquantes']:continue
+        if h.get('rattrapage_complet_au_utc') and cached and not h['ferrures_manquantes']:
+            if h.get('sync')=='OK':
+                h['erreur']='';h.pop('prochain_essai_utc',None)
+            continue
         if not cached:
             h.pop('historique_complet_au_utc',None)
             h.pop('rattrapage_complet_au_utc',None)
@@ -222,6 +225,7 @@ def preparer(cache,now):
             if ident in covered or not doc['performances']:
                 h.update(sync='OK',rattrapage_complet_au_utc=stamp.isoformat(),
                          preuve_sync='INVENTAIRE_SHEETS_CONTROLE',complete_depuis_sauvegarde=True)
+                h['erreur']=''
             else:h['sync']='A_FAIRE'
         else:
             h.update(collecte='A_REPRENDRE',motif_actualisation='HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE')
@@ -299,10 +303,11 @@ def propager_preuve(state,horse):
             other.update(rattrapage_complet_au_utc=stamp,sync='OK',motif_actualisation='',
                          id=horse['id'],collecte='COMPLET',geny=horse.get('geny',{}),
                          ferrures_manquantes=horse.get('ferrures_manquantes',0),
-                         historique_complet_au_utc=stamp,preuve_sync='MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE')
+                         historique_complet_au_utc=stamp,preuve_sync='MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE',erreur='')
             if horse.get('ferrures_manquantes'):
                 other['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
                 if horse.get('prochain_essai_utc'):other['prochain_essai_utc']=horse['prochain_essai_utc']
+            else:other.pop('prochain_essai_utc',None)
 
 
 def bilan(state):
@@ -325,7 +330,9 @@ def bilan(state):
         'identites_a_verifier':sum(h.get('collecte')=='IDENTITE_A_VERIFIER' for h in horses),
         'synchronisations_en_attente':sum(h.get('sync')=='A_FAIRE' for h in horses),
         'ajouts_confirmes':sum(h.get('ajouts_confirmes',0) for h in horses),
-        'tentatives_collecte':previous.get('tentatives_collecte',0)}
+        'tentatives_collecte':previous.get('tentatives_collecte',0),
+        'captures_validees':previous.get('captures_validees',0),
+        'collectes_rejetees':previous.get('collectes_rejetees',0)}
     state['statut']='TERMINE' if complete==len(horses) and state.get('sync_kpi')=='OK' and not state['bilan']['historiques_ferrures_a_completer'] else 'PARTIEL_REPRENABLE'
     state['phase_reprise']=('CARRIERES_MANQUANTES' if missing else
         'ENRICHISSEMENTS_FERRURES' if state['bilan']['historiques_ferrures_a_completer'] else
@@ -351,7 +358,7 @@ def rapport(state):
     return report
 
 
-def priorite_production():
+def priorite_production(paths=None):
     """Céder entre deux chevaux si un workflow de production attend le verrou."""
     if os.getenv('GITHUB_ACTIONS')!='true':return None
     repo=os.environ.get('GITHUB_REPOSITORY','')
@@ -364,7 +371,7 @@ def priorite_production():
             params={'status':'pending','per_page':100},
             headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'},timeout=15)
         response.raise_for_status()
-        paths={'.github/workflows/pmu-v16.yml','.github/workflows/historiques-incrementaux.yml'}
+        if paths is None:paths={'.github/workflows/pmu-v16.yml','.github/workflows/historiques-incrementaux.yml'}
         if any(run.get('path') in paths for run in response.json()['workflow_runs']):
             return 'PRIORITE_PRODUCTION_EN_ATTENTE'
     except Exception:

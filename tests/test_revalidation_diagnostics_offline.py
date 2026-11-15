@@ -30,7 +30,7 @@ class RevalidationTests(unittest.TestCase):
         self.document['performances'][0].update(classement='',ferrure='F')
         self.document['complet']=False
 
-    def archive(self,*,identity=True,document=None,geny=None):
+    def archive(self,*,identity=True,document=None,geny=None,task=None,html=None):
         archive=self.cache/'test.zip';folder='resultats/incremental/123456/12345678'
         report={'complet':False,'identite_verifiee':identity,'geny':geny or self.geny,
                 'statut':'DONNEES_INCOMPLETES'}
@@ -38,6 +38,8 @@ class RevalidationTests(unittest.TestCase):
             z.writestr(folder+'/resultat.json',json.dumps(report))
             z.writestr(folder+'/123456/historique_geny.json',json.dumps(document or self.document))
             z.writestr(folder+'/123456/diagnostic_texte_geny.txt',self.body)
+            if task is not None:z.writestr(folder+'/tache.json',json.dumps(task))
+            if html is not None:z.writestr(folder+'/123456/diagnostic_geny.html',html)
         return archive
 
     def test_qualification_apres_derniere_course_ne_masque_pas_son_classement(self):
@@ -84,3 +86,39 @@ class RevalidationTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'ARTEFACTS_INVALIDES'):
                     revalider_artifacts(self.cache,value)
             request.assert_not_called()
+
+    def test_conflit_d_identite_ne_peut_pas_etre_promu_depuis_une_archive(self):
+        state=inc.lire(self.cache/back.QUEUE)
+        state['chevaux']['123456']['conflit_identite']=True
+        inc.ecrire(self.cache/back.QUEUE,state)
+        self.assertEqual(revalider(self.cache,self.archive())['captures_revalidees'],0)
+        self.assertFalse((self.cache/'historiques/123456/historique_geny.json').exists())
+
+    def test_cible_sans_id_retrouvee_seulement_par_contexte_et_course_archivee(self):
+        inc.ecrire(self.cache/'etat_persistant.json',{'chevaux':{}})
+        task={'nom':'Test','engagement':'2026-11-11_R1C1','numero':'6',
+              'course_url':'https://www.geny.com/course/1697677/partants-pronostics'}
+        state=inc.lire(self.cache/back.QUEUE);state['chevaux']={'contexte':task.copy()}
+        inc.ecrire(self.cache/back.QUEUE,state)
+        # Même nom dans une autre course : cette cible ne peut être promue.
+        wrong={**task,'engagement':'2026-11-11_R2C1'}
+        self.assertEqual(revalider(self.cache,self.archive(task=wrong))['captures_revalidees'],0)
+        wrong={**task,'course_url':'https://www.geny.com/course/9999999/partants-pronostics'}
+        self.assertEqual(revalider(self.cache,self.archive(task=wrong))['captures_revalidees'],0)
+        self.assertEqual(revalider(self.cache,self.archive(task=task))['captures_revalidees'],1)
+        saved=inc.lire(self.cache/back.QUEUE)['chevaux']['contexte']
+        self.assertEqual(saved['id'],'123456');self.assertEqual(saved['sync'],'A_FAIRE')
+
+    def test_ancien_zero_avant_depart_ne_prouve_pas_la_carriere_vide_apres_depart(self):
+        from test_carriere_inedite_offline import html
+        stamp=self.now-timedelta(days=1)
+        old={**self.document,'nombre_annonce_geny':None,'nombre_extrait':0,'performances':[],
+             'extrait_utc':stamp.isoformat()}
+        self.body='Test\nCARRIÈRE\n01/01\n2026\nGrosbois\nQualification'
+        data={'cheval':{'id':123456},'nbPerformances':0,'performances':[],
+              'musique':{'resume':'Inédit'},'participation':{'course':{'id':1697677,
+                  'dateHeureCourse':(stamp+timedelta(hours=1)).isoformat()}}}
+        self.assertEqual(revalider(self.cache,self.archive(document=old,html=html(data)))['captures_revalidees'],0)
+        data['participation']['course']['dateHeureCourse']=(self.now+timedelta(hours=1)).isoformat()
+        self.assertEqual(revalider(self.cache,self.archive(document=old,html=html(data)))['captures_revalidees'],1)
+        self.assertEqual(inc.capture_valide(self.cache,'123456')['performances'],[])

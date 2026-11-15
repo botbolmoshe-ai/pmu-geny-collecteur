@@ -313,6 +313,27 @@ class RepriseTests(unittest.TestCase):
             self.assertEqual(json.loads(git('show','pmu-data:'+str(back.INVENTAIRE),cwd=remote))['preuve'],'inventaire')
             self.assertEqual(json.loads(git('show','pmu-data:pronostics/fige.json',cwd=remote)),{'preuve':'figee'})
 
+    def test_erreur_ancienne_effacee_seulement_apres_preuve_de_completion(self):
+        self.seed(complete=True,covered=True)
+        state=back.preparer(self.cache,self.now)
+        state['chevaux']['123456'].update(erreur='ancien échec',
+            prochain_essai_utc=(self.now+timedelta(hours=6)).isoformat())
+        inc.ecrire(self.cache/back.QUEUE,state)
+        refreshed=back.preparer(self.cache,self.now)
+        horse=refreshed['chevaux']['123456']
+        self.assertEqual(horse['erreur'],'');self.assertNotIn('prochain_essai_utc',horse)
+
+    def test_collecteur_courant_cede_uniquement_au_cycle_pmu(self):
+        response=Mock();response.json.return_value={'workflow_runs':[
+            {'path':'.github/workflows/rattrapage-historiques.yml'},
+            {'path':'.github/workflows/historiques-incrementaux.yml'}]}
+        with patch.dict(os.environ,{'GITHUB_ACTIONS':'true','GITHUB_REPOSITORY':'owner/repo','GH_TOKEN':'factice'}), \
+             patch('requests.get',return_value=response):
+            paths={'.github/workflows/pmu-v16.yml'}
+            self.assertIsNone(back.priorite_production(paths))
+            response.json.return_value={'workflow_runs':[{'path':'.github/workflows/pmu-v16.yml'}]}
+            self.assertEqual(back.priorite_production(paths),'PRIORITE_PRODUCTION_EN_ATTENTE')
+
     def test_priorite_production_termine_passage_avant_le_cheval_suivant(self):
         self.seed();collect=Mock(side_effect=AssertionError('Ne pas commencer'))
         result=inc.run(self.cache,mode='rattrapage',collect=collect,

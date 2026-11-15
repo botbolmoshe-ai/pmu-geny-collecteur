@@ -369,8 +369,11 @@ def main() -> int:
         return 2
     result.update({"source_url":args.url,"extrait_utc":datetime.now(timezone.utc).isoformat(),"consentement":cookie_status})
     from .ferrures_geny import enrichir
+    from .carriere_geny import confirmer_inedit
     ident=re.search(r'/cheval/(\d+)',args.url)
-    if ident:enrichir(result,final_html,ident[1],args.url,result['extrait_utc'])
+    if ident:
+        confirmer_inedit(result,final_html,ident[1])
+        enrichir(result,final_html,ident[1],args.url,result['extrait_utc'])
     result["statut"]="COMPLET" if result["complet"] else "PARTIEL_A_CONTROLER"
     (outdir/"historique_geny.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
     cols=["date","hippodrome","discipline","distance_m","classement","chrono","texte_source","ferrure"]
