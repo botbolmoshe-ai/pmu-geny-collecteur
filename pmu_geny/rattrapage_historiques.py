@@ -271,7 +271,10 @@ def prochaine_tache(state,now,attempts):
         # Une carrière absente/partielle passe avant une carrière déjà complète
         # à enrichir, même si cette dernière dispose d'un lien déjà vérifié.
         enrichment=h.get('motif_actualisation')=='FERRURES_HISTORIQUES_A_COMPLETER'
-        candidates.append(((enrichment,night,priority,h.get('engagement',''),key),key))
+        # À urgence égale, terminer les carrières des identifiants connus avant
+        # la résolution des seuls noms/contextes. Le candidat reste à vérifier.
+        unidentified=not bool(h.get('id'))
+        candidates.append(((enrichment,night,unidentified,priority,h.get('engagement',''),key),key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 

@@ -4,6 +4,8 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from pmu_geny.collecte_geny_v4 import parse_career,lire_classement
+from pmu_geny.controle_historique import classifier
 from unittest.mock import patch
 
 from pmu_geny import historiques_incrementaux as inc
@@ -22,6 +24,13 @@ def doc(stamp, rows=None):
 
 
 class IncrementalTests(unittest.TestCase):
+    def test_resultat_tb_explicite_ne_bloque_pas_une_carriere_complete(self):
+        row='09/06/25 | Rânes | Attelé | 2 150 | D | - | Herbe | Crse H | 12 000 € | C. Testard | Tb'
+        parsed=parse_career('CARRIÈRE\nsur 1 courses',[row])
+        self.assertEqual(parsed['performances'][0]['classement'],'Tb')
+        self.assertEqual(classifier(parsed),('COMPLET',[]))
+        self.assertEqual(lire_classement(['C. Testard','Tb','00:00','/','00:00']),'Tb')
+        self.assertEqual(lire_classement(['C. Testard','TB_INCONNU']),'')
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
