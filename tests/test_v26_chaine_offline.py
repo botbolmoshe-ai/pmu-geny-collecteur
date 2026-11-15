@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
-from urllib.parse import unquote
+from urllib.parse import unquote,quote
 from unittest.mock import patch
 
 from pmu_geny import historiques_incrementaux as inc
@@ -32,6 +32,10 @@ class SheetsSession:
             'Data Quality & KPI': [['A', 'B', 'C', 'D', 'E'], ['groupe', 'Indicateur test', 0, '', '=NBVAL(A:A)']]}
         self.writes = []
     def get(self, url, **kwargs):
+        if url.endswith('/values:batchGet'):
+            ranges=kwargs['params']['ranges'];base=url.rsplit('/values:batchGet',1)[0]
+            return Response({'valueRanges':[{'range':r,'values':SheetsSession.get(
+                self,base+'/values/'+quote(r,safe="!:'")).json().get('values',[])} for r in ranges]})
         if '/values/' not in url:
             return Response({'sheets': [{'properties': {'title': tab, 'sheetId': i,
                         'gridProperties': {'columnCount': len(rows[0]), 'rowCount': 100}}}

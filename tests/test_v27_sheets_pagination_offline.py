@@ -7,18 +7,22 @@ from pmu_geny.sync_google_sheets import lire_feuille_complete, plan_sheet
 class Response:
     headers={}
     def __init__(self,code,values):self.status_code=code;self.values=values
-    def json(self):return {'values':self.values}
+    def json(self):return self.values if isinstance(self.values,dict) else {'values':self.values}
 
 
 class PaginationTests(unittest.TestCase):
     def test_cle_apres_5000_ne_se_reinsere_pas(self):
         class Session:
             def get(self,url,**kwargs):
-                r=unquote(url).split('!')[1]
-                if r=='A1:C2000':return Response(200,[['cle_performance','cheval','classement']])
-                if r=='A2001:C4000':return Response(200,[])
-                if r=='A4001:C6000':return Response(200,[[]]*1000+[['id|date|piste','TEST','3']])
-                raise AssertionError(r)
+                values=[]
+                for name in kwargs['params']['ranges']:
+                    r=name.split('!')[1]
+                    if r=='A1:C2000':rows=[['cle_performance','cheval','classement']]
+                    elif r=='A2001:C4000':rows=[]
+                    elif r=='A4001:C6000':rows=[[]]*1000+[['id|date|piste','TEST','3']]
+                    else:raise AssertionError(r)
+                    values.append({'range':name,'values':rows})
+                return Response(200,{'valueRanges':values})
         values=lire_feuille_complete(Session(),'https://unused','Historique chevaux',
                                      {'gridProperties':{'rowCount':6000,'columnCount':3}})
         self.assertEqual(values[5000],['id|date|piste','TEST','3'])
@@ -37,7 +41,8 @@ class PaginationTests(unittest.TestCase):
             n=0
             def get(self,url,**kwargs):
                 self.n+=1
-                return Response(429,[]) if self.n==1 else Response(200,[['header'],['valeur']])
+                return Response(429,[]) if self.n==1 else Response(200,{'valueRanges':[
+                    {'range':kwargs['params']['ranges'][0],'values':[['header'],['valeur']]}]})
         session=Session()
         with patch('time.sleep'):
             result=lire_feuille_complete(session,'unused','Historique chevaux',{'gridProperties':{'rowCount':2,'columnCount':1}})

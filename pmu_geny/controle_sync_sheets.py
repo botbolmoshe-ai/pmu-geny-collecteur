@@ -66,15 +66,16 @@ def lire_cles_independantes(session, base, tab, properties, headers):
     """Contrôle étroit séparé : ne pas se fier uniquement à la lecture des lignes."""
     from urllib.parse import quote
     from .sync_google_sheets import colname
+    from .lectures_sheets import get_lecture
     if KEY not in headers:
         bloquer({'statut':'EN_CONTROLE','phase':'AVANT'}, 'COLONNE_CLE_ABSENTE')
     column = colname(headers.index(KEY)+1)
     height = properties['gridProperties']['rowCount']
     counts = Counter()
-    for start in range(2, height+1, 10000):
-        end=min(height,start+9999)
+    for start in range(2, height+1, 25000):
+        end=min(height,start+24999)
         path=quote("'"+tab.replace("'","''")+"'!"+column+str(start)+':'+column+str(end),safe="!:'")
-        response=session.get(base+'/values/'+path,timeout=60)
+        response=get_lecture(session,base+'/values/'+path,timeout=60)
         if response.status_code!=200:
             bloquer({'statut':'EN_CONTROLE','phase':'AVANT'}, 'LECTURE_INDEPENDANTE_DES_CLES_INCOMPLETE')
         values=response.json().get('values',[])
