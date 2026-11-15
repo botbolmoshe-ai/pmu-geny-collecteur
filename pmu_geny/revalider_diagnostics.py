@@ -83,6 +83,7 @@ def revalider(cache,archive):
                 inc.accepter(cache,horses[0],{**previous,'complet':True,'statut':'COMPLET','dossier':tmp},
                              origine='REVALIDATION_DIAGNOSTIC_ARCHIVE')
             report['captures_revalidees']+=1;report['performances_revalidees']+=len(parsed['performances'])
+    state['derniere_revalidation']={'utc':now.isoformat(),'archive_sha256':digest,**report}
     back.bilan(state);inc.ecrire(cache/back.QUEUE,state)
     inc.ecrire(cache/back.QUEUE.parent/'bilan.json',back.rapport(state))
     return report

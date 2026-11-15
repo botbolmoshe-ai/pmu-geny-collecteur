@@ -192,11 +192,15 @@ def preparer(cache,now):
         from .ferrures_geny import manquantes
         cached=inc.capture_valide(cache,h['id']) if h.get('id') else None
         h['ferrures_manquantes']=manquantes(cached) if cached else 0
-        if h.get('rattrapage_complet_au_utc') and cached and not h['ferrures_manquantes']:
+        cached_stamp=inc.instant(cached.get('extrait_utc')) if cached else None
+        trusted=bool(cached_stamp and cached_stamp<=now and h.get('nom') and not h.get('conflit_identite')
+                     and url_cheval(cached.get('source_url'),h.get('id',''))
+                     and str(cached.get('identifiant_cheval',h.get('id')))==h.get('id'))
+        if h.get('rattrapage_complet_au_utc') and trusted and not h['ferrures_manquantes']:
             if h.get('sync')=='OK':
                 h['erreur']='';h.pop('prochain_essai_utc',None)
             continue
-        if not cached:
+        if not trusted:
             h.pop('historique_complet_au_utc',None)
             h.pop('rattrapage_complet_au_utc',None)
         if not h.get('id'):
@@ -345,7 +349,7 @@ def bilan(state):
 
 def rapport(state):
     keys=('version','mode','inventaire_id','inventaire_utc','revision_inventaire','inventaire_actualise_utc',
-          'extensions_inventaire','phase_reprise','passage_utc','maj_utc','statut','priorite_collecte',
+          'extensions_inventaire','phase_reprise','derniere_revalidation','passage_utc','maj_utc','statut','priorite_collecte',
           'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire')
     report={k:state[k] for k in keys if k in state}
     proofs=[]

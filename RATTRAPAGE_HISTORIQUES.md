@@ -94,6 +94,9 @@ indique explicitement une pause de source, une file momentanément épuisée,
 une limite de durée ou une priorité de production. Les motifs détaillés du
 dernier échec restent consultables, même après résolution. Une collecte réussie
 retire son ancien délai d'échec ; une lacune persistante pose son propre délai.
+Une ancienne preuve ne dispense pas de recontrôler l'URL, l'identifiant et la
+date de la capture. Les revalidations d'archives ont leurs propres compteurs
+(`derniere_revalidation`) et ne comptent pas comme de nouvelles consultations.
 
 Un sous-processus déjà commencé peut terminer après le budget ; sa limite reste
 240 secondes. Les chevaux sont espacés de 30 secondes. Les 403/429 activent la

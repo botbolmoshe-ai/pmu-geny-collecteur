@@ -323,6 +323,19 @@ class RepriseTests(unittest.TestCase):
         horse=refreshed['chevaux']['123456']
         self.assertEqual(horse['erreur'],'');self.assertNotIn('prochain_essai_utc',horse)
 
+    def test_preuve_ancienne_ne_cache_ni_date_future_ni_identifiant_ou_url_differents(self):
+        self.seed(complete=True,covered=True)
+        original=inc.lire(self.cache/'historiques/123456/historique_geny.json')
+        state=back.preparer(self.cache,self.now)
+        for changes in ({'extrait_utc':(self.now+timedelta(days=1)).isoformat()},
+                        {'identifiant_cheval':'999999'},
+                        {'source_url':'https://www.geny.com/cheval/999999-autre'}):
+            with self.subTest(changes=changes):
+                inc.ecrire(self.cache/back.QUEUE,state)
+                inc.ecrire(self.cache/'historiques/123456/historique_geny.json',{**original,**changes})
+                checked=back.preparer(self.cache,self.now)
+                self.assertFalse(checked['chevaux']['123456'].get('rattrapage_complet_au_utc'))
+
     def test_collecteur_courant_cede_uniquement_au_cycle_pmu(self):
         response=Mock();response.json.return_value={'workflow_runs':[
             {'path':'.github/workflows/rattrapage-historiques.yml'},
@@ -333,6 +346,15 @@ class RepriseTests(unittest.TestCase):
             self.assertIsNone(back.priorite_production(paths))
             response.json.return_value={'workflow_runs':[{'path':'.github/workflows/pmu-v16.yml'}]}
             self.assertEqual(back.priorite_production(paths),'PRIORITE_PRODUCTION_EN_ATTENTE')
+
+    def test_conflit_apres_completion_reouvre_la_verification(self):
+        self.seed(complete=True,covered=True)
+        state=back.preparer(self.cache,self.now)
+        state['chevaux']['123456']['conflit_identite']=True
+        inc.ecrire(self.cache/back.QUEUE,state)
+        checked=back.preparer(self.cache,self.now)
+        self.assertFalse(checked['chevaux']['123456'].get('rattrapage_complet_au_utc'))
+        self.assertEqual(checked['chevaux']['123456']['collecte'],'IDENTITE_A_VERIFIER')
 
     def test_priorite_production_termine_passage_avant_le_cheval_suivant(self):
         self.seed();collect=Mock(side_effect=AssertionError('Ne pas commencer'))
