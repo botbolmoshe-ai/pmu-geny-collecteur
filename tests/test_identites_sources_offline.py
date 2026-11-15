@@ -147,6 +147,77 @@ class IdentitesSourcesTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'CORRESPONDANCE_HISTORIQUE_AMBIGUE'):
                 reconcilier_cles_historiques(rows, incoming)
 
+    def test_ancien_id_avec_url_geny_deja_corrigee_est_aussi_reconcilie(self):
+        resolved=qualifier_observation({**self.legacy,'source_url':self.proof['url_geny']})
+        self.assertEqual(resolved['id'],'2724812')
+        self.assertEqual(resolved['identifiants_sources']['zone_turf'],'1717076')
+
+    def repair_case(self):
+        from test_v26_incremental_offline import doc
+        before,incoming=self.rows()
+        # Le cas réellement oublié : ID Zone-Turf, URL Geny et chrono absent.
+        before[0].update(source_url=self.proof['url_geny'],chrono='',driver_jockey='Driver conservé')
+        before[1]['driver_jockey']='Autre driver conservé'
+        for row in incoming.values():row['driver_jockey']=''
+        perfs=[{'date':r['date_course_historique'],**{k:r[k] for k in
+            ('hippodrome','discipline','distance_m','classement','chrono','ferrure')}} for r in incoming.values()]
+        document=doc(self.now,perfs);document['source_url']=self.proof['url_geny']
+        inc.ecrire(self.cache/'historiques/2724812/historique_geny.json',document)
+        class AtomicSession(SheetsSession):
+            def post(self,url,**kwargs):
+                if not url.endswith(':batchUpdate') or 'requests' not in kwargs['json']:
+                    return super().post(url,**kwargs)
+                from test_v26_chaine_offline import Response
+                self.writes.append((url,kwargs['json']))
+                for req in kwargs['json']['requests']:
+                    if 'updateCells' in req:
+                        data=req['updateCells'];start=data['start'];row=self.tables['Historique chevaux'][start['rowIndex']]
+                        row[start['columnIndex']]=data['rows'][0]['values'][0]['userEnteredValue']['stringValue']
+                    else:
+                        bounds=req['deleteDimension']['range']
+                        del self.tables['Historique chevaux'][bounds['startIndex']:bounds['endIndex']]
+                return Response({})
+        session=AtomicSession();headers=list(before[0])
+        session.tables['Historique chevaux']=[headers]+[[r.get(k,'') for k in headers] for r in before+list(incoming.values())]
+        engine=SynchroniseurSheets(self.cache,'fake-identites',session=session)
+        return engine,session,incoming
+
+    def test_reparation_sauvegarde_distante_avant_suppression_et_rejoue_sans_perte(self):
+        from pmu_geny.reconcilier_identites_sheets import reparer
+        engine,session,incoming=self.repair_case();events=[]
+        def checkpoint(cache):
+            files=list((cache/'historiques_versions/reconciliations_identites').glob('*.json'))
+            self.assertEqual(len(files),1)
+            events.append((len(session.writes),json.loads(files[0].read_text())['statut']))
+        with patch.object(engine,'source',return_value={'Historique chevaux':incoming}):
+            result=reparer(engine,checkpoint=checkpoint)
+            again=reparer(engine,checkpoint=checkpoint)
+        self.assertEqual(result['lignes_supprimees'],2)
+        self.assertEqual(again['lignes_supprimees'],0)
+        self.assertEqual(events,[(0,'SAUVEGARDE_AVANT_ECRITURE'),(1,'VALIDE')])
+        self.assertEqual(len(session.tables['Historique chevaux']),4)
+        rows=[dict(zip(session.tables['Historique chevaux'][0],r)) for r in session.tables['Historique chevaux'][1:]]
+        self.assertEqual({r['identifiant_cheval'] for r in rows},{'2724812'})
+        self.assertEqual({r['driver_jockey'] for r in rows},{'Driver conservé','Autre driver conservé',''})
+
+    def test_echec_sauvegarde_interdit_toute_suppression(self):
+        from pmu_geny.reconcilier_identites_sheets import reparer
+        engine,session,incoming=self.repair_case()
+        with patch.object(engine,'source',return_value={'Historique chevaux':incoming}), \
+             self.assertRaisesRegex(RuntimeError,'Sauvegarde refusée'):
+            reparer(engine,checkpoint=lambda cache:(_ for _ in ()).throw(RuntimeError('Sauvegarde refusée')))
+        self.assertEqual(session.writes,[])
+
+    def test_reparation_refuse_un_changement_de_distance(self):
+        from pmu_geny.reconcilier_identites_sheets import reparer
+        engine,session,incoming=self.repair_case()
+        headers=session.tables['Historique chevaux'][0]
+        session.tables['Historique chevaux'][1][headers.index('distance_m')]='9999'
+        with patch.object(engine,'source',return_value={'Historique chevaux':incoming}), \
+             self.assertRaisesRegex(ValueError,'DOUBLON_INTERSOURCE_NON_PROUVE'):
+            reparer(engine,checkpoint=lambda cache:self.fail('Sauvegarde inutile'))
+        self.assertEqual(session.writes,[])
+
     def test_snapshot_conserve_la_source_necessaire_a_la_reconciliation(self):
         before, _ = self.rows(); session = SheetsSession(); headers = list(before[0])
         session.tables['Historique chevaux'] = [headers] + [[r[k] for k in headers] for r in before]

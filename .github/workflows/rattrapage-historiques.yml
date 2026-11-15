@@ -19,6 +19,11 @@ on:
         type: string
         default: ''
         required: false
+      reconcilier_identites:
+        description: 'Reparer les doublons inter-sources prouves avec sauvegarde distante prealable'
+        type: boolean
+        default: false
+        required: false
 permissions:
   contents: write
   actions: read
@@ -41,6 +46,7 @@ jobs:
         id: etat
         env:
           ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
+          RECONCILIER_IDENTITES: ${{ inputs.reconcilier_identites || false }}
           ARCHIVES_DIAGNOSTICS: ${{ inputs.archives_diagnostics || '' }}
         run: |
           git config user.name 'github-actions[bot]'
@@ -56,6 +62,7 @@ jobs:
           done=(state.get('statut')=='TERMINE' and 'historiques_ferrures_a_completer' in state.get('bilan',{})
                 and os.environ.get('ACTUALISER_INVENTAIRE')!='true'
                 and not os.environ.get('ARCHIVES_DIAGNOSTICS'))
+          if os.environ.get('RECONCILIER_IDENTITES')=='true':done=False
           if done:
               assert state['sync_kpi']=='OK'
               assert state['bilan']['cibles_completees']==len(state['chevaux'])
@@ -81,11 +88,13 @@ jobs:
           MAX_MINUTES: ${{ inputs.max_minutes || 10 }}
           ARCHIVES_DIAGNOSTICS: ${{ inputs.archives_diagnostics || '' }}
           ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
+          RECONCILIER_IDENTITES: ${{ inputs.reconcilier_identites || false }}
           GH_TOKEN: ${{ github.token }}
         run: |
           args=()
           if [ "$ACTUALISER_INVENTAIRE" = 'true' ]; then args+=(--actualiser-inventaire); fi
           if [ -n "$ARCHIVES_DIAGNOSTICS" ]; then args+=(--archives-diagnostics "$ARCHIVES_DIAGNOSTICS"); fi
+          if [ "$RECONCILIER_IDENTITES" = 'true' ]; then args+=(--reconcilier-identites); fi
           python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${args[@]}"
       - name: Archiver le bilan et les controles
         if: always()

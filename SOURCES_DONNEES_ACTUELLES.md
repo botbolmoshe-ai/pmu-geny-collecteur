@@ -61,6 +61,15 @@ anciennes (dates, hippodromes, discipline, distance, classement, chrono et
 ferrure). La fiche Geny annonce 60 performances, toutes extraites lors de la
 vérification locale du 15 novembre à 18:22 UTC.
 
+Le contrôle exhaustif a également identifié 23 anciennes lignes portant le
+numéro Zone-Turf avec une URL Geny déjà correcte. La réconciliation couvre
+aussi ce format hybride. Le mode de maintenance `reconcilier_identites` du
+workflow de rattrapage vérifie chaque doublon sur sa course, sa discipline,
+sa distance et son classement, ainsi que la carrière Geny sauvegardée. Il
+préserve les champs historiques complémentaires, sauvegarde les lignes
+originales sur `pmu-data` avant toute suppression, puis applique un batch
+atomique sous le verrou commun et contrôle les clés et les comptages après.
+
 Le snapshot Sheets conserve désormais la provenance des identifiants. Le
 rattrapage migre la cible sans changer le dénominateur de l'inventaire figé.
 La publication réutilise les anciennes clés des performances concordantes et

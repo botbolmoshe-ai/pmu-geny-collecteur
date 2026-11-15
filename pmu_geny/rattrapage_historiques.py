@@ -428,6 +428,7 @@ def main():
     parser.add_argument('--publier',action='store_true')
     parser.add_argument('--actualiser-inventaire',action='store_true')
     parser.add_argument('--archives-diagnostics',default='')
+    parser.add_argument('--reconcilier-identites',action='store_true')
     args=parser.parse_args()
     if not 1<=args.max_minutes<=15 or args.max_chevaux<1:parser.error('Bornes positives, duree maximale 15 minutes')
     cache=Path(args.cache)
@@ -436,7 +437,11 @@ def main():
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
         from .moteur_sheets import SynchroniseurSheets
         engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
-        try:inc.ecrire(cache/INVENTAIRE,engine.inventaire_rattrapage())
+        try:
+            if args.reconcilier_identites:
+                from .reconcilier_identites_sheets import reparer
+                reparer(engine)
+            inc.ecrire(cache/INVENTAIRE,engine.inventaire_rattrapage())
         finally:engine.fermer()
         if args.actualiser_inventaire:actualiser_inventaire(cache,datetime.now(inc.UTC))
         if args.archives_diagnostics:

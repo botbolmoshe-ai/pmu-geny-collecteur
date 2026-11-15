@@ -6,6 +6,7 @@ inter-sources sont explicites, sourcés et révisables dans le registre JSON.
 import json
 import re
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -27,6 +28,7 @@ def source_identifiant(ident, url):
     return ''
 
 
+@lru_cache(maxsize=1)
 def correspondances():
     entries = json.loads(REGISTRE.read_text(encoding='utf-8'))['correspondances']
     seen = set()
@@ -57,6 +59,14 @@ def qualifier_observation(record):
     record = dict(record)
     ident = str(record.get('id', ''))
     source = source_identifiant(ident, record.get('source_url'))
+    if not source:
+        # Certaines anciennes lignes portent déjà l'URL Geny exacte mais
+        # encore le numéro Zone-Turf dans la colonne ID.
+        for proof in correspondances():
+            if (nom_normalise(proof['nom'])==nom_normalise(record.get('nom'))
+                    and source_identifiant(proof['identifiants']['geny'],record.get('source_url'))=='geny'):
+                source=next((s for s,i in proof['identifiants'].items() if s!='geny' and i==ident),'')
+                if source:break
     if not source:
         return record
     record['source_identifiant'] = source
