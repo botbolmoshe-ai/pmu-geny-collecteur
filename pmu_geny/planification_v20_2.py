@@ -21,7 +21,7 @@ def selectionner_courses(courses, now, date, selection, complet, etat, max_cours
     if now.tzinfo is None: raise ValueError('Heure locale requise')
     today=now.astimezone(PARIS).date()
     day=datetime.fromisoformat(date).date()
-    if day<today or day>today+timedelta(days=1):return []
+    if day<today-timedelta(days=1) or day>today+timedelta(days=1):return []
     previous=etat.get('courses',{})
     selected=[]
     for c in courses:
@@ -34,7 +34,7 @@ def selectionner_courses(courses, now, date, selection, complet, etat, max_cours
         if remaining<=0:
             # Une fenêtre post-course courte, uniquement pour récupérer des
             # arrivées et audits manquants, jamais pour prédire.
-            if day!=today or remaining < -240:continue
+            if remaining < -2160:continue
             if record.get('etat')=='TERMINE_ARCHIVE':continue
             priority=(4, abs(remaining))
         elif day>today:
