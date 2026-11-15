@@ -45,7 +45,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R3C2": {
       "identifiant_geny": null,
@@ -91,11 +91,11 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R3C3": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698673",
@@ -118,13 +118,13 @@
         }
       },
       "geny_id_rapproche": "1698673",
-      "depart": "2026-11-15T11:55:00+01:00",
+      "depart": "2026-11-15T11:58:00+01:00",
       "nom": "PRIX AUTO OUSTRIC",
       "hippodrome": "HIPPODROME DE BEAUMONT DE LOMAGNE",
       "nombre_declares": 14,
       "priorite_metier": "P1",
       "motif_selection": "ALLOCATION_ELEVEE",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE BEAUMONT DE LOMAGNE (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -136,11 +136,12 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R3C4": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698676",
@@ -163,13 +164,13 @@
         }
       },
       "geny_id_rapproche": "1698676",
-      "depart": "2026-11-15T12:30:00+01:00",
+      "depart": "2026-11-15T12:31:00+01:00",
       "nom": "PRIX INTERMARCHE BEAUMONT DE LOMAGNE",
       "hippodrome": "HIPPODROME DE BEAUMONT DE LOMAGNE",
       "nombre_declares": 16,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -181,7 +182,8 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
     },
     "R3C5": {
       "identifiant_geny": null,
@@ -276,9 +278,9 @@
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-15T10:38:39.145652+00:00",
-      "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
-      "statut_maj_np": "ACTUALISE",
+      "np_verification_utc": "2026-11-15T11:31:51.486193+00:00",
+      "statut_prevision": "DEJA_FIGE",
+      "statut_maj_np": "INCHANGE",
       "statut_ml": "ML_NON_ENTRAINE"
     },
     "R3C6": {
@@ -404,7 +406,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CHARTRES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -584,7 +586,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CHARTRES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -719,7 +721,7 @@
       "motif_selection": "ALLOCATION_ELEVEE",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_2_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -764,7 +766,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CHARTRES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -838,7 +840,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_2_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -1018,7 +1020,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -1033,10 +1035,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-15T10:38:07.676459+00:00",
+  "dernier_controle_pmu": "2026-11-15T11:31:48.482682+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-15",
-    "horodatage_utc": "2026-11-15T10:38:07.676459+00:00",
+    "horodatage_utc": "2026-11-15T11:31:48.482682+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 23,
