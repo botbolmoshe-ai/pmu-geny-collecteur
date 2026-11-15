@@ -63,6 +63,69 @@ class RepriseTests(unittest.TestCase):
         self.assertEqual(state['inventaire_id'],later['inventaire_id'])
         self.assertEqual(back.prochaine_tache(later,self.now+timedelta(days=100),{})[0],'123456')
 
+    def test_extension_explicite_archive_l_ancien_lot_et_conserve_les_preuves(self):
+        self.seed(complete=True,covered=True)
+        original=back.preparer(self.cache,self.now);inc.ecrire(self.cache/back.QUEUE,original)
+        journal=inc.lire(self.cache/'etat_persistant.json')
+        journal['chevaux']['999999']={'nom':'Nouveau déjà rencontré'}
+        inc.ecrire(self.cache/'etat_persistant.json',journal)
+        revised=back.actualiser_inventaire(self.cache,self.now+timedelta(minutes=1))
+        self.assertEqual(set(revised['chevaux']),{'123456','999999'})
+        self.assertEqual(revised['inventaire_id'],original['inventaire_id'])
+        self.assertEqual(revised['revision_inventaire'],2)
+        self.assertEqual(revised['chevaux']['123456']['rattrapage_complet_au_utc'],
+                         original['chevaux']['123456']['rattrapage_complet_au_utc'])
+        extension=revised['extensions_inventaire'][0]
+        self.assertEqual((extension['cibles_avant'],extension['cibles_ajoutees'],extension['cibles_apres']),(1,1,2))
+        archived=inc.lire(self.cache/extension['archive_precedente'])
+        self.assertEqual(archived,original)
+        again=back.actualiser_inventaire(self.cache,self.now+timedelta(minutes=2))
+        self.assertEqual(again['revision_inventaire'],2)
+        self.assertEqual(again['extensions_inventaire'],revised['extensions_inventaire'])
+        self.assertEqual(again['phase_reprise'],'CARRIERES_MANQUANTES')
+
+    def test_carriere_absente_ancienne_avant_enrichissement_ferrure_deja_lie(self):
+        state={'chevaux':{
+            'ferrures':{'nom':'Complet','geny':{'id':'123456'},'engagement':'2099-01-01_R1C1',
+                'motif_actualisation':'FERRURES_HISTORIQUES_A_COMPLETER','collecte':'COMPLET',
+                'historique_complet_au_utc':self.now.isoformat(),'rattrapage_complet_au_utc':self.now.isoformat(),
+                'ferrures_manquantes':5},
+            'absent':{'id':'999999','nom':'Absent','engagement':'2020-01-01_R1C1',
+                'lien_candidat':'https://www.geny.com/cheval/999999','collecte':'A_REPRENDRE',
+                'motif_actualisation':'HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE'}}}
+        for hour in (1,12):
+            with self.subTest(hour=hour):
+                self.assertEqual(back.prochaine_tache(state,self.now.replace(hour=hour),{}),('absent','COLLECTE'))
+        self.assertEqual(back.prochaine_tache(state,self.now,{('COLLECTE','absent'):1}),('ferrures','COLLECTE'))
+
+    def test_bilan_distingue_carriere_absente_et_ferrures_sans_doubler_l_identifiant(self):
+        stamp=self.now.isoformat()
+        state={'chevaux':{
+            'a':{'id':'123456'},'alias':{'id':'123456','cible_equivalente_a':'a'},
+            'b':{'id':'999999','historique_complet_au_utc':stamp,'rattrapage_complet_au_utc':stamp,
+                 'sync':'OK','ferrures_manquantes':2},'sans_id':{}},'sync_kpi':'OK'}
+        report=back.bilan(state)
+        self.assertEqual(report['identifiants_sans_carriere_complete'],1)
+        self.assertEqual(report['carrieres_distinctes_a_completer'],2)
+        self.assertEqual(report['contextes_distincts_sans_identifiant'],1)
+        self.assertEqual(report['historiques_ferrures_a_completer'],1)
+        self.assertEqual(state['phase_reprise'],'CARRIERES_MANQUANTES')
+        for key in ('a','alias','sans_id'):
+            state['chevaux'][key].update(historique_complet_au_utc=stamp,rattrapage_complet_au_utc=stamp,sync='OK')
+        back.bilan(state);self.assertEqual(state['phase_reprise'],'ENRICHISSEMENTS_FERRURES')
+        state['chevaux']['b']['ferrures_manquantes']=0
+        back.bilan(state);self.assertEqual(state['phase_reprise'],'TERMINE')
+
+    def test_ancienne_preuve_ne_cache_pas_une_capture_devenue_invalide(self):
+        self.seed(complete=True,covered=True)
+        state=back.preparer(self.cache,self.now);inc.ecrire(self.cache/back.QUEUE,state)
+        data=inc.lire(self.cache/'historiques/123456/historique_geny.json')
+        data['nombre_annonce_geny']=2
+        inc.ecrire(self.cache/'historiques/123456/historique_geny.json',data)
+        revised=back.preparer(self.cache,self.now+timedelta(minutes=1))
+        self.assertFalse(revised['chevaux']['123456'].get('rattrapage_complet_au_utc'))
+        self.assertEqual(revised['bilan']['identifiants_sans_carriere_complete'],1)
+
     def test_capture_complete_datee_deja_publiee_ne_recollecte_pas(self):
         self.seed(complete=True,covered=True)
         state=back.preparer(self.cache,self.now);horse=state['chevaux']['123456']

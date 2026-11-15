@@ -9,6 +9,11 @@ on:
         type: number
         default: 10
         required: true
+      actualiser_inventaire:
+        description: 'Inclure explicitement les chevaux rencontrés depuis le début du lot'
+        type: boolean
+        default: false
+        required: false
 permissions:
   contents: write
   actions: read
@@ -29,6 +34,8 @@ jobs:
           cache: pip
       - name: Restaurer les donnees et verifier si le lot reste actif
         id: etat
+        env:
+          ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -40,7 +47,8 @@ jobs:
           from pathlib import Path
           path=Path('cache_pmu/rattrapage_historiques/etat.json')
           state=json.loads(path.read_text()) if path.exists() else {}
-          done=state.get('statut')=='TERMINE' and 'historiques_ferrures_a_completer' in state.get('bilan',{})
+          done=(state.get('statut')=='TERMINE' and 'historiques_ferrures_a_completer' in state.get('bilan',{})
+                and os.environ.get('ACTUALISER_INVENTAIRE')!='true')
           if done:
               assert state['sync_kpi']=='OK'
               assert state['bilan']['cibles_completees']==len(state['chevaux'])
@@ -64,9 +72,12 @@ jobs:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
           MAX_MINUTES: ${{ inputs.max_minutes || 10 }}
+          ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier
+          args=()
+          if [ "$ACTUALISER_INVENTAIRE" = 'true' ]; then args+=(--actualiser-inventaire); fi
+          python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${args[@]}"
       - name: Archiver le bilan et les controles
         if: always()
         uses: actions/upload-artifact@v4

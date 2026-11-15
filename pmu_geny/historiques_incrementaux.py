@@ -247,7 +247,8 @@ def prochaine_tache(state, now, attempts):
             continue
         # La nuit, combler les carrières absentes avant les actualisations.
         priority=priorite_engagement(h,now,manquant=h.get('motif_actualisation')=='HISTORIQUE_ABSENT_OU_NON_DATE')
-        candidates.append(((priority,h['engagement'],key),key))
+        enrichment=h.get('motif_actualisation')=='FERRURES_HISTORIQUES_A_COMPLETER'
+        candidates.append(((enrichment,priority,h['engagement'],key),key))
     if candidates:
         return min(candidates)[1], 'COLLECTE'
     return None, 'TERMINE'

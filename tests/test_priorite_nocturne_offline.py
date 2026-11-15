@@ -37,6 +37,17 @@ class NuitTests(unittest.TestCase):
         self.assertEqual(inc.prochaine_tache(state,self.now,{}),('manquant','COLLECTE'))
         self.assertEqual(inc.prochaine_tache(state,self.now,{('COLLECTE','manquant'):1}),('ancien','COLLECTE'))
 
+    def test_carriere_manquante_avant_ferrures_meme_en_journee(self):
+        for hour in (1,10):
+            now=self.now.replace(hour=hour)
+            missing=self.horse('2026-11-14_R1C9')
+            enrichment=self.horse('2026-11-15_R1C1',known=True)
+            enrichment['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
+            for h in (missing,enrichment):h['vu_utc']=now.isoformat()
+            state={'passage_utc':now.isoformat(),'chevaux':{'ferrures':enrichment,'carriere':missing}}
+            with self.subTest(hour=hour):
+                self.assertEqual(inc.prochaine_tache(state,now,{}),('carriere','COLLECTE'))
+
     def test_selection_de_jour_conserve_priorite_aux_engagements_futurs(self):
         now=self.now.replace(hour=10)
         horses={'ancien':self.horse('2026-11-14_R1C1'),
