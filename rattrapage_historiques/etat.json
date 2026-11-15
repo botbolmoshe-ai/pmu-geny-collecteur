@@ -12953,11 +12953,23 @@
       "numero": "7",
       "engagement": "2026-11-13_R3C7",
       "sync": "SANS_MODIFICATION",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
       "engagement_source": "2026-11-13|LYON-PARILLY|R3C7",
       "engagement_prioritaire": "2026-11-13_R3C7",
-      "ferrures_manquantes": 0
+      "ferrures_manquantes": 0,
+      "erreur": "PermissionError: ACCES_REFUSE_403",
+      "prochain_essai_utc": "2026-11-16T01:36:15.096069+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-15T19:36:15.096095+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [
+          "ACCES_REFUSE_403"
+        ],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2790907/1794771370366247667/resultat.json"
+      }
     },
     "2760048": {
       "id": "2760048",
@@ -47613,13 +47625,13 @@
     "identites_a_verifier": 0,
     "synchronisations_en_attente": 0,
     "ajouts_confirmes": 2804,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
-    "collectes_rejetees": 0
+    "collectes_rejetees": 1
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-15T19:36:03.426169+00:00",
-  "maj_utc": "2026-11-15T19:36:08.032822+00:00",
+  "maj_utc": "2026-11-15T19:36:15.101839+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 29
@@ -47645,7 +47657,7 @@
     }
   },
   "priorite_collecte": "ENGAGEMENTS_JOUR",
-  "prochain_acces_geny_utc": "2026-11-15T12:40:56.464539+00:00",
+  "prochain_acces_geny_utc": "2026-11-15T20:06:15.096115+00:00",
   "phase_reprise": "CARRIERES_MANQUANTES",
   "revision_inventaire": 2,
   "inventaire_actualise_utc": "2026-11-15T12:44:52.242104+00:00",
