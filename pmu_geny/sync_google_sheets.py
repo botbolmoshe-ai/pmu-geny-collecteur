@@ -589,29 +589,40 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000):
     déjà présentes plus bas. La pagination borne la taille des réponses API.
     Aucune écriture n'est autorisée si une page n'a pas pu être lue.
     """
-    import urllib.parse
-    import time
+    from .lectures_sheets import get_lecture
     grid=properties.get('gridProperties',{})
     height=grid.get('rowCount',0);width=grid.get('columnCount',0)
     if height<1 or width<1 or page_rows<1:
         raise ValueError('Dimensions de feuille absentes ou invalides')
-    values=[]
+    values=[];pages=[]
     for start in range(1,height+1,page_rows):
         end=min(height,start+page_rows-1)
         name="'"+tab.replace("'","''")+"'!A"+str(start)+":"+colname(width)+str(end)
-        quoted=urllib.parse.quote(name,safe="!:'")
-        for attempt in range(4):
-            response=session.get(base+'/values/'+quoted,timeout=60)
-            if response.status_code==200:break
-            if response.status_code not in (429,500,502,503,504) or attempt==3:
-                raise RuntimeError(f'Lecture incomplete {tab} lignes {start}:{end}, HTTP {response.status_code}')
-            try:delay=max(2**attempt,float(response.headers.get('Retry-After',0)))
-            except (ValueError,TypeError):delay=2**attempt
-            time.sleep(min(delay,60))
-        rows=response.json().get('values',[])
-        if len(rows)>end-start+1:raise ValueError('Page Sheets trop longue')
-        values.extend(rows)
-        values.extend([[] for _ in range(end-start+1-len(rows))])
+        pages.append((name,start,end))
+    # Trois pages par appel limitent le volume tout en réduisant le quota de
+    # requêtes. Les contrôles étroits de clés restent une lecture distincte.
+    for offset in range(0,len(pages),3):
+        group=pages[offset:offset+3]
+        response=get_lecture(session,base+'/values:batchGet',
+            params={'ranges':[p[0] for p in group],'majorDimension':'ROWS'},timeout=60)
+        if response.status_code!=200:
+            raise RuntimeError(f'Lecture incomplete {tab} lignes {group[0][1]}:{group[-1][2]}, HTTP {response.status_code}')
+        ranges=response.json().get('valueRanges')
+        if not isinstance(ranges,list) or len(ranges)!=len(group):
+            raise ValueError('Lecture Sheets incomplète : plages absentes')
+        for (name,start,end),data in zip(group,ranges):
+            if not isinstance(data,dict):raise ValueError('Plage Sheets incohérente')
+            actual=str(data.get('range','')).rsplit('!',1)
+            sheet=actual[0]
+            if sheet.startswith("'") and sheet.endswith("'"):sheet=sheet[1:-1].replace("''", "'")
+            if (len(actual)!=2 or sheet!=tab or actual[1]!=name.rsplit('!',1)[1]
+                    or data.get('majorDimension','ROWS')!='ROWS'):
+                raise ValueError('Lecture Sheets incohérente : plage différente')
+            rows=data.get('values',[])
+            if (not isinstance(rows,list) or any(not isinstance(r,list) for r in rows)
+                    or len(rows)>end-start+1):raise ValueError('Page Sheets incohérente')
+            values.extend(rows)
+            values.extend([[] for _ in range(end-start+1-len(rows))])
     while values and not values[-1]:values.pop()
     return values
 

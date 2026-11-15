@@ -196,7 +196,8 @@ def preparer(cache,now):
         trusted=bool(cached_stamp and cached_stamp<=now and h.get('nom') and not h.get('conflit_identite')
                      and url_cheval(cached.get('source_url'),h.get('id',''))
                      and str(cached.get('identifiant_cheval',h.get('id')))==h.get('id'))
-        if h.get('rattrapage_complet_au_utc') and trusted and not h['ferrures_manquantes']:
+        if (inc.instant(h.get('rattrapage_complet_au_utc'))==cached_stamp and trusted
+                and not h['ferrures_manquantes']):
             if h.get('sync')=='OK':
                 h['erreur']='';h.pop('prochain_essai_utc',None)
             continue
@@ -252,7 +253,7 @@ def preparer(cache,now):
                                        not bool(state['chevaux'][k].get('geny')),k))
         for key in keys:
             if key!=primary:state['chevaux'][key]['cible_equivalente_a']=primary
-        if state['chevaux'][primary].get('rattrapage_complet_au_utc'):
+        if state['chevaux'][primary].get('rattrapage_complet_au_utc') and state['chevaux'][primary].get('sync')=='OK':
             propager_preuve(state,state['chevaux'][primary])
     bilan(state)
     return state

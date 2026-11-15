@@ -10,6 +10,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 from .controle_sync_sheets import HISTORY,lire_cles_independantes,verifier_avant,verifier_apres
+from .lectures_sheets import get_lecture
 
 
 class ErreurSynchronisation(RuntimeError):
@@ -70,7 +71,7 @@ class SynchroniseurSheets:
         return response.json()
 
     def metadata(self):
-        doc=self.check(self.session.get(self.base,
+        doc=self.check(get_lecture(self.session,self.base,
             params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)))'},timeout=30))
         return {x['properties']['title']:x['properties'] for x in doc['sheets']}
 
@@ -150,7 +151,7 @@ class SynchroniseurSheets:
         from .kpi_registre import KPI_TAB,calculer_kpi,plan_kpi
         if KPI_TAB not in tables:return {}
         path=quote("'"+KPI_TAB+"'!A1:D100",safe="!:'")
-        values=self.check(self.session.get(self.base+'/values/'+path,timeout=30)).get('values',[])
+        values=self.check(get_lecture(self.session,self.base+'/values/'+path,timeout=30)).get('values',[])
         updates=plan_kpi(values,calculer_kpi(self.cache,source))
         if updates:self.check(self.session.post(self.base+'/values:batchUpdate',
             json={'valueInputOption':'RAW','data':updates},timeout=45))

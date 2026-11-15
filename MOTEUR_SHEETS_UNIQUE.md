@@ -1,5 +1,18 @@
 # Un seul moteur de synchronisation Google Sheets
 
+Les pages complètes sont regroupées par trois dans `values:batchGet`, sans
+omettre les plages vides ni tronquer la feuille. La colonne des clés est relue
+séparément par plages étroites de 25 000 lignes, puis les lignes sont relues
+après écriture. Une réponse dont une plage manque ou ne correspond pas à la
+demande bloque le traitement. Les GET transitoirement refusés peuvent être
+repris avec attente (15/30/60 s pour un 429, `Retry-After` respecté) ; les append
+ne sont jamais rejoués aveuglément. Un délai demandé supérieur à une minute
+fait échouer la lecture pour laisser la file reprendre ultérieurement.
+Une capture plus récente que la dernière publication repasse par la vérification
+des clés et la synchronisation ; une preuve portant sur l'ancienne capture
+ne suffit pas. Les preuves des cibles équivalentes sont propagées après une
+publication confirmée.
+
 `pmu_geny/moteur_sheets.py` est l'unique implémentation d'authentification,
 lecture, planification, écriture et contrôle des publications vers Sheets.
 
