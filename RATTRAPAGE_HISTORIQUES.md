@@ -112,6 +112,16 @@ carrière de Louna d'Hucheloup (Rânes, 09/06/2025). Ce code terminal était ign
 ce qui rejetait une carrière pourtant extraite sur 38/38 performances. Il est
 conservé tel quel, sans rang inventé et sans assouplir les champs obligatoires.
 
+Les diagnostics d'une collecte rejetée peuvent être rejoués depuis leurs
+artefacts GitHub (`archives_diagnostics`, jusqu'à cinq IDs séparés par virgules).
+Le texte complet reste disponible jusqu'au bloc de qualification, afin de ne
+pas tronquer son libellé après une date affichée sur deux lignes. Les captures
+ne sont promues que si identité, URL, date originale, total annoncé et champs
+redeviennent valides. La date de capture n'est pas remplacée par la date de
+revalidation ; l'empreinte de l'archive est conservée. Une carrière déjà valide
+est ignorée. La sauvegarde et la publication utilisent les mêmes contrôles et
+le même verrou que le reste du rattrapage, sans nouvelle consultation Geny.
+
 Le bilan expose `phase_reprise`, les `carrieres_distinctes_a_completer`, les
 `identifiants_sans_carriere_complete` dédoublonnés et les
 `contextes_distincts_sans_identifiant`. Les ferrures sont comptées séparément.

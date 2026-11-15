@@ -14,6 +14,11 @@ on:
         type: boolean
         default: false
         required: false
+      archives_diagnostics:
+        description: 'Artefacts GitHub de diagnostics à revalider, IDs séparés par virgules'
+        type: string
+        default: ''
+        required: false
 permissions:
   contents: write
   actions: read
@@ -36,6 +41,7 @@ jobs:
         id: etat
         env:
           ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
+          ARCHIVES_DIAGNOSTICS: ${{ inputs.archives_diagnostics || '' }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -48,7 +54,8 @@ jobs:
           path=Path('cache_pmu/rattrapage_historiques/etat.json')
           state=json.loads(path.read_text()) if path.exists() else {}
           done=(state.get('statut')=='TERMINE' and 'historiques_ferrures_a_completer' in state.get('bilan',{})
-                and os.environ.get('ACTUALISER_INVENTAIRE')!='true')
+                and os.environ.get('ACTUALISER_INVENTAIRE')!='true'
+                and not os.environ.get('ARCHIVES_DIAGNOSTICS'))
           if done:
               assert state['sync_kpi']=='OK'
               assert state['bilan']['cibles_completees']==len(state['chevaux'])
@@ -72,11 +79,13 @@ jobs:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
           MAX_MINUTES: ${{ inputs.max_minutes || 10 }}
+          ARCHIVES_DIAGNOSTICS: ${{ inputs.archives_diagnostics || '' }}
           ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
           GH_TOKEN: ${{ github.token }}
         run: |
           args=()
           if [ "$ACTUALISER_INVENTAIRE" = 'true' ]; then args+=(--actualiser-inventaire); fi
+          if [ -n "$ARCHIVES_DIAGNOSTICS" ]; then args+=(--archives-diagnostics "$ARCHIVES_DIAGNOSTICS"); fi
           python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${args[@]}"
       - name: Archiver le bilan et les controles
         if: always()

@@ -134,7 +134,11 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
         lines = [normalize(x) for x in body_after.splitlines() if normalize(x)]
         starts = [i for i, x in enumerate(lines) if DATE_RE.search(x)]
         for j, i in enumerate(starts):
-            candidates.append(" | ".join(lines[i: min(starts[j+1] if j+1 < len(starts) else i+18, i+18)]))
+            # Ne pas tronquer arbitrairement à 18 cellules : une qualification
+            # datée sur deux lignes peut suivre le rang. Son libellé doit rester
+            # visible pour que separer_qualifications retire le bloc entier.
+            end_index=starts[j+1] if j+1 < len(starts) else len(lines)
+            candidates.append(" | ".join(lines[i:end_index]))
 
     records=[]
     qualifications_ignorees = 0
