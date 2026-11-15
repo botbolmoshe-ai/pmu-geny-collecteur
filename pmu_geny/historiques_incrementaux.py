@@ -82,10 +82,13 @@ def priorite_engagement(horse,now,*,manquant):
     day=engagement[:10] if re.fullmatch(r'\d{4}-\d{2}-\d{2}_R\d+C\d+',engagement) else ''
     future=bool(day and day>=now.astimezone(ZoneInfo('Europe/Paris')).date().isoformat())
     if nuit_collecte(now):
-        if manquant and future:return 0
-        if manquant and day:return 1
-        if future:return 2
-        return 3
+        # Apres 21 h, J+1 passe avant les courses du jour deja disputees.
+        tomorrow=(now.astimezone(ZoneInfo('Europe/Paris')).date()+timedelta(days=1)).isoformat()
+        if manquant and day==tomorrow:return 0
+        if manquant and future:return 1
+        if manquant and day:return 2
+        if future:return 3
+        return 4
     return 0 if future else 1
 
 
