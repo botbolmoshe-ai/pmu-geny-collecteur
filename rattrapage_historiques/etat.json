@@ -16755,7 +16755,7 @@
       "origines": [
         "SHEETS:Historique chevaux"
       ],
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "numero": "12",
@@ -16771,7 +16771,32 @@
       "prochaine_verification_utc": "2026-11-16T02:59:57.853103+00:00",
       "nombre_performances": 37,
       "erreur": "",
-      "derniere_performance_date": "2026-11-08"
+      "derniere_performance_date": "2026-11-08",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 24,
+          "cellules_actualisees": 26,
+          "lignes_source": 37,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 24,
+            "lignes_avant": 14860,
+            "cles_avant": 14860,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 1486,
+            "import_initial_explicite": false,
+            "lignes_attendues": 14884,
+            "lignes_apres": 14884,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-15T03:00:16.288068+00:00",
+      "rattrapage_complet_au_utc": "2026-11-15T02:59:57.853103+00:00",
+      "ajouts_confirmes": 24
     },
     "2797755": {
       "id": "2797755",
@@ -35377,25 +35402,25 @@
       "engagement_prioritaire": "2026-11-15_R4C8"
     }
   },
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 1787,
-    "cibles_completees": 508,
-    "cibles_restantes": 1279,
+    "cibles_completees": 509,
+    "cibles_restantes": 1278,
     "cibles_equivalentes": 536,
-    "travaux_distincts_restants": 772,
+    "travaux_distincts_restants": 771,
     "identifiants_geny_distincts": 622,
     "identites_non_resolues": 1136,
     "liens_a_resoudre": 80,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 726,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 750,
     "tentatives_collecte": 7
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-15T02:57:08.000324+00:00",
-  "maj_utc": "2026-11-15T02:59:57.948021+00:00",
+  "maj_utc": "2026-11-15T03:00:16.289616+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 29
