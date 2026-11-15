@@ -121,6 +121,36 @@ def inventaire_local(cache,sheets):
     return targets
 
 
+def actualiser_inventaire(cache,now):
+    """Extension explicite et traçable du lot ; jamais un inventaire glissant."""
+    cache=Path(cache)
+    # Valider le snapshot et l'état avant d'archiver ou de modifier quoi que ce soit.
+    state=preparer(cache,now)
+    local=inventaire_local(cache,inc.lire(cache/INVENTAIRE))
+    additions={k:h for k,h in local.items() if k not in state['chevaux']}
+    if additions:
+        previous=inc.lire(cache/QUEUE) or state
+        revision=state.get('revision_inventaire',1)
+        digest=hashlib.sha256(json.dumps(previous,sort_keys=True).encode()).hexdigest()[:16]
+        archive=cache/QUEUE.parent/'inventaires'/f"{state['inventaire_id']}-r{revision}-{digest}.json"
+        inc.ecrire(archive,previous)
+        before=len(state['chevaux']);state['chevaux'].update(additions)
+        state['revision_inventaire']=revision+1
+        state['inventaire_actualise_utc']=now.isoformat()
+        state.setdefault('extensions_inventaire',[]).append({'revision':revision+1,
+            'utc':now.isoformat(),'cibles_avant':before,'cibles_ajoutees':len(additions),
+            'cibles_apres':len(state['chevaux']),'archive_precedente':str(archive.relative_to(cache))})
+        state['sync_kpi']='A_REPRENDRE'
+        state.pop('termine_utc',None)
+        bilan(state)
+        inc.ecrire(cache/QUEUE,state)
+        state=preparer(cache,now)
+    else:state.setdefault('revision_inventaire',1)
+    inc.ecrire(cache/QUEUE,state)
+    inc.ecrire(cache/QUEUE.parent/'bilan.json',rapport(state))
+    return state
+
+
 def preparer(cache,now):
     cache=Path(cache)
     sheets=inc.lire(cache/INVENTAIRE)
@@ -134,7 +164,7 @@ def preparer(cache,now):
         if not targets:raise ValueError('INVENTAIRE_VIDE')
         state={'version':1,'mode':'RATTRAPAGE_GLOBAL','inventaire_utc':now.isoformat(),
             'inventaire_id':hashlib.sha256((now.isoformat()+'\n'+'\n'.join(sorted(targets))).encode()).hexdigest()[:24],
-            'chevaux':targets,'sync_kpi':'A_REPRENDRE',
+            'chevaux':targets,'sync_kpi':'A_REPRENDRE','revision_inventaire':1,
             'lignes_historique_initiales':sheets.get('lignes_historique')}
     local=inventaire_local(cache,sheets)
     state['dernier_controle_inventaire']={k:sheets.get(k) for k in ('capture_utc','lignes_historique','controle')}
@@ -162,7 +192,10 @@ def preparer(cache,now):
         from .ferrures_geny import manquantes
         cached=inc.capture_valide(cache,h['id']) if h.get('id') else None
         h['ferrures_manquantes']=manquantes(cached) if cached else 0
-        if h.get('rattrapage_complet_au_utc') and not h['ferrures_manquantes']:continue
+        if h.get('rattrapage_complet_au_utc') and cached and not h['ferrures_manquantes']:continue
+        if not cached:
+            h.pop('historique_complet_au_utc',None)
+            h.pop('rattrapage_complet_au_utc',None)
         if not h.get('id'):
             ids=names.get(nom_normalise(h.get('nom')),set())
             if len(ids)==1:h['id']=next(iter(ids))
@@ -174,6 +207,7 @@ def preparer(cache,now):
         if h.get('geny') or url_course(h.get('course_url')) and h.get('numero'):
             h.pop('lien_candidat',None)
         ident=h.get('id','');doc=inc.capture_valide(cache,ident) if ident else None
+        h['ferrures_manquantes']=manquantes(doc) if doc else 0
         stamp=inc.instant(doc.get('extrait_utc')) if doc else None
         if h.get('conflit_identite') or not h.get('nom'):
             h.update(collecte='IDENTITE_A_VERIFIER',motif_actualisation='IDENTITE_A_VERIFIER')
@@ -234,7 +268,10 @@ def prochaine_tache(state,now,attempts):
         if attempts.get(('COLLECTE',key),0) or retry and retry>now:continue
         priority=0 if h.get('geny') else 1 if h.get('course_url') else 2
         night=inc.priorite_engagement(h,now,manquant=True) if inc.nuit_collecte(now) else 0
-        candidates.append(((night,priority,h.get('engagement',''),key),key))
+        # Une carrière absente/partielle passe avant une carrière déjà complète
+        # à enrichir, même si cette dernière dispose d'un lien déjà vérifié.
+        enrichment=h.get('motif_actualisation')=='FERRURES_HISTORIQUES_A_COMPLETER'
+        candidates.append(((enrichment,night,priority,h.get('engagement',''),key),key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 
@@ -267,6 +304,8 @@ def propager_preuve(state,horse):
 
 def bilan(state):
     horses=list(state['chevaux'].values())
+    distinct=[h for h in horses if not h.get('cible_equivalente_a')]
+    missing=[h for h in distinct if not h.get('rattrapage_complet_au_utc')]
     complete=sum(bool(h.get('rattrapage_complet_au_utc')) and h.get('sync')=='OK' for h in horses)
     previous=state.get('bilan',{})
     state['bilan']={'cibles_inventoriees':len(horses),'cibles_completees':complete,
@@ -274,6 +313,9 @@ def bilan(state):
         'cibles_equivalentes':sum(bool(h.get('cible_equivalente_a')) for h in horses),
         'travaux_distincts_restants':sum(not h.get('cible_equivalente_a') and (not h.get('rattrapage_complet_au_utc') or bool(h.get('ferrures_manquantes'))) for h in horses),
         'historiques_ferrures_a_completer':sum(not h.get('cible_equivalente_a') and bool(h.get('ferrures_manquantes')) for h in horses),
+        'carrieres_distinctes_a_completer':len(missing),
+        'identifiants_sans_carriere_complete':len({h['id'] for h in horses if h.get('id') and not h.get('historique_complet_au_utc')}),
+        'contextes_distincts_sans_identifiant':sum(not h.get('id') for h in distinct),
         'identifiants_geny_distincts':len({h['id'] for h in horses if h.get('id')}),
         'identites_non_resolues':sum(not h.get('id') for h in horses),
         'liens_a_resoudre':sum(h.get('collecte')=='LIEN_GENY_A_RESOUDRE' for h in horses),
@@ -282,13 +324,18 @@ def bilan(state):
         'ajouts_confirmes':sum(h.get('ajouts_confirmes',0) for h in horses),
         'tentatives_collecte':previous.get('tentatives_collecte',0)}
     state['statut']='TERMINE' if complete==len(horses) and state.get('sync_kpi')=='OK' and not state['bilan']['historiques_ferrures_a_completer'] else 'PARTIEL_REPRENABLE'
+    state['phase_reprise']=('CARRIERES_MANQUANTES' if missing else
+        'ENRICHISSEMENTS_FERRURES' if state['bilan']['historiques_ferrures_a_completer'] else
+        'TERMINE' if state['statut']=='TERMINE' else 'VALIDATION_FINALE')
+    if state['statut']!='TERMINE':state.pop('termine_utc',None)
     if state['statut']=='TERMINE' and not state.get('termine_utc'):
         state['termine_utc']=datetime.now(inc.UTC).isoformat()
     return state['bilan']
 
 
 def rapport(state):
-    keys=('version','mode','inventaire_id','inventaire_utc','passage_utc','maj_utc','statut','priorite_collecte',
+    keys=('version','mode','inventaire_id','inventaire_utc','revision_inventaire','inventaire_actualise_utc',
+          'extensions_inventaire','phase_reprise','passage_utc','maj_utc','statut','priorite_collecte',
           'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire')
     report={k:state[k] for k in keys if k in state}
     proofs=[]
@@ -328,6 +375,7 @@ def main():
     parser.add_argument('--max-minutes',type=int,default=10)
     parser.add_argument('--max-chevaux',type=int,default=1000)
     parser.add_argument('--publier',action='store_true')
+    parser.add_argument('--actualiser-inventaire',action='store_true')
     args=parser.parse_args()
     if not 1<=args.max_minutes<=15 or args.max_chevaux<1:parser.error('Bornes positives, duree maximale 15 minutes')
     cache=Path(args.cache)
@@ -338,11 +386,13 @@ def main():
         engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
         try:inc.ecrire(cache/INVENTAIRE,engine.inventaire_rattrapage())
         finally:engine.fermer()
+        if args.actualiser_inventaire:actualiser_inventaire(cache,datetime.now(inc.UTC))
         state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=args.max_chevaux,
                       publier=True,mode='rattrapage',stop_requested=priorite_production)
     else:
-        state=preparer(cache,datetime.now(inc.UTC))
+        state=(actualiser_inventaire if args.actualiser_inventaire else preparer)(cache,datetime.now(inc.UTC))
     print('BILAN_RATTRAPAGE '+json.dumps({'statut':state['statut'],'inventaire_id':state['inventaire_id'],
+                                       'revision_inventaire':state.get('revision_inventaire',1),'phase_reprise':state['phase_reprise'],
                                        'motif_fin_passage':state.get('motif_fin_passage','BUDGET_OU_FILE_EPUISE'),
                                        **state['bilan']},ensure_ascii=False),flush=True)
 

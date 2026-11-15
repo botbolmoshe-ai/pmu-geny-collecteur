@@ -39,6 +39,13 @@ courses peuvent être retrouvées hors réseau depuis les index Geny sauvegardé
 en réutilisant les règles de rapprochement existantes. Les cibles non résolues
 restent explicites et bénéficient des preuves apparues aux passages suivants.
 
+Une **actualisation explicite** (`actualiser_inventaire=true` au lancement manuel)
+étend le lot aux chevaux déjà rencontrés depuis sa création. Elle archive l'état
+précédent, conserve les identités et les preuves de collecte/publication, puis
+enregistre une révision avec date, nombre de cibles avant, ajoutées et après.
+Les passages programmés gardent ce périmètre figé. Le dénominateur d'une nouvelle
+révision doit être distingué de celui des bilans antérieurs.
+
 Une capture préexistante est déjà complète si le classificateur vérifie toutes
 les lignes et le total annoncé, si sa date n'est ni absente ni future, si son URL
 et son identifiant concordent, et si ses clés de performances sont présentes
@@ -88,6 +95,19 @@ partants récents encore incomplets viennent ensuite. Cette priorité nocturne
 est partagée avec le collecteur courant ; elle réutilise les index sauvegardés
 pour retrouver les contextes de courses. Aucune collecte n'a lieu pendant une
 pause Geny active et une publication en attente reste reprise sans recollecte.
+
+**Priorité aux carrières manquantes** : en journée comme la nuit, une carrière
+absente ou partielle passe avant une carrière complète à enrichir en ferrures,
+y compris si seule cette dernière possède déjà un lien Geny vérifié. La priorité
+nocturne des engagements s'applique à l'intérieur de ces catégories. Le collecteur
+courant applique aussi ce tri, sans perdre ses limites de production.
+
+Le bilan expose `phase_reprise`, les `carrieres_distinctes_a_completer`, les
+`identifiants_sans_carriere_complete` dédoublonnés et les
+`contextes_distincts_sans_identifiant`. Les ferrures sont comptées séparément.
+Une capture devenue invalide ne conserve pas une ancienne preuve de complétude.
+Une carrière validée et publiée porte une date de complétude ; la production
+reprend ensuite ses nouvelles performances au fil des engagements et arrivées.
 
 `TERMINE` exige toutes les cibles complétées, leur synchronisation confirmée et
 les KPI `OK`. L'absence de tâche actuellement éligible ne suffit jamais. Les
