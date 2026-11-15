@@ -5,56 +5,11 @@ on:
   push:
     branches: [main]
     paths:
-      - 'tests/test_v21_paliers_offline.py'
-      - 'tests/test_v22_avis_identite_offline.py'
-      - 'pmu_geny/avis_experts_v22.py'
-      - 'pmu_geny/sources_experts_v23.py'
-      - 'tests/test_v23_sources_offline.py'
-      - 'requirements.txt'
-      - 'pmu_geny/liaison_chevaux_v22.py'
-      - 'pmu_geny/ml_v19.py'
-      - 'tests/test_v20_2_scheduler_offline.py'
-      - 'pmu_geny/planification_v20_2.py'
-      - '.github/workflows/pmu-v16.yml'
-      - 'pmu_geny/qualite_registre_v21.py'
-      - 'pmu_geny/sync_google_sheets.py'
-      - 'pmu_geny/pronostics_v18.py'
-      - 'pmu_geny/top3_independants_v22.py'
-      - 'pmu_geny/kpi_registre.py'
-      - 'tests/test_v24_fiabilite_offline.py'
-      - 'pmu_geny/auto_v18.py'
-      - 'pmu_geny/controle_sync_sheets.py'
-      - 'pmu_geny/moteur_sheets.py'
-      - 'pmu_geny/lectures_sheets.py'
-      - 'pmu_geny/identites_chevaux.py'
-      - 'pmu_geny/reconcilier_identites_sheets.py'
-      - 'pmu_geny/identites_chevaux_verifiees.json'
-      - 'tests/test_identites_sources_offline.py'
-      - 'tests/test_quotas_sheets_offline.py'
-      - 'tests/test_v29_moteur_unique_offline.py'
-      - 'pmu_geny/rattrapage_historiques.py'
-      - 'tests/test_v30_rattrapage_offline.py'
-      - 'tests/test_priorite_nocturne_offline.py'
-      - 'pmu_geny/ferrures_geny.py'
-      - 'pmu_geny/reparer_ferrures.py'
-      - 'pmu_geny/revalider_diagnostics.py'
-      - 'pmu_geny/carriere_geny.py'
-      - 'tests/test_carriere_inedite_offline.py'
-      - 'tests/test_revalidation_diagnostics_offline.py'
-      - 'tests/test_ferrures_offline.py'
-      - 'tests/test_workflows_offline.py'
-      - 'tests/test_arrival_recovery_window.py'
-      - 'tests/test_v31_dedup_offline.py'
-      - '.github/workflows/rattrapage-historiques.yml'
-      - 'tests/test_v28_controles_sync_offline.py'
-      - 'pmu_geny/historiques_incrementaux.py'
-      - 'pmu_geny/historique_individuel.py'
-      - 'scripts/synchroniser_un_historique.py'
-      - 'tests/test_v26_incremental_offline.py'
-      - 'tests/test_v26_chaine_offline.py'
-      - '.github/workflows/historiques-incrementaux.yml'
-      - 'pmu_geny/partants_actuels_v21.py'
-      - '.github/workflows/validation-iterative-v21.yml'
+      - 'pmu_geny/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'requirements*.txt'
+      - '.github/workflows/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -77,7 +32,7 @@ jobs:
       - name: Installer les dependances
         run: |
           python -m pip install -r requirements.txt
-          python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2 google-auth==2.43.0 requests pyyaml
+          python -m pip install -q -r requirements-ml.txt google-auth==2.43.0 requests pyyaml
       - name: Syntaxe
         run: python -m compileall -q pmu_geny scripts tests
       - name: Regression complete (lecture seule)

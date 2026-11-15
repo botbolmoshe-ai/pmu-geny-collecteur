@@ -12,11 +12,19 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'Decouvrir une seule fois, puis Collecter sans nouvelle decouverte'
+        description: 'Cycle global, collecte, consolidation ou apprentissage ML'
         type: choice
         required: true
         default: 'auto'
-        options: ['auto', 'decouvrir', 'collecter', 'controle_np', 'consolider']
+        options: ['auto', 'decouvrir', 'collecter', 'controle_np', 'consolider', 'entrainer_ml', 'experience_ml']
+      ml_validation:
+        description: 'Jour de validation de experience_ml (AAAA-MM-JJ)'
+        type: string
+        default: ''
+      ml_test:
+        description: 'Jour de test separe de experience_ml (AAAA-MM-JJ)'
+        type: string
+        default: ''
       course_url:
         description: 'URL officielle Geny /course/ID.../partants-pronostics'
         type: string
@@ -106,19 +114,21 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
       - name: Installer dependances Python et navigateur optionnel
+        env:
+          MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install -r requirements.txt
           # Le test de production PMU ne doit jamais attendre un navigateur Geny.
           # Les cycles normaux tentent Chromium pendant 45 secondes au maximum.
-          if [ "${{ github.event_name }}" = "push" ]; then
+          if [ "${{ github.event_name }}" = "push" ] || [ "$MODE_PRODUCTION" = "entrainer_ml" ] || [ "$MODE_PRODUCTION" = "experience_ml" ]; then
             echo 'MODE_PMU_PRIORITAIRE : navigateur Geny facultatif; synchronisation Sheets prioritaire'
           else
             timeout 45s python -m playwright install chromium || echo 'GENY_CHROMIUM_NON_DISPONIBLE : PMU et Google Sheets continuent'
           fi
       - name: Installer les dependances ML (cycles legers inclus)
-        run: python -m pip install -q scikit-learn==1.7.2 joblib==1.5.2
+        run: python -m pip install -q -r requirements-ml.txt
       - name: Cycle automatique quotidien (PMU puis Geny, sans doublons)
         if: github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto'
         shell: bash
@@ -146,6 +156,38 @@ jobs:
           run(root,tomorrow,[],0,max_discoveries=1,now=now,selection_complete=True)
           print('Collecte historique confiée au worker incrémental indépendant')
           PYRUN
+      - name: Apprentissage ML unique apres les cycles de resultats
+        if: github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml'
+        env:
+          MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
+          OMP_NUM_THREADS: '2'
+          OPENBLAS_NUM_THREADS: '2'
+        run: |
+          set -euo pipefail
+          if [ "$MODE_PRODUCTION" = "entrainer_ml" ]; then
+            python -m pmu_geny.cycle_ml --cache cache_pmu --force
+          else
+            python -m pmu_geny.cycle_ml --cache cache_pmu
+          fi
+      - name: Experience ML manuelle avec jour de test exclu
+        if: inputs.mode == 'experience_ml'
+        env:
+          ML_VALIDATION: ${{ inputs.ml_validation }}
+          ML_TEST: ${{ inputs.ml_test }}
+          OMP_NUM_THREADS: '2'
+          OPENBLAS_NUM_THREADS: '2'
+        run: |
+          python - <<'PYEXPERIENCE'
+          import os
+          from datetime import date
+          from pathlib import Path
+          from pmu_geny.experience_ml import run
+          validation=date.fromisoformat(os.environ['ML_VALIDATION']).isoformat()
+          test=date.fromisoformat(os.environ['ML_TEST']).isoformat()
+          cache=Path('cache_pmu')
+          report=run(cache,cache/'ml/experiences'/('manuel-'+os.environ['GITHUB_RUN_ID']),validation,test)
+          print(report['statut'],report['modele_choisi_avant_test'],report['test_ml']['moyenne'])
+          PYEXPERIENCE
       - name: Decouvrir les partants, sans collecter les historiques
         if: inputs.mode == 'decouvrir'
         env:

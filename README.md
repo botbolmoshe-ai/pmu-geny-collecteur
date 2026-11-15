@@ -1,3 +1,8 @@
+Chaîne de production et apprentissage ML : voir
+[`CHAINE_PRODUCTION_ML.md`](CHAINE_PRODUCTION_ML.md) pour le raccordement PMU,
+le cycle quotidien unique, l'expérience manuelle et les conditions de promotion.
+Cette description remplace les modalités ML historiques V19/V20 ci-dessous.
+
 Processus actuel de collecte des historiques : voir
 [`COLLECTE_INCREMENTALE_PRODUCTION.md`](COLLECTE_INCREMENTALE_PRODUCTION.md).
 Sources de données actuellement branchées et gestion de leurs identifiants :

@@ -299,13 +299,20 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     entry['statut_avis_experts']='EXPERTS_NON_VERIFIES'
                     entry['erreur_avis_experts']=f'{type(exc).__name__}: {exc}'
             if fenetre_decision:
-                from .top3_independants_v22 import calculer
-                from .cotes_v19 import collecter
-                entry['paliers_independants']=calculer(cache,c,pmu_participants)
-                entry['statut_cotes']=collecter(cache,c,pmu_participants)
+                try:
+                    from .top3_independants_v22 import calculer
+                    from .cotes_v19 import collecter
+                    entry['paliers_independants']=calculer(cache,c,pmu_participants,now=now)
+                    entry['statut_cotes']=collecter(cache,c,pmu_participants,now=now)
+                except Exception as exc:
+                    entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
                 # Desormais la capture ML ne depend ni de Geny ni des historiques.
-                from .ml_v19 import snapshot_pmu
-                entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=now)
+                try:
+                    from .ml_v19 import snapshot_pmu, predict_pmu
+                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=now)
+                    entry['statut_ml']=predict_pmu(cache,c,pmu_participants,now=now)
+                except Exception as exc:
+                    entry['erreur_ml']=f'{type(exc).__name__}: {exc}'
         except Exception as exc:
             entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
         # Pas de consultation Geny sur une course terminee.
@@ -405,14 +412,6 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             except Exception as exc:
                 entry['statut_prevision']='ERREUR_MODELE_PROVISOIRE'
                 entry['erreur_prevision']=str(exc)
-            try:
-                from .ml_v19 import snapshot, predict
-                # Instantane H-1:15...H-1, pas de donnees post-course.
-                delay=(departure-now).total_seconds()/60
-                if 60<=delay<=75:
-                    entry['statut_snapshot_ml']=snapshot(cache,c,manifest)
-                entry['statut_ml']=predict(cache,c,manifest)
-            except Exception as exc:entry['erreur_ml']=f'{type(exc).__name__}: {exc}'
         try:
             exporter(manifest,cache,cache/'exports')
             from .ml_v19 import export_comparatif
@@ -422,11 +421,6 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             if entry['audit_predictif']=='AUDIT_ENREGISTRE':
                 entry['bilan_audits_csv']=bilan_global(cache)
         except Exception as exc:entry['erreur_export']=str(exc)
-    if now.hour==20 and now.minute<15:
-        try:
-            from .ml_v19 import train
-            state['entrainement_ml']=train(cache)
-        except Exception as exc:state['alertes'].append(f'ENTRAINEMENT_ML: {type(exc).__name__}: {exc}')
     state['fiches_geny_budget_consommees']=max_new-remaining_new
     save(index,state)
     from .historiques_incrementaux import alimenter
