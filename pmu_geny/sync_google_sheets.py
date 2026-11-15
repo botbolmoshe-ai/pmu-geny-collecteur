@@ -555,15 +555,36 @@ def reconcilier_cles_historiques(existing_rows, incoming):
     second hippodrome/course est decouvert au fil des captures.
     """
     from .controle_sync_sheets import cle_sportive
+    from .identites_chevaux import canoniser_ligne,cle_inter_sources
+    aliases=[(row,canoniser_ligne(row)) for row in existing_rows]
+    aliases=[(old,new) for old,new in aliases if str(old.get('identifiant_cheval'))!=str(new.get('identifiant_cheval'))]
+    incoming_ids={str(row.get('identifiant_cheval')) for row in incoming.values()}
+    alias_ids={str(new['identifiant_cheval']) for old,new in aliases}&incoming_ids
+    alias_keys={str(old.get('cle_performance')) for old,new in aliases if str(new['identifiant_cheval']) in alias_ids}
+    # Chaque ancienne ligne doit correspondre exactement à une performance
+    # canonique avant de modifier son ID ou d'ajouter le reste de la carrière.
+    for old,new in aliases:
+        if str(new['identifiant_cheval']) not in alias_ids:continue
+        matches=[row for row in incoming.values() if cle_inter_sources(row)==cle_inter_sources(new)]
+        if len(matches)!=1:
+            raise ValueError('PERFORMANCE_INTERSOURCE_NON_CONCORDANTE: '+str(old.get('cle_performance')))
+        if old.get('ferrure') and matches[0].get('ferrure') and old['ferrure']!=matches[0]['ferrure']:
+            raise ValueError('FERRURE_INTERSOURCE_NON_CONCORDANTE: '+str(old.get('cle_performance')))
+    def identity_for(row):
+        if str(row.get('identifiant_cheval')) in alias_ids or str(row.get('cle_performance')) in alias_keys:
+            return cle_inter_sources(row)
+        return cle_sportive(row)
     known={}
     for row in existing_rows:
-        identity=cle_sportive(row)
+        identity=identity_for(row)
         if identity is not None:
+            if identity in known and identity[0] in alias_ids:
+                raise ValueError('CORRESPONDANCE_HISTORIQUE_AMBIGUE')
             known[identity]=str(row.get('cle_performance') or '').strip()
     output={}
     for row in incoming.values():
         candidate=dict(row)
-        identity=cle_sportive(candidate)
+        identity=identity_for(candidate)
         if identity is not None and identity in known:
             candidate['cle_performance']=known[identity]
         key=str(candidate.get('cle_performance') or '').strip()

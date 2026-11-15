@@ -80,6 +80,7 @@ def inventaire_local(cache,sheets):
             records.append({'nom':h.get('nom',''),'numero':str(number),'engagement':file.stem,
                             'course_url':course_url,'origine':'PMU:'+file.stem})
     records.extend(sheets.get('chevaux',[]))
+    from .identites_chevaux import qualifier_observation
     by_id={};unknown=[]
     def merge(target,record):
         name=record.get('nom','')
@@ -100,7 +101,12 @@ def inventaire_local(cache,sheets):
             target.update(course_url=record['course_url'],numero=str(record['numero']))
         if record.get('engagement'):target['engagement']=engagement_canonique(record['engagement'])
         if record.get('prochain_essai_utc'):target['prochain_essai_utc']=record['prochain_essai_utc']
+        for field in ('source_identifiant','identifiant_externe_non_reconcilie','reconciliation_identite'):
+            if record.get(field):target[field]=record[field]
+        if record.get('identifiants_sources'):
+            target.setdefault('identifiants_sources',{}).update(record['identifiants_sources'])
     for record in records:
+        record=qualifier_observation(record)
         ident=str(record.get('id',''))
         if re.fullmatch(r'\d{4,15}',ident):
             merge(by_id.setdefault(ident,{'id':ident,'nom':''}),record)
@@ -111,6 +117,10 @@ def inventaire_local(cache,sheets):
             names.setdefault(nom_normalise(h['nom']),set()).add(ident)
     targets=dict(by_id)
     for record in unknown:
+        if record.get('identifiant_externe_non_reconcilie'):
+            source,ident=next(iter(record['identifiants_sources'].items()))
+            merge(targets.setdefault(source+':'+ident,{'nom':record['nom']}),record)
+            continue
         ids=names.get(nom_normalise(record['nom']),set())
         if len(ids)==1:
             merge(targets[next(iter(ids))],record)
@@ -181,6 +191,30 @@ def preparer(cache,now):
         context=contexte_verifiable(row)
         if context:observed_numbers.setdefault(context[:2],set()).add(context[2])
     for key,h in state['chevaux'].items():
+        unresolved=[v for v in local.values() if v.get('identifiant_externe_non_reconcilie')
+                    and h.get('id') in v.get('identifiants_sources',{}).values()
+                    and nom_normalise(h.get('nom'))==nom_normalise(v.get('nom'))]
+        if unresolved:
+            h['identifiant_historique_original']=h.pop('id')
+            h.update(identifiant_externe_non_reconcilie=True,
+                     identifiants_sources=unresolved[0]['identifiants_sources'])
+            for field in ('geny','lien_candidat','historique_complet_au_utc','rattrapage_complet_au_utc'):
+                h.pop(field,None)
+        # Migration d'un ancien ID non qualifié : le snapshot conserve maintenant
+        # son URL source et le registre exige une correspondance vérifiée.
+        matches=[v for v in local.values() if v.get('reconciliation_identite')
+                 and (h.get('id') or h.get('identifiant_historique_original')) in v.get('identifiants_sources',{}).values()
+                 and nom_normalise(h.get('nom'))==nom_normalise(v.get('nom'))]
+        if len(matches)==1 and h.get('id')!=matches[0]['id'] and not h.get('conflit_identite'):
+            fresh=matches[0]
+            h.setdefault('identifiant_historique_original',h.get('id'))
+            h.update(id=fresh['id'],geny=fresh['geny'],
+                     identifiants_sources=fresh['identifiants_sources'],
+                     reconciliation_identite=fresh['reconciliation_identite'],
+                     priorite_identite_corrigee=True,sync='SANS_MODIFICATION',erreur='')
+            h.pop('identifiant_externe_non_reconcilie',None)
+            for field in ('historique_complet_au_utc','rattrapage_complet_au_utc','prochain_essai_utc','lien_candidat'):
+                h.pop(field,None)
         canonical=engagement_canonique(h.get('engagement'))
         if canonical and canonical!=h.get('engagement'):
             h.setdefault('engagement_source',h['engagement']);h['engagement']=canonical
@@ -204,12 +238,13 @@ def preparer(cache,now):
         if not trusted:
             h.pop('historique_complet_au_utc',None)
             h.pop('rattrapage_complet_au_utc',None)
-        if not h.get('id'):
+        if not h.get('id') and not h.get('identifiant_externe_non_reconcilie'):
             ids=names.get(nom_normalise(h.get('nom')),set())
             if len(ids)==1:h['id']=next(iter(ids))
         fresh=local.get(h.get('id')) or local.get(key) or local.get(cle_contexte(h)) or {}
         if nom_normalise(fresh.get('nom'))==nom_normalise(h.get('nom')):
-            for field in ('geny','course_url','numero','conflit_identite'):
+            for field in ('geny','course_url','numero','conflit_identite','identifiant_externe_non_reconcilie',
+                          'identifiants_sources','reconciliation_identite'):
                 if fresh.get(field):h[field]=fresh[field]
             if fresh.get('engagement'):h['engagement_prioritaire']=fresh['engagement']
         if h.get('geny') or url_course(h.get('course_url')) and h.get('numero'):
@@ -217,7 +252,7 @@ def preparer(cache,now):
         ident=h.get('id','');doc=inc.capture_valide(cache,ident) if ident else None
         h['ferrures_manquantes']=manquantes(doc) if doc else 0
         stamp=inc.instant(doc.get('extrait_utc')) if doc else None
-        if h.get('conflit_identite') or not h.get('nom'):
+        if h.get('conflit_identite') or h.get('identifiant_externe_non_reconcilie') or not h.get('nom'):
             h.update(collecte='IDENTITE_A_VERIFIER',motif_actualisation='IDENTITE_A_VERIFIER')
             continue
         if doc and url_cheval(doc.get('source_url'),ident):
@@ -283,7 +318,8 @@ def prochaine_tache(state,now,attempts):
         # À urgence égale, terminer les carrières des identifiants connus avant
         # la résolution des seuls noms/contextes. Le candidat reste à vérifier.
         unidentified=not bool(h.get('id'))
-        candidates.append(((enrichment,night,unidentified,priority,h.get('engagement',''),key),key))
+        corrected=bool(h.get('priorite_identite_corrigee') and not h.get('historique_complet_au_utc'))
+        candidates.append(((enrichment,not corrected,night,unidentified,priority,h.get('engagement',''),key),key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 
