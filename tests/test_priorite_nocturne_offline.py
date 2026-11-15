@@ -87,7 +87,8 @@ class NuitTests(unittest.TestCase):
     def test_nouvel_engagement_d_une_cible_ancienne_est_prioritaire_sans_changer_le_lot(self):
         horse=self.horse('2020-01-01_R1C1',known=True)
         horse['engagement_prioritaire']='2026-11-15_R1C2'
-        self.assertEqual(inc.priorite_engagement(horse,self.now,manquant=True),0)
+        self.assertEqual(inc.priorite_engagement(horse,self.now,manquant=True),1)
+        # Un engagement du jour reste prioritaire sur les anciens, mais J+1 passe avant lui.
         self.assertEqual(horse['engagement'],'2020-01-01_R1C1')
 
     def test_pause_403_et_delais_de_reprise_restent_prioritaires(self):
