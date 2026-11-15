@@ -12,7 +12,8 @@ from urllib.error import HTTPError
 from pmu_geny import ferrures_geny as fg
 from pmu_geny import historiques_incrementaux as inc
 from pmu_geny import rattrapage_historiques as back
-from pmu_geny.partants_actuels_v21 import extraire_partants,enregistrer
+from pmu_geny.partants_actuels_v21 import extraire_partants,enregistrer,ferrure_historique_explicite
+from pmu_geny.sync_google_sheets import plan_sheet
 from pmu_geny.reparer_ferrures import reparer,reparer_partants
 from pmu_geny.moteur_sheets import SynchroniseurSheets
 from test_v26_incremental_offline import doc
@@ -42,6 +43,27 @@ def pmu(name='Test',**extra):
 
 
 class FerruresTests(unittest.TestCase):
+    def test_texte_petite_piste_et_nom_driver_ne_sont_pas_des_ferrures(self):
+        for text in ['30/09/25 | Vincennes | Attelé | 2 850 | PP | G | - | Dur | Driver',
+                     '19/07/26 | Laon | Attelé | 2 650 | G | Auto | Mlle C. Da Costa']:
+            self.assertEqual(ferrure_historique_explicite(text),'')
+        self.assertEqual(ferrure_historique_explicite('PP'),'PP')
+        self.assertEqual(ferrure_historique_explicite('Ferrure : DA'),'DA')
+        self.assertEqual(ferrure_historique_explicite('Vincennes 2100 D4 1e'),'D4')
+
+    def test_nettoyage_limite_aux_anciens_faux_codes_dont_le_texte_est_identique(self):
+        text='30/09/25 | Vincennes | Attelé | 2 850 | PP | G | - | Dur | Driver'
+        headers=['cle_performance','ferrure','source_url']
+        old={'cle_performance':'p','ferrure':'PP','source_url':text}
+        incoming={'p':{'cle_performance':'p','ferrure':'','source_url':text}}
+        _,changes,adds=plan_sheet(headers,[old],incoming,'Historique chevaux')
+        self.assertEqual(changes,[(2,2,'')]);self.assertEqual(adds,[])
+        _,changes,_=plan_sheet(headers,[{**old,'source_url':'preuve différente'}],incoming,'Historique chevaux')
+        self.assertNotIn((2,2,''),changes)
+        incoming['p']['ferrure']='D4'
+        _,changes,_=plan_sheet(headers,[old],incoming,'Historique chevaux')
+        self.assertIn((2,2,'D4'),changes);self.assertNotIn((2,2,''),changes)
+
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         self.cache=Path(self.tmp.name);self.now=datetime.now(timezone.utc)

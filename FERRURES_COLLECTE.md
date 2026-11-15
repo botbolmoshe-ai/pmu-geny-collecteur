@@ -7,6 +7,12 @@ ferrure sont portés par des attributs `aria-label`, absents de ce texte. Les
 14 898 performances du cache examiné n'avaient donc pas de champ `ferrure`.
 Les colonnes de la Google Sheet étaient correctement associées.
 
+Une autre erreur venait du scan de codes isolés dans le texte : PP pouvait
+désigner la petite piste et Da être une partie du nom Da Costa. Ces éléments
+ne deviennent plus des ferrures. Le moteur commun peut retirer ces anciennes
+valeurs uniquement si le texte source est identique et démontre cette
+confusion, sans supprimer une ferrure renseignée dans le nouveau cache.
+
 Le flux PMU des partants de trot omet `deferre` lorsqu'aucun déferrage ou
 plaquage n'est déclaré. Le collecteur conservait une cellule vide. Convention
 recoupée sur les mêmes partants PMU du 13 novembre, R3C5, et Geny 1698194 :

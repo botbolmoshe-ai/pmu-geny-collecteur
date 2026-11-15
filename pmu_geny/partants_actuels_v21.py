@@ -83,10 +83,25 @@ def ferrure_normalisee(value):
     }.get(key,'')
 
 def ferrure_historique_explicite(value):
-    """Codes explicites seulement, jamais un tiret ou 'D' isolé dans Geny."""
-    match=re.search(r'(?<![A-Za-z0-9])(?:DP/PA|DA/PP|D4|P4|DP|DA|PA|PP)(?![A-Za-z0-9])',
-                    str(value or ''),re.I)
+    """Un code ambigu exige un champ ou libellé explicite de ferrure.
+
+    Dans une carrière, PP désigne aussi la petite piste ; « Da Costa » est
+    un nom de driver. Le texte de la ligne ne donne pas leur contexte.
+    """
+    text=str(value or '').strip()
+    codes=r'(?:DP/PA|DA/PP|D4|P4|DP|DA|PA|PP|F)'
+    if re.fullmatch(codes,text,re.I):return text.upper()
+    match=re.search(r'\bferrure\s*[:=]\s*('+codes+r')(?![A-Za-z0-9])',text,re.I)
+    if match:return match.group(1).upper()
+    match=re.search(r'(?<![A-Za-z0-9])(?:DP/PA|DA/PP|D4|P4)(?![A-Za-z0-9])',text,re.I)
     return match.group(0).upper() if match else ''
+
+
+def faux_code_ferrure_historique(value,code):
+    """Erreurs textuelles démontrables de l'ancien bridge, pas une valeur vide générique."""
+    text=str(value or '')
+    return bool(code=='PP' and re.search(r'\|\s*[\d\s]+\|\s*PP\s*\|\s*[GD]\s*\|',text)
+                or code=='DA' and re.search(r'\bDa Costa\b',text,re.I))
 
 def extraire_partants(raw):
     resultat = {}

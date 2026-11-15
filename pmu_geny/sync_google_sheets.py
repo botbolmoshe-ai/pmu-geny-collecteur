@@ -530,6 +530,15 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                 differs=((before!=value or (isinstance(value,int) and
                            (not isinstance(before,(int,float)) or isinstance(before,bool))))
                          if name in NUMERIC_SCORES else str(before)!=str(value))
+                # Nettoyage ciblé de l'ancien scan texte : PP de petite piste,
+                # DA du nom Da Costa. Une vraie ferrure sourcée reste prioritaire.
+                if tab=='Historique chevaux' and name=='ferrure' and val=='':
+                    from .partants_actuels_v21 import faux_code_ferrure_historique
+                    old=existing_rows[present[k]-2]
+                    if (str(old.get('source_url',''))==str(item.get('source_url',''))
+                            and faux_code_ferrure_historique(item.get('source_url'),before)):
+                        changes.append((present[k],headers.index(name)+1,''))
+                        continue
                 if (name in headers and val is not None and (str(val)!='' or name in CLEARABLE_COLUMNS)
                         and differs):
                     changes.append((present[k],headers.index(name)+1,value))
