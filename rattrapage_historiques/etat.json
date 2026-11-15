@@ -26785,7 +26785,7 @@
       "course_url": "https://www.geny.com/course/1698539/partants-pronostics",
       "numero": "6",
       "engagement": "2026-11-15_R11C3",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-15_R11C3",
@@ -26802,7 +26802,9 @@
       "nombre_performances": 2,
       "erreur": "",
       "derniere_performance_date": "2026-10-25",
-      "cible_equivalente_a": "contexte:2cba95f281fe9efc70df65b8"
+      "cible_equivalente_a": "contexte:2cba95f281fe9efc70df65b8",
+      "rattrapage_complet_au_utc": "2026-11-15T03:28:54.492348+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE"
     },
     "contexte:c711322c8fd745430fbc3d58": {
       "nom": "NOTABLE DES GLENAN",
@@ -36274,7 +36276,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-15_R11C3",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-15|CHARTRES|R11C3",
@@ -36282,7 +36284,7 @@
       "numero_reconcilie_depuis_snapshot": true,
       "course_url": "https://www.geny.com/course/1698539/partants-pronostics",
       "engagement_prioritaire": "2026-11-15_R11C3",
-      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "erreur": "",
       "prochain_essai_utc": "2026-11-15T10:01:10.052092+00:00",
       "ferrures_manquantes": 0,
       "id": "2903693",
@@ -36292,7 +36294,32 @@
         "url_geny": "https://www.geny.com/cheval/2903693-nevada-du-dome/course/1698539"
       },
       "nombre_performances": 2,
-      "historique_complet_au_utc": "2026-11-15T03:28:54.492348+00:00"
+      "historique_complet_au_utc": "2026-11-15T03:28:54.492348+00:00",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 2,
+          "cellules_actualisees": 0,
+          "lignes_source": 2,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 2,
+            "lignes_avant": 16247,
+            "cles_avant": 16247,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 1625,
+            "import_initial_explicite": false,
+            "lignes_attendues": 16249,
+            "lignes_apres": 16249,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-15T16:04:30.445002+00:00",
+      "rattrapage_complet_au_utc": "2026-11-15T03:28:54.492348+00:00",
+      "ajouts_confirmes": 2
     },
     "contexte:3bacfdda3c9e7768ce179fff": {
       "nom": "NOTABLE DES GLENAN",
@@ -45669,31 +45696,31 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE"
     }
   },
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2031,
-    "cibles_completees": 672,
-    "cibles_restantes": 1359,
+    "cibles_completees": 674,
+    "cibles_restantes": 1357,
     "cibles_equivalentes": 584,
-    "travaux_distincts_restants": 1350,
+    "travaux_distincts_restants": 1349,
     "historiques_ferrures_a_completer": 476,
-    "carrieres_distinctes_a_completer": 874,
+    "carrieres_distinctes_a_completer": 873,
     "identifiants_sans_carriere_complete": 71,
     "contextes_distincts_sans_identifiant": 801,
     "identifiants_geny_distincts": 646,
     "identites_non_resolues": 1284,
     "liens_a_resoudre": 80,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 4,
-    "ajouts_confirmes": 1962,
+    "synchronisations_en_attente": 2,
+    "ajouts_confirmes": 1964,
     "tentatives_collecte": 0,
     "captures_validees": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-15T16:04:06.249983+00:00",
-  "maj_utc": "2026-11-15T16:04:07.597526+00:00",
+  "maj_utc": "2026-11-15T16:04:30.460507+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 29
