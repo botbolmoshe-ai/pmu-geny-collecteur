@@ -7,6 +7,7 @@
     "avisEntraineur",
     "deferre",
     "dernierRapportDirect",
+    "dernierRapportReference",
     "driver",
     "driverChange",
     "eleveur",
@@ -74,7 +75,7 @@
     }
   ],
   "source": "PMU_API_PARTICIPANTS",
-  "capture_utc": "2026-11-15T07:58:12.629420+00:00",
+  "capture_utc": "2026-11-15T09:08:28.175418+00:00",
   "chevaux": {
     "1": {
       "driver_jockey": "ADRIEN RAFFEGEAU",
@@ -90,27 +91,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -123,30 +125,39 @@
       "sexe": "Hongre",
       "age_ans": 7,
       "gains_euros": 107965.0,
-      "nom": "JIRENS DUEM",
-      "statut_np": "PARTANT",
+      "ferrure": "F",
       "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
+        },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
+      "nom": "JIRENS DUEM",
+      "statut_np": "PARTANT",
       "divergences_sources": []
     },
     "3": {
@@ -163,27 +174,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -202,27 +214,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -241,27 +254,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -280,27 +294,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -319,27 +334,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -358,27 +374,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -397,27 +414,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -436,27 +454,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -475,27 +494,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -514,27 +534,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -553,27 +574,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -586,30 +608,39 @@
       "sexe": "Hongre",
       "age_ans": 7,
       "gains_euros": 99045.0,
-      "nom": "JEUNE PRODIGE",
-      "statut_np": "PARTANT",
+      "ferrure": "F",
       "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
+        },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
+      "nom": "JEUNE PRODIGE",
+      "statut_np": "PARTANT",
       "divergences_sources": []
     },
     "15": {
@@ -626,27 +657,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
       "divergences_sources": []
@@ -659,30 +691,39 @@
       "sexe": "Femelle",
       "age_ans": 7,
       "gains_euros": 94655.0,
-      "nom": "JOURNEE A LA GRAVE",
-      "statut_np": "PARTANT",
+      "ferrure": "F",
       "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C4/participants",
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
+        },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:12.629420+00:00"
+          "capture_utc": "2026-11-15T09:08:28.175418+00:00"
         }
       },
+      "nom": "JOURNEE A LA GRAVE",
+      "statut_np": "PARTANT",
       "divergences_sources": []
     }
   }

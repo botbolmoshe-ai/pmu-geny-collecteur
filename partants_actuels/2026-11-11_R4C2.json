@@ -198,7 +198,18 @@
       "age_ans": 7,
       "gains_euros": 205000.0,
       "nom": "JUST D'ERONVILLE",
-      "statut_np": "PARTANT"
+      "statut_np": "PARTANT",
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/11112026/R4/C2/participants",
+          "capture_utc": "2026-11-15T09:07:24.306162+00:00"
+        }
+      }
     },
     "12": {
       "driver_jockey": "TH. BRIAND",
@@ -255,5 +266,6 @@
       "nom": "JEWEL TOUCH",
       "statut_np": "PARTANT"
     }
-  }
+  },
+  "dernier_controle_reparation_ferrures_utc": "2026-11-15T09:07:24.306162+00:00"
 }

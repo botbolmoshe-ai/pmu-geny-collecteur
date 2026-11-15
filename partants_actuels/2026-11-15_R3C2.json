@@ -6,6 +6,7 @@
     "allure",
     "avisEntraineur",
     "dernierRapportDirect",
+    "dernierRapportReference",
     "driver",
     "driverChange",
     "eleveur",
@@ -72,7 +73,7 @@
     }
   ],
   "source": "PMU_API_PARTICIPANTS",
-  "capture_utc": "2026-11-15T07:58:03.764654+00:00",
+  "capture_utc": "2026-11-15T09:08:06.474375+00:00",
   "chevaux": {
     "1": {
       "driver_jockey": "N.R. BROSSARD",
@@ -82,30 +83,39 @@
       "sexe": "Femelle",
       "age_ans": 3,
       "gains_euros": 14885.0,
-      "nom": "NINON DU GUELIER",
-      "statut_np": "PARTANT",
+      "ferrure": "F",
       "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
+        },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
+      "nom": "NINON DU GUELIER",
+      "statut_np": "PARTANT",
       "divergences_sources": []
     },
     "2": {
@@ -122,27 +132,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
       "divergences_sources": []
@@ -161,27 +172,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
       "divergences_sources": []
@@ -194,30 +206,39 @@
       "sexe": "Femelle",
       "age_ans": 3,
       "gains_euros": 30970.0,
-      "nom": "NIGHT DE JANEIRO",
-      "statut_np": "PARTANT",
+      "ferrure": "F",
       "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
+        },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
+      "nom": "NIGHT DE JANEIRO",
+      "statut_np": "PARTANT",
       "divergences_sources": []
     },
     "5": {
@@ -228,30 +249,39 @@
       "sexe": "Femelle",
       "age_ans": 3,
       "gains_euros": 38415.0,
-      "nom": "NOUBA D'ATOUT",
-      "statut_np": "PARTANT",
+      "ferrure": "F",
       "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
+        },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
+      "nom": "NOUBA D'ATOUT",
+      "statut_np": "PARTANT",
       "divergences_sources": []
     },
     "6": {
@@ -268,27 +298,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
       "divergences_sources": []
@@ -301,30 +332,39 @@
       "sexe": "Femelle",
       "age_ans": 3,
       "gains_euros": 40500.0,
-      "nom": "NUIT A LA GRAVE",
-      "statut_np": "PARTANT",
+      "ferrure": "F",
       "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
+        },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
+      "nom": "NUIT A LA GRAVE",
+      "statut_np": "PARTANT",
       "divergences_sources": []
     },
     "8": {
@@ -341,27 +381,28 @@
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
       "divergences_sources": []
@@ -374,30 +415,39 @@
       "sexe": "Mâle",
       "age_ans": 3,
       "gains_euros": 87385.0,
-      "nom": "NANO UP STAR",
-      "statut_np": "PARTANT",
+      "ferrure": "F",
       "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026/R3/C2/participants",
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
+        },
         "age_ans": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "sexe": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "gains_euros": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "driver_jockey": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         },
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
-          "capture_utc": "2026-11-15T07:58:03.764654+00:00"
+          "capture_utc": "2026-11-15T09:08:06.474375+00:00"
         }
       },
+      "nom": "NANO UP STAR",
+      "statut_np": "PARTANT",
       "divergences_sources": []
     }
   }

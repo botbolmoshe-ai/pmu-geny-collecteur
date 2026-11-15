@@ -185,6 +185,14 @@
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
           "capture_utc": "2026-11-12T16:52:07.830715+00:00"
+        },
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026/R1/C2/participants",
+          "capture_utc": "2026-11-15T09:07:24.306162+00:00"
         }
       },
       "divergences_sources": [
@@ -194,7 +202,8 @@
           "valeur_tiers": 102605.0,
           "source": "equidia"
         }
-      ]
+      ],
+      "ferrure": "F"
     },
     "4": {
       "driver_jockey": "Y. ACKER",
@@ -567,9 +576,18 @@
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
           "capture_utc": "2026-11-12T16:52:07.830715+00:00"
+        },
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/12112026/R1/C2/participants",
+          "capture_utc": "2026-11-15T09:07:24.306162+00:00"
         }
       },
-      "divergences_sources": []
+      "divergences_sources": [],
+      "ferrure": "F"
     },
     "14": {
       "driver_jockey": "Mlle F. AUBER",
@@ -609,5 +627,6 @@
       },
       "divergences_sources": []
     }
-  }
+  },
+  "dernier_controle_reparation_ferrures_utc": "2026-11-15T09:07:24.306162+00:00"
 }

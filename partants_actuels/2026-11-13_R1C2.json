@@ -334,9 +334,18 @@
         "entraineur": {
           "source": "PMU_API_PARTICIPANTS",
           "capture_utc": "2026-11-13T17:43:32.387570+00:00"
+        },
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/13112026/R1/C2/participants",
+          "capture_utc": "2026-11-15T09:07:24.306162+00:00"
         }
       },
-      "divergences_sources": []
+      "divergences_sources": [],
+      "ferrure": "F"
     },
     "8": {
       "driver_jockey": "GUILLAUME MARTIN",
@@ -452,5 +461,6 @@
       },
       "divergences_sources": []
     }
-  }
+  },
+  "dernier_controle_reparation_ferrures_utc": "2026-11-15T09:07:24.306162+00:00"
 }
