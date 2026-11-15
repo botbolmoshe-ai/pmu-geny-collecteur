@@ -22485,11 +22485,20 @@
       "course_url": "https://www.geny.com/course/1698543/partants-pronostics",
       "numero": "11",
       "engagement": "2026-11-15_R11C2",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-15_R11C2",
-      "cible_equivalente_a": "contexte:64ac4ca9f0dfc2b2bc8c5a38"
+      "cible_equivalente_a": "contexte:64ac4ca9f0dfc2b2bc8c5a38",
+      "rattrapage_complet_au_utc": "2026-11-15T00:29:52.014952+00:00",
+      "id": "2898150",
+      "geny": {
+        "id": "2898150",
+        "nom": "NESTOR DE VIVOIN",
+        "url_geny": "https://www.geny.com/cheval/2898150-nestor-de-vivoin/course/1698543"
+      },
+      "historique_complet_au_utc": "2026-11-15T00:29:52.014952+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE"
     },
     "contexte:329ac6d8919130a1f7b9bb20": {
       "nom": "NARCISSE BUROIS",
@@ -30987,7 +30996,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-15_R11C2",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-15|CHARTRES|R11C2",
@@ -31006,7 +31015,32 @@
       "prochaine_verification_utc": "2026-11-16T00:29:52.014952+00:00",
       "nombre_performances": 4,
       "erreur": "",
-      "derniere_performance_date": "2026-10-18"
+      "derniere_performance_date": "2026-10-18",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 4,
+          "cellules_actualisees": 0,
+          "lignes_source": 4,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 4,
+            "lignes_avant": 14851,
+            "cles_avant": 14851,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 1486,
+            "import_initial_explicite": false,
+            "lignes_attendues": 14855,
+            "lignes_apres": 14855,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-15T00:30:10.536342+00:00",
+      "rattrapage_complet_au_utc": "2026-11-15T00:29:52.014952+00:00",
+      "ajouts_confirmes": 4
     },
     "contexte:859d55490d48f384d1bce7a8": {
       "nom": "NARCISSE BUROIS",
@@ -35290,21 +35324,21 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 1787,
-    "cibles_completees": 502,
-    "cibles_restantes": 1285,
+    "cibles_completees": 504,
+    "cibles_restantes": 1283,
     "cibles_equivalentes": 536,
-    "travaux_distincts_restants": 775,
+    "travaux_distincts_restants": 774,
     "identifiants_geny_distincts": 620,
-    "identites_non_resolues": 1141,
+    "identites_non_resolues": 1140,
     "liens_a_resoudre": 80,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 722,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 726,
     "tentatives_collecte": 6
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-15T00:19:54.278385+00:00",
-  "maj_utc": "2026-11-15T00:29:52.072200+00:00",
+  "maj_utc": "2026-11-15T00:30:10.550093+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 29
