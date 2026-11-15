@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from pmu_geny.collecte_geny_v4 import parse_career,lire_classement
 from pmu_geny.controle_historique import classifier
-from unittest.mock import patch
+from unittest.mock import patch,Mock
 
 from pmu_geny import historiques_incrementaux as inc
 
@@ -64,6 +64,37 @@ class IncrementalTests(unittest.TestCase):
         inc.ecrire(out/'historique_geny.json', data)
         return {'complet': True, 'identite_verifiee': True, 'statut': 'COMPLET',
                 'geny': self.gen, 'dossier': str(out)}
+
+    def test_capture_validee_annule_un_ancien_delai_d_echec(self):
+        self.seed()
+        horse={'nom':'Test','id':'123456','geny':self.gen,
+               'prochain_essai_utc':(self.now+timedelta(hours=6)).isoformat()}
+        inc.accepter(self.cache,horse,self.collect(horse,self.cache/'capture'))
+        self.assertNotIn('prochain_essai_utc',horse)
+        self.assertEqual(horse['erreur'],'')
+
+    def test_echec_garde_les_motifs_et_les_compteurs_distincts(self):
+        self.seed(self.now-timedelta(days=3))
+        result={'complet':False,'identite_verifiee':True,'statut':'DONNEES_INCOMPLETES',
+                'motifs':['CHAMP_MANQUANT:classement:1']}
+        state=inc.run(self.cache,collect=lambda h,p:result,sync=lambda h:{})
+        horse=state['chevaux']['123456']
+        self.assertEqual(horse['dernier_echec_collecte']['motifs'],result['motifs'])
+        self.assertEqual(horse['dernier_echec_collecte']['statut'],'DONNEES_INCOMPLETES')
+        self.assertEqual(state['bilan']['tentatives_collecte'],1)
+        self.assertEqual(state['bilan']['captures_validees'],0)
+        self.assertEqual(state['bilan']['collectes_rejetees'],1)
+
+    def test_production_cede_apres_sauvegarde_et_publication_du_cheval(self):
+        self.seed(self.now-timedelta(days=3));checkpoints=[]
+        stop=Mock(side_effect=[None,'PRIORITE_PRODUCTION_EN_ATTENTE'])
+        collect=Mock(side_effect=self.collect);sync=Mock(return_value={})
+        state=inc.run(self.cache,collect=collect,sync=sync,stop_requested=stop,
+                      checkpoint=lambda c:checkpoints.append(inc.lire(c/inc.QUEUE)))
+        collect.assert_called_once();sync.assert_called_once()
+        self.assertEqual(state['motif_fin_passage'],'PRIORITE_PRODUCTION_EN_ATTENTE')
+        self.assertEqual(state['chevaux']['123456']['sync'],'OK')
+        self.assertTrue(any(s['bilan'].get('captures_validees')==1 for s in checkpoints))
 
     def test_migration_utilise_date_source_pas_date_migration(self):
         data = self.seed()

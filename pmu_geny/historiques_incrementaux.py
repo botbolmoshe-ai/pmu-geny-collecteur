@@ -321,6 +321,9 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
                  historique_complet_au_utc=stamp, derniere_verification_utc=stamp,
                  prochaine_verification_utc=(instant(stamp)+timedelta(hours=24)).isoformat(),
                  nombre_performances=len(doc['performances']), motif_actualisation='', erreur='')
+    # Une collecte validée annule le délai d'échec précédent. Une nouvelle
+    # lacune de ferrure ou publication peut ensuite poser son propre délai.
+    horse.pop('prochain_essai_utc',None)
     horse['ferrures_manquantes']=doc['ferrures_manquantes']
     if doc['ferrures_manquantes']:
         horse['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
@@ -385,11 +388,13 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
     if blocked and now < blocked+timedelta(minutes=30):
         state['prochain_acces_geny_utc'] = (blocked+timedelta(minutes=30)).isoformat()
-    attempts, count = {}, 0
+    attempts, count, accepted = {}, 0, 0
     sheets_engine=None
     deadline = time.monotonic()+max_minutes*60
     def save():
         state['maj_utc'] = datetime.now(UTC).isoformat()
+        state.setdefault('bilan',{}).update(tentatives_collecte=count,
+            captures_validees=accepted,collectes_rejetees=count-accepted)
         if reprise:reprise.bilan(state)
         else:materialiser_manifestes(cache, state)
         ecrire(cache/queue, state)
@@ -408,8 +413,10 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         choisir=reprise.prochaine_tache if reprise else prochaine_tache
         key, action = choisir(state, datetime.now(UTC), attempts)
         if key is None:
+            state['motif_fin_passage']=action
             break
         if action == 'COLLECTE' and count >= max_chevaux:
+            state['motif_fin_passage']='MAX_CHEVAUX_ATTEINT'
             break
         horse = state['chevaux'][key]
         attempts[(action, key)] = attempts.get((action, key), 0)+1
@@ -424,6 +431,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     raise PermissionError(report['statut'])
                 if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
                 else:accepter(cache, horse, report)
+                accepted+=1
                 ident = horse['id']
                 if not reprise and key != ident:
                     state['chevaux'][ident] = horse
@@ -440,6 +448,11 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             except Exception as exc:
                 horse.update(collecte='A_REPRENDRE', erreur=f'{type(exc).__name__}: {exc}',
                              prochain_essai_utc=(datetime.now(UTC)+timedelta(hours=6)).isoformat())
+                horse['dernier_echec_collecte']={'utc':datetime.now(UTC).isoformat(),
+                    'statut':report.get('statut') or type(exc).__name__,
+                    'motifs':report.get('motifs',[]),'erreur':str(exc),
+                    'identite_verifiee':report.get('identite_verifiee'),
+                    'diagnostic':str(out/'resultat.json')}
                 if isinstance(exc, PermissionError):
                     stamp = datetime.now(UTC)
                     state['prochain_acces_geny_utc'] = (stamp+timedelta(minutes=30)).isoformat()
@@ -483,7 +496,9 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         save()
         if action == 'COLLECTE':
             time.sleep(30)
+    state.setdefault('motif_fin_passage','BUDGET_TEMPS_ATTEINT')
     state['bilan'] = {'chevaux_suivis': len(state['chevaux']), 'tentatives_collecte': count,
+                      'captures_validees':accepted,'collectes_rejetees':count-accepted,
                       'synchronisations_en_attente': sum(h.get('sync') == 'A_FAIRE' for h in state['chevaux'].values()),
                       'actualisations_en_attente': sum(bool(h.get('motif_actualisation')) for h in state['chevaux'].values())}
     state['statut'] = ('PARTIEL_REPRENABLE' if state['bilan']['actualisations_en_attente'] or
@@ -517,7 +532,9 @@ def main():
         return
     if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID', 'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
         raise SystemExit('Secrets Sheets absents : aucune collecte lancée')
-    state = run(Path(args.cache), max_minutes=args.max_minutes, max_chevaux=args.max_chevaux, publier=True)
+    from .rattrapage_historiques import priorite_production
+    state = run(Path(args.cache), max_minutes=args.max_minutes, max_chevaux=args.max_chevaux, publier=True,
+                stop_requested=lambda:priorite_production({'.github/workflows/pmu-v16.yml'}))
     print('BILAN_INCREMENTAL '+json.dumps(state['bilan']))
 
 

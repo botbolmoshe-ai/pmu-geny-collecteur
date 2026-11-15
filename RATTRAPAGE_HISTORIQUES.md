@@ -84,6 +84,20 @@ attend le verrou. Il termine alors son passage et consolide ses KPI pour céder
 la place. Si cette vérification GitHub est indisponible, il cède aussi par prudence.
 Un cheval déjà commencé finit sa sauvegarde et sa publication avant de céder.
 
+Le collecteur courant cède lui aussi entre deux chevaux lorsqu'un cycle PMU
+attend. La reprise globale continue de céder au PMU et au collecteur courant ;
+il n'existe pas de renvoi mutuel entre les deux collecteurs.
+
+Les bilans distinguent les tentatives, `captures_validees` et
+`collectes_rejetees`, dès les checkpoints intermédiaires. Le motif de fin
+indique explicitement une pause de source, une file momentanément épuisée,
+une limite de durée ou une priorité de production. Les motifs détaillés du
+dernier échec restent consultables, même après résolution. Une collecte réussie
+retire son ancien délai d'échec ; une lacune persistante pose son propre délai.
+Une ancienne preuve ne dispense pas de recontrôler l'URL, l'identifiant et la
+date de la capture. Les revalidations d'archives ont leurs propres compteurs
+(`derniere_revalidation`) et ne comptent pas comme de nouvelles consultations.
+
 Un sous-processus déjà commencé peut terminer après le budget ; sa limite reste
 240 secondes. Les chevaux sont espacés de 30 secondes. Les 403/429 activent la
 pause partagée de 30 minutes ; aucun accès n'est contourné. Les autres échecs
@@ -121,6 +135,18 @@ redeviennent valides. La date de capture n'est pas remplacée par la date de
 revalidation ; l'empreinte de l'archive est conservée. Une carrière déjà valide
 est ignorée. La sauvegarde et la publication utilisent les mêmes contrôles et
 le même verrou que le reste du rattrapage, sans nouvelle consultation Geny.
+
+Une archive peut aussi retrouver une cible encore sans identifiant Geny si
+la demande originale prouve le même nom, la même date/course et le même
+numéro, et si la fiche obtenue appartient à la course attendue. Le seul nom
+ne suffit pas ; un conflit d'identité empêche toujours la promotion.
+
+Un débutant n'est pas un historique manquant lorsque les données structurées
+de la même fiche confirment simultanément zéro performance, une liste vide et
+la mention « Inédit », avant son premier départ connu. Sa qualification ne
+devient pas une course. La capture porte `INEDIT_AVANT_DEPART` et la preuve
+datée ; une ancienne capture à zéro n'est pas rejouée après ce départ pour
+prétendre que la carrière est encore vide.
 
 Le bilan expose `phase_reprise`, les `carrieres_distinctes_a_completer`, les
 `identifiants_sans_carriere_complete` dédoublonnés et les

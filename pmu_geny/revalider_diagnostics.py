@@ -13,6 +13,7 @@ from .collecte_geny_v4 import parse_career
 from .controle_historique import classifier
 from .ferrures_geny import enrichir,cle_performance
 from .liaison_chevaux_v22 import nom_normalise
+from .carriere_geny import confirmer_inedit
 
 
 def revalider(cache,archive):
@@ -28,8 +29,22 @@ def revalider(cache,archive):
         for filename in zipped.namelist():
             if not re.fullmatch(r'resultats/incremental/[^/]+/\d+/resultat\.json',filename):continue
             previous=json.loads(read(filename));geny=previous.get('geny',{});ident=str(geny.get('id',''))
-            horses=[h for h in state['chevaux'].values() if h.get('id')==ident
+            horses=[h for h in state['chevaux'].values() if h.get('id')==ident and h.get('nom')
+                    and not h.get('conflit_identite')
                     and nom_normalise(h.get('nom'))==nom_normalise(geny.get('nom'))]
+            # Une résolution avait pu réussir avant l'échec de lecture, sans
+            # que l'identifiant ait été accepté. Retrouver alors la cible par
+            # son contexte archivé, pas par le seul nom.
+            task_file=str(PurePosixPath(filename).parent/'tache.json')
+            if not horses and task_file in zipped.namelist():
+                task=json.loads(read(task_file));context=back.contexte_verifiable(task)
+                race=re.search(r'/course/(\d+)',str(task.get('course_url','')))
+                actual=re.search(r'/course/(\d+)',str(geny.get('url_geny','')))
+                if (not task.get('id') and context and race and actual and race[1]==actual[1]
+                        and back.url_course(task.get('course_url'))
+                        and nom_normalise(task.get('nom'))==nom_normalise(geny.get('nom'))):
+                    horses=[h for h in state['chevaux'].values() if not h.get('id')
+                            and not h.get('conflit_identite') and back.contexte_verifiable(h)==context]
             if (previous.get('complet') or not previous.get('identite_verifiee') or not horses
                     or not re.fullmatch(r'\d{4,15}',ident) or not back.url_cheval(geny.get('url_geny'),ident)
                     or inc.capture_valide(cache,ident)):
@@ -42,7 +57,15 @@ def revalider(cache,archive):
                     or nom_normalise(geny['nom']) not in nom_normalise(text[:6000])):
                 report['captures_ignorees']+=1;continue
             parsed=parse_career(text,[])
-            if classifier(parsed)[0]!='COMPLET' or parsed['nombre_annonce_geny']!=old.get('nombre_annonce_geny'):
+            parsed.update(source_url=old['source_url'],extrait_utc=old['extrait_utc'])
+            html=str(folder/'diagnostic_geny.html')
+            confirmed=confirmer_inedit(parsed,read(html),ident) if html in zipped.namelist() else False
+            # Une absence prouvée avant un premier départ n'est pas la preuve
+            # d'une carrière encore vide après ce départ.
+            expired_zero=(confirmed and inc.instant(parsed['preuve_carriere_vide']['depart_utc'])<=now)
+            same_total=(parsed['nombre_annonce_geny']==old.get('nombre_annonce_geny')
+                        or confirmed and old.get('nombre_annonce_geny') is None)
+            if classifier(parsed)[0]!='COMPLET' or not same_total or expired_zero:
                 report['captures_ignorees']+=1;continue
             # Conserver les ferrures déjà observées, seulement si la performance
             # correspond sans ambiguïté ; la nouvelle lecture ne les invente pas.
@@ -53,7 +76,6 @@ def revalider(cache,archive):
                     for key in ('ferrure','ferrure_source'):
                         if matches[0].get(key):row[key]=matches[0][key]
             document={**old,**parsed}
-            html=str(folder/'diagnostic_geny.html')
             if html in zipped.namelist():enrichir(document,read(html),ident,old['source_url'],old['extrait_utc'])
             document['revalidation_archive']={'sha256':digest,'resultat':filename,'utc':now.isoformat()}
             with tempfile.TemporaryDirectory() as tmp:
@@ -61,6 +83,7 @@ def revalider(cache,archive):
                 inc.accepter(cache,horses[0],{**previous,'complet':True,'statut':'COMPLET','dossier':tmp},
                              origine='REVALIDATION_DIAGNOSTIC_ARCHIVE')
             report['captures_revalidees']+=1;report['performances_revalidees']+=len(parsed['performances'])
+    state['derniere_revalidation']={'utc':now.isoformat(),'archive_sha256':digest,**report}
     back.bilan(state);inc.ecrire(cache/back.QUEUE,state)
     inc.ecrire(cache/back.QUEUE.parent/'bilan.json',back.rapport(state))
     return report
