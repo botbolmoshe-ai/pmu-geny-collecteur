@@ -38,7 +38,7 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -84,7 +84,7 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -130,7 +130,7 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -176,14 +176,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R3C5": {
       "identifiant_geny": null,
@@ -222,18 +222,18 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R11C1": {
       "identifiant_geny": "GENY-1698538",
-      "etat": "MANIFESTE_PRESENT",
+      "etat": "TERMINE_ARCHIVE",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698538",
@@ -323,18 +323,18 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R4C1": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698682",
@@ -363,19 +363,20 @@
       "nombre_declares": 11,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R11C2": {
       "identifiant_geny": null,
@@ -414,18 +415,18 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R3C7": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698672",
@@ -454,23 +455,24 @@
       "nombre_declares": 17,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE BEAUMONT DE LOMAGNE (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R11C3": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698539",
@@ -499,23 +501,24 @@
       "nombre_declares": 12,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CHARTRES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R4C2": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698681",
@@ -544,23 +547,24 @@
       "nombre_declares": 12,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R11C4": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698540",
@@ -589,19 +593,20 @@
       "nombre_declares": 12,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CHARTRES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -628,7 +633,7 @@
         }
       },
       "geny_id_rapproche": "1698677",
-      "depart": "2026-11-15T14:50:00+01:00",
+      "depart": "2026-11-15T14:51:00+01:00",
       "nom": "PRIX MARCEL GYPTEAU",
       "hippodrome": "HIPPODROME DE LAVAL",
       "nombre_declares": 16,
@@ -636,11 +641,11 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -681,11 +686,11 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CHARTRES (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -730,7 +735,7 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_2_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -775,7 +780,7 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -816,11 +821,11 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE CHARTRES (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -845,11 +850,11 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_2_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -894,7 +899,7 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -935,11 +940,11 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_PARTIEL",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -984,7 +989,7 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -1029,7 +1034,7 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_3_SUR_3",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "COOLDOWN_GENY",
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -1040,10 +1045,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-15T12:38:11.762470+00:00",
+  "dernier_controle_pmu": "2026-11-15T13:45:14.766818+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-15",
-    "horodatage_utc": "2026-11-15T12:38:11.762470+00:00",
+    "horodatage_utc": "2026-11-15T13:45:14.766818+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 23,
@@ -1148,7 +1153,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "regionHippique",
           "specialites",
           "statut",
