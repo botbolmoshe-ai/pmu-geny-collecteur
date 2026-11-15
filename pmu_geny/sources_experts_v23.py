@@ -57,17 +57,8 @@ def matched(participants, num, name):
     return bool(num and nom_normalise(name) and nom_normalise(name)==nom_normalise(participants.get(str(num),{}).get('nom','')))
 
 def ferrure_label(value):
-    value=nom_normalise(value).lower()
-    if 'quatre' in value and 'deferre' in value:return 'D4'
-    if 'quatre' in value and ('plaque' in value or 'protege' in value):return 'P4'
-    da='deferredesanterieurs' in value
-    dp='deferredesposterieurs' in value
-    pa='plaquedesanterieurs' in value or 'protegedesanterieurs' in value
-    pp='plaquedesposterieurs' in value or 'protegedesposterieurs' in value
-    if da and dp:return 'D4'
-    if dp and pa:return 'DP/PA'
-    if da and pp:return 'DA/PP'
-    return 'DA' if da else 'DP' if dp else 'P4' if pa and pp else 'PA' if pa else 'PP' if pp else ''
+    from .ferrures_geny import libelle_ferrure
+    return libelle_ferrure(value)
 
 def profile_equidia(p):
     from .partants_actuels_v21 import age_valide, sexe_normalise, gains_valides

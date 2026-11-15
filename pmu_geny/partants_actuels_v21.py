@@ -116,6 +116,16 @@ def extraire_partants(raw):
             fields['sexe']=sexe_normalise(fields['sexe']) or fields['sexe']
         if fields.get('ferrure'):
             fields['ferrure']=ferrure_normalisee(fields['ferrure']) or fields['ferrure']
+        elif (item.get('allure')=='TROT' and item.get('idCheval')
+              and item.get('statut') in ('PARTANT','NON_PARTANT','NP')
+              and all(item.get(alias) is None for alias in FIELDS['ferrure'])):
+            # Le flux officiel PMU omet la déclaration de déferrage pour les
+            # chevaux ferrés. Convention recoupée avec les mêmes partants Geny
+            # explicitement FF / « Ferré des 4 ». Ne pas l'étendre aux objets
+            # incomplets, aux valeurs inconnues ou aux participants de galop.
+            fields['ferrure']='F'
+            fields['provenance_champs']={'ferrure':{'source':'PMU_API_PARTICIPANTS',
+                'champ':'deferre','valeur_brute':None,'convention':'TROT_SANS_DECLARATION_DEFERRAGE'}}
         for nom_key in ("nomCheval","nom","nomParticipant"):
             nom=_label(item.get(nom_key))
             if nom:
@@ -148,6 +158,12 @@ def enregistrer(cache:Path, course:dict, raw):
          "source":"PMU_API_PARTICIPANTS",
          "capture_utc":datetime.now(timezone.utc).isoformat(),
          "chevaux":{str(n):values for n,values in resultat.items()}}
+    r,c=course['code'].split('C',1)
+    source_url='https://online.turfinfo.api.pmu.fr/rest/client/1/programme/'+datetime.fromisoformat(course['date']).strftime('%d%m%Y')+'/'+r+'/C'+c+'/participants'
+    for fields in resultat.values():
+        if fields.get('ferrure'):
+            provenance=fields.setdefault('provenance_champs',{}).setdefault('ferrure',{'source':'PMU_API_PARTICIPANTS'})
+            provenance.update(url=source_url,capture_utc=doc['capture_utc'])
     save(Path(cache)/"partants_actuels"/f'{course["date"]}_{course["code"]}.json',doc)
     from .sources_experts_v23 import completer_partants
     completer_partants(cache,course)

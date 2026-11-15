@@ -347,8 +347,9 @@ def main() -> int:
             # Playwright Locator.all_inner_texts() n'accepte pas de parametre timeout.
             # Les lignes DOM peuvent ne pas exister si Geny utilise des div CSS.
             dom_rows=page.locator("table tbody tr, [role='row']").all_inner_texts()
+            final_html=page.content()
             (outdir/"diagnostic_texte_geny.txt").write_text(text,encoding="utf-8")
-            (outdir/"diagnostic_geny.html").write_text(page.content(),encoding="utf-8")
+            (outdir/"diagnostic_geny.html").write_text(final_html,encoding="utf-8")
             page.screenshot(path=str(outdir/"diagnostic_capture.png"),full_page=True)
         except Exception as e:
             print("ERREUR NAVIGATION :",e)
@@ -363,12 +364,15 @@ def main() -> int:
         print("ECHEC EXTRACTION :",e)
         return 2
     result.update({"source_url":args.url,"extrait_utc":datetime.now(timezone.utc).isoformat(),"consentement":cookie_status})
+    from .ferrures_geny import enrichir
+    ident=re.search(r'/cheval/(\d+)',args.url)
+    if ident:enrichir(result,final_html,ident[1],args.url,result['extrait_utc'])
     result["statut"]="COMPLET" if result["complet"] else "PARTIEL_A_CONTROLER"
     (outdir/"historique_geny.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
-    cols=["date","hippodrome","discipline","distance_m","classement","chrono","texte_source"]
+    cols=["date","hippodrome","discipline","distance_m","classement","chrono","texte_source","ferrure"]
     with (outdir/"historique_geny.csv").open("w",encoding="utf-8-sig",newline="") as f:
         writer=csv.DictWriter(f,fieldnames=cols,delimiter=";");writer.writeheader()
-        writer.writerows({k:r[k] for k in cols} for r in result["performances"])
+        writer.writerows({k:r.get(k,'') for k in cols} for r in result["performances"])
     access_path = outdir / 'controle_acces.json'
     if access_path.exists():
         info = json.loads(access_path.read_text(encoding='utf-8'))

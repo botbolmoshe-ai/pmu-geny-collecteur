@@ -40,7 +40,7 @@ jobs:
           from pathlib import Path
           path=Path('cache_pmu/rattrapage_historiques/etat.json')
           state=json.loads(path.read_text()) if path.exists() else {}
-          done=state.get('statut')=='TERMINE'
+          done=state.get('statut')=='TERMINE' and 'historiques_ferrures_a_completer' in state.get('bilan',{})
           if done:
               assert state['sync_kpi']=='OK'
               assert state['bilan']['cibles_completees']==len(state['chevaux'])

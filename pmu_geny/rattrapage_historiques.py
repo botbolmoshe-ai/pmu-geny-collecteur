@@ -159,7 +159,10 @@ def preparer(cache,now):
             if len(numbers)==1:
                 h['numero']=next(iter(numbers));h['numero_reconcilie_depuis_snapshot']=True
         h.setdefault('sync','SANS_MODIFICATION')
-        if h.get('rattrapage_complet_au_utc'):continue
+        from .ferrures_geny import manquantes
+        cached=inc.capture_valide(cache,h['id']) if h.get('id') else None
+        h['ferrures_manquantes']=manquantes(cached) if cached else 0
+        if h.get('rattrapage_complet_au_utc') and not h['ferrures_manquantes']:continue
         if not h.get('id'):
             ids=names.get(nom_normalise(h.get('nom')),set())
             if len(ids)==1:h['id']=next(iter(ids))
@@ -192,6 +195,8 @@ def preparer(cache,now):
                 h['lien_candidat']='https://www.geny.com/cheval/'+ident
             if not h.get('geny') and not (url_course(h.get('course_url')) and h.get('numero')):
                 if not h.get('lien_candidat'):h['collecte']='LIEN_GENY_A_RESOUDRE'
+        if h['ferrures_manquantes']:
+            h['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
     groups={}
     for key,h in state['chevaux'].items():
         h.pop('cible_equivalente_a',None)
@@ -223,7 +228,7 @@ def prochaine_tache(state,now,attempts):
     candidates=[]
     for key,h in state['chevaux'].items():
         if h.get('cible_equivalente_a'):continue
-        if h.get('rattrapage_complet_au_utc') or not h.get('motif_actualisation'):continue
+        if (h.get('rattrapage_complet_au_utc') and not h.get('ferrures_manquantes')) or not h.get('motif_actualisation'):continue
         if h.get('collecte') in ('LIEN_GENY_A_RESOUDRE','IDENTITE_A_VERIFIER'):continue
         retry=inc.instant(h.get('prochain_essai_utc'))
         if attempts.get(('COLLECTE',key),0) or retry and retry>now:continue
@@ -237,6 +242,8 @@ def valider_sync(state,horse):
     stamp=horse.get('historique_complet_au_utc')
     if not inc.instant(stamp):raise ValueError('CAPTURE_NON_DATEE')
     horse.update(rattrapage_complet_au_utc=stamp,motif_actualisation='')
+    if horse.get('ferrures_manquantes'):
+        horse['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
     horse['ajouts_confirmes']=horse.get('ajouts_confirmes',0)+horse.get('sync_details',{}).get('Historique chevaux',{}).get('lignes_ajoutees',0)
     propager_preuve(state,horse)
 
@@ -251,7 +258,11 @@ def propager_preuve(state,horse):
         if (same_id or same_context and not other.get('id')) and nom_normalise(other.get('nom'))==nom_normalise(horse['nom']):
             other.update(rattrapage_complet_au_utc=stamp,sync='OK',motif_actualisation='',
                          id=horse['id'],collecte='COMPLET',geny=horse.get('geny',{}),
+                         ferrures_manquantes=horse.get('ferrures_manquantes',0),
                          historique_complet_au_utc=stamp,preuve_sync='MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE')
+            if horse.get('ferrures_manquantes'):
+                other['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
+                if horse.get('prochain_essai_utc'):other['prochain_essai_utc']=horse['prochain_essai_utc']
 
 
 def bilan(state):
@@ -261,7 +272,8 @@ def bilan(state):
     state['bilan']={'cibles_inventoriees':len(horses),'cibles_completees':complete,
         'cibles_restantes':len(horses)-complete,
         'cibles_equivalentes':sum(bool(h.get('cible_equivalente_a')) for h in horses),
-        'travaux_distincts_restants':sum(not h.get('cible_equivalente_a') and not h.get('rattrapage_complet_au_utc') for h in horses),
+        'travaux_distincts_restants':sum(not h.get('cible_equivalente_a') and (not h.get('rattrapage_complet_au_utc') or bool(h.get('ferrures_manquantes'))) for h in horses),
+        'historiques_ferrures_a_completer':sum(not h.get('cible_equivalente_a') and bool(h.get('ferrures_manquantes')) for h in horses),
         'identifiants_geny_distincts':len({h['id'] for h in horses if h.get('id')}),
         'identites_non_resolues':sum(not h.get('id') for h in horses),
         'liens_a_resoudre':sum(h.get('collecte')=='LIEN_GENY_A_RESOUDRE' for h in horses),
@@ -269,7 +281,7 @@ def bilan(state):
         'synchronisations_en_attente':sum(h.get('sync')=='A_FAIRE' for h in horses),
         'ajouts_confirmes':sum(h.get('ajouts_confirmes',0) for h in horses),
         'tentatives_collecte':previous.get('tentatives_collecte',0)}
-    state['statut']='TERMINE' if complete==len(horses) and state.get('sync_kpi')=='OK' else 'PARTIEL_REPRENABLE'
+    state['statut']='TERMINE' if complete==len(horses) and state.get('sync_kpi')=='OK' and not state['bilan']['historiques_ferrures_a_completer'] else 'PARTIEL_REPRENABLE'
     if state['statut']=='TERMINE' and not state.get('termine_utc'):
         state['termine_utc']=datetime.now(inc.UTC).isoformat()
     return state['bilan']

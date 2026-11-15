@@ -15,7 +15,7 @@ def doc(stamp, rows=None):
     if rows is None:
         rows = [{'date': (stamp-timedelta(days=10)).date().isoformat(),
                  'hippodrome': 'Vincennes', 'discipline': 'Attelé',
-                 'distance_m': '2700', 'classement': '3', 'texte_source': 'preuve A'}]
+                 'distance_m': '2700', 'classement': '3', 'texte_source': 'preuve A','ferrure':'F'}]
     return {'statut': 'COMPLET', 'nombre_annonce_geny': len(rows), 'nombre_extrait': len(rows),
             'performances': rows, 'extrait_utc': stamp.isoformat(),
             'source_url': 'https://www.geny.com/cheval/123456-test/course/1698061'}

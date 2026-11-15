@@ -131,14 +131,17 @@ jobs:
           from zoneinfo import ZoneInfo
           from pmu_geny.auto_v18 import run
           from pathlib import Path
+          from pmu_geny.reparer_ferrures import reparer
+          import json
           now=datetime.now(ZoneInfo('Europe/Paris'))
           # Collecte et préparation 24h/24 ; gate décision jour J dans auto_v18.
           root=Path('cache_pmu')
+          print('REPARATION_FERRURES '+json.dumps(reparer(root,partants=True)),flush=True)
           today=now.date().isoformat()
           run(root,today,[],0,max_discoveries=1,now=now,selection_complete=True)
-           # Rattrapage des arrivées de J-1, sans nouvelle prévision post-départ.
-           yesterday=(now-timedelta(days=1)).date().isoformat()
-           run(root,yesterday,[],0,max_discoveries=0,now=now,selection_complete=True)
+          # Rattrapage des arrivées de J-1, sans nouvelle prévision post-départ.
+          yesterday=(now-timedelta(days=1)).date().isoformat()
+          run(root,yesterday,[],0,max_discoveries=0,now=now,selection_complete=True)
           tomorrow=(now+timedelta(days=1)).date().isoformat()
           run(root,tomorrow,[],0,max_discoveries=1,now=now,selection_complete=True)
           print('Collecte historique confiée au worker incrémental indépendant')

@@ -1,5 +1,7 @@
 Processus actuel de collecte des historiques : voir
 [`COLLECTE_INCREMENTALE_PRODUCTION.md`](COLLECTE_INCREMENTALE_PRODUCTION.md).
+Collecte et reprise des ferrures :
+[`FERRURES_COLLECTE.md`](FERRURES_COLLECTE.md).
 Synchronisation commune aux déclencheurs :
 [`MOTEUR_SHEETS_UNIQUE.md`](MOTEUR_SHEETS_UNIQUE.md).
 

@@ -29,6 +29,11 @@ on:
       - 'pmu_geny/rattrapage_historiques.py'
       - 'tests/test_v30_rattrapage_offline.py'
       - 'tests/test_priorite_nocturne_offline.py'
+      - 'pmu_geny/ferrures_geny.py'
+      - 'pmu_geny/reparer_ferrures.py'
+      - 'tests/test_ferrures_offline.py'
+      - 'tests/test_workflows_offline.py'
+      - 'tests/test_arrival_recovery_window.py'
       - 'tests/test_v31_dedup_offline.py'
       - '.github/workflows/rattrapage-historiques.yml'
       - 'tests/test_v28_controles_sync_offline.py'
@@ -70,7 +75,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p resultats/validation
-          python -m unittest discover -s tests -p 'test_*offline.py' -v 2>&1 | tee resultats/validation/regression.log
+          python -m unittest discover -s tests -p 'test_*.py' -v 2>&1 | tee resultats/validation/regression.log
       - name: Audit du registre et des paliers
         shell: bash
         run: |
