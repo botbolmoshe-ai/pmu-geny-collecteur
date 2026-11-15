@@ -319,7 +319,8 @@ def prochaine_tache(state,now,attempts):
         # la résolution des seuls noms/contextes. Le candidat reste à vérifier.
         unidentified=not bool(h.get('id'))
         corrected=bool(h.get('priorite_identite_corrigee') and not h.get('historique_complet_au_utc'))
-        candidates.append(((enrichment,not corrected,night,unidentified,priority,h.get('engagement',''),key),key))
+        # Le besoin J+1 doit primer sur une identite corrigee ancienne pendant la nuit.
+        candidates.append(((enrichment,night,not corrected,unidentified,priority,h.get('engagement',''),key),key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 
