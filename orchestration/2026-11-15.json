@@ -471,8 +471,8 @@
       "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R11C3": {
-      "identifiant_geny": null,
-      "etat": "ARRIVEE_PMU_SANS_GENY",
+      "identifiant_geny": "GENY-1698539",
+      "etat": "MANIFESTE_PRESENT",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698539",
@@ -514,7 +514,10 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1698539/comparatif_predictions.csv",
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R4C2": {
       "identifiant_geny": null,
@@ -563,8 +566,8 @@
       "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R11C4": {
-      "identifiant_geny": null,
-      "etat": "ARRIVEE_PMU_SANS_GENY",
+      "identifiant_geny": "GENY-1698540",
+      "etat": "MANIFESTE_PRESENT",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698540",
@@ -606,7 +609,10 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1698540/comparatif_predictions.csv",
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R4C3": {
       "identifiant_geny": null,
@@ -655,8 +661,8 @@
       "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R11C5": {
-      "identifiant_geny": null,
-      "etat": "ARRIVEE_PMU_SANS_GENY",
+      "identifiant_geny": "GENY-1698541",
+      "etat": "MANIFESTE_PRESENT",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698541",
@@ -698,7 +704,10 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1698541/comparatif_predictions.csv",
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R4C4": {
       "identifiant_geny": null,
@@ -958,7 +967,7 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R4C7": {
       "identifiant_geny": null,
@@ -1004,11 +1013,11 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R4C8": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698683",
@@ -1037,7 +1046,7 @@
       "nombre_declares": 13,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE LAVAL (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -1049,15 +1058,16 @@
         "cotes": "DONNEES_INSUFFISANTES"
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
-      "statut_snapshot_ml": "DEJA_CAPTURE"
+      "statut_snapshot_ml": "DEJA_CAPTURE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-15T16:31:46.420543+00:00",
+  "dernier_controle_pmu": "2026-11-15T17:29:29.652623+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-15",
-    "horodatage_utc": "2026-11-15T16:31:46.420543+00:00",
+    "horodatage_utc": "2026-11-15T17:29:29.652623+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/15112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 23,
@@ -1192,7 +1202,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
