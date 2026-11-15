@@ -153,6 +153,22 @@ class RepriseTests(unittest.TestCase):
         state=back.preparer(self.cache,self.now)
         self.assertEqual(back.prochaine_tache(state,self.now,{}),('123456','SYNC'))
 
+    def test_capture_plus_recente_ne_reutilise_pas_une_ancienne_preuve_sheet(self):
+        self.seed(complete=True,covered=True)
+        state=back.preparer(self.cache,self.now);inc.ecrire(self.cache/back.QUEUE,state)
+        old_stamp=state['chevaux']['123456']['rattrapage_complet_au_utc']
+        data=doc(self.now)
+        data['performances'].append({**data['performances'][0],'date':'2026-11-15','texte_source':'nouvelle course'})
+        data['nombre_annonce_geny']=data['nombre_extrait']=2
+        inc.ecrire(self.cache/'historiques/123456/historique_geny.json',data)
+        snapshot=inc.lire(self.cache/back.INVENTAIRE);snapshot['ids_couverts']=[]
+        inc.ecrire(self.cache/back.INVENTAIRE,snapshot)
+        fresh=back.preparer(self.cache,self.now)
+        self.assertEqual(fresh['chevaux']['123456']['sync'],'A_FAIRE')
+        self.assertEqual(fresh['chevaux']['123456']['rattrapage_complet_au_utc'],old_stamp)
+        self.assertEqual(fresh['bilan']['cibles_completees'],0)
+        self.assertEqual(back.prochaine_tache(fresh,self.now,{}),('123456','SYNC'))
+
     def test_date_absente_ou_future_ne_prouve_pas_completion(self):
         self.seed(complete=True,covered=True)
         for stamp in (None,(self.now+timedelta(days=1)).isoformat()):
