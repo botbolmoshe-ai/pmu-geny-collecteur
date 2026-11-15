@@ -96,7 +96,7 @@ def lire_classement(cellules: list[str]) -> str:
     # Codes de resultats explicitement affiches par Geny : ne jamais les
     # transformer en rang numerique. R conserve sa valeur source sans
     # interpretation semantique non verifiee.
-    non_classes = {"dpg", "dai", "di", "disq", "nc", "np", "arr", "dist", "d", "r"}
+    non_classes = {"dpg", "dai", "di", "disq", "nc", "np", "arr", "dist", "d", "r", "tb"}
     if dernier.casefold() in non_classes:
         return dernier
     m = re.fullmatch(r"(\d{1,2})\s*(?:er|e|eme|ème|ᵉ)", dernier, re.I)

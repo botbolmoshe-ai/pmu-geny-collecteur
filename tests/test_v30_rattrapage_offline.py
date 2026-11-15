@@ -98,6 +98,20 @@ class RepriseTests(unittest.TestCase):
                 self.assertEqual(back.prochaine_tache(state,self.now.replace(hour=hour),{}),('absent','COLLECTE'))
         self.assertEqual(back.prochaine_tache(state,self.now,{('COLLECTE','absent'):1}),('ferrures','COLLECTE'))
 
+    def test_identifiant_connu_avant_contexte_a_resoudre_sans_sauter_la_validation(self):
+        now=self.now.replace(hour=12)
+        state={'chevaux':{
+            'contexte':{'nom':'Sans identifiant','numero':'1','collecte':'A_REPRENDRE',
+                'course_url':'https://www.geny.com/course/1698061/partants-pronostics',
+                'motif_actualisation':'HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE'},
+            '123456':{'id':'123456','nom':'Identifié','collecte':'A_REPRENDRE',
+                'lien_candidat':'https://www.geny.com/cheval/123456',
+                'motif_actualisation':'HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE'}}}
+        self.assertEqual(back.prochaine_tache(state,now,{}),('123456','COLLECTE'))
+        state['chevaux']['123456']['prochain_essai_utc']=(now+timedelta(hours=1)).isoformat()
+        self.assertEqual(back.prochaine_tache(state,now,{}),('contexte','COLLECTE'))
+        self.assertNotIn('geny',state['chevaux']['123456'])
+
     def test_bilan_distingue_carriere_absente_et_ferrures_sans_doubler_l_identifiant(self):
         stamp=self.now.isoformat()
         state={'chevaux':{

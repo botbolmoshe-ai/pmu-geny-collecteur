@@ -102,6 +102,16 @@ y compris si seule cette dernière possède déjà un lien Geny vérifié. La pr
 nocturne des engagements s'applique à l'intérieur de ces catégories. Le collecteur
 courant applique aussi ce tri, sans perdre ses limites de production.
 
+À urgence nocturne égale, la reprise termine d'abord les carrières des
+identifiants déjà connus, avant de résoudre les seules observations de noms
+et courses. Un identifiant sans URL reste un candidat soumis à vérification ;
+ce tri ne transforme pas un numéro recensé en preuve d'identité Geny.
+
+Le lecteur de résultats conserve aussi le code source `Tb`, observé dans la
+carrière de Louna d'Hucheloup (Rânes, 09/06/2025). Ce code terminal était ignoré,
+ce qui rejetait une carrière pourtant extraite sur 38/38 performances. Il est
+conservé tel quel, sans rang inventé et sans assouplir les champs obligatoires.
+
 Le bilan expose `phase_reprise`, les `carrieres_distinctes_a_completer`, les
 `identifiants_sans_carriere_complete` dédoublonnés et les
 `contextes_distincts_sans_identifiant`. Les ferrures sont comptées séparément.
