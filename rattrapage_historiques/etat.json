@@ -21016,7 +21016,7 @@
       "origines": [
         "SHEETS:Historique chevaux"
       ],
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "numero": "6",
@@ -21077,7 +21077,32 @@
       "derniere_verification_utc": "2026-11-15T18:38:45.781174+00:00",
       "prochaine_verification_utc": "2026-11-16T18:38:45.781174+00:00",
       "nombre_performances": 60,
-      "derniere_performance_date": "2026-11-06"
+      "derniere_performance_date": "2026-11-06",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 58,
+          "cellules_actualisees": 8,
+          "lignes_source": 60,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 58,
+            "lignes_avant": 17176,
+            "cles_avant": 17176,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 1718,
+            "import_initial_explicite": false,
+            "lignes_attendues": 17234,
+            "lignes_apres": 17234,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-15T18:39:04.969664+00:00",
+      "rattrapage_complet_au_utc": "2026-11-15T18:38:45.781174+00:00",
+      "ajouts_confirmes": 58
     },
     "2712491": {
       "id": "2712491",
@@ -47323,31 +47348,31 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE"
     }
   },
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2031,
-    "cibles_completees": 753,
-    "cibles_restantes": 1278,
+    "cibles_completees": 754,
+    "cibles_restantes": 1277,
     "cibles_equivalentes": 584,
-    "travaux_distincts_restants": 1290,
+    "travaux_distincts_restants": 1289,
     "historiques_ferrures_a_completer": 472,
-    "carrieres_distinctes_a_completer": 818,
+    "carrieres_distinctes_a_completer": 817,
     "identifiants_sans_carriere_complete": 39,
     "contextes_distincts_sans_identifiant": 778,
     "identifiants_geny_distincts": 669,
     "identites_non_resolues": 1238,
     "liens_a_resoudre": 80,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 2709,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 2767,
     "tentatives_collecte": 1,
     "captures_validees": 1,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-15T18:38:29.015279+00:00",
-  "maj_utc": "2026-11-15T18:38:46.869313+00:00",
+  "maj_utc": "2026-11-15T18:39:04.972056+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 29
