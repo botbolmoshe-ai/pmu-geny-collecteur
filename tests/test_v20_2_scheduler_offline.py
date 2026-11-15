@@ -19,10 +19,12 @@ class PlanningTests(unittest.TestCase):
         c=[race('R1C1',NOW+timedelta(hours=5)),race('R1C2',NOW+timedelta(minutes=45)),race('R1C3',NOW+timedelta(hours=1,minutes=50))]
         self.assertEqual([x['code'] for x in selectionner_courses(c,NOW,'2026-11-10',[],True,{})],['R1C2','R1C3','R1C1'])
         self.assertEqual([x['code'] for x in selectionner_courses(c,NOW,'2026-11-10',[],False,{})],['R1C2'])
-    def test_finished_only_in_4h_and_not_tomorrow(self):
-        c=[race('R1C1',NOW-timedelta(minutes=10)),race('R1C2',NOW-timedelta(hours=5))]
-        self.assertEqual([x['code'] for x in selectionner_courses(c,NOW,'2026-11-10',[],True,{})],['R1C1'])
-        self.assertEqual(selectionner_courses(c,NOW,'2026-11-11',[],True,{}),[])
+    def test_finished_only_in_36h_and_no_future_on_light(self):
+        c=[race('R1C1',NOW-timedelta(minutes=10)),race('R1C2',NOW-timedelta(hours=5)),
+           race('R1C3',NOW-timedelta(hours=37))]
+        self.assertEqual([x['code'] for x in selectionner_courses(c,NOW,'2026-11-10',[],True,{})],['R1C1','R1C2'])
+        future=[race('R2C1',NOW+timedelta(hours=20))]
+        self.assertEqual(selectionner_courses(future,NOW,'2026-11-11',[],False,{}),[])
     def test_archived_excluded(self):
         c=[race('R1C1',NOW-timedelta(minutes=10))]
         self.assertEqual(selectionner_courses(c,NOW,'2026-11-10',[],True,{'courses':{'R1C1':{'etat':'TERMINE_ARCHIVE'}}}),[])

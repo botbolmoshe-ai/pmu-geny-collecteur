@@ -35,7 +35,8 @@ class CorrectionsV205(unittest.TestCase):
     def test_course_terminee_non_preparee(self):
         now=datetime(2026,11,10,18,46,tzinfo=P)
         entries=[{'code':'R2C1','depart':datetime(2026,11,10,13,30,tzinfo=P).isoformat(),'priorite_metier':'P1'}]
-        self.assertEqual(selectionner_courses(entries,now,'2026-11-10',[],True,{}),[])
+        self.assertEqual(selectionner_courses(entries,now,'2026-11-10',[],True,
+                         {'courses':{'R2C1':{'etat':'TERMINE_ARCHIVE'}}}),[])
     def test_preparation_demain_apres_18(self):
         now=datetime(2026,11,10,19,0,tzinfo=P)
         c={'code':'R1C1','depart':datetime(2026,11,11,14,30,tzinfo=P).isoformat(),'priorite_metier':'P1'}

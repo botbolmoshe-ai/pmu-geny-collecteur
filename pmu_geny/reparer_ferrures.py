@@ -8,7 +8,6 @@ import re
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 from urllib.request import Request,urlopen
-from urllib.error import HTTPError
 
 from .ferrures_geny import enrichir
 from .historiques_incrementaux import lire,ecrire,instant

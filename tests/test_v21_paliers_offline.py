@@ -218,7 +218,9 @@ class V21PaliersTests(unittest.TestCase):
         after=datetime(2026,11,12,12,1,tzinfo=ZoneInfo("Europe/Paris"))
         self.assertEqual(selectionner_courses(cours,after,"2026-11-12",[],True,{"courses":{}}),cours)
         too_late=datetime(2026,11,12,18,30,tzinfo=ZoneInfo("Europe/Paris"))
-        self.assertEqual(selectionner_courses(cours,too_late,"2026-11-12",[],True,{"courses":{}}),[])
+        self.assertEqual(selectionner_courses(cours,too_late,"2026-11-12",[],True,{"courses":{}}),cours)
+        from pmu_geny.planification_v20_2 import decision_autorisee
+        self.assertFalse(decision_autorisee(too_late,"2026-11-12",datetime.fromisoformat(cours[0]['depart'])))
 
     def test_v22_capture_pmu_sans_manifest_avec_historique_cache(self):
         from datetime import datetime, timezone
