@@ -379,6 +379,7 @@ def main():
     parser.add_argument('--max-chevaux',type=int,default=1000)
     parser.add_argument('--publier',action='store_true')
     parser.add_argument('--actualiser-inventaire',action='store_true')
+    parser.add_argument('--archives-diagnostics',default='')
     args=parser.parse_args()
     if not 1<=args.max_minutes<=15 or args.max_chevaux<1:parser.error('Bornes positives, duree maximale 15 minutes')
     cache=Path(args.cache)
@@ -390,6 +391,9 @@ def main():
         try:inc.ecrire(cache/INVENTAIRE,engine.inventaire_rattrapage())
         finally:engine.fermer()
         if args.actualiser_inventaire:actualiser_inventaire(cache,datetime.now(inc.UTC))
+        if args.archives_diagnostics:
+            from .revalider_diagnostics import revalider_artifacts
+            revalider_artifacts(cache,args.archives_diagnostics)
         state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=args.max_chevaux,
                       publier=True,mode='rattrapage',stop_requested=priorite_production)
     else:
