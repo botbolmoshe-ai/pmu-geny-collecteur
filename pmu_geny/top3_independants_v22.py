@@ -48,34 +48,7 @@ def calculer(cache,course,raw,now=None):
     from .liaison_chevaux_v22 import etablir
     from .partants_actuels_v21 import extraire_partants
     profils=extraire_partants(raw)
-    # Ferrure complementaire seulement si l'identite, la source et son
-    # horodatage sont verifies AVANT le depart (jamais depuis une ancienne course).
-    current=load(Path(cache)/'partants_actuels'/f"{course['date']}_{course['code']}.json",{}) or {}
-    if current.get('date')==course['date'] and current.get('course')==course['code']:
-        try:
-            capture=datetime.fromisoformat(current['capture_utc'])
-            actuelle=capture.tzinfo is not None and capture<=now and capture<depart
-        except (KeyError,ValueError,TypeError):
-            actuelle=False
-        if actuelle:
-            from .liaison_chevaux_v22 import nom_normalise
-            for nstr,profile in (current.get('chevaux') or {}).items():
-                if not isinstance(profile,dict) or not str(nstr).isdigit():continue
-                num=int(nstr)
-                if num not in profils or profils[num].get('ferrure'):continue
-                if nom_normalise(profils[num].get('nom'))!=nom_normalise(profile.get('nom')):continue
-                provenance=(profile.get('provenance_champs') or {}).get('ferrure') or {}
-                if provenance.get('source') != 'equidia':continue
-                if not str(provenance.get('url') or '').startswith('https://'):continue
-                try:
-                    checked=datetime.fromisoformat(provenance['capture_utc'])
-                    if checked.tzinfo is None or checked>now or checked>=depart:continue
-                except (KeyError,ValueError,TypeError):continue
-                from .partants_actuels_v21 import ferrure_normalisee
-                ferr=ferrure_normalisee(profile.get('ferrure'))
-                if ferr:
-                    profils[num]['ferrure']=ferr
-                    profils[num]['source_ferrure']='SOURCEE_'+str(provenance['source']).upper()
+    # Les critères courants proviennent exclusivement du relevé PMU fourni.
     identites=[]
     for partant in participants:
         if not isinstance(partant,dict):continue

@@ -160,16 +160,14 @@ def snapshot_pmu(cache,course,raw,now=None):
         if direct is not None:c['pmu_score_direct']=direct
         from .partants_actuels_v21 import extraire_partants
         profil=extraire_partants({'participants':[item]}).get(numero,{})
-        zone=(load(cache/'avis_experts'/f"{course['date']}_{course['code']}.json",{}) or {}).get('chevaux',{}).get(str(numero),{}).get('profil_zone_turf',{})
         for feature in ('age_ans','gains_euros'):
             value=profil.get(feature)
-            if value is None:value=zone.get(feature)
             if value is not None:c[feature]=value
-        sexe=profil.get('sexe') or zone.get('sexe','')
+        sexe=profil.get('sexe','')
         if sexe:
             for label,feature in (('Mâle','sexe_male'),('Femelle','sexe_femelle'),('Hongre','sexe_hongre')):
                 c[feature]=1 if sexe==label else 0
-        ferrure=profil.get('ferrure') or zone.get('ferrure','')
+        ferrure=profil.get('ferrure','')
         if ferrure:
             code=str(ferrure).upper()
             for name,indicator in [('D4','ferrure_d4'),('DP','ferrure_dp'),

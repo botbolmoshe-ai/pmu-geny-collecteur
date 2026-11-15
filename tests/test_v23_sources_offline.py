@@ -39,17 +39,22 @@ class TestSources(unittest.TestCase):
   with self.assertRaises(ValueError):parser_pmu({**PR,'numeroCourse':2},C,P)
   self.assertEqual(parser_equidia(eqhtml(),C,{'1':{'nom':'TEST CHEVAL II'}})['chevaux'],{})
   self.assertEqual(parser_zeturf(ZE,C,{'1':{'nom':'TEST CHEVAL II'}})['pronostic'],[])
- def test_collect_cache_duplicate_text_and_complete_only_gaps(self):
+ def test_collecte_pmu_seule_cache_et_aucun_complement_tiers(self):
   enregistrer(self.root,C,RAW)
-  self.assertEqual(collecter(self.root,C,RAW,NOW,self.fetch),'EXPERTS_3_SUR_3')
+  called=[]
+  def fetch(url):
+   called.append(url)
+   return self.fetch(url)
+  self.assertEqual(collecter(self.root,C,RAW,NOW,fetch),'EXPERTS_1_SUR_1')
   d=json.loads((self.root/'avis_experts/2026-11-12_R1C1.json').read_text())
-  self.assertEqual(d['avis_identiques'][0]['sources'],['pmu','equidia'])
+  self.assertEqual(set(d['sources']),{'pmu'})
+  self.assertEqual(len(called),1);self.assertIn('online.turfinfo.api.pmu.fr',called[0])
   act=json.loads((self.root/'partants_actuels/2026-11-12_R1C1.json').read_text())['chevaux']['1']
-  self.assertEqual(act['gains_euros'],888175);self.assertEqual(act['ferrure'],'DP/PA')
-  self.assertEqual(act['provenance_champs']['gains_euros']['source'],'equidia')
+  self.assertNotIn('gains_euros',act);self.assertNotIn('ferrure',act)
   self.assertEqual(act['statut_np'],'PARTANT')
-  self.assertEqual(collecter(self.root,C,RAW,NOW,lambda _:self.fail('cache non réutilisé')),'EXPERTS_3_SUR_3')
-  self.assertEqual(champs_sheet(d,'1')['prono_zeturf'],'1')
+  self.assertEqual(collecter(self.root,C,RAW,NOW,lambda _:self.fail('cache non réutilisé')),'EXPERTS_1_SUR_1')
+  self.assertEqual(champs_sheet(d,'1')['prono_zeturf'],'')
+  self.assertEqual(champs_sheet(d,'1')['prono_pmu'],'1')
  def test_secondary_title_and_changed_horse(self):
   self.assertEqual(parser_zeturf(ZE.replace('Prix Test</h2>','Prix Test (Prix Ancien)</h2>'),C,P)['pronostic'],[1])
   d={'version':23,'sources':{'equidia':{}},'chevaux':{'1':{'nom':'TEST CHEVAL','avis_equidia':'ancien'}}}
@@ -64,17 +69,76 @@ class TestSources(unittest.TestCase):
   def fail(url):raise OSError('indisponible')
   collecter(self.root,C,RAW,NOW,fail)
   d=json.loads((self.root/'avis_experts/2026-11-12_R1C1.json').read_text())
-  self.assertEqual(d['sources']['equidia']['statut'],'INDISPONIBLE')
+  self.assertNotIn('equidia',d['sources'])
+  self.assertEqual(d['sources']['pmu']['statut_pronostic'],'NON_PUBLIE_OU_NON_ACCESSIBLE')
   self.assertEqual(champs_sheet(d,'1')['avis_equidia'],'')
   self.assertEqual(champs_sheet({'chevaux':{'1':{'avis_zone_turf':'ancien avis'}}},'1')['avis_zeturf'],'')
  def test_empty_expert_value_clears_stale_cell(self):
   h=['course_key','numero','avis_equidia'];rows=[dict(zip(h,['k','1','ancien']))]
   _,changes,_=plan_sheet(h,rows,{'x':{'course_key':'k','numero':'1','avis_equidia':''}},'Courses & Prévisions')
   self.assertIn((2,3,''),changes)
- def test_source_conflict_keeps_pmu(self):
+ def test_caracteristiques_pmu_sont_conservees_sans_lecture_tierce(self):
   enregistrer(self.root,C,{ 'participants':[ {**RAW['participants'][0],'gainsCarriere':777000}]})
   collecter(self.root,C,RAW,NOW,self.fetch)
   act=json.loads((self.root/'partants_actuels/2026-11-12_R1C1.json').read_text())['chevaux']['1']
   self.assertEqual(act['gains_euros'],777000)
-  self.assertTrue(any(x['champ']=='gains_euros' for x in act['divergences_sources']))
+  self.assertEqual(act['divergences_sources'],[])
+
+ def test_anciens_avis_tiers_ne_sont_plus_republies(self):
+  legacy={'version':23,'sources':{'pmu':{'parametres':{'conditions':'Conditions PMU'}},
+       'equidia':{'url':'https://www.equidia.fr','pronostic':[1]},
+       'zeturf':{'url':'https://www.zeturf.fr','pronostic':[1]}},
+       'chevaux':{'1':{'nom':'TEST CHEVAL','avis_pmu':'Texte PMU',
+                      'avis_equidia':'Texte Equidia','avis_zeturf':'Texte ZEturf'}}}
+  fields=champs_sheet(legacy,'1','TEST CHEVAL')
+  self.assertEqual(fields['avis_pmu'],'Texte PMU')
+  for source in ('equidia','zeturf'):
+   for prefix in ('avis_','prono_','source_'):self.assertEqual(fields[prefix+source],'')
+  self.assertEqual(fields['conditions_course'],'Conditions PMU')
+  self.assertEqual(fields['synthese_actualite'],'PMU: Texte PMU')
+
+ def test_anciens_complements_tiers_retires_sans_effacer_pmu(self):
+  enregistrer(self.root,C,RAW)
+  path=self.root/'partants_actuels/2026-11-12_R1C1.json'
+  data=json.loads(path.read_text());h=data['chevaux']['1']
+  h.update(ferrure='D4',gains_euros=20000,provenance_champs={
+     'ferrure':{'source':'equidia'},'gains_euros':{'source':'zeturf'},
+     'age_ans':{'source':'PMU_API_PARTICIPANTS'}})
+  path.write_text(json.dumps(data))
+  completer_partants(self.root,C)
+  h=json.loads(path.read_text())['chevaux']['1']
+  self.assertNotIn('ferrure',h);self.assertNotIn('gains_euros',h)
+  self.assertEqual(h['age_ans'],5)
+
+ def test_reseau_equidia_et_zeturf_refuse_avant_requete(self):
+  from pmu_geny.sources_experts_v23 import fetch_public
+  with patch('pmu_geny.sources_experts_v23.urlopen') as opening:
+   for url in ('https://www.equidia.fr/courses/test','https://www.zeturf.fr/fr/test'):
+    with self.assertRaisesRegex(ValueError,'HOTE_NON_AUTORISE'):fetch_public(url)
+   opening.assert_not_called()
+
+ def test_capture_ml_ne_complete_plus_les_criteres_depuis_zone_turf(self):
+  from pmu_geny.ml_v19 import snapshot_pmu
+  path=self.root/'avis_experts/2026-11-12_R1C1.json';path.parent.mkdir(parents=True)
+  path.write_text(json.dumps({'chevaux':{'1':{'profil_zone_turf':{
+       'age_ans':9,'gains_euros':999999,'sexe':'Femelle','ferrure':'D4'}}}}))
+  raw={'participants':[{'numPmu':n,'nom':'CHEVAL '+str(n),'nonPartant':False} for n in range(1,4)]}
+  self.assertEqual(snapshot_pmu(self.root,C,raw,NOW),'CAPTURE_PMU')
+  path=self.root/'ml/instantanes/2026-11-12_R1C1.json'
+  captured=path.read_bytes();features=json.loads(captured)['chevaux'][0]['features']
+  for key in ('age_ans','gains_euros','sexe_femelle','ferrure_d4'):
+   self.assertIsNone(features[key])
+  raw['participants'][0].update(age=8,gainsCarriere=100000)
+  self.assertEqual(snapshot_pmu(self.root,C,raw,NOW),'DEJA_CAPTURE')
+  self.assertEqual(path.read_bytes(),captured)
+
+ def test_vider_un_critere_courant_ne_vide_pas_une_ferrure_historique(self):
+  headers=['cle_performance','ferrure']
+  _,updates,_=plan_sheet(headers,[{'cle_performance':'k','ferrure':'D4'}],
+      {'k':{'cle_performance':'k','ferrure':''}},'Historique chevaux')
+  self.assertEqual(updates,[])
+  _,updates,_=plan_sheet(['course_key','numero','ferrure'],
+      [{'course_key':'k','numero':'1','ferrure':'D4'}],
+      {'k':{'course_key':'k','numero':'1','ferrure':''}},'Courses & Prévisions')
+  self.assertIn((2,3,''),updates)
 if __name__=='__main__':unittest.main()

@@ -17,6 +17,19 @@ FIELDS = {
                      "montantGains", "gainTotal", "gainsCheval"),
 }
 
+
+def profil_pmu_exclusif(actual):
+    """Lecture sans mutation : un complément tiers ancien n'est plus un critère."""
+    actual=dict(actual)
+    provenance=dict(actual.get('provenance_champs') or {})
+    for field,proof in list(provenance.items()):
+        if proof.get('source') in ('equidia','zeturf'):
+            actual.pop(field,None)
+            provenance.pop(field)
+    actual['provenance_champs']=provenance
+    actual['divergences_sources']=[]
+    return actual
+
 def _label(value):
     if isinstance(value, str):
         return value.strip()

@@ -1,7 +1,8 @@
-"""Collecte avant départ : PMU, Equidia et ZEturf ; identités et provenance.
+"""Collecte avant départ : PMU seul ; identités et provenance.
 
 Pas d'inférence de pronostic à partir des cotes, des notes ou de l'ordre HTML.
 Les parseurs ne lisent que les blocs de la course attestée, jamais ses références.
+Les parseurs Equidia/ZEturf restent lisibles pour les archives, sans accès réseau.
 """
 from __future__ import annotations
 import hashlib
@@ -15,8 +16,9 @@ from bs4 import BeautifulSoup
 from .ml_v19 import load, save
 from .liaison_chevaux_v22 import nom_normalise
 
-SOURCES = ('pmu', 'equidia', 'zeturf')
-HOSTS = {'www.equidia.fr', 'www.zeturf.fr', 'online.turfinfo.api.pmu.fr'}
+SOURCES = ('pmu',)
+SOURCES_RETIREES = ('equidia', 'zeturf')
+HOSTS = {'online.turfinfo.api.pmu.fr'}
 
 def text(node):
     return ' '.join(node.get_text(' ', strip=True).split()) if node else ''
@@ -212,47 +214,19 @@ def collecter(cache, course, raw, now=None, fetch=None):
             save(file,{'url':url,'capture_utc':clock().isoformat(),'erreur':type(exc).__name__})
             raise
     r,c=course['code'].split('C')
-    eq_url=f"https://www.equidia.fr/courses/{course['date']}/{r}/C{c}"
     day=datetime.fromisoformat(course['date']).strftime('%d%m%Y')
     pmu_url=f'https://online.turfinfo.api.pmu.fr/rest/client/1/programme/{day}/{r}/C{c}/pronostics'
     for source in SOURCES:
-        url=pmu_url if source=='pmu' else eq_url if source=='equidia' else ''
+        url=pmu_url
         try:
-            if source=='pmu':
-                try:
-                    html,capture=page(url);doc=parser_pmu(json.loads(html),course,participants)
-                except Exception as exc:
-                    capture=clock().isoformat()
-                    doc={'chevaux':{},'pronostic':[],'erreur_pronostic':type(exc).__name__,'parametres':{}}
-                doc['parametres']={**course.get('parametres_pmu',{}),**{k:course[k] for k in ('discipline','distance_m','depart','nom','hippodrome') if course.get(k) is not None}}
-                for n,p in participants.items():
-                    doc['chevaux'].setdefault(n,{'nom':p.get('nom','')})['profil']=p
-            elif source=='equidia':
-                try:
-                    html,capture=page(url);doc=parser_equidia(html,course,participants)
-                except (ValueError, OSError):
-                    # R/C différents : découvrir les liens du programme, puis attester le titre.
-                    index,_=page(f"https://www.equidia.fr/courses-hippique?pmh=1&date={course['date']}")
-                    candidates=links(index,r'/courses/'+re.escape(course['date'])+r'/R\d+/C'+re.escape(c))
-                    doc=None
-                    for link in candidates[:20]:
-                        candidate,captured=page('https://www.equidia.fr'+link)
-                        try:parsed=parser_equidia(candidate,course,participants,re.search(r'(R\d+)/C(\d+)',link)[0].replace('/',''))
-                        except ValueError:continue
-                        if doc is not None:raise ValueError('COURSE_AMBIGUE')
-                        doc=parsed;url='https://www.equidia.fr'+link;capture=captured
-                    if doc is None:raise ValueError('COURSE_NON_TROUVEE')
-            else:
-                index,_=page(f"https://www.zeturf.fr/fr/programmes-et-pronostics-du-jour?date={course['date']}")
-                meetings=links(index,r'/fr/reunion-du-jour/'+re.escape(course['date'])+r'/R\d+-[^/]+')
-                meetings=[m for m in meetings if track(re.sub(r'^.*/R\d+-','',m))==track(course['hippodrome'])]
-                if len(meetings)!=1:raise ValueError('REUNION_NON_IDENTIFIEE')
-                index,_=page('https://www.zeturf.fr'+meetings[0])
-                candidates=links(index,r'/fr/course-du-jour/'+re.escape(course['date'])+r'/R\d+C\d+-[^/]+')
-                candidates=[p for p in candidates if title(course['nom']) in title(re.sub(r'^.*/R\d+C\d+-','',p))]
-                if len(candidates)!=1:raise ValueError('COURSE_NON_IDENTIFIEE')
-                url='https://www.zeturf.fr'+candidates[0]
-                html,capture=page(url);doc=parser_zeturf(html,course,participants)
+            try:
+                html,capture=page(url);doc=parser_pmu(json.loads(html),course,participants)
+            except Exception as exc:
+                capture=clock().isoformat()
+                doc={'chevaux':{},'pronostic':[],'erreur_pronostic':type(exc).__name__,'parametres':{}}
+            doc['parametres']={**course.get('parametres_pmu',{}),**{k:course[k] for k in ('discipline','distance_m','depart','nom','hippodrome') if course.get(k) is not None}}
+            for n,p in participants.items():
+                doc['chevaux'].setdefault(n,{'nom':p.get('nom','')})['profil']=p
             if clock()>=departure:raise ValueError('COLLECTE_APRES_DEPART')
             sources[source]={**doc,'url':url,'capture_utc':capture,
                              'statut':'RECUPERE' if doc['chevaux'] else 'AUCUN_PARTANT_ASSOCIE',
@@ -273,39 +247,22 @@ def collecter(cache, course, raw, now=None, fetch=None):
             out['avis_'+source]=item.get('commentaire') or item.get('avis_entraineur','')
             out['profil_'+source]=item.get('profil',{})
             out[source+'_source']=doc['url'];out[source+'_collecte_utc']=doc['capture_utc']
-    duplicates=[]
-    for a,b in (('pmu','equidia'),('pmu','zeturf'),('equidia','zeturf')):
-        same=[n for n,v in results.items() if v.get('avis_'+a) and nom_normalise(v['avis_'+a])==nom_normalise(v.get('avis_'+b,''))]
-        if same:duplicates.append({'sources':[a,b],'numeros':same})
     if clock()>=departure:return 'APRES_DEPART'
     save(path,{'version':23,'date':course['date'],'course':course['code'],
                'capture_utc':clock().isoformat(),'sources':sources,'chevaux':results,
-               'avis_identiques':duplicates,'regle':'Avant départ; identité attestée; indisponible != neutre; textes identiques non indépendants'})
+               'avis_identiques':[],'politique_sources':'PMU_SEUL',
+               'regle':'Avant départ; identité attestée; caractéristiques et avis PMU uniquement'})
     completer_partants(cache,course)
     print(f"EXPERTS_SOURCES {course['date']} {course['code']} "+' | '.join(s.upper()+':'+str(d.get('partants_associes',0))+'/'+str(len(participants))+' prono='+d.get('statut_pronostic','NON_VERIFIE') for s,d in sources.items()),flush=True)
-    return 'EXPERTS_'+str(sum(s.get('statut')=='RECUPERE' for s in sources.values()))+'_SUR_3'
+    return 'EXPERTS_'+str(sum(s.get('statut')=='RECUPERE' for s in sources.values()))+'_SUR_'+str(len(SOURCES))
 
 def completer_partants(cache,course):
-    """Compléter les lacunes avec provenance ; conserver PMU et tracer les conflits."""
+    """Conserver les profils PMU ; retirer les anciens compléments tiers."""
+    from .partants_actuels_v21 import profil_pmu_exclusif
     cache=Path(cache);path=cache/'partants_actuels'/f"{course['date']}_{course['code']}.json"
-    current=load(path,{}) or {};experts=load(cache/'avis_experts'/path.name,{}) or {}
-    if experts.get('version')!=23 or not current.get('chevaux'):return
-    for n,actual in current['chevaux'].items():
-        item=experts.get('chevaux',{}).get(n,{})
-        if nom_normalise(actual.get('nom'))!=nom_normalise(item.get('nom')):continue
-        provenance=actual.get('provenance_champs',{}).copy()
-        for k in ('ferrure','age_ans','sexe','gains_euros','driver_jockey','entraineur'):
-            if actual.get(k) is not None and actual.get(k)!='':
-                provenance.setdefault(k,{'source':'PMU_API_PARTICIPANTS','capture_utc':current.get('capture_utc','')})
-        conflicts=[]
-        for source in ('equidia','zeturf'):
-            for k,v in item.get('profil_'+source,{}).items():
-                if k not in ('ferrure','age_ans','sexe','gains_euros','driver_jockey','entraineur'):continue
-                if actual.get(k) is None or actual.get(k)=='':
-                    actual[k]=v;provenance[k]={'source':source,'url':item.get(source+'_source',''),'capture_utc':item.get(source+'_collecte_utc','')}
-                elif k in ('ferrure','age_ans','sexe','gains_euros') and actual[k]!=v:
-                    conflicts.append({'champ':k,'valeur_retenue':actual[k],'valeur_tiers':v,'source':source})
-        actual['provenance_champs']=provenance;actual['divergences_sources']=conflicts
+    current=load(path,{}) or {}
+    if not current.get('chevaux'):return
+    current['chevaux']={n:profil_pmu_exclusif(actual) for n,actual in current['chevaux'].items()}
     save(path,current)
 
 def champs_sheet(experts,n,nom=None):
@@ -313,15 +270,14 @@ def champs_sheet(experts,n,nom=None):
     out={};item=(experts.get('chevaux') or {}).get(str(n),{})
     sources=experts.get('sources',{}) if experts.get('version')==23 else {}
     if nom is not None and nom_normalise(nom)!=nom_normalise(item.get('nom','')):item={}
-    for source in SOURCES:
-        doc=sources.get(source,{})
-        out['avis_'+source]=item.get('avis_'+source,'') if sources else ''
+    for source in SOURCES+SOURCES_RETIREES:
+        doc=sources.get(source,{}) if source in SOURCES else {}
+        out['avis_'+source]=item.get('avis_'+source,'') if sources and source in SOURCES else ''
         out['prono_'+source]=', '.join(map(str,doc.get('pronostic',[])))
         out['source_'+source]=(doc.get('url','')+' · '+doc.get('capture_utc','')).strip(' ·')
     out['couverture_experts']=' | '.join(s.upper()+': '+sources.get(s,{}).get('statut','NON_VERIFIE')+(' (dernier contrôle en échec)' if sources.get(s,{}).get('dernier_controle') else '')+' / prono '+sources.get(s,{}).get('statut_pronostic','NON_VERIFIE') for s in SOURCES)
-    out['divergences_sources']=' ; '.join('Avis identiques '+ '/'.join(x['sources']) for x in experts.get('avis_identiques',[]) if str(n) in x.get('numeros',[]))
+    out['divergences_sources']=''
     out['synthese_actualite']=' | '.join(s.upper()+': '+out['avis_'+s] for s in SOURCES if out['avis_'+s])
-    for s in ('equidia','zeturf'):
-        params=sources.get(s,{}).get('parametres',{})
-        if params.get('conditions_txt_course'):out.setdefault('conditions_course',params['conditions_txt_course'])
+    params=sources.get('pmu',{}).get('parametres',{})
+    out['conditions_course']=params.get('conditions','') if isinstance(params.get('conditions',''),str) else ''
     return out
