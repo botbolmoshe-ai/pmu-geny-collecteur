@@ -63,6 +63,27 @@ class NuitTests(unittest.TestCase):
         self.assertEqual(back.prochaine_tache(state,self.now,{}),('partant','COLLECTE'))
         self.assertEqual(back.prochaine_tache(state,self.now.replace(hour=10),{}),('ancien','COLLECTE'))
 
+    def test_nuit_j1_avant_j0_et_anciens_dans_les_deux_collecteurs(self):
+        now=datetime(2026,11,15,22,tzinfo=ZoneInfo('Europe/Paris'))
+        demain=self.horse('2026-11-16_R1C1')
+        jour=self.horse('2026-11-15_R1C1',known=True)
+        ancien=self.horse('2026-11-10_R1C1',known=True)
+        ancien['priorite_identite_corrigee']=True
+        for h in (demain,jour,ancien):h['vu_utc']=now.isoformat()
+        state={'passage_utc':now.isoformat(),'chevaux':{
+            'ancien_corrige':ancien,'jour':jour,'demain':demain}}
+        self.assertEqual(inc.prochaine_tache(copy.deepcopy(state),now,{}),('demain','COLLECTE'))
+        self.assertEqual(back.prochaine_tache(copy.deepcopy(state),now,{}),('demain','COLLECTE'))
+        self.assertEqual(back.prochaine_tache(copy.deepcopy(state),now,{('COLLECTE','demain'):1})[0],'jour')
+
+    def test_nuit_priorite_j1_ne_contourne_pas_cooldown(self):
+        now=datetime(2026,11,15,22,tzinfo=ZoneInfo('Europe/Paris'))
+        state={'passage_utc':now.isoformat(),'chevaux':{
+            'demain':self.horse('2026-11-16_R1C1')},
+            'prochain_acces_geny_utc':(now+timedelta(minutes=30)).isoformat()}
+        self.assertEqual(inc.prochaine_tache(state,now,{}),(None,'COOLDOWN'))
+        self.assertEqual(back.prochaine_tache(state,now,{}),(None,'COOLDOWN'))
+
     def test_nouvel_engagement_d_une_cible_ancienne_est_prioritaire_sans_changer_le_lot(self):
         horse=self.horse('2020-01-01_R1C1',known=True)
         horse['engagement_prioritaire']='2026-11-15_R1C2'
