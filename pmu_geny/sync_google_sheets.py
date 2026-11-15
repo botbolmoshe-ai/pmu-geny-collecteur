@@ -34,6 +34,7 @@ CLEARABLE_COLUMNS = frozenset(EXPERT_COLUMNS) | frozenset({
     'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
     'ml_proba_podium','ml_score_non_calibre',
     'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites'})
+PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','ferrure','musique_pmu'})
 
 def sheet_value(field, value):
     if value is None:return ''
@@ -161,6 +162,7 @@ def course_key(date,hippodrome,code):
 
 
 def source_rows(cache):
+    from .partants_actuels_v21 import profil_pmu_exclusif
     courses, history, reports = {}, {}, {}
     import unicodedata
     from .sources_experts_v23 import champs_sheet
@@ -191,7 +193,7 @@ def source_rows(cache):
             horses=(manifest.get('courses') or [{}])[0].get('partants',[])
             horse=next((h for h in horses if str(h.get('numero'))==str(n)),{})
             participant=load_json(cache/'partants_actuels'/f'{date}_{code}.json')
-            actual=(participant.get('chevaux') or {}).get(str(n),{})
+            actual=profil_pmu_exclusif((participant.get('chevaux') or {}).get(str(n),{}))
             suivi_path=cache/'exports'/cid/'suivi_chevaux.csv'
             try: suivi=read_csv(suivi_path)
             except (OSError,ValueError):suivi=[]
@@ -208,10 +210,10 @@ def source_rows(cache):
             doc={'course_key':k,'date_course':date,'hippodrome':hip,'rncn':code,
                  'heure_depart_paris':depart,'discipline':info.get('discipline',''),
                  'distance_m':info.get('distance_m',''),'numero':n,'cheval':r.get('nom',''),
-                 'driver_jockey':actual.get('driver_jockey','') or horse.get('driver_jockey',''),
-                 'entraineur':actual.get('entraineur','') or horse.get('entraineur',''),
-                 'proprietaire':actual.get('proprietaire','') or horse.get('proprietaire',''),
-                 'ferrure':actual.get('ferrure','') or horse.get('ferrure',''),
+                 'driver_jockey':actual.get('driver_jockey',''),
+                 'entraineur':actual.get('entraineur',''),
+                 'proprietaire':actual.get('proprietaire',''),
+                 'ferrure':actual.get('ferrure',''),
                  'non_partant':r.get('statut_np',''),
                  'historique_statut':historique.get('historique_statut',''),
                  'historique_nb_courses_datees':historique.get('nombre_performances_persistantes',''),
@@ -297,6 +299,7 @@ def source_rows(cache):
             for n,v in (participant.get('chevaux') or {}).items()
         ])
         for n,act in (participant.get('chevaux') or {}).items():
+            act=profil_pmu_exclusif(act)
             krow=f'{k}|{n}'
             existing=courses.get(krow,{})
             direct_rank,direct_h=ranks['direct'].get(str(n),('',{}))
@@ -539,7 +542,8 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                             and faux_code_ferrure_historique(item.get('source_url'),before)):
                         changes.append((present[k],headers.index(name)+1,''))
                         continue
-                if (name in headers and val is not None and (str(val)!='' or name in CLEARABLE_COLUMNS)
+                if (name in headers and val is not None and (str(val)!='' or name in CLEARABLE_COLUMNS
+                        or tab=='Courses & Prévisions' and name in PARTANT_PMU_COLUMNS)
                         and differs):
                     changes.append((present[k],headers.index(name)+1,value))
         else:
@@ -555,15 +559,36 @@ def reconcilier_cles_historiques(existing_rows, incoming):
     second hippodrome/course est decouvert au fil des captures.
     """
     from .controle_sync_sheets import cle_sportive
+    from .identites_chevaux import canoniser_ligne,cle_inter_sources
+    aliases=[(row,canoniser_ligne(row)) for row in existing_rows]
+    aliases=[(old,new) for old,new in aliases if str(old.get('identifiant_cheval'))!=str(new.get('identifiant_cheval'))]
+    incoming_ids={str(row.get('identifiant_cheval')) for row in incoming.values()}
+    alias_ids={str(new['identifiant_cheval']) for old,new in aliases}&incoming_ids
+    alias_keys={str(old.get('cle_performance')) for old,new in aliases if str(new['identifiant_cheval']) in alias_ids}
+    # Chaque ancienne ligne doit correspondre exactement à une performance
+    # canonique avant de modifier son ID ou d'ajouter le reste de la carrière.
+    for old,new in aliases:
+        if str(new['identifiant_cheval']) not in alias_ids:continue
+        matches=[row for row in incoming.values() if cle_inter_sources(row)==cle_inter_sources(new)]
+        if len(matches)!=1:
+            raise ValueError('PERFORMANCE_INTERSOURCE_NON_CONCORDANTE: '+str(old.get('cle_performance')))
+        if old.get('ferrure') and matches[0].get('ferrure') and old['ferrure']!=matches[0]['ferrure']:
+            raise ValueError('FERRURE_INTERSOURCE_NON_CONCORDANTE: '+str(old.get('cle_performance')))
+    def identity_for(row):
+        if str(row.get('identifiant_cheval')) in alias_ids or str(row.get('cle_performance')) in alias_keys:
+            return cle_inter_sources(row)
+        return cle_sportive(row)
     known={}
     for row in existing_rows:
-        identity=cle_sportive(row)
+        identity=identity_for(row)
         if identity is not None:
+            if identity in known and identity[0] in alias_ids:
+                raise ValueError('CORRESPONDANCE_HISTORIQUE_AMBIGUE')
             known[identity]=str(row.get('cle_performance') or '').strip()
     output={}
     for row in incoming.values():
         candidate=dict(row)
-        identity=cle_sportive(candidate)
+        identity=identity_for(candidate)
         if identity is not None and identity in known:
             candidate['cle_performance']=known[identity]
         key=str(candidate.get('cle_performance') or '').strip()

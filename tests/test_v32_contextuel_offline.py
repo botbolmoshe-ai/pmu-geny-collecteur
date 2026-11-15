@@ -137,7 +137,7 @@ class IntegrationV32(unittest.TestCase):
                              "APRES_DEPART")
             self.assertEqual((cache/"pronostics/2026-11-15_R1C2_direct.json").read_text(), avant)
 
-    def test_ferrure_tierce_utilisee_seulement_avec_preuve_et_heure(self):
+    def test_ferrure_tierce_ignoree_meme_avec_preuve_et_heure(self):
         def run_with(capture, name="Etoile", url="https://www.equidia.fr/course-test", source="equidia"):
             with tempfile.TemporaryDirectory() as tmp:
                 cache = Path(tmp)
@@ -163,7 +163,7 @@ class IntegrationV32(unittest.TestCase):
                 h=next(x for x in doc["classement_complet"] if x["numero"]==1)
                 return h["ferrures_historiques_comparees"], h["source_ferrure_courante"]
 
-        self.assertEqual(run_with("2026-11-15T08:00:00+00:00"), (2,"SOURCEE_EQUIDIA"))
+        self.assertEqual(run_with("2026-11-15T08:00:00+00:00"), (0,"NON_DOCUMENTEE"))
         self.assertEqual(run_with("2026-11-15T13:20:00+00:00"), (0,"NON_DOCUMENTEE"))
         self.assertEqual(run_with("2026-11-15T08:00:00+00:00",name="Autre"), (0,"NON_DOCUMENTEE"))
         self.assertEqual(run_with("2026-11-15T08:00:00+00:00",url=""), (0,"NON_DOCUMENTEE"))

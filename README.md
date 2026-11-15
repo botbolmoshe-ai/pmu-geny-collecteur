@@ -1,5 +1,9 @@
 Processus actuel de collecte des historiques : voir
 [`COLLECTE_INCREMENTALE_PRODUCTION.md`](COLLECTE_INCREMENTALE_PRODUCTION.md).
+Sources de données actuellement branchées et gestion de leurs identifiants :
+[`SOURCES_DONNEES_ACTUELLES.md`](SOURCES_DONNEES_ACTUELLES.md).
+PMU fournit les critères courants, Geny les historiques. Equidia et ZEturf sont
+retirés des appels automatiques ; Open-Meteo reste le complément météo sourcé.
 Collecte et reprise des ferrures :
 [`FERRURES_COLLECTE.md`](FERRURES_COLLECTE.md).
 Synchronisation commune aux déclencheurs :

@@ -201,6 +201,7 @@ class SynchroniseurSheets:
         """Lecture complète seule : inventaire et preuve des clés déjà publiées."""
         from datetime import datetime,timezone
         from .sync_google_sheets import lire_feuille_complete,canonical_headers,reconcilier_cles_historiques
+        from .identites_chevaux import source_identifiant
         with verrou_local(self.spreadsheet):
             tables=self.metadata();horses=[];seen=set();keys=set();rows=[];control=None
             for tab in (HISTORY,'Courses & Prévisions'):
@@ -218,11 +219,13 @@ class SynchroniseurSheets:
                 for row in data:
                     if not row.get('cheval') and not row.get('identifiant_cheval'):continue
                     identity=(tab,str(row.get('identifiant_cheval','')),str(row.get('cheval','')),
-                              str(row.get('course_key','')),str(row.get('numero','')))
+                              str(row.get('course_key','')),str(row.get('numero','')),
+                              source_identifiant(row.get('identifiant_cheval'),row.get('source_url')))
                     if identity in seen:continue
                     seen.add(identity)
                     horses.append({'nom':row.get('cheval',''),
                         'id':str(row.get('identifiant_cheval','')) if tab==HISTORY else '',
+                        'source_url':row.get('source_url','') if tab==HISTORY else '',
                         'engagement':row.get('course_key',''), 'numero':str(row.get('numero','')),
                         'origine':'SHEETS:'+tab})
             expected={}
