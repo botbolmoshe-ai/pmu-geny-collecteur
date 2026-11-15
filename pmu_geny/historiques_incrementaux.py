@@ -65,6 +65,8 @@ def actualisation_requise(horse, now, ttl_heures=24):
         return 'PUBLICATION_GENY_EN_ATTENTE'
     if race and race > complete:
         return 'NOUVELLE_COURSE_OFFICIELLE'
+    if horse.get('ferrures_manquantes',0):
+        return 'FERRURES_HISTORIQUES_A_COMPLETER'
     if horse.get('verification_periodique', True) and now - complete >= timedelta(hours=ttl_heures):
         return 'VERIFICATION_PERIODIQUE'
     return ''
@@ -163,6 +165,8 @@ def alimenter(cache, now):
                     horse['historique_complet_au_utc'] = doc.get('extrait_utc')
                     horse['derniere_performance_date'] = max((r.get('date', '') for r in doc['performances']), default='')
                     horse['nombre_performances'] = len(doc['performances'])
+                    from .ferrures_geny import manquantes
+                    horse['ferrures_manquantes']=manquantes(doc)
                     horse['collecte'] = 'COMPLET'
                 else:
                     horse.pop('historique_complet_au_utc', None)
@@ -275,25 +279,38 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
     previous = capture_valide(cache, ident)
     if previous:
         # Les mêmes dates peuvent contenir plusieurs courses : comparer les lignes complètes.
-        def keys(d):
-            result=set()
+        def indexed(d):
+            result={}
             for row in d['performances']:
-                clean=dict(row)
+                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source')}
                 clean['texte_source']=re.sub(r'\s*\|\s*\d{1,2}:\d{2}\s*\|\s*/\s*\|\s*\d{1,2}:\d{2}\s*$',
                                              '',str(clean.get('texte_source','')))
-                result.add(json.dumps(clean, sort_keys=True, ensure_ascii=False))
+                result.setdefault(json.dumps(clean, sort_keys=True, ensure_ascii=False),[]).append(row)
             return result
-        if not keys(previous).issubset(keys(doc)):
+        before,after=indexed(previous),indexed(doc)
+        if not set(before).issubset(after):
             raise ValueError('REGRESSION_HISTORIQUE_A_CONTROLER')
+        for key,rows in before.items():
+            for old in rows:
+                ferrure=old.get('ferrure')
+                if not ferrure:continue
+                for new in after[key]:
+                    if new.get('ferrure') and new['ferrure']!=ferrure:
+                        raise ValueError('REGRESSION_FERRURE_A_CONTROLER')
+                    if not new.get('ferrure'):
+                        new['ferrure']=ferrure
+                        if old.get('ferrure_source'):new['ferrure_source']=old['ferrure_source']
         oldtime = instant(previous.get('extrait_utc'))
         if oldtime and instant(doc['extrait_utc']) < oldtime:
             raise ValueError('CAPTURE_PLUS_ANCIENNE')
         archive = cache/'historiques_versions'/ident/(hashlib.sha256(json.dumps(previous, sort_keys=True).encode()).hexdigest()+'.json')
         ecrire(archive, previous)
     destination = cache/'historiques'/ident
+    from .ferrures_geny import couverture
+    couverture(doc)
     ecrire(destination/'historique_geny.json', doc)
     # Regénérer le CSV depuis le JSON validé pour éviter un fichier désynchronisé.
-    columns = ['date', 'hippodrome', 'discipline', 'distance_m', 'classement', 'chrono', 'texte_source']
+    columns = ['date', 'hippodrome', 'discipline', 'distance_m', 'classement', 'chrono', 'texte_source','ferrure']
     with (destination/'historique_geny.csv').open('w', encoding='utf-8-sig', newline='') as stream:
         writer = csv.DictWriter(stream, fieldnames=columns, delimiter=';', extrasaction='ignore')
         writer.writeheader()
@@ -303,6 +320,10 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
                  historique_complet_au_utc=stamp, derniere_verification_utc=stamp,
                  prochaine_verification_utc=(instant(stamp)+timedelta(hours=24)).isoformat(),
                  nombre_performances=len(doc['performances']), motif_actualisation='', erreur='')
+    horse['ferrures_manquantes']=doc['ferrures_manquantes']
+    if doc['ferrures_manquantes']:
+        horse['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
+        horse['prochain_essai_utc']=(datetime.now(UTC)+timedelta(hours=6)).isoformat()
     horse['derniere_performance_date'] = max((r.get('date', '') for r in doc['performances']), default='')
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     journal.setdefault('chevaux', {})[ident] = {**journal.get('chevaux', {}).get(ident, {}),
