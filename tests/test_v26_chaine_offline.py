@@ -112,6 +112,7 @@ class ChaineTests(unittest.TestCase):
                      patch('pmu_geny.top3_independants_v22.calculer', return_value='TEST') as top3, \
                      patch('pmu_geny.cotes_v19.collecter', return_value='TEST'), \
                      patch('pmu_geny.ml_v19.snapshot_pmu', return_value='TEST') as snapshot, \
+                     patch('pmu_geny.ml_v19.predict_pmu', return_value='ML_NON_ENTRAINE') as predict, \
                      patch('pmu_geny.traitement_course.extraire_cheval') as legacy, \
                      patch('pmu_geny.decouverte_partants.produire_manifest') as discovery:
                     run(cache, day, [], 0, max_discoveries=0, now=now)
@@ -119,6 +120,7 @@ class ChaineTests(unittest.TestCase):
                     discovery.assert_not_called()
                     self.assertEqual(top3.call_count, 0 if tomorrow else 1)
                     self.assertEqual(snapshot.call_count, 0 if tomorrow else 1)
+                    self.assertEqual(predict.call_count, 0 if tomorrow else 1)
                     self.assertEqual(len(inc.lire(cache/inc.QUEUE)['chevaux']), 3)
 
     def test_sheets_idempotent_sans_toucher_top3_ni_formule_kpi(self):

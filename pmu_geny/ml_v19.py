@@ -5,8 +5,8 @@ arrivées PMU vérifiées; aucune reconstitution a posteriori des variables.
 Les cotes, rapports, prix et rangs à l'arrivée ne sont JAMAIS des features.
 """
 from __future__ import annotations
-import csv, json, math, os
-from datetime import datetime, timedelta, timezone
+import csv, json, math
+from datetime import datetime, timezone
 from pathlib import Path
 
 FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_120j',
@@ -18,6 +18,7 @@ FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_12
             'ferrure_d4','ferrure_dp','ferrure_da','ferrure_p4','ferrure_pa','ferrure_pp')
 MIN_COURSES_TRAIN = 100
 MIN_ROWS_TRAIN = 700
+MODEL_SCHEMA = 'pmu-podium-v33'
 
 def load(path, default=None):
     try: return json.loads(Path(path).read_text(encoding='utf-8'))
@@ -118,48 +119,40 @@ def snapshot(cache,course,manifest,now=None):
     return 'CAPTURE'
 
 
-def snapshot_pmu(cache,course,raw,now=None):
-    """Capture ML avant depart depuis les partants PMU, sans manifeste Geny.
-
-    Reutilise seulement les historiques Geny COMPLETS relies par un nom
-    normalise unique dans le journal persistant; aucun appariement approximatif.
-    """
-    import unicodedata
+def pmu_rows(cache,course,raw,now):
+    """Meme extraction PMU pour capture et inference; aucune requete reseau."""
     from .auto_v18 import _list, _num
     from .top3_independants_v22 import _form_score
-    now=now or datetime.now(timezone.utc)
-    departure=datetime.fromisoformat(course['depart'])
-    if now.tzinfo is None or now>=departure:return 'TROP_TARD'
+    from .partants_actuels_v21 import extraire_partants
     cache=Path(cache)
-    base=cache/'ml'/'instantanes'/f"{course['date']}_{course['code']}.json"
-    if base.exists():return 'DEJA_CAPTURE'
     participants=_list(raw,'participants','partants')
-    if len(participants)<3:return 'PARTANTS_INSUFFISANTS'
+    if len(participants)<3:return 'PARTANTS_INSUFFISANTS',[],{}
     from .liaison_chevaux_v22 import etablir
     names=[{'numero':h.get('numPmu',h.get('numero')),
             'nom':h.get('nomCheval',h.get('nom',h.get('nomParticipant','')))}
            for h in participants if isinstance(h,dict)]
     association=etablir(cache,course,names)
     context=_valid_context(cache,course,now)
+    profils=extraire_partants(raw)
     rows=[];seen=set();with_history=0;unknown_np=0
     for item in participants:
         if not isinstance(item,dict):continue
         numero=_num(item,'numPmu','num','numero','numeroPmu')
-        if numero is None or numero in seen:return 'NUMEROS_PMU_INCOHERENTS'
+        if numero is None or numero in seen:return 'NUMEROS_PMU_INCOHERENTS',[],{}
         seen.add(numero)
         if item.get('nonPartant') is True or str(item.get('statut','')).upper() in ('NP','NON_PARTANT'):
             continue
         if item.get('nonPartant') is not False and str(item.get('statut','')).upper()!='PARTANT':
             unknown_np+=1
         name=next((str(item[k]).strip() for k in ('nomCheval','nom','nomParticipant') if isinstance(item.get(k),str) and item[k].strip()),'')
+        if not name:return 'IDENTITE_PMU_ABSENTE',[],{}
         link=association.get(str(numero),{})
         ident,histo=link.get('cheval_id',''),link.get('historique',{})
         if ident:with_history+=1
         c={key:value for (num,key),value in context.items() if num in ('*',str(numero))}
         direct=_form_score(item)
         if direct is not None:c['pmu_score_direct']=direct
-        from .partants_actuels_v21 import extraire_partants
-        profil=extraire_partants({'participants':[item]}).get(numero,{})
+        profil=profils.get(numero,{})
         for feature in ('age_ans','gains_euros'):
             value=profil.get(feature)
             if value is not None:c[feature]=value
@@ -170,120 +163,160 @@ def snapshot_pmu(cache,course,raw,now=None):
         ferrure=profil.get('ferrure','')
         if ferrure:
             code=str(ferrure).upper()
-            for name,indicator in [('D4','ferrure_d4'),('DP','ferrure_dp'),
+            for ferrure_code,indicator in [('D4','ferrure_d4'),('DP','ferrure_dp'),
                                    ('DA','ferrure_da'),('P4','ferrure_p4'),
                                    ('PA','ferrure_pa'),('PP','ferrure_pp')]:
-                c[indicator]=1 if name in code.split('/') else 0
+                c[indicator]=1 if ferrure_code in code.split('/') else 0
         features_values=features({'numero':numero,'nom':name},histo,course,c)
         rows.append({'numero':numero,'cheval_id':ident,'nom':name,
                      'historique_ok':bool(ident),'methode_liaison':link.get('methode','NON_ASSOCIE'),
                      'score_direct_pmu':direct,
                      'features':features_values})
-    if len(rows)<3:return 'PARTANTS_INSUFFISANTS'
+    if len(rows)<3:return 'PARTANTS_INSUFFISANTS',[],{}
     if course.get('nombre_declares') and len(seen)!=int(course['nombre_declares']):
-        return 'LISTE_PARTANTS_INCOMPLETE'
+        return 'LISTE_PARTANTS_INCOMPLETE',[],{}
+    return 'OK',rows,{'historiques_complets_reutilises':with_history,'np_non_verifies':unknown_np}
+
+
+def snapshot_pmu(cache,course,raw,now=None):
+    """Capture immutable; les anciennes captures ne sont jamais enrichies apres coup."""
+    now=now or datetime.now(timezone.utc)
+    departure=datetime.fromisoformat(course['depart'])
+    if now.tzinfo is None or departure.tzinfo is None or now>=departure:return 'TROP_TARD'
+    base=Path(cache)/'ml'/'instantanes'/f"{course['date']}_{course['code']}.json"
+    if base.exists():return 'DEJA_CAPTURE'
+    status,rows,metadata=pmu_rows(cache,course,raw,now)
+    if status!='OK':return status
     save(base,{'date':course['date'],'code':course['code'],'depart':course['depart'],
                'capture_utc':now.isoformat(),'features_schema':'v22.1',
                'source':'PMU_API_PARTICIPANTS','nombre_chevaux':len(rows),
-               'historiques_complets_reutilises':with_history,
-               'np_non_verifies':unknown_np,'chevaux':rows,
+               **metadata,'chevaux':rows,
                'regle':'capture PMU pre-depart immutable, ni cote ni arrivee utilisee'})
     return 'CAPTURE_PMU'
 
-def dataset(cache):
-    """Reconstitue uniquement des exemples étiquetés via arrivée vérifiée postérieure à la capture."""
-    examples=[]; course_count=0
-    for snap in sorted((Path(cache)/'ml'/'instantanes').glob('*.json')) if (Path(cache)/'ml'/'instantanes').exists() else []:
+def dataset(cache, now=None):
+    """Exemples pre-depart avec podium complet et labels deja observes."""
+    now=now or datetime.now(timezone.utc)
+    examples=[];course_count=0
+    for snap in sorted((Path(cache)/'ml'/'instantanes').glob('*.json')):
         s=load(snap,{}) or {};arr=load(Path(cache)/'arrivees'/snap.name,{}) or {}
-        if not arr:continue
         try:
             depart=datetime.fromisoformat(s['depart']);capt=datetime.fromisoformat(s['capture_utc'])
             checked=datetime.fromisoformat(arr['verifie_utc'])
-            if not capt<depart<checked:continue
-        except (KeyError,ValueError,TypeError):continue
-        placed={int(x['numero']) for x in arr.get('arrivee',[]) if x.get('rang') in (1,2,3)}
-        if len(placed)!=3:continue
-        horses=s.get('chevaux',[])
-        if len(horses)<3 or len({int(x['numero']) for x in horses})!=len(horses):continue
+            if any(t.tzinfo is None for t in (depart,capt,checked,now)):continue
+            if not capt<depart<checked<=now or s.get('np_non_verifies',0):continue
+            key=s['date']+'_'+s['code']
+            if snap.stem!=key or arr.get('date',s['date'])!=s['date'] or arr.get('course',s['code'])!=s['code']:continue
+            podium=[x for x in arr.get('arrivee',[]) if x.get('rang') in (1,2,3)]
+            placed={int(x['numero']) for x in podium}
+            if len(podium)!=3 or len(placed)!=3 or {x['rang'] for x in podium}!={1,2,3}:continue
+            horses=s.get('chevaux',[]);numbers={int(x['numero']) for x in horses}
+            if len(horses)<3 or len(numbers)!=len(horses) or not placed<=numbers:continue
+            if any(not isinstance(x.get('features'),dict) for x in horses):continue
+        except (AttributeError,KeyError,ValueError,TypeError):continue
         course_count+=1
         for row in horses:
-            examples.append({'course':s['date']+'_'+s['code'],'depart':s['depart'],
-              'numero':int(row['numero']),'y':int(int(row['numero']) in placed),'features':row['features']})
+            examples.append({'course':key,'depart':s['depart'],'capture_utc':s['capture_utc'],
+                'verifie_utc':arr['verifie_utc'],'numero':int(row['numero']),
+                'y':int(int(row['numero']) in placed),'features':row['features']})
     return examples,course_count
 
-def train(cache, min_courses=MIN_COURSES_TRAIN, min_rows=MIN_ROWS_TRAIN):
-    """Validation temporelle par courses entières. Promotion seulement si cohérente."""
-    records,n=dataset(cache)
-    status={'entrainement_utc':datetime.now(timezone.utc).isoformat(), 'courses':n,'lignes':len(records),
-            'minimum_courses':min_courses,'minimum_lignes':min_rows,'etat':'INSUFFISANT'}
+
+def train(cache, min_courses=MIN_COURSES_TRAIN, min_rows=MIN_ROWS_TRAIN, now=None):
+    """Entrainement commun avec test temporel et promotion conditionnelle."""
+    now=now or datetime.now(timezone.utc);cache=Path(cache)
+    records,n=dataset(cache,now)
+    status={'entrainement_utc':now.isoformat(),'courses':n,'lignes':len(records),
+            'minimum_courses':min_courses,'minimum_lignes':min_rows,'etat':'INSUFFISANT',
+            'promotion_production':False}
+    status_path=cache/'ml'/'entrainement.json'
     if n<min_courses or len(records)<min_rows:
-        save(Path(cache)/'ml'/'entrainement.json',status);return status
+        save(status_path,status);return status
+    days=sorted({r['depart'][:10] for r in records})
+    if len(days)<3:
+        status['etat']='PERIODES_TEMPORELLES_INSUFFISANTES'
+        save(status_path,status);return status
+    try:
+        import joblib
+        from .experience_ml import run
+    except ImportError:
+        status['etat']='DEPENDANCES_ML_ABSENTES';save(status_path,status);return status
+    output=cache/'ml'/'experiences'/now.astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+    try:
+        report=run(cache,output,days[-2],days[-1],now=now)
+    except ValueError as exc:
+        status.update(etat='VALIDATION_TEMPORELLE_IMPOSSIBLE',motif=str(exc))
+        save(status_path,status);return status
+    status.update(rapport=str(output.relative_to(cache)/'rapport.json'),
+                  modele=report['modele_choisi_avant_test'],
+                  courses_validation=report['decoupage']['validation']['courses'],
+                  courses_test=report['decoupage']['test']['courses'],
+                  comparaison_test=report.get('ecart_ml_forme_capture'))
+    # Benchmark a la meme capture, sur TOUTES les courses test. L'experience
+    # seule ne promeut rien; un avantage strict avec IC positif est necessaire.
+    comparison=report.get('ecart_ml_forme_capture')
+    if not comparison or comparison['courses']!=status['courses_test']:
+        status['etat']='NON_PROMU_BENCHMARK_INCOMPLET'
+    elif comparison['ic95_bootstrap_par_course'][0]<=0:
+        status['etat']='NON_PROMU_AVANTAGE_NON_DEMONTRE'
+    else:
+        packed=joblib.load(output/'modele_experimental.joblib')
+        packed.update(schema=MODEL_SCHEMA,statut='ML_ENTRAINE_NON_CALIBRE',promotion_utc=now.isoformat())
+        target=cache/'ml'/'modele.joblib'
+        temporary=target.with_suffix('.tmp')
+        joblib.dump(packed,temporary);temporary.replace(target)
+        status.update(etat='ENTRAINE',promotion_production=True)
+    save(status_path,status)
+    return status
+
+
+def predict_pmu(cache,course,raw,now=None):
+    """Inference jour J 07h-21h, meme extraction que les captures PMU."""
+    from .planification_v20_2 import decision_autorisee
+    now=now or datetime.now(timezone.utc)
+    departure=datetime.fromisoformat(course['depart'])
+    if not decision_autorisee(now,course['date'],departure):return 'HORS_FENETRE_DECISION'
+    path=Path(cache)/'ml'/'modele.joblib'
+    if not path.exists():return 'ML_NON_ENTRAINE'
     try:
         import joblib
         import numpy as np
-        from sklearn.impute import SimpleImputer
-        from sklearn.pipeline import make_pipeline
-        from sklearn.ensemble import HistGradientBoostingClassifier
-        from sklearn.linear_model import LogisticRegression
-        from sklearn.metrics import log_loss, brier_score_loss
-    except ImportError:
-        status['etat']='DEPENDANCES_ML_ABSENTES';save(Path(cache)/'ml'/'entrainement.json',status);return status
-    ordered=sorted({r['course']:r['depart'] for r in records}.items(),key=lambda x:x[1]);split=int(len(ordered)*.8)
-    train_ids={k for k,v in ordered[:split]};valid_ids={k for k,v in ordered[split:]}
-    a=[r for r in records if r['course'] in train_ids];b=[r for r in records if r['course'] in valid_ids]
-    X=lambda r:[[numeric(z['features'].get(k)) if numeric(z['features'].get(k)) is not None else float('nan') for k in FEATURES] for z in r]
-    x1,x2=np.asarray(X(a)),np.asarray(X(b));y1=np.asarray([r['y'] for r in a]);y2=np.asarray([r['y'] for r in b])
-    candidates={
-      'regression_logistique':make_pipeline(SimpleImputer(strategy='constant',fill_value=-1),LogisticRegression(max_iter=500,class_weight='balanced')),
-      'gradient_boosting':make_pipeline(SimpleImputer(strategy='constant',fill_value=-1),HistGradientBoostingClassifier(max_iter=120,max_leaf_nodes=9,l2_regularization=2,random_state=42))
-    }
-    scores={}
-    for name,model in candidates.items():
-        model.fit(x1,y1);prob=np.clip(model.predict_proba(x2)[:,1],1e-6,1-1e-6)
-        scores[name]={'brier':round(float(brier_score_loss(y2,prob)),6),
-                      'logloss':round(float(log_loss(y2,prob,labels=[0,1])),6)}
-    winner=min(scores,key=lambda key:scores[key]['brier']);model=candidates[winner]
-    model.fit(np.asarray(X(records)),np.asarray([r['y'] for r in records]))
-    target=Path(cache)/'ml'/'modele.joblib';target.parent.mkdir(parents=True,exist_ok=True)
-    joblib.dump({'model':model,'features':FEATURES,'modele':winner,'schema':'v19.1'},target)
-    status.update({'etat':'ENTRAINE','modele':winner,'validation_temporelle':scores,
-                   'courses_validation':len(valid_ids),'note':'Validation hors echantillon; pas de garantie de resultat'})
-    save(Path(cache)/'ml'/'entrainement.json',status);return status
-
-def predict(cache,course,manifest,now=None):
-    """Prévision live: filtre NP, modèle entraîné ou absence déclarée."""
-    now=now or datetime.now(timezone.utc)
-    if now>=datetime.fromisoformat(course['depart']):return 'APRES_DEPART'
-    cid=manifest['courses'][0]['course_id'];np=load(Path(cache)/'participations'/f'{cid}.json',{}) or {}
-    states={str(x['numero']):x.get('statut_participation') for x in np.get('chevaux',[])}
-    horses=manifest['courses'][0]['partants']
-    if len(states)!=len(horses) or any(states.get(str(h['numero'])) not in ('PARTANT','NON_PARTANT') for h in horses):return 'NP_NON_VERIFIE'
-    eligible=[h for h in horses if states[str(h['numero'])]=='PARTANT']
-    if len(eligible)<3:return 'PARTANTS_INSUFFISANTS'
-    model_path=Path(cache)/'ml'/'modele.joblib'
-    if not model_path.exists():return 'ML_NON_ENTRAINE'
-    try:
-        import joblib, numpy as np
-        packed=joblib.load(model_path)
-    except (ImportError,OSError,ValueError,KeyError) as ex:return f'MODELE_INDISPONIBLE_{type(ex).__name__}'
-    if tuple(packed.get('features',()))!=FEATURES:return 'MODELE_SCHEMA_OBSOLETE_REENTRAINEMENT_REQUIS'
-    context=_valid_context(cache,course,now)
-    rows=[]; vectors=[]
-    for h in eligible:
-        doc=load(Path(cache)/'historiques'/str(h['id'])/'historique_geny.json',{}) or {}
-        c={key:v for (num,key),v in context.items() if num in ('*',str(h['numero']))}
-        vector=features(h,doc,course,c)
-        rows.append({'numero':int(h['numero']),'nom':h['nom'],'cheval_id':str(h['id'])})
-        vectors.append([numeric(vector.get(k)) if numeric(vector.get(k)) is not None else float('nan') for k in FEATURES])
-    probabilities=packed['model'].predict_proba(np.asarray(vectors))[:,1]
-    for row,p in zip(rows,probabilities):row['proba_podium_estimee']=round(float(p),5)
-    rows.sort(key=lambda r:(-r['proba_podium_estimee'],r['numero']))
+        packed=joblib.load(path)
+    except (ImportError,OSError,ValueError,KeyError) as exc:return f'MODELE_INDISPONIBLE_{type(exc).__name__}'
+    if packed.get('schema')!=MODEL_SCHEMA or tuple(packed.get('features',()))!=FEATURES:
+        return 'MODELE_SCHEMA_OBSOLETE_REENTRAINEMENT_REQUIS'
+    if packed.get('statut')!='ML_ENTRAINE_NON_CALIBRE':return 'MODELE_NON_PROMU'
+    status,rows,metadata=pmu_rows(cache,course,raw,now)
+    if status!='OK':return status
+    if metadata['np_non_verifies']:return 'NP_NON_VERIFIE'
+    vectors=[[numeric(h['features'].get(k)) if numeric(h['features'].get(k)) is not None
+              else float('nan') for k in FEATURES] for h in rows]
+    scores=packed['model'].predict_proba(np.asarray(vectors))[:,1]
+    ranking=[{'numero':h['numero'],'nom':h['nom'],'cheval_id':h['cheval_id'],
+              'proba_podium_estimee':round(float(score),5)} for h,score in zip(rows,scores)]
+    ranking.sort(key=lambda h:(-h['proba_podium_estimee'],h['numero']))
     base=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_ml_latest.json"
+    old=load(base,{}) or {}
+    if old.get('calcul_utc'):
+        stamp=datetime.fromisoformat(old['calcul_utc']).astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+        archive=base.parent/'versions'/f"{course['date']}_{course['code']}_ml_{stamp}.json"
+        if not archive.exists():save(archive,old)
     save(base,{'date':course['date'],'course':course['code'],'calcul_utc':now.isoformat(),
                'depart':course['depart'],'modele':packed['modele'],'statut':'ML_ENTRAINE_NON_CALIBRE',
-               'top3':rows[:3],'classement_complet':rows,'np_utc':np.get('date_controle_utc'),
-               'note':'Cotes exclues; probabilities non garanties'})
+               'top3':ranking[:3],'classement_complet':ranking,
+               'note':'Score non calibre; cotes exclues des variables.'})
     return 'ML_CALCULE'
+
+
+def predict(cache,course,manifest=None,now=None):
+    """Compatibilite anciens appelants : relire exclusivement le profil PMU."""
+    doc=load(Path(cache)/'partants_actuels'/f"{course['date']}_{course['code']}.json",{}) or {}
+    raw={'participants':[{'numPmu':int(n),'nom':h.get('nom',''),'age':h.get('age_ans'),
+        'gainsCarriere':h.get('gains_euros'),'sexe':h.get('sexe'),
+        'ferrure':h.get('ferrure'),'musique':h.get('musique_pmu'),
+        'statut':h.get('statut_np')} for n,h in doc.get('chevaux',{}).items()]}
+    return predict_pmu(cache,course,raw,now)
+
 
 def export_comparatif(cache,course,manifest):
     """CSV par partant: baseline, ML, NP, cote à l'approche du départ, arrivée."""
