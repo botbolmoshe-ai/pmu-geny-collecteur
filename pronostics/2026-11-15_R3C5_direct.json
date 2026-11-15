@@ -2,14 +2,16 @@
   "date": "2026-11-15",
   "course": "R3C5",
   "depart": "2026-11-15T13:05:00+01:00",
-  "calcul_utc": "2026-11-15T06:52:47.490549+00:00",
+  "calcul_utc": "2026-11-15T07:58:25.492348+00:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-15T06:52:47.490549+00:00",
+  "donnees_observees_utc": "2026-11-15T07:58:25.492348+00:00",
   "version_moteur": "direct-v32-contextuel",
-  "non_partants_confirmes": [],
+  "non_partants_confirmes": [
+    13
+  ],
   "statut": "COMPLET",
-  "observations": 16,
-  "partants_eligibles": 16,
+  "observations": 15,
+  "partants_eligibles": 15,
   "classement_complet": [
     {
       "numero": 4,
@@ -43,20 +45,6 @@
       "numero": 9,
       "nom": "ILTON CASH",
       "score_direct": 1.8632,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
-      "numero": 13,
-      "nom": "GALOPIN DES CHAMPS",
-      "score_direct": 1.5526,
       "source_forme": "PMU_MUSIQUE_SEULE",
       "qualite_score": "PMU_NON_CONTEXTUALISE",
       "musique_exploitable": 5,
@@ -282,9 +270,9 @@
   ],
   "note": "Direct heuristique: musique PMU et historiques Geny anterieurs ponderes par discipline, distance, hippodrome, ferrure documentee et anciennete. Scores non calibres; facteurs manquants explicites.",
   "couverture_sources": {
-    "pmu_musique": 16,
+    "pmu_musique": 15,
     "geny_historique": 0,
-    "pmu_seul": 16,
+    "pmu_seul": 15,
     "sans_score": 0,
     "effectif_declare_confirme": true
   },
