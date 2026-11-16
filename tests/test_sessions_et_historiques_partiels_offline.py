@@ -198,3 +198,18 @@ class HistoriquesPartielsTests(unittest.TestCase):
             collect=Mock(side_effect=AssertionError('aucune recollecte'))
             resumed=inc.run(self.cache,collect=collect,sync=lambda h:{})
         collect.assert_not_called();self.assertEqual(resumed['chevaux']['123456']['sync'],'OK')
+
+    def test_partiel_apres_une_course_officielle_ne_requiert_pas_un_fichier_complet(self):
+        day=self.now.date().isoformat();engagement=day+'_R1C1'
+        inc.ecrire(self.cache/'partants_actuels'/f'{engagement}.json',{'chevaux':{'1':{'nom':'Test'}}})
+        inc.ecrire(self.cache/'orchestration/correspondances_geny.json',{engagement:'GENY-1698061'})
+        inc.ecrire(self.cache/'orchestration'/f'{day}.json',{'courses':{'R1C1':{
+            'depart':(self.now-timedelta(hours=1)).isoformat()}}})
+        inc.ecrire(self.cache/'arrivees'/f'{engagement}.json',{'arrivee':[{'numero':1,'rang':3}]})
+        with patch.object(inc.time,'sleep'):
+            result=inc.run(self.cache,collect=lambda h,p:self.report,sync=lambda h:{})
+        horse=result['chevaux']['123456']
+        self.assertEqual(horse['collecte'],'PARTIEL_HISTORIQUE')
+        self.assertNotIn('dernier_echec_collecte',horse)
+        self.assertEqual(result['bilan']['captures_partielles'],1)
+        self.assertEqual(horse['sync'],'OK')
