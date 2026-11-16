@@ -81,8 +81,7 @@ class SynchroniseurSheets:
 
     def _migrer_entetes(self,tab,values):
         from .sync_google_sheets import DISPLAY_NAMES,colname
-        legacy={'Avis expert Geny':'avis_equidia','avis_geny':'avis_equidia',
-                'Avis expert Zone-Turf':'avis_zeturf','avis_zone_turf':'avis_zeturf'}
+        legacy={'Avis expert Zone-Turf':'avis_zeturf','avis_zone_turf':'avis_zeturf'}
         migration=[]
         for idx,label in enumerate(values[0]):
             if label not in legacy:continue

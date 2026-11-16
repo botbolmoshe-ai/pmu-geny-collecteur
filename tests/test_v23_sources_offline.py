@@ -77,6 +77,15 @@ class TestSources(unittest.TestCase):
   h=['course_key','numero','avis_equidia'];rows=[dict(zip(h,['k','1','ancien']))]
   _,changes,_=plan_sheet(h,rows,{'x':{'course_key':'k','numero':'1','avis_equidia':''}},'Courses & Prévisions')
   self.assertIn((2,3,''),changes)
+
+ def test_colonne_equidia_supprimee_non_recreee_et_voisine_preservee(self):
+  headers=['course_key','numero','avis_pmu','avis_zeturf']
+  rows=[dict(zip(headers,['k','1','Avis PMU','']))]
+  actual,updates,appends=plan_sheet(headers,rows,{'k':{'course_key':'k','numero':'1',
+      'avis_equidia':'','avis_pmu':'Avis PMU actualisé'}},'Courses & Prévisions')
+  self.assertNotIn('avis_equidia',actual)
+  self.assertIn((2,3,'Avis PMU actualisé'),updates)
+  self.assertEqual(appends,[])
  def test_caracteristiques_pmu_sont_conservees_sans_lecture_tierce(self):
   enregistrer(self.root,C,{ 'participants':[ {**RAW['participants'][0],'gainsCarriere':777000}]})
   collecter(self.root,C,RAW,NOW,self.fetch)
