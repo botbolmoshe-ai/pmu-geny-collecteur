@@ -1,0 +1,118 @@
+name: PMU - Nettoyage unique des branches archivees
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pilotage/declencher-nettoyage-branches-20261116.txt'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pmu-nettoyage-branches-unique
+  cancel-in-progress: false
+jobs:
+  nettoyage:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Archiver les travaux et supprimer les branches verifiees
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PYBRANCHES'
+          import json, os, sys, urllib.request, urllib.error
+          from urllib.parse import quote
+          
+          repository=os.environ["GITHUB_REPOSITORY"]
+          token=os.environ["GH_TOKEN"]
+          api="https://api.github.com/repos/"+repository
+          targets=json.loads("""[{"name":"experiment/historique-equidia","sha":"ce31ae1d294816524fc2d2201b4e09ae1ea8b558","archive":true},{"name":"experiment/historique-pmu","sha":"07cd118923a7746934a46190f2ad2a6b9829adc0","archive":true},{"name":"experiment/historique-zeturf","sha":"c5d868d0edf875ff1c608f39b4c4c652b13f8a53","archive":true},{"name":"feature/collecte-historiques-independante","sha":"06c2a79e98fcb89a44f97206105c3c23fb904761","archive":true},{"name":"feature/direct-contextuel-v32-20261115","sha":"72a1cf0e5f481759f80df4c4a1f207338e153cab","archive":false},{"name":"feature/direct-profils-sources-v32","sha":"7dfb7784463b2e097311323df5aba1bd450b6187","archive":false},{"name":"feature/priorite-nocturne-historiques","sha":"759d0e91b088d48eb97d59f8a1d70e7307a9e157","archive":false},{"name":"feature/rattrapage-exhaustif-geny","sha":"24764535f30edb704ce8ca8c484f559f703577bd","archive":true},{"name":"feature/reprise-historiques-globale","sha":"8f6da189225967307522a54c9faa395b3904c579","archive":false},{"name":"feature/scoring-geny-explicable","sha":"df5b45f0b501ac1cc778c3deccc590616572cafe","archive":true},{"name":"fix/controles-synchronisation-sheets","sha":"c3377ebb97a508acc391447fd72ea06cc95175e7","archive":false},{"name":"fix/ferrures-ambiguite-texte","sha":"a2897eb2fe1bd4405f5b81483f83416379a1f53c","archive":false},{"name":"fix/ferrures-sources-completes","sha":"2d288adad6fec3795d2bb93aa0816a3dc49e3ebc","archive":false},{"name":"fix/fiabilite-completude-production","sha":"8799538ad18d7eaf3a4d7984d6aac41a2086375b","archive":false},{"name":"fix/fiabilite-musique-np-kpi","sha":"03b8ad11a258f147976939c2c7000d16670a5376","archive":false},{"name":"fix/horodatage-bilan-rattrapage","sha":"d22a9e433e012792f3d78d2be58911c34c386bd2","archive":false},{"name":"fix/identifiants-sources-chevaux","sha":"864f04476113451d87a278628cd20817b16c6b5d","archive":false},{"name":"fix/j1-historiques-priorite-20261115","sha":"515bd63b439cc77e5907de3c9884f04af736c200","archive":false},{"name":"fix/pmu-arrivals-and-course-status-20261115","sha":"1fe11722012e2987290005e3c3341207dec8970f","archive":false},{"name":"fix/quotas-lectures-sheets","sha":"a473500bdadaaafab7aec9feb5c5a35e570ba2ce","archive":false},{"name":"fix/reconciliation-identites-historiques","sha":"935f1212698402cdeb0a9435dd029d6dd5947206","archive":false},{"name":"fix/reprise-carrieres-prioritaires","sha":"de4f3b8336623a499e1f48007ae93de0d5821c6b","archive":false},{"name":"fix/reprise-contextes-registre","sha":"ebaf77cdc838cd500115b04569f877b5b06c7309","archive":false},{"name":"fix/reprise-identifies-prioritaires","sha":"ffc6d34389301346bed7ba0f4777b29d0c9fee8b","archive":false},{"name":"fix/revalider-captures-historiques","sha":"d6ab8b4aaba6e0b4579588979dc1050e12bdbfbf","archive":false},{"name":"fix/sheets-dedoublonnage-complet","sha":"fbdb5f1e24e72cf32c38aca83d18655e02ae9774","archive":false},{"name":"fix/sheets-preserver-variantes","sha":"8be2fee87db0168e31f9e7daab727cca3f6a681b","archive":false},{"name":"fix/supprimer-colonne-avis-equidia","sha":"96bca62deb0b4a5ddf5388067ef7e5bc54828f4a","archive":false},{"name":"fix/v32-niveau-allocation-regex","sha":"9d4cd65ac99620cf03fdebd5fe0e913bd58fdfdd","archive":false},{"name":"integration/collecte-incrementale-production","sha":"a4b426dc883d1925294a886f4a2ed1fa4e6022b3","archive":false},{"name":"refactor/moteur-sheets-unique","sha":"c457b832c19f2d094da78dc3955da285d06cd45b","archive":false},{"name":"refonte-pmu-trot-20261113","sha":"863bb329938b5d556674b2dded32385e0410968d","archive":true},{"name":"test/boucle-historiques-courus","sha":"c08feed67b4b3e1b86d3059ac67556521299b6fc","archive":true},{"name":"test/historique-marvina-bella","sha":"433326856eae57c08ca141e628c96ee706fcbd88","archive":true},{"name":"test/priorite-cycle-complet","sha":"cb4e1d70a1a18cfdbf9675ad443757b315e2dda1","archive":true},{"name":"test/rapprochement-2026-11-12","sha":"c45ea14a9020e10e7fa20eff0869f634bbc7ba5c","archive":true},{"name":"test/simulation-collecte-couverture","sha":"d51fd51f3750022cd19254fe16adc490c4e9f6ed","archive":true}]""")
+          guarded={"main","pmu-data"}
+          assert len(targets)==37 and sum(x["archive"] for x in targets)==12
+          assert not any(t["name"] in guarded for t in targets)
+          
+          def request(method,path,data=None,allow_404=False):
+              body=json.dumps(data).encode("utf-8") if data is not None else None
+              req=urllib.request.Request(
+                  "https://api.github.com"+path,body,method=method,
+                  headers={"Accept":"application/vnd.github+json",
+                           "Authorization":"Bearer "+token,
+                           "X-GitHub-Api-Version":"2022-11-28",
+                           "User-Agent":"pmu-branch-audit-cleanup",
+                           "Content-Type":"application/json"})
+              try:
+                  with urllib.request.urlopen(req,timeout=45) as resp:
+                      raw=resp.read()
+                      return json.loads(raw) if raw else {}
+              except urllib.error.HTTPError as exc:
+                  if allow_404 and exc.code==404:return None
+                  message=exc.read().decode("utf-8","replace")[:500]
+                  raise RuntimeError(f"API {method} {path}: HTTP {exc.code} {message}") from exc
+          
+          def branch_info(name):
+              return request("GET",f"/repos/{repository}/branches/{quote(name,safe='/')}",allow_404=True)
+          
+          print("PREFLIGHT 37 branches; 12 tags d'archive; protection main / pmu-data",flush=True)
+          metadata=request("GET",f"/repos/{repository}")
+          if metadata["default_branch"]!="main":
+              raise RuntimeError("STOP: branche par defaut differente de main")
+          if not branch_info("pmu-data"):
+              raise RuntimeError("STOP: pmu-data absent")
+          openprs=request("GET",f"/repos/{repository}/pulls?state=open&per_page=100")
+          open_heads={x["head"]["ref"] for x in openprs}
+          if len(openprs)==100:
+              raise RuntimeError("STOP: liste PR ouverte possiblement tronquee")
+          for t in targets:
+              if t["name"] in open_heads:
+                  raise RuntimeError("STOP: PR encore ouverte pour "+t["name"])
+              branch=branch_info(t["name"])
+              if branch is None or branch["commit"]["sha"]!=t["sha"]:
+                  raise RuntimeError("STOP: branche absente/modifiee: "+t["name"])
+          print("PREFLIGHT_OK: têtes immuables et aucune PR ouverte",flush=True)
+          
+          # Archive all unmerged work first, before ANY deletion.
+          for t in targets:
+              if not t["archive"]:continue
+              name="archive/20261116/"+t["name"].replace("/","-")
+              path=f"/repos/{repository}/git/ref/tags/{quote(name,safe='/')}"
+              tag=request("GET",path,allow_404=True)
+              if tag is not None:
+                  if tag.get("object",{}).get("sha")!=t["sha"]:
+                      raise RuntimeError("STOP: tag different deja present "+name)
+              else:
+                  created=request("POST",f"/repos/{repository}/git/refs",
+                                  {"ref":"refs/tags/"+name,"sha":t["sha"]})
+                  if created.get("object",{}).get("sha")!=t["sha"]:
+                      raise RuntimeError("STOP: tag sans confirmation "+name)
+              print("ARCHIVE_OK "+name,flush=True)
+          print("ARCHIVES_VERIFIEES: 12 refs conservées",flush=True)
+          
+          deleted=[]
+          for t in targets:
+              # Re-check lease and opened PR for each branch.
+              branch=branch_info(t["name"])
+              if branch is None or branch["commit"]["sha"]!=t["sha"]:
+                  print("RETENU: SHA modifie entre-temps "+t["name"],flush=True)
+                  continue
+              nowopen=request("GET",f"/repos/{repository}/pulls?state=open&per_page=100")
+              if len(nowopen)==100 or any(p["head"]["ref"]==t["name"] for p in nowopen):
+                  print("RETENU: PR ouverte "+t["name"],flush=True)
+                  continue
+              request("DELETE",f"/repos/{repository}/git/refs/heads/{quote(t['name'],safe='/')}")
+              if branch_info(t["name"]) is not None:
+                  raise RuntimeError("DELETE_NON_VERIFIE "+t["name"])
+              deleted.append(t["name"])
+              print("SUPPRIMEE "+t["name"],flush=True)
+          print("BILAN: ",len(deleted),"branches supprimees sur",len(targets),flush=True)
+          if not branch_info("pmu-data") or not branch_info("main"):
+              raise RuntimeError("INTEGRITE CRITIQUE: main ou pmu-data introuvable")
+          remaining=request("GET",f"/repos/{repository}/branches?per_page=100")
+          names=[b["name"] for b in remaining]
+          print("BRANCHES RESTANTES",names,flush=True)
+          if len(deleted)!=37 or sorted(names)!=["main","pmu-data"]:
+              raise RuntimeError("NETTOYAGE_PARTIEL: controle ou intervention requise")
+          print("NETTOYAGE_REUSSI_ET_DONNEES_CONSERVEES",flush=True)
+          PYBRANCHES
