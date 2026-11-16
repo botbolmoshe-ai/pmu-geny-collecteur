@@ -13,6 +13,15 @@ Dépôt : botbolmoshe-ai/pmu-geny-collecteur
 - Les 163 identifiants Geny des historiques de `test/boucle-historiques-courus` existent tous sous `pmu-data/historiques/`.
 - Toutes les suppressions sont conditionnées à l'absence de nouvelle modification du SHA de branche et de pull request ouvert.
 
+## Résultat exécuté et vérifié
+
+- **37 branches supprimées**, vérifiées par l'exécution GitHub Actions [43916719649](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/43916719649) (statut `success`).
+- **12 tags d'archivage créés** avant suppression pour les travaux sans PR fusionnée.
+- **2 branches restantes** lors du contrôle GitHub : `main` et `pmu-data`.
+- `pmu-data` conservée volontairement pour ne pas interrompre la collecte, les checkpoints, les historiques et les prévisions.
+- Aucun changement destructif des données stockées sous `pmu-data` ; aucun workflow de production modifié par le nettoyage.
+- Le fichier de lancement et le workflow ponctuel de nettoyage peuvent maintenant être retirés de `main`.
+
 ## Liste de retrait
 
 | Branche | SHA audité | Sort | Archive du travail non fusionné |
