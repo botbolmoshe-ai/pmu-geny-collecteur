@@ -113,3 +113,12 @@ class SchemaTests(unittest.TestCase):
         plan=plan_kpi([['Dimension','Indicateur','Valeur','Définition','Total'],
             ['','','','',10],['ML','Participations avec sélection ML publiée',4,'Ancien',4]],metrics)
         self.assertEqual(plan[0]['values'],[['']]);self.assertEqual(plan[1]['values'][0][0],3)
+
+    def test_moteur_lit_aussi_la_colonne_e_pour_effacer_les_references_orphelines(self):
+        session=SheetsSession()
+        session.tables['Data Quality & KPI']=[['Dimension','Indicateur','Valeur','Définition','Total'],
+                                             ['','','','','=$C$18']]
+        engine=SynchroniseurSheets(self.cache,'fake-kpi-orphelin',session=session)
+        engine.synchroniser_tables({},scope='KPI',kpi_source={'Courses & Prévisions':{},
+            'Historique chevaux':{},'Résultats & Analyse':{}})
+        self.assertEqual(session.tables['Data Quality & KPI'][1],['','','','',''])
