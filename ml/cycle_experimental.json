@@ -1,0 +1,67 @@
+{
+  "version_cycle": 1,
+  "empreinte_donnees": "c89b20cd98b557d0c91690791e0baa459f783d585b446a4d2b716f24cce820b0",
+  "execute_utc": "2026-11-16T21:41:33.784717+00:00",
+  "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
+  "courses_admissibles": 78,
+  "lignes_admissibles": 1052,
+  "promotion_production": false,
+  "rapport": "ml/experiences/automatique-c89b20cd98b557d0c916/rapport.json",
+  "validation_day": "2026-11-15",
+  "test_day": "2026-11-16",
+  "modele": "gradient_boosting",
+  "test_ml": {
+    "courses": 2,
+    "chevaux_retrouves": 2,
+    "moyenne": 1.0,
+    "au_moins_2_sur_3": 0,
+    "exact_3_sur_3": 0,
+    "distribution": {
+      "1": 2
+    },
+    "hits_par_course": {
+      "2026-11-16_R1C7": 1,
+      "2026-11-16_R1C8": 1
+    },
+    "selections": {
+      "2026-11-16_R1C7": [
+        13,
+        11,
+        5
+      ],
+      "2026-11-16_R1C8": [
+        14,
+        13,
+        12
+      ]
+    }
+  },
+  "comparaison": {
+    "courses": 2,
+    "ecart_moyen": 0.5,
+    "ic95_bootstrap_par_course": [
+      0.0,
+      1.0
+    ]
+  },
+  "decoupage": {
+    "train": {
+      "courses": 53,
+      "lignes": 722,
+      "premier_depart": "2026-11-11T16:42:00+01:00",
+      "dernier_depart": "2026-11-14T18:10:00+01:00"
+    },
+    "validation": {
+      "courses": 23,
+      "lignes": 303,
+      "premier_depart": "2026-11-15T10:51:00+01:00",
+      "dernier_depart": "2026-11-15T18:03:00+01:00"
+    },
+    "test": {
+      "courses": 2,
+      "lignes": 27,
+      "premier_depart": "2026-11-16T17:27:00+01:00",
+      "dernier_depart": "2026-11-16T18:00:00+01:00"
+    }
+  }
+}
