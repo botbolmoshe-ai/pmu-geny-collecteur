@@ -1,0 +1,342 @@
+{
+  "date": "2026-11-17",
+  "course": "R3C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LILIUS DE GUEZ",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 7300000,
+        "gainsVictoires": 4950000,
+        "gainsPlace": 2350000,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 7110000
+      }
+    },
+    {
+      "nom": "LE VENT DU HOULET",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 7473000,
+        "gainsVictoires": 3690000,
+        "gainsPlace": 3783000,
+        "gainsAnneeEnCours": 5084000,
+        "gainsAnneePrecedente": 1961000
+      }
+    },
+    {
+      "nom": "LABEL DE LARRE",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 7553000,
+        "gainsVictoires": 2835000,
+        "gainsPlace": 4718000,
+        "gainsAnneeEnCours": 328000,
+        "gainsAnneePrecedente": 3300000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-16T16:18:46.683802+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie VAUTORS",
+      "ferrure": "D4",
+      "musique_pmu": "0a0a0aDmDmDa(25)3m3m5m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 73000.0,
+      "nom": "LILIUS DE GUEZ",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "M. LELIEVRE",
+      "entraineur": "L. VERVA",
+      "proprietaire": "Ecurie MEXIQUE RANCH",
+      "ferrure": "D4",
+      "musique_pmu": "1m5m3m1m4m6mDm1m8a3m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 74730.0,
+      "nom": "LE VENT DU HOULET",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "M. CHAMPENOIS",
+      "entraineur": "S. ROGER",
+      "proprietaire": "Ecurie La PETTEVINIERE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0a0m9m8a0aDa0mDa4mDm",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 75530.0,
+      "nom": "LABEL DE LARRE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "Mme I.L. KUULMAN",
+      "proprietaire": "Mme I.L. KUULMAN",
+      "musique_pmu": "6a5a6a4a9a3a5a5aDa2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 76310.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "nom": "LUCIANO ROYAL",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "J. CONDETTE",
+      "proprietaire": "J. CONDETTE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0a1mDm4mDm4mDa6mDm5m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 79350.0,
+      "nom": "LUCAS DE TOURNAI",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "S.E. PASQUIER",
+      "entraineur": "F. TERRY",
+      "proprietaire": "Philippe RENNESSON",
+      "ferrure": "D4",
+      "musique_pmu": "3m1m7a9m0a4mDm3mDmDm",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 79675.0,
+      "nom": "L'ARTISTE ZEN",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "P.Y. VERVA",
+      "proprietaire": "Ecurie Pierre-Yves VERVA",
+      "ferrure": "D4",
+      "musique_pmu": "5a0mDm2m3m3mDa4mDm(25)",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 82110.0,
+      "nom": "LERWICK PERRINE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "J.PH. DUBOIS",
+      "proprietaire": "Ecurie VICTORIA DREAMS",
+      "ferrure": "D4",
+      "musique_pmu": "Da8a9aDa8a0aDa8a2mDa",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 82690.0,
+      "nom": "LOVE'S SECRET",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "N. PERRON",
+      "entraineur": "JOEL HALLAIS",
+      "proprietaire": "Ecurie RIB",
+      "ferrure": "P4",
+      "musique_pmu": "2aDm3a1mDa7a1aDa1a8a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 83060.0,
+      "nom": "LOTUS DU RIB",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "TH. DROMIGNY",
+      "entraineur": "R. MOURICE",
+      "proprietaire": "Ecurie Romuald MOURICE",
+      "ferrure": "DA",
+      "musique_pmu": "4m2m1m2m1m1m9a5a2m(25)",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 85275.0,
+      "nom": "LE ROI MARGOT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "C. PILFERT",
+      "proprietaire": "Mlle Sandrine BELLESSORT",
+      "ferrure": "D4",
+      "musique_pmu": "4m2m1m1m2m1m7a(25)0m8m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 86780.0,
+      "nom": "LOOPING DU PERRE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "Mme T. MATHIAS-MAISONNETTE",
+      "entraineur": "TH. RAFFEGEAU",
+      "proprietaire": "Ecurie Thierry RAFFEGEAU",
+      "ferrure": "DP",
+      "musique_pmu": "0m7m3m6m6m2m2m5m5m(25)",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 87160.0,
+      "nom": "LEONCE DU CLOS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "MICKAEL CORMY",
+      "proprietaire": "Ecurie du VIEUX CHENE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a2mDaDa2a5a6aDa5aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 89055.0,
+      "nom": "LEADER DES RIOULTS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026/R3/C7/participants",
+          "capture_utc": "2026-11-16T16:18:46.683802+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
