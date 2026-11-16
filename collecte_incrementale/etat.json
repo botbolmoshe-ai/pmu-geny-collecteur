@@ -30677,7 +30677,17 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-17T13:12:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS"
+      "collecte": "A_REPRENDRE",
+      "erreur": "PermissionError: ACCES_REFUSE_403",
+      "prochain_essai_utc": "2026-11-17T03:43:28.099306+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T21:43:28.099325+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-17_R3C1_1/1794865401570935062/resultat.json"
+      }
     },
     "2026-11-17_R3C1_2": {
       "nom": "OPEN D'OAM",
@@ -31905,12 +31915,12 @@
     }
   },
   "passage_utc": "2026-11-16T21:43:15.269428+00:00",
-  "maj_utc": "2026-11-16T21:43:19.094694+00:00",
+  "maj_utc": "2026-11-16T21:43:28.104537+00:00",
   "bilan": {
     "chevaux_suivis": 1448,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1270
   },
@@ -31921,7 +31931,7 @@
       "indicateurs_actualises": 29
     }
   },
-  "prochain_acces_geny_utc": "2026-11-16T21:28:31.785679+00:00",
+  "prochain_acces_geny_utc": "2026-11-16T22:13:28.099343+00:00",
   "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
