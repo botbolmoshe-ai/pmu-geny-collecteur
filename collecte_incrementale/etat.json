@@ -21749,9 +21749,21 @@
       "vu_utc": "2026-11-16T16:19:46.227343+00:00",
       "verification_periodique": false,
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "course_url": "https://www.geny.com/course/1698709/partants-pronostics",
-      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00"
+      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-16T22:20:34.061975+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T16:20:34.061993+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [
+          "ACCES_LIMITE_429"
+        ],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2026-11-16_R1C1_1/1794845992957517150/resultat.json"
+      }
     },
     "2026-11-16_R1C1_2": {
       "nom": "JAZZ D'OURVILLE",
@@ -30224,12 +30236,12 @@
     }
   },
   "passage_utc": "2026-11-16T16:19:46.227343+00:00",
-  "maj_utc": "2026-11-16T16:19:50.126578+00:00",
+  "maj_utc": "2026-11-16T16:20:34.066679+00:00",
   "bilan": {
     "chevaux_suivis": 1345,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1175
   },
@@ -30240,6 +30252,6 @@
       "indicateurs_actualises": 29
     }
   },
-  "prochain_acces_geny_utc": "2026-11-15T12:40:56.464539+00:00",
+  "prochain_acces_geny_utc": "2026-11-16T16:50:34.062011+00:00",
   "priorite_collecte": "ENGAGEMENTS_JOUR"
 }
