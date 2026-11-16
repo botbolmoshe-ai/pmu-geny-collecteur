@@ -54,13 +54,17 @@ class MoteurTests(unittest.TestCase):
                     return Response({})
                 return super().post(url,**kwargs)
         session=Colonnes();session.tables['Courses & Prévisions']=[
-            ['course_key','numero','Avis expert Equidia','Avis expert PMU'],
-            ['k','1','ancien avis','PMU ancien']]
+            ['course_key','numero','Avis expert Equidia','Avis expert PMU',
+             'Avis expert ZEturf','Pronostic Equidia · Ordre publié','Pronostic ZEturf · Ordre publié',
+             'Source Equidia · URL et collecte UTC','Source ZEturf · URL et collecte UTC'],
+            ['k','1','ancien avis','PMU ancien','avis ZEturf','1,2,3','1,2,3','source E','source Z']]
         engine=SynchroniseurSheets(self.cache,'fake',session=session)
         source={'Courses & Prévisions':{'k':{'course_key':'k','numero':'1','avis_pmu':'PMU actualisé'}}}
         first=engine.synchroniser_tables(source,scope='CYCLE_PMU',allow_structure=True)
         second=engine.synchroniser_tables(source,scope='CYCLE_PMU',allow_structure=True)
         self.assertNotIn('Avis expert Equidia',session.tables['Courses & Prévisions'][0])
+        self.assertFalse(any('equidia' in h.lower() or 'zeturf' in h.lower()
+                             for h in session.tables['Courses & Prévisions'][0]))
         self.assertEqual(session.tables['Courses & Prévisions'][1][2],'PMU actualisé')
         self.assertEqual(second['Courses & Prévisions']['cellules_actualisees'],0)
 

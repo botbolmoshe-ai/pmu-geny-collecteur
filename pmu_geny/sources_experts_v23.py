@@ -17,7 +17,6 @@ from .ml_v19 import load, save
 from .liaison_chevaux_v22 import nom_normalise
 
 SOURCES = ('pmu',)
-SOURCES_RETIREES = ('equidia', 'zeturf')
 HOSTS = {'online.turfinfo.api.pmu.fr'}
 
 def text(node):
@@ -266,13 +265,13 @@ def completer_partants(cache,course):
     save(path,current)
 
 def champs_sheet(experts,n,nom=None):
-    """Vides explicites pour ne pas réafficher d'anciens avis d'une autre source."""
+    """Champs PMU exclusivement ; les anciennes sources tierces sont ignorées."""
     out={};item=(experts.get('chevaux') or {}).get(str(n),{})
     sources=experts.get('sources',{}) if experts.get('version')==23 else {}
     if nom is not None and nom_normalise(nom)!=nom_normalise(item.get('nom','')):item={}
-    for source in SOURCES+SOURCES_RETIREES:
-        doc=sources.get(source,{}) if source in SOURCES else {}
-        out['avis_'+source]=item.get('avis_'+source,'') if sources and source in SOURCES else ''
+    for source in SOURCES:
+        doc=sources.get(source,{})
+        out['avis_'+source]=item.get('avis_'+source,'') if sources else ''
         out['prono_'+source]=', '.join(map(str,doc.get('pronostic',[])))
         out['source_'+source]=(doc.get('url','')+' · '+doc.get('capture_utc','')).strip(' ·')
     out['couverture_experts']=' | '.join(s.upper()+': '+sources.get(s,{}).get('statut','NON_VERIFIE')+(' (dernier contrôle en échec)' if sources.get(s,{}).get('dernier_controle') else '')+' / prono '+sources.get(s,{}).get('statut_pronostic','NON_VERIFIE') for s in SOURCES)

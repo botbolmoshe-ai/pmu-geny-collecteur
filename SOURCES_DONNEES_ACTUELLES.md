@@ -45,8 +45,10 @@ Geny conserve son rôle pour les performances historiques. Open-Meteo est
 conservé pour ses données météorologiques distinctes, sans prétendre que leur
 présence améliore déjà le TOP3 : cet effet reste à mesurer hors échantillon.
 
-Les anciennes colonnes d'avis tiers sont vidées lors de la publication courante
-pour éviter de présenter un avis ancien comme une source encore active.
+Les colonnes d'avis, de pronostics et de sources Equidia/ZEturf sont supprimées
+du registre et du schéma des publications. Les anciens indicateurs de couverture
+de ces sources sont également retirés. La publication retire ces colonnes si
+une ancienne exécution les réintroduit et relit les en-têtes après suppression.
 Les archives et les pronostics gelés ne sont pas réécrits. Les parseurs des
 anciens formats restent disponibles pour lire les archives, sans appel réseau
 dans la production.

@@ -53,12 +53,12 @@ class TestSources(unittest.TestCase):
   self.assertNotIn('gains_euros',act);self.assertNotIn('ferrure',act)
   self.assertEqual(act['statut_np'],'PARTANT')
   self.assertEqual(collecter(self.root,C,RAW,NOW,lambda _:self.fail('cache non réutilisé')),'EXPERTS_1_SUR_1')
-  self.assertEqual(champs_sheet(d,'1')['prono_zeturf'],'')
+  self.assertEqual(champs_sheet(d,'1').get('prono_zeturf',''),'')
   self.assertEqual(champs_sheet(d,'1')['prono_pmu'],'1')
  def test_secondary_title_and_changed_horse(self):
   self.assertEqual(parser_zeturf(ZE.replace('Prix Test</h2>','Prix Test (Prix Ancien)</h2>'),C,P)['pronostic'],[1])
   d={'version':23,'sources':{'equidia':{}},'chevaux':{'1':{'nom':'TEST CHEVAL','avis_equidia':'ancien'}}}
-  self.assertEqual(champs_sheet(d,'1','AUTRE CHEVAL')['avis_equidia'],'')
+  self.assertEqual(champs_sheet(d,'1','AUTRE CHEVAL').get('avis_equidia',''),'')
  def test_same_race_links_with_bet_queries_are_one_candidate(self):
   self.assertEqual(links('<a href="/fr/race?prefill=1">a</a><a href="/fr/race?prefill=3">b</a><a href="https://other.fr/fr/race">c</a>',r'/fr/race'),['/fr/race'])
  def test_after_depart_no_fetch_or_write(self):
@@ -71,8 +71,8 @@ class TestSources(unittest.TestCase):
   d=json.loads((self.root/'avis_experts/2026-11-12_R1C1.json').read_text())
   self.assertNotIn('equidia',d['sources'])
   self.assertEqual(d['sources']['pmu']['statut_pronostic'],'NON_PUBLIE_OU_NON_ACCESSIBLE')
-  self.assertEqual(champs_sheet(d,'1')['avis_equidia'],'')
-  self.assertEqual(champs_sheet({'chevaux':{'1':{'avis_zone_turf':'ancien avis'}}},'1')['avis_zeturf'],'')
+  self.assertEqual(champs_sheet(d,'1').get('avis_equidia',''),'')
+  self.assertEqual(champs_sheet({'chevaux':{'1':{'avis_zone_turf':'ancien avis'}}},'1').get('avis_zeturf',''),'')
  def test_empty_expert_value_clears_stale_cell(self):
   h=['course_key','numero','avis_equidia'];rows=[dict(zip(h,['k','1','ancien']))]
   _,changes,_=plan_sheet(h,rows,{'x':{'course_key':'k','numero':'1','avis_equidia':''}},'Courses & Prévisions')
@@ -102,7 +102,7 @@ class TestSources(unittest.TestCase):
   fields=champs_sheet(legacy,'1','TEST CHEVAL')
   self.assertEqual(fields['avis_pmu'],'Texte PMU')
   for source in ('equidia','zeturf'):
-   for prefix in ('avis_','prono_','source_'):self.assertEqual(fields[prefix+source],'')
+   for prefix in ('avis_','prono_','source_'):self.assertNotIn(prefix+source,fields)
   self.assertEqual(fields['conditions_course'],'Conditions PMU')
   self.assertEqual(fields['synthese_actualite'],'PMU: Texte PMU')
 
