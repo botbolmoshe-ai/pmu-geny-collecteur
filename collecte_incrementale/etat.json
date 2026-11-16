@@ -21961,9 +21961,19 @@
       "vu_utc": "2026-11-16T19:29:29.893526+00:00",
       "verification_periodique": false,
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "course_url": "https://www.geny.com/course/1698709/partants-pronostics",
-      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00"
+      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-11-17T01:30:08.994267+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T19:30:08.994290+00:00",
+        "statut": "ERREUR",
+        "motifs": [],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-16_R1C1_12/1794857375437857980/resultat.json"
+      }
     },
     "2026-11-16_R1C1_13": {
       "nom": "MAX OCCAGNES",
@@ -30331,12 +30341,12 @@
     }
   },
   "passage_utc": "2026-11-16T19:29:29.893526+00:00",
-  "maj_utc": "2026-11-16T19:29:33.313436+00:00",
+  "maj_utc": "2026-11-16T19:30:08.994312+00:00",
   "bilan": {
     "chevaux_suivis": 1448,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1280
   },
