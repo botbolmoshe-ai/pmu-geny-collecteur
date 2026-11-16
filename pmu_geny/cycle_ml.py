@@ -19,22 +19,25 @@ def run(cache, now=None, force=False):
     if now.tzinfo is None:
         raise ValueError('Fuseau horaire obligatoire')
     local = now.astimezone(PARIS)
-    if not force and local.hour < 20:
-        return {'etat': 'ENTRAINEMENT_DIFFERE_20H_PARIS'}
     digest = hashlib.sha256()
     for folder in ('ml/instantanes', 'arrivees'):
         for path in sorted((cache / folder).glob('*.json')):
             digest.update(str(path.relative_to(cache)).encode())
             digest.update(path.read_bytes())
     fingerprint = digest.hexdigest()
+    from .cycle_ml_experimental import executer
+    experimental=executer(cache,now,fingerprint)
+    if not force and local.hour < 20:
+        return {'etat': 'ENTRAINEMENT_DIFFERE_20H_PARIS','experimental':experimental}
     attempt_path = cache / 'ml/cycle.json'
     previous = load(attempt_path, {}) or {}
     key = {'jour_paris': local.date().isoformat(), 'empreinte_donnees': fingerprint}
     if not force and all(previous.get(k) == v for k, v in key.items()):
-        return {'etat': 'DEJA_TRAITE', **key, 'resultat_precedent': previous.get('etat')}
+        return {'etat': 'DEJA_TRAITE', **key, 'resultat_precedent': previous.get('etat'),'experimental':experimental}
     # Une erreur laisse la tentative precedente intacte et autorise la reprise.
     result = train(cache, now=now)
     result.update(key)
+    result['experimental']=experimental
     save(cache / 'ml/entrainement.json', result)
     save(attempt_path, {**key, 'tentative_utc': now.isoformat(), 'etat': result['etat']})
     return result

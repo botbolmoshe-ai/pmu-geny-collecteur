@@ -1,13 +1,13 @@
 name: PMU - Rattrapage global des historiques
 on:
   schedule:
-    - cron: '15,45 * * * *'
+    - cron: '45 * * * *'
   workflow_dispatch:
     inputs:
       max_minutes:
         description: 'Budget de collecte du passage (1 a 15 minutes)'
         type: number
-        default: 10
+        default: 2
         required: true
       actualiser_inventaire:
         description: 'Inclure explicitement les chevaux rencontrés depuis le début du lot'
@@ -85,7 +85,7 @@ jobs:
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
-          MAX_MINUTES: ${{ inputs.max_minutes || 10 }}
+          MAX_MINUTES: ${{ inputs.max_minutes || 2 }}
           ARCHIVES_DIAGNOSTICS: ${{ inputs.archives_diagnostics || '' }}
           ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
           RECONCILIER_IDENTITES: ${{ inputs.reconcilier_identites || false }}

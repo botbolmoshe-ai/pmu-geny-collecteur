@@ -436,6 +436,17 @@ def main():
     if args.publier:
         if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID','GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
+        from .preparation_prochaines import autoriser_fond
+        reason=priorite_production() or autoriser_fond(cache,datetime.now(inc.UTC))
+        if reason and not (args.reconcilier_identites or args.archives_diagnostics):
+            state=inc.lire(cache/QUEUE)
+            if state.get('chevaux'):
+                state.update(motif_fin_passage=reason,maj_utc=datetime.now(inc.UTC).isoformat())
+                inc.ecrire(cache/QUEUE,state)
+                inc.ecrire(cache/QUEUE.parent/'bilan.json',rapport(state))
+                inc.checkpoint_distant(cache,queue=QUEUE)
+            print('RATTRAPAGE_FOND_DIFFERE '+reason,flush=True)
+            return
         from .moteur_sheets import SynchroniseurSheets
         engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
         try:
@@ -448,8 +459,9 @@ def main():
         if args.archives_diagnostics:
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
-        state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=args.max_chevaux,
-                      publier=True,mode='rattrapage',stop_requested=priorite_production)
+        state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=min(args.max_chevaux,1),
+                      publier=True,mode='rattrapage',
+                      stop_requested=lambda:priorite_production() or autoriser_fond(cache,datetime.now(inc.UTC)))
     else:
         state=(actualiser_inventaire if args.actualiser_inventaire else preparer)(cache,datetime.now(inc.UTC))
     print('BILAN_RATTRAPAGE '+json.dumps({'statut':state['statut'],'inventaire_id':state['inventaire_id'],

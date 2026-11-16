@@ -239,6 +239,9 @@ def prochaine_tache(state, now, attempts):
     for key, h in state['chevaux'].items():
         if not h.get('motif_actualisation') or h.get('sync') == 'A_FAIRE':
             continue
+        if state.get('politique_collecte')=='PROCHAINS_DEPARTS_SEULEMENT':
+            depart=instant(h.get('depart_a_venir_utc'))
+            if not depart or depart<=now or not h.get('preparation_pmu_ok'):continue
         # Uniquement chevaux revus dans les entrées de ce passage, pas toute la carrière.
         if h.get('vu_utc') != state.get('passage_utc'):
             continue
@@ -251,7 +254,9 @@ def prochaine_tache(state, now, attempts):
         # La nuit, combler les carrières absentes avant les actualisations.
         priority=priorite_engagement(h,now,manquant=h.get('motif_actualisation')=='HISTORIQUE_ABSENT_OU_NON_DATE')
         enrichment=h.get('motif_actualisation')=='FERRURES_HISTORIQUES_A_COMPLETER'
-        candidates.append(((enrichment,priority,h['engagement'],key),key))
+        order=((h['depart_a_venir_utc'],enrichment,key) if state.get('politique_collecte')=='PROCHAINS_DEPARTS_SEULEMENT'
+               else (enrichment,priority,h['engagement'],key))
+        candidates.append((order,key))
     if candidates:
         return min(candidates)[1], 'COLLECTE'
     return None, 'TERMINE'
@@ -374,7 +379,8 @@ def checkpoint_distant(cache, *, queue=QUEUE):
 
 
 def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
-        collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None):
+        collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None,
+        prochains_depart=False):
     cache = Path(cache)
     now = datetime.now(UTC)
     reprise=None
@@ -384,6 +390,10 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         raise ValueError('MODE_COLLECTE_INCONNU')
     queue=reprise.QUEUE if reprise else QUEUE
     state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
+    if prochains_depart and not reprise:
+        from .preparation_prochaines import appliquer
+        appliquer(cache,state,now)
+    elif not reprise:state.pop('politique_collecte',None)
     state['passage_utc'] = now.isoformat()
     state['priorite_collecte']='PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR'
     state.pop('motif_fin_passage',None)
@@ -537,6 +547,7 @@ def main():
         raise SystemExit('Secrets Sheets absents : aucune collecte lancée')
     from .rattrapage_historiques import priorite_production
     state = run(Path(args.cache), max_minutes=args.max_minutes, max_chevaux=args.max_chevaux, publier=True,
+                prochains_depart=True,
                 stop_requested=lambda:priorite_production({'.github/workflows/pmu-v16.yml'}))
     print('BILAN_INCREMENTAL '+json.dumps(state['bilan']))
 
