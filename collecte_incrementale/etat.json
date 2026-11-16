@@ -21873,9 +21873,21 @@
       "vu_utc": "2026-11-16T16:54:14.195873+00:00",
       "verification_periodique": false,
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "course_url": "https://www.geny.com/course/1698709/partants-pronostics",
-      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00"
+      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-16T22:55:05.165722+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T16:55:05.165745+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [
+          "ACCES_LIMITE_429"
+        ],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2026-11-16_R1C1_10/1794848060990242080/resultat.json"
+      }
     },
     "2026-11-16_R1C1_11": {
       "nom": "DILVA JET",
@@ -30254,12 +30266,12 @@
     }
   },
   "passage_utc": "2026-11-16T16:54:14.195873+00:00",
-  "maj_utc": "2026-11-16T16:54:17.914103+00:00",
+  "maj_utc": "2026-11-16T16:55:05.171694+00:00",
   "bilan": {
     "chevaux_suivis": 1448,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1280
   },
@@ -30270,6 +30282,6 @@
       "indicateurs_actualises": 29
     }
   },
-  "prochain_acces_geny_utc": "2026-11-16T16:50:34.062011+00:00",
+  "prochain_acces_geny_utc": "2026-11-16T17:25:05.165766+00:00",
   "priorite_collecte": "ENGAGEMENTS_JOUR"
 }
