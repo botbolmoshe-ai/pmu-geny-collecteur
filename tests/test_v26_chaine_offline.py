@@ -65,10 +65,11 @@ class SheetsSession:
                 for ch in match[1]:
                     col = col*26+ord(ch)-64
                 row = int(match[2])-1
-                dest = self.tables[tab.strip("'")][row]
-                while len(dest) < col+len(entry['values'][0])-1:
-                    dest.append('')
-                dest[col-1:col-1+len(entry['values'][0])] = entry['values'][0]
+                for offset,values in enumerate(entry['values']):
+                    dest = self.tables[tab.strip("'")][row+offset]
+                    while len(dest) < col+len(values)-1:
+                        dest.append('')
+                    dest[col-1:col-1+len(values)] = values
         return Response({})
 
 

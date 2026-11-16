@@ -62,6 +62,8 @@ def calculer_kpi(cache, source=None, now=None):
         metric('Partants avec âge, sexe, gains et ferrure',sum(all(str(r.get(f) if r.get(f) is not None else '').strip() for f in ('age_ans','sexe','gains_euros','ferrure')) for r in participants),'Participations avec les quatre champs renseignés ; 0 est une valeur.'),
         metric('Taux critères essentiels renseignés',sum(all(str(r.get(f) if r.get(f) is not None else '').strip() for f in ('age_ans','sexe','gains_euros','ferrure')) for r in participants)/count if count else '','Participations avec quatre champs / participations recensées.'),
         metric('Avis PMU renseignés',nonempty('avis_pmu'),'Participations avec texte source PMU non vide.'),
+        metric('Participations avec sélection ML publiée',sum(r.get('ml_top3')=='OUI' for r in participants),
+               'Participations sélectionnées ML (OUI), distinctes des simples rangs et des expériences rétrospectives.'),
         metric('Participations recensées',count,'Lignes de partants, distinctes des chevaux et des courses.'),
         metric('Partants sans historique collecté',sum(r.get('historique_statut')=='HISTO_NON_COLLECTE' for r in participants),'Participations explicitement sans historique collecté.'),
         metric('Taux de partants avec historique identifié',linked/count if count else '','Participations HISTO_OK / participations recensées.'),
@@ -83,7 +85,10 @@ def plan_kpi(values, metrics):
     updates=[]
     for number,row in enumerate(values[1:],start=2):
         if len(row)>1 and row[1] in ('Avis Equidia renseignés','Avis ZEturf renseignés'):
-            updates.append({'range':f"'{KPI_TAB}'!A{number}:D{number}",'values':[['','','','']]})
+            updates.append({'range':f"'{KPI_TAB}'!A{number}:E{number}",'values':[['','','','','']]})
+            continue
+        if not any(str(value or '').strip() for value in row[:4]) and len(row)>4 and row[4]!='':
+            updates.append({'range':f"'{KPI_TAB}'!E{number}",'values':[['']]})
             continue
         if len(row)>1 and row[1] in metrics:
             value,definition=metrics[row[1]]
