@@ -21897,9 +21897,21 @@
       "vu_utc": "2026-11-16T17:41:39.287780+00:00",
       "verification_periodique": false,
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "course_url": "https://www.geny.com/course/1698709/partants-pronostics",
-      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00"
+      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-16T23:42:32.909861+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T17:42:32.909881+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [
+          "ACCES_LIMITE_429"
+        ],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2026-11-16_R1C1_11/1794850908167658426/resultat.json"
+      }
     },
     "2026-11-16_R1C1_12": {
       "nom": "JUNKIE (SWE)",
@@ -30266,12 +30278,12 @@
     }
   },
   "passage_utc": "2026-11-16T17:41:39.287780+00:00",
-  "maj_utc": "2026-11-16T17:41:44.878718+00:00",
+  "maj_utc": "2026-11-16T17:42:32.916668+00:00",
   "bilan": {
     "chevaux_suivis": 1448,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1279
   },
@@ -30282,6 +30294,6 @@
       "indicateurs_actualises": 29
     }
   },
-  "prochain_acces_geny_utc": "2026-11-16T17:25:05.165766+00:00",
+  "prochain_acces_geny_utc": "2026-11-16T18:12:32.909903+00:00",
   "priorite_collecte": "ENGAGEMENTS_JOUR"
 }
