@@ -113,6 +113,17 @@ class HistoriquesPartielsTests(unittest.TestCase):
         self.assertTrue(conserver(self.cache,self.horse,self.report))
         self.assertEqual(self.horse['nombre_performances_partielles'],1)
 
+    def test_remplacement_du_partiel_archive_la_capture_precedente(self):
+        self.assertTrue(conserver(self.cache,self.horse,self.report))
+        target=self.cache/'historiques_partiels/123456/historique_geny.json'
+        previous=inc.lire(target)
+        changed=copy.deepcopy(self.document)
+        changed['performances'][0]['date']=(self.now-timedelta(days=5)).date().isoformat()
+        inc.ecrire(self.folder/'historique_geny.json',changed)
+        self.assertTrue(conserver(self.cache,self.horse,self.report))
+        archives=list((self.cache/'historiques_versions/123456').glob('partiel-*.json'))
+        self.assertEqual(len(archives),1);self.assertEqual(inc.lire(archives[0]),previous)
+
     def test_identite_refus_date_et_doublons_sont_bloquants(self):
         cases=[({'identite_verifiee':False},{}),({'statut':'ACCES_REFUSE_403'},{}),
                ({'geny':{**self.geny,'nom':'Autre'}},{}),

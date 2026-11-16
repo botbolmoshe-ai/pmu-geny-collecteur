@@ -1,4 +1,6 @@
 """Conserver les lignes Geny vérifiables sans annoncer une carrière complète."""
+import hashlib
+import json
 import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -37,6 +39,9 @@ def conserver(cache, horse, report):
     target=Path(cache)/'historiques_partiels'/ident/'historique_geny.json'
     previous=inc.lire(target)
     if previous and len(previous.get('performances',[]))>len(rows):return False
+    if previous:
+        digest=hashlib.sha256(json.dumps(previous,sort_keys=True).encode()).hexdigest()
+        inc.ecrire(Path(cache)/'historiques_versions'/ident/('partiel-'+digest+'.json'),previous)
     partial={**doc,'nom':horse['nom'],'identifiant_cheval':ident,'statut':'PARTIEL_HISTORIQUE',
              'complet':False,'performances':rows,'nombre_extrait':len(rows),
              'motifs_incompletude':report.get('motifs',[]),'identite_verifiee':True}

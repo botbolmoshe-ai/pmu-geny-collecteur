@@ -23,7 +23,8 @@ refus d'accès. Les anciennes lignes Sheets incluent aussi des données hérité
 - Les lignes d'une carrière partielle peuvent être conservées séparément dans
   `historiques_partiels/ID/historique_geny.json`. Identité, hôte, ID, date de
   capture, dates de course, champs essentiels et doublons restent contrôlés.
-  Ces fichiers ne remplacent jamais une carrière complète.
+  Ces fichiers ne remplacent jamais une carrière complète ; une capture partielle
+  remplacée est archivée avec son horodatage source.
 - Les lignes valides passent par le moteur Sheets existant, avec le statut
   `EXTRACTION_GENY_PARTIELLE`. Le partant indique `HISTO_PARTIEL_GENY`. La liaison
   des chevaux et les futures captures ML peuvent utiliser ces données ; les
@@ -36,7 +37,7 @@ Un arrêt du worker reprend à partir du checkpoint durable.
 
 ## Validation
 
-`python -m unittest discover -s tests -p 'test_*.py' -q` : 337 tests réussis.
+`python -m unittest discover -s tests -p 'test_*.py' -q` : 338 tests réussis.
 
 `python -m scripts.valider_session_geny_hors_ligne` vérifie aussi le navigateur
 réel avec des pages simulées et toutes les requêtes interceptées : deux
