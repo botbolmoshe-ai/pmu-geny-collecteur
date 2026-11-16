@@ -271,6 +271,21 @@ def executer_enfant(horse, out):
     return lire(out/'resultat.json')
 
 
+def memoriser_resolution(horse, report, out):
+    """Une résolution de lien n'est jamais une validation de carrière."""
+    from .identites_chevaux import source_identifiant
+    proof=lire(out/'resolution_geny.json')
+    geny=report.get('geny') or proof.get('geny') or {}
+    ident=str(geny.get('id',''))
+    if (source_identifiant(ident,geny.get('url_geny'))!='geny'
+            or not re.fullmatch(r'\d{4,15}',ident)
+            or nom_normalise(geny.get('nom'))!=nom_normalise(horse.get('nom'))
+            or horse.get('id') and str(horse['id'])!=ident):return
+    if not report.get('geny') and (proof.get('engagement')!=horse.get('engagement')
+            or proof.get('numero')!=str(horse.get('numero',''))):return
+    horse['geny']=geny
+
+
 def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'):
     """Ne jamais remplacer un historique complet par un partiel ou une régression."""
     if not report.get('complet') or not report.get('identite_verifiee'):
@@ -360,7 +375,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
             ecrire(target/queue, lire(cache/queue))
             if queue!=QUEUE:
                 shutil.copytree(cache/queue.parent,target/queue.parent,dirs_exist_ok=True)
-            for name in ('historiques', 'historiques_versions', 'manifestes'):
+            for name in ('historiques', 'historiques_partiels', 'historiques_versions', 'manifestes'):
                 if (cache/name).exists():
                     shutil.copytree(cache/name, target/name, dirs_exist_ok=True)
             shutil.copy2(cache/'etat_persistant.json', target/'etat_persistant.json')
@@ -369,6 +384,8 @@ def checkpoint_distant(cache, *, queue=QUEUE):
                 git('add', 'manifestes', cwd=target)
             if (target/'historiques_versions').exists():
                 git('add', 'historiques_versions', cwd=target)
+            if (target/'historiques_partiels').exists():
+                git('add', 'historiques_partiels', cwd=target)
             changed = subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=target).returncode
             if changed:
                 git('commit', '-m', 'PMU : checkpoint collecte incrementale', cwd=target)
@@ -401,13 +418,13 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
     if blocked and now < blocked+timedelta(minutes=30):
         state['prochain_acces_geny_utc'] = (blocked+timedelta(minutes=30)).isoformat()
-    attempts, count, accepted = {}, 0, 0
+    attempts, count, accepted, partials = {}, 0, 0, 0
     sheets_engine=None
     deadline = time.monotonic()+max_minutes*60
     def save():
         state['maj_utc'] = datetime.now(UTC).isoformat()
         state.setdefault('bilan',{}).update(tentatives_collecte=count,
-            captures_validees=accepted,collectes_rejetees=count-accepted)
+            captures_validees=accepted,captures_partielles=partials,collectes_rejetees=count-accepted-partials)
         if reprise:reprise.bilan(state)
         else:materialiser_manifestes(cache, state)
         ecrire(cache/queue, state)
@@ -442,14 +459,20 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                 report = collect(horse, out)
                 if report.get('statut') in ('ACCES_REFUSE_403', 'ACCES_LIMITE_429'):
                     raise PermissionError(report['statut'])
-                if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
-                else:accepter(cache, horse, report)
-                accepted+=1
+                if report.get('complet'):
+                    if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
+                    else:accepter(cache, horse, report)
+                    accepted+=1
+                else:
+                    from .historiques_partiels import conserver
+                    if not conserver(cache,horse,report):raise ValueError('HISTORIQUE_NON_VALIDE')
+                    partials+=1
                 ident = horse['id']
                 if not reprise and key != ident:
                     state['chevaux'][ident] = horse
                     del state['chevaux'][key]
                     key = ident
+                    attempts[('COLLECTE',key)]=1
                 # Date de vérification != couverture : Geny peut publier la nouvelle course plus tard.
                 race = instant(horse.get('derniere_course_officielle_utc')) if not reprise else None
                 if race and horse.get('derniere_performance_date', '') < race.date().isoformat():
@@ -472,8 +495,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
                     journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': '403' if '403' in str(exc) else '429'}
                     ecrire(cache/'etat_persistant.json', journal)
-                elif report.get('statut') in ('ERREUR', 'ERREUR_NAVIGATION', 'ACCES_INDISPONIBLE') and horse.get('course_url'):
-                    horse.pop('geny', None)  # Résoudre à nouveau une URL périmée au prochain essai.
+                # Un échec réseau ne rend pas le lien déjà résolu périmé.
+            memoriser_resolution(horse,report,out)
             count += 1
             save()  # Publier les données AVANT toute écriture Sheets.
             if horse.get('sync') != 'A_FAIRE':
@@ -496,7 +519,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             else:
                 raise RuntimeError('SYNCHRONISATION_NON_CONFIGUREE')
             horse.update(sync='OK', sync_utc=datetime.now(UTC).isoformat(), erreur='')
-            if reprise:reprise.valider_sync(state,horse)
+            if reprise and horse.get('collecte')=='COMPLET':reprise.valider_sync(state,horse)
         except Exception as exc:
             horse.update(sync='A_FAIRE', erreur=f'{type(exc).__name__}: {exc}',
                          prochaine_sync_utc=(datetime.now(UTC)+timedelta(minutes=10)).isoformat())
@@ -511,7 +534,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             time.sleep(30)
     state.setdefault('motif_fin_passage','BUDGET_TEMPS_ATTEINT')
     state['bilan'] = {'chevaux_suivis': len(state['chevaux']), 'tentatives_collecte': count,
-                      'captures_validees':accepted,'collectes_rejetees':count-accepted,
+                      'captures_validees':accepted,'captures_partielles':partials,
+                      'collectes_rejetees':count-accepted-partials,
                       'synchronisations_en_attente': sum(h.get('sync') == 'A_FAIRE' for h in state['chevaux'].values()),
                       'actualisations_en_attente': sum(bool(h.get('motif_actualisation')) for h in state['chevaux'].values())}
     state['statut'] = ('PARTIEL_REPRENABLE' if state['bilan']['actualisations_en_attente'] or

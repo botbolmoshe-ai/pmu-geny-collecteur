@@ -263,117 +263,106 @@ def sauver_refus_ou_limitation(outdir: Path, url: str, status: int | None, titre
     }, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
-def main() -> int:
-    p=argparse.ArgumentParser(description="Test Geny : consentement + extraction de carrière")
-    p.add_argument("--url",default=DEFAULT_URL)
-    p.add_argument("--sortie",default="resultats")
-    p.add_argument("--headless",action="store_true")
-    args=p.parse_args()
-    if not args.url.startswith("https://www.geny.com/cheval/"):
-        p.error("URL cheval Geny attendue")
-    outdir=Path(args.sortie);outdir.mkdir(parents=True,exist_ok=True)
+def collecter_page(page, url: str, outdir: Path, *, page_chargee=False, http_status=None) -> int:
+    """Lire dans la session courante ; aucune reconnexion ni navigation de secours."""
+    outdir=Path(outdir);outdir.mkdir(parents=True,exist_ok=True)
     text=""; dom_rows=[];cookie_status="NON_TESTE"
     # Ne jamais réutiliser par accident un ancien succès après un échec.
     for old in ('historique_geny.json', 'historique_geny.csv', 'etat_collecte.json', 'controle_acces.json'):
         (outdir / old).unlink(missing_ok=True)
-    with sync_playwright() as pw:
-        browser=pw.chromium.launch(headless=args.headless)
-        context=browser.new_context(locale="fr-FR",timezone_id="Europe/Paris",viewport={"width":1366,"height":900})
-        page=context.new_page()
-        try:
-            print("Ouverture :",args.url)
-            response=page.goto(args.url,wait_until="domcontentloaded",timeout=45000)
+    try:
+        print("Ouverture :",url)
+        if not page_chargee:
+            response=page.goto(url,wait_until="domcontentloaded",timeout=45000)
             http_status = response.status if response else None
-            print("HTTP :", http_status if http_status is not None else "inconnu")
-            title = page.title()
-            initial_text = page.locator("body").inner_text(timeout=12000)
-            initial_html = page.content()
-            verdict = diagnostic_acces(http_status, title, initial_text, initial_html)
-            print('Controle initial (sans requete supplementaire) :', verdict, flush=True)
-            enregistrer_acces(outdir, verdict, args.url, http_status, title)
-            if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
-                sauver_refus_ou_limitation(outdir, args.url, http_status, title, verdict)
-                sauvegarder_diagnostics(page, outdir, initial_text)
-                print(f'{verdict} : arret immediat, sans nouvel essai.', flush=True)
-                return 3
-            if verdict.startswith('HTTP_'):
-                sauvegarder_diagnostics(page, outdir, initial_text)
-                print('ERREUR_HTTP :', verdict, flush=True)
-                return 2
-            if verdict != 'CARRIERE_ACCESSIBLE':
-                # L'unique chargement peut afficher un bandeau de consentement.
-                # Verifier l'accessibilite a nouveau apres le refus, mais sans
-                # declencher une deuxieme navigation vers Geny.
-                cookie_status = dismiss_consent(page)
-                try:
-                    page.get_by_text('CARRIÈRE', exact=True).first.wait_for(timeout=7000)
-                except PlaywrightTimeoutError:
-                    pass
-                current_text = page.locator('body').inner_text(timeout=12000)
-                verdict = diagnostic_acces(http_status, page.title(), current_text, page.content())
-                print('Controle apres consentement :', verdict, flush=True)
-                enregistrer_acces(outdir, verdict, args.url, http_status, page.title(), cookie_status)
-                if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
-                    sauver_refus_ou_limitation(outdir, args.url, http_status, page.title(), verdict)
-                    sauvegarder_diagnostics(page, outdir, current_text)
-                    return 3
-                if verdict != 'CARRIERE_ACCESSIBLE':
-                    sauvegarder_diagnostics(page, outdir, current_text)
-                    print('CARRIERE_NON_DETECTEE : page conservee pour diagnostic.', flush=True)
-                    return 2
-            else:
-                print('CARRIERE_ACCESSIBLE : pas de rubrique RECORDS requise.', flush=True)
-            # Continuer progressivement jusqu'a disparition des changements de taille,
-            # puis remonter pour garder toute la page accessible.
-            last_height=-1; stable=0
-            for _ in range(35):
-                page.mouse.wheel(0,1400)
-                page.wait_for_timeout(400)
-                height=page.evaluate("document.body.scrollHeight")
-                stable=stable+1 if height==last_height else 0
-                last_height=height
-                if stable>=5: break
-            page.wait_for_timeout(800)
-            text=page.locator("body").inner_text(timeout=20000)
-            controle_final = diagnostic_acces(http_status, page.title(), text, page.content())
-            if controle_final in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
-                sauver_refus_ou_limitation(outdir, args.url, http_status, page.title(), controle_final)
-                enregistrer_acces(outdir, controle_final, args.url, http_status, page.title(), cookie_status)
-                sauvegarder_diagnostics(page, outdir, text)
-                print(f'{controle_final} : arret immediat.', flush=True)
-                return 3
-            if controle_final != 'CARRIERE_ACCESSIBLE':
-                enregistrer_acces(outdir, controle_final, args.url, http_status, page.title(), cookie_status)
-                sauvegarder_diagnostics(page, outdir, text)
-                print('CARRIERE_NON_DETECTEE apres chargement.', flush=True)
-                return 2
-            # Capture des lignes structurées si Geny utilise un vrai tableau.
-            # Playwright Locator.all_inner_texts() n'accepte pas de parametre timeout.
-            # Les lignes DOM peuvent ne pas exister si Geny utilise des div CSS.
-            dom_rows=page.locator("table tbody tr, [role='row']").all_inner_texts()
-            final_html=page.content()
-            (outdir/"diagnostic_texte_geny.txt").write_text(text,encoding="utf-8")
-            (outdir/"diagnostic_geny.html").write_text(final_html,encoding="utf-8")
-            page.screenshot(path=str(outdir/"diagnostic_capture.png"),full_page=True)
-        except Exception as e:
-            print("ERREUR NAVIGATION :",e)
-            try: page.screenshot(path=str(outdir/"diagnostic_capture.png"),full_page=True)
-            except Exception: pass
+        print("HTTP :", http_status if http_status is not None else "inconnu")
+        title = page.title()
+        initial_text = page.locator("body").inner_text(timeout=12000)
+        initial_html = page.content()
+        verdict = diagnostic_acces(http_status, title, initial_text, initial_html)
+        print('Controle initial (sans requete supplementaire) :', verdict, flush=True)
+        enregistrer_acces(outdir, verdict, url, http_status, title)
+        if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
+            sauver_refus_ou_limitation(outdir, url, http_status, title, verdict)
+            sauvegarder_diagnostics(page, outdir, initial_text)
+            print(f'{verdict} : arret immediat, sans nouvel essai.', flush=True)
+            return 3
+        if verdict.startswith('HTTP_'):
+            sauvegarder_diagnostics(page, outdir, initial_text)
+            print('ERREUR_HTTP :', verdict, flush=True)
             return 2
-        finally:
-            context.close();browser.close()
+        if verdict != 'CARRIERE_ACCESSIBLE':
+            # L'unique chargement peut afficher un bandeau de consentement.
+            # Verifier l'accessibilite a nouveau apres le refus, mais sans
+            # declencher une deuxieme navigation vers Geny.
+            cookie_status = dismiss_consent(page)
+            try:
+                page.get_by_text('CARRIÈRE', exact=True).first.wait_for(timeout=7000)
+            except PlaywrightTimeoutError:
+                pass
+            current_text = page.locator('body').inner_text(timeout=12000)
+            verdict = diagnostic_acces(http_status, page.title(), current_text, page.content())
+            print('Controle apres consentement :', verdict, flush=True)
+            enregistrer_acces(outdir, verdict, url, http_status, page.title(), cookie_status)
+            if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
+                sauver_refus_ou_limitation(outdir, url, http_status, page.title(), verdict)
+                sauvegarder_diagnostics(page, outdir, current_text)
+                return 3
+            if verdict != 'CARRIERE_ACCESSIBLE':
+                sauvegarder_diagnostics(page, outdir, current_text)
+                print('CARRIERE_NON_DETECTEE : page conservee pour diagnostic.', flush=True)
+                return 2
+        else:
+            print('CARRIERE_ACCESSIBLE : pas de rubrique RECORDS requise.', flush=True)
+        # Continuer progressivement jusqu'a disparition des changements de taille,
+        # puis remonter pour garder toute la page accessible.
+        last_height=-1; stable=0
+        for _ in range(35):
+            page.mouse.wheel(0,1400)
+            page.wait_for_timeout(400)
+            height=page.evaluate("document.body.scrollHeight")
+            stable=stable+1 if height==last_height else 0
+            last_height=height
+            if stable>=5: break
+        page.wait_for_timeout(800)
+        text=page.locator("body").inner_text(timeout=20000)
+        controle_final = diagnostic_acces(http_status, page.title(), text, page.content())
+        if controle_final in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
+            sauver_refus_ou_limitation(outdir, url, http_status, page.title(), controle_final)
+            enregistrer_acces(outdir, controle_final, url, http_status, page.title(), cookie_status)
+            sauvegarder_diagnostics(page, outdir, text)
+            print(f'{controle_final} : arret immediat.', flush=True)
+            return 3
+        if controle_final != 'CARRIERE_ACCESSIBLE':
+            enregistrer_acces(outdir, controle_final, url, http_status, page.title(), cookie_status)
+            sauvegarder_diagnostics(page, outdir, text)
+            print('CARRIERE_NON_DETECTEE apres chargement.', flush=True)
+            return 2
+        # Capture des lignes structurées si Geny utilise un vrai tableau.
+        # Playwright Locator.all_inner_texts() n'accepte pas de parametre timeout.
+        # Les lignes DOM peuvent ne pas exister si Geny utilise des div CSS.
+        dom_rows=page.locator("table tbody tr, [role='row']").all_inner_texts()
+        final_html=page.content()
+        (outdir/"diagnostic_texte_geny.txt").write_text(text,encoding="utf-8")
+        (outdir/"diagnostic_geny.html").write_text(final_html,encoding="utf-8")
+        page.screenshot(path=str(outdir/"diagnostic_capture.png"),full_page=True)
+    except Exception as e:
+        print("ERREUR NAVIGATION :",e)
+        try: page.screenshot(path=str(outdir/"diagnostic_capture.png"),full_page=True)
+        except Exception: pass
+        return 2
     try:
         result=parse_career(text,dom_rows)
     except ValueError as e:
         print("ECHEC EXTRACTION :",e)
         return 2
-    result.update({"source_url":args.url,"extrait_utc":datetime.now(timezone.utc).isoformat(),"consentement":cookie_status})
+    result.update({"source_url":url,"extrait_utc":datetime.now(timezone.utc).isoformat(),"consentement":cookie_status})
     from .ferrures_geny import enrichir
     from .carriere_geny import confirmer_inedit
-    ident=re.search(r'/cheval/(\d+)',args.url)
+    ident=re.search(r'/cheval/(\d+)',url)
     if ident:
         confirmer_inedit(result,final_html,ident[1])
-        enrichir(result,final_html,ident[1],args.url,result['extrait_utc'])
+        enrichir(result,final_html,ident[1],url,result['extrait_utc'])
     result["statut"]="COMPLET" if result["complet"] else "PARTIEL_A_CONTROLER"
     (outdir/"historique_geny.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
     cols=["date","hippodrome","discipline","distance_m","classement","chrono","texte_source","ferrure"]
@@ -395,6 +384,23 @@ def main() -> int:
     print("Fichiers de diagnostic :",outdir.resolve())
     if not result["complet"]:print("Important : champs detail encore a valider ; aucune ecriture Sheets.")
     return 0 if result["complet"] else 1
+
+
+def main() -> int:
+    p=argparse.ArgumentParser(description="Test Geny : consentement + extraction de carrière")
+    p.add_argument("--url",default=DEFAULT_URL)
+    p.add_argument("--sortie",default="resultats")
+    p.add_argument("--headless",action="store_true")
+    args=p.parse_args()
+    if not args.url.startswith("https://www.geny.com/cheval/"):
+        p.error("URL cheval Geny attendue")
+    with sync_playwright() as pw:
+        browser=pw.chromium.launch(headless=args.headless)
+        try:
+            context=browser.new_context(locale="fr-FR",timezone_id="Europe/Paris",viewport={"width":1366,"height":900})
+            return collecter_page(context.new_page(), args.url, Path(args.sortie))
+        finally:
+            browser.close()
 
 if __name__=="__main__":
     sys.exit(main())

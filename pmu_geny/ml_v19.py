@@ -134,7 +134,7 @@ def pmu_rows(cache,course,raw,now):
     association=etablir(cache,course,names)
     context=_valid_context(cache,course,now)
     profils=extraire_partants(raw)
-    rows=[];seen=set();with_history=0;unknown_np=0
+    rows=[];seen=set();with_history=0;with_partial=0;unknown_np=0
     for item in participants:
         if not isinstance(item,dict):continue
         numero=_num(item,'numPmu','num','numero','numeroPmu')
@@ -148,7 +148,9 @@ def pmu_rows(cache,course,raw,now):
         if not name:return 'IDENTITE_PMU_ABSENTE',[],{}
         link=association.get(str(numero),{})
         ident,histo=link.get('cheval_id',''),link.get('historique',{})
-        if ident:with_history+=1
+        if ident:
+            if histo.get('statut')=='PARTIEL_HISTORIQUE':with_partial+=1
+            else:with_history+=1
         c={key:value for (num,key),value in context.items() if num in ('*',str(numero))}
         direct=_form_score(item)
         if direct is not None:c['pmu_score_direct']=direct
@@ -169,13 +171,15 @@ def pmu_rows(cache,course,raw,now):
                 c[indicator]=1 if ferrure_code in code.split('/') else 0
         features_values=features({'numero':numero,'nom':name},histo,course,c)
         rows.append({'numero':numero,'cheval_id':ident,'nom':name,
-                     'historique_ok':bool(ident),'methode_liaison':link.get('methode','NON_ASSOCIE'),
+                     'historique_ok':bool(ident),'historique_complet':bool(ident) and histo.get('statut')=='COMPLET',
+                     'methode_liaison':link.get('methode','NON_ASSOCIE'),
                      'score_direct_pmu':direct,
                      'features':features_values})
     if len(rows)<3:return 'PARTANTS_INSUFFISANTS',[],{}
     if course.get('nombre_declares') and len(seen)!=int(course['nombre_declares']):
         return 'LISTE_PARTANTS_INCOMPLETE',[],{}
-    return 'OK',rows,{'historiques_complets_reutilises':with_history,'np_non_verifies':unknown_np}
+    return 'OK',rows,{'historiques_complets_reutilises':with_history,
+                      'historiques_partiels_reutilises':with_partial,'np_non_verifies':unknown_np}
 
 
 def snapshot_pmu(cache,course,raw,now=None):
