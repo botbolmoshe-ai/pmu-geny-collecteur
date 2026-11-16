@@ -475,7 +475,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     attempts[('COLLECTE',key)]=1
                 # Date de vérification != couverture : Geny peut publier la nouvelle course plus tard.
                 race = instant(horse.get('derniere_course_officielle_utc')) if not reprise else None
-                if race and horse.get('derniere_performance_date', '') < race.date().isoformat():
+                if report.get('complet') and race and horse.get('derniere_performance_date', '') < race.date().isoformat():
                     doc = capture_valide(cache, ident)
                     horse['derniere_performance_date'] = max((r.get('date', '') for r in doc['performances']), default='')
                     if horse['derniere_performance_date'] < race.date().isoformat():
