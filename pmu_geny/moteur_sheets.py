@@ -183,7 +183,7 @@ class SynchroniseurSheets:
         allowed={'course_key','numero','historique_statut','historique_nb_courses_datees','historique_maj_utc'}
         courses={k:{f:v for f,v in row.items() if f in allowed} for k,row in source['Courses & Prévisions'].items()
                  if nom_normalise(row.get('cheval'))==nom_normalise(horse['nom'])
-                 and str(row.get('historique_statut','')).startswith('HISTO_OK')}
+                 and str(row.get('historique_statut','')).startswith(('HISTO_OK','HISTO_PARTIEL'))}
         tables={HISTORY:history}
         if include_courses:tables['Courses & Prévisions']=courses
         return self.synchroniser_tables(tables,scope='CHEVAL' if include_courses else 'RATTRAPAGE',

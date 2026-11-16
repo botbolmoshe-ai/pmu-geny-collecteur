@@ -27,7 +27,10 @@ def etablir(cache, course, participants=None):
     for ident,meta in journal.items():
         if meta.get('statut') not in ('COMPLET','PARTIEL'):continue
         doc=load(cache/'historiques'/str(ident)/'historique_geny.json',{}) or {}
-        if doc.get('statut') not in ('COMPLET','PARTIEL') or not isinstance(doc.get('performances'),list):continue
+        if doc.get('statut')!='COMPLET':
+            partial=load(cache/'historiques_partiels'/str(ident)/'historique_geny.json',{}) or {}
+            if partial.get('identite_verifiee') is True:doc=partial
+        if doc.get('statut') not in ('COMPLET','PARTIEL','PARTIEL_HISTORIQUE') or not isinstance(doc.get('performances'),list):continue
         key=nom_normalise(meta.get('nom',''))
         if key:known.setdefault(key,[]).append((str(ident),doc))
     by_number={}

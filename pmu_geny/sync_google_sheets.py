@@ -312,7 +312,8 @@ def source_rows(cache):
             link_method=link.get('methode','NON_ASSOCIE')
             hist=link.get('historique',{})
             hist_status=(
-                'HISTO_OK_NOM_ID' if link_method in ('NOM_EXACT_ET_ID_GENY_CONFIRME','NOM_AMBIGU_ID_CONFIRME','ID_GENY_MANIFESTE_VERIFIE')
+                'HISTO_PARTIEL_GENY' if hist.get('statut')=='PARTIEL_HISTORIQUE'
+                else 'HISTO_OK_NOM_ID' if link_method in ('NOM_EXACT_ET_ID_GENY_CONFIRME','NOM_AMBIGU_ID_CONFIRME','ID_GENY_MANIFESTE_VERIFIE')
                 else 'HISTO_OK_NOM' if link_method=='NOM_EXACT_UNIQUE'
                 else 'HISTO_AMBIGU' if link_method=='NOM_AMBIGU'
                 else 'HISTO_NON_COLLECTE')
@@ -433,6 +434,8 @@ def source_rows(cache):
         return (bool(s) and not s.lower().startswith(('http://', 'https://')), len(s))
 
     def ajouter_performance(ident, r):
+        r=dict(r)
+        r.setdefault('_statut_verification','EXTRACTION_GENY')
         date=str(r.get('date') or '').strip()
         hip=str(r.get('hippodrome') or '').strip()
         if not ident or not date or not hip:
@@ -461,15 +464,20 @@ def source_rows(cache):
     # Les captures persistantes contiennent les memes courses mais parfois
     # un texte plus riche. Elles enrichissent plutot qu'elles ne dupliquent.
     journal=load_json(cache/'etat_persistant.json').get('chevaux',{})
-    for file in sorted((cache/'historiques').glob('*/historique_geny.json')):
+    for file in (sorted((cache/'historiques').glob('*/historique_geny.json'))+
+                 sorted((cache/'historiques_partiels').glob('*/historique_geny.json'))):
         ident=file.parent.name
         doc=load_json(file)
-        if doc.get('statut')!='COMPLET' or not isinstance(doc.get('performances'),list):
+        partial=file.parent.parent.name=='historiques_partiels'
+        if (doc.get('statut')!=('PARTIEL_HISTORIQUE' if partial else 'COMPLET')
+                or partial and doc.get('identite_verifiee') is not True
+                or not isinstance(doc.get('performances'),list)):
             continue
         cheval=journal.get(ident,{}).get('nom','')
         for perf in doc['performances']:
             from .partants_actuels_v21 import ferrure_historique_explicite
-            row={'cheval_id':ident,'nom':cheval,**perf}
+            row={'cheval_id':ident,'nom':cheval,**perf,
+                 '_statut_verification':'EXTRACTION_GENY_PARTIELLE' if partial else 'EXTRACTION_GENY'}
             if not row.get('ferrure'):
                 row['ferrure']=ferrure_historique_explicite(perf.get('texte_source',''))
             ajouter_performance(ident,row)
@@ -491,7 +499,7 @@ def source_rows(cache):
             if not doc.get('ferrure'):
                 doc['ferrure']=ferrure_historique_explicite(r.get('texte_source',''))
             doc['cle_performance']=k
-            doc['statut_verification']='EXTRACTION_GENY'
+            doc['statut_verification']=r.get('_statut_verification','EXTRACTION_GENY')
             history[k]=doc
     return {'Courses & Prévisions':courses,'Historique chevaux':history,'Résultats & Analyse':reports}
 

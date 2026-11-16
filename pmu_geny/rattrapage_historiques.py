@@ -374,6 +374,7 @@ def bilan(state):
         'ajouts_confirmes':sum(h.get('ajouts_confirmes',0) for h in horses),
         'tentatives_collecte':previous.get('tentatives_collecte',0),
         'captures_validees':previous.get('captures_validees',0),
+        'captures_partielles':previous.get('captures_partielles',0),
         'collectes_rejetees':previous.get('collectes_rejetees',0)}
     state['statut']='TERMINE' if complete==len(horses) and state.get('sync_kpi')=='OK' and not state['bilan']['historiques_ferrures_a_completer'] else 'PARTIEL_REPRENABLE'
     state['phase_reprise']=('CARRIERES_MANQUANTES' if missing else

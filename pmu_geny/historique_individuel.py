@@ -21,66 +21,68 @@ def cliquer_nom(cell, nom):
     target.click(timeout=8000)
 
 
-def resolve(horse, out):
-    from playwright.sync_api import sync_playwright
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        try:
-            ctx = browser.new_context(locale='fr-FR', timezone_id='Europe/Paris')
-            page = ctx.new_page()
-            candidate=horse.get('lien_candidat')
-            if candidate:
-                ident=str(horse.get('id',''))
-                if not re.fullmatch(r'\d{4,15}',ident) or candidate!='https://www.geny.com/cheval/'+ident:
-                    raise ValueError('LIEN_CANDIDAT_NON_CONCORDANT')
-            url = candidate or horse['course_url']
-            parsed = urlparse(url)
-            if parsed.scheme != 'https' or parsed.hostname not in ('geny.com', 'www.geny.com'):
-                raise ValueError('URL_COURSE_INVALIDE')
-            response = page.goto(url, wait_until='domcontentloaded', timeout=45000)
-            verdict = diagnostic_acces(response.status if response else None, page.title(),
-                                       page.locator('body').inner_text(), page.content())
-            if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
-                raise RuntimeError(verdict)
-            if candidate:
-                return verifier_candidat(horse,page.url,response.status if response else None,
-                                        page.locator('body').inner_text(),out)
-            expected = re.search(r'/course/(\d+)', url)
-            actual = re.search(r'/course/(\d+)', page.url)
-            if not response or response.status != 200 or not expected or not actual or expected[1] != actual[1]:
-                raise ValueError('COURSE_GENY_NON_CONFIRMEE')
-            dismiss_consent(page)
-            deadline = time.monotonic() + 20
-            matched = []
-            while time.monotonic() < deadline:
-                matched = [r for r in participants_from_rows(get_rows(page))
-                           if nom_normalise(r['nom']) == nom_normalise(horse['nom'])]
-                if matched:
+def resolve(horse, out, page=None):
+    if page is None:
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True)
+            try:
+                ctx=browser.new_context(locale='fr-FR',timezone_id='Europe/Paris')
+                return resolve(horse,out,ctx.new_page())
+            finally:
+                browser.close()
+    ctx=page.context
+    candidate=horse.get('lien_candidat')
+    if candidate:
+        ident=str(horse.get('id',''))
+        if not re.fullmatch(r'\d{4,15}',ident) or candidate!='https://www.geny.com/cheval/'+ident:
+            raise ValueError('LIEN_CANDIDAT_NON_CONCORDANT')
+    url = candidate or horse['course_url']
+    parsed = urlparse(url)
+    if parsed.scheme != 'https' or parsed.hostname not in ('geny.com', 'www.geny.com'):
+        raise ValueError('URL_COURSE_INVALIDE')
+    response = page.goto(url, wait_until='domcontentloaded', timeout=45000)
+    verdict = diagnostic_acces(response.status if response else None, page.title(),
+                               page.locator('body').inner_text(), page.content())
+    if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
+        raise RuntimeError(verdict)
+    if candidate:
+        return verifier_candidat(horse,page.url,response.status if response else None,
+                                page.locator('body').inner_text(),out)
+    expected = re.search(r'/course/(\d+)', url)
+    actual = re.search(r'/course/(\d+)', page.url)
+    if not response or response.status != 200 or not expected or not actual or expected[1] != actual[1]:
+        raise ValueError('COURSE_GENY_NON_CONFIRMEE')
+    dismiss_consent(page)
+    deadline = time.monotonic() + 20
+    matched = []
+    while time.monotonic() < deadline:
+        matched = [r for r in participants_from_rows(get_rows(page))
+                   if nom_normalise(r['nom']) == nom_normalise(horse['nom'])]
+        if matched:
+            break
+        page.wait_for_timeout(500)
+    # Le numéro confirme le contexte de course ; il n'identifie pas le cheval.
+    if len(matched) != 1 or str(matched[0]['numero']) != str(horse['numero']):
+        (out/'diagnostic_resolution.html').write_text(page.content(), encoding='utf-8')
+        raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
+    index = matched[0]['row_index']
+    direct = try_direct_url(page, index)
+    if not direct:
+        before, pages = page.url, set(ctx.pages)
+        cliquer_nom(page.locator('tr').nth(index).locator('td').nth(2), matched[0]['nom'])
+        for _ in range(30):
+            new = [x for x in ctx.pages if x not in pages]
+            if new or page.url != before:
+                direct = new[-1].url if new else page.url
+                if '/cheval/' in direct:
                     break
-                page.wait_for_timeout(500)
-            # Le numéro confirme le contexte de course ; il n'identifie pas le cheval.
-            if len(matched) != 1 or str(matched[0]['numero']) != str(horse['numero']):
-                (out/'diagnostic_resolution.html').write_text(page.content(), encoding='utf-8')
-                raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
-            index = matched[0]['row_index']
-            direct = try_direct_url(page, index)
-            if not direct:
-                before, pages = page.url, set(ctx.pages)
-                cliquer_nom(page.locator('tr').nth(index).locator('td').nth(2), matched[0]['nom'])
-                for _ in range(30):
-                    new = [x for x in ctx.pages if x not in pages]
-                    if new or page.url != before:
-                        direct = new[-1].url if new else page.url
-                        if '/cheval/' in direct:
-                            break
-                    page.wait_for_timeout(250)
-            match = re.search(r'/cheval/(\d+)', direct or '')
-            if not match or urlparse(direct).hostname not in ('geny.com', 'www.geny.com'):
-                raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
-            return {'id': match[1], 'nom': horse['nom'],
-                    'url_geny': direct.replace('https://geny.com/', 'https://www.geny.com/')}
-        finally:
-            browser.close()
+            page.wait_for_timeout(250)
+    match = re.search(r'/cheval/(\d+)', direct or '')
+    if not match or urlparse(direct).hostname not in ('geny.com', 'www.geny.com'):
+        raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
+    return {'id': match[1], 'nom': horse['nom'],
+            'url_geny': direct.replace('https://geny.com/', 'https://www.geny.com/')}
 
 
 def verifier_candidat(horse,url,status,text,out):
@@ -101,11 +103,31 @@ def collecter(horse, out):
     out.mkdir(parents=True, exist_ok=True)
     report = {'complet': False, 'debut_utc': datetime.now(timezone.utc).isoformat()}
     try:
-        geny = horse.get('geny') or resolve(horse, out)
-        # Un nouveau processus/navigateur isole les erreurs ; il ne contourne aucun refus.
-        if not horse.get('geny'):
-            time.sleep(30)
-        result = extraire_cheval(geny['url_geny'], geny['id'], out)
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True)
+            try:
+                ctx=browser.new_context(locale='fr-FR',timezone_id='Europe/Paris',viewport={'width':1366,'height':900})
+                statuses={}
+                def navigation(response):
+                    if response.request.is_navigation_request():statuses[response.url]=response.status
+                ctx.on('response',navigation)
+                page=ctx.new_page()
+                geny=horse.get('geny') or resolve(horse,out,page)
+                report['geny']=geny
+                # Le lien résolu survit même à une interruption de l'extraction.
+                (out/'resolution_geny.json').write_text(json.dumps({'geny':geny,
+                    'nom_attendu':horse['nom'],'engagement':horse.get('engagement'),
+                    'numero':str(horse.get('numero','')),
+                    'resolution_utc':datetime.now(timezone.utc).isoformat()},ensure_ascii=False),encoding='utf-8')
+                loaded=next((candidate for candidate in ctx.pages if candidate.url==geny['url_geny']),None)
+                if loaded:loaded.wait_for_load_state('domcontentloaded',timeout=15000)
+                if not loaded and not horse.get('geny'):time.sleep(30)
+                result=extraire_cheval(geny['url_geny'],geny['id'],out,
+                    page=loaded or page,page_chargee=loaded is not None,
+                    http_status=statuses.get(geny['url_geny']))
+            finally:
+                browser.close()
         status, reasons = classifier(result)
         folder = out/geny['id']
         textfile = folder/'diagnostic_texte_geny.txt'

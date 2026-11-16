@@ -9,10 +9,10 @@ import json
 import re
 from pathlib import Path
 from typing import Any
-from .collecte_geny_v4 import main as _v4_main
+from .collecte_geny_v4 import main as _v4_main, collecter_page
 
 
-def extraire_cheval(url: str, identifiant: str, sortie: Path) -> dict[str, Any]:
+def extraire_cheval(url: str, identifiant: str, sortie: Path, *, page=None, page_chargee=False, http_status=None) -> dict[str, Any]:
     import sys
     if not re.fullmatch(r"\d{4,15}", str(identifiant)):
         raise ValueError("Identifiant cheval invalide")
@@ -20,12 +20,16 @@ def extraire_cheval(url: str, identifiant: str, sortie: Path) -> dict[str, Any]:
         raise ValueError("URL Geny cheval invalide")
     folder = sortie / str(identifiant)
     folder.mkdir(parents=True, exist_ok=True)
-    old_argv = sys.argv[:]
-    try:
-        sys.argv = ["collecte_geny_v4.py", "--url", url, "--sortie", str(folder), "--headless"]
-        code = _v4_main()
-    finally:
-        sys.argv = old_argv
+    if page is not None:
+        if page_chargee and page.url!=url:raise ValueError('PAGE_CHEVAL_NON_CONCORDANTE')
+        code=collecter_page(page,url,folder,page_chargee=page_chargee,http_status=http_status)
+    else:
+        old_argv = sys.argv[:]
+        try:
+            sys.argv = ["collecte_geny_v4.py", "--url", url, "--sortie", str(folder), "--headless"]
+            code = _v4_main()
+        finally:
+            sys.argv = old_argv
     path = folder / "historique_geny.json"
     limitation = folder / 'etat_collecte.json'
     if code == 3 and limitation.exists():
