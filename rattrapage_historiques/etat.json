@@ -45616,8 +45616,20 @@
       "sync": "SANS_MODIFICATION",
       "ferrures_manquantes": 0,
       "engagement_prioritaire": "2026-11-16_R1C1",
-      "collecte": "EN_COURS",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE"
+      "collecte": "A_REPRENDRE",
+      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-17T02:05:43.836581+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T20:05:43.836606+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [
+          "ACCES_LIMITE_429"
+        ],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/contexte:30ce8067b16017080d84e5bc/1794859501868239017/resultat.json"
+      }
     },
     "contexte:6ebf1631833740b0816deb28": {
       "nom": "I LOVE JOSSELYN",
@@ -48646,13 +48658,13 @@
     "identites_a_verifier": 0,
     "synchronisations_en_attente": 0,
     "ajouts_confirmes": 3475,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
-    "collectes_rejetees": 0
+    "collectes_rejetees": 1
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-16T20:04:51.319489+00:00",
-  "maj_utc": "2026-11-16T20:04:58.444597+00:00",
+  "maj_utc": "2026-11-16T20:05:43.844945+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 27
@@ -48678,7 +48690,7 @@
     }
   },
   "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
-  "prochain_acces_geny_utc": "2026-11-16T18:12:32.909903+00:00",
+  "prochain_acces_geny_utc": "2026-11-16T20:35:43.836638+00:00",
   "phase_reprise": "CARRIERES_MANQUANTES",
   "revision_inventaire": 2,
   "inventaire_actualise_utc": "2026-11-15T12:44:52.242104+00:00",
