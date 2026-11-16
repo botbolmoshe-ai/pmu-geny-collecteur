@@ -41,6 +41,33 @@ class MoteurTests(unittest.TestCase):
                 {'nom':'Test','geny':{'id':'123456'}})
         self.assertEqual(full.tables['Historique chevaux'],scoped.tables['Historique chevaux'])
 
+    def test_suppression_equidia_puis_actualisation_de_la_voisine_sans_decalage(self):
+        class Colonnes(SessionTracee):
+            def post(self,url,**kwargs):
+                if 'requests' in kwargs['json']:
+                    self.writes.append((url,kwargs))
+                    for request in kwargs['json']['requests']:
+                        if 'deleteDimension' not in request:continue
+                        r=request['deleteDimension']['range']
+                        for row in self.tables['Courses & Prévisions']:
+                            del row[r['startIndex']:r['endIndex']]
+                    return Response({})
+                return super().post(url,**kwargs)
+        session=Colonnes();session.tables['Courses & Prévisions']=[
+            ['course_key','numero','Avis expert Equidia','Avis expert PMU',
+             'Avis expert ZEturf','Pronostic Equidia · Ordre publié','Pronostic ZEturf · Ordre publié',
+             'Source Equidia · URL et collecte UTC','Source ZEturf · URL et collecte UTC'],
+            ['k','1','ancien avis','PMU ancien','avis ZEturf','1,2,3','1,2,3','source E','source Z']]
+        engine=SynchroniseurSheets(self.cache,'fake',session=session)
+        source={'Courses & Prévisions':{'k':{'course_key':'k','numero':'1','avis_pmu':'PMU actualisé'}}}
+        first=engine.synchroniser_tables(source,scope='CYCLE_PMU',allow_structure=True)
+        second=engine.synchroniser_tables(source,scope='CYCLE_PMU',allow_structure=True)
+        self.assertNotIn('Avis expert Equidia',session.tables['Courses & Prévisions'][0])
+        self.assertFalse(any('equidia' in h.lower() or 'zeturf' in h.lower()
+                             for h in session.tables['Courses & Prévisions'][0]))
+        self.assertEqual(session.tables['Courses & Prévisions'][1][2],'PMU actualisé')
+        self.assertEqual(second['Courses & Prévisions']['cellules_actualisees'],0)
+
     def test_verrou_local_refuse_un_second_ecrivain_avant_toute_requete(self):
         session=SessionTracee();engine=SynchroniseurSheets(self.cache,'fake',session=session)
         with verrou_local('fake'):

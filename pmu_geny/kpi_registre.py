@@ -61,7 +61,7 @@ def calculer_kpi(cache, source=None, now=None):
         metric('Taux de TOP3 exact (3 sur 3)',sum(s==3 for s in scores)/len(scores) if scores else '','Courses avec les trois chevaux retrouvés / courses directes évaluables.'),
         metric('Partants avec âge, sexe, gains et ferrure',sum(all(str(r.get(f) if r.get(f) is not None else '').strip() for f in ('age_ans','sexe','gains_euros','ferrure')) for r in participants),'Participations avec les quatre champs renseignés ; 0 est une valeur.'),
         metric('Taux critères essentiels renseignés',sum(all(str(r.get(f) if r.get(f) is not None else '').strip() for f in ('age_ans','sexe','gains_euros','ferrure')) for r in participants)/count if count else '','Participations avec quatre champs / participations recensées.'),
-        *[metric('Avis '+label+' renseignés',nonempty(field),'Participations avec texte source non vide.') for label,field in [('PMU','avis_pmu'),('Equidia','avis_equidia'),('ZEturf','avis_zeturf')]],
+        metric('Avis PMU renseignés',nonempty('avis_pmu'),'Participations avec texte source PMU non vide.'),
         metric('Participations recensées',count,'Lignes de partants, distinctes des chevaux et des courses.'),
         metric('Partants sans historique collecté',sum(r.get('historique_statut')=='HISTO_NON_COLLECTE' for r in participants),'Participations explicitement sans historique collecté.'),
         metric('Taux de partants avec historique identifié',linked/count if count else '','Participations HISTO_OK / participations recensées.'),
@@ -82,6 +82,9 @@ def plan_kpi(values, metrics):
     """Ne modifie que valeur/definition des indicateurs deja presents dans l'onglet."""
     updates=[]
     for number,row in enumerate(values[1:],start=2):
+        if len(row)>1 and row[1] in ('Avis Equidia renseignés','Avis ZEturf renseignés'):
+            updates.append({'range':f"'{KPI_TAB}'!A{number}:D{number}",'values':[['','','','']]})
+            continue
         if len(row)>1 and row[1] in metrics:
             value,definition=metrics[row[1]]
             if len(row)<4 or row[2]!=value or row[3]!=definition:

@@ -16,8 +16,9 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
 LIVE_RESET_DATE = '2026-11-12'
-EXPERT_COLUMNS = ('avis_pmu','avis_equidia','avis_zeturf','prono_pmu','prono_equidia','prono_zeturf',
-                  'source_pmu','source_equidia','source_zeturf','couverture_experts',
+RETIRED_EXPERT_COLUMNS = frozenset({'avis_equidia','avis_zeturf','prono_equidia','prono_zeturf',
+                                   'source_equidia','source_zeturf'})
+EXPERT_COLUMNS = ('avis_pmu','prono_pmu','source_pmu','couverture_experts',
                   'divergences_sources','conditions_course','age_ans','sexe','gains_euros','synthese_actualite')
 COMPARE_COLUMNS = EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','meteo_resume','meteo_statut')
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
@@ -30,6 +31,7 @@ REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_p
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
 CLEARABLE_COLUMNS = frozenset(EXPERT_COLUMNS) | frozenset({
+    *RETIRED_EXPERT_COLUMNS,  # Lecture/nettoyage des anciens formats uniquement.
     'top3_direct_rang','top3_direct_score','top3_direct_top3',
     'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
     'ml_proba_podium','ml_score_non_calibre',

@@ -79,28 +79,20 @@ class SynchroniseurSheets:
         from .sync_google_sheets import source_rows,limiter_cours_registre
         return limiter_cours_registre(source_rows(self.cache))
 
-    def _migrer_entetes(self,tab,values):
-        from .sync_google_sheets import DISPLAY_NAMES,colname
-        legacy={'Avis expert Geny':'avis_equidia','avis_geny':'avis_equidia',
-                'Avis expert Zone-Turf':'avis_zeturf','avis_zone_turf':'avis_zeturf'}
-        migration=[]
-        for idx,label in enumerate(values[0]):
-            if label not in legacy:continue
-            key=legacy[label]
-            if DISPLAY_NAMES[key] in values[0] or key in values[0]:continue
-            migration.append({'range':f"'{tab}'!{colname(idx+1)}1:{colname(idx+1)}{len(values)}",
-                              'values':[[DISPLAY_NAMES[key]]]+[[''] for _ in values[1:]]})
-            values[0][idx]=DISPLAY_NAMES[key]
-            for row in values[1:]:
-                if len(row)>idx:row[idx]=''
-        if migration:self.check(self.session.post(self.base+'/values:batchUpdate',
-            json={'valueInputOption':'RAW','data':migration},timeout=45))
-
     def _synchroniser_onglet(self,tab,incoming,properties,*,full_source,allow_structure):
-        from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques
+        from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques,RETIRED_EXPERT_COLUMNS
         values=lire_feuille_complete(self.session,self.base,tab,properties)
         if not values:raise ErreurSynchronisation('Onglet sans en-tetes : '+tab)
-        if allow_structure:self._migrer_entetes(tab,values)
+        if tab=='Courses & Prévisions' and allow_structure:
+            removed=[i for i,name in enumerate(canonical_headers(values[0])) if name in RETIRED_EXPERT_COLUMNS]
+            if removed:
+                self.check(self.session.post(self.base+':batchUpdate',json={'requests':[
+                    {'deleteDimension':{'range':{'sheetId':properties['sheetId'],'dimension':'COLUMNS',
+                                               'startIndex':i,'endIndex':i+1}}}
+                    for i in reversed(removed)]},timeout=30))
+                properties=self.metadata()[tab]
+                values=lire_feuille_complete(self.session,self.base,tab,properties)
+                if not values:raise ErreurSynchronisation('En-tetes absents apres suppression des sources retirees')
         headers=canonical_headers(values[0])
         existing=[dict(zip(headers,row)) for row in values[1:]]
         if tab==HISTORY:
