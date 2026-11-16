@@ -21983,9 +21983,21 @@
       "vu_utc": "2026-11-16T19:29:29.893526+00:00",
       "verification_periodique": false,
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "course_url": "https://www.geny.com/course/1698709/partants-pronostics",
-      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00"
+      "derniere_course_officielle_utc": "2026-11-16T12:55:00+00:00",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-17T01:31:24.779119+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T19:31:24.779144+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [
+          "ACCES_LIMITE_429"
+        ],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2026-11-16_R1C1_13/1794857444305784867/resultat.json"
+      }
     },
     "2026-11-16_R1C1_14": {
       "nom": "ISIS DE POULINE",
@@ -30341,12 +30353,12 @@
     }
   },
   "passage_utc": "2026-11-16T19:29:29.893526+00:00",
-  "maj_utc": "2026-11-16T19:30:41.943106+00:00",
+  "maj_utc": "2026-11-16T19:31:24.784478+00:00",
   "bilan": {
     "chevaux_suivis": 1448,
-    "tentatives_collecte": 1,
+    "tentatives_collecte": 2,
     "captures_validees": 0,
-    "collectes_rejetees": 1,
+    "collectes_rejetees": 2,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1280
   },
@@ -30357,6 +30369,6 @@
       "indicateurs_actualises": 29
     }
   },
-  "prochain_acces_geny_utc": "2026-11-16T18:12:32.909903+00:00",
+  "prochain_acces_geny_utc": "2026-11-16T20:01:24.779166+00:00",
   "priorite_collecte": "ENGAGEMENTS_JOUR"
 }
