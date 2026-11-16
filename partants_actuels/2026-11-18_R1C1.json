@@ -1,0 +1,454 @@
+{
+  "date": "2026-11-18",
+  "course": "R1C1",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "ecurie",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KEMIA DU CHENE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 30364000,
+        "gainsVictoires": 11430000,
+        "gainsPlace": 18934000,
+        "gainsAnneeEnCours": 9944000,
+        "gainsAnneePrecedente": 5129000
+      }
+    },
+    {
+      "nom": "ILEO PIERJI",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 30778500,
+        "gainsVictoires": 14422500,
+        "gainsPlace": 16356000,
+        "gainsAnneeEnCours": 4985000,
+        "gainsAnneePrecedente": 11221000
+      }
+    },
+    {
+      "nom": "LIGHT MY FIRE",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 32227500,
+        "gainsVictoires": 10642500,
+        "gainsPlace": 21585000,
+        "gainsAnneeEnCours": 432000,
+        "gainsAnneePrecedente": 16878000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-16T23:37:26.403106+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "J. LE MER",
+      "proprietaire": "Mme Y. GUEDJ",
+      "ferrure": "D4",
+      "musique_pmu": "1a7a1a4a1a3a4a8a5a0a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 303640.0,
+      "nom": "KEMIA DU CHENE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "A. BARRIER",
+      "entraineur": "CH.A. MARY",
+      "proprietaire": "Ec. Pierre JULIENNE",
+      "ferrure": "D4",
+      "musique_pmu": "Da3a2a5a6a4a5a5aDa1a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 307785.0,
+      "nom": "ILEO PIERJI",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "A. GUARATO",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Ecurie ELAG",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a0aDa(25)7a0m3a3aDa7a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 322275.0,
+      "nom": "LIGHT MY FIRE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "S. HARDY",
+      "entraineur": "S. HARDY",
+      "proprietaire": "J.Ch. SIOUR",
+      "ferrure": "PA",
+      "musique_pmu": "0m0a7a4a0a8a0a2a0m7a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 329670.0,
+      "nom": "HELIOS SI",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "R.CH. LARUE",
+      "entraineur": "R.CH. LARUE",
+      "proprietaire": "Ecurie du MONT JOLY",
+      "ferrure": "DP",
+      "musique_pmu": "5aDmDa8a7a(25)8a6a5aDa",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 330210.0,
+      "nom": "LOULOU DE MYE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "C. RAIMBAUD",
+      "proprietaire": "C. RAIMBAUD",
+      "ferrure": "D4",
+      "musique_pmu": "5a0aDa2a1a5a(25)8a1a1a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 342630.0,
+      "nom": "IGUANE DE CAPONET",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "CH. MARTENS",
+      "entraineur": "Y. DESMET",
+      "proprietaire": "Y. DESMET",
+      "musique_pmu": "4aDaDa7a1a6a3a9a4a6a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 396360.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "nom": "HAMILTON DU HAM",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "THEO DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Stal D'ATOM",
+      "ferrure": "D4",
+      "musique_pmu": "3a3a6a2a3a0a2a2a2a2a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 500700.0,
+      "nom": "IALTO D'HERTALS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "J. LE MER",
+      "proprietaire": "Mme Y. GUEDJ",
+      "ferrure": "D4",
+      "musique_pmu": "0a6a3aDa2a1a3aDa2a(25)",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 521640.0,
+      "nom": "ISOFOU DU CHENE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. LHERETE",
+      "entraineur": "Antoine LHERETE",
+      "proprietaire": "Ecurie Olivier MOREL",
+      "ferrure": "DA",
+      "musique_pmu": "0a0m9a5m9aDa0a(25)0a0a",
+      "sexe": "Mâle",
+      "age_ans": 7,
+      "gains_euros": 552650.0,
+      "nom": "J'AIME LE FOOT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "J. TRAVERS",
+      "entraineur": "St. PROVOOST",
+      "proprietaire": "Ecurie DANOVER",
+      "ferrure": "DA",
+      "musique_pmu": "8a7a2a6a5a0a4a8a6a4a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 584230.0,
+      "nom": "HIDALGO DES NOES",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "N. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "R. PADOVANI",
+      "ferrure": "DP",
+      "musique_pmu": "4a0a2a3a3a1a3aDa4a3a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 600030.0,
+      "nom": "JINGLE DU PONT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "CL. DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ecurie Charley MOTTIER",
+      "ferrure": "D4",
+      "musique_pmu": "Da1a2a1a5a0a3a3a7m1a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 612792.0,
+      "nom": "IDEAL DU ROCHER",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "J.W. HALLAIS",
+      "entraineur": "J.W. HALLAIS",
+      "proprietaire": "Ecurie J.CL. HALLAIS",
+      "ferrure": "DP",
+      "musique_pmu": "3a5a5a3a6a8a0a5a8a0a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 633150.0,
+      "nom": "HULYSSE DIGEO",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "J.R. DELLIAUX",
+      "proprietaire": "Ecurie du DAMIER",
+      "musique_pmu": "0aDa(25)Da7a2a2aDa4a3a",
+      "sexe": "Mâle",
+      "age_ans": 7,
+      "gains_euros": 640770.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "nom": "JUSTIN BOLD",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "musique_pmu": "8mDm3m(25)7a1mDa8a1m5a",
+      "sexe": "Mâle",
+      "age_ans": 7,
+      "gains_euros": 679790.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "nom": "JEROBOAM D'ERABLE",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "17": {
+      "driver_jockey": "P. CASTEL",
+      "entraineur": "P. CASTEL",
+      "proprietaire": "Mme Sandrine LONCKE",
+      "musique_pmu": "0a8m8m0aDm8m4m2m(25)5m",
+      "sexe": "Mâle",
+      "age_ans": 7,
+      "gains_euros": 1047120.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "nom": "JEAN BALTHAZAR",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "18": {
+      "driver_jockey": "J.L.CL. DERSOIR",
+      "entraineur": "JOEL HALLAIS",
+      "proprietaire": "Ecurie RIB",
+      "musique_pmu": "0a0a0a0m2m5m(25)6m8a0a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 1176360.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C1/participants",
+          "capture_utc": "2026-11-16T23:37:26.403106+00:00"
+        }
+      },
+      "nom": "INA DU RIB",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    }
+  }
+}

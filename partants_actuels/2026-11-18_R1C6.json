@@ -1,0 +1,243 @@
+{
+  "date": "2026-11-18",
+  "course": "R1C6",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LADY VICTORY",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 4099000,
+        "gainsVictoires": 540000,
+        "gainsPlace": 3559000,
+        "gainsAnneeEnCours": 1007000,
+        "gainsAnneePrecedente": 1708000
+      }
+    },
+    {
+      "nom": "LADY D'ELFE",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5244000,
+        "gainsVictoires": 2520000,
+        "gainsPlace": 2724000,
+        "gainsAnneeEnCours": 2839500,
+        "gainsAnneePrecedente": 1339500
+      }
+    },
+    {
+      "nom": "LULU JIVE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8270000,
+        "gainsVictoires": 4657500,
+        "gainsPlace": 3612500,
+        "gainsAnneeEnCours": 2264000,
+        "gainsAnneePrecedente": 5509500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-16T23:37:46.952022+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "F. DUCROCQ",
+      "entraineur": "F. DUCROCQ",
+      "proprietaire": "F. DUCROCQ",
+      "musique_pmu": "9a5a3a6a2a0m0a(25)DaDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 40990.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C6/participants",
+          "capture_utc": "2026-11-16T23:37:46.952022+00:00"
+        }
+      },
+      "nom": "LADY VICTORY",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "G. GELORMINI",
+      "entraineur": "Mlle M. NORBERG",
+      "proprietaire": "Ecurie Marie NORBERG",
+      "ferrure": "DP/PA",
+      "musique_pmu": "5a1a7a1a4a0a5aDa6aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 52440.0,
+      "nom": "LADY D'ELFE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C6/participants",
+          "capture_utc": "2026-11-16T23:37:46.952022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "J. VANMEERBECK",
+      "entraineur": "Sté. Ent. Jonathan VANMEERBECK",
+      "proprietaire": "A. TAIEB",
+      "ferrure": "D4",
+      "musique_pmu": "4a4a7a7a5a4a3a1a9a6a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 82700.0,
+      "nom": "LULU JIVE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C6/participants",
+          "capture_utc": "2026-11-16T23:37:46.952022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "L. PITON",
+      "entraineur": "B. PITON",
+      "proprietaire": "S. BERNUT",
+      "ferrure": "DP/PA",
+      "musique_pmu": "5a0a3a8a1a6a6a0a8a(25)",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 86675.0,
+      "nom": "LADY PRINCESS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C6/participants",
+          "capture_utc": "2026-11-16T23:37:46.952022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "A. RIPOLL RIGO",
+      "proprietaire": "Cuadra BALEAR",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da7a6a1a1a7aDa4a4a2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 94075.0,
+      "nom": "LAST DES BROUSSES",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C6/participants",
+          "capture_utc": "2026-11-16T23:37:46.952022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "TH. DROMIGNY",
+      "entraineur": "G. CURENS",
+      "proprietaire": "Ecurie J. KONJOVIC",
+      "ferrure": "D4",
+      "musique_pmu": "6a1a3a5aDa2a5a8a5a0a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 100220.0,
+      "nom": "LORDIUS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C6/participants",
+          "capture_utc": "2026-11-16T23:37:46.952022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "D. BROHIER",
+      "entraineur": "D. BROHIER",
+      "proprietaire": "D. BROHIER",
+      "musique_pmu": "2aDa7aDa1aDa5a4a2a(25)",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 106910.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C6/participants",
+          "capture_utc": "2026-11-16T23:37:46.952022+00:00"
+        }
+      },
+      "nom": "LOUNA DU LOCHEUR",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "F. SENET",
+      "proprietaire": "Mme M. STIHL",
+      "ferrure": "DP/PA",
+      "musique_pmu": "3a7a4a2aDa5a3a4a7a5a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 420825.0,
+      "nom": "LEARN TO FLY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C6/participants",
+          "capture_utc": "2026-11-16T23:37:46.952022+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

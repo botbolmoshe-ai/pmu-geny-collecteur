@@ -1,0 +1,372 @@
+{
+  "date": "2026-11-18",
+  "course": "R6C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LADY HEART",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1318500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1318500,
+        "gainsAnneeEnCours": 135500,
+        "gainsAnneePrecedente": 1183000
+      }
+    },
+    {
+      "nom": "LOOPING DE MA",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1654000,
+        "gainsVictoires": 675000,
+        "gainsPlace": 979000,
+        "gainsAnneeEnCours": 984000,
+        "gainsAnneePrecedente": 97000
+      }
+    },
+    {
+      "nom": "LAGON BLEU",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2065500,
+        "gainsVictoires": 1350000,
+        "gainsPlace": 715500,
+        "gainsAnneeEnCours": 214500,
+        "gainsAnneePrecedente": 1296000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-16T23:37:27.897022+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "S. STEFANO",
+      "entraineur": "G. ALAINE",
+      "proprietaire": "G. ALAINE",
+      "musique_pmu": "9a5a0a0aDa7aDa0a7a(25)",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 13185.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "nom": "LADY HEART",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "NICOLAS GERMAIN LEFEVRE",
+      "entraineur": "D. ALEXANDRE",
+      "proprietaire": "Franck EJARQUE",
+      "ferrure": "D4",
+      "musique_pmu": "0aDaDaDa1a0aDaDaDm3a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 16540.0,
+      "nom": "LOOPING DE MA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "J.CH. SOREL",
+      "entraineur": "D. ALEXANDRE",
+      "proprietaire": "Franck YVANES",
+      "ferrure": "D4",
+      "musique_pmu": "7a6aDaDa4aDa7aDa(25)2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 20655.0,
+      "nom": "LAGON BLEU",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "P. REPICHET",
+      "entraineur": "P. REPICHET",
+      "proprietaire": "Sylvain MASSON",
+      "musique_pmu": "8a7aDa0a3aDa6a0aDa9a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 22225.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "nom": "LIGHTNING",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "J.CH. FERON",
+      "entraineur": "D. THOMAS",
+      "proprietaire": "D. THOMAS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "3a6a3a0a5a0aDaDa0a3a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 23285.0,
+      "nom": "LUPIN DOUZOU",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "L. FRESNEAU",
+      "proprietaire": "L. FRESNEAU",
+      "ferrure": "D4",
+      "musique_pmu": "0a7a5a0a0a7a9a1aDa3a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 24195.0,
+      "nom": "LYNX DES LOYAUX",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "L. GOETZ",
+      "entraineur": "CHARLES BOUVIER",
+      "proprietaire": "CHARLES BOUVIER",
+      "ferrure": "D4",
+      "musique_pmu": "6aDa4a6aDa7a7a6a2a4a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 24860.0,
+      "nom": "LEXO JELOCA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "K. THONNERIEUX",
+      "entraineur": "K. THONNERIEUX",
+      "proprietaire": "Pierre CANTAREIL",
+      "ferrure": "D4",
+      "musique_pmu": "DaDaDaDa2a8a8a(25)Da5a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 25755.0,
+      "nom": "LET'S GO D'AIRZA",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "N. ENSCH",
+      "entraineur": "N. ENSCH",
+      "proprietaire": "Ecurie TENACIOUS SAUVIGNEY",
+      "musique_pmu": "Da0aDaDaDa1a5a8aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 28875.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "nom": "LITTLE ATOUT",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "F. TUGEND",
+      "entraineur": "R. MOURICE",
+      "proprietaire": "Ecurie Romuald MOURICE",
+      "ferrure": "D4",
+      "musique_pmu": "Da6a3aDa0a3aDa2a6a0a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 50530.0,
+      "nom": "LEADER DES APRES",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "G. TUGEND",
+      "entraineur": "R. MOURICE",
+      "proprietaire": "Ecurie Romuald MOURICE",
+      "ferrure": "D4",
+      "musique_pmu": "Da8aDaDaDa1a2aDa0a3a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 54285.0,
+      "nom": "LOVICTORY WILLIAMS",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "D. DESBORDES",
+      "entraineur": "D. DESBORDES",
+      "proprietaire": "D. GOUYETTE",
+      "musique_pmu": "6a0a9aDa2a4a6a8a4aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 54935.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "nom": "LILLY DE GOUYE",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "M. GRUMETZ",
+      "entraineur": "Maxime GRUMETZ",
+      "proprietaire": "PH. GRUMETZ",
+      "ferrure": "D4",
+      "musique_pmu": "Dm9a9a5a0a2a3aDa1a1a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 55145.0,
+      "nom": "LOVE SHACK",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "E. BRIAND",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "musique_pmu": "4aDa3aDaDa6aDa1aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 59630.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R6/C4/participants",
+          "capture_utc": "2026-11-16T23:37:27.897022+00:00"
+        }
+      },
+      "nom": "LE POULIGUEN",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    }
+  }
+}

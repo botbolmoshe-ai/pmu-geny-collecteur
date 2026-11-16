@@ -1,0 +1,453 @@
+{
+  "date": "2026-11-18",
+  "course": "R1C8",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KAPORAL DE VIETTE",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4958000,
+        "gainsVictoires": 2160000,
+        "gainsPlace": 2798000,
+        "gainsAnneeEnCours": 352500,
+        "gainsAnneePrecedente": 3443500
+      }
+    },
+    {
+      "nom": "KONG DODVILLE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5020000,
+        "gainsVictoires": 3555000,
+        "gainsPlace": 1465000,
+        "gainsAnneeEnCours": 1557500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "KALIE DREAM",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5203500,
+        "gainsVictoires": 2362500,
+        "gainsPlace": 2841000,
+        "gainsAnneeEnCours": 479000,
+        "gainsAnneePrecedente": 2882000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-16T23:37:48.424412+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "F. OUVRIE",
+      "proprietaire": "Mickael CAVANNA",
+      "ferrure": "PA",
+      "musique_pmu": "0a0a5a0a9a6a5aDa9a5a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 49580.0,
+      "nom": "KAPORAL DE VIETTE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "CEDRIC TERRY",
+      "entraineur": "F. TERRY",
+      "proprietaire": "Ecurie Hervé GUERIN",
+      "ferrure": "D4",
+      "musique_pmu": "3aDa0a1a4aDm2aDa5aDa",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 50200.0,
+      "nom": "KONG DODVILLE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "ARNAUD MORIN",
+      "entraineur": "Arnaud MORIN",
+      "proprietaire": "Arnaud MORIN",
+      "ferrure": "PA",
+      "musique_pmu": "3a9a6aDa7a4a9a6a0a6a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 52035.0,
+      "nom": "KALIE DREAM",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "J. TRAVERS",
+      "entraineur": "Mlle AUDE LEMOINE",
+      "proprietaire": "F. LEMOINE",
+      "musique_pmu": "9a8a9a8a9a9a0a9a6a0a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 52305.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "nom": "KINO DE LAUMIERE",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "G. DONIO",
+      "entraineur": "M. DONIO",
+      "proprietaire": "Thierry BEGLIMINI",
+      "ferrure": "D4",
+      "musique_pmu": "DmDmDm8a3a0a7m3m4mDa",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 52435.0,
+      "nom": "KAELLE TURGOT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "P.L. DESAUNETTE",
+      "proprietaire": "L. VAUBERT",
+      "ferrure": "D4",
+      "musique_pmu": "3aDa4a2a7m6a7a5aDa4a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 52835.0,
+      "nom": "KANDERO BELLO",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "N. BAZIRE",
+      "entraineur": "Daniel WAJERSTEN",
+      "proprietaire": "Stall SOFO",
+      "ferrure": "D4",
+      "musique_pmu": "1a6aDa4a3a0a2a(25)1aDa",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 53790.0,
+      "nom": "KING OF THE WORLD",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "ANTOINE TRIHOLLET",
+      "entraineur": "Antoine TRIHOLLET",
+      "proprietaire": "Laurent BOUDIER",
+      "ferrure": "DP",
+      "musique_pmu": "7a1a6a6a8aDa(25)2aDa2a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 54030.0,
+      "nom": "KAKINANI",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "L. GUILLEMIN",
+      "entraineur": "L. GUILLEMIN",
+      "proprietaire": "Mme M. PERRET",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da1aDa6a2a5a2aDaDa6a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 54500.0,
+      "nom": "KAID DES BOSC",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "D. BROHIER",
+      "entraineur": "D. BROHIER",
+      "proprietaire": "D. BROHIER",
+      "musique_pmu": "0a8aDa2aDa1aDaDaAaDm",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 82005.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "nom": "KIDAM DU METZ",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "CH. CUILLER",
+      "entraineur": "CH. CUILLER",
+      "proprietaire": "Yann MICHAUD",
+      "musique_pmu": "4mDm0m6m5m2m6m3m(25)4m",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 95665.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "nom": "KENENISA SKILL",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "A.G. MAILLARD",
+      "proprietaire": "Mme Catherine POLLIN",
+      "ferrure": "DP/PA",
+      "musique_pmu": "2aDa6a6a5a4a7a0aDa1a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 96010.0,
+      "nom": "KAISER TURGOT",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "J.F. MOQUET",
+      "entraineur": "Jean-François MOQUET",
+      "proprietaire": "L. LUCOTTE",
+      "musique_pmu": "8a6a0a7a4a1a3aDa2aDa",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 96702.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "nom": "KARAT COOL",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "G. BEAUFILS",
+      "proprietaire": "Ecurie BEJI",
+      "ferrure": "D4",
+      "musique_pmu": "3a9a5a2a5aDa2a3a9a(25)",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 101070.0,
+      "nom": "KEOPS DE JUMILLY",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "F. HAREL",
+      "proprietaire": "Ecurie Franck HAREL",
+      "ferrure": "DP",
+      "musique_pmu": "7aDa5a3a4a6a7a(25)Da0a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 102310.0,
+      "nom": "KELLOU DES BRUMES",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "A. CHARRIE",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "J. SEROR",
+      "musique_pmu": "4m1m6m1m1mDm7m4m(25)Dm",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 103005.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "nom": "KALICO JACK",
+      "statut_np": "PARTANT",
+      "divergences_sources": []
+    },
+    "17": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "S. LEBLOND",
+      "proprietaire": "Ecurie de LA FRENAIE",
+      "ferrure": "D4",
+      "musique_pmu": "4a2a5a4a0a0a3a2a1a6a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 104680.0,
+      "nom": "KID SMILE",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "18": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "CH. CUILLER",
+      "proprietaire": "Frédéric POPOT",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0aDa1a5a6a8a9a9aDa0a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 104870.0,
+      "nom": "KRUGER DU NORD",
+      "statut_np": "PARTANT",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026/R1/C8/participants",
+          "capture_utc": "2026-11-16T23:37:48.424412+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
