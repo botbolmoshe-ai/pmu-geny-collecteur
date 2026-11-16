@@ -566,14 +566,14 @@
     },
     "R1C8": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-16T18:00:00+01:00",
       "nom": "PRIX DE MONTELIMAR",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 14,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_RECENTE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
@@ -608,15 +608,16 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_NON_ENTRAINE"
+      "statut_ml": "ML_NON_ENTRAINE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-16T16:57:46.951339+00:00",
+  "dernier_controle_pmu": "2026-11-16T17:53:56.221693+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-16",
-    "horodatage_utc": "2026-11-16T16:57:46.951339+00:00",
+    "horodatage_utc": "2026-11-16T17:53:56.221693+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/16112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 15,
@@ -659,7 +660,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
