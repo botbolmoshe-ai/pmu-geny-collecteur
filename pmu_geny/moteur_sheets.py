@@ -44,6 +44,20 @@ def ouvrir_session():
         info,scopes=['https://www.googleapis.com/auth/spreadsheets']))
 
 
+def regrouper_cellules(tab, updates):
+    """Regrouper les cellules contiguës d'une colonne sans écrire dans les trous."""
+    from .sync_google_sheets import colname
+    result=[];previous_row=previous_col=None;block=None
+    for row,col,value in sorted(updates,key=lambda x:(x[1],x[0])):
+        if col==previous_col and row==previous_row+1 and len(block['values'])<2000:
+            block['values'].append([value])
+        else:
+            block={'range':f"'{tab}'!{colname(col)}{row}",'values':[[value]]}
+            result.append(block)
+        previous_row,previous_col=row,col
+    return result
+
+
 class SessionMesuree:
     def __init__(self,session):
         self.raw=session;self.lectures=0;self.ecritures=0
@@ -76,15 +90,18 @@ class SynchroniseurSheets:
         return {x['properties']['title']:x['properties'] for x in doc['sheets']}
 
     def source(self):
-        from .sync_google_sheets import source_rows,limiter_cours_registre
-        return limiter_cours_registre(source_rows(self.cache))
+        from .sync_google_sheets import source_rows,limiter_cours_registre,RETIRED_SHEET_COLUMNS
+        raw=limiter_cours_registre(source_rows(self.cache))
+        return {tab:{key:{field:value for field,value in row.items()
+                         if field not in RETIRED_SHEET_COLUMNS.get(tab,())}
+                     for key,row in rows.items()} for tab,rows in raw.items()}
 
     def _synchroniser_onglet(self,tab,incoming,properties,*,full_source,allow_structure):
-        from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques,RETIRED_EXPERT_COLUMNS
+        from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques,RETIRED_SHEET_COLUMNS,SHEET_HEADER_LABELS
         values=lire_feuille_complete(self.session,self.base,tab,properties)
         if not values:raise ErreurSynchronisation('Onglet sans en-tetes : '+tab)
-        if tab=='Courses & Prévisions' and allow_structure:
-            removed=[i for i,name in enumerate(canonical_headers(values[0])) if name in RETIRED_EXPERT_COLUMNS]
+        if allow_structure:
+            removed=[i for i,name in enumerate(canonical_headers(values[0])) if name in RETIRED_SHEET_COLUMNS.get(tab,())]
             if removed:
                 self.check(self.session.post(self.base+':batchUpdate',json={'requests':[
                     {'deleteDimension':{'range':{'sheetId':properties['sheetId'],'dimension':'COLUMNS',
@@ -92,7 +109,14 @@ class SynchroniseurSheets:
                     for i in reversed(removed)]},timeout=30))
                 properties=self.metadata()[tab]
                 values=lire_feuille_complete(self.session,self.base,tab,properties)
-                if not values:raise ErreurSynchronisation('En-tetes absents apres suppression des sources retirees')
+                if not values:raise ErreurSynchronisation('En-tetes absents apres retrait des colonnes')
+            labels=SHEET_HEADER_LABELS.get(tab,{})
+            replacements=[{'range':f"'{tab}'!{colname(i+1)}1",'values':[[labels[name]]]} for i,name in
+                          enumerate(canonical_headers(values[0])) if name in labels and values[0][i]!=labels[name]]
+            if replacements:
+                self.check(self.session.post(self.base+'/values:batchUpdate',
+                    json={'valueInputOption':'RAW','data':replacements},timeout=30))
+                values=lire_feuille_complete(self.session,self.base,tab,properties)
         headers=canonical_headers(values[0])
         existing=[dict(zip(headers,row)) for row in values[1:]]
         if tab==HISTORY:
@@ -116,7 +140,7 @@ class SynchroniseurSheets:
         cells=[]
         if extra:cells.append({'range':f"'{tab}'!{colname(len(headers)+1)}1:{colname(len(effective_headers))}1",
                                'values':[[DISPLAY_NAMES.get(k,k) for k in extra]]})
-        cells.extend({'range':f"'{tab}'!{colname(c)}{r}",'values':[[v]]} for r,c,v in updates)
+        cells.extend(regrouper_cellules(tab,updates))
         for start in range(0,len(cells),350):
             self.check(self.session.post(self.base+'/values:batchUpdate',
                 json={'valueInputOption':'RAW','data':cells[start:start+350]},timeout=45))

@@ -18,16 +18,28 @@ SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analy
 LIVE_RESET_DATE = '2026-11-12'
 RETIRED_EXPERT_COLUMNS = frozenset({'avis_equidia','avis_zeturf','prono_equidia','prono_zeturf',
                                    'source_equidia','source_zeturf'})
+RETIRED_SHEET_COLUMNS = {
+    'Courses & Prévisions':RETIRED_EXPERT_COLUMNS | frozenset({
+        'ml_proba_podium','synthese_actualite','divergences_sources',
+        'top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','top3_cotes_utc'}),
+    'Historique chevaux':frozenset({'rncn','nombre_partants','gains_course_eur',
+        'driver_jockey','entraineur','date_source'}),
+    'Résultats & Analyse':frozenset({'top3_cotes_numeros','score_cotes',
+        'analyse_comparative','derniere_sync_utc'}),
+}
+SHEET_HEADER_LABELS = {
+    'Courses & Prévisions':{'actuel_statut':'PMU · État ferrure',
+        'couverture_experts':'PMU · Disponibilité avis/pronostic'},
+    'Historique chevaux':{'extraction_utc':'Capture historique · UTC'},
+}
 EXPERT_COLUMNS = ('avis_pmu','prono_pmu','source_pmu','couverture_experts',
-                  'divergences_sources','conditions_course','age_ans','sexe','gains_euros','synthese_actualite')
-COMPARE_COLUMNS = EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','ml_score_non_calibre','top3_direct_utc','top3_cotes_utc','ml_rang','ml_top3','ml_proba_podium','arrivee_rang','meteo_resume','meteo_statut')
+                  'conditions_course','age_ans','sexe','gains_euros')
+COMPARE_COLUMNS = EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut')
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_calcule_utc','score_direct',
-                  'top3_cotes_numeros','score_cotes',
                   'top3_ml_numeros','score_ml','etat_ml',
                   'arrivee_officielle_numeros','arrivee_verifiee_utc',
-                  'statut_evaluation','analyse_comparative','conclusion',
-                  'derniere_sync_utc')
+                  'statut_evaluation','conclusion')
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
 CLEARABLE_COLUMNS = frozenset(EXPERT_COLUMNS) | frozenset({
@@ -46,7 +58,7 @@ def sheet_value(field, value):
 HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_historique':'date',
                 'hippodrome':'hippodrome','discipline':'discipline','distance_m':'distance_m',
                 'classement':'classement','chrono':'chrono','source_url':'texte_source',
-                'ferrure':'ferrure'}
+                'ferrure':'ferrure','extraction_utc':'_capture_historique_utc'}
 
 
 # Les libelles Google Sheets sont independants des noms techniques Python.
@@ -95,7 +107,7 @@ DISPLAY_NAMES = {
     'historique_statut':'Historique · État',
     'historique_nb_courses_datees':'Historique · Nb performances récupérées',
     'historique_maj_utc':'Historique · Mise à jour UTC',
-    'actuel_statut':'PMU · Complétude fiche',
+    'actuel_statut':'PMU · État ferrure',
     'actuel_maj_utc':'Données actuelles · Mise à jour UTC',
     'statut_prevision':'Prévisions · État',
     'avis_pmu':'Avis expert PMU',
@@ -107,7 +119,7 @@ DISPLAY_NAMES = {
     'source_pmu':'Source PMU · URL et collecte UTC',
     'source_equidia':'Source Equidia · URL et collecte UTC',
     'source_zeturf':'Source ZEturf · URL et collecte UTC',
-    'couverture_experts':'Experts · Disponibilité par source',
+    'couverture_experts':'PMU · Disponibilité avis/pronostic',
     'divergences_sources':'Sources · Divergences / avis identiques',
     'conditions_course':'Conditions de course',
     'synthese_actualite':'Synthèse des avis',
@@ -124,9 +136,12 @@ DISPLAY_NAMES = {
     'arrivee_rang':'Arrivée · Rang officiel',
     'meteo_resume':'Météo · Synthèse',
     'meteo_statut':'Météo · État',
+    'extraction_utc':'Capture historique · UTC',
 }
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
+INVERSE_NAMES.update({'PMU · Complétude fiche':'actuel_statut',
+                      'Experts · Disponibilité par source':'couverture_experts'})
 
 def canonical_headers(visible):
     return [INVERSE_NAMES.get(name,name) for name in visible]
@@ -266,6 +281,9 @@ def source_rows(cache):
         info=course_info(cache,code,date)
         if not info:continue
         participant=load_json(participant_file)
+        official=load_json(cache/'arrivees'/f'{date}_{code}.json')
+        official_ranks={str(h.get('numero')):h['rang'] for h in official.get('arrivee',[])
+                        if isinstance(h.get('rang'),int) and h['rang']>0}
         direct=load_json(cache/'pronostics'/f'{date}_{code}_direct.json')
         marche=load_json(cache/'pronostics'/f'{date}_{code}_cotes.json')
         cotes_source=load_json(cache/'cotes'/f'{date}_{code}.json')
@@ -338,6 +356,7 @@ def source_rows(cache):
                 'sexe':act.get('sexe',''),
                 'gains_euros':act.get('gains_euros') if act.get('gains_euros') is not None else '',
                 'non_partant':act.get('statut_np','NP_NON_VERIFIE'),
+                'arrivee_rang':official_ranks.get(str(n),''),
                 'actuel_statut':('FERRURE_DISPONIBLE_SOURCEE' if act.get('ferrure') else 'FERRURE_NON_RECUPEREE') if act else 'PMU_PARTANTS_NON_RECUPERES',
                 'actuel_maj_utc':participant.get('capture_utc',''),
                 'top3_direct_rang':direct_rank,
@@ -403,6 +422,7 @@ def source_rows(cache):
         conclusion=(f"Meilleure méthode : {best_methods} ({best}/3)" if best is not None
                     else 'Aucune prévision indépendante évaluable avant cette arrivée')
         reports[k]={**existing,
+                    'etat_ml':ml.get('statut','ML_NON_ENTRAINE'),
                     'top3_direct_calcule_utc':direct.get('calcul_utc',''),
                     'conclusion':conclusion,
                     'top3_direct_numeros':direct_nums,'score_direct':direct_hits,
@@ -476,7 +496,12 @@ def source_rows(cache):
         cheval=journal.get(ident,{}).get('nom','')
         for perf in doc['performances']:
             from .partants_actuels_v21 import ferrure_historique_explicite
-            row={'cheval_id':ident,'nom':cheval,**perf,
+            captured=''
+            try:
+                stamp=datetime.fromisoformat(doc['extrait_utc'])
+                if stamp.tzinfo:captured=stamp.astimezone(timezone.utc).isoformat()
+            except (KeyError,ValueError,TypeError):pass
+            row={'cheval_id':ident,'nom':cheval,**perf,'_capture_historique_utc':captured,
                  '_statut_verification':'EXTRACTION_GENY_PARTIELLE' if partial else 'EXTRACTION_GENY'}
             if not row.get('ferrure'):
                 row['ferrure']=ferrure_historique_explicite(perf.get('texte_source',''))
