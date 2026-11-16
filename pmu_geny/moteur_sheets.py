@@ -99,6 +99,16 @@ class SynchroniseurSheets:
         from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques
         values=lire_feuille_complete(self.session,self.base,tab,properties)
         if not values:raise ErreurSynchronisation('Onglet sans en-tetes : '+tab)
+        if tab=='Courses & Prévisions' and allow_structure:
+            removed=[i for i,name in enumerate(canonical_headers(values[0])) if name=='avis_equidia']
+            if removed:
+                self.check(self.session.post(self.base+':batchUpdate',json={'requests':[
+                    {'deleteDimension':{'range':{'sheetId':properties['sheetId'],'dimension':'COLUMNS',
+                                               'startIndex':i,'endIndex':i+1}}}
+                    for i in reversed(removed)]},timeout=30))
+                properties=self.metadata()[tab]
+                values=lire_feuille_complete(self.session,self.base,tab,properties)
+                if not values:raise ErreurSynchronisation('En-tetes absents apres suppression Equidia')
         if allow_structure:self._migrer_entetes(tab,values)
         headers=canonical_headers(values[0])
         existing=[dict(zip(headers,row)) for row in values[1:]]
