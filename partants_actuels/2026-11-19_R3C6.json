@@ -1,0 +1,462 @@
+{
+  "date": "2026-11-19",
+  "course": "R3C6",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "ONELLE LANDING",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1072000,
+        "gainsVictoires": 540000,
+        "gainsPlace": 532000,
+        "gainsAnneeEnCours": 1072000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "ODYSSEE DE MAI",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1180000,
+        "gainsVictoires": 810000,
+        "gainsPlace": 370000,
+        "gainsAnneeEnCours": 1180000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "ON THE BEACH",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1121000,
+        "gainsVictoires": 0,
+        "gainsPlace": 1121000,
+        "gainsAnneeEnCours": 1121000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-17T23:30:26.078584+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "L. BAUDRON",
+      "entraineur": "L. BAUDRON",
+      "proprietaire": "Ecurie LANDING",
+      "musique_pmu": "Da3a1a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 10720.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "ONELLE LANDING",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "R. CONGARD",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie Jean Michel BAZIRE",
+      "musique_pmu": "4a1a6a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 11800.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "ODYSSEE DE MAI",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "musique_pmu": "4aDaDa3a2a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 11210.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "ON THE BEACH",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "B. ROBIN",
+      "entraineur": "B. ROBIN",
+      "proprietaire": "F. MABILE",
+      "musique_pmu": "DaDa4a3a3a6aDa",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 11220.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OLYMPE DE BELINE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "A. LAMY",
+      "entraineur": "J.G. VAN EECKHAUTE",
+      "proprietaire": "O. LEROY",
+      "musique_pmu": "2a2a7a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 13080.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "ORFEE DANEPIERRE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "CL. DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ecurie Thierry DUVALDESTIN",
+      "musique_pmu": "1a2a4a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 14665.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OLGAYA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "musique_pmu": "3a3a4a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 13280.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OPERA QUEEN",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "R.CH. LARUE",
+      "proprietaire": "Ecurie de WINDCUT",
+      "musique_pmu": "Da3aDaDa2a5a4a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 8070.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OLBIA CASTELETS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "K. LEBLANC",
+      "musique_pmu": "5a1a3a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 11430.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OLIVE D'ANSY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. REBECHE",
+      "entraineur": "Théo CHERADAME",
+      "proprietaire": "Ecurie BLU RACING",
+      "musique_pmu": "Da2a3aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 7560.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OPEN LETTER",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "A. BARRIER",
+      "entraineur": "A. BUISSON",
+      "proprietaire": "Ecurie Alexandre BUISSON",
+      "musique_pmu": "7a7a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 550.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OCARINA LEBEL",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "Ecurie L.CL. ABRIVARD",
+      "musique_pmu": "3a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 1750.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OLVERA BELLA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "D. BONNE",
+      "entraineur": "D. BONNE",
+      "proprietaire": "Ecurie Damien BONNE",
+      "musique_pmu": "6a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 240.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OSMOSE DU DIGEON",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "P. PLOQUIN",
+      "proprietaire": "Ecurie DRY",
+      "musique_pmu": "Da4a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 1360.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OLBIA DRY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "B. MICHARDIERE",
+      "proprietaire": "G. VEYRAC",
+      "musique_pmu": "Da5a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 575.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "OPALE DU VALLON",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "G. BAUDOUIN",
+      "entraineur": "J.M. BAUDOUIN",
+      "proprietaire": "Ecurie Jean-Michel BAUDOUIN",
+      "musique_pmu": "Da7a2a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 3330.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C6/participants",
+          "capture_utc": "2026-11-17T23:30:26.078584+00:00"
+        }
+      },
+      "nom": "ORCHESTRA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

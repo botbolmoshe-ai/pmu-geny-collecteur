@@ -1,0 +1,329 @@
+{
+  "date": "2026-11-19",
+  "course": "R3C1",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NOPUS ONE",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NARCISO D'EVA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NOUKAT PARC",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 26000,
+        "gainsVictoires": 0,
+        "gainsPlace": 26000,
+        "gainsAnneeEnCours": 26000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-17T23:30:20.939778+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "Ecurie D.M. MOTTIER",
+      "ferrure": "PA",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "nom": "NOPUS ONE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "P. PELLEROT",
+      "proprietaire": "Ecurie Pierre PELLEROT",
+      "musique_pmu": "Dm",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "nom": "NARCISO D'EVA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "G. MOINON",
+      "proprietaire": "G. MOINON",
+      "ferrure": "PA",
+      "musique_pmu": "7a9a7mDa0a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 260.0,
+      "nom": "NOUKAT PARC",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "F. POISSON",
+      "entraineur": "H. COMBOT",
+      "proprietaire": "H. COMBOT",
+      "musique_pmu": "7aDa8a7aDaDmDmDm7a6a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 850.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "nom": "NEVE LEMAN",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "V. SAUSSAYE",
+      "entraineur": "Antonin ANDRE",
+      "proprietaire": "Antonin ANDRE",
+      "musique_pmu": "DaDaDaDa4aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 1320.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "nom": "NECTAR DE FAEL",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Mlle E. CALLIER",
+      "entraineur": "A. HENARD",
+      "proprietaire": "A. HENARD",
+      "musique_pmu": "3m",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 2030.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "nom": "NEVIS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "D. BONNE",
+      "entraineur": "CH. BIGEON",
+      "proprietaire": "Ecurie Christian BIGEON",
+      "musique_pmu": "2a6aDa6a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 3640.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "nom": "NAMOUR DU COGLAIS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "M. DURVILLE",
+      "entraineur": "B. CARPENTIER",
+      "proprietaire": "B. CARPENTIER",
+      "musique_pmu": "3m2m",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 9400.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "nom": "NARIO MESLINOIS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "Mme T. MATHIAS-MAISONNETTE",
+      "entraineur": "TH. RAFFEGEAU",
+      "proprietaire": "Ecurie Thierry RAFFEGEAU",
+      "musique_pmu": "Dm6mDm1m8mDm",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 10250.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "nom": "NOBLE D'AVRIL",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "ferrure": "PA",
+      "musique_pmu": "2m7mDa(25)DaDaDa2a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 12475.0,
+      "nom": "NIRJHARA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "TH. DROMIGNY",
+      "entraineur": "J.F. SENET",
+      "proprietaire": "N. CHEREAU",
+      "ferrure": "PA",
+      "musique_pmu": "2a3mDa4a2a6a5a3aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 14750.0,
+      "nom": "NEO SAINT LOUP",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C1/participants",
+          "capture_utc": "2026-11-17T23:30:20.939778+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

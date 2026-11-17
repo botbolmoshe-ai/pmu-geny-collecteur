@@ -1,0 +1,292 @@
+{
+  "date": "2026-11-19",
+  "course": "R3C3",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KILLER SUN DRALIAM",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5689500,
+        "gainsVictoires": 2655000,
+        "gainsPlace": 3034500,
+        "gainsAnneeEnCours": 1522000,
+        "gainsAnneePrecedente": 261000
+      }
+    },
+    {
+      "nom": "KELMONDO BOY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 7130500,
+        "gainsVictoires": 4095000,
+        "gainsPlace": 3035500,
+        "gainsAnneeEnCours": 1593500,
+        "gainsAnneePrecedente": 2187500
+      }
+    },
+    {
+      "nom": "KAPITEN DU MELEUC",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 7138000,
+        "gainsVictoires": 2497500,
+        "gainsPlace": 4640500,
+        "gainsAnneeEnCours": 312500,
+        "gainsAnneePrecedente": 3631500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-17T23:30:22.509554+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "F. POISSON",
+      "entraineur": "H. COMBOT",
+      "proprietaire": "Ecurie MARCILLAC",
+      "ferrure": "PA",
+      "musique_pmu": "5a8aDaDa0aDaDa5aDa1a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 56895.0,
+      "nom": "KILLER SUN DRALIAM",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "L. CHEVROLLIER",
+      "entraineur": "Y. DREUX",
+      "proprietaire": "Y. DREUX",
+      "ferrure": "D4",
+      "musique_pmu": "0a6a1a2a5a1a8a5a0a9a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 71305.0,
+      "nom": "KELMONDO BOY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "G. POU CRESPI",
+      "entraineur": "G.A. POU POU",
+      "proprietaire": "C. Olivia CRESPI-PEREZ",
+      "musique_pmu": "0aDm7a0a7a4aDa6a7aDa",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 71380.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "nom": "KAPITEN DU MELEUC",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Mlle H. GODEY",
+      "entraineur": "Vitale CIOTOLA",
+      "proprietaire": "A. TURQUET-LEPREUX",
+      "ferrure": "D4",
+      "musique_pmu": "4a1m0a0a3a7m3a5a4m7a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 74162.0,
+      "nom": "KRACDARCHE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "L. OTT",
+      "entraineur": "C. MEGISSIER",
+      "proprietaire": "C. MEGISSIER",
+      "ferrure": "PA",
+      "musique_pmu": "2m3m5m9m4m0m(25)5m7m3m",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 78365.0,
+      "nom": "KIVIANA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "J. MAILLARD",
+      "entraineur": "M. CHARUEL",
+      "proprietaire": "Mme M. CHARUEL",
+      "ferrure": "D4",
+      "musique_pmu": "Da4m6m1m3m1m7m9a0a(25)",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 79595.0,
+      "nom": "KIKI DU ROC",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "Mlle L.A. LECOQ",
+      "entraineur": "J.W. HALLAIS",
+      "proprietaire": "Ecurie J.CL. HALLAIS",
+      "ferrure": "DP",
+      "musique_pmu": "0m1m3m1mDm2m5m4m5m5m",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 80190.0,
+      "nom": "KETCHUP",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mlle E. BOUCLET",
+      "entraineur": "M. BOUCHEZ",
+      "proprietaire": "M. BOUCHEZ",
+      "ferrure": "D4",
+      "musique_pmu": "0a1m3m4mDa3m2m7m0a4m",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 83490.0,
+      "nom": "KADOR DELO",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "Mlle H. FERNANDES RIOS",
+      "entraineur": "Sté. Ent. Fabrice SOULOY",
+      "proprietaire": "A. MERIEL",
+      "ferrure": "D4",
+      "musique_pmu": "9aDm3mDm9a1mDm9m5a2m",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 86160.0,
+      "nom": "KALEDA DE LA COUR",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "Mlle A. POULAIN",
+      "entraineur": "H. COMBOT",
+      "proprietaire": "H. COMBOT",
+      "ferrure": "D4",
+      "musique_pmu": "6m1mDm7mDm3mDm1m1mDm",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 88275.0,
+      "nom": "KERSIGAN",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C3/participants",
+          "capture_utc": "2026-11-17T23:30:22.509554+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

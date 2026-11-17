@@ -1,0 +1,464 @@
+{
+  "date": "2026-11-19",
+  "course": "R3C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MALTA TEGE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1835500,
+        "gainsVictoires": 652500,
+        "gainsPlace": 1183000,
+        "gainsAnneeEnCours": 1835500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MALIZIOSA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 2221000,
+        "gainsVictoires": 1260000,
+        "gainsPlace": 961000,
+        "gainsAnneeEnCours": 1908000,
+        "gainsAnneePrecedente": 313000
+      }
+    },
+    {
+      "nom": "MUSE DU GOUTIER",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2313500,
+        "gainsVictoires": 1215000,
+        "gainsPlace": 1098500,
+        "gainsAnneeEnCours": 1599500,
+        "gainsAnneePrecedente": 714000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-17T23:30:21.364843+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "M. BRUN",
+      "entraineur": "R. BERNIER",
+      "proprietaire": "S. BERNIER",
+      "musique_pmu": "3a3a8a1aDaDa4a7a2a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18355.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "nom": "MALTA TEGE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "J. DUBOIS",
+      "entraineur": "J. DUBOIS",
+      "proprietaire": "Y. DESMET",
+      "musique_pmu": "3a4a0aDa1aDaDaDaDa5a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 22210.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "nom": "MALIZIOSA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "A. LAMY",
+      "entraineur": "Sté. Ent. Charles CRIADO",
+      "proprietaire": "Didier LEGAY",
+      "ferrure": "D4",
+      "musique_pmu": "1a0aDa1a7aDaDaDa8aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 23135.0,
+      "nom": "MUSE DU GOUTIER",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "Renaud JULIEN",
+      "proprietaire": "Ecurie MIL'STUD",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da1aDa1a6aDa1a2aDa6a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 24715.0,
+      "nom": "MANSUETUDE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "D. BONNE",
+      "entraineur": "CH. BIGEON",
+      "proprietaire": "Ecurie Christian BIGEON",
+      "ferrure": "DP",
+      "musique_pmu": "6a0a8aDa(25)1a8a1a3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 24860.0,
+      "nom": "MARIYA HAUFOR",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie de la GAUTELLERIE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "3a1aDa(25)6aDm2a5a2a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 24960.0,
+      "nom": "MONZA SEMILLY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "M. BEZIER",
+      "entraineur": "M. BEZIER",
+      "proprietaire": "Ecurie M. BEZIER",
+      "ferrure": "D4",
+      "musique_pmu": "0a5a6a3a3a2a3a3a7a7a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 26650.0,
+      "nom": "MA JOLIE BECO",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "D. BROHIER",
+      "entraineur": "D. BROHIER",
+      "proprietaire": "D. BROHIER",
+      "musique_pmu": "8a8a4a2a8a5a4a1a1a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 28465.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "nom": "MIMI DU MESNIL",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "A. BARRIER",
+      "entraineur": "D. HEON",
+      "proprietaire": "D. HEON",
+      "ferrure": "D4",
+      "musique_pmu": "7a2a3a4a2a6a5a5a3a3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 29340.0,
+      "nom": "MISS COCO",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "J.G. VAN EECKHAUTE",
+      "proprietaire": "J.G. VAN EECKHAUTE",
+      "ferrure": "D4",
+      "musique_pmu": "Da4a2a2aDmDa9aDa6a8a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 29790.0,
+      "nom": "MELODY DE L'EPINE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "Mme L. RIISE",
+      "proprietaire": "Mme L. RIISE",
+      "ferrure": "DP",
+      "musique_pmu": "1aDa2a9a0a1a2aDa1a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 30050.0,
+      "nom": "MOST WANTED",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "Sté. Ent. Charles CRIADO",
+      "proprietaire": "Ecurie KARIBOU",
+      "ferrure": "DP",
+      "musique_pmu": "DaDaDa2a6a0a(25)Da4a7a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 30075.0,
+      "nom": "MADONE DES RACQUES",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "Sté. Ent. Jonathan VANMEERBECK",
+      "proprietaire": "D. HADDAD",
+      "ferrure": "D4",
+      "musique_pmu": "DaDa3a2a8a2a1a3a7a(25)",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 30315.0,
+      "nom": "MY FAVORITE THINGS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "S. TESSIER",
+      "proprietaire": "S. TESSIER",
+      "ferrure": "D4",
+      "musique_pmu": "6a4a7a3a3a4a2a4a2a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 30855.0,
+      "nom": "MARQUISE DELACOUR",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "F. GUERINEAU",
+      "entraineur": "A. RIPOLL RIGO",
+      "proprietaire": "Bernardo JAUME CIRER",
+      "ferrure": "D4",
+      "musique_pmu": "2a3a4a2a3a3aDaDa4a(25)",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 31115.0,
+      "nom": "MADISON DE MAHEY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "AURELIEN DESMARRES",
+      "entraineur": "Aurélien DESMARRES",
+      "proprietaire": "Aurélien DESMARRES",
+      "ferrure": "D4",
+      "musique_pmu": "1a1a2a6a4a2a5a2a(25)6a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 31225.0,
+      "nom": "MUSE PRIOR",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "17": {
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "J.G. VAN EECKHAUTE",
+      "proprietaire": "J. VAN EECKHAUTE",
+      "ferrure": "D4",
+      "musique_pmu": "4aDaDaDa3aDa3aDaDa2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 31495.0,
+      "nom": "MA BIMBO",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "18": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "ferrure": "D4",
+      "musique_pmu": "9a2aDa0a7a9a(25)Da4a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 31680.0,
+      "nom": "MANILLE D'ERABLE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R3/C2/participants",
+          "capture_utc": "2026-11-17T23:30:21.364843+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

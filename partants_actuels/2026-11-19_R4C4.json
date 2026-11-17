@@ -1,0 +1,274 @@
+{
+  "date": "2026-11-19",
+  "course": "R4C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MILKSHAKE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3764500,
+        "gainsVictoires": 1507500,
+        "gainsPlace": 2257000,
+        "gainsAnneeEnCours": 2825000,
+        "gainsAnneePrecedente": 939500
+      }
+    },
+    {
+      "nom": "MARQUIS DE MALAC",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3566000,
+        "gainsVictoires": 1732500,
+        "gainsPlace": 1833500,
+        "gainsAnneeEnCours": 2607500,
+        "gainsAnneePrecedente": 958500
+      }
+    },
+    {
+      "nom": "MARQUIS SOMOLLI",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 3335000,
+        "gainsVictoires": 2407500,
+        "gainsPlace": 927500,
+        "gainsAnneeEnCours": 1262000,
+        "gainsAnneePrecedente": 2073000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-17T23:30:25.744440+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "TH. BELLET",
+      "entraineur": "B. MARIE",
+      "proprietaire": "Ecurie BKM",
+      "ferrure": "D4",
+      "musique_pmu": "5a9a4a3a4a8aDa2a5a1a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 37645.0,
+      "nom": "MILKSHAKE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "ALEXANDRE BODIN",
+      "entraineur": "A. GOUGEON",
+      "proprietaire": "P. MULLER",
+      "ferrure": "DA",
+      "musique_pmu": "9a1a2aDaDaDa1a2a(25)7a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 35660.0,
+      "nom": "MARQUIS DE MALAC",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "M. DUDOUIT",
+      "entraineur": "J.P. FICHAUX",
+      "proprietaire": "Ecurie SOMOLLI",
+      "musique_pmu": "8a7a1a8aDa5a5aDa6a(25)",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 33350.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "nom": "MARQUIS SOMOLLI",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "M. LEGROS",
+      "entraineur": "B. MARIE",
+      "proprietaire": "Patrice GENTIL",
+      "ferrure": "D4",
+      "musique_pmu": "0aDa1a2a4aDa2a1a(25)6a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 37825.0,
+      "nom": "MOONLIGHT DJOC",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "C. GODARD",
+      "proprietaire": "Maurizio GIORDANO",
+      "ferrure": "D4",
+      "musique_pmu": "8a3aDa2a(25)8aDaDa5a8a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 39035.0,
+      "nom": "MAGNUS MAXIMUS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "PH. DAUGEARD",
+      "entraineur": "PH. DAUGEARD",
+      "proprietaire": "Ecurie Philippe DAUGEARD",
+      "musique_pmu": "1a3a5a1a6a4aDaDa4a(25)",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 33055.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "nom": "MAXIMUS DU DOME",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "Antonin ANDRE",
+      "proprietaire": "Antonin ANDRE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a1a6aDa0aDaDaDa(25)4a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 37295.0,
+      "nom": "MAGNUS TOR",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "S. ERNAULT",
+      "entraineur": "R. LAGADEUC",
+      "proprietaire": "Ecurie CHEFFREVILLE",
+      "ferrure": "D4",
+      "musique_pmu": "Da1aDaDaDaDa(25)2a1aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 24370.0,
+      "nom": "MINNESOTA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "E. CIVE",
+      "entraineur": "P. BELLOCHE",
+      "proprietaire": "Ecurie B",
+      "ferrure": "PA",
+      "musique_pmu": "Da0a3a7a3a4aDa9aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 29010.0,
+      "nom": "MEETING MESLOIS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C4/participants",
+          "capture_utc": "2026-11-17T23:30:25.744440+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

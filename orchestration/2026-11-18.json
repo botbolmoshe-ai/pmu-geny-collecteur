@@ -38,7 +38,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R6C2": {
       "identifiant_geny": null,
@@ -77,7 +84,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C1": {
       "identifiant_geny": null,
@@ -100,7 +114,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R6C3": {
       "identifiant_geny": "GENY-1698935",
@@ -142,7 +163,16 @@
       "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_cotes": "COTES_NON_EXTRAITES",
       "comparatif_csv": "cache_pmu/exports/GENY-1698935/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_np": "CONTROLE_DIFFERE",
+      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
+      "statut_maj_np": "H1_NON_FIGE"
     },
     "R6C4": {
       "identifiant_geny": "GENY-1698934",
@@ -184,11 +214,20 @@
       "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_cotes": "COTES_NON_EXTRAITES",
       "comparatif_csv": "cache_pmu/exports/GENY-1698934/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_np": "CONTROLE_DIFFERE",
+      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
+      "statut_maj_np": "H1_NON_FIGE"
     },
     "R6C5": {
-      "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "identifiant_geny": "GENY-1698930",
+      "etat": "MANIFESTE_PRESENT",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698930",
@@ -219,11 +258,23 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_np": "CONTROLE_DIFFERE",
+      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
+      "statut_maj_np": "H1_NON_FIGE",
+      "comparatif_csv": "cache_pmu/exports/GENY-1698930/comparatif_predictions.csv",
+      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
     "R6C6": {
       "identifiant_geny": null,
@@ -262,7 +313,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C4": {
       "identifiant_geny": null,
@@ -297,11 +355,18 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R6C7": {
       "identifiant_geny": null,
@@ -340,7 +405,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C5": {
       "identifiant_geny": null,
@@ -379,7 +451,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C6": {
       "identifiant_geny": null,
@@ -418,7 +497,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C7": {
       "identifiant_geny": null,
@@ -457,7 +543,14 @@
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C8": {
       "identifiant_geny": null,
@@ -492,19 +585,26 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "DONNEES_INSUFFISANTES"
+      },
+      "statut_cotes": "COTES_NON_EXTRAITES",
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-17T21:44:57.376732+00:00",
+  "dernier_controle_pmu": "2026-11-17T23:29:31.143157+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-18",
-    "horodatage_utc": "2026-11-17T21:44:57.376732+00:00",
+    "horodatage_utc": "2026-11-17T23:29:31.143157+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
