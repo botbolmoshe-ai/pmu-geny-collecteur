@@ -30743,29 +30743,6 @@
       "depart_a_venir_utc": "2026-11-17T13:12:00+00:00",
       "preparation_pmu_ok": true
     },
-    "2026-11-17_R3C1_10": {
-      "nom": "OTHELLO DAIRPET",
-      "sync": "SANS_MODIFICATION",
-      "numero": "10",
-      "engagement": "2026-11-17_R3C1",
-      "vu_utc": "2026-11-17T07:21:32.131088+00:00",
-      "verification_periodique": true,
-      "course_url": "https://www.geny.com/course/1698831/partants-pronostics",
-      "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
-      "depart_a_venir_utc": "2026-11-17T13:12:00+00:00",
-      "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
-      "erreur": "PermissionError: ACCES_REFUSE_403",
-      "prochain_essai_utc": "2026-11-17T04:19:15.298684+00:00",
-      "dernier_echec_collecte": {
-        "utc": "2026-11-16T22:19:15.298705+00:00",
-        "statut": "ACCES_REFUSE_403",
-        "motifs": [],
-        "erreur": "ACCES_REFUSE_403",
-        "identite_verifiee": null,
-        "diagnostic": "resultats/incremental/2026-11-17_R3C1_10/1794867549418539108/resultat.json"
-      }
-    },
     "2026-11-17_R3C1_11": {
       "nom": "ONE DAYDREAM",
       "sync": "SANS_MODIFICATION",
@@ -35889,14 +35866,48 @@
         }
       },
       "sync_utc": "2026-11-17T07:22:15.684794+00:00"
+    },
+    "2906871": {
+      "nom": "OTHELLO DAIRPET",
+      "sync": "A_FAIRE",
+      "numero": "10",
+      "engagement": "2026-11-17_R3C1",
+      "vu_utc": "2026-11-17T07:21:32.131088+00:00",
+      "verification_periodique": true,
+      "course_url": "https://www.geny.com/course/1698831/partants-pronostics",
+      "motif_actualisation": "",
+      "depart_a_venir_utc": "2026-11-17T13:12:00+00:00",
+      "preparation_pmu_ok": true,
+      "collecte": "COMPLET",
+      "erreur": "",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T22:19:15.298705+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-17_R3C1_10/1794867549418539108/resultat.json"
+      },
+      "id": "2906871",
+      "geny": {
+        "id": "2906871",
+        "nom": "OTHELLO DAIRPET",
+        "url_geny": "https://www.geny.com/cheval/2906871-othello-dairpet/course/1698831"
+      },
+      "historique_complet_au_utc": "2026-11-17T07:23:05.282647+00:00",
+      "derniere_verification_utc": "2026-11-17T07:23:05.282647+00:00",
+      "prochaine_verification_utc": "2026-11-18T07:23:05.282647+00:00",
+      "nombre_performances": 1,
+      "ferrures_manquantes": 0,
+      "derniere_performance_date": "2026-11-06"
     }
   },
   "passage_utc": "2026-11-17T07:21:32.131088+00:00",
-  "maj_utc": "2026-11-17T07:22:49.055898+00:00",
+  "maj_utc": "2026-11-17T07:23:05.616993+00:00",
   "bilan": {
     "chevaux_suivis": 1607,
-    "tentatives_collecte": 1,
-    "captures_validees": 1,
+    "tentatives_collecte": 2,
+    "captures_validees": 2,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
