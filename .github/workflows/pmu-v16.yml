@@ -162,12 +162,12 @@ jobs:
           plan=json.loads(Path('resultats/plan_production.json').read_text())
           cible=plan.get('mode')=='JALONS'
           run(root,today,plan['selection'] if cible else [],0,
-              max_discoveries=0 if cible else 1,now=now,selection_complete=True,clock=clock)
+              max_discoveries=0,now=now,selection_complete=True,clock=clock)
           # Rattrapage des arrivées de J-1, sans nouvelle prévision post-départ.
           yesterday=(now-timedelta(days=1)).date().isoformat()
           if not cible:run(root,yesterday,[],0,max_discoveries=0,now=now,selection_complete=True,clock=clock)
           tomorrow=(now+timedelta(days=1)).date().isoformat()
-          if not cible:run(root,tomorrow,[],0,max_discoveries=1,now=now,selection_complete=True,clock=clock)
+          if not cible:run(root,tomorrow,[],0,max_discoveries=0,now=now,selection_complete=True,clock=clock)
           print('Collecte historique confiée au worker incrémental indépendant')
           PYRUN
       - name: Experience ML manuelle avec jour de test exclu
@@ -332,15 +332,27 @@ jobs:
           PUBLICATION_REUSSIE: ${{ steps.publication.conclusion == 'success' }}
         run: |
           python -m pmu_geny.echeances_production --cache cache_pmu --certifier --strict
+      - name: Rafraichir les index Geny apres publication PMU
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Le module refuse les appels pendant le cooldown partage et les cycles JALONS.
+          if python -m pmu_geny.index_geny_apres_publication --cache cache_pmu --plan resultats/plan_production.json --verifier; then
+            if timeout 45s python -m playwright install chromium; then
+              timeout 120s python -m pmu_geny.index_geny_apres_publication --cache cache_pmu --plan resultats/plan_production.json
+            fi
+          fi
       - name: Preparer le candidat ML experimental sur les donnees disponibles
-        if: steps.plan.outputs.executer == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
         continue-on-error: true
         env:
           OMP_NUM_THREADS: '2'
           OPENBLAS_NUM_THREADS: '2'
         run: timeout 90s python -m pmu_geny.cycle_ml_actif --cache cache_pmu
       - name: Apprentissage ML unique apres les cycles de resultats
-        if: steps.plan.outputs.executer == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
         continue-on-error: true
         env:
           MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
