@@ -39,10 +39,11 @@ REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_p
                   'top3_direct_numeros','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','score_ml','etat_ml',
                   'arrivee_officielle_numeros','arrivee_verifiee_utc',
-                  'statut_evaluation','conclusion')
+                  'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct')
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
-CLEARABLE_COLUMNS = frozenset(EXPERT_COLUMNS) | frozenset({
+MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
+CLEARABLE_COLUMNS = MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
     *RETIRED_EXPERT_COLUMNS,  # Lecture/nettoyage des anciens formats uniquement.
     'top3_direct_rang','top3_direct_score','top3_direct_top3',
     'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
@@ -52,6 +53,8 @@ PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','fe
 
 def sheet_value(field, value):
     if value is None:return ''
+    if field in MATCHING_COLUMNS:
+        return value if isinstance(value,(int,float)) and not isinstance(value,bool) and 0<=value<=100 else ''
     if field in NUMERIC_SCORES and str(value) in ('0','1','2','3'):
         return int(value)
     return str(value)
@@ -92,6 +95,8 @@ DISPLAY_NAMES = {
     'score_cotes':'TOP3 cotes · Chevaux à l’arrivée (0–3)',
     'top3_ml_numeros':'TOP3 ML · Chevaux',
     'score_ml':'TOP3 ML · Chevaux à l’arrivée (0–3)',
+    'matching_direct_pct':'TOP3 direct · Matching (%)',
+    'matching_ml_pct':'TOP3 ML · Matching (%)',
     'etat_ml':'ML · Statut',
     'arrivee_officielle_numeros':'Arrivée · N° officiels',
     'arrivee_verifiee_utc':'Arrivée · Vérifiée UTC',
@@ -176,6 +181,27 @@ def course_key(date,hippodrome,code):
     for prefix in ('HIPPODROME DE PARIS-', 'HIPPODROME DE ', "HIPPODROME D'", 'HIPPODROME DU ', 'HIPPODROME DES '):
         if hip.startswith(prefix):hip=hip[len(prefix):];break
     return '|'.join([date,hip,code])
+
+
+def matching_pct(prediction, arrival, departure, now=None):
+    """Score 0–100, uniquement avec preuves temporelles et podium unique."""
+    now=now or datetime.now(timezone.utc)
+    try:
+        depart=datetime.fromisoformat(departure)
+        checked=datetime.fromisoformat(arrival['verifie_utc'])
+        created=datetime.fromisoformat(prediction['calcul_utc'])
+        if not created<depart<checked<=now:return ''
+        if not all(t.tzinfo is not None for t in (depart,checked,created,now)):return ''
+        podium=sorted((h for h in arrival['arrivee'] if h['rang'] in (1,2,3)),key=lambda h:h['rang'])
+        if [h['rang'] for h in podium]!=[1,2,3]:return ''
+        actual={int(h['numero']) for h in podium}
+        selected=[int(h['numero']) for h in prediction['top3']]
+        if len(actual)!=3 or len(selected)!=3 or len(set(selected))!=3:return ''
+        if not all(1<=n<=30 for n in actual|set(selected)):return ''
+        if set(selected)&{int(n) for n in prediction.get('non_partants_confirmes',[])}:return ''
+        return round(100*len(actual&set(selected))/3,2)
+    except (KeyError,TypeError,ValueError,OverflowError):
+        return ''
 
 
 def source_rows(cache):
@@ -449,6 +475,8 @@ def source_rows(cache):
                     'top3_direct_numeros':direct_nums,'score_direct':direct_hits,
                     'top3_cotes_numeros':cote_nums,'score_cotes':cote_hits,
                     'top3_ml_numeros':ml_nums,'score_ml':ml_hits,
+                    'matching_direct_pct':matching_pct(direct,arrivee,info.get('depart','')),
+                    'matching_ml_pct':matching_pct(ml,arrivee,info.get('depart','')),
                     'analyse_comparative':('DIRECT='+str(direct_hits)+'; COTES='+str(cote_hits)+'; ML='+str(ml_hits)),
                     'course_key':k,'date_course':date,'hippodrome':info.get('hippodrome',''),
                     'rncn':code,'heure_depart_paris':info.get('depart',''),
@@ -588,7 +616,7 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                 before=existing_rows[present[k]-2].get(name,'')
                 differs=((before!=value or (isinstance(value,int) and
                            (not isinstance(before,(int,float)) or isinstance(before,bool))))
-                         if name in NUMERIC_SCORES else str(before)!=str(value))
+                         if name in NUMERIC_SCORES else (before!=value or (isinstance(before,bool) and not isinstance(value,bool)) if name in MATCHING_COLUMNS else str(before)!=str(value)))
                 # Nettoyage ciblé de l'ancien scan texte : PP de petite piste,
                 # DA du nom Da Costa. Une vraie ferrure sourcée reste prioritaire.
                 if tab=='Historique chevaux' and name=='ferrure' and val=='':
