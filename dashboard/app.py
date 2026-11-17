@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from logic import records, selected, number, timestamp, result_matching
+from quality import render_quality
 
 st.set_page_config(page_title="TROT Analytics",page_icon="📊",layout="wide")
 PARIS=ZoneInfo("Europe/Paris")
@@ -128,14 +129,4 @@ elif page=="Résultats":
             st.plotly_chart(px.bar(both,x="Course",y=["Direct (%)","ML (%)"],barmode="group",range_y=[0,100]),use_container_width=True)
         else: st.info("Pas encore de comparaison ML/direct vérifiable sur un périmètre commun.")
 else:
-    st.caption("KPI globaux publiés par le moteur ; filtre date sans effet ici.")
-    if kpis:
-        for dimension in dict.fromkeys(str(r.get("Dimension","")) for r in kpis if r.get("Indicateur")):
-            st.subheader(dimension)
-            for r in kpis:
-                if str(r.get("Dimension",""))==dimension and r.get("Indicateur"):
-                    v=r.get("Valeur (automatique)")
-                    if str(r["Indicateur"]).startswith("Taux") and number(v) is not None: v=f"{number(v)*100:.1f} %"
-                    st.write(str(r["Indicateur"])+": **"+str(v if v not in (None,"") else "N/D")+"**")
-                    if r.get("Définition / réserve"): st.caption(str(r["Définition / réserve"]))
-    else: st.info("KPI indisponibles.")
+    render_quality(kpis)

@@ -10,3 +10,14 @@ Application Streamlit indépendante, lecture seule du registre Google Sheets. Au
 Local : pip install -r dashboard/requirements.txt ; configurer .streamlit/secrets.toml local non versionné ; streamlit run dashboard/app.py. Tests : python -m unittest discover -s dashboard -p 'test_*.py'.
 
 La date de lecture ne prouve pas la fraîcheur PMU. Matching direct issu du score enregistré validé par les preuves visibles. ML non évalué si le champ de matching de la PR dédiée manque. Aucune promesse de disponibilité continue de l'hébergement gratuit.
+
+## Présentation de Qualité
+
+Les indicateurs sont regroupés en sections repliables. Chaque section affiche
+un tableau compact : Indicateur, Description, Nombre / valeur, Total. Le tableau
+défile dans une hauteur maximale de 400 px. Le filtre de section et la recherche
+dans les libellés/descriptions permettent de réduire la liste affichée.
+Les totaux sont ceux de « Total de référence (automatique) », sans estimation.
+Une valeur ou un total absent affiche « — » ; zéro reste affiché comme zéro.
+Les taux sont présentés en pourcentage et les décimales arrondies à l'affichage.
+Les données sources et les autres vues restent inchangées.
