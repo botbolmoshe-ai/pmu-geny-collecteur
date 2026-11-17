@@ -1,6 +1,9 @@
 import unittest
 from datetime import datetime, timezone
-from pmu_geny.sync_google_sheets import matching_pct,plan_sheet
+from pmu_geny.sync_google_sheets import matching_pct,plan_sheet,source_rows
+from tempfile import TemporaryDirectory
+from pathlib import Path
+from pmu_geny.ml_v19 import save
 
 class MatchingTests(unittest.TestCase):
     def setUp(self):
@@ -24,3 +27,18 @@ class MatchingTests(unittest.TestCase):
         headers,changes,append=plan_sheet(list(before),[before],{'x':after},'Résultats & Analyse')
         self.assertFalse(append)
         self.assertEqual({headers[c-1]:v for _,c,v in changes},{'matching_direct_pct':0,'matching_ml_pct':''})
+
+    def test_source_publie_matching_distinct_sur_une_arrivee_verifiee(self):
+        with TemporaryDirectory() as folder:
+            root=Path(folder); day='2026-11-17'; code='R3C1'
+            save(root/'sources_pmu'/f'programme_{day}.json',{'programme':[{
+                'date':day,'code':code,'depart':self.depart,'hippodrome':'VINCENNES'}]})
+            save(root/'arrivees'/f'{day}_{code}.json',self.arr)
+            save(root/'pronostics'/f'{day}_{code}_direct.json',self.pred([1,2,4]))
+            save(root/'pronostics'/f'{day}_{code}_ml_latest.json',self.pred([4,5,6]))
+            item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
+            self.assertEqual(item['matching_direct_pct'],66.67)
+            self.assertEqual(item['matching_ml_pct'],0)
+            (root/'pronostics'/f'{day}_{code}_ml_latest.json').unlink()
+            item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
+            self.assertEqual(item['matching_ml_pct'],'')

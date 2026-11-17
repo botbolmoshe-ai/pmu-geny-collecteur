@@ -113,7 +113,8 @@ class TestExpertsAndIdentity(unittest.TestCase):
   self.assertEqual(result['1']['ferrure'],'DP/PA')
  def test_report_fields_are_compact_and_essential(self):
   from pmu_geny.sync_google_sheets import REPORT_COLUMNS,DISPLAY_NAMES,canonical_headers
-  self.assertEqual(len(REPORT_COLUMNS),15)
+  self.assertEqual(len(REPORT_COLUMNS),17)
+  self.assertEqual(REPORT_COLUMNS[-2:],('matching_direct_pct','matching_ml_pct'))
   self.assertEqual(canonical_headers([DISPLAY_NAMES[x] for x in REPORT_COLUMNS]),list(REPORT_COLUMNS))
 
 if __name__=='__main__':unittest.main()
