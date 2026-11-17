@@ -1,7 +1,7 @@
 {
   "date": "2026-11-17",
   "course": "R3C2",
-  "calcul_utc": "2026-11-17T08:47:21.714990+01:00",
+  "calcul_utc": "2026-11-17T09:04:28.854735+01:00",
   "depart": "2026-11-17T14:47:00+01:00",
   "modele": "gradient_boosting",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
@@ -14,28 +14,28 @@
   "entrees_modele": [
     {
       "numero": 1,
-      "cheval_id": "",
+      "cheval_id": "2883880",
       "nom": "NACRE DU GERS",
-      "historique_ok": false,
-      "historique_complet": false,
-      "methode_liaison": "NON_ASSOCIE",
+      "historique_ok": true,
+      "historique_complet": true,
+      "methode_liaison": "NOM_EXACT_UNIQUE",
       "score_direct_pmu": 1.82,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
-        "podiums_30j": null,
-        "podiums_120j": null,
+        "courses_30j": 1,
+        "courses_60j": 2,
+        "courses_120j": 5,
+        "podiums_30j": 0.0,
+        "podiums_120j": 0.2,
         "victoires_120j": 0,
-        "disqualifications_120j": 0,
-        "score_forme": null,
-        "forme_30j": null,
-        "forme_ancien": null,
-        "jours_repos": null,
+        "disqualifications_120j": 2,
+        "score_forme": 0.7,
+        "forme_30j": 0.0,
+        "forme_ancien": 0.875,
+        "jours_repos": 23,
         "distance_m": 2200.0,
-        "distance_ecart_m": null,
+        "distance_ecart_m": 0.0,
         "aptitude_hippodrome": null,
-        "taux_podium_distance": null,
+        "taux_podium_distance": 0.66667,
         "nb_partants": 13.0,
         "meteo_pluie_mm": 0.0,
         "meteo_vent_kmh": 21.1,
@@ -670,6 +670,12 @@
       "score_non_calibre": 0.24028
     },
     {
+      "numero": 1,
+      "nom": "NACRE DU GERS",
+      "cheval_id": "2883880",
+      "score_non_calibre": 0.2077
+    },
+    {
       "numero": 10,
       "nom": "NAUSICA DE CORBERY",
       "cheval_id": "",
@@ -716,12 +722,6 @@
       "nom": "NINIA FOREVER",
       "cheval_id": "",
       "score_non_calibre": 0.07193
-    },
-    {
-      "numero": 1,
-      "nom": "NACRE DU GERS",
-      "cheval_id": "",
-      "score_non_calibre": 0.04969
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

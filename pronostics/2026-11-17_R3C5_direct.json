@@ -2,14 +2,16 @@
   "date": "2026-11-17",
   "course": "R3C5",
   "depart": "2026-11-17T16:32:00+01:00",
-  "calcul_utc": "2026-11-17T08:47:23.294182+01:00",
+  "calcul_utc": "2026-11-17T09:04:31.124415+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-17T08:47:23.187763+01:00",
+  "donnees_observees_utc": "2026-11-17T09:04:31.020268+01:00",
   "version_moteur": "direct-v32-contextuel",
-  "non_partants_confirmes": [],
+  "non_partants_confirmes": [
+    1
+  ],
   "statut": "COMPLET",
-  "observations": 14,
-  "partants_eligibles": 14,
+  "observations": 13,
+  "partants_eligibles": 13,
   "classement_complet": [
     {
       "numero": 12,
@@ -99,20 +101,6 @@
       "numero": 6,
       "nom": "KHOSIAB",
       "score_direct": 1.7158,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
-      "numero": 1,
-      "nom": "KALINE FOUR",
-      "score_direct": 1.1579,
       "source_forme": "PMU_MUSIQUE_SEULE",
       "qualite_score": "PMU_NON_CONTEXTUALISE",
       "musique_exploitable": 5,
@@ -254,9 +242,9 @@
   ],
   "note": "Direct heuristique: musique PMU et historiques Geny anterieurs ponderes par discipline, distance, hippodrome, ferrure documentee et anciennete. Scores non calibres; facteurs manquants explicites.",
   "couverture_sources": {
-    "pmu_musique": 14,
+    "pmu_musique": 13,
     "geny_historique": 0,
-    "pmu_seul": 14,
+    "pmu_seul": 13,
     "sans_score": 0,
     "effectif_declare_confirme": true
   },
