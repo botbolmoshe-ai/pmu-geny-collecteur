@@ -62,6 +62,23 @@ class PreparationTests(unittest.TestCase):
         appliquer(self.cache,s,self.now)
         self.assertEqual(inc.prochaine_tache(s,self.now,{}),(k,'COLLECTE'))
         self.assertFalse(s['preparation_prochaines_courses']['pret'])
+        self.assertIn('PREVISION_PRELIMINAIRE_ABSENTE',
+                      [b['motif'] for b in s['preparation_prochaines_courses']['blocages']])
+
+    def test_collecte_possible_si_ferrure_absente_avec_identite_pmu(self):
+        e,k=self.course('R1C8','2026-11-16T18:00:00+01:00');s=self.state(e,k)
+        path=self.cache/'partants_actuels'/f'{e}.json'
+        data=inc.lire(path);data['chevaux']['1']['ferrure']='';inc.ecrire(path,data)
+        appliquer(self.cache,s,self.now)
+        self.assertEqual(inc.prochaine_tache(s,self.now,{}),(k,'COLLECTE'))
+        self.assertFalse(s['preparation_prochaines_courses']['pret'])
+
+    def test_collecte_interdite_si_profil_pmu_perime(self):
+        e,k=self.course('R1C8','2026-11-16T18:00:00+01:00');s=self.state(e,k)
+        path=self.cache/'partants_actuels'/f'{e}.json'
+        data=inc.lire(path);data['capture_utc']=(self.now-timedelta(hours=7)).isoformat();inc.ecrire(path,data)
+        appliquer(self.cache,s,self.now)
+        self.assertEqual(inc.prochaine_tache(s,self.now,{}),(None,'TERMINE'))
 
     def test_fond_autorise_quand_preparation_et_historique_complets(self):
         e,k=self.course('R1C8','2026-11-16T18:00:00+01:00');s=self.state(e,'123456')

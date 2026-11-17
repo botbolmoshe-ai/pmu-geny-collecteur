@@ -20,7 +20,7 @@ de fond restait légitimement différé au profit des prochains partants.
 
 - TOP3 préliminaires dès le début du jour J si les données suffisent. Le jour
   suivant reste en préparation ; aucune sélection rétrospective n'est créée.
-- Les profils PMU préparés autorisent l'enrichissement Geny même sans TOP3.
+- Les profils PMU frais et identifiés autorisent l'enrichissement Geny même sans TOP3 ou critère facultatif renseigné.
   L'absence de prévision reste visible et bloque la reprise du stock ancien.
 - À départ identique, une carrière absente passe avant une vérification de
   carrière déjà disponible. La couverture est comptée par date de course et
@@ -49,7 +49,7 @@ de fond restait légitimement différé au profit des prochains partants.
 
 ## Vérifications avant déploiement
 
-354 tests passent, dont l'apprentissage avec une seule période admissible,
+358 tests passent, dont l'apprentissage avec une seule période admissible,
 les variables manquantes, la réutilisation du modèle sans nouveaux labels,
 le refus des labels futurs, le contrôle d'intégrité, les NP, les courses déjà
 parties et le franchissement du départ pendant le calcul. Un test intégré
@@ -68,3 +68,8 @@ Le verrou commun, les checkpoints avant Sheets, les contrôles de doublons et
 les pauses 403/429 restent en place. Les jobs success ne suffisent pas à déclarer
 la complétude : vérifier les fichiers de pronostic et leurs heures, le modèle
 et son rapport de fit, la publication et les captures réellement acceptées.
+
+Les versions prédictives présentes font autorité, y compris leurs champs vides :
+un retrait ou une sélection invalidée efface les anciens rangs/scores affichés.
+La correction complémentaire de préparation/publication est intégrée au même
+chemin, avec ses tests de fraîcheur et de retrait.

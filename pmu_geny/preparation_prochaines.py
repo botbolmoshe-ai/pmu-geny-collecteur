@@ -68,7 +68,7 @@ def evaluer(cache, now, state=None):
                 if reason:issues.append({'course':code,'numero':str(number),'motif':reason})
                 cid=inc.course_geny_connue(cache,code)
                 engagements.append({'cle_file':key,'engagement':code,'numero':str(number),'nom':h.get('nom'),
-                    'preparation_pmu_ok':pmu_ok and horse_ok,
+                    'preparation_pmu_ok':pmu_ok and bool(name),
                     'depart_utc':depart.isoformat(),'motif_actualisation':reason,
                     'historique_complet':bool(doc),
                     'course_url':'https://www.geny.com/course/'+cid[5:]+'/partants-pronostics' if cid else ''})
