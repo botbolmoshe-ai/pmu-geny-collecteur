@@ -172,6 +172,7 @@ class PreparationTests(unittest.TestCase):
         with patch('sys.argv',['rattrapage','--cache',str(self.cache),'--publier']), \
              patch.dict(os.environ,{'GOOGLE_SHEETS_ID':'test','GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON':'{}'}), \
              patch.object(back,'priorite_production',return_value=None), \
+             patch('pmu_geny.echeances_production.besoin_pmu',return_value=None), \
              patch('pmu_geny.preparation_prochaines.autoriser_fond',return_value='PREPARATION_INCOMPLETE'), \
              patch('pmu_geny.moteur_sheets.SynchroniseurSheets') as engine, \
              patch.object(inc,'checkpoint_distant') as checkpoint:

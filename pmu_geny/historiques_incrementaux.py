@@ -160,6 +160,10 @@ def alimenter(cache, now, *, sauvegarder=True):
             horse['verification_periodique'] = not bool(official.get('arrivee'))
             if re.fullmatch(r'GENY-\d+', str(cid)):
                 horse['course_url'] = 'https://www.geny.com/course/'+cid[5:]+'/partants-pronostics'
+            if not horse.get('geny') and horse.get('course_url'):
+                from .liens_geny_course import pour_cheval
+                link=pour_cheval(cache,code,number,name,now,horse['course_url'])
+                if link:horse['geny']=link
             if ident:
                 horse['id'] = ident
                 doc = capture_valide(cache, ident)
@@ -272,8 +276,11 @@ def executer_enfant(horse, out):
     return lire(out/'resultat.json')
 
 
-def memoriser_resolution(horse, report, out):
+def memoriser_resolution(horse, report, out, *, cache=None):
     """Une résolution de lien n'est jamais une validation de carrière."""
+    if cache is not None:
+        from .liens_geny_course import memoriser
+        memoriser(cache,horse,out)
     from .identites_chevaux import source_identifiant
     proof=lire(out/'resolution_geny.json')
     geny=report.get('geny') or proof.get('geny') or {}
@@ -376,7 +383,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
             ecrire(target/queue, lire(cache/queue))
             if queue!=QUEUE:
                 shutil.copytree(cache/queue.parent,target/queue.parent,dirs_exist_ok=True)
-            for name in ('historiques', 'historiques_partiels', 'historiques_versions', 'manifestes'):
+            for name in ('historiques', 'historiques_partiels', 'historiques_versions', 'manifestes','sources_geny/liens'):
                 if (cache/name).exists():
                     shutil.copytree(cache/name, target/name, dirs_exist_ok=True)
             shutil.copy2(cache/'etat_persistant.json', target/'etat_persistant.json')
@@ -387,6 +394,8 @@ def checkpoint_distant(cache, *, queue=QUEUE):
                 git('add', 'historiques_versions', cwd=target)
             if (target/'historiques_partiels').exists():
                 git('add', 'historiques_partiels', cwd=target)
+            if (target/'sources_geny/liens').exists():
+                git('add', 'sources_geny/liens', cwd=target)
             changed = subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=target).returncode
             if changed:
                 git('commit', '-m', 'PMU : checkpoint collecte incrementale', cwd=target)
@@ -497,7 +506,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': '403' if '403' in str(exc) else '429'}
                     ecrire(cache/'etat_persistant.json', journal)
                 # Un échec réseau ne rend pas le lien déjà résolu périmé.
-            memoriser_resolution(horse,report,out)
+            memoriser_resolution(horse,report,out,cache=cache)
             count += 1
             save()  # Publier les données AVANT toute écriture Sheets.
             if horse.get('sync') != 'A_FAIRE':
@@ -574,9 +583,11 @@ def main():
     if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID', 'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
         raise SystemExit('Secrets Sheets absents : aucune collecte lancée')
     from .rattrapage_historiques import priorite_production
+    from .echeances_production import besoin_pmu
     state = run(Path(args.cache), max_minutes=args.max_minutes, max_chevaux=args.max_chevaux, publier=True,
                 prochains_depart=True,
-                stop_requested=lambda:priorite_production({'.github/workflows/pmu-v16.yml'}))
+                stop_requested=lambda:(priorite_production({'.github/workflows/pmu-v16.yml'})
+                    or besoin_pmu(Path(args.cache),datetime.now(UTC))))
     print('BILAN_INCREMENTAL '+json.dumps(state['bilan']))
 
 
