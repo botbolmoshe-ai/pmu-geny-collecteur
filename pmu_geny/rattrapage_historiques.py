@@ -185,6 +185,16 @@ def preparer(cache,now):
     for h in local.values():
         if h.get('id') and not h.get('conflit_identite'):
             names.setdefault(nom_normalise(h.get('nom')),set()).add(h['id'])
+    # Un autre contexte de course ne doit pas contourner le délai du même cheval.
+    production=inc.lire(cache/inc.QUEUE,{'chevaux':{}})['chevaux']
+    retries={}
+    for h in production.values():
+        retry=inc.instant(h.get('prochain_essai_utc'))
+        name=nom_normalise(h.get('nom'))
+        if retry and name:retries[name]=max(retries.get(name,retry),retry)
+    from .preparation_prochaines import evaluer
+    future=evaluer(cache,now)['engagements']
+    state['noms_partants_proteges']=sorted({nom_normalise(h['nom']) for h in future})
     covered=set(sheets.get('ids_couverts',[]))
     observed_numbers={}
     for row in sheets['chevaux']:
@@ -275,6 +285,11 @@ def preparer(cache,now):
                 if not h.get('lien_candidat'):h['collecte']='LIEN_GENY_A_RESOUDRE'
         if h['ferrures_manquantes']:
             h['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
+    for h in state['chevaux'].values():
+        retry=retries.get(nom_normalise(h.get('nom')))
+        own=inc.instant(h.get('prochain_essai_utc'))
+        if h.get('motif_actualisation') and retry and retry>now and (not own or retry>own):
+            h['prochain_essai_utc']=retry.isoformat()
     groups={}
     for key,h in state['chevaux'].items():
         h.pop('cible_equivalente_a',None)
@@ -304,8 +319,10 @@ def prochaine_tache(state,now,attempts):
     cooldown=inc.instant(state.get('prochain_acces_geny_utc'))
     if cooldown and cooldown>now:return None,'COOLDOWN'
     candidates=[]
+    protected=set(state.get('noms_partants_proteges',[]))
     for key,h in state['chevaux'].items():
         if h.get('cible_equivalente_a'):continue
+        if nom_normalise(h.get('nom')) in protected:continue
         if (h.get('rattrapage_complet_au_utc') and not h.get('ferrures_manquantes')) or not h.get('motif_actualisation'):continue
         if h.get('collecte') in ('LIEN_GENY_A_RESOUDRE','IDENTITE_A_VERIFIER'):continue
         retry=inc.instant(h.get('prochain_essai_utc'))
@@ -438,7 +455,10 @@ def main():
         if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID','GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
         from .preparation_prochaines import autoriser_fond
-        reason=priorite_production() or autoriser_fond(cache,datetime.now(inc.UTC))
+        def controle_fond():
+            return priorite_production() or autoriser_fond(cache,datetime.now(inc.UTC),
+                diagnostic=Path('resultats/rattrapage/ordonnancement_fond.json'))
+        reason=controle_fond()
         if reason and not (args.reconcilier_identites or args.archives_diagnostics):
             state=inc.lire(cache/QUEUE)
             if state.get('chevaux'):
@@ -462,7 +482,7 @@ def main():
             revalider_artifacts(cache,args.archives_diagnostics)
         state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=min(args.max_chevaux,1),
                       publier=True,mode='rattrapage',
-                      stop_requested=lambda:priorite_production() or autoriser_fond(cache,datetime.now(inc.UTC)))
+                      stop_requested=controle_fond)
     else:
         state=(actualiser_inventaire if args.actualiser_inventaire else preparer)(cache,datetime.now(inc.UTC))
     print('BILAN_RATTRAPAGE '+json.dumps({'statut':state['statut'],'inventaire_id':state['inventaire_id'],

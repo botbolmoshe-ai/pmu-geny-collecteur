@@ -114,7 +114,7 @@ def course_geny_connue(cache,engagement):
     return cid if re.fullmatch(r'GENY-\d+',str(cid)) else ''
 
 
-def alimenter(cache, now):
+def alimenter(cache, now, *, sauvegarder=True):
     """PMU est la liste de référence ; les manifests ne servent qu'à l'identité Geny."""
     cache = Path(cache)
     state = lire(cache/QUEUE, {'version': 1, 'chevaux': {}})
@@ -185,7 +185,7 @@ def alimenter(cache, now):
             horse['motif_actualisation'] = actualisation_requise(horse, now)
             if horse.get('collecte') == 'EN_COURS':
                 horse['collecte'] = 'A_REPRENDRE'
-    ecrire(cache/QUEUE, state)
+    if sauvegarder:ecrire(cache/QUEUE, state)
     return state
 
 

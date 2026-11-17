@@ -12,8 +12,8 @@ nouvelle requête Geny, y compris pour une course passée.
 La reprise du stock est limitée à un cheval par passage, au plus une fois par
 heure (cron UTC :45, budget par défaut deux minutes). Elle cède aux traitements
 prioritaires et reste différée tant que les programmes ou profils PMU sont
-absents/anciens, qu'un historique futur est à compléter, qu'une publication est
-en attente ou que les prévisions du jour doivent être actualisées après une
+absents/anciens, qu'un partant est collectable immédiatement, qu'une publication
+est en attente ou que les prévisions du jour doivent être actualisées après une
 nouvelle capture. Ce contrôle précède même l'ouverture d'une session Sheets.
 Le bilan indique la raison du report ; aucun succès technique n'est présenté
 comme une fin de rattrapage.
@@ -22,6 +22,31 @@ L'API Python `inc.run` conserve sa compatibilité avec les anciens appelants ;
 les points d'entrée de production CLI appliquent la politique des prochains
 départs. Le rattrapage utilise toujours le même moteur, sous sa condition de
 préparation et son quota réduit.
+
+## Essai des créneaux libres — 17 novembre
+
+Une préparation PMU et prédictive valide peut désormais laisser place au fond
+pendant les délais propres aux chevaux prioritaires. La couverture historique
+reste signalée comme incomplète ; aucune donnée n'est considérée comme acquise.
+La décision réutilise le sélecteur du worker incrémental sur une file actualisée
+en mémoire, sans modifier sa sauvegarde ni ses délais de réessai.
+
+- Un partant disponible aujourd'hui ou demain bloque immédiatement le fond.
+- Une reprise prioritaire dans les cinq minutes réserve également le créneau.
+- Une pause globale Geny, issue du journal ou de l'une des deux files, bloque
+  tout nouvel accès. Une attente locale n'est jamais transformée en pause globale.
+- Tous les prochains partants sont exclus des nouvelles collectes du fond,
+  même via une ancienne course ou un autre contexte. Leurs publications déjà
+  en attente restent prioritaires. Les délais locaux de la file de production
+  sont aussi respectés pour le même nom dans le stock, sans fusion d'identités.
+- Le contrôle est renouvelé avant chaque cheval. Le quota d'un cheval, le budget
+  de deux minutes, la cadence réseau, le verrou commun et les checkpoints restent
+  inchangés pendant cet essai.
+
+L'artefact `resultats/rattrapage/ordonnancement_fond.json` indique la décision,
+la couverture réelle et, le cas échéant, le prochain accès ou réessai prioritaire.
+Un passage différé prouve le respect des priorités ; il ne prouve pas un gain
+de collecte. Le gain doit être compté sur les créneaux effectivement disponibles.
 
 ## ML : apprentissage et mesure dès les données disponibles
 
