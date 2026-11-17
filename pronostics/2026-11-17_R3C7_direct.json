@@ -2,9 +2,9 @@
   "date": "2026-11-17",
   "course": "R3C7",
   "depart": "2026-11-17T17:42:00+01:00",
-  "calcul_utc": "2026-11-17T15:09:27.870086+01:00",
+  "calcul_utc": "2026-11-17T16:48:06.259477+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-17T15:09:27.760376+01:00",
+  "donnees_observees_utc": "2026-11-17T16:48:06.175915+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [],
   "statut": "PARTIEL",
@@ -12,40 +12,12 @@
   "partants_eligibles": 13,
   "classement_complet": [
     {
-      "numero": 11,
-      "nom": "LOOPING DU PERRE",
-      "score_direct": 3.5263,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
       "numero": 13,
       "nom": "LEADER DES RIOULTS",
       "score_direct": 3.5,
       "source_forme": "PMU_MUSIQUE_SEULE",
       "qualite_score": "PMU_NON_CONTEXTUALISE",
       "musique_exploitable": 1,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
-      "numero": 10,
-      "nom": "LE ROI MARGOT",
-      "score_direct": 3.4789,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
       "historique_exploitable": 0,
       "distance_proche": 0,
       "comparabilite_moyenne": null,
@@ -66,6 +38,34 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 11,
+      "nom": "LOOPING DU PERRE",
+      "score_direct": 3.0394,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 7,
+      "distance_proche": 5,
+      "comparabilite_moyenne": 0.4296,
+      "ferrures_historiques_comparees": 7,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2798750"
+    },
+    {
+      "numero": 10,
+      "nom": "LE ROI MARGOT",
+      "score_direct": 2.9551,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 8,
+      "distance_proche": 3,
+      "comparabilite_moyenne": 0.2518,
+      "ferrures_historiques_comparees": 8,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2815085"
     },
     {
       "numero": 6,
@@ -110,6 +110,20 @@
       "identifiant_historique": null
     },
     {
+      "numero": 1,
+      "nom": "LILIUS DE GUEZ",
+      "score_direct": 1.31,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 2,
+      "historique_exploitable": 6,
+      "distance_proche": 6,
+      "comparabilite_moyenne": 0.8333,
+      "ferrures_historiques_comparees": 6,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2825452"
+    },
+    {
       "numero": 7,
       "nom": "LERWICK PERRINE",
       "score_direct": 1.2988,
@@ -138,20 +152,6 @@
       "identifiant_historique": null
     },
     {
-      "numero": 1,
-      "nom": "LILIUS DE GUEZ",
-      "score_direct": 0.0,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 2,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
       "numero": 3,
       "nom": "LABEL DE LARRE",
       "score_direct": 0.0,
@@ -168,20 +168,6 @@
   ],
   "top3": [
     {
-      "numero": 11,
-      "nom": "LOOPING DU PERRE",
-      "score_direct": 3.5263,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
       "numero": 13,
       "nom": "LEADER DES RIOULTS",
       "score_direct": 3.5,
@@ -196,9 +182,9 @@
       "identifiant_historique": null
     },
     {
-      "numero": 10,
-      "nom": "LE ROI MARGOT",
-      "score_direct": 3.4789,
+      "numero": 2,
+      "nom": "LE VENT DU HOULET",
+      "score_direct": 3.0947,
       "source_forme": "PMU_MUSIQUE_SEULE",
       "qualite_score": "PMU_NON_CONTEXTUALISE",
       "musique_exploitable": 5,
@@ -208,13 +194,27 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 11,
+      "nom": "LOOPING DU PERRE",
+      "score_direct": 3.0394,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 7,
+      "distance_proche": 5,
+      "comparabilite_moyenne": 0.4296,
+      "ferrures_historiques_comparees": 7,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2798750"
     }
   ],
   "note": "Direct heuristique: musique PMU et historiques Geny anterieurs ponderes par discipline, distance, hippodrome, ferrure documentee et anciennete. Scores non calibres; facteurs manquants explicites.",
   "couverture_sources": {
     "pmu_musique": 11,
-    "geny_historique": 0,
-    "pmu_seul": 11,
+    "geny_historique": 3,
+    "pmu_seul": 8,
     "sans_score": 2,
     "effectif_declare_confirme": true
   },

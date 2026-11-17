@@ -1,28 +1,30 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "1b7e39c2b0066fe6e8209890fe45c38d25b2f1530443eac90447e47f471b0d3d",
-  "execute_utc": "2026-11-17T14:09:59.437583+00:00",
+  "empreinte_donnees": "52ac751d86e75617ca2bdb2bc7d579cf64638e346b5c682087381a19ca118889",
+  "execute_utc": "2026-11-17T15:48:37.001803+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 80,
-  "lignes_admissibles": 1076,
+  "courses_admissibles": 82,
+  "lignes_admissibles": 1102,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-1b7e39c2b0066fe6e820/rapport.json",
+  "rapport": "ml/experiences/automatique-52ac751d86e75617ca2b/rapport.json",
   "validation_day": "2026-11-16",
   "test_day": "2026-11-17",
   "modele": "gradient_boosting",
   "test_ml": {
-    "courses": 2,
-    "chevaux_retrouves": 1,
+    "courses": 4,
+    "chevaux_retrouves": 2,
     "moyenne": 0.5,
     "au_moins_2_sur_3": 0,
     "exact_3_sur_3": 0,
     "distribution": {
-      "0": 1,
-      "1": 1
+      "0": 2,
+      "1": 2
     },
     "hits_par_course": {
       "2026-11-17_R3C1": 0,
-      "2026-11-17_R3C2": 1
+      "2026-11-17_R3C2": 1,
+      "2026-11-17_R3C3": 0,
+      "2026-11-17_R3C4": 1
     },
     "selections": {
       "2026-11-17_R3C1": [
@@ -34,15 +36,25 @@
         12,
         8,
         11
+      ],
+      "2026-11-17_R3C3": [
+        10,
+        7,
+        13
+      ],
+      "2026-11-17_R3C4": [
+        1,
+        10,
+        8
       ]
     }
   },
   "comparaison": {
-    "courses": 2,
+    "courses": 4,
     "ecart_moyen": -1.0,
     "ic95_bootstrap_par_course": [
-      -2.0,
-      0.0
+      -1.75,
+      -0.25
     ]
   },
   "decoupage": {
@@ -59,10 +71,10 @@
       "dernier_depart": "2026-11-16T18:00:00+01:00"
     },
     "test": {
-      "courses": 2,
-      "lignes": 24,
+      "courses": 4,
+      "lignes": 50,
       "premier_depart": "2026-11-17T14:12:00+01:00",
-      "dernier_depart": "2026-11-17T14:47:00+01:00"
+      "dernier_depart": "2026-11-17T15:57:00+01:00"
     }
   }
 }
