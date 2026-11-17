@@ -2922,7 +2922,7 @@
       "verification_periodique": true,
       "course_url": "https://www.geny.com/course/1698930/partants-pronostics",
       "id": "2857180",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "geny": {
         "id": "2857180",
         "nom": "MAMY BLUE TIT",
@@ -2935,7 +2935,17 @@
       "nombre_performances": 12,
       "ferrures_manquantes": 0,
       "depart_a_venir_utc": "2026-11-18T14:00:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "prochain_essai_utc": "2026-11-18T04:35:13.423081+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-17T22:35:13.423094+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2857180/1794954907796277665/resultat.json"
+      }
     },
     "2858909": {
       "nom": "MYSTIQUE LOULOU",
@@ -39808,13 +39818,13 @@
     }
   },
   "passage_utc": "2026-11-17T22:29:05.871641+00:00",
-  "maj_utc": "2026-11-17T22:35:05.176773+00:00",
+  "maj_utc": "2026-11-17T22:35:13.423247+00:00",
   "bilan": {
     "chevaux_suivis": 1606,
-    "tentatives_collecte": 5,
+    "tentatives_collecte": 6,
     "captures_validees": 5,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1371
   },
