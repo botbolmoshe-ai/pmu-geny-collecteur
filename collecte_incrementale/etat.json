@@ -37958,7 +37958,7 @@
     }
   },
   "passage_utc": "2026-11-17T12:20:04.935603+00:00",
-  "maj_utc": "2026-11-17T12:35:06.081656+00:00",
+  "maj_utc": "2026-11-17T12:35:54.502646+00:00",
   "bilan": {
     "chevaux_suivis": 1606,
     "tentatives_collecte": 12,
@@ -37966,10 +37966,10 @@
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 1344
+    "actualisations_en_attente": 1332
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 30
@@ -37979,15 +37979,15 @@
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-17T12:20:04.935603+00:00",
+    "controle_utc": "2026-11-17T12:35:39.042714+00:00",
     "pret": false,
     "partants_a_venir": 268,
     "couverture_par_jour": {
       "2026-11-17": {
         "partants": 100,
-        "historiques_complets": 38,
-        "sans_historique_complet": 62,
-        "historiques_a_actualiser": 62
+        "historiques_complets": 50,
+        "sans_historique_complet": 50,
+        "historiques_a_actualiser": 50
       },
       "2026-11-18": {
         "partants": 168,
@@ -38004,48 +38004,39 @@
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "2",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "3",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "4",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "5",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "6",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "7",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "8",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "9",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C4",
-        "numero": "10",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C5",
@@ -38089,18 +38080,15 @@
       },
       {
         "course": "2026-11-17_R3C5",
-        "numero": "10",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C5",
-        "numero": "11",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C5",
-        "numero": "12",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C5",
@@ -38908,5 +38896,6 @@
         "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       }
     ]
-  }
+  },
+  "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
 }
