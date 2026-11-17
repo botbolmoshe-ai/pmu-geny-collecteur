@@ -1,7 +1,7 @@
 {
   "date": "2026-11-17",
   "course": "R3C4",
-  "calcul_utc": "2026-11-17T11:55:33.216481+01:00",
+  "calcul_utc": "2026-11-17T12:45:15.801824+01:00",
   "depart": "2026-11-17T15:57:00+01:00",
   "modele": "gradient_boosting",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
@@ -14,11 +14,11 @@
   "entrees_modele": [
     {
       "numero": 1,
-      "cheval_id": "",
+      "cheval_id": "2872595",
       "nom": "MILORD DE LA FONTE",
-      "historique_ok": false,
-      "historique_complet": false,
-      "methode_liaison": "NON_ASSOCIE",
+      "historique_ok": true,
+      "historique_complet": true,
+      "methode_liaison": "NOM_EXACT_UNIQUE",
       "score_direct_pmu": 10.8,
       "features": {
         "courses_30j": 0,
@@ -31,11 +31,11 @@
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
-        "jours_repos": null,
+        "jours_repos": 182,
         "distance_m": 2700.0,
-        "distance_ecart_m": null,
+        "distance_ecart_m": 50.0,
         "aptitude_hippodrome": null,
-        "taux_podium_distance": null,
+        "taux_podium_distance": 0.4,
         "nb_partants": 10.0,
         "meteo_pluie_mm": 0.0,
         "meteo_vent_kmh": 20.4,
@@ -487,8 +487,8 @@
     {
       "numero": 1,
       "nom": "MILORD DE LA FONTE",
-      "cheval_id": "",
-      "score_non_calibre": 0.79293
+      "cheval_id": "2872595",
+      "score_non_calibre": 0.56132
     },
     {
       "numero": 10,
@@ -507,8 +507,8 @@
     {
       "numero": 1,
       "nom": "MILORD DE LA FONTE",
-      "cheval_id": "",
-      "score_non_calibre": 0.79293
+      "cheval_id": "2872595",
+      "score_non_calibre": 0.56132
     },
     {
       "numero": 10,
