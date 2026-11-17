@@ -39112,36 +39112,36 @@
     }
   },
   "passage_utc": "2026-11-17T16:13:02.030854+00:00",
-  "maj_utc": "2026-11-17T16:15:31.903163+00:00",
+  "maj_utc": "2026-11-17T16:16:19.177283+00:00",
   "bilan": {
     "chevaux_suivis": 1606,
     "tentatives_collecte": 2,
     "captures_validees": 2,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
-    "synchronisations_en_attente": 1,
-    "actualisations_en_attente": 1331
+    "synchronisations_en_attente": 0,
+    "actualisations_en_attente": 1365
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
-      "indicateurs_actualises": 30
+      "indicateurs_actualises": 41
     }
   },
   "prochain_acces_geny_utc": "2026-11-17T09:15:31.489065+00:00",
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-17T16:13:02.030854+00:00",
+    "controle_utc": "2026-11-17T16:16:05.245261+00:00",
     "pret": false,
     "partants_a_venir": 206,
     "couverture_par_jour": {
       "2026-11-17": {
         "partants": 39,
-        "historiques_complets": 14,
-        "sans_historique_complet": 25,
-        "historiques_a_actualiser": 25
+        "historiques_complets": 16,
+        "sans_historique_complet": 23,
+        "historiques_a_actualiser": 23
       },
       "2026-11-18": {
         "partants": 167,
@@ -39151,10 +39151,6 @@
       }
     },
     "blocages": [
-      {
-        "course": "2026-11-17_R3C7",
-        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
-      },
       {
         "course": "2026-11-17_R3C7",
         "numero": "2",
@@ -39197,13 +39193,11 @@
       },
       {
         "course": "2026-11-17_R3C7",
-        "numero": "12",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C7",
-        "numero": "13",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C8",
@@ -39876,5 +39870,6 @@
         "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       }
     ]
-  }
+  },
+  "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
 }
