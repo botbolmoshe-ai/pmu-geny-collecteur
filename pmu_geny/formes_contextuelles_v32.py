@@ -127,7 +127,7 @@ def _historique_contextuel(historique, course, profil):
         piste_histo = normaliser_hippodrome(row.get("hippodrome"))
         piste_factor = (1.0 if hippodrome and piste_histo == hippodrome
                         else 0.70 if hippodrome and piste_histo else 0.80)
-        ferrure_histo = ferrure_normalisee(row.get("ferrure"))
+        ferrure_histo = ferrure_normalisee(row.get("ferrure")) if row.get('ferrure_qualification')!='CONFLIT' else ''
         if current_ferrure and ferrure_histo:
             ferrures_comparees += 1
             ferrure_factor = 1.0 if current_ferrure == ferrure_histo else 0.65

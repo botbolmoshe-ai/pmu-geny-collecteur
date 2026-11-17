@@ -174,7 +174,7 @@ class DailyMLTests(unittest.TestCase):
         with TemporaryDirectory() as folder:
             with patch('pmu_geny.cycle_ml.train', return_value={'etat': 'INSUFFISANT'}) as training:
                 for stamp in ['2026-07-15T17:59:00+00:00', '2026-11-15T18:59:00+00:00']:
-                    self.assertEqual(cycle_ml.run(folder, datetime.fromisoformat(stamp))['etat'], 'ENTRAINEMENT_DIFFERE_20H_PARIS')
+                    self.assertEqual(cycle_ml.run(folder, datetime.fromisoformat(stamp))['etat'], 'PROMOTION_DIFFEREE_20H_PARIS')
                 training.assert_not_called()
                 self.assertEqual(cycle_ml.run(folder, datetime.fromisoformat('2026-07-15T18:45:00+00:00'))['etat'], 'INSUFFISANT')
                 self.assertEqual(cycle_ml.run(folder, datetime.fromisoformat('2026-11-15T19:45:00+00:00'))['etat'], 'INSUFFISANT')
