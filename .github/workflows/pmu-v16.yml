@@ -7,8 +7,8 @@ on:
     paths:
       - 'pilotage/declencher-production-v21.txt'
   schedule:
-    # Toutes les heures; gate Europe/Paris dans Python (été/hiver).
-    - cron: '0 * * * *'
+    # Tick léger ; cycle horaire ou rafraîchissement ciblé H-2/H-1 selon le plan.
+    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       mode:
@@ -58,15 +58,17 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: pmu-donnees-production
   cancel-in-progress: false
+  queue: max
 
 jobs:
   traiter-course:
     runs-on: ubuntu-latest
-    timeout-minutes: 110
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -107,13 +109,20 @@ jobs:
           else
             echo 'DONNEES PERSISTANTES : branche pmu-data absente, initialisation'
           fi
+      - name: Planifier le cycle horaire et les echeances H-2 H-1
+        id: plan
+        env:
+          FORCER_AUTO: ${{ github.event_name != 'schedule' }}
+          MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
+        run: python -m pmu_geny.echeances_production --cache cache_pmu
       - name: Restaurer le cache du navigateur Playwright
-        if: github.event_name == 'push' || github.event_name == 'schedule' || inputs.mode == 'auto' || inputs.mode == 'decouvrir' || inputs.mode == 'collecter'
+        if: steps.plan.outputs.executer == 'true' && (github.event_name == 'push' || github.event_name == 'schedule' || inputs.mode == 'auto' || inputs.mode == 'decouvrir' || inputs.mode == 'collecter')
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
       - name: Installer dependances Python et navigateur optionnel
+        if: steps.plan.outputs.executer == 'true'
         env:
           MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
         shell: bash
@@ -128,15 +137,16 @@ jobs:
             timeout 45s python -m playwright install chromium || echo 'GENY_CHROMIUM_NON_DISPONIBLE : PMU et Google Sheets continuent'
           fi
       - name: Installer les dependances ML (cycles legers inclus)
+        if: steps.plan.outputs.executer == 'true'
         run: python -m pip install -q -r requirements-ml.txt
       - name: Preparer le candidat ML experimental sur les donnees disponibles
-        if: github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml'
+        if: steps.plan.outputs.executer == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
         env:
           OMP_NUM_THREADS: '2'
           OPENBLAS_NUM_THREADS: '2'
         run: python -m pmu_geny.cycle_ml_actif --cache cache_pmu
       - name: Cycle automatique quotidien (PMU puis Geny, sans doublons)
-        if: github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto'
+        if: steps.plan.outputs.executer == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
         shell: bash
         env:
           IS_SCHEDULED: ${{ github.event_name == 'schedule' }}
@@ -155,16 +165,19 @@ jobs:
           print('REPARATION_FERRURES '+json.dumps(reparer(root,partants=True)),flush=True)
           today=now.date().isoformat()
           clock=lambda:datetime.now(ZoneInfo('Europe/Paris'))
-          run(root,today,[],0,max_discoveries=1,now=now,selection_complete=True,clock=clock)
+          plan=json.loads(Path('resultats/plan_production.json').read_text())
+          cible=plan.get('mode')=='JALONS'
+          run(root,today,plan['selection'] if cible else [],0,
+              max_discoveries=0 if cible else 1,now=now,selection_complete=True,clock=clock)
           # Rattrapage des arrivées de J-1, sans nouvelle prévision post-départ.
           yesterday=(now-timedelta(days=1)).date().isoformat()
-          run(root,yesterday,[],0,max_discoveries=0,now=now,selection_complete=True,clock=clock)
+          if not cible:run(root,yesterday,[],0,max_discoveries=0,now=now,selection_complete=True,clock=clock)
           tomorrow=(now+timedelta(days=1)).date().isoformat()
-          run(root,tomorrow,[],0,max_discoveries=1,now=now,selection_complete=True,clock=clock)
+          if not cible:run(root,tomorrow,[],0,max_discoveries=1,now=now,selection_complete=True,clock=clock)
           print('Collecte historique confiée au worker incrémental indépendant')
           PYRUN
       - name: Apprentissage ML unique apres les cycles de resultats
-        if: github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml'
+        if: steps.plan.outputs.executer == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
         env:
           MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
           OMP_NUM_THREADS: '2'
@@ -177,7 +190,7 @@ jobs:
             python -m pmu_geny.cycle_ml --cache cache_pmu
           fi
       - name: Experience ML manuelle avec jour de test exclu
-        if: inputs.mode == 'experience_ml'
+        if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'experience_ml')
         env:
           ML_VALIDATION: ${{ inputs.ml_validation }}
           ML_TEST: ${{ inputs.ml_test }}
@@ -196,7 +209,7 @@ jobs:
           print(report['statut'],report['modele_choisi_avant_test'],report['test_ml']['moyenne'])
           PYEXPERIENCE
       - name: Decouvrir les partants, sans collecter les historiques
-        if: inputs.mode == 'decouvrir'
+        if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'decouvrir')
         env:
           COURSE_URL: ${{ inputs.course_url || 'https://www.geny.com/course/1697377-2026-11-10-vincennes-prix-de-beauvais/partants-pronostics' }}
           NOMBRE: ${{ inputs.nombre_partants || 18 }}
@@ -228,7 +241,7 @@ jobs:
               --etat cache_pmu/etat_persistant.json
           fi
       - name: Collecter depuis la file incrementale persistante
-        if: inputs.mode == 'collecter'
+        if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'collecter')
         env:
           MAX: ${{ inputs.max_chevaux || 18 }}
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
@@ -247,7 +260,7 @@ jobs:
           python -m pmu_geny.historiques_incrementaux --cache cache_pmu \
             --max-minutes 15 --max-chevaux "$MAX" --publier
       - name: Verifier les non-partants d'apres une consultation confirmee de PMU
-        if: inputs.mode == 'controle_np'
+        if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'controle_np')
         shell: bash
         env:
           PMU_URL: ${{ inputs.pmu_url }}
@@ -266,7 +279,7 @@ jobs:
             --dossier cache_pmu/participations --url-pmu "$PMU_URL" \
             --non-partants "$NP_NUMEROS" --liste-complete --confirme
       - name: Consolider hors ligne les CSV de suivi et les performances
-        if: inputs.mode == 'collecter' || inputs.mode == 'controle_np' || inputs.mode == 'consolider'
+        if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'collecter' || inputs.mode == 'controle_np' || inputs.mode == 'consolider')
         shell: bash
         run: |
           set -euo pipefail
@@ -277,14 +290,14 @@ jobs:
           mkdir -p "resultats/GENY-${CID}"
           cp -a "cache_pmu/exports/GENY-${CID}/." "resultats/GENY-${CID}/"
       - name: Audit de completude des TOP3 et donnees courantes
-        if: always()
+        if: steps.plan.outputs.executer == 'true' && (always())
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p resultats/qualite
           python -m pmu_geny.qualite_registre_v21 --cache cache_pmu --debut 2026-11-12 --sortie resultats/qualite/couverture_registre.json
       - name: Publier les diagnostics et les bilans
-        if: always()
+        if: steps.plan.outputs.executer == 'true' && (always())
         uses: actions/upload-artifact@v4
         with:
           name: pmu-v20-2-${{ github.run_id }}
@@ -305,39 +318,14 @@ jobs:
             cache_pmu/partants_actuels/
           retention-days: 30
           if-no-files-found: warn
-      - name: Conserver les historiques et les manifestes sur la branche pmu-data
-        if: always()
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ ! -d cache_pmu ] || [ -z "$(find cache_pmu -type f -print -quit)" ]; then
-            echo 'Aucune donnee a sauvegarder.'
-            exit 0
-          fi
-          git fetch --no-tags origin pmu-data
-          mkdir -p /tmp/pmu-data-worktree
-          if git show-ref --verify --quiet refs/remotes/origin/pmu-data; then
-            git worktree add --detach /tmp/pmu-data-worktree origin/pmu-data
-            git -C /tmp/pmu-data-worktree switch -C pmu-data origin/pmu-data
-          else
-            git worktree add -b pmu-data /tmp/pmu-data-worktree HEAD
-            git -C /tmp/pmu-data-worktree rm -rf --ignore-unmatch . >/dev/null
-            git -C /tmp/pmu-data-worktree clean -fdx >/dev/null
-          fi
-          cp -a cache_pmu/. /tmp/pmu-data-worktree/
-          git -C /tmp/pmu-data-worktree config user.name 'github-actions[bot]'
-          git -C /tmp/pmu-data-worktree config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git -C /tmp/pmu-data-worktree add -A
-          if git -C /tmp/pmu-data-worktree diff --cached --quiet; then
-            echo 'Aucune nouvelle donnee a committer.'
-          else
-            git -C /tmp/pmu-data-worktree commit -m "PMU data: run ${{ github.run_id }}"
-            git -C /tmp/pmu-data-worktree push origin HEAD:refs/heads/pmu-data
-            echo 'DONNEES SAUVEGARDEES : branche pmu-data'
-          fi
+      - name: Conserver les donnees avant publication
+        id: persistance
+        if: always() && steps.plan.outputs.executer == 'true'
+        run: python -m pmu_geny.persistance_production --cache cache_pmu
 
       - name: Synchroniser le registre Google Sheets (apres persistance)
-        if: always()
+        id: publication
+        if: always() && steps.plan.outputs.executer == 'true' && steps.persistance.conclusion == 'success'
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
@@ -347,7 +335,7 @@ jobs:
           python -m pmu_geny.sync_google_sheets
 
       - name: Conserver les controles de synchronisation Sheets
-        if: always()
+        if: steps.plan.outputs.executer == 'true' && (always())
         uses: actions/upload-artifact@v4
         with:
           name: controles-sheets-${{ github.run_id }}-${{ github.run_attempt }}
@@ -355,3 +343,24 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
 
+
+      - name: Certifier les publications et les echeances reelles
+        if: always() && steps.plan.outputs.executer == 'true'
+        env:
+          PUBLICATION_REUSSIE: ${{ steps.publication.conclusion == 'success' }}
+        run: |
+          python -m pmu_geny.echeances_production --cache cache_pmu --certifier --strict
+      - name: Conserver les preuves meme si le controle fonctionnel echoue
+        if: always() && steps.plan.outputs.executer == 'true'
+        run: python -m pmu_geny.persistance_production --cache cache_pmu
+      - name: Archiver le plan et le controle de production
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pilotage-production-${{ github.run_id }}
+          path: |
+            resultats/plan_production.json
+            cache_pmu/qualite/dernier_controle_production.json
+            cache_pmu/jalons/
+            cache_pmu/publications/
+          retention-days: 30

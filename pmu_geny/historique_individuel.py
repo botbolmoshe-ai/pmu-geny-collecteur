@@ -66,6 +66,10 @@ def resolve(horse, out, page=None):
     if len(matched) != 1 or str(matched[0]['numero']) != str(horse['numero']):
         (out/'diagnostic_resolution.html').write_text(page.content(), encoding='utf-8')
         raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
+    from .liens_geny_course import extraire
+    proof=extraire(get_rows(page),page.content(),horse.get('engagement'),url,
+                  datetime.now(timezone.utc).isoformat())
+    (out/'liens_course.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2),encoding='utf-8')
     index = matched[0]['row_index']
     direct = try_direct_url(page, index)
     if not direct:
