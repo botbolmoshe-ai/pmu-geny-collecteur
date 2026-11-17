@@ -382,9 +382,19 @@ def source_rows(cache):
             facts=act.get('divergences_sources',[])
             if facts:
                 current['divergences_sources']+=' ; '+ '; '.join(f"{x['champ']}: {x['valeur_retenue']} / {x['source']}={x['valeur_tiers']}" for x in facts)
-            # Conserver les informations Geny si deja plus riches et presentes.
+            # Une version prédictive présente fait foi, y compris pour les
+            # champs vides (retrait NP, sélection devenue insuffisante).
+            # Un fichier absent, en revanche, n'autorise pas un effacement.
+            authoritative=set(EXPERT_COLUMNS)
+            if direct:
+                authoritative.update(('top3_direct_rang','top3_direct_score','top3_direct_top3',
+                    'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites'))
+            if marche:
+                authoritative.update(('top3_cotes_valeur','top3_cotes_top3'))
+            if ml:
+                authoritative.update(('ml_rang','ml_top3','ml_score_non_calibre'))
             courses[krow]={**existing,**{key:value for key,value in current.items()
-                                         if value is not None and (value!='' or key in EXPERT_COLUMNS)}}
+                                         if value is not None and (value!='' or key in authoritative)}}
     # Les arrivees PMU officielles peuvent exister sans manifeste Geny.
     # Enregistrer une ligne bilan par course meme sans TOP3.
     for arrival_file in sorted((cache/'arrivees').glob('????-??-??_R*C*.json')):

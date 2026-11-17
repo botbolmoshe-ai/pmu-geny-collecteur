@@ -39,7 +39,8 @@ def evaluer(cache, now, state=None):
                 created=inc.instant(prediction.get('calcul_utc'))
                 if not created or not created<depart or len(prediction.get('top3',[]))!=3:
                     issues.append({'course':code,'motif':'PREVISION_PRELIMINAIRE_ABSENTE'})
-                    pmu_ok=False
+                    # Une prévision absente reste un blocage de qualité, pas
+                    # une interdiction de collecter les historiques nécessaires.
             for number,h in horses.items():
                 if h.get('statut_np')=='NON_PARTANT':continue
                 name=nom_normalise(h.get('nom'));known=ids.get(name,set())
@@ -66,7 +67,7 @@ def evaluer(cache, now, state=None):
                 if reason:issues.append({'course':code,'numero':str(number),'motif':reason})
                 cid=inc.course_geny_connue(cache,code)
                 engagements.append({'cle_file':key,'engagement':code,'numero':str(number),'nom':h.get('nom'),
-                    'preparation_pmu_ok':pmu_ok and horse_ok,
+                    'preparation_pmu_ok':pmu_ok and bool(name),
                     'depart_utc':depart.isoformat(),'motif_actualisation':reason,
                     'course_url':'https://www.geny.com/course/'+cid[5:]+'/partants-pronostics' if cid else ''})
     return {'controle_utc':now.isoformat(),'pret':not issues,'partants_a_venir':len(engagements),
