@@ -39,7 +39,9 @@ def evaluer(cache, now, state=None):
                 created=inc.instant(prediction.get('calcul_utc'))
                 if not created or not created<depart or len(prediction.get('top3',[]))!=3:
                     issues.append({'course':code,'motif':'PREVISION_PRELIMINAIRE_ABSENTE'})
-                    pmu_ok=False
+                    # L'absence de TOP3 reste un blocage du rattrapage de fond,
+                    # mais ne doit pas empêcher d'enrichir les données qui
+                    # permettront précisément de calculer ce TOP3.
             for number,h in horses.items():
                 if h.get('statut_np')=='NON_PARTANT':continue
                 name=nom_normalise(h.get('nom'));known=ids.get(name,set())
@@ -66,11 +68,20 @@ def evaluer(cache, now, state=None):
                 if reason:issues.append({'course':code,'numero':str(number),'motif':reason})
                 cid=inc.course_geny_connue(cache,code)
                 engagements.append({'cle_file':key,'engagement':code,'numero':str(number),'nom':h.get('nom'),
-                    'preparation_pmu_ok':pmu_ok and horse_ok,
+                    'preparation_pmu_ok':pmu_ok and bool(name),
                     'depart_utc':depart.isoformat(),'motif_actualisation':reason,
+                    'historique_complet':bool(doc),
                     'course_url':'https://www.geny.com/course/'+cid[5:]+'/partants-pronostics' if cid else ''})
+    by_day={}
+    for row in engagements:
+        stats=by_day.setdefault(row['engagement'][:10],{'partants':0,'historiques_complets':0,
+            'sans_historique_complet':0,'historiques_a_actualiser':0})
+        stats['partants']+=1
+        stats['historiques_complets']+=int(row['historique_complet'])
+        stats['sans_historique_complet']+=int(not row['historique_complet'])
+        stats['historiques_a_actualiser']+=int(bool(row['motif_actualisation']))
     return {'controle_utc':now.isoformat(),'pret':not issues,'partants_a_venir':len(engagements),
-            'blocages':issues,'engagements':engagements}
+            'couverture_par_jour':by_day,'blocages':issues,'engagements':engagements}
 
 
 def appliquer(cache,state,now):

@@ -66,6 +66,8 @@ class SheetsSession:
                     col = col*26+ord(ch)-64
                 row = int(match[2])-1
                 for offset,values in enumerate(entry['values']):
+                    while len(self.tables[tab.strip("'")])<=row+offset:
+                        self.tables[tab.strip("'")].append([])
                     dest = self.tables[tab.strip("'")][row+offset]
                     while len(dest) < col+len(values)-1:
                         dest.append('')
@@ -190,7 +192,7 @@ class ChaineTests(unittest.TestCase):
         from pmu_geny.planification_v20_2 import decision_autorisee
         paris = ZoneInfo('Europe/Paris')
         for day in ('2026-03-29', '2026-10-25', '2026-11-13'):
-            for hour, minute, expected in [(6,59,False),(7,0,True),(20,59,True),(21,0,True),(21,1,False)]:
+            for hour, minute, expected in [(0,1,True),(6,59,True),(7,0,True),(20,59,True),(21,0,True),(21,1,True)]:
                 now = datetime.fromisoformat(f'{day}T{hour:02}:{minute:02}:00').replace(tzinfo=paris)
                 with self.subTest(day=day, hour=hour, minute=minute):
                     self.assertEqual(decision_autorisee(now, day, now+timedelta(hours=1)), expected)

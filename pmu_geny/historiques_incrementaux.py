@@ -254,7 +254,8 @@ def prochaine_tache(state, now, attempts):
         # La nuit, combler les carrières absentes avant les actualisations.
         priority=priorite_engagement(h,now,manquant=h.get('motif_actualisation')=='HISTORIQUE_ABSENT_OU_NON_DATE')
         enrichment=h.get('motif_actualisation')=='FERRURES_HISTORIQUES_A_COMPLETER'
-        order=((h['depart_a_venir_utc'],enrichment,key) if state.get('politique_collecte')=='PROCHAINS_DEPARTS_SEULEMENT'
+        missing=h.get('motif_actualisation')=='HISTORIQUE_ABSENT_OU_NON_DATE'
+        order=((h['depart_a_venir_utc'],enrichment,not missing,key) if state.get('politique_collecte')=='PROCHAINS_DEPARTS_SEULEMENT'
                else (enrichment,priority,h['engagement'],key))
         candidates.append((order,key))
     if candidates:
@@ -533,6 +534,9 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         if action == 'COLLECTE':
             time.sleep(30)
     state.setdefault('motif_fin_passage','BUDGET_TEMPS_ATTEINT')
+    if prochains_depart and not reprise:
+        from .preparation_prochaines import appliquer
+        appliquer(cache,state,datetime.now(UTC))
     state['bilan'] = {'chevaux_suivis': len(state['chevaux']), 'tentatives_collecte': count,
                       'captures_validees':accepted,'captures_partielles':partials,
                       'collectes_rejetees':count-accepted-partials,

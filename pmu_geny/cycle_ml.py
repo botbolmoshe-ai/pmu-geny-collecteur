@@ -1,4 +1,4 @@
-"""Une tentative ML par jour et empreinte, apres 20 h Paris, dans le job existant."""
+"""ML expérimental actif à chaque changement ; promotion après 20 h Paris."""
 from __future__ import annotations
 
 import argparse
@@ -27,17 +27,21 @@ def run(cache, now=None, force=False):
     fingerprint = digest.hexdigest()
     from .cycle_ml_experimental import executer
     experimental=executer(cache,now,fingerprint)
+    from .cycle_ml_actif import entrainer
+    actif=entrainer(cache,now)
     if not force and local.hour < 20:
-        return {'etat': 'ENTRAINEMENT_DIFFERE_20H_PARIS','experimental':experimental}
+        return {'etat': 'ENTRAINEMENT_DIFFERE_20H_PARIS','experimental':experimental,'experimental_actif':actif}
     attempt_path = cache / 'ml/cycle.json'
     previous = load(attempt_path, {}) or {}
     key = {'jour_paris': local.date().isoformat(), 'empreinte_donnees': fingerprint}
     if not force and all(previous.get(k) == v for k, v in key.items()):
-        return {'etat': 'DEJA_TRAITE', **key, 'resultat_precedent': previous.get('etat'),'experimental':experimental}
+        return {'etat': 'DEJA_TRAITE', **key, 'resultat_precedent': previous.get('etat'),
+                'experimental':experimental,'experimental_actif':actif}
     # Une erreur laisse la tentative precedente intacte et autorise la reprise.
     result = train(cache, now=now)
     result.update(key)
     result['experimental']=experimental
+    result['experimental_actif']=actif
     save(cache / 'ml/entrainement.json', result)
     save(attempt_path, {**key, 'tentative_utc': now.isoformat(), 'etat': result['etat']})
     return result

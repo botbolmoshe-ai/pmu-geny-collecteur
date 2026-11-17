@@ -47,7 +47,18 @@ def calculer_kpi(cache, source=None, now=None):
     has_history=sum((_nombre(r.get('historique_nb_courses_datees')) or 0)>0 for r in participants)
     def nonempty(field):return sum(bool(str(r.get(field) if r.get(field) is not None else '').strip()) for r in participants)
     def metric(label,value,definition):return (label,(value,definition))
+    active=_load(cache/'ml/modele_experimental_actif.json')
+    ml_metrics=[]
+    if active:
+        for label,field,definition in (
+            ('État','statut','Candidat expérimental distinct du modèle promu ; scores non calibrés.'),
+            ('Courses apprises','courses','Courses admissibles effectivement utilisées pour le dernier entraînement.'),
+            ('Observations apprises','lignes','Observations cheval-course utilisées ; variables manquantes imputées.'),
+            ('Entraînement UTC','entrainement_utc','Date du fit effectif, conservée si les données sont inchangées.'),
+            ('Vérification UTC','verification_utc','Dernier contrôle du jeu disponible, distinct du dernier fit.')):
+            ml_metrics.append(metric('ML expérimental · '+label,active.get(field,''),definition))
     return dict([
+        *ml_metrics,
         metric('Chevaux distincts rencontrés',len({nom_normalise(r.get('cheval')) for r in participants if nom_normalise(r.get('cheval'))}),'Noms normalisés distincts ; identifiant stable à privilégier.'),
         metric('Courses distinctes collectées',len({r['course_key'] for r in participants}),'Courses présentes, préparations J+1 incluses.'),
         metric('Partants avec historique identifié (nom/ID)',linked,'Participations dont le statut commence par HISTO_OK.'),
@@ -94,4 +105,11 @@ def plan_kpi(values, metrics):
             value,definition=metrics[row[1]]
             if len(row)<4 or row[2]!=value or row[3]!=definition:
                 updates.append({'range':f"'{KPI_TAB}'!C{number}:D{number}",'values':[[value,definition]]})
+    present={row[1] for row in values[1:] if len(row)>1}
+    last=max((i for i,row in enumerate(values,start=1) if any(str(v or '').strip() for v in row)),default=1)
+    for label,(value,definition) in metrics.items():
+        if label.startswith('ML expérimental · ') and label not in present:
+            last+=1
+            updates.append({'range':f"'{KPI_TAB}'!A{last}:D{last}",
+                            'values':[['ML',label,value,definition]]})
     return updates
