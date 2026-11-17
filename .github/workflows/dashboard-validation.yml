@@ -1,7 +1,10 @@
 name: TROT Analytics - validation indépendante
 on:
+  push:
+    branches: [main]
+    paths: ['dashboard/**', '.github/workflows/dashboard-validation.yml', '.streamlit/config.toml', '.devcontainer/devcontainer.json']
   pull_request:
-    paths: ['dashboard/**', '.github/workflows/dashboard-validation.yml']
+    paths: ['dashboard/**', '.github/workflows/dashboard-validation.yml', '.streamlit/config.toml', '.devcontainer/devcontainer.json']
   workflow_dispatch:
 permissions:
   contents: read
@@ -14,6 +17,6 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m compileall -q dashboard
-      - run: python -m unittest discover -s dashboard -p 'test_*.py'
       - run: pip install -r dashboard/requirements.txt
+      - run: python -m unittest discover -s dashboard -p 'test_*.py' -v
       - run: python -c "import streamlit,pandas,plotly,googleapiclient"
