@@ -158,7 +158,7 @@ class KpiTests(unittest.TestCase):
         m=calculer_kpi(self.root,self.source,NOW)
         table=[['Dimension','Indicateur','Valeur','Définition'],['Personnelle','Mon indicateur',42,'À conserver'],['Résultats','Courses évaluées',0,'Ancien calcul']]
         updates=plan_kpi(table,m)
-        self.assertEqual(len(updates),1)
+        self.assertFalse(any("A2:" in u['range'] or "C2:" in u['range'] for u in updates))
         self.assertEqual(updates[0]['range'],"'Data Quality & KPI'!C3:D3")
         self.assertEqual(updates[0]['values'][0][0],1)
 

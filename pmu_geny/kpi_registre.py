@@ -57,8 +57,38 @@ def calculer_kpi(cache, source=None, now=None):
             ('Entraînement UTC','entrainement_utc','Date du fit effectif, conservée si les données sont inchangées.'),
             ('Vérification UTC','verification_utc','Dernier contrôle du jeu disponible, distinct du dernier fit.')):
             ml_metrics.append(metric('ML expérimental · '+label,active.get(field,''),definition))
+    performance=_load(cache/'ml/performance_prospective.json')
+    operational=[]
+    for label,field,definition in (
+        ('Courses évaluées','courses','Courses communes direct/ML avec certificat de publication antérieur au départ et arrivée PMU vérifiée.'),
+        ('Moyenne ML sur 3','moyenne_ml','Moyenne prospective ; vide si aucune course admissible.'),
+        ('Moyenne direct comparable sur 3','moyenne_direct','Même ensemble de courses que le ML prospectif.'),
+        ('Écart ML contre direct','ecart_ml_direct','Écart moyen sur courses appariées ; aucune garantie de gain futur.'),
+        ('TOP3 ML exacts','exact_3_sur_3_ml','Nombre de courses avec trois chevaux retrouvés, sur le dénominateur Courses évaluées.')):
+        operational.append(metric('ML prospectif · '+label,performance.get(field) if performance.get(field) is not None else '',definition))
+    from .echeances_production import courses_du_jour, PHASES, MARGE, instant
+    day,courses=courses_du_jour(cache,now)
+    for phase,offset in PHASES.items():
+        expected=ontime=missed=0
+        for c in courses:
+            depart=instant(c.get('depart'))
+            if not depart or now<depart-offset-MARGE:continue
+            expected+=1
+            proof=_load(cache/'jalons'/f"{day}_{c['code']}.json").get(phase,{})
+            ok=proof.get('statut')=='PUBLIE_A_TEMPS'
+            ontime+=int(ok)
+            missed+=int(now>depart-offset and not ok)
+        operational.extend([
+            metric('Échéances · '+phase+' ouvertes',expected,'Fenêtres de préparation ouvertes aujourd’hui, courses passées incluses.'),
+            metric('Échéances · '+phase+' publiées à temps',ontime,'Deux TOP3 certifiés après publication Sheets dans les délais.'),
+            metric('Échéances · '+phase+' dépassées sans preuve à temps',missed,'Échéances déjà dépassées sans certificat à temps ; aucun rattrapage rétroactif.')])
+    queue=_load(cache/'collecte_incrementale/etat.json')
+    for label,field in [('Captures complètes','captures_validees'),('Captures partielles','captures_partielles'),('Rejets','collectes_rejetees')]:
+        operational.append(metric('Collecte · '+label+' dernier passage',queue.get('bilan',{}).get(field,''),
+                                  'Compteur du passage horodaté '+str(queue.get('passage_utc','non disponible'))))
     return dict([
         *ml_metrics,
+        *operational,
         metric('Chevaux distincts rencontrés',len({nom_normalise(r.get('cheval')) for r in participants if nom_normalise(r.get('cheval'))}),'Noms normalisés distincts ; identifiant stable à privilégier.'),
         metric('Courses distinctes collectées',len({r['course_key'] for r in participants}),'Courses présentes, préparations J+1 incluses.'),
         metric('Partants avec historique identifié (nom/ID)',linked,'Participations dont le statut commence par HISTO_OK.'),
@@ -108,7 +138,7 @@ def plan_kpi(values, metrics):
     present={row[1] for row in values[1:] if len(row)>1}
     last=max((i for i,row in enumerate(values,start=1) if any(str(v or '').strip() for v in row)),default=1)
     for label,(value,definition) in metrics.items():
-        if label.startswith('ML expérimental · ') and label not in present:
+        if label.startswith(('ML expérimental · ','ML prospectif · ','Échéances · ','Collecte · ')) and label not in present:
             last+=1
             updates.append({'range':f"'{KPI_TAB}'!A{last}:D{last}",
                             'values':[['ML',label,value,definition]]})
