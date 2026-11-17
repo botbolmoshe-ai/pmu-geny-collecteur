@@ -30754,7 +30754,17 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-17T13:47:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS"
+      "collecte": "A_REPRENDRE",
+      "erreur": "PermissionError: ACCES_REFUSE_403",
+      "prochain_essai_utc": "2026-11-17T14:45:31.489031+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-17T08:45:31.489047+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-17_R3C2_10/1794905125408767872/resultat.json"
+      }
     },
     "2026-11-17_R3C2_11": {
       "nom": "NOA BY STEED",
@@ -36352,13 +36362,13 @@
     }
   },
   "passage_utc": "2026-11-17T08:45:19.658760+00:00",
-  "maj_utc": "2026-11-17T08:45:23.028846+00:00",
+  "maj_utc": "2026-11-17T08:45:31.496890+00:00",
   "bilan": {
     "chevaux_suivis": 1606,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1370
   },
@@ -36369,7 +36379,7 @@
       "indicateurs_actualises": 30
     }
   },
-  "prochain_acces_geny_utc": "2026-11-17T02:18:40.464979+00:00",
+  "prochain_acces_geny_utc": "2026-11-17T09:15:31.489065+00:00",
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
