@@ -178,8 +178,10 @@ def update_np(cache, course, manifest, pmu_data):
                                        'nouveau':r['statut_participation']} for r in rows if old.get(r['numero'],{}).get('statut_participation')!=r['statut_participation']]}
     save(target,doc);return doc
 
-def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None):
-    now=now or datetime.now(PARIS)
+def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None, clock=None):
+    if clock is None:
+        clock=(lambda:now) if now is not None else (lambda:datetime.now(PARIS))
+    now=now or clock()
     if now.tzinfo is None: raise ValueError("Heure de traitement sans fuseau")
     index=cache/'orchestration'/f'{date}.json'; state=load(index,{'date':date,'courses':{},'alertes':[]})
     # Les diagnostics sont persistés même en cas de source vide ou invalide.
@@ -258,6 +260,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 'geny_id': decision.get('geny_id')
             }, ensure_ascii=False), flush=True)
     for c in selected:
+        now=clock()
         key=c['code']; entry=state['courses'].setdefault(key,{'identifiant_geny':None,'etat':'A_DECOUVRIR'})
         entry.update({'depart':c['depart'],'nom':c['nom'],'hippodrome':c['hippodrome'],'nombre_declares':c['nombre_declares'], 'priorite_metier':c.get('priorite_metier'), 'motif_selection':c.get('motif_selection')})
         departure=datetime.fromisoformat(c['depart'])
@@ -289,6 +292,10 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
             from .partants_actuels_v21 import enregistrer
             entry['statut_partants_actuels']=enregistrer(cache,c,pmu_participants)
+            # Le réseau peut avoir dépassé le départ depuis le début du cycle.
+            now=clock();est_partie=now>=departure
+            fenetre_decision=decision_autorisee(now,date,departure)
+            if est_partie:entry['traitement']='RESULTATS_SEULEMENT'
             if not est_partie:
                 # Commentaires sourcés, facultatifs : un accès tiers refusé
                 # n'empêche ni la préparation PMU, ni les captures ML.
@@ -302,15 +309,15 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 try:
                     from .top3_independants_v22 import calculer
                     from .cotes_v19 import collecter
-                    entry['paliers_independants']=calculer(cache,c,pmu_participants,now=now)
+                    entry['paliers_independants']=calculer(cache,c,pmu_participants,now=clock(),clock=clock)
                     entry['statut_cotes']=collecter(cache,c,pmu_participants,now=now)
                 except Exception as exc:
                     entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
                 # Desormais la capture ML ne depend ni de Geny ni des historiques.
                 try:
                     from .ml_v19 import snapshot_pmu, predict_pmu
-                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=now)
-                    entry['statut_ml']=predict_pmu(cache,c,pmu_participants,now=now)
+                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=clock(),clock=clock)
+                    entry['statut_ml']=predict_pmu(cache,c,pmu_participants,now=clock(),clock=clock)
                 except Exception as exc:
                     entry['erreur_ml']=f'{type(exc).__name__}: {exc}'
         except Exception as exc:

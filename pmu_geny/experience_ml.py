@@ -88,6 +88,18 @@ def paired_interval(left, right):
             'ic95_bootstrap_par_course': np.quantile(boot, [0.025, 0.975]).tolist()}
 
 
+def modeles():
+    """Même définition déterministe pour l'évaluation et l'apprentissage actif."""
+    return {
+        'regression_logistique': make_pipeline(
+            SimpleImputer(strategy='constant', fill_value=-1, add_indicator=True, keep_empty_features=True),
+            StandardScaler(), LogisticRegression(max_iter=2000, class_weight='balanced', random_state=42)),
+        'gradient_boosting': make_pipeline(
+            SimpleImputer(strategy='constant', fill_value=-1, keep_empty_features=True),
+            HistGradientBoostingClassifier(max_iter=120, max_leaf_nodes=9, l2_regularization=2, random_state=42)),
+    }
+
+
 def run(cache, output, validation_day, test_day, now=None):
     cache, output = Path(cache), Path(output)
     # Le modele experimental ne peut pas ecraser le modele ou statut de production.
@@ -130,14 +142,7 @@ def run(cache, output, validation_day, test_day, now=None):
     report['sources_sha256'] = {str(f.relative_to(cache)): hashlib.sha256(f.read_bytes()).hexdigest()
                                for folder in ('ml/instantanes', 'arrivees')
                                for f in sorted((cache / folder).glob('*.json'))}
-    models = {
-        'regression_logistique': make_pipeline(
-            SimpleImputer(strategy='constant', fill_value=-1, add_indicator=True, keep_empty_features=True),
-            StandardScaler(), LogisticRegression(max_iter=2000, class_weight='balanced', random_state=42)),
-        'gradient_boosting': make_pipeline(
-            SimpleImputer(strategy='constant', fill_value=-1, keep_empty_features=True),
-            HistGradientBoostingClassifier(max_iter=120, max_leaf_nodes=9, l2_regularization=2, random_state=42)),
-    }
+    models = modeles()
     x_train, x_validation = matrix(train), matrix(validation)
     y_train, y_validation = [r['y'] for r in train], [r['y'] for r in validation]
     validation_scores = {}

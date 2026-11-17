@@ -77,12 +77,17 @@ class ProductionMLTests(unittest.TestCase):
 
     def test_live_gates_and_unknown_np(self):
         self.model()
-        for stamp in ['2026-11-14T12:00:00+01:00', '2026-11-15T06:59:00+01:00',
+        for stamp in ['2026-11-14T12:00:00+01:00',
                       '2026-11-15T15:00:00+01:00', '2026-11-15T21:01:00+01:00']:
             self.assertEqual(predict_pmu(self.root, self.course, self.raw, datetime.fromisoformat(stamp)), 'HORS_FENETRE_DECISION')
         del self.raw['participants'][0]['nonPartant']
         self.assertEqual(predict_pmu(self.root, self.course, self.raw, self.now), 'NP_NON_VERIFIE')
         self.assertFalse((self.root / 'pronostics').exists())
+
+    def test_premier_calcul_ml_possible_des_le_debut_du_jour(self):
+        self.model()
+        early=datetime.fromisoformat('2026-11-15T00:05:00+01:00')
+        self.assertEqual(predict_pmu(self.root,self.course,self.raw,early),'ML_CALCULE')
 
     def test_dataset_rejects_future_labels_missing_podium_and_unknown_np(self):
         self.examples()

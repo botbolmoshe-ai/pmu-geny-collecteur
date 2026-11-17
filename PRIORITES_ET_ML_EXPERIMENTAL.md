@@ -47,3 +47,13 @@ Vérification locale sur copie de production : 78 courses / 1 052 lignes
 admissibles ; 53 courses train, 23 validation, 2 test. Ce dernier effectif est
 insuffisant pour conclure à une amélioration fiable. Les résultats définitifs
 de chaque passage sont ceux du rapport horodaté conservé dans pmu-data.
+
+## Candidat actif depuis le 17 novembre
+
+Le rejeu rétrospectif reste séparé du candidat actif, entraîné sur toutes les
+observations admissibles disponibles. Ce candidat fournit désormais des
+sélections explicitement expérimentales si aucun modèle promu n'est disponible.
+Son statut et ses effectifs sont visibles dans les KPI. Voir
+[les corrections du 17 novembre](CORRECTIONS_PRODUCTION_20261117.md).
+L'absence d'un premier TOP3 ne bloque plus la collecte des partants préparés ;
+les premières prévisions du jour sont calculables dès minuit local.

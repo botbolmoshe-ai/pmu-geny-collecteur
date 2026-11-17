@@ -37,7 +37,7 @@ def _form_score(participant):
     ranks=[int(re.match(r'\d+',t).group()) if t[0].isdigit() else 0 for t in series]
     return round(sum(points.get(r,0.0)*(1-0.12*i) for i,r in enumerate(ranks)),3)
 
-def calculer(cache,course,raw,now=None):
+def calculer(cache,course,raw,now=None,clock=None):
     now=now or datetime.now(timezone.utc)
     depart=datetime.fromisoformat(course['depart'])
     if now.tzinfo is None or depart.tzinfo is None:raise ValueError('Fuseau obligatoire')
@@ -145,6 +145,11 @@ def calculer(cache,course,raw,now=None):
         if not sufficient and not old and not known_np:
             output[mode]='DONNEES_INSUFFISANTES'
             continue
+        captured=clock() if clock else now
+        if captured>=depart:
+            output[mode]='APRES_DEPART'
+            continue
+        doc['calcul_utc']=captured.isoformat()
         doc['premier_calcul_utc']=old.get('premier_calcul_utc',doc['calcul_utc'])
         if old:
             version=datetime.fromisoformat(old['calcul_utc']).astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')

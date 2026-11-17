@@ -181,6 +181,17 @@ def course_key(date,hippodrome,code):
 def source_rows(cache):
     from .partants_actuels_v21 import profil_pmu_exclusif
     courses, history, reports = {}, {}, {}
+    from .cycle_ml_actif import modele_disponible,STATUT
+    candidat_disponible=modele_disponible(cache) is not None
+    def statut_ml(document,depart):
+        if document.get('statut'):return document['statut']
+        if candidat_disponible:
+            try:
+                if datetime.fromisoformat(depart)<=datetime.now(timezone.utc):
+                    return 'ML_NON_PUBLIE_AVANT_DEPART'
+            except (ValueError,TypeError):pass
+            return STATUT+'_SANS_PREVISION'
+        return 'ML_NON_ENTRAINE'
     import unicodedata
     from .sources_experts_v23 import champs_sheet
     def normalize_horse_name(value):
@@ -241,7 +252,7 @@ def source_rows(cache):
                  'fige_utc':frozen.get('frozen_at',''),
                  'mode_calcul_top3':'BASELINE_HISTORIQUE' if has_historical else ('ML' if has_ml else 'NON_CALCULE'),
                  'historique_modele_statut':'FIGE' if has_historical else 'NON_CALCULE',
-                 'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
+                 'ml_modele_statut':statut_ml(ml,depart),
                  'secours_statut':'NON_CALCULE',
                  'baseline_top3':'OUI' if any(str(h.get('numero'))==str(n) for h in frozen.get('top3',[])) else '',
                  'baseline_final_top3':'OUI' if any(str(h.get('numero'))==str(n) for h in (latest or frozen).get('top3',[])) else '',
@@ -268,7 +279,7 @@ def source_rows(cache):
                             'score_baseline_final':r.get('baseline_final_hits_course',''),
                             'score_ml':r.get('ml_hits_course',''),
                             'score_sur_3':r.get('baseline_final_hits_course','') if has_historical else '',
-                            'etat_ml':ml.get('statut','ML_NON_ENTRAINE'),
+                            'etat_ml':statut_ml(ml,depart),
                             'source_export':str(path.relative_to(cache)),
                             'derniere_sync_utc':datetime.now(timezone.utc).isoformat(),
                             'statut_evaluation':'EVALUE' if comparison_present and r.get('baseline_final_hits_course') else 'ARRIVEE_SANS_TOP3_FIGE'}
@@ -370,9 +381,9 @@ def source_rows(cache):
                 'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
                 'top3_cotes_statut':cotes_etat,
                 'ml_rang':ml_rank,
-                'ml_score_non_calibre':ml_h.get('proba_podium_estimee',''),
+                'ml_score_non_calibre':ml_h.get('score_non_calibre',ml_h.get('proba_podium_estimee','')),
                 'ml_top3':'OUI' if ml_rank and ml_rank<=3 else '',
-                'ml_modele_statut':ml.get('statut','ML_NON_ENTRAINE'),
+                'ml_modele_statut':statut_ml(ml,info.get('depart','')),
                 'statut_prevision':'PREVISIONS_DISPONIBLES' if any(ranks[mode] for mode in ('direct','cotes','ml')) else existing.get('statut_prevision','TOP3_NON_CALCULE'),
                 'mode_calcul_top3':'DIRECT+COTES+ML_SEPARES' if any(ranks[mode] for mode in ('direct','cotes','ml')) else existing.get('mode_calcul_top3','NON_CALCULE'),
                 'top3_direct_utc':direct.get('calcul_utc',''),
@@ -422,7 +433,7 @@ def source_rows(cache):
         conclusion=(f"Meilleure méthode : {best_methods} ({best}/3)" if best is not None
                     else 'Aucune prévision indépendante évaluable avant cette arrivée')
         reports[k]={**existing,
-                    'etat_ml':ml.get('statut','ML_NON_ENTRAINE'),
+                    'etat_ml':statut_ml(ml,info.get('depart','')),
                     'top3_direct_calcule_utc':direct.get('calcul_utc',''),
                     'conclusion':conclusion,
                     'top3_direct_numeros':direct_nums,'score_direct':direct_hits,

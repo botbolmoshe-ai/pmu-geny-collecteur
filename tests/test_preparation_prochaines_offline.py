@@ -56,11 +56,12 @@ class PreparationTests(unittest.TestCase):
         inc.ecrire(self.cache/inc.QUEUE,s)
         self.assertEqual(autoriser_fond(self.cache,self.now),'PREPARATION_PROCHAINES_COURSES_INCOMPLETE')
 
-    def test_aucune_collecte_avant_prevision_preliminaire_du_jour(self):
+    def test_absence_prevision_ne_bloque_pas_enrichissement_des_partants_prepares(self):
         e,k=self.course('R1C8','2026-11-16T18:00:00+01:00');s=self.state(e,k)
         (self.cache/'pronostics'/f'{e}_direct.json').unlink()
         appliquer(self.cache,s,self.now)
-        self.assertEqual(inc.prochaine_tache(s,self.now,{}),(None,'TERMINE'))
+        self.assertEqual(inc.prochaine_tache(s,self.now,{}),(k,'COLLECTE'))
+        self.assertFalse(s['preparation_prochaines_courses']['pret'])
 
     def test_fond_autorise_quand_preparation_et_historique_complets(self):
         e,k=self.course('R1C8','2026-11-16T18:00:00+01:00');s=self.state(e,'123456')

@@ -5,7 +5,7 @@ arrivées PMU vérifiées; aucune reconstitution a posteriori des variables.
 Les cotes, rapports, prix et rangs à l'arrivée ne sont JAMAIS des features.
 """
 from __future__ import annotations
-import csv, json, math
+import csv, hashlib, json, math
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -182,7 +182,7 @@ def pmu_rows(cache,course,raw,now):
                       'historiques_partiels_reutilises':with_partial,'np_non_verifies':unknown_np}
 
 
-def snapshot_pmu(cache,course,raw,now=None):
+def snapshot_pmu(cache,course,raw,now=None,clock=None):
     """Capture immutable; les anciennes captures ne sont jamais enrichies apres coup."""
     now=now or datetime.now(timezone.utc)
     departure=datetime.fromisoformat(course['depart'])
@@ -191,8 +191,10 @@ def snapshot_pmu(cache,course,raw,now=None):
     if base.exists():return 'DEJA_CAPTURE'
     status,rows,metadata=pmu_rows(cache,course,raw,now)
     if status!='OK':return status
+    captured=clock() if clock else now
+    if captured>=departure:return 'TROP_TARD'
     save(base,{'date':course['date'],'code':course['code'],'depart':course['depart'],
-               'capture_utc':now.isoformat(),'features_schema':'v22.1',
+               'capture_utc':captured.isoformat(),'features_schema':'v22.1',
                'source':'PMU_API_PARTICIPANTS','nombre_chevaux':len(rows),
                **metadata,'chevaux':rows,
                'regle':'capture PMU pre-depart immutable, ni cote ni arrivee utilisee'})
@@ -274,14 +276,19 @@ def train(cache, min_courses=MIN_COURSES_TRAIN, min_rows=MIN_ROWS_TRAIN, now=Non
     return status
 
 
-def predict_pmu(cache,course,raw,now=None):
-    """Inference jour J 07h-21h, meme extraction que les captures PMU."""
+def predict_pmu(cache,course,raw,now=None,clock=None):
+    """Inférence pré-départ : modèle promu, sinon candidat expérimental explicite."""
     from .planification_v20_2 import decision_autorisee
     now=now or datetime.now(timezone.utc)
     departure=datetime.fromisoformat(course['depart'])
     if not decision_autorisee(now,course['date'],departure):return 'HORS_FENETRE_DECISION'
     path=Path(cache)/'ml'/'modele.joblib'
-    if not path.exists():return 'ML_NON_ENTRAINE'
+    experimental=False
+    if not path.exists():
+        from .cycle_ml_actif import modele_disponible
+        path=modele_disponible(cache)
+        if path is None:return 'ML_NON_ENTRAINE'
+        experimental=True
     try:
         import joblib
         import numpy as np
@@ -289,27 +296,43 @@ def predict_pmu(cache,course,raw,now=None):
     except (ImportError,OSError,ValueError,KeyError) as exc:return f'MODELE_INDISPONIBLE_{type(exc).__name__}'
     if packed.get('schema')!=MODEL_SCHEMA or tuple(packed.get('features',()))!=FEATURES:
         return 'MODELE_SCHEMA_OBSOLETE_REENTRAINEMENT_REQUIS'
-    if packed.get('statut')!='ML_ENTRAINE_NON_CALIBRE':return 'MODELE_NON_PROMU'
+    if experimental:
+        from .cycle_ml_actif import STATUT
+        if packed.get('statut')!=STATUT:return 'MODELE_EXPERIMENTAL_INVALIDE'
+        try:
+            fitted=datetime.fromisoformat(packed['entrainement_utc'])
+            labelled=datetime.fromisoformat(packed['dernier_label_entrainement_utc'])
+            if not labelled<=fitted<=now:return 'MODELE_EXPERIMENTAL_CHRONOLOGIE_INVALIDE'
+        except (KeyError,TypeError,ValueError):return 'MODELE_EXPERIMENTAL_CHRONOLOGIE_INVALIDE'
+    elif packed.get('statut')!='ML_ENTRAINE_NON_CALIBRE':return 'MODELE_NON_PROMU'
     status,rows,metadata=pmu_rows(cache,course,raw,now)
     if status!='OK':return status
     if metadata['np_non_verifies']:return 'NP_NON_VERIFIE'
     vectors=[[numeric(h['features'].get(k)) if numeric(h['features'].get(k)) is not None
               else float('nan') for k in FEATURES] for h in rows]
     scores=packed['model'].predict_proba(np.asarray(vectors))[:,1]
+    score_field='score_non_calibre' if experimental else 'proba_podium_estimee'
     ranking=[{'numero':h['numero'],'nom':h['nom'],'cheval_id':h['cheval_id'],
-              'proba_podium_estimee':round(float(score),5)} for h,score in zip(rows,scores)]
-    ranking.sort(key=lambda h:(-h['proba_podium_estimee'],h['numero']))
+              score_field:round(float(score),5)} for h,score in zip(rows,scores)]
+    ranking.sort(key=lambda h:(-h[score_field],h['numero']))
+    created=clock() if clock else now
+    if not decision_autorisee(created,course['date'],departure):return 'HORS_FENETRE_DECISION'
     base=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_ml_latest.json"
     old=load(base,{}) or {}
     if old.get('calcul_utc'):
         stamp=datetime.fromisoformat(old['calcul_utc']).astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
         archive=base.parent/'versions'/f"{course['date']}_{course['code']}_ml_{stamp}.json"
         if not archive.exists():save(archive,old)
-    save(base,{'date':course['date'],'course':course['code'],'calcul_utc':now.isoformat(),
-               'depart':course['depart'],'modele':packed['modele'],'statut':'ML_ENTRAINE_NON_CALIBRE',
+    save(base,{'date':course['date'],'course':course['code'],'calcul_utc':created.isoformat(),
+               'depart':course['depart'],'modele':packed['modele'],'statut':packed['statut'],
+               'experimental':experimental,'promotion_production':not experimental,
+               'entrainement_utc':packed.get('entrainement_utc'),
+               'dernier_label_entrainement_utc':packed.get('dernier_label_entrainement_utc'),
+               'empreinte_modele':hashlib.sha256(path.read_bytes()).hexdigest(),
+               'features_schema':MODEL_SCHEMA,'entrees_modele':rows,
                'top3':ranking[:3],'classement_complet':ranking,
                'note':'Score non calibre; cotes exclues des variables.'})
-    return 'ML_CALCULE'
+    return 'ML_EXPERIMENTAL_CALCULE' if experimental else 'ML_CALCULE'
 
 
 def predict(cache,course,manifest=None,now=None):
@@ -334,7 +357,7 @@ def export_comparatif(cache,course,manifest):
     b_rank={int(x['numero']):i for i,x in enumerate(base.get('classement_complet',[]),1)}
     bf_rank={int(x['numero']):i for i,x in enumerate(baseline_final.get('classement_complet',[]),1)}
     m_rank={int(x['numero']):i for i,x in enumerate(ml.get('classement_complet',[]),1)}
-    m_proba={int(x['numero']):x.get('proba_podium_estimee') for x in ml.get('classement_complet',[])}
+    m_proba={int(x['numero']):x.get('score_non_calibre',x.get('proba_podium_estimee')) for x in ml.get('classement_complet',[])}
     np_map={int(x['numero']):x for x in np.get('chevaux',[])}
     odd_map={int(x['numero']):x for x in odds.get('chevaux',[])}
     arank={int(x['numero']):x['rang'] for x in arrived.get('arrivee',[])}

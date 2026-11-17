@@ -30,8 +30,9 @@ d'en-têtes ; elles ne sont pas recréées au passage suivant.
 ## Champs utiles conservés et corrigés
 
 Les ferrures et chronos restent utiles malgré leurs lacunes. Les rangs,
-sélections et scores ML restent prévus pour le modèle de production ; leur
-absence actuelle ne transforme pas une expérience rétrospective en prédiction.
+sélections et scores ML sont conservés. Le statut distingue le candidat
+expérimental actif du modèle promu ; un rejeu rétrospectif reste distinct des
+prévisions effectivement enregistrées avant départ.
 
 `extraction_utc` est alimenté par la date `extrait_utc` du document Geny,
 normalisée en UTC, avec le libellé « Capture historique · UTC ». La date de
