@@ -31,6 +31,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
+st.caption("Version interface : 2026.11.17.2 · Qualité : tableaux et filtres par date")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
