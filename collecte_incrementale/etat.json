@@ -32843,7 +32843,24 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-18T12:00:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS"
+      "collecte": "A_REPRENDRE",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-11-17T06:22:29.102100+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-17T00:22:29.102117+00:00",
+        "statut": "PARTIEL_HISTORIQUE",
+        "motifs": [
+          "NB_COURSES_NON_VERIFIABLE"
+        ],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2026-11-18_R6C1_8/1794874935700529629/resultat.json"
+      },
+      "geny": {
+        "id": "2908407",
+        "nom": "ORIA UP STAR",
+        "url_geny": "https://www.geny.com/cheval/2908407-oria-up-star/course/1698929"
+      }
     },
     "2026-11-18_R6C1_9": {
       "nom": "OKANAGAN",
@@ -34167,13 +34184,13 @@
     }
   },
   "passage_utc": "2026-11-17T00:13:10.821224+00:00",
-  "maj_utc": "2026-11-17T00:22:12.275012+00:00",
+  "maj_utc": "2026-11-17T00:22:29.102192+00:00",
   "bilan": {
     "chevaux_suivis": 1448,
-    "tentatives_collecte": 8,
+    "tentatives_collecte": 9,
     "captures_validees": 7,
     "captures_partielles": 0,
-    "collectes_rejetees": 1,
+    "collectes_rejetees": 2,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1270
   },
