@@ -39196,7 +39196,7 @@
     }
   },
   "passage_utc": "2026-11-17T17:07:13.211239+00:00",
-  "maj_utc": "2026-11-17T17:09:33.373940+00:00",
+  "maj_utc": "2026-11-17T17:10:25.000528+00:00",
   "bilan": {
     "chevaux_suivis": 1606,
     "tentatives_collecte": 2,
@@ -39204,10 +39204,10 @@
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 1365
+    "actualisations_en_attente": 1363
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 41
@@ -39217,15 +39217,15 @@
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-17T17:07:13.211239+00:00",
+    "controle_utc": "2026-11-17T17:10:07.122602+00:00",
     "pret": false,
     "partants_a_venir": 182,
     "couverture_par_jour": {
       "2026-11-17": {
         "partants": 15,
-        "historiques_complets": 0,
-        "sans_historique_complet": 15,
-        "historiques_a_actualiser": 15
+        "historiques_complets": 2,
+        "sans_historique_complet": 13,
+        "historiques_a_actualiser": 13
       },
       "2026-11-18": {
         "partants": 167,
@@ -39237,8 +39237,7 @@
     "blocages": [
       {
         "course": "2026-11-17_R3C8",
-        "numero": "1",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C8",
@@ -39282,8 +39281,7 @@
       },
       {
         "course": "2026-11-17_R3C8",
-        "numero": "10",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-17_R3C8",
@@ -39906,5 +39904,6 @@
         "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       }
     ]
-  }
+  },
+  "motif_fin_passage": "PRIORITE_PRODUCTION_EN_ATTENTE"
 }
