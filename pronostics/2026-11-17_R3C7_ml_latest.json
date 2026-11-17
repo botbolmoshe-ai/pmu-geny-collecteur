@@ -1,7 +1,7 @@
 {
   "date": "2026-11-17",
   "course": "R3C7",
-  "calcul_utc": "2026-11-17T17:11:14.757948+01:00",
+  "calcul_utc": "2026-11-17T17:18:25.283195+01:00",
   "depart": "2026-11-17T17:42:00+01:00",
   "modele": "gradient_boosting",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
@@ -531,28 +531,28 @@
     },
     {
       "numero": 12,
-      "cheval_id": "",
+      "cheval_id": "2808586",
       "nom": "LEONCE DU CLOS",
-      "historique_ok": false,
-      "historique_complet": false,
-      "methode_liaison": "NON_ASSOCIE",
+      "historique_ok": true,
+      "historique_complet": true,
+      "methode_liaison": "NOM_EXACT_UNIQUE",
       "score_direct_pmu": 1.9,
       "features": {
         "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_60j": 1,
+        "courses_120j": 1,
         "podiums_30j": null,
-        "podiums_120j": null,
+        "podiums_120j": 0.0,
         "victoires_120j": 0,
         "disqualifications_120j": 0,
-        "score_forme": null,
+        "score_forme": 0.0,
         "forme_30j": null,
-        "forme_ancien": null,
-        "jours_repos": null,
+        "forme_ancien": 0.0,
+        "jours_repos": 35,
         "distance_m": 2700.0,
-        "distance_ecart_m": null,
+        "distance_ecart_m": 0.0,
         "aptitude_hippodrome": null,
-        "taux_podium_distance": null,
+        "taux_podium_distance": 0.27273,
         "nb_partants": 13.0,
         "meteo_pluie_mm": 0.0,
         "meteo_vent_kmh": 23.3,
@@ -578,28 +578,28 @@
     },
     {
       "numero": 13,
-      "cheval_id": "",
+      "cheval_id": "2794903",
       "nom": "LEADER DES RIOULTS",
-      "historique_ok": false,
-      "historique_complet": false,
-      "methode_liaison": "NON_ASSOCIE",
+      "historique_ok": true,
+      "historique_complet": true,
+      "methode_liaison": "NOM_EXACT_UNIQUE",
       "score_direct_pmu": 6.4,
       "features": {
         "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_60j": 3,
+        "courses_120j": 5,
         "podiums_30j": null,
-        "podiums_120j": null,
+        "podiums_120j": 0.4,
         "victoires_120j": 0,
-        "disqualifications_120j": 0,
-        "score_forme": null,
+        "disqualifications_120j": 2,
+        "score_forme": 1.66,
         "forme_30j": null,
-        "forme_ancien": null,
-        "jours_repos": null,
+        "forme_ancien": 1.66,
+        "jours_repos": 35,
         "distance_m": 2700.0,
-        "distance_ecart_m": null,
+        "distance_ecart_m": 0.0,
         "aptitude_hippodrome": null,
-        "taux_podium_distance": null,
+        "taux_podium_distance": 0.26087,
         "nb_partants": 13.0,
         "meteo_pluie_mm": 0.0,
         "meteo_vent_kmh": 23.3,
@@ -632,16 +632,16 @@
       "score_non_calibre": 0.41388
     },
     {
-      "numero": 12,
-      "nom": "LEONCE DU CLOS",
-      "cheval_id": "",
-      "score_non_calibre": 0.35428
-    },
-    {
       "numero": 2,
       "nom": "LE VENT DU HOULET",
       "cheval_id": "",
       "score_non_calibre": 0.34488
+    },
+    {
+      "numero": 13,
+      "nom": "LEADER DES RIOULTS",
+      "cheval_id": "2794903",
+      "score_non_calibre": 0.27698
     }
   ],
   "classement_complet": [
@@ -652,12 +652,6 @@
       "score_non_calibre": 0.41388
     },
     {
-      "numero": 12,
-      "nom": "LEONCE DU CLOS",
-      "cheval_id": "",
-      "score_non_calibre": 0.35428
-    },
-    {
       "numero": 2,
       "nom": "LE VENT DU HOULET",
       "cheval_id": "",
@@ -666,14 +660,20 @@
     {
       "numero": 13,
       "nom": "LEADER DES RIOULTS",
-      "cheval_id": "",
-      "score_non_calibre": 0.29035
+      "cheval_id": "2794903",
+      "score_non_calibre": 0.27698
     },
     {
       "numero": 10,
       "nom": "LE ROI MARGOT",
       "cheval_id": "2815085",
       "score_non_calibre": 0.23847
+    },
+    {
+      "numero": 12,
+      "nom": "LEONCE DU CLOS",
+      "cheval_id": "2808586",
+      "score_non_calibre": 0.23374
     },
     {
       "numero": 6,
