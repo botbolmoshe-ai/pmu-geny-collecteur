@@ -11,6 +11,7 @@ from quality import render_quality
 st.set_page_config(page_title="TROT Analytics",page_icon="📊",layout="wide")
 PARIS=ZoneInfo("Europe/Paris")
 TABS=("Courses & Prévisions","Résultats & Analyse","Data Quality & KPI")
+HISTORY_TAB="Historique qualité"
 SCOPES=["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 @st.cache_data(ttl=120,show_spinner=False)
@@ -18,12 +19,15 @@ def read_registry():
     creds=Credentials.from_service_account_info(dict(st.secrets["google_service_account"]),scopes=SCOPES)
     api=build("sheets","v4",credentials=creds,cache_discovery=False)
     ranges=["'"+t+"'!A1:AZ" for t in TABS]
+    metadata=api.spreadsheets().get(spreadsheetId=st.secrets['spreadsheet_id'],fields='sheets(properties(title))').execute(num_retries=2)
+    has_history=any(s.get('properties',{}).get('title')==HISTORY_TAB for s in metadata.get('sheets',[]))
+    if has_history:ranges.append("'"+HISTORY_TAB+"'!A1:H")
     resp=api.spreadsheets().values().batchGet(spreadsheetId=st.secrets["spreadsheet_id"],
         ranges=ranges,valueRenderOption="UNFORMATTED_VALUE").execute(num_retries=2)
     data=[records(v.get("values",[])) for v in resp.get("valueRanges",[])]
-    if len(data)!=3: raise ValueError("Onglets manquants")
+    if len(data)!=len(ranges): raise ValueError("Onglets manquants")
     if not data[0] or "Clé course (technique)" not in data[0][0]: raise ValueError("Schéma courses incompatible")
-    return (*data,datetime.now(timezone.utc))
+    return (*data[:3],data[3] if has_history else [],datetime.now(timezone.utc))
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
@@ -54,25 +58,26 @@ if toolbar[1].button("Déconnexion"):
     st.rerun()
 try:
     with st.spinner("Lecture du registre…"):
-        courses,results,kpis,loaded=read_registry()
+        courses,results,kpis,quality_history,loaded=read_registry()
 except Exception:
     st.error("Registre inaccessible ou configuration incompatible. Aucune donnée simulée.")
     st.stop()
 now=datetime.now(timezone.utc)
 st.caption("Registre lu à "+loaded.astimezone(PARIS).strftime("%d/%m/%Y %H:%M:%S")+" · fraîcheur des fiches distincte")
 page=st.radio("Navigation",["Accueil","Courses","Résultats","Qualité"],horizontal=True,label_visibility="collapsed")
-dates=sorted({str(r.get("Date")) for r in courses if r.get("Date")})
-today=now.astimezone(PARIS).date().isoformat()
-day=st.date_input("Date",value=now.astimezone(PARIS).date()).isoformat()
-groups={}
-for row in courses:
-    if str(row.get("Date"))==day and row.get("Clé course (technique)"):
-        groups.setdefault(row["Clé course (technique)"],[]).append(row)
-groups=dict(sorted(groups.items(),key=lambda kv: str(kv[1][0].get("Départ (Paris)",""))))
-hips=sorted({str(rows[0].get("Hippodrome","")) for rows in groups.values()})
-hip=st.selectbox("Hippodrome",["Tous"]+hips)
-groups={key:rows for key,rows in groups.items() if hip=="Tous" or rows[0].get("Hippodrome")==hip}
-day_results=[r for r in results if str(r.get("Date"))==day and (hip=="Tous" or r.get("Hippodrome")==hip)]
+if page!="Qualité":
+    dates=sorted({str(r.get("Date")) for r in courses if r.get("Date")})
+    today=now.astimezone(PARIS).date().isoformat()
+    day=st.date_input("Date",value=now.astimezone(PARIS).date()).isoformat()
+    groups={}
+    for row in courses:
+        if str(row.get("Date"))==day and row.get("Clé course (technique)"):
+            groups.setdefault(row["Clé course (technique)"],[]).append(row)
+    groups=dict(sorted(groups.items(),key=lambda kv: str(kv[1][0].get("Départ (Paris)",""))))
+    hips=sorted({str(rows[0].get("Hippodrome","")) for rows in groups.values()})
+    hip=st.selectbox("Hippodrome",["Tous"]+hips)
+    groups={key:rows for key,rows in groups.items() if hip=="Tous" or rows[0].get("Hippodrome")==hip}
+    day_results=[r for r in results if str(r.get("Date"))==day and (hip=="Tous" or r.get("Hippodrome")==hip)]
 if page=="Accueil":
     cols=st.columns(2)
     cols[0].metric("Courses",len(groups))
@@ -129,4 +134,4 @@ elif page=="Résultats":
             st.plotly_chart(px.bar(both,x="Course",y=["Direct (%)","ML (%)"],barmode="group",range_y=[0,100]),use_container_width=True)
         else: st.info("Pas encore de comparaison ML/direct vérifiable sur un périmètre commun.")
 else:
-    render_quality(kpis)
+    render_quality(kpis,courses=courses,history=quality_history)

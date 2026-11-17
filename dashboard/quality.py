@@ -1,6 +1,6 @@
 """Compact, read-only presentation of the published quality indicators."""
 from collections import OrderedDict
-from logic import number
+from logic import number,timestamp
 
 TOTAL_FIELD = "Total de référence (automatique)"
 COLUMNS = ["Indicateur", "Description", "Nombre / valeur", "Total"]
@@ -45,11 +45,46 @@ def quality_sections(kpis, query=""):
     return sections
 
 
-def render_quality(kpis):
+def render_quality(kpis, courses=None, history=None):
     import pandas as pd
     import streamlit as st
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    from quality_dates import cohort_metrics, daily_series, history_series, latest_history, date_rows
 
-    st.caption("Indicateurs globaux du registre · le filtre de date ne s’applique pas ici.")
+    modes=["Courses de la période", "Relevés historiques", "Registre actuel"] if courses is not None else ["Registre actuel"]
+    controls=st.columns(2)
+    mode=controls[0].selectbox("Lecture des indicateurs",modes,key="quality_mode")
+    series=[]
+    if mode!="Registre actuel":
+        today=datetime.now(ZoneInfo('Europe/Paris')).date()
+        interval=controls[1].date_input("Période — une date ou un intervalle",value=(today,today),format="DD/MM/YYYY",key="quality_period")
+        if len(interval)!=2:
+            st.info("Choisissez la date de fin ; pour une seule journée, choisissez deux fois la même date.")
+            return
+        start,end=interval
+        if mode=="Courses de la période":
+            st.caption("État actuel des données des courses de la période. Cette comparaison ne reconstitue pas leur état passé.")
+            if not date_rows(courses or [],'Date',start,end):
+                st.info("Aucune course enregistrée pour cette période.")
+                return
+            kpis=cohort_metrics(courses,start,end)
+            series=daily_series(courses,start,end)
+        else:
+            st.caption("Dernier relevé conservé pour chaque jour d’observation, heure de Paris. La journée en cours reste actualisable.")
+            try:series=history_series(history or [],start,end)
+            except ValueError:
+                st.error("Historique incohérent : vérifiez les doublons et les dates des relevés.")
+                return
+            kpis,latest=latest_history(series)
+            if not kpis:
+                st.info("Aucun relevé conservé pour cette période. Le passé n’est pas reconstitué à partir des valeurs actuelles.")
+                return
+            st.caption("Tableaux : dernier relevé de la période, le "+latest+". Évolution : ensemble des relevés sélectionnés.")
+            observed=max(timestamp(r['Relevé UTC']) for r in kpis)
+            st.caption("Observation : "+observed.astimezone(ZoneInfo('Europe/Paris')).strftime('%d/%m/%Y à %H:%M')+" (Paris).")
+    else:
+        st.caption("Indicateurs globaux actuels du registre, sans filtre de date.")
     if not any(row.get("Indicateur") for row in kpis):
         st.info("KPI indisponibles.")
         return
@@ -65,6 +100,22 @@ def render_quality(kpis):
     if not visible:
         st.info("Aucun indicateur ne correspond à ces filtres.")
         return
+    if series:
+        numeric=[r for r in series if number(r.get('Valeur (automatique)')) is not None]
+        labels=sorted({r['Indicateur'] for r in numeric})
+        with st.expander("Évolution d’un indicateur",expanded=False):
+            st.caption("Les totaux de référence sont affichés pour comparer des périmètres qui peuvent évoluer.")
+            if labels:
+                choice=st.selectbox("Indicateur à suivre",labels,key="quality_trend")
+                points=sorted([r for r in numeric if r['Indicateur']==choice],key=lambda r:r['Date'])
+                rate=choice.startswith('Taux')
+                frame=pd.DataFrame([{'Date':r['Date'],'Valeur (%)' if rate else 'Valeur':number(r['Valeur (automatique)'])*(100 if rate else 1)} for r in points])
+                if len(frame)>1:
+                    st.line_chart(frame.set_index('Date'),height=220)
+                else:st.info("Un seul jour disponible : il faut au moins deux dates pour observer une évolution.")
+                st.dataframe(pd.DataFrame([{'Date':r['Date'],'Nombre / valeur':display_value(r.get('Valeur (automatique)'),rate=rate),
+                                           'Total':display_value(r.get(TOTAL_FIELD))} for r in points]),hide_index=True,width="stretch",height=min(250,35*(len(points)+1)+3))
+            else:st.info("Aucune valeur numérique disponible pour tracer une évolution.")
     for index, (dimension, rows) in enumerate(visible.items()):
         with st.expander(f"{dimension} · {len(rows)} indicateurs", expanded=index == 0):
             st.dataframe(

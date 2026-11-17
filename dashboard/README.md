@@ -21,3 +21,23 @@ Les totaux sont ceux de « Total de référence (automatique) », sans estimatio
 Une valeur ou un total absent affiche « — » ; zéro reste affiché comme zéro.
 Les taux sont présentés en pourcentage et les décimales arrondies à l'affichage.
 Les données sources et les autres vues restent inchangées.
+
+### Dates et évolution
+
+Qualité dispose de son propre filtre de période, au format français. Choisir la
+même date aux deux bornes permet un focus sur une journée.
+
+- **Courses de la période** : indicateurs de complétude calculés depuis les
+  participations des dates choisies, sur leur état actuel. Les non-partants et
+  statuts à confirmer sont distingués ; les taux prennent les partants confirmés
+  comme dénominateur. Les TOP3 complets reprennent les sélections stockées.
+- **Relevés historiques** : valeurs vraiment conservées dans « Historique qualité ».
+  Le tableau reprend le dernier relevé de la période ; la zone Évolution montre
+  les différentes dates avec leurs valeurs et totaux. Un seul jour ne constitue
+  pas encore une évolution. Les anciens jours sans relevé restent indisponibles.
+- **Registre actuel** : conserve les KPI globaux, sans leur appliquer une fausse date.
+
+L'onglet historique est facultatif à la lecture : son absence n'empêche pas les
+autres vues. Il est alimenté par le moteur de production, jamais par l'application.
+La conservation est quotidienne (dernier relevé du jour), avec heure d'observation
+affichée. Les relevés en double, incohérents ou futurs ne sont pas utilisés.
