@@ -455,8 +455,9 @@ def main():
         if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID','GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
         from .preparation_prochaines import autoriser_fond
+        from .echeances_production import besoin_pmu
         def controle_fond():
-            return priorite_production() or autoriser_fond(cache,datetime.now(inc.UTC),
+            return priorite_production() or besoin_pmu(cache,datetime.now(inc.UTC)) or autoriser_fond(cache,datetime.now(inc.UTC),
                 diagnostic=Path('resultats/rattrapage/ordonnancement_fond.json'))
         reason=controle_fond()
         if reason and not (args.reconcilier_identites or args.archives_diagnostics):

@@ -10,7 +10,7 @@ checkpoints restent inchangés. Les publications en attente sont reprises sans
 nouvelle requête Geny, y compris pour une course passée.
 
 La reprise du stock est limitée à un cheval par passage, au plus une fois par
-heure (cron UTC :45, budget par défaut deux minutes). Elle cède aux traitements
+heure (cron UTC :12, budget par défaut deux minutes). Elle cède aux traitements
 prioritaires et reste différée tant que les programmes ou profils PMU sont
 absents/anciens, qu'un partant est collectable immédiatement, qu'une publication
 est en attente ou que les prévisions du jour doivent être actualisées après une
@@ -82,3 +82,8 @@ Son statut et ses effectifs sont visibles dans les KPI. Voir
 [les corrections du 17 novembre](CORRECTIONS_PRODUCTION_20261117.md).
 L'absence d'un premier TOP3 ne bloque plus la collecte des partants préparés ;
 les premières prévisions du jour sont calculables dès minuit local.
+
+## Priorités P0 du 17 novembre
+
+Les files d'attente, créneaux d'historiques, contrôles légers et preuves de
+publication H-2/H-1 sont décrits dans [les correctifs P0](CORRECTIFS_P0_20261117.md).

@@ -128,7 +128,8 @@ def observations(html,ident):
 
 
 def manquantes(doc):
-    return sum(row.get('ferrure') not in FERRURES for row in doc.get('performances',[]))
+    return sum(row.get('ferrure') not in FERRURES or row.get('ferrure_qualification')=='CONFLIT'
+               for row in doc.get('performances',[]))
 
 
 def couverture(doc):
@@ -148,13 +149,15 @@ def enrichir(doc,html,ident,source_url,capture_utc=None):
                and normaliser(x.get('chrono'))==normaliser(row.get('chrono'))]
         if exact:found=exact
         codes={x['ferrure'] for x in found}
-        if len(codes)!=1:conflicts+=1;continue
+        if len(codes)!=1:
+            conflicts+=1;row['ferrure_qualification']='CONFLIT';continue
         code=next(iter(codes))
         if row.get('ferrure'):
-            if row['ferrure']!=code:conflicts+=1
+            if row['ferrure']!=code:
+                conflicts+=1;row['ferrure_qualification']='CONFLIT'
             continue
         proof=next((x for x in found if x['source']=='GENY_ARIA_LABEL'),found[0])
-        row.update(ferrure=code,ferrure_source={'source':proof['source'],'url':source_url,
+        row.update(ferrure=code,ferrure_qualification='SOURCEE',ferrure_source={'source':proof['source'],'url':source_url,
             'capture_utc':capture_utc,'code_brut':proof['code_brut'],'identifiant_cheval':str(ident),
             'courses_ids':sorted({x['course_id'] for x in found if x.get('course_id')})})
         added+=1

@@ -172,6 +172,9 @@ class SynchroniseurSheets:
         if updates:self.check(self.session.post(self.base+'/values:batchUpdate',
             json={'valueInputOption':'RAW','data':updates},timeout=45))
         print(f'SYNC_GOOGLE_SHEETS onglet={KPI_TAB} indicateurs_actualises={len(updates)}',flush=True)
+        if os.getenv('PMU_KPI_HISTORY')=='true':
+            from .historique_kpi import enregistrer
+            enregistrer(self,tables)
         return {KPI_TAB:{'indicateurs_actualises':len(updates)}}
 
     def synchroniser_tables(self,source,*,scope,full_source=False,allow_structure=False,kpi_source=None):

@@ -28,7 +28,24 @@ def profil_pmu_exclusif(actual):
             provenance.pop(field)
     actual['provenance_champs']=provenance
     actual['divergences_sources']=[]
-    return actual
+    return qualifier_ferrure(actual)
+
+
+def qualifier_ferrure(profile):
+    profile=dict(profile)
+    raw=profile.get('ferrure') or profile.get('ferrure_brute','')
+    code=ferrure_normalisee(raw)
+    proof=(profile.get('provenance_champs') or {}).get('ferrure',{})
+    if code:
+        profile['ferrure']=code
+        profile['ferrure_qualification']='CONVENTION_PMU' if proof.get('convention') else 'CODE_RECONNU'
+    elif raw:
+        profile['ferrure_brute']=raw
+        profile['ferrure']=''
+        profile['ferrure_qualification']='CODE_INCONNU'
+    else:
+        profile['ferrure_qualification']='NON_RECUPEREE'
+    return profile
 
 def _label(value):
     if isinstance(value, str):
@@ -165,7 +182,7 @@ def extraire_partants(raw):
             fields["statut_np"]="PARTANT"
         else:
             fields["statut_np"]="NP_NON_VERIFIE"
-        resultat[n]=fields
+        resultat[n]=qualifier_ferrure(fields)
     return resultat
 
 def enregistrer(cache:Path, course:dict, raw):
