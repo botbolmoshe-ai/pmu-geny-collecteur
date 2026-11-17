@@ -60,3 +60,7 @@ positions après retrait, le zéro numérique, les dates source, les arrivées,
 les écritures groupées et l'absence de recréation au deuxième passage.
 La fin d'un workflow ne suffit pas : contrôler les en-têtes, les formules, les
 clés de performance et les comptages réels après publication.
+
+## Matching direct et ML
+
+Deux colonnes numériques supplémentaires sont ajoutées à Résultats & Analyse (15 → 17) : `matching_direct_pct` et `matching_ml_pct`. Chaque taux représente le nombre de chevaux distincts retrouvés dans le podium divisé par trois, exprimé sur 100 et arrondi à deux décimales. Une preuve manquante ou chronologiquement invalide laisse la cellule vide ; 0 est un score réel. Aucun pronostic historique n'est recalculé.
