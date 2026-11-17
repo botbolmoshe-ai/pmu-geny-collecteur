@@ -479,6 +479,67 @@ class RepriseTests(unittest.TestCase):
         self.assertEqual(inventory['ids_couverts'],['123456'])
         self.assertEqual(session.writes,[])
 
+    def test_delai_production_du_meme_cheval_respecte_dans_le_stock(self):
+        self.seed()
+        retry=(self.now+timedelta(hours=6)).isoformat()
+        inc.ecrire(self.cache/inc.QUEUE,{'version':1,'chevaux':{
+            'autre-contexte':{'nom':'TEST','prochain_essai_utc':retry}}})
+        state=back.preparer(self.cache,self.now)
+        self.assertEqual(state['chevaux']['123456']['prochain_essai_utc'],retry)
+        self.assertEqual(back.prochaine_tache(state,self.now,{}),(None,'TERMINE_PASSAGE'))
+
+    def test_autre_contexte_du_partant_en_attente_exclu_du_fond(self):
+        candidate={'nom':'Test','id':'123456','geny':{'id':'123456'},
+                   'motif_actualisation':'HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE'}
+        state={'noms_partants_proteges':['TEST'],'chevaux':{
+            'ancien':candidate,'autre':{**candidate,'id':'999999','nom':'Autre'}}}
+        self.assertEqual(back.prochaine_tache(state,self.now,{}),('autre','COLLECTE'))
+        # La protection porte sur les requêtes Geny, pas la reprise d'une publication.
+        candidate['sync']='A_FAIRE'
+        self.assertEqual(back.prochaine_tache(state,self.now,{}),('ancien','SYNC'))
+
+    def test_creneau_libre_collecte_stock_sans_toucher_previsions_puis_cede_au_partant(self):
+        from pmu_geny.preparation_prochaines import autoriser_fond
+        from zoneinfo import ZoneInfo
+        self.seed()
+        today=self.now.astimezone(ZoneInfo('Europe/Paris')).date()
+        departure=self.now+timedelta(hours=3)
+        day=departure.astimezone(ZoneInfo('Europe/Paris')).date().isoformat();engagement=day+'_R1C8'
+        for date in (today,today+timedelta(days=1)):
+            program=[{'code':'R1C8','depart':departure.isoformat()}] if date.isoformat()==day else []
+            inc.ecrire(self.cache/'sources_pmu'/f'programme_{date}.json',
+                       {'date_controle_utc':self.now.isoformat(),'programme':program})
+        inc.ecrire(self.cache/'partants_actuels'/f'{engagement}.json',
+                   {'capture_utc':self.now.isoformat(),'chevaux':{'1':{
+                       'nom':'Prioritaire','statut_np':'PARTANT','age_ans':5,
+                       'sexe':'Femelle','gains_euros':1000,'ferrure':'D4'}}})
+        inc.ecrire(self.cache/'orchestration/correspondances_geny.json',{engagement:'GENY-1698061'})
+        queue={'version':1,'chevaux':{engagement+'_1':{'nom':'Prioritaire',
+            'prochain_essai_utc':(self.now+timedelta(hours=6)).isoformat()}}}
+        inc.ecrire(self.cache/inc.QUEUE,queue)
+        prediction=self.cache/'pronostics'/f'{engagement}_direct.json'
+        snapshot=self.cache/'ml/instantanes'/f'{engagement}.json'
+        inc.ecrire(prediction,{'calcul_utc':self.now.isoformat(),'top3':[{'numero':n} for n in (1,2,3)]})
+        inc.ecrire(snapshot,{'capture_utc':self.now.isoformat(),'chevaux':[]})
+        frozen={p:p.read_bytes() for p in (prediction,snapshot,self.cache/inc.QUEUE)}
+        self.assertIsNone(autoriser_fond(self.cache,self.now))
+        collect=Mock(side_effect=self.collect)
+        state=inc.run(self.cache,mode='rattrapage',max_chevaux=1,collect=collect,
+            sync=lambda h:{},checkpoint=lambda c:None,
+            stop_requested=lambda:autoriser_fond(self.cache,datetime.now(timezone.utc)))
+        self.assertEqual(state['bilan']['captures_validees'],1)
+        self.assertEqual(collect.call_args.args[0]['nom'],'Test')
+        self.assertIn('PRIORITAIRE',state['noms_partants_proteges'])
+        for p,data in frozen.items():self.assertEqual(p.read_bytes(),data)
+        queue['chevaux'][engagement+'_1']['prochain_essai_utc']=self.now.isoformat()
+        inc.ecrire(self.cache/inc.QUEUE,queue)
+        collect.reset_mock()
+        state=inc.run(self.cache,mode='rattrapage',collect=collect,
+            sync=lambda h:{},checkpoint=lambda c:None,
+            stop_requested=lambda:autoriser_fond(self.cache,datetime.now(timezone.utc)))
+        collect.assert_not_called()
+        self.assertEqual(state['motif_fin_passage'],'PARTANT_PRIORITAIRE_DISPONIBLE')
+
     def test_bilan_retient_le_dernier_controle_date_meme_apres_nettoyage_des_lignes(self):
         state={'chevaux':{
             'ancien':{'sync_utc':'2026-11-14T21:00:00+00:00','sync_details':{'Historique chevaux':{

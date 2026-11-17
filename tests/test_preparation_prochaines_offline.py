@@ -2,7 +2,7 @@ import tempfile,unittest
 from pathlib import Path
 from datetime import datetime,timedelta,timezone
 from pmu_geny import historiques_incrementaux as inc
-from pmu_geny.preparation_prochaines import appliquer,autoriser_fond
+from pmu_geny.preparation_prochaines import appliquer,autoriser_fond,decision_fond
 
 class PreparationTests(unittest.TestCase):
     def setUp(self):
@@ -17,6 +17,9 @@ class PreparationTests(unittest.TestCase):
         day=depart[:10];p=self.cache/'sources_pmu'/f'programme_{day}.json'
         s=inc.lire(p);s['programme'].append({'code':code,'depart':depart});inc.ecrire(p,s)
         engagement=day+'_'+code
+        mappings=inc.lire(self.cache/'orchestration/correspondances_geny.json')
+        mappings[engagement]='GENY-1698706'
+        inc.ecrire(self.cache/'orchestration/correspondances_geny.json',mappings)
         inc.ecrire(self.cache/'partants_actuels'/f'{engagement}.json',{'capture_utc':self.now.isoformat(),'chevaux':{'1':{
             'nom':nom,'statut_np':'PARTANT','age_ans':5,'sexe':'Femelle','gains_euros':1000,'ferrure':'D4'}}})
         inc.ecrire(self.cache/'pronostics'/f'{engagement}_direct.json',
@@ -27,7 +30,7 @@ class PreparationTests(unittest.TestCase):
         h={'nom':'Future','engagement':engagement,'numero':'1','vu_utc':self.now.isoformat(),
            'course_url':'https://www.geny.com/course/1698706/partants-pronostics',
            'motif_actualisation':'HISTORIQUE_ABSENT_OU_NON_DATE'}
-        return {'passage_utc':self.now.isoformat(),'chevaux':{key:h}}
+        return {'version':1,'passage_utc':self.now.isoformat(),'chevaux':{key:h}}
 
     def test_cheval_encore_a_courir_avant_tous_les_anciens(self):
         e,k=self.course('R1C8','2026-11-16T18:00:00+01:00');s=self.state(e,k)
@@ -50,11 +53,81 @@ class PreparationTests(unittest.TestCase):
         appliquer(self.cache,s,self.now)
         self.assertEqual(s['chevaux']['123456']['engagement'],a)
 
-    def test_fond_reste_bloque_pendant_un_delai_de_reessai(self):
+    def test_fond_utilise_attente_locale_puis_cede_des_reessai_possible(self):
         e,k=self.course('R1C8','2026-11-16T18:00:00+01:00');s=self.state(e,k)
         s['chevaux'][k]['prochain_essai_utc']=(self.now+timedelta(hours=6)).isoformat()
         inc.ecrire(self.cache/inc.QUEUE,s)
+        decision=decision_fond(self.cache,self.now)
+        self.assertTrue(decision['autorise'])
+        self.assertFalse(decision['preparation_complete'])
+        self.assertEqual(decision['motif'],'CRENEAU_LIBRE_ENTRE_PARTANTS')
+        s['chevaux'][k]['prochain_essai_utc']=self.now.isoformat()
+        inc.ecrire(self.cache/inc.QUEUE,s)
+        self.assertEqual(autoriser_fond(self.cache,self.now),'PARTANT_PRIORITAIRE_DISPONIBLE')
+
+    def attente(self,minutes=360):
+        e,k=self.course('R1C8','2026-11-16T18:00:00+01:00')
+        s=self.state(e,k)
+        s['chevaux'][k]['prochain_essai_utc']=(self.now+timedelta(minutes=minutes)).isoformat()
+        inc.ecrire(self.cache/inc.QUEUE,s)
+        return e,k,s
+
+    def test_attente_jour_ne_masque_pas_un_partant_disponible_demain(self):
+        self.attente()
+        e,k=self.course('R3C1','2026-11-17T14:00:00+01:00',nom='Demain')
+        d=decision_fond(self.cache,self.now)
+        self.assertFalse(d['autorise'])
+        self.assertEqual(d['tache_prioritaire'],{'cle':k,'action':'COLLECTE'})
+
+    def test_reprise_prioritaire_imminente_garde_le_creneau(self):
+        e,k,s=self.attente(minutes=5)
+        self.assertEqual(autoriser_fond(self.cache,self.now),'REPRISE_PARTANT_PRIORITAIRE_IMMINENTE')
+        s['chevaux'][k]['prochain_essai_utc']=(self.now+timedelta(minutes=6)).isoformat()
+        inc.ecrire(self.cache/inc.QUEUE,s)
+        self.assertIsNone(autoriser_fond(self.cache,self.now))
+
+    def test_pause_globale_respectee_depuis_journal_et_les_deux_files(self):
+        e,k,s=self.attente()
+        for code in ('403','429'):
+            with self.subTest(code=code):
+                inc.ecrire(self.cache/'etat_persistant.json',{'chevaux':{},
+                    'dernier_blocage_geny':{'utc':(self.now-timedelta(minutes=5)).isoformat(),'code':code}})
+                self.assertEqual(autoriser_fond(self.cache,self.now),'COOLDOWN_GENY_GLOBAL')
+        inc.ecrire(self.cache/'etat_persistant.json',{'chevaux':{},
+            'dernier_blocage_geny':{'utc':(self.now-timedelta(minutes=31)).isoformat(),'code':'403'}})
+        self.assertIsNone(autoriser_fond(self.cache,self.now))
+        inc.ecrire(self.cache/'etat_persistant.json',{'chevaux':{}})
+        for queue in (inc.QUEUE,Path('rattrapage_historiques/etat.json')):
+            with self.subTest(queue=str(queue)):
+                data=inc.lire(self.cache/queue,s)
+                data['prochain_acces_geny_utc']=(self.now+timedelta(minutes=1)).isoformat()
+                inc.ecrire(self.cache/queue,data)
+                self.assertEqual(autoriser_fond(self.cache,self.now),'COOLDOWN_GENY_GLOBAL')
+                data.pop('prochain_acces_geny_utc');inc.ecrire(self.cache/queue,data)
+        self.assertIsNone(autoriser_fond(self.cache,self.now))
+
+    def test_publication_en_attente_bloque_meme_si_delai_sync_non_ecoule(self):
+        e,k,s=self.attente()
+        s['chevaux'][k].update(sync='A_FAIRE',prochaine_sync_utc=(self.now+timedelta(minutes=10)).isoformat())
+        inc.ecrire(self.cache/inc.QUEUE,s)
+        self.assertIsNotNone(autoriser_fond(self.cache,self.now))
+
+    def test_attente_locale_ne_masque_pas_profil_perime_ou_prevision_absente(self):
+        e,k,s=self.attente()
+        path=self.cache/'partants_actuels'/f'{e}.json';profile=inc.lire(path)
+        old={**profile,'capture_utc':(self.now-timedelta(hours=7)).isoformat()}
+        inc.ecrire(path,old)
         self.assertEqual(autoriser_fond(self.cache,self.now),'PREPARATION_PROCHAINES_COURSES_INCOMPLETE')
+        inc.ecrire(path,profile)
+        (self.cache/'pronostics'/f'{e}_direct.json').unlink()
+        self.assertEqual(autoriser_fond(self.cache,self.now),'PREPARATION_PROCHAINES_COURSES_INCOMPLETE')
+
+    def test_observation_du_creneau_ne_modifie_aucun_fichier_source(self):
+        self.attente()
+        before={str(p):p.read_bytes() for p in self.cache.rglob('*') if p.is_file()}
+        self.assertIsNone(autoriser_fond(self.cache,self.now))
+        after={str(p):p.read_bytes() for p in self.cache.rglob('*') if p.is_file()}
+        self.assertEqual(before,after)
 
     def test_absence_prevision_ne_bloque_pas_enrichissement_des_partants_prepares(self):
         e,k=self.course('R1C8','2026-11-16T18:00:00+01:00');s=self.state(e,k)

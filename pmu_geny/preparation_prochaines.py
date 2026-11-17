@@ -1,4 +1,4 @@
-"""Priorité stricte aux partants encore à courir, puis seulement au stock."""
+"""Priorité aux partants disponibles ; le stock utilise les créneaux libres."""
 from datetime import timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -99,6 +99,63 @@ def appliquer(cache,state,now):
     return state
 
 
-def autoriser_fond(cache,now):
-    report=evaluer(cache,now)
-    return None if report['pret'] else 'PREPARATION_PROCHAINES_COURSES_INCOMPLETE'
+def decision_fond(cache,now):
+    """Observer la même file que le worker, sans écrire ni lever un délai de réessai."""
+    cache=Path(cache)
+    state=inc.alimenter(cache,now,sauvegarder=False)
+    state['passage_utc']=now.isoformat()
+    appliquer(cache,state,now)
+    report=state['preparation_prochaines_courses']
+    result={'controle_utc':now.isoformat(),'autorise':False,'motif':None,
+            'preparation_complete':report['pret'],
+            'couverture_par_jour':report['couverture_par_jour']}
+    def refuser(reason):
+        result['motif']=reason
+        return result
+    journal=inc.lire(cache/'etat_persistant.json')
+    blocked=inc.instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
+    back=inc.lire(cache/'rattrapage_historiques/etat.json')
+    pauses=[inc.instant(s.get('prochain_acces_geny_utc')) for s in (state,back)]
+    if blocked:pauses.append(blocked+timedelta(minutes=30))
+    pauses=[p for p in pauses if p and p>now]
+    if pauses:
+        result['prochain_acces_geny_utc']=max(pauses).isoformat()
+        return refuser('COOLDOWN_GENY_GLOBAL')
+    # La préparation PMU, les prévisions et leurs publications restent obligatoires.
+    historical={'HISTORIQUE_ABSENT_OU_NON_DATE','PUBLICATION_GENY_EN_ATTENTE',
+                'NOUVELLE_COURSE_OFFICIELLE','FERRURES_HISTORIQUES_A_COMPLETER',
+                'VERIFICATION_PERIODIQUE'}
+    issues=[b for b in report['blocages'] if b['motif'] not in historical]
+    if issues:
+        result['blocages']=issues
+        return refuser('PREPARATION_PROCHAINES_COURSES_INCOMPLETE')
+    if any(h.get('sync')=='A_FAIRE' for h in state['chevaux'].values()):
+        return refuser('PUBLICATION_HISTORIQUE_EN_ATTENTE')
+    key,action=inc.prochaine_tache(state,now,{})
+    if key is not None:
+        result['tache_prioritaire']={'cle':key,'action':action}
+        return refuser('PARTANT_PRIORITAIRE_DISPONIBLE')
+    # Un cheval peut redevenir disponible pendant un sous-processus de 240 s.
+    # Garder cinq minutes pour sa reprise, les sauvegardes et la pause de cadence.
+    retries=[]
+    for h in state['chevaux'].values():
+        depart=inc.instant(h.get('depart_a_venir_utc'))
+        retry=inc.instant(h.get('prochain_essai_utc'))
+        if (depart and depart>now and h.get('preparation_pmu_ok')
+                and h.get('motif_actualisation') and (h.get('geny') or h.get('course_url'))
+                and retry and now<retry<depart):retries.append(retry)
+    if retries:
+        result['prochaine_reprise_prioritaire_utc']=min(retries).isoformat()
+        if min(retries)-now<=timedelta(minutes=5):
+            return refuser('REPRISE_PARTANT_PRIORITAIRE_IMMINENTE')
+    result.update(autorise=True,motif='PREPARATION_COMPLETE' if report['pret'] else 'CRENEAU_LIBRE_ENTRE_PARTANTS')
+    return result
+
+
+def autoriser_fond(cache,now,*,diagnostic=None):
+    report=decision_fond(cache,now)
+    if diagnostic:
+        import json
+        inc.ecrire(diagnostic,report)
+        print('ORDONNANCEMENT_FOND '+json.dumps(report,ensure_ascii=False),flush=True)
+    return None if report['autorise'] else report['motif']
