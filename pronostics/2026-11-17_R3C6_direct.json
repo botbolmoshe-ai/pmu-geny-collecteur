@@ -2,29 +2,15 @@
   "date": "2026-11-17",
   "course": "R3C6",
   "depart": "2026-11-17T17:07:00+01:00",
-  "calcul_utc": "2026-11-17T13:53:02.708873+01:00",
+  "calcul_utc": "2026-11-17T15:09:27.252201+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-17T13:53:02.638806+01:00",
+  "donnees_observees_utc": "2026-11-17T15:09:27.102107+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [],
   "statut": "PARTIEL",
   "observations": 10,
   "partants_eligibles": 11,
   "classement_complet": [
-    {
-      "numero": 1,
-      "nom": "MAESTRO DE BRION",
-      "score_direct": 2.5,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
     {
       "numero": 6,
       "nom": "MAESTRO LOVE",
@@ -52,6 +38,20 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 1,
+      "nom": "MAESTRO DE BRION",
+      "score_direct": 2.3273,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 11,
+      "distance_proche": 9,
+      "comparabilite_moyenne": 0.3896,
+      "ferrures_historiques_comparees": 11,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2852621"
     },
     {
       "numero": 9,
@@ -154,20 +154,6 @@
   ],
   "top3": [
     {
-      "numero": 1,
-      "nom": "MAESTRO DE BRION",
-      "score_direct": 2.5,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
       "numero": 6,
       "nom": "MAESTRO LOVE",
       "score_direct": 2.5,
@@ -194,13 +180,27 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 1,
+      "nom": "MAESTRO DE BRION",
+      "score_direct": 2.3273,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 11,
+      "distance_proche": 9,
+      "comparabilite_moyenne": 0.3896,
+      "ferrures_historiques_comparees": 11,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2852621"
     }
   ],
   "note": "Direct heuristique: musique PMU et historiques Geny anterieurs ponderes par discipline, distance, hippodrome, ferrure documentee et anciennete. Scores non calibres; facteurs manquants explicites.",
   "couverture_sources": {
     "pmu_musique": 10,
-    "geny_historique": 0,
-    "pmu_seul": 10,
+    "geny_historique": 1,
+    "pmu_seul": 9,
     "sans_score": 1,
     "effectif_declare_confirme": true
   },

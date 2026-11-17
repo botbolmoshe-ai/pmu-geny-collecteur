@@ -26,13 +26,13 @@
         }
       },
       "geny_id_rapproche": "1698831",
-      "depart": "2026-11-17T14:12:00+01:00",
+      "depart": "2026-11-17T14:16:00+01:00",
       "nom": "PRIX DES ALLIUMS",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 11,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
@@ -51,11 +51,13 @@
       "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
       "statut_maj_np": "ACTUALISE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698831/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R3C2": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698829",
@@ -78,13 +80,13 @@
         }
       },
       "geny_id_rapproche": "1698829",
-      "depart": "2026-11-17T14:47:00+01:00",
+      "depart": "2026-11-17T15:00:00+01:00",
       "nom": "PRIX DE MONTARGIS",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 13,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
@@ -97,7 +99,8 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R3C3": {
       "identifiant_geny": null,
@@ -124,7 +127,7 @@
         }
       },
       "geny_id_rapproche": "1698828",
-      "depart": "2026-11-17T15:22:00+01:00",
+      "depart": "2026-11-17T15:29:00+01:00",
       "nom": "PRIX DE CARENTAN",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 16,
@@ -191,9 +194,9 @@
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-17T12:53:01.823810+00:00",
-      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
-      "statut_maj_np": "H1_NON_FIGE",
+      "np_verification_utc": "2026-11-17T14:09:25.410365+00:00",
+      "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
+      "statut_maj_np": "ACTUALISE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698833/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE"
     },
@@ -384,10 +387,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-17T12:52:43.729053+00:00",
+  "dernier_controle_pmu": "2026-11-17T14:09:21.593324+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-17",
-    "horodatage_utc": "2026-11-17T12:52:43.729053+00:00",
+    "horodatage_utc": "2026-11-17T14:09:21.593324+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 8,
