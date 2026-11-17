@@ -2,9 +2,9 @@
   "date": "2026-11-17",
   "course": "R3C5",
   "depart": "2026-11-17T16:32:00+01:00",
-  "calcul_utc": "2026-11-17T12:45:16.319703+01:00",
+  "calcul_utc": "2026-11-17T13:53:02.291177+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-17T12:45:16.241461+01:00",
+  "donnees_observees_utc": "2026-11-17T13:53:02.187995+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [
     1
@@ -13,34 +13,6 @@
   "observations": 13,
   "partants_eligibles": 13,
   "classement_complet": [
-    {
-      "numero": 12,
-      "nom": "KATYLAND",
-      "score_direct": 3.3632,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
-      "numero": 10,
-      "nom": "KADOLE JULOUROZO",
-      "score_direct": 3.0895,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
     {
       "numero": 14,
       "nom": "KINGALA",
@@ -54,6 +26,34 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 12,
+      "nom": "KATYLAND",
+      "score_direct": 2.8173,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 6,
+      "distance_proche": 4,
+      "comparabilite_moyenne": 0.4488,
+      "ferrures_historiques_comparees": 6,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2783455"
+    },
+    {
+      "numero": 10,
+      "nom": "KADOLE JULOUROZO",
+      "score_direct": 2.5233,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 9,
+      "distance_proche": 7,
+      "comparabilite_moyenne": 0.3682,
+      "ferrures_historiques_comparees": 9,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2749059"
     },
     {
       "numero": 2,
@@ -110,6 +110,20 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 11,
+      "nom": "KALINE DE LA COUR",
+      "score_direct": 0.7097,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 3,
+      "historique_exploitable": 7,
+      "distance_proche": 4,
+      "comparabilite_moyenne": 0.446,
+      "ferrures_historiques_comparees": 7,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2773989"
     },
     {
       "numero": 5,
@@ -180,51 +194,9 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
-    },
-    {
-      "numero": 11,
-      "nom": "KALINE DE LA COUR",
-      "score_direct": 0.0,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 3,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
     }
   ],
   "top3": [
-    {
-      "numero": 12,
-      "nom": "KATYLAND",
-      "score_direct": 3.3632,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
-      "numero": 10,
-      "nom": "KADOLE JULOUROZO",
-      "score_direct": 3.0895,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
     {
       "numero": 14,
       "nom": "KINGALA",
@@ -238,13 +210,41 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 12,
+      "nom": "KATYLAND",
+      "score_direct": 2.8173,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 6,
+      "distance_proche": 4,
+      "comparabilite_moyenne": 0.4488,
+      "ferrures_historiques_comparees": 6,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2783455"
+    },
+    {
+      "numero": 10,
+      "nom": "KADOLE JULOUROZO",
+      "score_direct": 2.5233,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 9,
+      "distance_proche": 7,
+      "comparabilite_moyenne": 0.3682,
+      "ferrures_historiques_comparees": 9,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2749059"
     }
   ],
   "note": "Direct heuristique: musique PMU et historiques Geny anterieurs ponderes par discipline, distance, hippodrome, ferrure documentee et anciennete. Scores non calibres; facteurs manquants explicites.",
   "couverture_sources": {
     "pmu_musique": 13,
-    "geny_historique": 0,
-    "pmu_seul": 13,
+    "geny_historique": 3,
+    "pmu_seul": 10,
     "sans_score": 0,
     "effectif_declare_confirme": true
   },
