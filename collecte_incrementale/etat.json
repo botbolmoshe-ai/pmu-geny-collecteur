@@ -32939,7 +32939,24 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-18T12:00:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS"
+      "collecte": "A_REPRENDRE",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-11-17T06:14:46.286214+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-17T00:14:46.286227+00:00",
+        "statut": "PARTIEL_HISTORIQUE",
+        "motifs": [
+          "NB_COURSES_NON_VERIFIABLE"
+        ],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2026-11-18_R6C1_10/1794874471785618869/resultat.json"
+      },
+      "geny": {
+        "id": "2908405",
+        "nom": "ODALYS DE COUZAN",
+        "url_geny": "https://www.geny.com/cheval/2908405-odalys-de-couzan/course/1698929"
+      }
     },
     "2026-11-18_R6C2_1": {
       "nom": "NABAB D'ORCO",
@@ -33897,13 +33914,13 @@
     }
   },
   "passage_utc": "2026-11-17T00:13:10.821224+00:00",
-  "maj_utc": "2026-11-17T00:14:29.025123+00:00",
+  "maj_utc": "2026-11-17T00:14:46.286306+00:00",
   "bilan": {
     "chevaux_suivis": 1448,
-    "tentatives_collecte": 1,
+    "tentatives_collecte": 2,
     "captures_validees": 1,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1270
   },
