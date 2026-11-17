@@ -1,11 +1,190 @@
 {
-  "entrainement_utc": "2026-11-16T19:50:23.275252+00:00",
-  "courses": 78,
-  "lignes": 1052,
+  "entrainement_utc": "2026-11-17T20:11:53.201235+00:00",
+  "courses": 86,
+  "lignes": 1155,
   "minimum_courses": 100,
   "minimum_lignes": 700,
   "etat": "INSUFFISANT",
   "promotion_production": false,
-  "jour_paris": "2026-11-16",
-  "empreinte_donnees": "c89b20cd98b557d0c91690791e0baa459f783d585b446a4d2b716f24cce820b0"
+  "jour_paris": "2026-11-17",
+  "empreinte_donnees": "686aef9918581f4897a26cede13e6f841f35b9e4c544eacc62f5f47847bdab83",
+  "experimental": {
+    "version_cycle": 1,
+    "empreinte_donnees": "686aef9918581f4897a26cede13e6f841f35b9e4c544eacc62f5f47847bdab83",
+    "execute_utc": "2026-11-17T18:05:46.862857+00:00",
+    "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
+    "courses_admissibles": 86,
+    "lignes_admissibles": 1155,
+    "promotion_production": false,
+    "rapport": "ml/experiences/automatique-686aef9918581f4897a2/rapport.json",
+    "validation_day": "2026-11-16",
+    "test_day": "2026-11-17",
+    "modele": "gradient_boosting",
+    "test_ml": {
+      "courses": 8,
+      "chevaux_retrouves": 5,
+      "moyenne": 0.625,
+      "au_moins_2_sur_3": 1,
+      "exact_3_sur_3": 0,
+      "distribution": {
+        "0": 4,
+        "1": 3,
+        "2": 1
+      },
+      "hits_par_course": {
+        "2026-11-17_R3C1": 0,
+        "2026-11-17_R3C2": 1,
+        "2026-11-17_R3C3": 0,
+        "2026-11-17_R3C4": 1,
+        "2026-11-17_R3C5": 0,
+        "2026-11-17_R3C6": 2,
+        "2026-11-17_R3C7": 0,
+        "2026-11-17_R3C8": 1
+      },
+      "selections": {
+        "2026-11-17_R3C1": [
+          2,
+          7,
+          3
+        ],
+        "2026-11-17_R3C2": [
+          12,
+          8,
+          11
+        ],
+        "2026-11-17_R3C3": [
+          10,
+          7,
+          13
+        ],
+        "2026-11-17_R3C4": [
+          1,
+          10,
+          8
+        ],
+        "2026-11-17_R3C5": [
+          5,
+          8,
+          3
+        ],
+        "2026-11-17_R3C6": [
+          4,
+          3,
+          11
+        ],
+        "2026-11-17_R3C7": [
+          11,
+          2,
+          10
+        ],
+        "2026-11-17_R3C8": [
+          14,
+          10,
+          15
+        ]
+      }
+    },
+    "comparaison": {
+      "courses": 8,
+      "ecart_moyen": -0.75,
+      "ic95_bootstrap_par_course": [
+        -1.375,
+        -0.25
+      ]
+    },
+    "decoupage": {
+      "train": {
+        "courses": 76,
+        "lignes": 1025,
+        "premier_depart": "2026-11-11T16:42:00+01:00",
+        "dernier_depart": "2026-11-15T18:03:00+01:00"
+      },
+      "validation": {
+        "courses": 2,
+        "lignes": 27,
+        "premier_depart": "2026-11-16T17:27:00+01:00",
+        "dernier_depart": "2026-11-16T18:00:00+01:00"
+      },
+      "test": {
+        "courses": 8,
+        "lignes": 103,
+        "premier_depart": "2026-11-17T14:12:00+01:00",
+        "dernier_depart": "2026-11-17T18:17:00+01:00"
+      }
+    },
+    "execution": "DONNEES_INCHANGEES"
+  },
+  "experimental_actif": {
+    "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
+    "verification_utc": "2026-11-17T20:11:53.201235+00:00",
+    "empreinte_entrainement": "44ce2028f965df73fcb463964f4b6d439bd961cf1f2c5a4b8c136a08c17e1fcd",
+    "courses": 86,
+    "lignes": 1155,
+    "modele": "gradient_boosting",
+    "promotion_production": false,
+    "schema": "pmu-podium-v33",
+    "nature": "CANDIDAT_EXPERIMENTAL_NON_CALIBRE",
+    "evaluation": "A_MESURER_SUR_LES_PREVISIONS_FUTURES_ENREGISTREES",
+    "entrainement_utc": "2026-11-17T18:05:46.862857+00:00",
+    "dernier_label_entrainement_utc": "2026-11-17T18:05:14.073342+00:00",
+    "fichier_modele": "ml/modeles_experimentaux/44ce2028f965df73fcb463964f4b6d439bd961cf1f2c5a4b8c136a08c17e1fcd/modele.joblib",
+    "sha256_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf",
+    "execution": "DONNEES_INCHANGEES"
+  },
+  "performance_prospective": {
+    "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
+    "controle_utc": "2026-11-17T20:11:53.201235+00:00",
+    "courses": 3,
+    "moyenne_ml": 1.3333333333333333,
+    "moyenne_direct": 1.0,
+    "ecart_ml_direct": 0.3333333333333333,
+    "exact_3_sur_3_ml": 0,
+    "au_moins_2_sur_3_ml": 1,
+    "resultats": [
+      {
+        "course": "2026-11-17_R3C6",
+        "depart": "2026-11-17T17:20:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-17T18:05:14.073342+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "b38e1d5d95da9078ded0211ea2d798a95ce60ab6568af8d51f5b4a5f02176bb8",
+          "ml": "0b81a40e87e7a700ce4dbb9d2d28afa4e576a5914503e5d02939c6ba17403df5"
+        },
+        "empreinte_modele": "feb11702d433c8cf28855af02b0cd6761fb63fc0f223c41d837450c7b9df7fac"
+      },
+      {
+        "course": "2026-11-17_R3C7",
+        "depart": "2026-11-17T17:42:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-17T18:05:13.816277+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "3c9e120d3deea34bf6600a101aeaf7cea342bf1980abfda59b23eac30018a40d",
+          "ml": "6e4463d1221079bc43a81bd085e314e48ce7f27166df1639d947a66acb362e12"
+        },
+        "empreinte_modele": "feb11702d433c8cf28855af02b0cd6761fb63fc0f223c41d837450c7b9df7fac"
+      },
+      {
+        "course": "2026-11-17_R3C8",
+        "depart": "2026-11-17T18:17:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-17T18:05:13.213384+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "b522ec1a3d9a3361fef4338a27b6ea9dd945597988656de3ee3dc0ddce0d9804",
+          "ml": "90983301477c3739151f6702dc6abac7a8a7fb0637938dc71e0d656ebed51ba1"
+        },
+        "empreinte_modele": "feb11702d433c8cf28855af02b0cd6761fb63fc0f223c41d837450c7b9df7fac"
+      }
+    ],
+    "rejets": [],
+    "regle_ajustement": "Reentrainement sur nouveaux labels admissibles ; choix sur validation temporelle, jamais sur le test ni promotion sur ces seuls scores."
+  }
 }
