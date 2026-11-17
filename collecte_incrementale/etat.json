@@ -30647,29 +30647,6 @@
       "motif_actualisation": "",
       "depart_a_venir_utc": null
     },
-    "2026-11-17_R3C1_1": {
-      "nom": "OPERA WOOD",
-      "sync": "SANS_MODIFICATION",
-      "numero": "1",
-      "engagement": "2026-11-17_R3C1",
-      "vu_utc": "2026-11-17T07:21:32.131088+00:00",
-      "verification_periodique": true,
-      "course_url": "https://www.geny.com/course/1698831/partants-pronostics",
-      "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
-      "depart_a_venir_utc": "2026-11-17T13:12:00+00:00",
-      "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
-      "erreur": "PermissionError: ACCES_REFUSE_403",
-      "prochain_essai_utc": "2026-11-17T03:43:28.099306+00:00",
-      "dernier_echec_collecte": {
-        "utc": "2026-11-16T21:43:28.099325+00:00",
-        "statut": "ACCES_REFUSE_403",
-        "motifs": [],
-        "erreur": "ACCES_REFUSE_403",
-        "identite_verifiee": null,
-        "diagnostic": "resultats/incremental/2026-11-17_R3C1_1/1794865401570935062/resultat.json"
-      }
-    },
     "2026-11-17_R3C1_2": {
       "nom": "OPEN D'OAM",
       "sync": "SANS_MODIFICATION",
@@ -35850,14 +35827,48 @@
       },
       "sync_utc": "2026-11-17T05:45:11.946901+00:00",
       "derniere_course_officielle_utc": "2026-11-14T12:17:00+00:00"
+    },
+    "2895699": {
+      "nom": "OPERA WOOD",
+      "sync": "A_FAIRE",
+      "numero": "1",
+      "engagement": "2026-11-17_R3C1",
+      "vu_utc": "2026-11-17T07:21:32.131088+00:00",
+      "verification_periodique": true,
+      "course_url": "https://www.geny.com/course/1698831/partants-pronostics",
+      "motif_actualisation": "",
+      "depart_a_venir_utc": "2026-11-17T13:12:00+00:00",
+      "preparation_pmu_ok": true,
+      "collecte": "COMPLET",
+      "erreur": "",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-16T21:43:28.099325+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-17_R3C1_1/1794865401570935062/resultat.json"
+      },
+      "id": "2895699",
+      "geny": {
+        "id": "2895699",
+        "nom": "OPERA WOOD",
+        "url_geny": "https://www.geny.com/cheval/2895699-opera-wood/course/1698831"
+      },
+      "historique_complet_au_utc": "2026-11-17T07:21:54.744950+00:00",
+      "derniere_verification_utc": "2026-11-17T07:21:54.744950+00:00",
+      "prochaine_verification_utc": "2026-11-18T07:21:54.744950+00:00",
+      "nombre_performances": 4,
+      "ferrures_manquantes": 0,
+      "derniere_performance_date": "2026-11-11"
     }
   },
   "passage_utc": "2026-11-17T07:21:32.131088+00:00",
-  "maj_utc": "2026-11-17T07:21:36.495609+00:00",
+  "maj_utc": "2026-11-17T07:21:55.056503+00:00",
   "bilan": {
     "chevaux_suivis": 1607,
-    "tentatives_collecte": 0,
-    "captures_validees": 0,
+    "tentatives_collecte": 1,
+    "captures_validees": 1,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
