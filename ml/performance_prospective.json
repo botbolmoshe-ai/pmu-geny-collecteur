@@ -1,13 +1,56 @@
 {
   "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-  "controle_utc": "2026-11-17T16:18:44.042713+00:00",
-  "courses": 0,
-  "moyenne_ml": null,
-  "moyenne_direct": null,
-  "ecart_ml_direct": null,
+  "controle_utc": "2026-11-17T18:05:46.862857+00:00",
+  "courses": 3,
+  "moyenne_ml": 1.3333333333333333,
+  "moyenne_direct": 1.0,
+  "ecart_ml_direct": 0.3333333333333333,
   "exact_3_sur_3_ml": 0,
-  "au_moins_2_sur_3_ml": 0,
-  "resultats": [],
+  "au_moins_2_sur_3_ml": 1,
+  "resultats": [
+    {
+      "course": "2026-11-17_R3C6",
+      "depart": "2026-11-17T17:20:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-17T18:05:14.073342+00:00",
+      "scores": {
+        "direct": 2,
+        "ml": 2
+      },
+      "versions": {
+        "direct": "b38e1d5d95da9078ded0211ea2d798a95ce60ab6568af8d51f5b4a5f02176bb8",
+        "ml": "0b81a40e87e7a700ce4dbb9d2d28afa4e576a5914503e5d02939c6ba17403df5"
+      },
+      "empreinte_modele": "feb11702d433c8cf28855af02b0cd6761fb63fc0f223c41d837450c7b9df7fac"
+    },
+    {
+      "course": "2026-11-17_R3C7",
+      "depart": "2026-11-17T17:42:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-17T18:05:13.816277+00:00",
+      "scores": {
+        "direct": 0,
+        "ml": 1
+      },
+      "versions": {
+        "direct": "3c9e120d3deea34bf6600a101aeaf7cea342bf1980abfda59b23eac30018a40d",
+        "ml": "6e4463d1221079bc43a81bd085e314e48ce7f27166df1639d947a66acb362e12"
+      },
+      "empreinte_modele": "feb11702d433c8cf28855af02b0cd6761fb63fc0f223c41d837450c7b9df7fac"
+    },
+    {
+      "course": "2026-11-17_R3C8",
+      "depart": "2026-11-17T18:17:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-17T18:05:13.213384+00:00",
+      "scores": {
+        "direct": 1,
+        "ml": 1
+      },
+      "versions": {
+        "direct": "b522ec1a3d9a3361fef4338a27b6ea9dd945597988656de3ee3dc0ddce0d9804",
+        "ml": "90983301477c3739151f6702dc6abac7a8a7fb0637938dc71e0d656ebed51ba1"
+      },
+      "empreinte_modele": "feb11702d433c8cf28855af02b0cd6761fb63fc0f223c41d837450c7b9df7fac"
+    }
+  ],
   "rejets": [],
   "regle_ajustement": "Reentrainement sur nouveaux labels admissibles ; choix sur validation temporelle, jamais sur le test ni promotion sur ces seuls scores."
 }

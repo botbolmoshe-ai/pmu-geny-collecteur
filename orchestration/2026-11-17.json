@@ -281,7 +281,7 @@
       "nombre_declares": 11,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_RECENTE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
@@ -300,11 +300,13 @@
       "statut_prevision": "DEJA_FIGE",
       "statut_maj_np": "INCHANGE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698832/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE"
+      "audit_predictif": "AUDIT_ENREGISTRE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R3C7": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698830",
@@ -327,13 +329,13 @@
         }
       },
       "geny_id_rapproche": "1698830",
-      "depart": "2026-11-17T17:42:00+01:00",
+      "depart": "2026-11-17T17:55:00+01:00",
       "nom": "PRIX D'AIX LES BAINS",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 13,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_RECENTE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
@@ -346,11 +348,12 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R3C8": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698835",
@@ -373,13 +376,13 @@
         }
       },
       "geny_id_rapproche": "1698835",
-      "depart": "2026-11-17T18:17:00+01:00",
+      "depart": "2026-11-17T18:28:00+01:00",
       "nom": "PRIX DE VALENCE-SUR-BAISE",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 15,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_RECENTE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
@@ -392,15 +395,16 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-17T16:18:22.927432+00:00",
+  "dernier_controle_pmu": "2026-11-17T18:05:12.825898+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-17",
-    "horodatage_utc": "2026-11-17T16:18:22.927432+00:00",
+    "horodatage_utc": "2026-11-17T18:05:12.825898+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/17112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 8,
@@ -500,7 +504,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
