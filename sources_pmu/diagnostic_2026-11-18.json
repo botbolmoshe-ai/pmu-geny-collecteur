@@ -1,23 +1,24 @@
 {
   "date": "2026-11-18",
-  "horodatage_utc": "2026-11-17T08:04:37.338206+00:00",
+  "horodatage_utc": "2026-11-17T08:50:01.584814+00:00",
   "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026",
   "statut": "COURSES_DISPONIBLES",
   "courses_retenues": 13,
-  "reunions_recues": 8,
+  "reunions_recues": 9,
   "reunions_francaises": 4,
   "reunions_pays_inconnu": 0,
-  "reunions_etrangeres": 4,
-  "courses_recues": 59,
+  "reunions_etrangeres": 5,
+  "courses_recues": 68,
   "exclusions": {
     "metier_allocation_inferieure_seuil_p2": 2,
     "metier_effectif_insuffisant_p2": 1,
     "metier_hors_trot": 12,
-    "depart_hors_plage_08_19": 3,
-    "pays_etranger": 4
+    "pays_etranger": 5,
+    "depart_hors_plage_08_19": 3
   },
   "pays_observes": {
     "FRA": 4,
+    "HKG": 1,
     "GBR": 1,
     "SWE": 1,
     "ARG": 1,
@@ -57,6 +58,37 @@
     },
     {
       "pays": "FRA",
+      "champs_reunion": [
+        "audience",
+        "cached",
+        "cagnottes",
+        "courses",
+        "dateReunion",
+        "derniereReunion",
+        "disciplinesMere",
+        "hippodrome",
+        "meteo",
+        "nature",
+        "numExterne",
+        "numOfficiel",
+        "numOfficielReunionPrecedente",
+        "numOfficielReunionSuivante",
+        "offresInternet",
+        "parisEvenement",
+        "pays",
+        "prochaineCourse",
+        "specialites",
+        "statut",
+        "timezoneOffset"
+      ],
+      "champs_hippodrome": [
+        "code",
+        "libelleCourt",
+        "libelleLong"
+      ]
+    },
+    {
+      "pays": "HKG",
       "champs_reunion": [
         "audience",
         "cached",
@@ -139,38 +171,6 @@
         "parisEvenement",
         "pays",
         "prochaineCourse",
-        "specialites",
-        "statut",
-        "timezoneOffset"
-      ],
-      "champs_hippodrome": [
-        "code",
-        "libelleCourt",
-        "libelleLong"
-      ]
-    },
-    {
-      "pays": "FRA",
-      "champs_reunion": [
-        "audience",
-        "cached",
-        "cagnottes",
-        "courses",
-        "dateReunion",
-        "derniereReunion",
-        "disciplinesMere",
-        "hippodrome",
-        "meteo",
-        "nature",
-        "numExterne",
-        "numOfficiel",
-        "numOfficielReunionPrecedente",
-        "numOfficielReunionSuivante",
-        "offresInternet",
-        "parisEvenement",
-        "pays",
-        "prochaineCourse",
-        "regionHippique",
         "specialites",
         "statut",
         "timezoneOffset"
