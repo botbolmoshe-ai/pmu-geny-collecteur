@@ -476,7 +476,7 @@ def predict_pmu(cache,course,raw,now=None,clock=None):
     except (ImportError,OSError,ValueError,KeyError) as exc:return f'MODELE_INDISPONIBLE_{type(exc).__name__}'
     signature = packed.get('schema'), tuple(packed.get('features', ()))
     supported = signature == (MODEL_SCHEMA, FEATURES) or (
-        not experimental and signature == ('pmu-podium-v33', LEGACY_FEATURES))
+        signature == ('pmu-podium-v33', LEGACY_FEATURES))
     if not supported:
         return 'MODELE_SCHEMA_OBSOLETE_REENTRAINEMENT_REQUIS'
     if experimental:
