@@ -159,7 +159,8 @@ class KpiTests(unittest.TestCase):
         table=[['Dimension','Indicateur','Valeur','Définition'],['Personnelle','Mon indicateur',42,'À conserver'],['Résultats','Courses évaluées',0,'Ancien calcul']]
         updates=plan_kpi(table,m)
         self.assertFalse(any("A2:" in u['range'] or "C2:" in u['range'] for u in updates))
-        self.assertEqual(updates[0]['range'],"'Data Quality & KPI'!C3:D3")
+        self.assertEqual(updates[0]['range'],"'Data Quality & KPI'!C3:E3")
+        self.assertEqual(updates[0]['values'][0][2],m['Courses distinctes collectées'][0])
         self.assertEqual(updates[0]['values'][0][0],1)
 
     def test_real_reference_reconciles_all_13_races_and_historical_baseline(self):
