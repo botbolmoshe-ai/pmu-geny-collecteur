@@ -1,20 +1,51 @@
 {
-  "controle_utc": "2026-11-18T07:59:49.414214+00:00",
+  "controle_utc": "2026-11-18T09:52:43.717846+00:00",
   "publication_reussie": true,
   "plan": {
-    "plan_utc": "2026-11-18T07:56:06.268188+00:00",
+    "plan_utc": "2026-11-18T09:48:58.319684+00:00",
     "date": "2026-11-18",
     "executer": true,
     "mode": "GLOBAL",
-    "selection": [],
-    "jalons_dus": [],
-    "prochain_besoin_utc": "2026-11-18T07:44:44.497111+00:00"
+    "selection": [
+      "R6C1"
+    ],
+    "jalons_dus": [
+      {
+        "course": "2026-11-18_R6C1",
+        "phase": "H2",
+        "echeance": "2026-11-18T11:00:00+01:00"
+      }
+    ],
+    "prochain_besoin_utc": "2026-11-18T08:59:49.414214+00:00"
   },
   "courses": [
     {
       "course": "2026-11-18_R6C1",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H2": {
+          "echeance": "2026-11-18T11:00:00+01:00",
+          "controle_utc": "2026-11-18T09:52:43.717846+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-18T10:49:18.865162+01:00",
+              "publication_utc": "2026-11-18T09:52:43.717846+00:00",
+              "sha256": "12b0b2f9f6589afdda327ea31c780745e280d3123c25baebd539c4b6ce83c493",
+              "fichier": "jalons/2026-11-18_R6C1/H2_direct_20261118T094918865162Z.json",
+              "empreinte_modele": null
+            },
+            "ml": {
+              "calcul_utc": "2026-11-18T10:49:20.111494+01:00",
+              "publication_utc": "2026-11-18T09:52:43.717846+00:00",
+              "sha256": "18390ac3d86ac940df39aeba7fb2f81795808fb58cf5b69f71c09e01a4429bdf",
+              "fichier": "jalons/2026-11-18_R6C1/H2_ml_20261118T094920111494Z.json",
+              "empreinte_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf"
+            }
+          }
+        }
+      }
     },
     {
       "course": "2026-11-18_R6C2",
