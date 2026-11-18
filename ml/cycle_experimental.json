@@ -1,38 +1,46 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "6760bfb1af5feb60a37f0d905fb11370322e2d6baf0c34b45777e42d7404db8d",
-  "execute_utc": "2026-11-18T13:56:00.151401+00:00",
+  "empreinte_donnees": "dec581ddf6660a6a14b6f87dfe482c90f4cfa940f9f9a33e3b2c52497bbcda01",
+  "execute_utc": "2026-11-18T14:58:37.315685+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 91,
-  "lignes_admissibles": 1227,
+  "courses_admissibles": 94,
+  "lignes_admissibles": 1257,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-6760bfb1af5feb60a37f/rapport.json",
+  "rapport": "ml/experiences/automatique-dec581ddf6660a6a14b6/rapport.json",
   "validation_day": "2026-11-17",
   "test_day": "2026-11-18",
   "modele": "regression_logistique",
   "test_ml": {
-    "courses": 5,
-    "chevaux_retrouves": 4,
-    "moyenne": 0.8,
-    "au_moins_2_sur_3": 1,
+    "courses": 8,
+    "chevaux_retrouves": 8,
+    "moyenne": 1.0,
+    "au_moins_2_sur_3": 2,
     "exact_3_sur_3": 0,
     "distribution": {
       "0": 2,
-      "1": 2,
-      "2": 1
+      "1": 4,
+      "2": 2
     },
     "hits_par_course": {
       "2026-11-18_R1C1": 1,
+      "2026-11-18_R1C4": 2,
       "2026-11-18_R6C1": 0,
       "2026-11-18_R6C2": 1,
       "2026-11-18_R6C3": 2,
-      "2026-11-18_R6C4": 0
+      "2026-11-18_R6C4": 0,
+      "2026-11-18_R6C5": 1,
+      "2026-11-18_R6C6": 1
     },
     "selections": {
       "2026-11-18_R1C1": [
         13,
         1,
         12
+      ],
+      "2026-11-18_R1C4": [
+        6,
+        4,
+        8
       ],
       "2026-11-18_R6C1": [
         1,
@@ -53,15 +61,25 @@
         13,
         11,
         8
+      ],
+      "2026-11-18_R6C5": [
+        13,
+        9,
+        1
+      ],
+      "2026-11-18_R6C6": [
+        2,
+        9,
+        7
       ]
     }
   },
   "comparaison": {
-    "courses": 3,
-    "ecart_moyen": -0.3333333333333333,
+    "courses": 6,
+    "ecart_moyen": -0.16666666666666666,
     "ic95_bootstrap_par_course": [
-      -2.0,
-      1.0
+      -1.0,
+      0.6666666666666666
     ]
   },
   "decoupage": {
@@ -78,10 +96,10 @@
       "dernier_depart": "2026-11-17T18:17:00+01:00"
     },
     "test": {
-      "courses": 5,
-      "lignes": 72,
+      "courses": 8,
+      "lignes": 102,
       "premier_depart": "2026-11-18T13:00:00+01:00",
-      "dernier_depart": "2026-11-18T14:30:00+01:00"
+      "dernier_depart": "2026-11-18T15:40:00+01:00"
     }
   }
 }
