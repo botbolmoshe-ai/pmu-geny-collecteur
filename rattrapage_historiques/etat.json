@@ -2956,7 +2956,8 @@
       },
       "sync_utc": "2026-11-15T12:53:56.082289+00:00",
       "rattrapage_complet_au_utc": "2026-11-15T12:53:34.925817+00:00",
-      "ajouts_confirmes": 30
+      "ajouts_confirmes": 30,
+      "partant_course_passee": true
     },
     "2812241": {
       "id": "2812241",
@@ -3064,7 +3065,8 @@
       },
       "sync_utc": "2026-11-15T13:00:28.829530+00:00",
       "rattrapage_complet_au_utc": "2026-11-15T13:00:05.991703+00:00",
-      "ajouts_confirmes": 23
+      "ajouts_confirmes": 23,
+      "partant_course_passee": true
     },
     "2813958": {
       "id": "2813958",
@@ -3118,7 +3120,8 @@
       },
       "sync_utc": "2026-11-15T12:58:16.545997+00:00",
       "rattrapage_complet_au_utc": "2026-11-15T12:57:54.336940+00:00",
-      "ajouts_confirmes": 29
+      "ajouts_confirmes": 29,
+      "partant_course_passee": true
     },
     "2799556": {
       "id": "2799556",
@@ -3172,7 +3175,8 @@
       },
       "sync_utc": "2026-11-15T12:50:00.539179+00:00",
       "rattrapage_complet_au_utc": "2026-11-15T12:49:37.910833+00:00",
-      "ajouts_confirmes": 37
+      "ajouts_confirmes": 37,
+      "partant_course_passee": true
     },
     "2815529": {
       "id": "2815529",
@@ -3226,7 +3230,8 @@
       },
       "sync_utc": "2026-11-15T12:59:22.642423+00:00",
       "rattrapage_complet_au_utc": "2026-11-15T12:59:00.286978+00:00",
-      "ajouts_confirmes": 25
+      "ajouts_confirmes": 25,
+      "partant_course_passee": true
     },
     "2821981": {
       "id": "2821981",
@@ -63814,22 +63819,37 @@
       "collecte": "A_REPRENDRE",
       "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
       "partant_course_passee": true
+    },
+    "nom-pmu:303d8b6a7b13a8098da64400": {
+      "nom": "LE TRESOR",
+      "engagement": "2026-11-11_R4C1",
+      "numero": "3",
+      "course_url": "https://www.geny.com/course/1697658/partants-pronostics",
+      "nom_reference_pmu": true,
+      "origines": [
+        "PMU:2026-11-11_R4C1"
+      ],
+      "sync": "SANS_MODIFICATION",
+      "ferrures_manquantes": 0,
+      "collecte": "A_REPRENDRE",
+      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "partant_course_passee": true
     }
   },
   "sync_kpi": "A_REPRENDRE",
   "lignes_historique_initiales": 15484,
   "bilan": {
-    "cibles_inventoriees": 2583,
+    "cibles_inventoriees": 2584,
     "cibles_completees": 1048,
-    "cibles_restantes": 1535,
+    "cibles_restantes": 1536,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1580,
+    "travaux_distincts_restants": 1581,
     "historiques_ferrures_a_completer": 471,
-    "carrieres_distinctes_a_completer": 1109,
+    "carrieres_distinctes_a_completer": 1110,
     "identifiants_sans_carriere_complete": 25,
-    "contextes_distincts_sans_identifiant": 1084,
+    "contextes_distincts_sans_identifiant": 1085,
     "identifiants_geny_distincts": 852,
-    "identites_non_resolues": 1510,
+    "identites_non_resolues": 1511,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
     "synchronisations_en_attente": 0,
@@ -63841,14 +63861,14 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-16T20:58:16.916717+00:00",
-  "maj_utc": "2026-11-18T16:18:18.239868+00:00",
+  "maj_utc": "2026-11-18T16:19:50.954102+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 27
     }
   },
   "dernier_controle_inventaire": {
-    "capture_utc": "2026-11-18T16:18:07.389561+00:00",
+    "capture_utc": "2026-11-18T16:19:38.843409+00:00",
     "lignes_historique": 21840,
     "controle": {
       "statut": "VALIDE",
@@ -63869,8 +63889,8 @@
   "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
   "prochain_acces_geny_utc": "2026-11-16T21:28:31.785679+00:00",
   "phase_reprise": "CARRIERES_MANQUANTES",
-  "revision_inventaire": 4,
-  "inventaire_actualise_utc": "2026-11-18T16:18:09.289594+00:00",
+  "revision_inventaire": 5,
+  "inventaire_actualise_utc": "2026-11-18T16:19:39.396358+00:00",
   "extensions_inventaire": [
     {
       "revision": 2,
@@ -63895,6 +63915,14 @@
       "cibles_ajoutees": 4,
       "cibles_apres": 2583,
       "archive_precedente": "rattrapage_historiques/inventaires/49f73a1c5c32fdbd7fd9f6a1-r3-3867763b000fb005.json"
+    },
+    {
+      "revision": 5,
+      "utc": "2026-11-18T16:19:39.396358+00:00",
+      "cibles_avant": 2583,
+      "cibles_ajoutees": 1,
+      "cibles_apres": 2584,
+      "archive_precedente": "rattrapage_historiques/inventaires/49f73a1c5c32fdbd7fd9f6a1-r4-6e32f308bb3300ce.json"
     }
   ],
   "derniere_revalidation": {
@@ -64150,14 +64178,14 @@
   "courses_passees_par_nom": {
     "courses_avec_arrivee": 123,
     "courses_sans_liste_partants": 0,
-    "participations_a_confirmer": 6,
+    "participations_a_confirmer": 0,
     "bilan": {
-      "A_REPRENDRE": 762,
-      "COMPLET": 314,
+      "A_REPRENDRE": 763,
+      "COMPLET": 319,
       "FERRURES_A_COMPLETER": 450,
       "LIEN_GENY_A_RESOUDRE": 56
     },
-    "noms_distincts": 1582,
-    "controle_utc": "2026-11-18T16:18:09.289594+00:00"
+    "noms_distincts": 1588,
+    "controle_utc": "2026-11-18T16:19:39.396358+00:00"
   }
 }
