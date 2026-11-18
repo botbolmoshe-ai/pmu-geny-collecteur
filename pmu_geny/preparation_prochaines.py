@@ -99,7 +99,7 @@ def appliquer(cache,state,now):
     return state
 
 
-def decision_fond(cache,now):
+def decision_fond(cache,now,*,reserve=False):
     """Observer la même file que le worker, sans écrire ni lever un délai de réessai."""
     cache=Path(cache)
     state=inc.alimenter(cache,now,sauvegarder=False)
@@ -134,6 +134,17 @@ def decision_fond(cache,now):
     key,action=inc.prochaine_tache(state,now,{})
     if key is not None:
         result['tache_prioritaire']={'cle':key,'action':action}
+        from .echeances_production import planifier
+        marker = inc.instant(back.get('dernier_creneau_reserve_utc'))
+        prioritaire = state['chevaux'][key]
+        depart = inc.instant(prioritaire.get('depart_a_venir_utc'))
+        plan = planifier(cache, now) if reserve else {}
+        next_pmu = inc.instant(plan.get('prochain_besoin_utc'))
+        if (reserve and action == 'COLLECTE' and depart and depart - now > timedelta(minutes=30)
+                and not plan.get('executer') and next_pmu and next_pmu - now >= timedelta(minutes=10)
+                and (not marker or now - marker >= timedelta(hours=6))):
+            result.update(autorise=True, motif='CRENEAU_RATTRAPAGE_BORNE', creneau_reserve=True)
+            return result
         return refuser('PARTANT_PRIORITAIRE_DISPONIBLE')
     # Un cheval peut redevenir disponible pendant un sous-processus de 240 s.
     # Garder cinq minutes pour sa reprise, les sauvegardes et la pause de cadence.
@@ -152,8 +163,8 @@ def decision_fond(cache,now):
     return result
 
 
-def autoriser_fond(cache,now,*,diagnostic=None):
-    report=decision_fond(cache,now)
+def autoriser_fond(cache,now,*,diagnostic=None,reserve=False):
+    report=decision_fond(cache,now,reserve=reserve)
     if diagnostic:
         import json
         inc.ecrire(diagnostic,report)

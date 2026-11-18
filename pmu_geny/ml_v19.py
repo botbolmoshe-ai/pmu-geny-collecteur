@@ -20,6 +20,9 @@ FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_12
 LEGACY_FEATURES = FEATURES
 FEATURES += ('discipline_montee', 'forme_pmu_discipline', 'forme_geny_comparable')
 MODEL_SCHEMA = 'pmu-podium-v34'
+FERRURE_RESEARCH = ('forme_ferrure_neutre', 'forme_ferrure_moderee', 'forme_ferrure_actuelle')
+OPTIONAL_FEATURES = (*FERRURE_RESEARCH, 'tandem_podium_lisse', 'tandem_courses', 'avis_pmu_structure')
+
 
 def load(path, default=None):
     try: return json.loads(Path(path).read_text(encoding='utf-8'))
@@ -151,7 +154,7 @@ def snapshot(cache,course,manifest,now=None):
 def pmu_rows(cache,course,raw,now,*,legacy=False):
     """Meme extraction PMU pour capture et inference; aucune requete reseau."""
     from .auto_v18 import _list, _num
-    from .formes_contextuelles_v32 import _discipline, _musique_pmu
+    from .formes_contextuelles_v32 import _discipline, _historique_contextuel, _musique_pmu
     from .echeances_production import instant
     from .partants_actuels_v21 import extraire_partants, ferrure_normalisee
     from .top3_independants_v22 import _form_score
@@ -169,6 +172,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
     has_connections = any(p.get('driver_jockey') or p.get('entraineur') for p in profils.values())
     connection_scores = scores_intervenants(cache, now, discipline) if (
         not legacy and discipline and has_connections) else {}
+    from .avis_experts_v22 import POSITIVE
     rows=[];seen=set();with_history=0;with_partial=0;unknown_np=0
     for item in participants:
         if not isinstance(item,dict):continue
@@ -185,7 +189,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
         ident,histo=link.get('cheval_id',''),link.get('historique',{})
         historical_stamp = instant(histo.get('extrait_utc'))
         # La date d'une performance ne prouve pas la disponibilité de sa fiche.
-        if not legacy and (not histo.get('source_url') or not historical_stamp or historical_stamp > now):
+        if not legacy and (not str(histo.get('source_url', '')).startswith(('https://www.geny.com/', 'https://geny.com/')) or not historical_stamp or historical_stamp > now):
             histo = {}
         if ident and histo:
             if histo.get('statut')=='PARTIEL_HISTORIQUE':with_partial+=1
@@ -221,6 +225,24 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                                    ('DA','ferrure_da'),('P4','ferrure_p4'),
                                    ('PA','ferrure_pa'),('PP','ferrure_pp')]:
                 c[indicator]=1 if ferrure_code in code.split('/') else 0
+        research = {}
+        if not legacy:
+            driver = intervenants.get('driver_score')
+            tandem = connection_scores.get(('tandem', ident, nom_normalise(name), driver))
+            if tandem:
+                research.update(tandem_podium_lisse=tandem[0], tandem_courses=tandem[1])
+            if histo and discipline and ferrure:
+                for key, different, unknown in zip(FERRURE_RESEARCH, (1., .8, .65), (1., .9, .85)):
+                    shape = _historique_contextuel(histo, course, {'ferrure': ferrure},
+                                                  ferrure_differente=different, ferrure_inconnue=unknown)
+                    if shape and shape['ferrures_comparees']:
+                        research[key] = shape['score']
+            opinion = item.get('avisEntraineur')
+            if isinstance(opinion, dict):
+                label = str(opinion.get('type') or opinion.get('libelle') or '').strip().casefold()
+                value = {'NEGATIF': -1, 'NEUTRE': 0, 'POSITIF': 1}.get(POSITIVE.get(label))
+                if value is not None:
+                    research['avis_pmu_structure'] = value
         features_values=features({'numero':numero,'nom':name},histo,course,c,legacy=legacy)
         rows.append({'numero':numero,'cheval_id':ident,'nom':name,
                      'historique_ok':bool(histo),'historique_complet':bool(histo) and histo.get('statut')=='COMPLET',
@@ -229,7 +251,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                      'historique_extrait_utc':histo.get('extrait_utc'),
                      'intervenants_pmu':intervenants,
                      'score_direct_pmu':direct,
-                     'features':features_values})
+                     'features':{**features_values, **research}})
     if len(rows)<3:return 'PARTANTS_INSUFFISANTS',[],{}
     if course.get('nombre_declares') and len(seen)!=int(course['nombre_declares']):
         return 'LISTE_PARTANTS_INCOMPLETE',[],{}
@@ -237,19 +259,20 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                       'historiques_partiels_reutilises':with_partial,'np_non_verifies':unknown_np}
 
 
-def snapshot_pmu(cache,course,raw,now=None,clock=None):
+def snapshot_pmu(cache,course,raw,now=None,clock=None,*,prepared=None):
     """Capture immutable; les anciennes captures ne sont jamais enrichies apres coup."""
     now=now or datetime.now(timezone.utc)
     departure=datetime.fromisoformat(course['depart'])
     if now.tzinfo is None or departure.tzinfo is None or now>=departure:return 'TROP_TARD'
     base=Path(cache)/'ml'/'instantanes'/f"{course['date']}_{course['code']}.json"
     if base.exists():return 'DEJA_CAPTURE'
-    status,rows,metadata=pmu_rows(cache,course,raw,now)
+    status,rows,metadata=prepared if prepared is not None else pmu_rows(cache,course,raw,now)
     if status!='OK':return status
+    if metadata['np_non_verifies']:return 'NP_NON_VERIFIE'
     captured=clock() if clock else now
     if captured>=departure:return 'TROP_TARD'
     save(base,{'date':course['date'],'code':course['code'],'depart':course['depart'],
-               'capture_utc':captured.isoformat(),'features_schema':MODEL_SCHEMA,
+               'capture_utc':captured.isoformat(),'observation_utc':now.isoformat(),'features_schema':MODEL_SCHEMA,
                'source':'PMU_API_PARTICIPANTS','nombre_chevaux':len(rows),
                **metadata,'chevaux':rows,
                'regle':'capture PMU pre-depart immutable, ni cote ni arrivee utilisee'})
@@ -277,10 +300,16 @@ def dataset(cache, now=None):
             if len(horses)<3 or len(numbers)!=len(horses) or not placed<=numbers:continue
             if any(not isinstance(x.get('features'),dict) for x in horses):continue
         except (AttributeError,KeyError,ValueError,TypeError):continue
+        observed_raw = s.get('observation_utc', s['capture_utc'])
+        from .echeances_production import instant
+        observed = instant(observed_raw)
+        if not observed or observed > capt:
+            continue
         course_count+=1
         for row in horses:
             examples.append({'course':key,'depart':s['depart'],'capture_utc':s['capture_utc'],
-                'verifie_utc':arr['verifie_utc'],'numero':int(row['numero']),
+                'verifie_utc':arr['verifie_utc'],'observation_utc':observed_raw,'numero':int(row['numero']),
+                'cheval_id':str(row.get('cheval_id') or ''),'nom':row.get('nom'),
                 'capture_qualifiante': s.get('features_schema') == MODEL_SCHEMA
                     and s.get('source') == 'PMU_API_PARTICIPANTS'
                     and arr.get('source') == 'PMU_API_PARTICIPANTS',
@@ -296,7 +325,9 @@ def scores_intervenants(cache, now, discipline):
     """Taux de podium lissé sur les captures PMU vérifiées des 90 derniers jours."""
     window = now - timedelta(days=90)
     records, _ = dataset(cache, now)
+    from .liaison_chevaux_v22 import nom_normalise
     groups = defaultdict(list)
+    tandems = defaultdict(dict)
     for row in records:
         if (not row['capture_qualifiante'] or datetime.fromisoformat(row['depart']) < window
                 or numeric(row['features'].get('discipline_montee')) != int(discipline == 'm')):
@@ -308,9 +339,17 @@ def scores_intervenants(cache, now, discipline):
             name = identities.get(role)
             if isinstance(name, str) and name:
                 groups[role, name].append(row)
-    return {key: (sum(row['y'] for row in rows) + 1) / (len(rows) + 5)
-            for key, rows in groups.items()
-            if len(rows) >= 5 and len({row['course'] for row in rows}) >= 2}
+        driver = identities.get('driver_score')
+        horse = nom_normalise(row.get('nom'))
+        if row['cheval_id'] and horse and isinstance(driver, str) and driver:
+            tandems['tandem', row['cheval_id'], horse, driver][row['course']] = row['y']
+    scores = {key: (sum(row['y'] for row in rows) + 1) / (len(rows) + 5)
+              for key, rows in groups.items()
+              if len(rows) >= 5 and len({row['course'] for row in rows}) >= 2}
+    for key, results in tandems.items():
+        prior = scores.get(('driver_score', key[-1]), .2)
+        scores[key] = ((sum(results.values()) + 5 * prior) / (len(results) + 5), len(results))
+    return scores
 
 
 def train(cache, min_courses=None, min_rows=None, now=None):
@@ -390,7 +429,7 @@ def train(cache, min_courses=None, min_rows=None, now=None):
             return finish()
         output = cache / 'ml/experiences' / now.astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
         try:
-            report = run(cache, output, days[-2], days[-1], now=now)
+            report = run(cache, output, days[-2], days[-1], now=now, select_research=True)
         except ValueError as exc:
             status.update(etat='VALIDATION_TEMPORELLE_IMPOSSIBLE', motif=str(exc))
             return finish()
@@ -457,7 +496,7 @@ def ranking_for(packed, rows):
     return sorted(ranking, key=lambda h: (-h['score_non_calibre'], h['numero']))
 
 
-def predict_pmu(cache,course,raw,now=None,clock=None):
+def predict_pmu(cache,course,raw,now=None,clock=None,*,prepared=None):
     """Inférence pré-départ : modèle promu, sinon candidat expérimental explicite."""
     from .planification_v20_2 import decision_autorisee
     now=now or datetime.now(timezone.utc)
@@ -475,7 +514,10 @@ def predict_pmu(cache,course,raw,now=None,clock=None):
         packed=joblib.load(path)
     except (ImportError,OSError,ValueError,KeyError) as exc:return f'MODELE_INDISPONIBLE_{type(exc).__name__}'
     signature = packed.get('schema'), tuple(packed.get('features', ()))
-    supported = signature == (MODEL_SCHEMA, FEATURES) or (
+    schema, fields = signature
+    added = fields[len(FEATURES):]
+    supported = (schema == MODEL_SCHEMA and fields[:len(FEATURES)] == FEATURES
+                 and len(set(added)) == len(added) and set(added) <= set(OPTIONAL_FEATURES)) or (
         signature == ('pmu-podium-v33', LEGACY_FEATURES))
     if not supported:
         return 'MODELE_SCHEMA_OBSOLETE_REENTRAINEMENT_REQUIS'
@@ -494,7 +536,9 @@ def predict_pmu(cache,course,raw,now=None,clock=None):
         labelled = instant(packed.get('dernier_label_entrainement_utc'))
         if not fitted or not labelled or not labelled <= fitted <= now:
             return 'MODELE_CHRONOLOGIE_INVALIDE'
-    status,rows,metadata=pmu_rows(cache,course,raw,now,legacy=signature[0]=='pmu-podium-v33')
+    legacy = schema == 'pmu-podium-v33'
+    status, rows, metadata = (prepared if prepared is not None and not legacy
+                              else pmu_rows(cache, course, raw, now, legacy=legacy))
     if status!='OK':return status
     if metadata['np_non_verifies']:return 'NP_NON_VERIFIE'
     ranking = ranking_for(packed, rows)
@@ -507,7 +551,7 @@ def predict_pmu(cache,course,raw,now=None,clock=None):
         archive=base.parent/'versions'/f"{course['date']}_{course['code']}_ml_{stamp}.json"
         if not archive.exists():save(archive,old)
     save(base,{'date':course['date'],'course':course['code'],'calcul_utc':created.isoformat(),
-               'depart':course['depart'],'modele':packed['modele'],'statut':packed['statut'],
+               'depart':course['depart'],'donnees_observees_utc':now.isoformat(),'modele':packed['modele'],'statut':packed['statut'],
                'experimental':experimental,'promotion_production':not experimental,
                'entrainement_utc':packed.get('entrainement_utc'),
                'dernier_label_entrainement_utc':packed.get('dernier_label_entrainement_utc'),

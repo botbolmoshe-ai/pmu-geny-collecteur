@@ -65,6 +65,19 @@ class PreparationTests(unittest.TestCase):
         inc.ecrire(self.cache/inc.QUEUE,s)
         self.assertEqual(autoriser_fond(self.cache,self.now),'PARTANT_PRIORITAIRE_DISPONIBLE')
 
+    def test_creneau_borne_respecte_le_jalon_et_la_cadence(self):
+        self.course('R1C8', '2026-11-16T18:00:00+01:00')
+        inc.ecrire(self.cache/'orchestration/production_etat.json',
+                   {'dernier_global_publie_utc':self.now.isoformat()})
+        decision = decision_fond(self.cache, self.now, reserve=True)
+        self.assertTrue(decision['creneau_reserve'])
+        inc.ecrire(self.cache/'rattrapage_historiques/etat.json',
+                   {'dernier_creneau_reserve_utc':self.now.isoformat()})
+        self.assertEqual(decision_fond(self.cache, self.now, reserve=True)['motif'],
+                         'PARTANT_PRIORITAIRE_DISPONIBLE')
+        inc.ecrire(self.cache/'rattrapage_historiques/etat.json', {})
+        self.assertFalse(decision_fond(self.cache, self.now+timedelta(minutes=55), reserve=True)['autorise'])
+
     def attente(self,minutes=360):
         e,k=self.course('R1C8','2026-11-16T18:00:00+01:00')
         s=self.state(e,k)

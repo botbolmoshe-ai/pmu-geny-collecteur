@@ -23,9 +23,9 @@ def executer(cache,now,empreinte):
             held=[r for r in records if r['depart'][:10]==test]
             if not train or not valid or not held or len({r['y'] for r in train})<2:continue
             if (max(datetime.fromisoformat(r['verifie_utc']) for r in train)
-                    >=min(datetime.fromisoformat(r['depart']) for r in valid)):continue
+                    >=min(datetime.fromisoformat(r.get('observation_utc', r['capture_utc'])) for r in valid)):continue
             if (max(datetime.fromisoformat(r['verifie_utc']) for r in train+valid)
-                    >=min(datetime.fromisoformat(r['capture_utc']) for r in held)):continue
+                    >=min(datetime.fromisoformat(r.get('observation_utc', r['capture_utc'])) for r in held)):continue
             pair=(validation,test);break
         if pair:break
     if pair:

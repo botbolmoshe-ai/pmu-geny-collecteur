@@ -79,6 +79,11 @@ class RepriseTests(unittest.TestCase):
         self.assertEqual((extension['cibles_avant'],extension['cibles_ajoutees'],extension['cibles_apres']),(1,1,2))
         archived=inc.lire(self.cache/extension['archive_precedente'])
         self.assertEqual(archived,original)
+        revised.pop('cles_initiales')
+        back.actualiser_cohortes(self.cache, revised)
+        cohorts = back.rapport(revised)['cohortes']
+        self.assertEqual(cohorts['initiale']['publiees'], 1)
+        self.assertEqual(cohorts['extensions']['cibles'], 1)
         again=back.actualiser_inventaire(self.cache,self.now+timedelta(minutes=2))
         self.assertEqual(again['revision_inventaire'],2)
         self.assertEqual(again['extensions_inventaire'],revised['extensions_inventaire'])

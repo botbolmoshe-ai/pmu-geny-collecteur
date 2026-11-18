@@ -51,9 +51,9 @@ def admissible(cache, as_of):
     return records, rejected
 
 
-def matrix(rows):
+def matrix(rows, fields=FEATURES):
     return np.asarray([[numeric(r['features'].get(k)) if numeric(r['features'].get(k)) is not None
-                        else np.nan for k in FEATURES] for r in rows])
+                        else np.nan for k in fields] for r in rows])
 
 
 def summary(hits):
@@ -83,7 +83,8 @@ def paired_interval(left, right):
         return None
     delta = np.asarray([left[k] - right[k] for k in common])
     rng = np.random.default_rng(42)
-    boot = rng.choice(delta, size=(10000, len(delta)), replace=True).mean(axis=1)
+    boot = np.concatenate([rng.choice(delta, size=(250, len(delta)), replace=True).mean(axis=1)
+                           for _ in range(40)])
     return {'courses': len(common), 'ecart_moyen': float(delta.mean()),
             'ic95_bootstrap_par_course': np.quantile(boot, [0.025, 0.975]).tolist()}
 
@@ -100,7 +101,7 @@ def modeles():
     }
 
 
-def run(cache, output, validation_day, test_day, now=None):
+def run(cache, output, validation_day, test_day, now=None, *, select_research=False):
     cache, output = Path(cache), Path(output)
     # Le modele experimental ne peut pas ecraser le modele ou statut de production.
     inside_source = output.resolve() == cache.resolve() or cache.resolve() in output.resolve().parents
@@ -114,7 +115,7 @@ def run(cache, output, validation_day, test_day, now=None):
     def latest_label(rows):
         return max(datetime.fromisoformat(r['verifie_utc']) for r in rows)
     def earliest_capture(rows):
-        return min(datetime.fromisoformat(r['capture_utc']) for r in rows)
+        return min(datetime.fromisoformat(r.get('observation_utc', r['capture_utc'])) for r in rows)
     validation_cutoff = earliest_capture(validation)
     train = [row for row in train if datetime.fromisoformat(row['verifie_utc']) < validation_cutoff]
     if not train or len({r['y'] for r in train}) < 2:
@@ -137,11 +138,11 @@ def run(cache, output, validation_day, test_day, now=None):
                            for label, group in [('train', train), ('validation', validation), ('test', test)]},
               'couverture_features': {k: sum(numeric(r['features'].get(k)) is not None for r in records)
                                       for k in FEATURES},
-              'limites': ['Historique tres court, schemas v22.0/v22.1 heterogenes.',
+              'limites': ['Schémas historiques hétérogènes : variables non conservées laissées manquantes.',
                          'Scores non calibres: aucune probabilite de podium publiee.',
                          'Finalite officielle des arrivees non tracee par le collecteur actuel.',
                          'Le test est retrospectif et ne constitue pas une prediction live.',
-                         'Le score PMU capture et le TOP3 direct publie peuvent utiliser des heures differentes.']}
+                         'Le TOP3 direct publié est comparé uniquement si le même relevé et sa relecture Sheets sont prouvés.']}
     # Empreintes de toutes les sources utilisees: aucune variable reconstruite.
     report['sources_sha256'] = {str(f.relative_to(cache)): hashlib.sha256(f.read_bytes()).hexdigest()
                                for folder in ('ml/instantanes', 'arrivees')
@@ -161,6 +162,7 @@ def run(cache, output, validation_day, test_day, now=None):
     report['validation'] = validation_scores
     from sklearn.base import clone
     from .maturite_ml import CRITERIA, coverage
+    from .ml_v19 import FERRURE_RESEARCH
     report['ablation_validation'] = {}
     ablations = {**CRITERIA,
         'Historique comparable': ('forme_geny_comparable', 'courses_30j', 'courses_60j', 'courses_120j',
@@ -170,7 +172,9 @@ def run(cache, output, validation_day, test_day, now=None):
         'Distance': ('distance_m', 'distance_ecart_m', 'taux_podium_distance', 'forme_geny_comparable'),
     }
     for criterion, keys in ablations.items():
-        indices = [FEATURES.index(key) for key in keys]
+        indices = [FEATURES.index(key) for key in keys if key in FEATURES]
+        if not indices:
+            continue
         if not np.isfinite(x_train[:, indices]).any() or not np.isfinite(x_validation[:, indices]).any():
             report['ablation_validation'][criterion] = {'etat': 'DONNEES_INSUFFISANTES'}
             continue
@@ -184,16 +188,50 @@ def run(cache, output, validation_day, test_day, now=None):
             'ecart_avec_modele_complet': paired_interval(
                 validation_scores[winner]['hits_par_course'], evaluation['hits_par_course']),
         }
+    research = {
+        'Ferrure · même poids': (FERRURE_RESEARCH[0],),
+        'Ferrure · écart modéré': (FERRURE_RESEARCH[1],),
+        'Ferrure · coefficients actuels': (FERRURE_RESEARCH[2],),
+        'Tandem cheval-driver': ('tandem_podium_lisse', 'tandem_courses'),
+        'Avis PMU structuré': ('avis_pmu_structure',),
+    }
+    report['variantes_validation'] = {}
+    chosen_fields = FEATURES
+    eligible = {}
+    for name, additions in research.items():
+        train_observed = sum(all(numeric(r['features'].get(k)) is not None for k in additions) for r in train)
+        validation_observed = sum(all(numeric(r['features'].get(k)) is not None for k in additions) for r in validation)
+        result = {'observations_train': train_observed, 'observations_validation': validation_observed}
+        report['variantes_validation'][name] = result
+        if not train_observed or not validation_observed:
+            result['etat'] = 'DONNEES_INSUFFISANTES'
+            continue
+        fields = FEATURES + additions
+        trial = clone(models[winner]).fit(matrix(train, fields), y_train)
+        trial_scores = trial.predict_proba(matrix(validation, fields))[:, 1]
+        evaluation = evaluate(validation, trial_scores)
+        comparison = paired_interval(evaluation['hits_par_course'], validation_scores[winner]['hits_par_course'])
+        result.update(etat='EVALUE', moyenne=evaluation['moyenne'], ecart_avec_reference=comparison,
+                      couverture_par_discipline={discipline: sum(
+                          row['features'].get('discipline_montee') == value
+                          and all(numeric(row['features'].get(k)) is not None for k in additions)
+                          for row in validation) for discipline, value in [('attelé', 0), ('monté', 1)]})
+        if comparison['ic95_bootstrap_par_course'][0] > 0:
+            eligible[name] = fields
+    if select_research and eligible:
+        best = max(eligible, key=lambda name: (report['variantes_validation'][name]['moyenne'], name))
+        chosen_fields = eligible[best]
+        report['variante_choisie_avant_test'] = best
     report['modele_choisi_avant_test'] = winner
-    # Refit sur train+validation uniquement; la journee test reste inconnue du modele.
+    # Refit sur train et validation. Le test ne modifie aucun paramètre.
     model = models[winner]
     fitted_rows = train + validation
     qualified_fit = [row for row in fitted_rows if row['capture_qualifiante']]
     report['apprentissage_final'] = {**coverage(qualified_fit),
                                      'courses': len({r['course'] for r in qualified_fit}),
                                      'observations_totales': len(fitted_rows)}
-    model.fit(matrix(fitted_rows), [r['y'] for r in fitted_rows])
-    scores = model.predict_proba(matrix(test))[:, 1]
+    model.fit(matrix(fitted_rows, chosen_fields), [r['y'] for r in fitted_rows])
+    scores = model.predict_proba(matrix(test, chosen_fields))[:, 1]
     report['test_ml'] = evaluate(test, scores)
     # Benchmark forme PMU au MEME instant de capture; limiter au sous-ensemble complet.
     by_course = defaultdict(list)
@@ -207,24 +245,31 @@ def run(cache, output, validation_day, test_day, now=None):
             comparable, [r['features']['pmu_score_direct'] for r in comparable])
         report['ecart_ml_forme_capture'] = paired_interval(
             report['test_ml']['hits_par_course'], report['test_forme_pmu_capture']['hits_par_course'])
+    from .echeances_production import instant, lire
+    from .performance_prospective import retrouver
     published_hits = {}
     for course, rows in by_course.items():
-        path = cache / 'pronostics' / f'{course}_direct.json'
-        if not path.exists():
+        certificate = lire(cache / 'publications' / f'{course}.json')
+        proof = certificate.get('versions', {}).get('direct', {})
+        if not proof:
             continue
-        doc = json.loads(path.read_text())
-        stamp = datetime.fromisoformat(doc['calcul_utc'])
-        depart = datetime.fromisoformat(rows[0]['depart'])
-        numbers = [int(h['numero']) for h in doc.get('top3', [])]
-        if stamp >= depart or len(set(numbers)) != 3:
+        doc = retrouver(cache, course, 'direct', proof)
+        observed = instant(rows[0].get('observation_utc'))
+        start = instant(rows[0]['depart'])
+        published = instant(proof.get('publication_utc'))
+        read = instant(proof.get('lecture_sheets_utc'))
+        if (not doc or not observed or not read or not published or not start
+                or instant(doc.get('donnees_observees_utc')) != observed
+                or not observed <= read <= published < start):
             continue
-        podium = {r['numero'] for r in rows if r['y']}
-        published_hits[course] = len(set(numbers) & podium)
+        numbers = {int(h['numero']) for h in doc['top3']}
+        if len(numbers) == 3:
+            published_hits[course] = len(numbers & {r['numero'] for r in rows if r['y']})
     if published_hits:
         report['test_direct_publie'] = {**summary(published_hits), 'hits_par_course': published_hits}
         report['ecart_ml_direct_publie'] = paired_interval(report['test_ml']['hits_par_course'], published_hits)
     report['promotion_production'] = False
-    joblib.dump({'model': model, 'features': FEATURES, 'schema': MODEL_SCHEMA, 'statut': report['statut'],
+    joblib.dump({'model': model, 'features': chosen_fields, 'schema': MODEL_SCHEMA, 'statut': report['statut'],
                  'modele': winner, 'dernier_depart_entrainement': max(r['depart'] for r in fitted_rows),
                  'test_exclu_entrainement': test_day}, output / 'modele_experimental.joblib')
     save(output / 'rapport.json', report)

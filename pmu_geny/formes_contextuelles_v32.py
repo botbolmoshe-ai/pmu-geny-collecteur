@@ -92,7 +92,7 @@ def _facteur_niveau(course, row):
     return (0.70 if ratio > 2 else 0.85 if ratio > 1.35 else 1.0), True
 
 
-def _historique_contextuel(historique, course, profil):
+def _historique_contextuel(historique, course, profil, *, ferrure_differente=.65, ferrure_inconnue=.85):
     """Pondere les performances passees selon les conditions de la course cible."""
     try:
         depart = datetime.fromisoformat(course["depart"])
@@ -130,9 +130,9 @@ def _historique_contextuel(historique, course, profil):
         ferrure_histo = ferrure_normalisee(row.get("ferrure")) if row.get('ferrure_qualification')!='CONFLIT' else ''
         if current_ferrure and ferrure_histo:
             ferrures_comparees += 1
-            ferrure_factor = 1.0 if current_ferrure == ferrure_histo else 0.65
+            ferrure_factor = 1.0 if current_ferrure == ferrure_histo else ferrure_differente
         else:
-            ferrure_factor = 0.85  # Incertitude, pas une ferrure inventee.
+            ferrure_factor = ferrure_inconnue  # Incertitude, pas une ferrure inventee.
         niveau_factor, niveau_connu = _facteur_niveau(course, row)
         niveaux_documentes += int(niveau_connu)
         temps = (1.0 if age_jours <= 30 else 0.85 if age_jours <= 90

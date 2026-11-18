@@ -37,12 +37,30 @@ def cohort_metrics(courses,start,end):
     available=sum((number(r.get('Historique · Nb performances récupérées')) or 0)>0 for r in active)
     add('Historique','Partants avec historique disponible',available,n,'Partants confirmés avec au moins une performance disponible aujourd’hui.')
     add('Historique','Taux de partants avec historique disponible',available/n if n else '',n,'Couverture actuelle des partants confirmés de la période ; pas une observation passée.')
-    shoes=sum(r.get('Ferrure · Course du jour') in FERRURES for r in active)
+    identified = sum(str(r.get('Historique · État', '')).startswith(('HISTO_OK', 'HISTO_PARTIEL')) for r in active)
+    partial = sum(str(r.get('Historique · État', '')).startswith('HISTO_PARTIEL') for r in active)
+    complete = sum(str(r.get('Historique · État', '')).startswith('HISTO_OK') for r in active)
+    add('Historique','Partants avec historique identifié',identified,n,'Association au cheval reconnue dans le registre.')
+    add('Historique','Partants avec historique partiel',partial,n,'Historique Geny explicitement partiel.')
+    add('Historique','Partants avec historique complet',complete,n,'Historique Geny lié avec un statut HISTO_OK.')
+    def ferrure(row):
+        code = row.get('Ferrure · Course du jour')
+        status = row.get('PMU · État ferrure') or row.get('PMU · Complétude fiche')
+        if status in ('CODE_INCONNU', 'NON_RECUPEREE', 'FERRURE_NON_RECUPEREE'):
+            return ''
+        if code == 'F' and status not in ('CODE_RECONNU', 'CONVENTION_PMU',
+                                          'FERRURE_DISPONIBLE_SOURCEE', 'PMU_FERRURE_DISPONIBLE'):
+            return ''
+        return code if code in FERRURES else ''
+    shoes=sum(bool(ferrure(r)) for r in active)
+    add('Qualité','Partants avec ferrure inconnue',n-shoes,n,'Ferrure absente ou code inconnu dans le registre.')
+    add('Qualité','Partants ferrés (F)',sum(ferrure(r) == 'F' for r in active),n,
+        'Code F issu du profil participant ou de la convention PMU documentée.')
     add('Qualité','Partants avec ferrure reconnue',shoes,n,'Code de ferrure reconnu ; ne prouve pas à lui seul une provenance historique complète.')
     add('Qualité','Taux de ferrure reconnue',shoes/n if n else '',n,'Partants confirmés avec code reconnu / partants confirmés de la période.')
     essentials=sum(number(r.get('Âge (ans)')) is not None and bool(r.get('Sexe'))
                    and number(r.get('Gains carrière (€)')) is not None
-                   and r.get('Ferrure · Course du jour') in FERRURES for r in active)
+                   and bool(ferrure(r)) for r in active)
     add('Qualité','Partants avec critères essentiels renseignés',essentials,n,'Âge, sexe, gains (zéro accepté) et ferrure reconnue.')
     add('Qualité','Taux de critères essentiels renseignés',essentials/n if n else '',n,'Complétude actuelle des quatre critères sur les partants confirmés.')
     for method,title in [('direct','direct'),('ml','ML')]:

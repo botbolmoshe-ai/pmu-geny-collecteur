@@ -1,5 +1,5 @@
 """KPI du registre calcules depuis les sources, sans formules dependantes des lignes."""
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import json
 import math
@@ -16,9 +16,10 @@ def _nombre(value):
         return result if math.isfinite(result) else None
     except (ValueError,TypeError):return None
 
-def calculer_kpi(cache, source=None, now=None):
+def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
     from .sync_google_sheets import source_rows, limiter_cours_registre
     from .liaison_chevaux_v22 import nom_normalise
+    from .partants_actuels_v21 import ferrure_normalisee
     cache=Path(cache);now=now or datetime.now(timezone.utc)
     source=source if source is not None else limiter_cours_registre(source_rows(cache))
     participants=list(source['Courses & Prévisions'].values())
@@ -34,6 +35,7 @@ def calculer_kpi(cache, source=None, now=None):
         try:
             departure=datetime.fromisoformat(row['heure_depart_paris'])
             checked=datetime.fromisoformat(result['verifie_utc'])
+            if result.get('source') != 'PMU_API_PARTICIPANTS':continue
             if not departure<checked<=now:continue
             podium={int(h['numero']) for h in result['arrivee'] if h['rang'] in (1,2,3)}
             if len(podium)!=3:continue
@@ -45,6 +47,14 @@ def calculer_kpi(cache, source=None, now=None):
         except (ValueError,KeyError,TypeError):continue
     linked=sum(str(r.get('historique_statut','')).startswith('HISTO_OK') for r in participants)
     has_history=sum((_nombre(r.get('historique_nb_courses_datees')) or 0)>0 for r in participants)
+    def ferrure_sourcee(row):
+        code = ferrure_normalisee(row.get('ferrure'))
+        if row.get('actuel_statut') in ('CODE_INCONNU', 'NON_RECUPEREE', 'FERRURE_NON_RECUPEREE'):
+            return ''
+        if code == 'F' and row.get('actuel_statut') not in (
+                'CODE_RECONNU', 'CONVENTION_PMU', 'FERRURE_DISPONIBLE_SOURCEE', 'PMU_FERRURE_DISPONIBLE'):
+            return ''
+        return code
     def nonempty(field):return sum(bool(str(r.get(field) if r.get(field) is not None else '').strip()) for r in participants)
     def metric(label,value,definition):return (label,(value,definition))
     active=_load(cache/'ml/modele_experimental_actif.json')
@@ -59,6 +69,8 @@ def calculer_kpi(cache, source=None, now=None):
             ml_metrics.append(metric('ML expérimental · '+label,active.get(field,''),definition))
     maturity = _load(cache/'ml/maturite.json')
     if maturity:
+        ml_metrics.append(metric('Maturité ML · Contrôle UTC', maturity.get('controle_utc', maturity.get('entrainement_utc', '')),
+                                 'Heure du dernier calcul de maturité.'))
         quality = maturity['couverture']
         prospective = maturity.get('prospective', {})
         comparison = prospective.get('comparaison') or {}
@@ -104,6 +116,9 @@ def calculer_kpi(cache, source=None, now=None):
                           for label, value, definition in fields)
     performance=_load(cache/'ml/performance_prospective.json')
     operational=[]
+    if performance:
+        operational.append(metric('ML prospectif · Contrôle UTC', performance.get('controle_utc', ''),
+                                  'Dernier contrôle des prévisions et des arrivées appariées.'))
     for label,field,definition in (
         ('Courses évaluées','courses','Courses communes direct/ML avec certificat de publication antérieur au départ et arrivée PMU vérifiée.'),
         ('Moyenne ML sur 3','moyenne_ml','Moyenne prospective ; vide si aucune course admissible.'),
@@ -127,6 +142,41 @@ def calculer_kpi(cache, source=None, now=None):
             metric('Échéances · '+phase+' ouvertes',expected,'Fenêtres de préparation ouvertes aujourd’hui, courses passées incluses.'),
             metric('Échéances · '+phase+' publiées à temps',ontime,'Deux TOP3 certifiés après publication Sheets dans les délais.'),
             metric('Échéances · '+phase+' dépassées sans preuve à temps',missed,'Échéances déjà dépassées sans certificat à temps ; aucun rattrapage rétroactif.')])
+    if sheets_courses is not None:
+        from .echeances_production import PARIS
+        today = now.astimezone(PARIS).date()
+        operational.append(metric('Registre · Lecture Sheets UTC', now.isoformat(),
+                                  'Relecture de Courses & Prévisions utilisée pour les KPI J/J+1.'))
+        for offset in (0, 1):
+            date = (today + timedelta(days=offset)).isoformat()
+            prefix = ('J' if offset == 0 else 'J+1') + ' · '
+            cohort = [r for r in sheets_courses if r.get('date_course') == date
+                      and r.get('non_partant') == 'PARTANT']
+            counts = {
+                'Partants confirmés': len(cohort),
+                'Ferrures renseignées': sum(bool(ferrure_sourcee(r)) for r in cohort),
+                'Ferrures inconnues': sum(not ferrure_sourcee(r) for r in cohort),
+                'Ferrés (F)': sum(ferrure_sourcee(r) == 'F' for r in cohort),
+                'Historiques identifiés': sum(str(r.get('historique_statut', '')).startswith(('HISTO_OK','HISTO_PARTIEL')) for r in cohort),
+                'Historiques partiels': sum(str(r.get('historique_statut', '')).startswith('HISTO_PARTIEL') for r in cohort),
+                'Historiques complets': sum(str(r.get('historique_statut', '')).startswith('HISTO_OK') for r in cohort),
+                'Historiques publiés avec performances': sum((_nombre(r.get('historique_nb_courses_datees')) or 0) > 0 for r in cohort),
+            }
+            operational.extend(metric(prefix + label, value, f'{date} · Partants confirmés dans Courses & Prévisions.')
+                               for label, value in counts.items())
+    backfill = _load(cache/'rattrapage_historiques/bilan.json')
+    if backfill:
+        for name, field in [('Dernière tentative Geny UTC', 'collecte_tentee_utc'),
+                            ('Dernière décision UTC', 'controle_ordonnancement_utc'),
+                            ('Dernière mise à jour UTC', 'maj_utc'),
+                            ('Motif de fin', 'motif_fin_passage'),
+                            ('Révision inventaire', 'revision_inventaire')]:
+            operational.append(metric('Rattrapage · ' + name, backfill.get(field, ''),
+                                      'État durable du lot de rattrapage.'))
+        for cohort, data in backfill.get('cohortes', {}).items():
+            for label, value in data.items():
+                operational.append(metric(f'Rattrapage · {cohort} · {label}', value,
+                                          'Cibles du lot suivies par leur clé d’inventaire.'))
     queue=_load(cache/'collecte_incrementale/etat.json')
     for label,field in [('Captures complètes','captures_validees'),('Captures partielles','captures_partielles'),('Rejets','collectes_rejetees')]:
         operational.append(metric('Collecte · '+label+' dernier passage',queue.get('bilan',{}).get(field,''),
@@ -163,8 +213,8 @@ def calculer_kpi(cache, source=None, now=None):
                'Participations ayant utilise au moins une performance Geny anterieure et comparable.'),
         metric('TOP3 direct sur musique PMU seule',sum(r.get('top3_direct_source_forme')=='PMU_MUSIQUE_SEULE' for r in participants),
                'Score sans contexte historique exploitable, a ne pas confondre avec un resultat fiable.'),
-        metric('Ferrure non récupérée (source explicite)',count-nonempty('ferrure'),'Participations sans valeur de ferrure renseignée.'),
-        metric('Taux ferrure renseignée',nonempty('ferrure')/count if count else '','Participations avec ferrure / participations recensées.'),
+        metric('Ferrure non récupérée (source explicite)',sum(not ferrure_sourcee(r) for r in participants),'Participations sans code de ferrure reconnu et documenté.'),
+        metric('Taux ferrure renseignée',sum(bool(ferrure_sourcee(r)) for r in participants)/count if count else '','Participations avec code reconnu et documenté / participations recensées.'),
         *[metric('Lignes sans '+label,count-nonempty(field),'Participations sans valeur renseignée.') for label,field in [('âge','age_ans'),('sexe','sexe'),('gains','gains_euros')]],
     ])
 
@@ -203,6 +253,15 @@ def totaux_reference(metrics):
     if qualifying is not None:
         totals.update({label: qualifying for label in metrics if label.startswith(
             ('Maturité ML · Couverture · ', 'Maturité ML · Taux de complétude')) and not label.endswith('prospective')})
+    for prefix in ('J · ', 'J+1 · '):
+        total = value(prefix + 'Partants confirmés')
+        if total is not None:
+            totals.update({label: total for label in metrics if label.startswith(prefix)})
+    for cohort in ('initiale', 'extensions'):
+        prefix = f'Rattrapage · {cohort} · '
+        total = value(prefix + 'cibles')
+        if total is not None:
+            totals.update({label: total for label in metrics if label.startswith(prefix)})
     prospective_maturity=value('Maturité ML · Courses prospectives appariées')
     if prospective_maturity is not None:
         totals.update({label: prospective_maturity for label in metrics if label.startswith(
@@ -210,6 +269,10 @@ def totaux_reference(metrics):
     prospective=value('ML prospectif · Courses évaluées')
     if prospective is not None:totals['ML prospectif · TOP3 ML exacts']=prospective
     return totals
+
+
+PUBLISHED_PREFIXES = ('ML expérimental · ', 'ML prospectif · ', 'Maturité ML · ',
+                      'Échéances · ', 'Collecte · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ')
 
 
 def plan_kpi(values, metrics):
@@ -233,7 +296,7 @@ def plan_kpi(values, metrics):
     present={row[1] for row in values[1:] if len(row)>1}
     last=max((i for i,row in enumerate(values,start=1) if any(str(v or '').strip() for v in row)),default=1)
     for label,(value,definition) in metrics.items():
-        if label.startswith(('ML expérimental · ','ML prospectif · ','Maturité ML · ','Échéances · ','Collecte · ')) and label not in present:
+        if label.startswith(PUBLISHED_PREFIXES) and label not in present:
             last+=1
             desired=['ML',label,value,definition]+([totals[label]] if label in totals else [])
             end='E' if label in totals else 'D'

@@ -6,7 +6,8 @@ import hashlib
 import json
 import os
 import re
-from datetime import datetime
+from collections import Counter
+from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -136,6 +137,7 @@ def actualiser_inventaire(cache,now):
     cache=Path(cache)
     # Valider le snapshot et l'état avant d'archiver ou de modifier quoi que ce soit.
     state=preparer(cache,now)
+    actualiser_cohortes(cache, state)
     local=inventaire_local(cache,inc.lire(cache/INVENTAIRE))
     ajouter_noms_pmu(cache, local, now)
     additions={k:h for k,h in local.items() if k not in state['chevaux']}
@@ -150,7 +152,9 @@ def actualiser_inventaire(cache,now):
         state['inventaire_actualise_utc']=now.isoformat()
         state.setdefault('extensions_inventaire',[]).append({'revision':revision+1,
             'utc':now.isoformat(),'cibles_avant':before,'cibles_ajoutees':len(additions),
-            'cibles_apres':len(state['chevaux']),'archive_precedente':str(archive.relative_to(cache))})
+            'cibles_apres':len(state['chevaux']),'archive_precedente':str(archive.relative_to(cache)),
+            'origines_ajouts': dict(sorted(Counter(origine.split(':')[0]
+                for h in additions.values() for origine in set(h.get('origines', []))).items()))})
         state['sync_kpi']='A_REPRENDRE'
         state.pop('termine_utc',None)
         bilan(state)
@@ -302,7 +306,6 @@ def preparer_noms_passes(cache, state, now):
                          else primary.get('collecte', 'A_REPRENDRE'))
         if entry['etat'] == 'COMPLET' and primary.get('ferrures_manquantes'):
             entry['etat'] = 'FERRURES_A_COMPLETER'
-    from collections import Counter
     inventory['bilan'] = dict(sorted(Counter(h['etat'] for h in inventory['noms'].values()).items()))
     inventory['noms_distincts'] = len(inventory['noms'])
     inventory['controle_utc'] = now.isoformat()
@@ -326,6 +329,7 @@ def preparer(cache,now):
             'inventaire_id':hashlib.sha256((now.isoformat()+'\n'+'\n'.join(sorted(targets))).encode()).hexdigest()[:24],
             'chevaux':targets,'sync_kpi':'A_REPRENDRE','revision_inventaire':1,
             'lignes_historique_initiales':sheets.get('lignes_historique')}
+    actualiser_cohortes(cache, state)
     local=inventaire_local(cache,sheets)
     state['dernier_controle_inventaire']={k:sheets.get(k) for k in ('capture_utc','lignes_historique','controle')}
     # Le dénominateur est figé. La production peut néanmoins avoir complété une cible.
@@ -521,6 +525,53 @@ def propager_preuve(state,horse):
             else:other.pop('prochain_essai_utc',None)
 
 
+def actualiser_cohortes(cache, state):
+    """Relire les clés exactes du lot initial depuis sa première archive."""
+    if 'cles_initiales' in state:
+        return
+    revisions = state.get('extensions_inventaire', [])
+    if state.get('revision_inventaire', 1) == 1:
+        state['cles_initiales'] = sorted(state['chevaux'])
+    elif revisions:
+        first = revisions[0]
+        if first.get('revision') != 2 or not first.get('archive_precedente'):
+            return
+        path = cache / first['archive_precedente']
+        if (cache / QUEUE.parent / 'inventaires').resolve() not in path.resolve().parents:
+            return
+        initial = inc.lire(path)
+        horses = initial.get('chevaux', {})
+        if (initial.get('inventaire_id') == state['inventaire_id']
+                and len(horses) == first['cibles_avant']
+                and horses.keys() <= state['chevaux'].keys()):
+            state['cles_initiales'] = sorted(horses)
+
+
+def bornes_cohortes(state):
+    initial = state.get('cles_initiales')
+    if initial is None:
+        return {}
+    initial = set(initial)
+    if not initial <= state['chevaux'].keys():
+        return {}
+    result = {}
+    for name, keys in (('initiale', initial), ('extensions', state['chevaux'].keys() - initial)):
+        horses = [state['chevaux'][key] for key in keys]
+        result[name] = {
+            'cibles': len(horses),
+            'identifiees': sum(bool(h.get('id')) for h in horses),
+            'partielles': sum(h.get('collecte') == 'PARTIEL_HISTORIQUE' for h in horses),
+            'completes': sum(bool(h.get('historique_complet_au_utc')) for h in horses),
+            'publiees': sum(bool(h.get('rattrapage_complet_au_utc')) and h.get('sync') == 'OK' for h in horses),
+        }
+    return result
+
+
+def persister_etat(cache, state):
+    inc.ecrire(cache / QUEUE, state)
+    inc.ecrire(cache / QUEUE.parent / 'bilan.json', rapport(state))
+
+
 def bilan(state):
     horses=list(state['chevaux'].values())
     distinct=[h for h in horses if not h.get('cible_equivalente_a')]
@@ -560,6 +611,11 @@ def rapport(state):
           'extensions_inventaire','phase_reprise','derniere_revalidation','passage_utc','maj_utc','statut','priorite_collecte',
           'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
     report={k:state[k] for k in keys if k in state}
+    report['cohortes'] = bornes_cohortes(state)
+    for key in ('collecte_tentee_utc', 'controle_ordonnancement_utc', 'sync_kpi_utc',
+                'dernier_creneau_reserve_utc', 'creneau_reserve'):
+        if key in state:
+            report[key] = state[key]
     proofs=[]
     for horse in state['chevaux'].values():
         control=horse.get('sync_details',{}).get('Historique chevaux',{}).get('controle',{})
@@ -591,6 +647,19 @@ def priorite_production(paths=None):
     return None
 
 
+def synchroniser_kpi(engine, state, cache):
+    from .kpi_registre import KPI_TAB
+
+    details = engine.synchroniser_kpi()
+    if KPI_TAB not in details:
+        raise ValueError('KPI_SHEETS_NON_VERIFIES')
+    state.update(sync_kpi='OK', sync_kpi_details=details,
+                 sync_kpi_utc=datetime.now(inc.UTC).isoformat())
+    bilan(state)
+    persister_etat(cache, state)
+    inc.checkpoint_distant(cache, queue=QUEUE)
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--cache',default='cache_pmu')
@@ -608,24 +677,35 @@ def main():
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
         from .preparation_prochaines import autoriser_fond
         from .echeances_production import besoin_pmu
+        from .moteur_sheets import SynchroniseurSheets
         def controle_pmu():
             return priorite_production() or besoin_pmu(cache, datetime.now(inc.UTC))
 
         def controle_fond():
-            return controle_pmu() or autoriser_fond(cache,datetime.now(inc.UTC),
+            return controle_pmu() or autoriser_fond(cache,datetime.now(inc.UTC), reserve=True,
                 diagnostic=Path('resultats/rattrapage/ordonnancement_fond.json'))
+
+        def differer(reason, state):
+            if state.get('chevaux'):
+                now = datetime.now(inc.UTC)
+                actualiser_cohortes(cache, state)
+                state.update(motif_fin_passage=reason, maj_utc=now.isoformat(),
+                             controle_ordonnancement_utc=now.isoformat())
+                persister_etat(cache, state)
+                inc.checkpoint_distant(cache, queue=QUEUE)
+                # Le statut Geny ne doit pas empêcher la reprise d'une publication KPI.
+                if state.get('sync_kpi') == 'A_REPRENDRE' and not controle_pmu():
+                    engine = SynchroniseurSheets(cache, os.environ['GOOGLE_SHEETS_ID'])
+                    try:
+                        synchroniser_kpi(engine, state, cache)
+                    finally:
+                        engine.fermer()
+            print('RATTRAPAGE_FOND_DIFFERE '+reason, flush=True)
 
         reason = controle_pmu() if args.actualiser_inventaire else controle_fond()
         if reason and not (args.reconcilier_identites or args.archives_diagnostics):
-            state=inc.lire(cache/QUEUE)
-            if state.get('chevaux'):
-                state.update(motif_fin_passage=reason,maj_utc=datetime.now(inc.UTC).isoformat())
-                inc.ecrire(cache/QUEUE,state)
-                inc.ecrire(cache/QUEUE.parent/'bilan.json',rapport(state))
-                inc.checkpoint_distant(cache,queue=QUEUE)
-            print('RATTRAPAGE_FOND_DIFFERE '+reason,flush=True)
+            differer(reason, inc.lire(cache / QUEUE))
             return
-        from .moteur_sheets import SynchroniseurSheets
         engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
         try:
             if args.reconcilier_identites:
@@ -638,20 +718,17 @@ def main():
             state = actualiser_inventaire(cache, datetime.now(inc.UTC))
             reason = controle_fond()
             if reason:
-                state.update(motif_fin_passage=reason, maj_utc=datetime.now(inc.UTC).isoformat())
-                inc.ecrire(cache/QUEUE, state)
-                inc.ecrire(cache/QUEUE.parent/'bilan.json', rapport(state))
-                inc.checkpoint_distant(cache, queue=QUEUE)
                 print('INVENTAIRE_COURSES_PASSEES_PERSISTE '+json.dumps(
                     state['courses_passees_par_nom'], ensure_ascii=False), flush=True)
-                print('RATTRAPAGE_FOND_DIFFERE '+reason, flush=True)
+                differer(reason, state)
                 return
         if args.archives_diagnostics:
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
         state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=min(args.max_chevaux,1),
                       publier=True,mode='rattrapage',
-                      stop_requested=controle_fond)
+                      stop_requested=controle_fond,
+                      creneau_reserve=lambda: inc.lire(Path('resultats/rattrapage/ordonnancement_fond.json')).get('creneau_reserve'))
     else:
         state=(actualiser_inventaire if args.actualiser_inventaire else preparer)(cache,datetime.now(inc.UTC))
     print('BILAN_RATTRAPAGE '+json.dumps({'statut':state['statut'],'inventaire_id':state['inventaire_id'],

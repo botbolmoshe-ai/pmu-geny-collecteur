@@ -5,6 +5,7 @@ import argparse
 from datetime import datetime, timedelta, timezone
 import hashlib
 import json
+from collections import defaultdict
 import os
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -73,10 +74,12 @@ def planifier(cache, now, force=False):
                 upcoming.append(start)
     if last and last+timedelta(hours=1)>now:
         upcoming.append(last+timedelta(hours=1))
+    needs.sort(key=lambda item: (instant(item['echeance']) < now, instant(item['echeance']), item['course']))
+    prioritized = list(dict.fromkeys(item['course'].split('_', 1)[1] for item in needs))
     return {'plan_utc':now.isoformat(), 'date':day,
             'executer':bool(global_due or selection),
             'mode':'GLOBAL' if global_due else 'JALONS' if selection else 'ATTENTE',
-            'selection':sorted(set(selection)), 'jalons_dus':needs,
+            'selection':prioritized, 'jalons_dus':needs,
             'prochain_besoin_utc':min(upcoming).isoformat() if upcoming else None}
 
 
@@ -128,7 +131,34 @@ def prevision_valide(doc, depart, now, ml=False, key=None):
     return True
 
 
-def enregistrer_publication(cache, now, plan, publie):
+def preuves_sheets(rows, now):
+    """Reconstituer les sélections effectivement lisibles dans le registre."""
+    groups = defaultdict(list)
+    for row in rows:
+        day, code = row.get('date_course'), row.get('rncn')
+        if day and code:
+            groups[f'{day}_{code}'].append(row)
+    proofs = {}
+    for key, group in groups.items():
+        for kind, rank, selected, version in (
+            ('direct', 'top3_direct_rang', 'top3_direct_top3', 'top3_direct_utc'),
+            ('ml', 'ml_rang', 'ml_top3', 'version_ml_utc'),
+        ):
+            picked = [row for row in group if row.get(selected) == 'OUI']
+            if len(picked) != 3 or any(r.get('non_partant') != 'PARTANT' for r in picked):
+                continue
+            try:
+                ranking = sorted((int(r[rank]), int(r['numero'])) for r in picked)
+            except (KeyError, TypeError, ValueError):
+                continue
+            versions = {str(r.get(version, '')) for r in picked}
+            if [i for i, _ in ranking] == [1, 2, 3] and len(versions) == 1 and instant(next(iter(versions))):
+                proofs.setdefault(key, {})[kind] = {'numeros': [n for _, n in ranking],
+                                                     'calcul_utc': versions.pop()}
+    return {'lecture_utc': now.isoformat(), 'courses': proofs}
+
+
+def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
     """Appeler après Sheets : une tentative ou un calcul seul ne vaut pas publication."""
     cache = Path(cache)
     report = {'controle_utc':now.isoformat(), 'publication_reussie':bool(publie),
@@ -159,10 +189,20 @@ def enregistrer_publication(cache, now, plan, publie):
                         or not {int(h['numero']) for h in doc.get('top3',[])}.issubset(eligible)):
                     report['erreurs'].append({'course':key, 'mode':kind, 'motif':'TOP3_ABSENT_OU_INVALIDE'})
                     continue
+                observation = instant(sheets.get('lecture_utc')) if sheets is not None else now
+                if sheets is not None:
+                    observed = sheets.get('courses', {}).get(key, {}).get(kind, {})
+                    numbers = [int(h['numero']) for h in doc['top3']]
+                    if (observed.get('numeros') != numbers or instant(observed.get('calcul_utc')) != instant(doc['calcul_utc'])
+                            or not observation or not instant(doc['calcul_utc']) <= observation <= now or observation >= depart):
+                        report['erreurs'].append({'course': key, 'mode': kind, 'motif': 'TOP3_NON_CONFIRME_SHEETS'})
+                        continue
                 docs[kind] = doc
                 proofs[kind] = {'calcul_utc':doc['calcul_utc'], 'publication_utc':now.isoformat(),
                     'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
                     'fichier':str(path.relative_to(cache)), 'empreinte_modele':doc.get('empreinte_modele')}
+                if sheets is not None:
+                    proofs[kind]['lecture_sheets_utc'] = observation.isoformat()
             if 'direct' in proofs:
                 from .maturite_ml import certify_shadow
                 certify_shadow(cache, key, proofs['direct'], now)
@@ -201,8 +241,7 @@ def enregistrer_publication(cache, now, plan, publie):
             if phases:
                 sauver(cache/'jalons'/f'{key}.json', phases)
             report['courses'].append({'course':key, 'top3_direct_et_ml':len(proofs)==2, 'jalons':phases})
-        if plan.get('mode') == 'GLOBAL' and not any(
-                error['motif']!='JALON_PUBLIE_EN_RETARD' for error in report['erreurs']):
+        if plan.get('mode') == 'GLOBAL':
             # Un retard attesté est une anomalie, pas un échec de publication globale.
             # Ne pas redéclencher indéfiniment le global au détriment des historiques.
             # Le cache ancien d'un programme ne suffit pas à valider un cycle global.
@@ -222,10 +261,12 @@ def main():
     parser.add_argument('--certifier', action='store_true')
     parser.add_argument('--strict', action='store_true')
     parser.add_argument('--collecte', action='store_true')
+    parser.add_argument('--preuve-sheets')
     args = parser.parse_args()
     now = datetime.now(timezone.utc)
     if args.certifier:
-        result = enregistrer_publication(args.cache, now, lire(args.plan), os.getenv('PUBLICATION_REUSSIE')=='true')
+        result = enregistrer_publication(args.cache, now, lire(args.plan), os.getenv('PUBLICATION_REUSSIE')=='true',
+                                            sheets=lire(args.preuve_sheets) if args.preuve_sheets else None)
     else:
         result = plan_collecte(args.cache,now) if args.collecte else planifier(args.cache, now, force=os.getenv('FORCER_AUTO')=='true')
         if not args.collecte and os.getenv('MODE_PRODUCTION','auto') != 'auto':

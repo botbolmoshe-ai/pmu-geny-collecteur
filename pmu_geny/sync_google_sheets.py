@@ -760,7 +760,12 @@ def main():
     try:
         engine=SynchroniseurSheets(cache,spreadsheet)
         if os.getenv('PMU_KPI_ONLY')=='true':engine.synchroniser_kpi()
-        elif os.getenv('PMU_KPI_DIFFERE')=='true':engine.synchroniser_cycle(include_kpi=False)
+        elif os.getenv('PMU_KPI_DIFFERE')=='true':
+            engine.synchroniser_cycle(include_kpi=False)
+            from .echeances_production import preuves_sheets, sauver
+            if os.getenv('PMU_PREUVE_SHEETS'):
+                rows = engine.lire_courses(engine.metadata())
+                sauver(os.environ['PMU_PREUVE_SHEETS'], preuves_sheets(rows, datetime.now(timezone.utc)))
         else:engine.synchroniser_cycle()
         return 0
     except Exception as exc:

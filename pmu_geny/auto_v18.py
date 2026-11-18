@@ -177,7 +177,7 @@ def update_np(cache, course, manifest, pmu_data):
                                        'nouveau':r['statut_participation']} for r in rows if old.get(r['numero'],{}).get('statut_participation')!=r['statut_participation']]}
     save(target,doc);return doc
 
-def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None, clock=None):
+def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None, clock=None, priorites=()):
     if clock is None:
         clock=(lambda:now) if now is not None else (lambda:datetime.now(PARIS))
     now=now or clock()
@@ -216,6 +216,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     from .planification_v20_2 import selectionner_courses
     selected=selectionner_courses(courses, now, date, selection, True if selection_complete is None else selection_complete,
                                 state, max_courses=len(courses))
+    order = {code: index for index, code in enumerate(priorites)}
+    if order:
+        selected.sort(key=lambda course: order.get(course['code'], len(order)))
     remaining_new=max_new
     remaining_discoveries=max_discoveries
     correspondences_path=cache/'orchestration'/'correspondances_geny.json'
@@ -313,17 +316,19 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     entry['statut_cotes']=collecter(cache,c,pmu_participants,now=now)
                 except Exception as exc:
                     entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
+                evidence = None
                 # Desormais la capture ML ne depend ni de Geny ni des historiques.
                 try:
-                    from .ml_v19 import snapshot_pmu, predict_pmu
-                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=observed,clock=clock)
-                    entry['statut_ml']=predict_pmu(cache,c,pmu_participants,now=clock(),clock=clock)
+                    from .ml_v19 import pmu_rows, snapshot_pmu, predict_pmu
+                    evidence = pmu_rows(cache, c, pmu_participants, observed)
+                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=observed,clock=clock, prepared=evidence)
+                    entry['statut_ml']=predict_pmu(cache,c,pmu_participants,now=observed,clock=clock, prepared=evidence)
                 except Exception as exc:
                     entry['erreur_ml']=f'{type(exc).__name__}: {exc}'
                 if entry.get('paliers_independants', {}).get('direct') in ('CALCULE_COMPLET', 'CALCULE_PARTIEL'):
                     try:
                         from .maturite_ml import score_shadow
-                        score_shadow(cache,c,pmu_participants,observed,clock)
+                        score_shadow(cache,c,pmu_participants,observed,clock, prepared=evidence)
                     except Exception as exc:
                         entry['erreur_ml_preproduction']=f'{type(exc).__name__}: {exc}'
         except Exception as exc:

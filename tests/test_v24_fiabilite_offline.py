@@ -135,7 +135,7 @@ class KpiTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);self.root=Path(self.tmp.name)
         self.source={'Courses & Prévisions':{'a':{'course_key':'a','cheval':'Étoile','historique_statut':'HISTO_OK_NOM','historique_nb_courses_datees':'4','age_ans':4,'sexe':'Femelle','gains_euros':0,'ferrure':'D4'},'b':{'course_key':'b','cheval':'ETOILE','historique_nb_courses_datees':'','historique_statut':'HISTO_NON_COLLECTE'}},'Historique chevaux':{},'Résultats & Analyse':{'a':{'course_key':'a','date_course':'2026-11-12','rncn':'R1C1','heure_depart_paris':(NOW-timedelta(hours=1)).isoformat(),'arrivee_officielle_numeros':'4,5,6'}}}
-        write(self.root/'arrivees/2026-11-12_R1C1.json',{'verifie_utc':NOW.isoformat(),'arrivee':[{'numero':n,'rang':i} for i,n in enumerate([4,5,6],1)]})
+        write(self.root/'arrivees/2026-11-12_R1C1.json',{'source':'PMU_API_PARTICIPANTS','verifie_utc':NOW.isoformat(),'arrivee':[{'numero':n,'rang':i} for i,n in enumerate([4,5,6],1)]})
         write(self.root/'pronostics/2026-11-12_R1C1_direct.json',{'calcul_utc':(NOW-timedelta(hours=2)).isoformat(),'top3':[{'numero':n} for n in [1,2,3]]})
 
     def test_zero_hits_are_evaluated_and_histories_require_positive_number(self):

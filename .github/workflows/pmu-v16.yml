@@ -162,7 +162,7 @@ jobs:
           plan=json.loads(Path('resultats/plan_production.json').read_text())
           cible=plan.get('mode')=='JALONS'
           run(root,today,plan['selection'] if cible else [],0,
-              max_discoveries=0,now=now,selection_complete=True,clock=clock)
+              max_discoveries=0,now=now,selection_complete=True,clock=clock,priorites=plan['selection'])
           # Rattrapage des arrivées de J-1, sans nouvelle prévision post-départ.
           yesterday=(now-timedelta(days=1)).date().isoformat()
           if not cible:run(root,yesterday,[],0,max_discoveries=0,now=now,selection_complete=True,clock=clock)
@@ -312,6 +312,7 @@ jobs:
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
           PMU_CACHE: cache_pmu
           PMU_KPI_DIFFERE: 'true'
+          PMU_PREUVE_SHEETS: resultats/synchronisation/preuves_top3.json
         run: |
           python -m pip install -q google-auth==2.43.0 requests
           python -m pmu_geny.sync_google_sheets
@@ -331,7 +332,7 @@ jobs:
         env:
           PUBLICATION_REUSSIE: ${{ steps.publication.conclusion == 'success' }}
         run: |
-          python -m pmu_geny.echeances_production --cache cache_pmu --certifier --strict
+          python -m pmu_geny.echeances_production --cache cache_pmu --certifier --strict --preuve-sheets resultats/synchronisation/preuves_top3.json
       - name: Rafraichir les index Geny apres publication PMU
         if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
         continue-on-error: true

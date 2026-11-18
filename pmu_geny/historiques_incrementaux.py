@@ -407,7 +407,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
 
 def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None,
-        prochains_depart=False):
+        prochains_depart=False, creneau_reserve=None):
     cache = Path(cache)
     now = datetime.now(UTC)
     reprise=None
@@ -424,6 +424,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     state['passage_utc'] = now.isoformat()
     state['priorite_collecte']='PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR'
     state.pop('motif_fin_passage',None)
+    state.pop('creneau_reserve', None)
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
     if blocked and now < blocked+timedelta(minutes=30):
@@ -461,6 +462,11 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         horse = state['chevaux'][key]
         attempts[(action, key)] = attempts.get((action, key), 0)+1
         if action == 'COLLECTE':
+            if reprise:
+                stamp = datetime.now(UTC).isoformat()
+                state.update(collecte_tentee_utc=stamp, sync_kpi='A_REPRENDRE')
+                if creneau_reserve and creneau_reserve():
+                    state.update(dernier_creneau_reserve_utc=stamp, creneau_reserve=True)
             horse['collecte'] = 'EN_COURS'
             save()  # Reprise sûre, même si le sous-processus est tué.
             out = Path('resultats/incremental')/key/str(time.time_ns())
@@ -553,18 +559,21 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                       'actualisations_en_attente': sum(bool(h.get('motif_actualisation')) for h in state['chevaux'].values())}
     state['statut'] = ('PARTIEL_REPRENABLE' if state['bilan']['actualisations_en_attente'] or
                        state['bilan']['synchronisations_en_attente'] else 'A_JOUR')
+    if reprise:
+        reprise.preparer_noms_passes(cache, state, datetime.now(UTC))
+        reprise.bilan(state)
+        reprise.persister_etat(cache, state)
     if publier and sync is None and (sheets_engine is not None or state.get('sync_kpi')=='A_REPRENDRE'):
         from .moteur_sheets import SynchroniseurSheets
         if sheets_engine is None:sheets_engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
         try:
             state['sync_kpi_details']=sheets_engine.synchroniser_kpi()
             state['sync_kpi']='OK'
+            state['sync_kpi_utc']=datetime.now(UTC).isoformat()
         except Exception:
             state['sync_kpi']='A_REPRENDRE';save()
             raise
         finally:sheets_engine.fermer()
-    if reprise:
-        reprise.preparer_noms_passes(cache, state, datetime.now(UTC))
     save()
     return state
 
