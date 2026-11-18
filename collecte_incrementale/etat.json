@@ -32819,7 +32819,7 @@
       "vu_utc": "2026-11-18T00:26:03.030684+00:00",
       "verification_periodique": true,
       "course_url": "https://www.geny.com/course/1698928/partants-pronostics",
-      "motif_actualisation": "",
+      "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:30:00+00:00",
       "preparation_pmu_ok": true,
       "collecte": "COMPLET",
@@ -32873,7 +32873,7 @@
       "vu_utc": "2026-11-18T00:26:03.030684+00:00",
       "verification_periodique": true,
       "course_url": "https://www.geny.com/course/1698928/partants-pronostics",
-      "motif_actualisation": "",
+      "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:30:00+00:00",
       "preparation_pmu_ok": true,
       "collecte": "COMPLET",
@@ -41396,15 +41396,15 @@
     }
   },
   "passage_utc": "2026-11-18T00:26:03.030684+00:00",
-  "maj_utc": "2026-11-18T00:31:16.804079+00:00",
+  "maj_utc": "2026-11-18T00:31:50.930156+00:00",
   "bilan": {
-    "chevaux_suivis": 1605,
+    "chevaux_suivis": 1731,
     "tentatives_collecte": 8,
     "captures_validees": 0,
     "captures_partielles": 0,
     "collectes_rejetees": 8,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 1365
+    "actualisations_en_attente": 1503
   },
   "statut": "PARTIEL_REPRENABLE",
   "sync_kpi": "OK",
@@ -41417,7 +41417,7 @@
   "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-18T00:26:03.030684+00:00",
+    "controle_utc": "2026-11-18T00:31:50.626306+00:00",
     "pret": false,
     "partants_a_venir": 296,
     "couverture_par_jour": {
@@ -41425,7 +41425,7 @@
         "partants": 167,
         "historiques_complets": 68,
         "sans_historique_complet": 99,
-        "historiques_a_actualiser": 115
+        "historiques_a_actualiser": 117
       },
       "2026-11-19": {
         "partants": 129,
@@ -41498,6 +41498,16 @@
       {
         "course": "2026-11-18_R6C2",
         "numero": "10",
+        "motif": "VERIFICATION_PERIODIQUE"
+      },
+      {
+        "course": "2026-11-18_R6C2",
+        "numero": "11",
+        "motif": "VERIFICATION_PERIODIQUE"
+      },
+      {
+        "course": "2026-11-18_R6C2",
+        "numero": "12",
         "motif": "VERIFICATION_PERIODIQUE"
       },
       {
@@ -42656,5 +42666,6 @@
         "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       }
     ]
-  }
+  },
+  "motif_fin_passage": "ECHEANCE_PMU_PRIORITAIRE"
 }
