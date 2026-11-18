@@ -204,6 +204,24 @@ def matching_pct(prediction, arrival, departure, now=None):
         return ''
 
 
+def conclusion_methodes(scores):
+    """Comparer exclusivement les scores temporellement vérifiés, sans faux gagnant."""
+    valid={name:round(value*3/100) for name,value in scores.items()
+           if isinstance(value,(int,float)) and value in (0,33.33,66.67,100)}
+    if not valid:
+        return 'Aucune prévision indépendante évaluable avant cette arrivée'
+    if len(valid)==1:
+        name,hits=next(iter(valid.items()))
+        return f'{name} : {hits}/3 ; aucune autre méthode évaluable'
+    best=max(valid.values())
+    names=', '.join(name for name,hits in valid.items() if hits==best)
+    if best==0:
+        return 'Échec commun : aucun cheval retrouvé (0/3)'
+    if sum(hits==best for hits in valid.values())>1:
+        return f'Égalité en tête : {names} ({best}/3)'
+    return f'Meilleure méthode : {names} ({best}/3)'
+
+
 def source_rows(cache):
     from .partants_actuels_v21 import profil_pmu_exclusif
     courses, history, reports = {}, {}, {}
@@ -461,13 +479,9 @@ def source_rows(cache):
         direct_nums,direct_hits=_eval_podium(direct)
         cote_nums,cote_hits=_eval_podium(marche)
         ml_nums,ml_hits=_eval_podium(ml)
-        scored=[(method,int(hits)) for method,hits in (
-            ('Direct',direct_hits),('Cotes',cote_hits),('ML',ml_hits))
-            if isinstance(hits,int)]
-        best=max((hits for method,hits in scored),default=None)
-        best_methods=', '.join(name for name,hits in scored if hits==best) if best is not None else ''
-        conclusion=(f"Meilleure méthode : {best_methods} ({best}/3)" if best is not None
-                    else 'Aucune prévision indépendante évaluable avant cette arrivée')
+        conclusion=conclusion_methodes({
+            name:matching_pct(doc,arrivee,info.get('depart',''))
+            for name,doc in (('Direct',direct),('Cotes',marche),('ML',ml))})
         reports[k]={**existing,
                     'etat_ml':statut_ml(ml,info.get('depart','')),
                     'top3_direct_calcule_utc':direct.get('calcul_utc',''),
