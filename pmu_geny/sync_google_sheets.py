@@ -34,7 +34,8 @@ SHEET_HEADER_LABELS = {
 }
 EXPERT_COLUMNS = ('avis_pmu','prono_pmu','source_pmu','couverture_experts',
                   'conditions_course','age_ans','sexe','gains_euros')
-COMPARE_COLUMNS = EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut')
+PROFILE_COLUMNS = ('profil_partant', 'profil_partant_indices')
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut')
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','score_ml','etat_ml',
@@ -43,7 +44,7 @@ REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_p
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
-CLEARABLE_COLUMNS = MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
+CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
     *RETIRED_EXPERT_COLUMNS,  # Lecture/nettoyage des anciens formats uniquement.
     'top3_direct_rang','top3_direct_score','top3_direct_top3',
     'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
@@ -76,6 +77,8 @@ DISPLAY_NAMES = {
     'distance_m':'Distance (m)',
     'numero':'N°',
     'cheval':'Cheval',
+    'profil_partant':'Profil du cheval',
+    'profil_partant_indices':'Profil · Indices',
     'top3_direct_rang':'TOP3 direct · Rang',
     'top3_direct_score':'TOP3 direct · Score',
     'top3_direct_top3':'TOP3 direct · Sélection',
@@ -302,7 +305,7 @@ def source_rows(cache):
                  'baseline_final_top3':'OUI' if any(str(h.get('numero'))==str(n) for h in (latest or frozen).get('top3',[])) else '',
                  'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else ''}
             for c in COMPARE_COLUMNS:
-                if c not in doc:doc[c]=r.get(c,'')
+                if c not in doc and c not in PROFILE_COLUMNS:doc[c]=r.get(c,'')
             # Un score brut ML n'est pas une probabilite calibree.
             if ml.get('statut')!='ML_ENTRAINE_CALIBRE':
                 doc['ml_score_non_calibre']=r.get('ml_proba_podium','')
@@ -368,7 +371,14 @@ def source_rows(cache):
         for mode,document in (('direct',direct),('cotes',marche),('ml',ml)):
             ranks[mode]={str(h.get('numero')):(i,h) for i,h in
                          enumerate(document.get('classement_complet',[]),start=1)}
-        from .liaison_chevaux_v22 import etablir
+        from .echeances_production import instant
+        from .liaison_chevaux_v22 import etablir, nom_normalise
+        from .profils_partants import PRIORITE, CRACK
+        calcul = instant(direct.get('calcul_utc'))
+        depart = instant(info.get('depart'))
+        profils_predits = direct.get('profils_partants', {}) if (
+            direct.get('version_profils') and calcul and depart and calcul < depart
+            and instant(direct.get('depart')) == depart) else {}
         liens=etablir(cache,{'date':date,'code':code},[
             {'numero':n,'nom':v.get('nom','')}
             for n,v in (participant.get('chevaux') or {}).items()
@@ -444,6 +454,18 @@ def source_rows(cache):
             if direct:
                 authoritative.update(('top3_direct_rang','top3_direct_score','top3_direct_top3',
                     'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites'))
+            signal = profils_predits.get(str(n))
+            nom = nom_normalise(act.get('nom'))
+            np = act.get('statut_np') == 'NON_PARTANT' or any(
+                str(numero) == str(n) for numero in direct.get('non_partants_confirmes', []))
+            if np or (signal and nom):
+                identite_confirmee = signal and nom == nom_normalise(signal.get('nom'))
+                statut = signal.get('statut') if identite_confirmee and not np else ''
+                current['profil_partant'] = statut if statut in PRIORITE else ''
+                current['profil_partant_indices'] = (
+                    signal.get('crack' if statut == CRACK else 'haut_potentiel') or ''
+                    if statut in PRIORITE else '')
+                authoritative.update(PROFILE_COLUMNS)
             if marche:
                 authoritative.update(('top3_cotes_valeur','top3_cotes_top3'))
             if ml:

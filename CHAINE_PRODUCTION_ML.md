@@ -127,3 +127,26 @@ pour régler les paramètres empêcherait d'en faire un nouveau test indépendan
 python -m compileall -q pmu_geny scripts tests
 python -m unittest discover -s tests -p 'test_*.py' -q
 ```
+
+## Profil des partants
+
+Le TOP3 direct évalue les deux fonctions de `pmu_geny/profils_partants.py` sur
+les historiques Geny reliés au partant, sourcés et capturés avant la décision.
+La version initiale porte sur le trot attelé et exige un partant confirmé par
+le PMU. Elle n'utilise ni cotes ni gains comme preuve du niveau.
+
+- **Crack** en jaune et gras. Sur 365 jours, au moins quatre sorties datées
+  avec résultat, deux podiums en Groupe I ou II dont une victoire, et au moins
+  un de ces podiums dans les 120 derniers jours.
+- **Haut potentiel** en vert et gras. De 2 à 5 ans, six sorties documentées
+  dans l'année dont les trois plus récentes sur 120 jours. Parmi ces trois,
+  au moins deux podiums dont une victoire et un podium à ±250 m de la
+  distance cible. La moyenne des trois dernières doit dépasser celle des
+  trois précédentes d'au moins un point sur cinq (barème de forme du direct).
+
+Le fichier de prévision conserve les deux résultats, leurs indices et la
+version des règles. Si un partant satisfait les deux fonctions, le registre
+et Streamlit affichent Crack. Plusieurs chevaux d'une même course peuvent
+être labellisés. À score direct identique, l'ordre est Crack, Haut potentiel,
+puis numéro du partant. Les écarts de score gardent la priorité. Le gain
+prédictif de ce départage reste à mesurer sur des courses prospectives.

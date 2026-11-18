@@ -86,8 +86,9 @@ class SynchroniseurSheets:
 
     def metadata(self):
         doc=self.check(get_lecture(self.session,self.base,
-            params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)))'},timeout=30))
-        return {x['properties']['title']:x['properties'] for x in doc['sheets']}
+            params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)),conditionalFormats)'},timeout=30))
+        return {x['properties']['title']: {**x['properties'], 'conditionalFormats': x.get('conditionalFormats', [])}
+                for x in doc['sheets']}
 
     def source(self):
         from .sync_google_sheets import source_rows,limiter_cours_registre,RETIRED_SHEET_COLUMNS
@@ -95,6 +96,38 @@ class SynchroniseurSheets:
         return {tab:{key:{field:value for field,value in row.items()
                          if field not in RETIRED_SHEET_COLUMNS.get(tab,())}
                      for key,row in rows.items()} for tab,rows in raw.items()}
+
+    def _formater_profils(self, properties, headers):
+        from .profils_partants import CRACK, HAUT_POTENTIEL
+        from .sync_google_sheets import colname
+
+        colonnes = [headers.index(nom) for nom in ('cheval', 'profil_partant')]
+        lignes = properties['gridProperties']['rowCount']
+        plages = [{'sheetId': properties['sheetId'], 'startRowIndex': 1, 'endRowIndex': lignes,
+                   'startColumnIndex': i, 'endColumnIndex': i + 1} for i in colonnes]
+        anciennes = properties['conditionalFormats']
+        prochain_index = len(anciennes)
+        requetes = []
+        for statut, couleur in ((CRACK, (1, .89, .46)), (HAUT_POTENTIEL, (.73, .91, .77))):
+            formule = f'=${colname(colonnes[1] + 1)}2="{statut}"'
+            condition = {'type': 'CUSTOM_FORMULA', 'values': [{'userEnteredValue': formule}]}
+            format_cellule = {
+                'backgroundColorStyle': {'rgbColor': dict(zip(('red', 'green', 'blue'), couleur))},
+                'textFormat': {'bold': True, 'foregroundColorStyle': {
+                    'rgbColor': {'red': .12, 'green': .15, 'blue': .19}}}
+            }
+            regle = {'ranges': plages, 'booleanRule': {'condition': condition, 'format': format_cellule}}
+            index = next((i for i, ancienne in enumerate(anciennes)
+                          if ancienne.get('booleanRule', {}).get('condition') == condition), None)
+            if index is None:
+                requetes.append({'addConditionalFormatRule': {'index': prochain_index, 'rule': regle}})
+                prochain_index += 1
+            elif anciennes[index].get('ranges') != plages:
+                requetes.append({'updateConditionalFormatRule': {
+                    'sheetId': properties['sheetId'], 'index': index, 'rule': regle}})
+        if requetes:
+            self.check(self.session.post(self.base + ':batchUpdate',
+                json={'requests': requetes}, timeout=30))
 
     def _synchroniser_onglet(self,tab,incoming,properties,*,full_source,allow_structure):
         from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques,RETIRED_SHEET_COLUMNS,SHEET_HEADER_LABELS
@@ -149,6 +182,8 @@ class SynchroniseurSheets:
             self.check(self.session.post(self.base+'/values/'+path+':append',
                 params={'valueInputOption':'RAW','insertDataOption':'INSERT_ROWS'},
                 json={'values':appends},timeout=45))
+        if tab == 'Courses & Prévisions' and allow_structure and {'cheval', 'profil_partant'} <= set(effective_headers):
+            self._formater_profils(self.metadata()[tab] if appends else properties, effective_headers)
         result={'lignes_ajoutees':len(appends),'cellules_actualisees':len(updates),'lignes_source':len(incoming)}
         if control:
             if cells or appends:

@@ -35,6 +35,8 @@ class AppTests(unittest.TestCase):
             'N°':n,'Cheval':f'Cheval test {n}','Non-partant (NP)':'PARTANT',
             'TOP3 direct · Rang':n,'TOP3 direct · Sélection':'OUI','ML · Rang':n,'ML · Sélection':'OUI',
             'Historique · Nb performances récupérées':2,'Ferrure · Course du jour':'D4',
+            'Profil du cheval': {1:'Crack',2:'Haut potentiel'}.get(n,''),
+            'Profil · Indices': {1:'2 podiums en Groupe I/II',2:'2 podiums sur 3'}.get(n,''),
             'Âge (ans)':5,'Sexe':'Hongre','Gains carrière (€)':0} for n in (1,2,3)]
         kpis=[{'Dimension':'Historique','Indicateur':'Taux de couverture',VALUE:0.75,TOTAL:4,'Définition / réserve':'Fixture locale'}]
         yesterday=self.today-timedelta(days=1)
@@ -77,6 +79,19 @@ class AppTests(unittest.TestCase):
         self.assertEqual(len(self.app.exception),0)
         self.assertTrue(any('Aucun relevé' in x.value for x in self.app.info))
 
+
+    def test_profils_de_course_dans_le_tableau_et_styles(self):
+        self.source()
+        self.app.session_state.authenticated=True
+        self.app.run()
+        self.app.radio[0].set_value('Courses').run()
+        self.assertEqual(len(self.app.exception), 0)
+        tableau = self.app.dataframe[0]
+        self.assertEqual(list(tableau.value['Profil du cheval']), ['Crack', 'Haut potentiel', ''])
+        css = getattr(tableau.proto, "arrow_data", tableau.proto).styler.styles
+        self.assertIn('background-color: #ffe375', css)
+        self.assertIn('background-color: #bae8c4', css)
+        self.assertIn('font-weight: bold', css)
 
     def test_performance_real_page_and_filters(self):
         self.source()
