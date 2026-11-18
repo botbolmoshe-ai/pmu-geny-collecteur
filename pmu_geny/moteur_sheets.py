@@ -102,9 +102,11 @@ class SynchroniseurSheets:
         from .sync_google_sheets import colname
 
         colonnes = [headers.index(nom) for nom in ('cheval', 'profil_partant')]
-        plages = [{'sheetId': properties['sheetId'], 'startRowIndex': 1,
+        lignes = properties['gridProperties']['rowCount']
+        plages = [{'sheetId': properties['sheetId'], 'startRowIndex': 1, 'endRowIndex': lignes,
                    'startColumnIndex': i, 'endColumnIndex': i + 1} for i in colonnes]
-        ancienne = properties['conditionalFormats']
+        anciennes = properties['conditionalFormats']
+        prochain_index = len(anciennes)
         requetes = []
         for statut, couleur in ((CRACK, (1, .89, .46)), (HAUT_POTENTIEL, (.73, .91, .77))):
             formule = f'=${colname(colonnes[1] + 1)}2="{statut}"'
@@ -115,11 +117,14 @@ class SynchroniseurSheets:
                     'rgbColor': {'red': .12, 'green': .15, 'blue': .19}}}
             }
             regle = {'ranges': plages, 'booleanRule': {'condition': condition, 'format': format_cellule}}
-            correspondances = [i for i, existing in enumerate(ancienne)
-                               if existing.get('booleanRule', {}).get('condition') == condition]
-            if not correspondances:
-                requetes.append({'addConditionalFormatRule': {'index': len(ancienne) + len(requetes),
-                                                               'rule': regle}})
+            index = next((i for i, ancienne in enumerate(anciennes)
+                          if ancienne.get('booleanRule', {}).get('condition') == condition), None)
+            if index is None:
+                requetes.append({'addConditionalFormatRule': {'index': prochain_index, 'rule': regle}})
+                prochain_index += 1
+            elif anciennes[index].get('ranges') != plages:
+                requetes.append({'updateConditionalFormatRule': {
+                    'sheetId': properties['sheetId'], 'index': index, 'rule': regle}})
         if requetes:
             self.check(self.session.post(self.base + ':batchUpdate',
                 json={'requests': requetes}, timeout=30))
@@ -178,7 +183,7 @@ class SynchroniseurSheets:
                 params={'valueInputOption':'RAW','insertDataOption':'INSERT_ROWS'},
                 json={'values':appends},timeout=45))
         if tab == 'Courses & Prévisions' and allow_structure and {'cheval', 'profil_partant'} <= set(effective_headers):
-            self._formater_profils(properties, effective_headers)
+            self._formater_profils(self.metadata()[tab] if appends else properties, effective_headers)
         result={'lignes_ajoutees':len(appends),'cellules_actualisees':len(updates),'lignes_source':len(incoming)}
         if control:
             if cells or appends:

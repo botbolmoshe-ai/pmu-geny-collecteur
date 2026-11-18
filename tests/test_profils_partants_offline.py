@@ -110,17 +110,20 @@ class TestProfils(unittest.TestCase):
 
 
 class TestMiseEnForme(unittest.TestCase):
-    def test_formules_formats_et_idempotence(self):
+    def test_formules_formats_idempotence_et_nouvelles_lignes(self):
         class Session(SheetsSession):
             def __init__(self):
                 super().__init__()
                 self.rules = []
+                self.lignes = 100
+                self.ecritures_formats = 0
 
             def get(self, url, **kwargs):
                 response = super().get(url, **kwargs)
                 for sheet in response.data.get('sheets', []):
                     if sheet['properties']['title'] == 'Courses & Prévisions':
                         sheet['conditionalFormats'] = self.rules.copy()
+                        sheet['properties']['gridProperties']['rowCount'] = self.lignes
                 return response
 
             def post(self, url, **kwargs):
@@ -129,7 +132,14 @@ class TestMiseEnForme(unittest.TestCase):
                         item = request.get('addConditionalFormatRule')
                         if item:
                             self.rules.insert(item['index'], item['rule'])
+                            self.ecritures_formats += 1
+                        item = request.get('updateConditionalFormatRule')
+                        if item:
+                            self.rules[item['index']] = item['rule']
+                            self.ecritures_formats += 1
                     return Response({})
+                if url.endswith(':append'):
+                    self.lignes += len(kwargs['json']['values'])
                 return super().post(url, **kwargs)
 
         tab = 'Courses & Prévisions'
@@ -140,10 +150,19 @@ class TestMiseEnForme(unittest.TestCase):
             engine = SynchroniseurSheets(Path(tmp), 'test', session=session)
             engine.synchroniser_tables(source, scope='TEST', allow_structure=True)
             engine.synchroniser_tables(source, scope='TEST', allow_structure=True)
+            self.assertEqual(session.ecritures_formats, 2)
+            session.tables[tab].extend([[''] for _ in range(98)])
+            source[tab]['k|2'] = {'course_key': 'k', 'numero': '2', 'cheval': 'Junior',
+                                  'profil_partant': 'Haut potentiel'}
+            engine.synchroniser_tables(source, scope='TEST', allow_structure=True)
+            self.assertEqual(session.ecritures_formats, 4)
+            engine.synchroniser_tables(source, scope='TEST', allow_structure=True)
+            self.assertEqual(session.ecritures_formats, 4)
         self.assertEqual(len(session.rules), 2)
         self.assertEqual(session.tables[tab][1][3], 'Crack')
         for rule, statut in zip(session.rules, ('Crack', 'Haut potentiel')):
             self.assertEqual([r['startColumnIndex'] for r in rule['ranges']], [2, 3])
+            self.assertEqual([r['endRowIndex'] for r in rule['ranges']], [101, 101])
             condition = rule['booleanRule']['condition']
             self.assertEqual(condition['values'][0]['userEnteredValue'], f'=$D2="{statut}"')
             self.assertTrue(rule['booleanRule']['format']['textFormat']['bold'])
