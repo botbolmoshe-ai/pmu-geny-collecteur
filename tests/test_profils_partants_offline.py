@@ -18,8 +18,7 @@ COURSE = {'date': '2026-11-18', 'code': 'R1C1', 'depart': '2026-11-18T12:00:00+0
           'nombre_declares': 4}
 
 
-def historique(elite=False):
-    rangs = ('1', '2', 'Da', '8', '7', '5')
+def historique(elite=False, rangs=('1', '2', '9', '8', '7', '5')):
     sorties = []
     for i, rang in enumerate(rangs):
         jour = date.fromisoformat(COURSE['date']) - timedelta(days=7 * (i + 1))
@@ -39,13 +38,61 @@ class TestProfils(unittest.TestCase):
     def test_regles_independantes_et_distance(self):
         elite = sorties_verifiees(COURSE, liaison(historique(True)), NOW)
         potentiel = sorties_verifiees(COURSE, liaison(historique()), NOW)
-        self.assertIn('Groupe I/II', detecter_crack(elite))
-        self.assertIsNone(detecter_crack(potentiel))
+        self.assertIn('Groupe I/II', detecter_crack(elite, 250_000))
+        self.assertIsNone(detecter_crack(potentiel, 250_000))
         self.assertIn('hausse', detecter_haut_potentiel(potentiel, 5))
         self.assertIsNone(detecter_haut_potentiel(potentiel, 6))
         self.assertIsNotNone(detecter_haut_potentiel(elite, 5))
         loin = sorties_verifiees({**COURSE, 'distance_m': 3500}, liaison(historique()), NOW)
         self.assertIsNone(detecter_haut_potentiel(loin, 5))
+
+    def test_gains_crack_et_taux_de_disqualification(self):
+        fiabilite_limite = historique(True, ('1', '2', 'Dai', '8', '7', '5', '9', 'Di', 'Nc', 'Arr'))
+        sorties = sorties_verifiees(COURSE, liaison(fiabilite_limite), NOW)
+        for gains in (249_999.99, None, True, float('nan')):
+            with self.subTest(gains=gains):
+                self.assertIsNone(detecter_crack(sorties, gains))
+        indices = detecter_crack(sorties, 250_000)
+        self.assertIn('250 000 €', indices)
+        self.assertIn('2 disq. sur 10', indices)
+        self.assertIsNone(detecter_haut_potentiel(sorties, 5))
+        fiabilite_limite['performances'][-1]['classement'] = 'Dpg'
+        sorties = sorties_verifiees(COURSE, liaison(fiabilite_limite), NOW)
+        self.assertIsNone(detecter_crack(sorties, 250_000))
+
+    def test_potentiel_une_disqualification_admise_sur_dix_seulement(self):
+        rangs = ('1', '2', 'Da', '8', '7', '5', 'Nc', 'Arr', 'Tb', '6')
+        doc = historique(rangs=rangs)
+        sorties = sorties_verifiees(COURSE, liaison(doc), NOW)
+        self.assertIn('1 disq. sur 10', detecter_haut_potentiel(sorties, 5))
+        self.assertIsNone(detecter_haut_potentiel(sorties[:9], 5))
+        # Un résultat non interprétable dans la fenêtre ne prouve pas la fiabilité.
+        doc['performances'][7]['classement'] = ''
+        sorties = sorties_verifiees(COURSE, liaison(doc), NOW)
+        self.assertIsNone(detecter_haut_potentiel(sorties, 5))
+
+    def test_rendez_vous_groupes_espaces_et_recents(self):
+        doc = historique()
+        for i, sortie in enumerate(doc['performances']):
+            groupe = 'Groupe 3' if i == 0 else 'Gr. III' if i == 5 else 'Crse A'
+            sortie['texte_source'] = sortie['texte_source'].rsplit(' | ', 1)[0] + f' | {groupe}'
+        sorties = sorties_verifiees(COURSE, liaison(doc), NOW)
+        self.assertIn('2 sorties en Groupe I–III', detecter_haut_potentiel(sorties, 5))
+        doc['performances'][-1]['date'] = '2026-10-15'
+        sorties = sorties_verifiees(COURSE, liaison(doc), NOW)
+        self.assertIsNone(detecter_haut_potentiel(sorties, 5))
+        doc = historique()
+        for sortie in doc['performances']:
+            sortie['texte_source'] = sortie['texte_source'].replace('Gr. III', 'Crse A')
+        for jour in ('2026-06-18', '2026-03-30'):
+            doc['performances'].append({**doc['performances'][-1], 'date': jour,
+                                        'texte_source': 'Date | Vincennes | Attelé | 2 500 | Gr. III'})
+        sorties = sorties_verifiees(COURSE, liaison(doc), NOW)
+        self.assertIsNone(detecter_haut_potentiel(sorties, 5))
+        doc['performances'][0]['texte_source'] = doc['performances'][0]['texte_source'].replace(
+            'Crse A', 'Gr. II')
+        sorties = sorties_verifiees(COURSE, liaison(doc), NOW)
+        self.assertIsNotNone(detecter_haut_potentiel(sorties, 5))
 
     def test_fuite_temporelle_et_discipline(self):
         doc = historique(True)
@@ -64,10 +111,10 @@ class TestProfils(unittest.TestCase):
         doc['performances'].append(doc['performances'][0].copy())
         sorties = sorties_verifiees(COURSE, liaison(doc), NOW)
         self.assertEqual(len(sorties), 6)
-        self.assertIsNotNone(detecter_crack(sorties))
+        self.assertIsNotNone(detecter_crack(sorties, 250_000))
         doc['performances'].append({**doc['performances'][0], 'classement': '3'})
         sorties = sorties_verifiees(COURSE, liaison(doc), NOW)
-        self.assertIsNone(detecter_crack(sorties))
+        self.assertIsNone(detecter_crack(sorties, 250_000))
         self.assertIsNone(detecter_haut_potentiel(sorties, 5))
 
     def test_prevision_source_sheets_et_retrait(self):
@@ -76,7 +123,9 @@ class TestProfils(unittest.TestCase):
             day = COURSE['date']
             sauver(cache / f'sources_pmu/programme_{day}.json', {'programme': [COURSE]})
             chevaux = [{'numPmu': i, 'nom': f'Cheval {i}', 'musique': '1a2a3a',
-                        'nonPartant': False, 'age': 5} for i in range(1, 5)]
+                        'nonPartant': False, 'age': 5,
+                        'gainsParticipant': {'gainsCarriere': 25_000_000}}
+                       for i in range(1, 5)]
             fichier_partants = cache / f'partants_actuels/{day}_R1C1.json'
             fichier_direct = cache / f'pronostics/{day}_R1C1_direct.json'
             sauver(fichier_partants, {'chevaux': {str(i): {'nom': f'Cheval {i}', 'statut_np': 'PARTANT'}
@@ -89,10 +138,14 @@ class TestProfils(unittest.TestCase):
                 calculer(cache, COURSE, {'participants': chevaux}, NOW)
                 doc = lire(fichier_direct)
                 self.assertEqual([h['numero'] for h in doc['top3']], [4, 3, 1])
+                self.assertEqual(doc['version_profils'], 'trot-attele-v2')
+                self.assertEqual(doc['profils_partants']['4']['gains_carriere_euros'], 250_000)
                 self.assertIsNotNone(doc['profils_partants']['4']['haut_potentiel'])
                 lignes = {row['numero']: row for row in source_rows(cache)['Courses & Prévisions'].values()}
                 self.assertEqual(lignes['4']['profil_partant'], 'Crack')
                 self.assertEqual(lignes['3']['profil_partant'], 'Haut potentiel')
+                self.assertIn('250 000 €', lignes['4']['profil_partant_indices'])
+                self.assertIn('Groupe I–III', lignes['3']['profil_partant_indices'])
                 self.assertEqual(lignes['1']['profil_partant'], '')
                 # Un statut NP reçu entre deux calculs efface aussi le format.
                 publication = lire(fichier_partants)

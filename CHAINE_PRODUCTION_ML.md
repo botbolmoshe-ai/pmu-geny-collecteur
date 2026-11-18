@@ -132,17 +132,26 @@ python -m unittest discover -s tests -p 'test_*.py' -q
 
 Le TOP3 direct évalue les deux fonctions de `pmu_geny/profils_partants.py` sur
 les historiques Geny reliés au partant, sourcés et capturés avant la décision.
-La version initiale porte sur le trot attelé et exige un partant confirmé par
-le PMU. Elle n'utilise ni cotes ni gains comme preuve du niveau.
+La version `trot-attele-v2` exige un partant confirmé par le PMU. Elle mesure
+la fiabilité sur les dix sorties attelées les plus récentes de l'année, ou
+toutes si le cheval en a entre six et neuf. Chaque résultat de cette fenêtre
+doit permettre de distinguer une disqualification. Les absences, abandons
+et résultats ambigus suivent les codes de la source, sans assimiler un
+abandon à une disqualification. Les gains de carrière sont ceux du relevé
+PMU pré-départ, exprimés en euros.
 
-- **Crack** en jaune et gras. Sur 365 jours, au moins quatre sorties datées
-  avec résultat, deux podiums en Groupe I ou II dont une victoire, et au moins
-  un de ces podiums dans les 120 derniers jours.
+- **Crack** en jaune et gras. Au moins 250 000 € de gains en carrière et
+  au plus 20 % de disqualifications sur la fenêtre de fiabilité. Sur 365 jours,
+  deux podiums en Groupe I ou II dont une victoire, avec au moins un de ces
+  podiums dans les 120 derniers jours.
 - **Haut potentiel** en vert et gras. De 2 à 5 ans, six sorties documentées
   dans l'année dont les trois plus récentes sur 120 jours. Parmi ces trois,
   au moins deux podiums dont une victoire et un podium à ±250 m de la
   distance cible. La moyenne des trois dernières doit dépasser celle des
   trois précédentes d'au moins un point sur cinq (barème de forme du direct).
+  Au plus 10 % de disqualifications sur la fenêtre de fiabilité et au moins
+  deux sorties en Groupe I, II ou III sur 365 jours, espacées de 30 jours ou
+  plus, dont une dans les 120 derniers jours.
 
 Le fichier de prévision conserve les deux résultats, leurs indices et la
 version des règles. Si un partant satisfait les deux fonctions, le registre

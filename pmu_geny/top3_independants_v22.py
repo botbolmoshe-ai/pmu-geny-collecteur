@@ -93,12 +93,14 @@ def calculer(cache,course,raw,now=None,clock=None):
         info=noter_partant(item,course,lien,profil)
         if label:
             sorties = sorties_verifiees(course, lien, now) if profil.get('statut_np') == 'PARTANT' else []
-            crack = detecter_crack(sorties)
+            gains = profil.get('gains_euros')
+            crack = detecter_crack(sorties, gains)
             potentiel = detecter_haut_potentiel(sorties, profil.get('age_ans'))
             signaux[str(n)] = {
                 'nom': label,
                 'statut': CRACK if crack else HAUT_POTENTIEL if potentiel else '',
                 'crack': crack,
+                'gains_carriere_euros': gains,
                 'haut_potentiel': potentiel,
                 'sorties_verifiees': sum(sortie.points is not None for sortie in sorties),
             }
