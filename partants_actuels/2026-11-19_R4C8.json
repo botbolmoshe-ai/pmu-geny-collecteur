@@ -1,0 +1,353 @@
+{
+  "date": "2026-11-19",
+  "course": "R4C8",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NONNE D'ERABLE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 900500,
+        "gainsVictoires": 787500,
+        "gainsPlace": 113000,
+        "gainsAnneeEnCours": 900500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NAPOLI BASC",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 930500,
+        "gainsVictoires": 0,
+        "gainsPlace": 930500,
+        "gainsAnneeEnCours": 930500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NOW WITH US",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 934500,
+        "gainsVictoires": 540000,
+        "gainsPlace": 394500,
+        "gainsAnneeEnCours": 934500,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-18T12:36:20.986104+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "CL. THOMAIN",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "musique_pmu": "7aDa6a1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 9005.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "nom": "NONNE D'ERABLE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "S. BAUDE",
+      "entraineur": "CH. ECALARD",
+      "proprietaire": "Ecurie BRINDOR",
+      "musique_pmu": "6a6a2aDa2aDa4aDa4a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 9305.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "nom": "NAPOLI BASC",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "R. LAMY",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Théo DUVALDESTIN",
+      "ferrure": "P4",
+      "musique_pmu": "2a7a1a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 9345.0,
+      "nom": "NOW WITH US",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "A. LELODET",
+      "proprietaire": "A. LELODET",
+      "musique_pmu": "1a3a7a8a4a5aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 9665.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "nom": "NADJA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "S. ERNAULT",
+      "entraineur": "H.E. BONDO",
+      "proprietaire": "Stall RITA",
+      "musique_pmu": "DmDm1a2a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 10000.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "nom": "NORRINGTON",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "CH. ECALARD",
+      "entraineur": "CH. ECALARD",
+      "proprietaire": "Ecurie BRINDOR",
+      "musique_pmu": "7aDa3aAaDa3a2aDaDa3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 10050.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "nom": "NOVELINA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "G. DELACOUR",
+      "entraineur": "G. DELACOUR",
+      "proprietaire": "Ecurie G. DELACOUR",
+      "musique_pmu": "8aDa1a2a4a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 10200.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "nom": "NORTON KEN",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "G. JOUVE",
+      "entraineur": "Guillaume JOUVE",
+      "proprietaire": "Guillaume JOUVE",
+      "musique_pmu": "1a5a4a3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 10310.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "nom": "NIGHT FOR MONEY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "T. OUVRIE",
+      "entraineur": "F. NIVARD",
+      "proprietaire": "Ecurie des CHARMES",
+      "ferrure": "P4",
+      "musique_pmu": "4a3a3a0a5a6aDaDa6a5a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 10545.0,
+      "nom": "NOTTINGHAM PLACE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "M. MONACO",
+      "entraineur": "M. MONACO",
+      "proprietaire": "Ecurie Philippe DAVID",
+      "musique_pmu": "5a1a7aDa2aDmDaDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 10645.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "nom": "NANOU DE PADD",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "C. FERRE",
+      "entraineur": "C. FERRE",
+      "proprietaire": "J.M. FERRE",
+      "ferrure": "PA",
+      "musique_pmu": "7a8a6a8a6a1a2a4a7a(25)",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 10770.0,
+      "nom": "NIGHTWISH TOR",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "E. DE JESUS",
+      "entraineur": "S. LEBLOND",
+      "proprietaire": "Ecurie de LA FRENAIE",
+      "ferrure": "P4",
+      "musique_pmu": "2a3a1aDa8a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 11000.0,
+      "nom": "NASDAQ LYMM",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C8/participants",
+          "capture_utc": "2026-11-18T12:36:20.986104+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

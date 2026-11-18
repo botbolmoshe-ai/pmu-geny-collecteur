@@ -1,0 +1,319 @@
+{
+  "date": "2026-11-19",
+  "course": "R4C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "IRRESISTIBLE LOMIG",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5637500,
+        "gainsVictoires": 2520000,
+        "gainsPlace": 3117500,
+        "gainsAnneeEnCours": 366000,
+        "gainsAnneePrecedente": 705500
+      }
+    },
+    {
+      "nom": "HERMES DE L'ISAC",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8593500,
+        "gainsVictoires": 2385000,
+        "gainsPlace": 6208500,
+        "gainsAnneeEnCours": 295500,
+        "gainsAnneePrecedente": 245500
+      }
+    },
+    {
+      "nom": "JURASSIC MOIRE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 11094500,
+        "gainsVictoires": 7132500,
+        "gainsPlace": 3962000,
+        "gainsAnneeEnCours": 2431500,
+        "gainsAnneePrecedente": 3168500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-18T12:36:01.834285+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "LOUIS LAHOUCINE",
+      "entraineur": "J.B. LELIEVRE",
+      "proprietaire": "David LUCHARD",
+      "ferrure": "D4",
+      "musique_pmu": "9a9a0a5a7a9a0aDaDa8m",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 56375.0,
+      "nom": "IRRESISTIBLE LOMIG",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "LOUIS FORTIN",
+      "entraineur": "F. GUINE",
+      "proprietaire": "Mme R. GUINE",
+      "ferrure": "DA",
+      "musique_pmu": "0a8a7a6a8a6a6a3a9a0a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 85935.0,
+      "nom": "HERMES DE L'ISAC",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mme O. CORBIN",
+      "entraineur": "R. CORBIN",
+      "proprietaire": "Ecurie René CORBIN",
+      "musique_pmu": "1mDaDm1m5mDa4mDa(25)Dm",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 110945.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "nom": "JURASSIC MOIRE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "E. ALRON",
+      "entraineur": "J. BLAVETTE",
+      "proprietaire": "Michel CAROUPAYE",
+      "ferrure": "D4",
+      "musique_pmu": "9a7m9m0a8a8m0a6m6m(25)",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 123105.0,
+      "nom": "KOQUIN DU PERCHE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "Mme L. THORAVAL",
+      "entraineur": "LOIC GROUSSARD",
+      "proprietaire": "S. DESHAIES",
+      "ferrure": "D4",
+      "musique_pmu": "2m5m1m9m4mDm4m3m2mDa",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 136000.0,
+      "nom": "IZAAC D'HAVAROCHE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Mme N. ALEXANDRE",
+      "entraineur": "F. LERCIER",
+      "proprietaire": "J.M. SOUICI",
+      "musique_pmu": "DaDm6mDaDaDm7aDaDa0a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 139850.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "nom": "INSERT DES MONTS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "M. POTIER",
+      "entraineur": "J.B. LELIEVRE",
+      "proprietaire": "P. LECAT",
+      "ferrure": "D4",
+      "musique_pmu": "8m2m0mDa8m8a7m4m3m7m",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 144270.0,
+      "nom": "IAGO DE SENOVILLE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mme C. BLAIZOT",
+      "entraineur": "TH. LEVESQUE",
+      "proprietaire": "Ecurie Thomas LEVESQUE",
+      "ferrure": "D4",
+      "musique_pmu": "2m8m1m4m5mDm1mDmDm3m",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 145410.0,
+      "nom": "JACANA DE BLARY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "Mme R. HAGHIGHAT",
+      "entraineur": "L. PESCHET",
+      "proprietaire": "Yannick LEMARIE",
+      "ferrure": "D4",
+      "musique_pmu": "Da0a4a0a1a1a3aDa5a4a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 146855.0,
+      "nom": "JAMAIQUE DAIRPET",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "R. VILAULT",
+      "entraineur": "M. VARIN",
+      "proprietaire": "Ecurie STAL EVENING ELEM",
+      "ferrure": "D4",
+      "musique_pmu": "DmDmDmDmDm1m6m6m6m8m",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 151660.0,
+      "nom": "KADO SHINING",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "P. MAUGENDRE-LE MEUR",
+      "entraineur": "Sté. Ent. Christophe CLIN",
+      "proprietaire": "Ph. BLOUET",
+      "musique_pmu": "7m5m7a7a5aDa0mDm0a4a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 152270.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/19112026/R4/C5/participants",
+          "capture_utc": "2026-11-18T12:36:01.834285+00:00"
+        }
+      },
+      "nom": "JERIKA DE KERYANN",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}
