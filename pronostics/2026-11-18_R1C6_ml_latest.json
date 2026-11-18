@@ -1,38 +1,46 @@
 {
   "date": "2026-11-18",
   "course": "R1C6",
-  "calcul_utc": "2026-11-18T15:57:08.209125+01:00",
+  "calcul_utc": "2026-11-18T16:49:55.325356+01:00",
   "depart": "2026-11-18T16:50:00+01:00",
-  "modele": "regression_logistique",
+  "modele": "gradient_boosting",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-18T13:55:59.243122+00:00",
-  "dernier_label_entrainement_utc": "2026-11-18T13:54:12.778051+00:00",
-  "empreinte_modele": "5908ddda49adc3cd7755c8992bf584f7edfd44a0188ec5f2634b132c17c3b7aa",
-  "features_schema": "pmu-podium-v33",
+  "entrainement_utc": "2026-11-18T15:40:41.015171+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T15:39:19.993732+00:00",
+  "empreinte_modele": "0c51575594e660c5a01f4a9c2dc864d9b934aa193283853bccd0999dcacbe186",
+  "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
       "numero": 1,
       "cheval_id": "",
-      "nom": "LADY VICTORY",
+      "nom": "FDUCROCQ",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "FDUCROCQ",
+        "entraineur_score": "FDUCROCQ"
+      },
       "score_direct_pmu": 4.6,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -56,30 +64,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.2105
       }
     },
     {
       "numero": 2,
       "cheval_id": "",
-      "nom": "LADY D'ELFE",
+      "nom": "MLLEMNORBERG",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "GGELORMINI",
+        "entraineur_score": "MLLEMNORBERG"
+      },
       "score_direct_pmu": 9.38,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -103,30 +120,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 1.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 2.4684
       }
     },
     {
       "numero": 3,
       "cheval_id": "",
-      "nom": "LULU JIVE",
+      "nom": "STEENTJONATHANVANMEERBECK",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "JVANMEERBECK",
+        "entraineur_score": "STEENTJONATHANVANMEERBECK"
+      },
       "score_direct_pmu": 3.34,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -150,30 +176,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 0.8789
       }
     },
     {
       "numero": 4,
       "cheval_id": "",
-      "nom": "LADY PRINCESS",
+      "nom": "BPITON",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "LPITON",
+        "entraineur_score": "BPITON"
+      },
       "score_direct_pmu": 5.5,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -197,30 +232,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 1.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.4474
       }
     },
     {
       "numero": 5,
       "cheval_id": "",
-      "nom": "LAST DES BROUSSES",
+      "nom": "ARIPOLLRIGO",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "BROCHARD",
+        "entraineur_score": "ARIPOLLRIGO"
+      },
       "score_direct_pmu": 5.8,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -244,30 +288,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 1.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.5263
       }
     },
     {
       "numero": 6,
       "cheval_id": "",
-      "nom": "LORDIUS",
+      "nom": "GCURENS",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "THDROMIGNY",
+        "entraineur_score": "GCURENS"
+      },
       "score_direct_pmu": 6.94,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -291,30 +344,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.8263
       }
     },
     {
       "numero": 7,
       "cheval_id": "",
-      "nom": "LOUNA DU LOCHEUR",
+      "nom": "DBROHIER",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "DBROHIER",
+        "entraineur_score": "DBROHIER"
+      },
       "score_direct_pmu": 6.1,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -338,30 +400,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.6053
       }
     },
     {
       "numero": 8,
       "cheval_id": "",
-      "nom": "LEARN TO FLY",
+      "nom": "FSENET",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "ERAFFIN",
+        "entraineur_score": "FSENET"
+      },
       "score_direct_pmu": 5.88,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -385,78 +456,79 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 1.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.5474
       }
     }
   ],
   "top3": [
     {
-      "numero": 8,
-      "nom": "LEARN TO FLY",
+      "numero": 6,
+      "nom": "GCURENS",
       "cheval_id": "",
-      "score_non_calibre": 0.82213
+      "score_non_calibre": 0.49902
+    },
+    {
+      "numero": 8,
+      "nom": "FSENET",
+      "cheval_id": "",
+      "score_non_calibre": 0.45831
     },
     {
       "numero": 2,
-      "nom": "LADY D'ELFE",
+      "nom": "MLLEMNORBERG",
       "cheval_id": "",
-      "score_non_calibre": 0.76681
-    },
-    {
-      "numero": 6,
-      "nom": "LORDIUS",
-      "cheval_id": "",
-      "score_non_calibre": 0.75194
+      "score_non_calibre": 0.44917
     }
   ],
   "classement_complet": [
     {
-      "numero": 8,
-      "nom": "LEARN TO FLY",
+      "numero": 6,
+      "nom": "GCURENS",
       "cheval_id": "",
-      "score_non_calibre": 0.82213
+      "score_non_calibre": 0.49902
+    },
+    {
+      "numero": 8,
+      "nom": "FSENET",
+      "cheval_id": "",
+      "score_non_calibre": 0.45831
     },
     {
       "numero": 2,
-      "nom": "LADY D'ELFE",
+      "nom": "MLLEMNORBERG",
       "cheval_id": "",
-      "score_non_calibre": 0.76681
-    },
-    {
-      "numero": 6,
-      "nom": "LORDIUS",
-      "cheval_id": "",
-      "score_non_calibre": 0.75194
-    },
-    {
-      "numero": 5,
-      "nom": "LAST DES BROUSSES",
-      "cheval_id": "",
-      "score_non_calibre": 0.73932
-    },
-    {
-      "numero": 4,
-      "nom": "LADY PRINCESS",
-      "cheval_id": "",
-      "score_non_calibre": 0.71221
-    },
-    {
-      "numero": 3,
-      "nom": "LULU JIVE",
-      "cheval_id": "",
-      "score_non_calibre": 0.68623
+      "score_non_calibre": 0.44917
     },
     {
       "numero": 7,
-      "nom": "LOUNA DU LOCHEUR",
+      "nom": "DBROHIER",
       "cheval_id": "",
-      "score_non_calibre": 0.45174
+      "score_non_calibre": 0.36311
+    },
+    {
+      "numero": 5,
+      "nom": "ARIPOLLRIGO",
+      "cheval_id": "",
+      "score_non_calibre": 0.35236
+    },
+    {
+      "numero": 3,
+      "nom": "STEENTJONATHANVANMEERBECK",
+      "cheval_id": "",
+      "score_non_calibre": 0.2706
+    },
+    {
+      "numero": 4,
+      "nom": "BPITON",
+      "cheval_id": "",
+      "score_non_calibre": 0.18055
     },
     {
       "numero": 1,
-      "nom": "LADY VICTORY",
+      "nom": "FDUCROCQ",
       "cheval_id": "",
-      "score_non_calibre": 0.4003
+      "score_non_calibre": 0.17656
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

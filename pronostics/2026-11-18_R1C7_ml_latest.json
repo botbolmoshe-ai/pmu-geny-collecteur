@@ -1,38 +1,46 @@
 {
   "date": "2026-11-18",
   "course": "R1C7",
-  "calcul_utc": "2026-11-18T15:57:09.248529+01:00",
+  "calcul_utc": "2026-11-18T16:49:56.050774+01:00",
   "depart": "2026-11-18T17:25:00+01:00",
-  "modele": "regression_logistique",
+  "modele": "gradient_boosting",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-18T13:55:59.243122+00:00",
-  "dernier_label_entrainement_utc": "2026-11-18T13:54:12.778051+00:00",
-  "empreinte_modele": "5908ddda49adc3cd7755c8992bf584f7edfd44a0188ec5f2634b132c17c3b7aa",
-  "features_schema": "pmu-podium-v33",
+  "entrainement_utc": "2026-11-18T15:40:41.015171+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T15:39:19.993732+00:00",
+  "empreinte_modele": "0c51575594e660c5a01f4a9c2dc864d9b934aa193283853bccd0999dcacbe186",
+  "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
       "numero": 1,
       "cheval_id": "",
-      "nom": "TOSCANA SOUTHWIND",
+      "nom": "HEBONDO",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "PYVERVA",
+        "entraineur_score": "HEBONDO"
+      },
       "score_direct_pmu": 4.4,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -56,30 +64,39 @@
         "ferrure_da": 1.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.1579
       }
     },
     {
       "numero": 2,
       "cheval_id": "",
-      "nom": "IMPERATUR AM",
+      "nom": "HEBONDO",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "GGELORMINI",
+        "entraineur_score": "HEBONDO"
+      },
       "score_direct_pmu": 8.84,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -103,30 +120,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 3.3485
       }
     },
     {
       "numero": 3,
       "cheval_id": "",
-      "nom": "LORENZO BOKO",
+      "nom": "PIERRICKLEMOEL",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "YLEBOURGEOIS",
+        "entraineur_score": "PIERRICKLEMOEL"
+      },
       "score_direct_pmu": 1.6,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -150,30 +176,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 0.0
       }
     },
     {
       "numero": 4,
       "cheval_id": "",
-      "nom": "JOUEUSE DU MIREL",
+      "nom": "MMESUZANNEVACHET",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "FOUVRIE",
+        "entraineur_score": "MMESUZANNEVACHET"
+      },
       "score_direct_pmu": 7.28,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -197,30 +232,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 1.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.9158
       }
     },
     {
       "numero": 5,
       "cheval_id": "",
-      "nom": "IDEAL MOSSA",
+      "nom": "STEENTJONATHANVANMEERBECK",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "JVANMEERBECK",
+        "entraineur_score": "STEENTJONATHANVANMEERBECK"
+      },
       "score_direct_pmu": 2.46,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -244,30 +288,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 1.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 0.8049
       }
     },
     {
       "numero": 6,
       "cheval_id": "",
-      "nom": "KASH KEEPER",
+      "nom": "DAVIDPERSSON",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "MMOTTIER",
+        "entraineur_score": "DAVIDPERSSON"
+      },
       "score_direct_pmu": 10.7,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -291,30 +344,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": null
       }
     },
     {
       "numero": 7,
       "cheval_id": "",
-      "nom": "JEUNE AMI",
+      "nom": "HVANDENHENDE",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "PPHPLOQUIN",
+        "entraineur_score": "HVANDENHENDE"
+      },
       "score_direct_pmu": 7.56,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -338,30 +400,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 1.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.9895
       }
     },
     {
       "numero": 8,
       "cheval_id": "",
-      "nom": "JOKER D'OCCAGNES",
+      "nom": "GCURENS",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "THDROMIGNY",
+        "entraineur_score": "GCURENS"
+      },
       "score_direct_pmu": 1.5,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -385,30 +456,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 0.3947
       }
     },
     {
       "numero": 9,
       "cheval_id": "",
-      "nom": "DIE HARD (ITY)",
+      "nom": "PLDESAUNETTE",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "FLAGADEUC",
+        "entraineur_score": "PLDESAUNETTE"
+      },
       "score_direct_pmu": 1.6,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -432,30 +512,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 0.4211
       }
     },
     {
       "numero": 10,
       "cheval_id": "",
-      "nom": "JACK L'EVENTREUR",
+      "nom": "FTERRY",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "CEDRICTERRY",
+        "entraineur_score": "FTERRY"
+      },
       "score_direct_pmu": 1.84,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -479,30 +568,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 0.1951
       }
     },
     {
       "numero": 11,
       "cheval_id": "",
-      "nom": "LOOK OF LOVE",
+      "nom": "MMECELESTINECORTY",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "JVANDENPUTTEJR",
+        "entraineur_score": "MMECELESTINECORTY"
+      },
       "score_direct_pmu": 5.86,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -526,30 +624,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 1.5421
       }
     },
     {
       "numero": 12,
       "cheval_id": "",
-      "nom": "JACK DU CEBE",
+      "nom": "KLEBLANC",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "ACHARRIE",
+        "entraineur_score": "KLEBLANC"
+      },
       "score_direct_pmu": 12.78,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -573,30 +680,39 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 3.3632
       }
     },
     {
       "numero": 13,
       "cheval_id": "",
-      "nom": "ICI PARIS EFJI",
+      "nom": "STPROVOOST",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "JTRAVERS",
+        "entraineur_score": "STPROVOOST"
+      },
       "score_direct_pmu": 3.46,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -620,30 +736,39 @@
         "ferrure_da": 1.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 0.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 0.9105
       }
     },
     {
       "numero": 14,
       "cheval_id": "",
-      "nom": "JAZZMAN",
+      "nom": "JPHDUBOIS",
       "historique_ok": false,
       "historique_complet": false,
       "methode_liaison": "NON_ASSOCIE",
+      "source_historique": null,
+      "historique_extrait_utc": null,
+      "intervenants_pmu": {
+        "driver_score": "ERAFFIN",
+        "entraineur_score": "JPHDUBOIS"
+      },
       "score_direct_pmu": 10.5,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_30j": null,
+        "courses_60j": null,
+        "courses_120j": null,
         "podiums_30j": null,
         "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
+        "victoires_120j": null,
+        "disqualifications_120j": null,
         "score_forme": null,
         "forme_30j": null,
         "forme_ancien": null,
         "jours_repos": null,
         "distance_m": 2850.0,
+        "discipline_montee": 0,
+        "forme_geny_comparable": null,
         "distance_ecart_m": null,
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
@@ -667,114 +792,115 @@
         "ferrure_da": 0.0,
         "ferrure_p4": 0.0,
         "ferrure_pa": 1.0,
-        "ferrure_pp": 0.0
+        "ferrure_pp": 0.0,
+        "forme_pmu_discipline": 2.7632
       }
     }
   ],
   "top3": [
     {
+      "numero": 12,
+      "nom": "KLEBLANC",
+      "cheval_id": "",
+      "score_non_calibre": 0.32309
+    },
+    {
+      "numero": 13,
+      "nom": "STPROVOOST",
+      "cheval_id": "",
+      "score_non_calibre": 0.2864
+    },
+    {
       "numero": 14,
-      "nom": "JAZZMAN",
+      "nom": "JPHDUBOIS",
       "cheval_id": "",
-      "score_non_calibre": 0.63322
-    },
-    {
-      "numero": 6,
-      "nom": "KASH KEEPER",
-      "cheval_id": "",
-      "score_non_calibre": 0.57531
-    },
-    {
-      "numero": 7,
-      "nom": "JEUNE AMI",
-      "cheval_id": "",
-      "score_non_calibre": 0.57018
+      "score_non_calibre": 0.25959
     }
   ],
   "classement_complet": [
     {
-      "numero": 14,
-      "nom": "JAZZMAN",
+      "numero": 12,
+      "nom": "KLEBLANC",
       "cheval_id": "",
-      "score_non_calibre": 0.63322
-    },
-    {
-      "numero": 6,
-      "nom": "KASH KEEPER",
-      "cheval_id": "",
-      "score_non_calibre": 0.57531
-    },
-    {
-      "numero": 7,
-      "nom": "JEUNE AMI",
-      "cheval_id": "",
-      "score_non_calibre": 0.57018
-    },
-    {
-      "numero": 2,
-      "nom": "IMPERATUR AM",
-      "cheval_id": "",
-      "score_non_calibre": 0.55114
-    },
-    {
-      "numero": 4,
-      "nom": "JOUEUSE DU MIREL",
-      "cheval_id": "",
-      "score_non_calibre": 0.53842
-    },
-    {
-      "numero": 11,
-      "nom": "LOOK OF LOVE",
-      "cheval_id": "",
-      "score_non_calibre": 0.50213
-    },
-    {
-      "numero": 9,
-      "nom": "DIE HARD (ITY)",
-      "cheval_id": "",
-      "score_non_calibre": 0.45394
-    },
-    {
-      "numero": 8,
-      "nom": "JOKER D'OCCAGNES",
-      "cheval_id": "",
-      "score_non_calibre": 0.45073
-    },
-    {
-      "numero": 10,
-      "nom": "JACK L'EVENTREUR",
-      "cheval_id": "",
-      "score_non_calibre": 0.44282
+      "score_non_calibre": 0.32309
     },
     {
       "numero": 13,
-      "nom": "ICI PARIS EFJI",
+      "nom": "STPROVOOST",
       "cheval_id": "",
-      "score_non_calibre": 0.4113
+      "score_non_calibre": 0.2864
     },
     {
-      "numero": 1,
-      "nom": "TOSCANA SOUTHWIND",
+      "numero": 14,
+      "nom": "JPHDUBOIS",
       "cheval_id": "",
-      "score_non_calibre": 0.39975
+      "score_non_calibre": 0.25959
     },
     {
-      "numero": 12,
-      "nom": "JACK DU CEBE",
+      "numero": 6,
+      "nom": "DAVIDPERSSON",
       "cheval_id": "",
-      "score_non_calibre": 0.39103
+      "score_non_calibre": 0.24789
     },
     {
-      "numero": 3,
-      "nom": "LORENZO BOKO",
+      "numero": 7,
+      "nom": "HVANDENHENDE",
       "cheval_id": "",
-      "score_non_calibre": 0.3841
+      "score_non_calibre": 0.21382
+    },
+    {
+      "numero": 4,
+      "nom": "MMESUZANNEVACHET",
+      "cheval_id": "",
+      "score_non_calibre": 0.16475
     },
     {
       "numero": 5,
-      "nom": "IDEAL MOSSA",
+      "nom": "STEENTJONATHANVANMEERBECK",
       "cheval_id": "",
-      "score_non_calibre": 0.23933
+      "score_non_calibre": 0.15398
+    },
+    {
+      "numero": 8,
+      "nom": "GCURENS",
+      "cheval_id": "",
+      "score_non_calibre": 0.13259
+    },
+    {
+      "numero": 9,
+      "nom": "PLDESAUNETTE",
+      "cheval_id": "",
+      "score_non_calibre": 0.13259
+    },
+    {
+      "numero": 10,
+      "nom": "FTERRY",
+      "cheval_id": "",
+      "score_non_calibre": 0.12984
+    },
+    {
+      "numero": 11,
+      "nom": "MMECELESTINECORTY",
+      "cheval_id": "",
+      "score_non_calibre": 0.0962
+    },
+    {
+      "numero": 1,
+      "nom": "HEBONDO",
+      "cheval_id": "",
+      "score_non_calibre": 0.08152
+    },
+    {
+      "numero": 3,
+      "nom": "PIERRICKLEMOEL",
+      "cheval_id": "",
+      "score_non_calibre": 0.06098
+    },
+    {
+      "numero": 2,
+      "nom": "HEBONDO",
+      "cheval_id": "",
+      "score_non_calibre": 0.05494
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."
