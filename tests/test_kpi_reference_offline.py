@@ -8,17 +8,24 @@ class KPIReferenceTests(unittest.TestCase):
     def test_maturity_metrics_are_re_read_without_duplicate_append(self):
         from pathlib import Path
         from tempfile import TemporaryDirectory
-        from pmu_geny.ml_v19 import train
+        from pmu_geny.ml_v19 import save, train
         from pmu_geny.moteur_sheets import SynchroniseurSheets
         from test_v26_chaine_offline import SheetsSession
 
         with TemporaryDirectory() as tmp:
             cache = Path(tmp)
             train(cache)
-            engine = SynchroniseurSheets(cache, 'test', session=SheetsSession())
+            save(cache/'ml/modele_experimental_actif.json', {
+                'statut': 'ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE', 'sha256_modele': 'a'*64,
+            })
+            session = SheetsSession()
+            engine = SynchroniseurSheets(cache, 'test', session=session)
             source = {'Courses & Prévisions': {}, 'Résultats & Analyse': {}}
             first = engine._synchroniser_kpi(engine.metadata(), source)
             self.assertGreater(first['Data Quality & KPI']['indicateurs_actualises'], 25)
+            version = next(row for row in session.tables['Data Quality & KPI']
+                           if row[1] == 'Maturité ML · Version en service')
+            self.assertEqual(version[2], 'a'*64)
             second = engine._synchroniser_kpi(engine.metadata(), source)
             self.assertEqual(second['Data Quality & KPI']['indicateurs_actualises'], 0)
 

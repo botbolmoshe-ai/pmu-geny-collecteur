@@ -63,15 +63,20 @@ def calculer_kpi(cache, source=None, now=None):
         prospective = maturity.get('prospective', {})
         comparison = prospective.get('comparaison') or {}
         interval = comparison.get('ic95_bootstrap_par_course', ['', ''])
+        serving_version = maturity.get('version_en_service', '')
+        serving_status = maturity.get('maturite_en_service', 'Aucun modèle disponible.')
+        if not serving_version and active.get('statut') == 'ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE':
+            serving_version = active.get('sha256_modele', '')
+            serving_status = 'EXPÉRIMENTAL · classement non calibré.'
         fields = [
             ('Statut candidat', maturity['maturite'], maturity['etat']),
             ('Version candidate', maturity.get('version', ''), 'SHA-256 du modèle figé pour l’évaluation.'),
-            ('Version en service', maturity.get('version_en_service', ''), maturity.get('maturite_en_service', 'Aucun modèle promu.')),
+            ('Version en service', serving_version, serving_status),
             ('Courses admissibles', maturity['courses'], 'Captures pré-départ appariées à une arrivée admissible.'),
             ('Observations admissibles', maturity['lignes'], 'Une observation par cheval et par course capturée.'),
             ('Courses qualifiantes', maturity['courses_qualifiantes'], 'Courses du schéma courant avec capture et arrivée sourcées.'),
             ('Observations qualifiantes', maturity['observations_qualifiantes'], 'Observations du schéma courant sur les courses qualifiantes.'),
-            ('Taux de complétude', quality['completude'], 'Part des observations qualifiantes avec forme PMU, distance, discipline, âge, sexe et gains.'),
+            ('Taux de complétude', quality['completude'] if quality['observations'] else '', 'Part des observations qualifiantes avec forme PMU, distance, discipline, âge, sexe et gains.'),
             ('Courses prospectives appariées', prospective.get('courses', 0), 'Même relevé PMU et preuve de publication du TOP3 direct avant départ.'),
             ('Taux de complétude prospective', prospective.get('completude', ''), 'Six critères essentiels sur les prévisions de la cohorte prospective.'),
             ('Moyenne prospective ML', prospective.get('moyenne_ml'), 'Nombre moyen de chevaux du podium retrouvés sur trois.'),
