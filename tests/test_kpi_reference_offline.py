@@ -1,0 +1,47 @@
+import unittest
+from datetime import datetime,timezone
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from pmu_geny.kpi_registre import calculer_kpi,plan_kpi,totaux_reference
+
+class KPIReferenceTests(unittest.TestCase):
+    def test_ml_counts_and_denominators_same_snapshot(self):
+        participants={
+            str(i):{'course_key':'C1' if i<2 else 'C2','cheval':f'Cheval {i}',
+                    'ml_modele_statut':status,'ml_top3':selection}
+            for i,(status,selection) in enumerate([
+                ('ML_NON_ENTRAINE',''),('ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE','OUI'),
+                ('ML_NON_PUBLIE_AVANT_DEPART','')])}
+        with TemporaryDirectory() as folder:
+            metrics=calculer_kpi(Path(folder),{'Courses & Prévisions':participants,
+                'Résultats & Analyse':{}},datetime(2026,11,18,10,tzinfo=timezone.utc))
+        self.assertEqual(metrics['Participations recensées'][0],3)
+        self.assertEqual(metrics['Participations avec sélection ML publiée'][0],1)
+        self.assertEqual(metrics['Participations avec modèle ML non entraîné'][0],1)
+        refs=totaux_reference(metrics)
+        self.assertEqual(refs['Participations avec sélection ML publiée'],3)
+        self.assertEqual(refs['Participations avec modèle ML non entraîné'],3)
+        self.assertEqual(refs['Courses évaluées'],2)
+        self.assertEqual(refs['Taux de TOP3 exact (3 sur 3)'],0)
+
+    def test_repair_stale_denominator_even_when_value_unchanged(self):
+        label='Participations avec sélection ML publiée'
+        metrics={label:(63,'preuve'),'Participations recensées':(1558,'preuve')}
+        sheet=[['Dimension','Indicateur','Valeur','Définition','Total'],
+               ['ML',label,63,'preuve',1568],
+               ['Historique','Lignes de performances',100,'=FORMULA()',100]]
+        updates=plan_kpi(sheet,metrics)
+        self.assertEqual(updates,[{'range':"'Data Quality & KPI'!C2:E2",'values':[[63,'preuve',1558]]}])
+        sheet[1][4]=1558
+        self.assertEqual(plan_kpi(sheet,metrics),[])
+
+    def test_inconnus_et_formules_preserves(self):
+        sheet=[['A','B','C','D','E'],['groupe','Autre',0,'','=NBVAL(A:A)']]
+        self.assertEqual(plan_kpi(sheet,{'Autre':(1,'preuve')}),
+                         [{'range':"'Data Quality & KPI'!C2:D2",'values':[[1,'preuve']]}])
+
+    def test_workflow_kpi_after_certification(self):
+        workflow=(Path(__file__).resolve().parents[1]/'.github/workflows/pmu-v16.yml').read_text()
+        self.assertLess(workflow.index("PMU_KPI_DIFFERE: 'true'"),workflow.index('Certifier les publications'))
+        self.assertLess(workflow.index('Certifier les publications'),workflow.index("PMU_KPI_ONLY: 'true'"))
+        self.assertLess(workflow.index('Conserver les preuves meme'),workflow.index("PMU_KPI_ONLY: 'true'"))
