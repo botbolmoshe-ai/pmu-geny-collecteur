@@ -198,7 +198,10 @@ def enregistrer_publication(cache, now, plan, publie):
             if phases:
                 sauver(cache/'jalons'/f'{key}.json', phases)
             report['courses'].append({'course':key, 'top3_direct_et_ml':len(proofs)==2, 'jalons':phases})
-        if plan.get('mode') == 'GLOBAL' and not report['erreurs']:
+        if plan.get('mode') == 'GLOBAL' and not any(
+                error['motif']!='JALON_PUBLIE_EN_RETARD' for error in report['erreurs']):
+            # Un retard attesté est une anomalie, pas un échec de publication globale.
+            # Ne pas redéclencher indéfiniment le global au détriment des historiques.
             # Le cache ancien d'un programme ne suffit pas à valider un cycle global.
             days = [now.astimezone(PARIS).date()+timedelta(days=n) for n in (0,1)]
             stamps = [instant(lire(cache/'sources_pmu'/f'programme_{d}.json').get('date_controle_utc')) for d in days]
