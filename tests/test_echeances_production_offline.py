@@ -58,6 +58,28 @@ class EcheancesTests(unittest.TestCase):
         self.assertEqual(plan['jalons_dus'][0]['phase'],'H2')
         self.assertEqual(e.besoin_pmu(self.cache,now),'ECHEANCE_PMU_PRIORITAIRE')
 
+    def test_anticipation_55_minutes_sans_relacher_la_fraicheur(self):
+        before=self.now+timedelta(minutes=4)
+        self.assertEqual(e.planifier(self.cache,before)['mode'],'ATTENTE')
+        opened=self.now+timedelta(minutes=5)
+        self.assertEqual(e.planifier(self.cache,opened)['jalons_dus'][0]['phase'],'H2')
+        self.predictions(opened)
+        late=opened+timedelta(minutes=31)
+        report=e.enregistrer_publication(self.cache,late,{'mode':'JALONS'},True)
+        self.assertFalse(report['courses'][0]['top3_direct_et_ml'])
+        self.assertEqual(e.lire(self.cache/'jalons'/f'{self.key}.json')['H2']['statut'],'INCOMPLET')
+
+    def test_retard_atteste_ne_reinitialise_pas_indefiniment_le_global(self):
+        now=self.now+timedelta(minutes=62)
+        self.predictions(now)
+        for day in ('2026-11-17','2026-11-18'):
+            path=self.cache/'sources_pmu'/f'programme_{day}.json'
+            doc=e.lire(path);doc['date_controle_utc']=now.isoformat();e.sauver(path,doc)
+        report=e.enregistrer_publication(self.cache,now,{'mode':'GLOBAL'},True)
+        self.assertEqual([x['motif'] for x in report['erreurs']],['JALON_PUBLIE_EN_RETARD'])
+        self.assertEqual(e.lire(self.cache/'orchestration/production_etat.json')['dernier_global_publie_utc'],now.isoformat())
+        self.assertEqual(e.planifier(self.cache,now)['mode'],'ATTENTE')
+
     def test_publication_reussie_gel_immuable_puis_h1(self):
         now=self.now+timedelta(minutes=40)
         self.predictions(now)

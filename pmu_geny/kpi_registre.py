@@ -66,13 +66,13 @@ def calculer_kpi(cache, source=None, now=None):
         ('Écart ML contre direct','ecart_ml_direct','Écart moyen sur courses appariées ; aucune garantie de gain futur.'),
         ('TOP3 ML exacts','exact_3_sur_3_ml','Nombre de courses avec trois chevaux retrouvés, sur le dénominateur Courses évaluées.')):
         operational.append(metric('ML prospectif · '+label,performance.get(field) if performance.get(field) is not None else '',definition))
-    from .echeances_production import courses_du_jour, PHASES, MARGE, instant
+    from .echeances_production import courses_du_jour, PHASES, ANTICIPATION, instant
     day,courses=courses_du_jour(cache,now)
     for phase,offset in PHASES.items():
         expected=ontime=missed=0
         for c in courses:
             depart=instant(c.get('depart'))
-            if not depart or now<depart-offset-MARGE:continue
+            if not depart or now<depart-offset-ANTICIPATION:continue
             expected+=1
             proof=_load(cache/'jalons'/f"{day}_{c['code']}.json").get(phase,{})
             ok=proof.get('statut')=='PUBLIE_A_TEMPS'
@@ -105,6 +105,8 @@ def calculer_kpi(cache, source=None, now=None):
         metric('Avis PMU renseignés',nonempty('avis_pmu'),'Participations avec texte source PMU non vide.'),
         metric('Participations avec sélection ML publiée',sum(r.get('ml_top3')=='OUI' for r in participants),
                'Participations sélectionnées ML (OUI), distinctes des simples rangs et des expériences rétrospectives.'),
+        metric('Participations avec modèle ML non entraîné',sum(r.get('ml_modele_statut')=='ML_NON_ENTRAINE' for r in participants),
+               'Participations dont le statut ML est explicitement ML_NON_ENTRAINE ; même périmètre que les participations recensées.'),
         metric('Participations recensées',count,'Lignes de partants, distinctes des chevaux et des courses.'),
         metric('Partants sans historique collecté',sum(r.get('historique_statut')=='HISTO_NON_COLLECTE' for r in participants),'Participations explicitement sans historique collecté.'),
         metric('Taux de partants avec historique identifié',linked/count if count else '','Participations HISTO_OK / participations recensées.'),
@@ -121,9 +123,46 @@ def calculer_kpi(cache, source=None, now=None):
         *[metric('Lignes sans '+label,count-nonempty(field),'Participations sans valeur renseignée.') for label,field in [('âge','age_ans'),('sexe','sexe'),('gains','gains_euros')]],
     ])
 
+def totaux_reference(metrics):
+    """Références explicites, issues du même snapshot que les numérateurs."""
+    def value(label):
+        return metrics[label][0] if label in metrics else None
+    participants=value('Participations recensées')
+    courses=value('Courses distinctes collectées')
+    evaluated=value('Courses évaluées')
+    totals={}
+    for label in (
+        'Chevaux distincts rencontrés','Partants avec historique identifié (nom/ID)',
+        'Chevaux avec historique partiel','Partants avec historique disponible',
+        'Partants sélectionnés TOP3 direct','Partants avec âge, sexe, gains et ferrure',
+        'Taux critères essentiels renseignés','Avis PMU renseignés','Participations recensées',
+        'Partants sans historique collecté','Taux de partants avec historique identifié',
+        'Ferrure non récupérée (source explicite)','Taux ferrure renseignée',
+        'Lignes sans âge','Lignes sans sexe','Lignes sans gains','Musique PMU renseignée',
+        'TOP3 direct avec score calculable','TOP3 direct avec historique contextuel',
+        'TOP3 direct sur musique PMU seule','Participations avec sélection ML publiée',
+        'Participations avec modèle ML non entraîné'):
+        if participants is not None:totals[label]=participants
+    for label in ('Courses distinctes collectées','Courses avec arrivée officielle',
+                  'Courses avec arrivée vérifiée','Courses évaluées','Courses avec sélection TOP3 direct'):
+        if courses is not None:totals[label]=courses
+    if evaluated is not None:
+        totals['Taux de TOP3 exact (3 sur 3)']=evaluated
+        totals['Moyenne de chevaux TOP3 retrouvés']=3
+    for phase in ('H2','H1'):
+        opened=value('Échéances · '+phase+' ouvertes')
+        if opened is not None:
+            totals['Échéances · '+phase+' publiées à temps']=opened
+            totals['Échéances · '+phase+' dépassées sans preuve à temps']=opened
+    prospective=value('ML prospectif · Courses évaluées')
+    if prospective is not None:totals['ML prospectif · TOP3 ML exacts']=prospective
+    return totals
+
+
 def plan_kpi(values, metrics):
-    """Ne modifie que valeur/definition des indicateurs deja presents dans l'onglet."""
+    """Actualise valeur, définition et référence connue ensemble ; préserve les autres formules."""
     updates=[]
+    totals=totaux_reference(metrics)
     for number,row in enumerate(values[1:],start=2):
         if len(row)>1 and row[1] in ('Avis Equidia renseignés','Avis ZEturf renseignés'):
             updates.append({'range':f"'{KPI_TAB}'!A{number}:E{number}",'values':[['','','','','']]})
@@ -133,13 +172,17 @@ def plan_kpi(values, metrics):
             continue
         if len(row)>1 and row[1] in metrics:
             value,definition=metrics[row[1]]
-            if len(row)<4 or row[2]!=value or row[3]!=definition:
-                updates.append({'range':f"'{KPI_TAB}'!C{number}:D{number}",'values':[[value,definition]]})
+            label=row[1]
+            desired=[value,definition]+([totals[label]] if label in totals else [])
+            if row[2:2+len(desired)]!=desired:
+                end='E' if label in totals else 'D'
+                updates.append({'range':f"'{KPI_TAB}'!C{number}:{end}{number}",'values':[desired]})
     present={row[1] for row in values[1:] if len(row)>1}
     last=max((i for i,row in enumerate(values,start=1) if any(str(v or '').strip() for v in row)),default=1)
     for label,(value,definition) in metrics.items():
         if label.startswith(('ML expérimental · ','ML prospectif · ','Échéances · ','Collecte · ')) and label not in present:
             last+=1
-            updates.append({'range':f"'{KPI_TAB}'!A{last}:D{last}",
-                            'values':[['ML',label,value,definition]]})
+            desired=['ML',label,value,definition]+([totals[label]] if label in totals else [])
+            end='E' if label in totals else 'D'
+            updates.append({'range':f"'{KPI_TAB}'!A{last}:{end}{last}",'values':[desired]})
     return updates

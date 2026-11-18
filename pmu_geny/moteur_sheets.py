@@ -167,7 +167,8 @@ class SynchroniseurSheets:
         from .kpi_registre import KPI_TAB,calculer_kpi,plan_kpi
         if KPI_TAB not in tables:return {}
         path=quote("'"+KPI_TAB+"'!A1:E100",safe="!:'")
-        values=self.check(get_lecture(self.session,self.base+'/values/'+path,timeout=30)).get('values',[])
+        values=self.check(get_lecture(self.session,self.base+'/values/'+path,
+            params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
         updates=plan_kpi(values,calculer_kpi(self.cache,source))
         if updates:self.check(self.session.post(self.base+'/values:batchUpdate',
             json={'valueInputOption':'RAW','data':updates},timeout=45))
@@ -195,11 +196,11 @@ class SynchroniseurSheets:
             'duree_secondes':round(time.monotonic()-start,3)},ensure_ascii=False),flush=True)
         return counts
 
-    def synchroniser_cycle(self):
+    def synchroniser_cycle(self,include_kpi=True):
         from .sync_google_sheets import SHEET_TABS
         source=self.source()
         return self.synchroniser_tables({tab:source[tab] for tab in SHEET_TABS},scope='CYCLE_PMU',
-            full_source=True,allow_structure=True,kpi_source=source)
+            full_source=True,allow_structure=True,kpi_source=source if include_kpi else None)
 
     def synchroniser_cheval(self,horse,*,include_kpi=True,include_courses=True):
         from .liaison_chevaux_v22 import nom_normalise
