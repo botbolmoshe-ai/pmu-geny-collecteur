@@ -1,85 +1,97 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "dec581ddf6660a6a14b6f87dfe482c90f4cfa940f9f9a33e3b2c52497bbcda01",
-  "execute_utc": "2026-11-18T14:58:37.315685+00:00",
+  "empreinte_donnees": "f03e132f968c9f27af725ef124eaab9bb39607b68bb80337dbf4b1dc668ff5ea",
+  "execute_utc": "2026-11-18T15:40:41.015171+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 94,
-  "lignes_admissibles": 1257,
+  "courses_admissibles": 96,
+  "lignes_admissibles": 1282,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-dec581ddf6660a6a14b6/rapport.json",
+  "rapport": "ml/experiences/automatique-f03e132f968c9f27af72/rapport.json",
   "validation_day": "2026-11-17",
   "test_day": "2026-11-18",
-  "modele": "regression_logistique",
+  "modele": "gradient_boosting",
   "test_ml": {
-    "courses": 8,
-    "chevaux_retrouves": 8,
+    "courses": 10,
+    "chevaux_retrouves": 10,
     "moyenne": 1.0,
-    "au_moins_2_sur_3": 2,
-    "exact_3_sur_3": 0,
+    "au_moins_2_sur_3": 1,
+    "exact_3_sur_3": 1,
     "distribution": {
       "0": 2,
-      "1": 4,
-      "2": 2
+      "1": 7,
+      "3": 1
     },
     "hits_par_course": {
       "2026-11-18_R1C1": 1,
-      "2026-11-18_R1C4": 2,
-      "2026-11-18_R6C1": 0,
-      "2026-11-18_R6C2": 1,
-      "2026-11-18_R6C3": 2,
+      "2026-11-18_R1C4": 1,
+      "2026-11-18_R1C5": 1,
+      "2026-11-18_R6C1": 3,
+      "2026-11-18_R6C2": 0,
+      "2026-11-18_R6C3": 1,
       "2026-11-18_R6C4": 0,
       "2026-11-18_R6C5": 1,
-      "2026-11-18_R6C6": 1
+      "2026-11-18_R6C6": 1,
+      "2026-11-18_R6C7": 1
     },
     "selections": {
       "2026-11-18_R1C1": [
-        13,
         1,
-        12
+        13,
+        3
       ],
       "2026-11-18_R1C4": [
         6,
-        4,
-        8
-      ],
-      "2026-11-18_R6C1": [
         1,
-        9,
-        8
+        4
       ],
-      "2026-11-18_R6C2": [
-        15,
-        5,
-        16
-      ],
-      "2026-11-18_R6C3": [
-        10,
-        2,
-        12
-      ],
-      "2026-11-18_R6C4": [
-        13,
-        11,
-        8
-      ],
-      "2026-11-18_R6C5": [
-        13,
-        9,
+      "2026-11-18_R1C5": [
+        3,
+        7,
         1
       ],
+      "2026-11-18_R6C1": [
+        3,
+        4,
+        5
+      ],
+      "2026-11-18_R6C2": [
+        11,
+        12,
+        9
+      ],
+      "2026-11-18_R6C3": [
+        13,
+        12,
+        14
+      ],
+      "2026-11-18_R6C4": [
+        12,
+        10,
+        2
+      ],
+      "2026-11-18_R6C5": [
+        5,
+        13,
+        2
+      ],
       "2026-11-18_R6C6": [
-        2,
+        3,
+        1,
+        5
+      ],
+      "2026-11-18_R6C7": [
         9,
+        13,
         7
       ]
     }
   },
   "comparaison": {
-    "courses": 6,
-    "ecart_moyen": -0.16666666666666666,
+    "courses": 8,
+    "ecart_moyen": -0.25,
     "ic95_bootstrap_par_course": [
-      -1.0,
-      0.6666666666666666
+      -0.875,
+      0.25
     ]
   },
   "decoupage": {
@@ -96,10 +108,10 @@
       "dernier_depart": "2026-11-17T18:17:00+01:00"
     },
     "test": {
-      "courses": 8,
-      "lignes": 102,
+      "courses": 10,
+      "lignes": 127,
       "premier_depart": "2026-11-18T13:00:00+01:00",
-      "dernier_depart": "2026-11-18T15:40:00+01:00"
+      "dernier_depart": "2026-11-18T16:15:00+01:00"
     }
   }
 }
