@@ -7,6 +7,7 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from logic import records, selected, number, timestamp, result_matching
 from quality import render_quality
+from performance import render_performance
 
 st.set_page_config(page_title="TROT Analytics",page_icon="📊",layout="wide")
 PARIS=ZoneInfo("Europe/Paris")
@@ -31,7 +32,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.17.2 · Qualité : tableaux et filtres par date")
+st.caption("Version interface : 2026.11.18.1 · Performance : comparaison et évolution")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -65,8 +66,8 @@ except Exception:
     st.stop()
 now=datetime.now(timezone.utc)
 st.caption("Registre lu à "+loaded.astimezone(PARIS).strftime("%d/%m/%Y %H:%M:%S")+" · fraîcheur des fiches distincte")
-page=st.radio("Navigation",["Accueil","Courses","Résultats","Qualité"],horizontal=True,label_visibility="collapsed")
-if page!="Qualité":
+page=st.radio("Navigation",["Accueil","Courses","Résultats","Performance","Qualité"],horizontal=True,label_visibility="collapsed")
+if page in ("Accueil","Courses","Résultats"):
     dates=sorted({str(r.get("Date")) for r in courses if r.get("Date")})
     today=now.astimezone(PARIS).date().isoformat()
     day=st.date_input("Date",value=now.astimezone(PARIS).date()).isoformat()
@@ -134,5 +135,7 @@ elif page=="Résultats":
             st.caption(f"Comparaison à périmètre identique : {len(both)} courses")
             st.plotly_chart(px.bar(both,x="Course",y=["Direct (%)","ML (%)"],barmode="group",range_y=[0,100]),use_container_width=True)
         else: st.info("Pas encore de comparaison ML/direct vérifiable sur un périmètre commun.")
+elif page=="Performance":
+    render_performance(results,now)
 else:
     render_quality(kpis,courses=courses,history=quality_history)
