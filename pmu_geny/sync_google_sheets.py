@@ -773,7 +773,7 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000):
 
 
 def main():
-    from .moteur_sheets import SynchroniseurSheets
+    from .moteur_sheets import ErreurSynchronisation, SynchroniseurSheets
     cache=Path(os.getenv('PMU_CACHE','cache_pmu'))
     spreadsheet=os.getenv('GOOGLE_SHEETS_ID','1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo')
     if not os.getenv('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON'):
@@ -790,6 +790,9 @@ def main():
                 sauver(os.environ['PMU_PREUVE_SHEETS'], preuves_sheets(rows, datetime.now(timezone.utc)))
         else:engine.synchroniser_cycle()
         return 0
+    except ErreurSynchronisation as exc:
+        print(f'::error title=Synchronisation Sheets::{exc}')
+        return 1
     except Exception as exc:
         print(f'::error title=Synchronisation Sheets::Echec du moteur unique : {type(exc).__name__}')
         return 1

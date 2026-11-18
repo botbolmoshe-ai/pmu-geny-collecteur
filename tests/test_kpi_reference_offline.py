@@ -29,6 +29,45 @@ class KPIReferenceTests(unittest.TestCase):
             second = engine._synchroniser_kpi(engine.metadata(), source)
             self.assertEqual(second['Data Quality & KPI']['indicateurs_actualises'], 0)
 
+    def test_kpi_agrandit_une_grille_pleine_avant_publication(self):
+        import re
+        from pmu_geny.moteur_sheets import SynchroniseurSheets
+        from test_v26_chaine_offline import Response, SheetsSession
+
+        class TightSheet(SheetsSession):
+            row_count = 2
+
+            def get(self, url, **kwargs):
+                response = super().get(url, **kwargs)
+                if '/values' not in url:
+                    for sheet in response.data['sheets']:
+                        properties = sheet['properties']
+                        if properties['title'] == 'Data Quality & KPI':
+                            properties['gridProperties']['rowCount'] = self.row_count
+                return response
+
+            def post(self, url, **kwargs):
+                data = kwargs['json']
+                if 'requests' in data:
+                    self.row_count += data['requests'][0]['appendDimension']['length']
+                    return Response({})
+                for item in data['data']:
+                    if int(re.search(r'\d+$', item['range'])[0]) > self.row_count:
+                        response = Response({})
+                        response.status_code = 400
+                        return response
+                return super().post(url, **kwargs)
+
+        with TemporaryDirectory() as folder:
+            session = TightSheet()
+            engine = SynchroniseurSheets(folder, 'test', session=session)
+            source = {'Courses & Prévisions':{}, 'Résultats & Analyse':{}}
+            first = engine._synchroniser_kpi(engine.metadata(), source)['Data Quality & KPI']
+            self.assertGreater(first['indicateurs_verifies'], 0)
+            self.assertEqual(session.row_count, len(session.tables['Data Quality & KPI']))
+            second = engine._synchroniser_kpi(engine.metadata(), source)['Data Quality & KPI']
+            self.assertEqual(second['indicateurs_actualises'], 0)
+
     def test_j_j1_emploient_les_lignes_relues_et_exigent_la_provenance_du_f(self):
         day = '2026-11-18'
         first = {'date_course': day, 'non_partant':'PARTANT', 'ferrure':'F'}
