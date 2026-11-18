@@ -43823,7 +43823,7 @@
     }
   },
   "passage_utc": "2026-11-18T20:53:45.439536+00:00",
-  "maj_utc": "2026-11-18T20:57:07.358333+00:00",
+  "maj_utc": "2026-11-18T20:57:57.512432+00:00",
   "bilan": {
     "chevaux_suivis": 1808,
     "tentatives_collecte": 3,
@@ -43831,10 +43831,10 @@
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 1618
+    "actualisations_en_attente": 1615
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 7
@@ -43844,15 +43844,15 @@
   "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-18T20:53:45.439536+00:00",
+    "controle_utc": "2026-11-18T20:57:41.056862+00:00",
     "pret": false,
     "partants_a_venir": 206,
     "couverture_par_jour": {
       "2026-11-19": {
         "partants": 206,
-        "historiques_complets": 16,
-        "sans_historique_complet": 190,
-        "historiques_a_actualiser": 195
+        "historiques_complets": 19,
+        "sans_historique_complet": 187,
+        "historiques_a_actualiser": 192
       }
     },
     "blocages": [
@@ -43894,21 +43894,6 @@
       {
         "course": "2026-11-19_R3C2",
         "numero": "9",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-19_R3C2",
-        "numero": "10",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-19_R3C2",
-        "numero": "11",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-19_R3C2",
-        "numero": "12",
         "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       },
       {
@@ -44832,5 +44817,6 @@
         "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       }
     ]
-  }
+  },
+  "motif_fin_passage": "PRIORITE_PRODUCTION_EN_ATTENTE"
 }
