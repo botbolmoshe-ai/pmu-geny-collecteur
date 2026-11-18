@@ -89,6 +89,21 @@ class RepriseTests(unittest.TestCase):
         self.assertEqual(again['extensions_inventaire'],revised['extensions_inventaire'])
         self.assertEqual(again['phase_reprise'],'CARRIERES_MANQUANTES')
 
+    def test_lot_96_suit_une_reconciliation_prouvee_sans_changer_de_denominateur(self):
+        reference = inc.lire(Path(back.__file__).with_name('rattrapage_lot_96.json'))
+        self.assertEqual(len(set(reference['identifiants_origine'])), 96)
+        original = reference['identifiants_origine'][0]
+        horse = {'id': '987654321', 'collecte': 'COMPLET', 'sync': 'OK',
+                 'historique_complet_au_utc':self.now.isoformat(),
+                 'rattrapage_complet_au_utc':self.now.isoformat()}
+        state = {'inventaire_id': reference['inventaire_id'], 'chevaux': {original: horse}}
+        self.assertEqual(back.bilan_lot_96(state)['publiees'], 0)
+        horse['reconciliation_identite'] = {
+            'verification_utc': self.now.isoformat(), 'identifiants': {'geny':horse['id'], 'zone_turf':original},
+        }
+        lot = back.bilan_lot_96(state)
+        self.assertEqual((lot['cibles'], lot['publiees'], lot['restantes']), (96,1,95))
+
     def test_carriere_absente_ancienne_avant_enrichissement_ferrure_deja_lie(self):
         state={'chevaux':{
             'ferrures':{'nom':'Complet','geny':{'id':'123456'},'engagement':'2099-01-01_R1C1',

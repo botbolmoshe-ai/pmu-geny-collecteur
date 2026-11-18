@@ -213,6 +213,11 @@ class SynchroniseurSheets:
                 raise ErreurSynchronisation('Indicateurs KPI absents après synchronisation')
             print(f'KPI_MATURITE_ML_VERIFIES={sum(k.startswith("Maturité ML · ") for k in seen)}',
                   f'KPI_SHEETS_VERIFIES={len(seen)}', flush=True)
+        if relire_courses:
+            print('KPI_COHORTES_SHEETS ' + json.dumps({
+                key: value for key, (value, _) in metrics.items()
+                if key.startswith(('J · ', 'J+1 · ', 'Rattrapage · lot de 96 · '))},
+                ensure_ascii=False), flush=True)
         print(f'SYNC_GOOGLE_SHEETS onglet={KPI_TAB} indicateurs_actualises={len(updates)}',flush=True)
         if os.getenv('PMU_KPI_HISTORY')=='true':
             from .historique_kpi import enregistrer

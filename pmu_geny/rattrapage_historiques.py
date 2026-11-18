@@ -567,6 +567,34 @@ def bornes_cohortes(state):
     return result
 
 
+def bilan_lot_96(state):
+    reference = inc.lire(Path(__file__).with_name('rattrapage_lot_96.json'))
+    if reference.get('inventaire_id') != state.get('inventaire_id'):
+        return None
+    identities = reference['identifiants_origine']
+    by_id = {}
+    for horse in state['chevaux'].values():
+        by_id.setdefault(horse.get('id'), []).append(horse)
+    published = complete = partial = unresolved = 0
+    for ident in identities:
+        original = state['chevaux'].get(ident, {})
+        actual = original.get('id')
+        reconciliation = original.get('reconciliation_identite') or {}
+        source_ids = reconciliation.get('identifiants') or {}
+        if (actual and actual != ident and source_ids.get('geny') == actual
+                and ident in source_ids.values() and reconciliation.get('verification_utc')):
+            ident = actual
+        rows = by_id.get(ident, [])
+        published += any(h.get('rattrapage_complet_au_utc') and h.get('sync') == 'OK' for h in rows)
+        complete += any(h.get('historique_complet_au_utc') for h in rows)
+        partial += any(h.get('collecte') == 'PARTIEL_HISTORIQUE' for h in rows) and not any(
+            h.get('historique_complet_au_utc') for h in rows)
+        unresolved += not rows
+    return {'checkpoint': reference['checkpoint'], 'cibles': len(identities), 'completes': complete,
+            'partielles': partial, 'publiees': published, 'restantes': len(identities) - published,
+            'sans_correspondance': unresolved}
+
+
 def persister_etat(cache, state):
     inc.ecrire(cache / QUEUE, state)
     inc.ecrire(cache / QUEUE.parent / 'bilan.json', rapport(state))
@@ -612,6 +640,9 @@ def rapport(state):
           'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
     report={k:state[k] for k in keys if k in state}
     report['cohortes'] = bornes_cohortes(state)
+    lot = bilan_lot_96(state)
+    if lot:
+        report['lot_96'] = lot
     for key in ('collecte_tentee_utc', 'controle_ordonnancement_utc', 'sync_kpi_utc',
                 'dernier_creneau_reserve_utc', 'creneau_reserve'):
         if key in state:

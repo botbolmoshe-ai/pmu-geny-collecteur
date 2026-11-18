@@ -52,6 +52,13 @@ et son identifiant concordent, et si ses clés de performances sont présentes
 dans le registre contrôlé. Un historique complet absent du registre demande
 uniquement une synchronisation.
 
+La cohorte « lot de 96 » correspond aux identifiants distincts sans carrière
+complète du checkpoint `c0c9471457a8bb8e261e5b01434d85ce77268252`. Le
+checkpoint `de5d7660` et la validation de la PR #30 en retrouvaient 58 publiés,
+dont un identifiant Zone-Turf réconcilié avec son identifiant Geny. La référence
+reste fixe et suit cette correspondance uniquement lorsqu'elle est prouvée dans
+l'état de l'inventaire. Les KPI la distinguent du lot global et de ses extensions.
+
 ## Un moteur et des sauvegardes indépendantes
 
 Le rattrapage réutilise `historiques_incrementaux.run(mode='rattrapage')`,

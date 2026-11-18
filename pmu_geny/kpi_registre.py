@@ -173,7 +173,16 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
                             ('Révision inventaire', 'revision_inventaire')]:
             operational.append(metric('Rattrapage · ' + name, backfill.get(field, ''),
                                       'État durable du lot de rattrapage.'))
-        for cohort, data in backfill.get('cohortes', {}).items():
+        from .rattrapage_historiques import actualiser_cohortes, bilan_lot_96, bornes_cohortes
+        back_state = _load(cache / 'rattrapage_historiques/etat.json')
+        cohorts = backfill.get('cohortes', {})
+        if back_state.get('chevaux'):
+            actualiser_cohortes(cache, back_state)
+            cohorts = bornes_cohortes(back_state)
+            lot = bilan_lot_96(back_state)
+            if lot:
+                cohorts['lot de 96'] = lot
+        for cohort, data in cohorts.items():
             for label, value in data.items():
                 operational.append(metric(f'Rattrapage · {cohort} · {label}', value,
                                           'Cibles du lot suivies par leur clé d’inventaire.'))
@@ -257,11 +266,11 @@ def totaux_reference(metrics):
         total = value(prefix + 'Partants confirmés')
         if total is not None:
             totals.update({label: total for label in metrics if label.startswith(prefix)})
-    for cohort in ('initiale', 'extensions'):
+    for cohort in ('initiale', 'extensions', 'lot de 96'):
         prefix = f'Rattrapage · {cohort} · '
         total = value(prefix + 'cibles')
         if total is not None:
-            totals.update({label: total for label in metrics if label.startswith(prefix)})
+            totals.update({label: total for label in metrics if label.startswith(prefix) and not label.endswith(' · checkpoint')})
     prospective_maturity=value('Maturité ML · Courses prospectives appariées')
     if prospective_maturity is not None:
         totals.update({label: prospective_maturity for label in metrics if label.startswith(

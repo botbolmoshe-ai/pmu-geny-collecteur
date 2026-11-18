@@ -32,7 +32,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.18.2 · Maturité et validation prospective du ML")
+st.caption("Version interface : 2026.11.18.3 · Qualité du registre et validation prospective du ML")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
