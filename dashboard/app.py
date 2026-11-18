@@ -32,7 +32,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.18.2 · Maturité et validation prospective du ML")
+st.caption("Version interface : 2026.11.18.3 · Profils des partants")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -113,8 +113,22 @@ elif page=="Courses":
             st.caption("Calcul direct : "+str(first.get("TOP3 direct · Calcul UTC") or "non renseigné"))
             st.caption("ML : "+str(first.get("ML · État du modèle") or "non renseigné"))
             st.caption("NP : "+", ".join(str(h["N°"]) for h in rows if h.get("Non-partant (NP)")=="NON_PARTANT") if any(h.get("Non-partant (NP)")=="NON_PARTANT" for h in rows) else "Aucun NP enregistré (voir fraîcheur des fiches)")
-            columns=["N°","Cheval","Ferrure · Course du jour","Musique PMU","Non-partant (NP)","Historique · Nb performances récupérées","Données actuelles · Mise à jour UTC"]
-            st.dataframe(pd.DataFrame(rows).reindex(columns=columns),hide_index=True,use_container_width=True)
+            profile_column = "Profil du cheval"
+            columns = ["N°", "Cheval", profile_column, "Profil · Indices", "Ferrure", "Musique PMU",
+                       "Non-partant (NP)", "Historique · Nb performances récupérées",
+                       "Données actuelles · Mise à jour UTC"]
+            partants = pd.DataFrame(rows)
+            if "Ferrure" not in partants and "Ferrure · Course du jour" in partants:
+                partants = partants.rename(columns={"Ferrure · Course du jour": "Ferrure"})
+            partants = partants.reindex(columns=columns)
+            couleurs = {"Crack": "#ffe375", "Haut potentiel": "#bae8c4"}
+            if partants[profile_column].isin(couleurs).any():
+                styles = partants[profile_column].map({
+                    statut: f"background-color: {couleur}; color: #1f2630; font-weight: bold"
+                    for statut, couleur in couleurs.items()
+                }).fillna("")
+                partants = partants.style.apply(lambda _: styles, subset=["Cheval", profile_column])
+            st.dataframe(partants, hide_index=True, use_container_width=True)
 elif page=="Résultats":
     st.caption("Matching en % · uniquement sur preuves disponibles. Absence ≠ 0 %. ML non évaluable sans preuve enregistrée.")
     table=[]

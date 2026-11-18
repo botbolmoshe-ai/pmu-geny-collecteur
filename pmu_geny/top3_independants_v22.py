@@ -7,6 +7,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from .ml_v19 import load, save, numeric
 from .auto_v18 import _list, _num
+from .profils_partants import (
+    CRACK, HAUT_POTENTIEL, PRIORITE, VERSION_PROFILS,
+    detecter_crack, detecter_haut_potentiel, sorties_verifiees,
+)
 
 VERSION_MOTEUR = 'direct-v32-contextuel'
 
@@ -69,6 +73,7 @@ def calculer(cache,course,raw,now=None,clock=None):
         except (KeyError,TypeError,ValueError):continue
     all_numbers=set()
     eligible=[];direct=[];market=[]
+    signaux = {}
     for item in participants:
         if not isinstance(item,dict):continue
         n=_num(item,'numPmu','num','numero','numeroPmu')
@@ -83,7 +88,26 @@ def calculer(cache,course,raw,now=None,clock=None):
         if n in known_np:continue
         eligible.append(n)
         label=next((str(item.get(k,'')) for k in ('nomCheval','nom','nomParticipant') if item.get(k)),'')
-        info=noter_partant(item,course,liens.get(str(n),{}),profils.get(n,{}))
+        profil = profils.get(n, {})
+        lien = liens.get(str(n), {})
+        info=noter_partant(item,course,lien,profil)
+        if label:
+            sorties = sorties_verifiees(course, lien, now) if profil.get('statut_np') == 'PARTANT' else []
+            crack = detecter_crack(sorties)
+            potentiel = detecter_haut_potentiel(sorties, profil.get('age_ans'))
+            signaux[str(n)] = {
+                'nom': label,
+                'statut': CRACK if crack else HAUT_POTENTIEL if potentiel else '',
+                'crack': crack,
+                'haut_potentiel': potentiel,
+                'sorties_verifiees': sum(sortie.points is not None for sortie in sorties),
+            }
+            if sorties:
+                signaux[str(n)].update(
+                    historique_extrait_utc=lien['historique']['extrait_utc'],
+                    source_historique=lien['historique']['source_url'],
+                    identifiant_historique=lien['cheval_id'],
+                )
         if info['score'] is not None and label:
             direct.append({'numero':n,'nom':label,'score_direct':info['score'],
                            'source_forme':info['source_forme'],
@@ -103,8 +127,9 @@ def calculer(cache,course,raw,now=None,clock=None):
             if x is not None and x>0:cote=x;break
         if cote is not None:market.append({'numero':n,'nom':label,'cote':cote})
     output={}
-    for mode,ranking,key,reverse in [('direct',direct,'score_direct',True),('cotes',market,'cote',False)]:
+    for mode,ranking,key in [('direct',direct,'score_direct'),('cotes',market,'cote')]:
         observed_at=now.isoformat()
+        reuse_previous = False
         old=old_docs[mode]
         old_ranking=[h for h in old.get('classement_complet',[]) if int(h['numero']) not in known_np]
         old_usable=False
@@ -119,8 +144,16 @@ def calculer(cache,course,raw,now=None,clock=None):
                 output[mode]='ANCIEN_RELEVE_PLUS_COMPLET'
                 continue
             ranking=old_ranking
+            reuse_previous = True
             observed_at=old.get('donnees_observees_utc',old['calcul_utc'])
-        ranking.sort(key=lambda x:((-x[key] if reverse else x[key]),x['numero']))
+            if mode == 'direct':
+                signaux = {n: signal for n, signal in old.get('profils_partants', {}).items()
+                           if int(n) not in known_np}
+        if mode == 'direct':
+            ranking.sort(key=lambda h: (-h[key], -PRIORITE.get(
+                signaux.get(str(h['numero']), {}).get('statut'), 0), h['numero']))
+        else:
+            ranking.sort(key=lambda h: (h[key], h['numero']))
         sufficient=len(ranking)>=3 and not (complete_list and len(eligible)<3)
         doc={'date':course['date'],'course':course['code'],'depart':course['depart'],
              'calcul_utc':now.isoformat(),'mode':mode.upper(),
@@ -134,6 +167,9 @@ def calculer(cache,course,raw,now=None,clock=None):
                      ' et anciennete. Scores non calibres; facteurs manquants explicites.'
                      if mode=='direct' else 'Cotes PMU: palier de marche independant.')}
         if mode=='direct':
+            if not reuse_previous or old.get('version_profils'):
+                doc['version_profils'] = old['version_profils'] if reuse_previous else VERSION_PROFILS
+                doc['profils_partants'] = signaux
             doc['couverture_sources']={
                 'pmu_musique':sum(h.get('musique_exploitable',0)>0 for h in ranking),
                 'geny_historique':sum(h.get('historique_exploitable',0)>0 for h in ranking),
@@ -142,7 +178,8 @@ def calculer(cache,course,raw,now=None,clock=None):
                 'effectif_declare_confirme':complete_list,
             }
         filename=Path(str(base)+f'_{mode}.json')
-        if not sufficient and not old and not known_np:
+        if not sufficient and not old and not known_np and not (mode == 'direct' and any(
+                signal['statut'] for signal in signaux.values())):
             output[mode]='DONNEES_INSUFFISANTES'
             continue
         captured=clock() if clock else now
