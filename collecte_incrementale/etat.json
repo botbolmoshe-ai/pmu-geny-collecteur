@@ -33203,7 +33203,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:30:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2902985",
       "geny": {
         "id": "2902985",
@@ -33214,7 +33214,7 @@
       "derniere_verification_utc": "2026-11-17T03:24:42.588348+00:00",
       "prochaine_verification_utc": "2026-11-18T03:24:42.588348+00:00",
       "nombre_performances": 2,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-10-25",
       "sync_details": {
@@ -33244,7 +33244,16 @@
           "lignes_source": 1
         }
       },
-      "sync_utc": "2026-11-17T03:25:03.101356+00:00"
+      "sync_utc": "2026-11-17T03:25:03.101356+00:00",
+      "prochain_essai_utc": "2026-11-18T10:02:44.704656+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T04:02:44.704672+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2902985/1794974558924655357/resultat.json"
+      }
     },
     "2906335": {
       "nom": "NUSAKAN D'AS",
@@ -41588,13 +41597,13 @@
     }
   },
   "passage_utc": "2026-11-18T03:57:28.179733+00:00",
-  "maj_utc": "2026-11-18T04:02:35.652565+00:00",
+  "maj_utc": "2026-11-18T04:02:44.704849+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 7,
+    "tentatives_collecte": 8,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 7,
+    "collectes_rejetees": 8,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1500
   },
