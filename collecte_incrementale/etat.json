@@ -33410,7 +33410,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:30:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2876826",
       "geny": {
         "id": "2876826",
@@ -33421,7 +33421,7 @@
       "derniere_verification_utc": "2026-11-17T03:29:24.666007+00:00",
       "prochaine_verification_utc": "2026-11-18T03:29:24.666007+00:00",
       "nombre_performances": 5,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-11-01",
       "sync_details": {
@@ -33451,7 +33451,16 @@
           "lignes_source": 1
         }
       },
-      "sync_utc": "2026-11-17T03:29:45.459687+00:00"
+      "sync_utc": "2026-11-17T03:29:45.459687+00:00",
+      "prochain_essai_utc": "2026-11-18T09:59:52.721441+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T03:59:52.721458+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2876826/1794974386633812205/resultat.json"
+      }
     },
     "2906332": {
       "nom": "NAPOLITO",
@@ -41552,13 +41561,13 @@
     }
   },
   "passage_utc": "2026-11-18T03:57:28.179733+00:00",
-  "maj_utc": "2026-11-18T03:59:43.356188+00:00",
+  "maj_utc": "2026-11-18T03:59:52.721614+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 3,
+    "tentatives_collecte": 4,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 3,
+    "collectes_rejetees": 4,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1500
   },
