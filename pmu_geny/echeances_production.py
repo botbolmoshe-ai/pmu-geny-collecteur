@@ -11,7 +11,8 @@ from zoneinfo import ZoneInfo
 
 PARIS = ZoneInfo('Europe/Paris')
 PHASES = {'H2': timedelta(hours=2), 'H1': timedelta(hours=1)}
-MARGE = timedelta(minutes=30)
+MARGE = timedelta(minutes=30)  # fraîcheur des données, inchangée
+ANTICIPATION = timedelta(minutes=55)  # fenêtres H2/H1 non superposées
 
 
 def lire(path):
@@ -61,7 +62,7 @@ def planifier(cache, now, force=False):
         phases = lire(cache/'jalons'/f'{key}.json')
         for phase, offset in PHASES.items():
             deadline = depart-offset
-            start = deadline-MARGE
+            start = deadline-ANTICIPATION
             record = phases.get(phase, {})
             if record.get('statut') in ('PUBLIE_A_TEMPS', 'PUBLIE_EN_RETARD'):
                 continue
@@ -70,7 +71,7 @@ def planifier(cache, now, force=False):
                 needs.append({'course':key, 'phase':phase, 'echeance':deadline.isoformat()})
             else:
                 upcoming.append(start)
-    if last:
+    if last and last+timedelta(hours=1)>now:
         upcoming.append(last+timedelta(hours=1))
     return {'plan_utc':now.isoformat(), 'date':day,
             'executer':bool(global_due or selection),
@@ -170,11 +171,11 @@ def enregistrer_publication(cache, now, plan, publie):
                 if phases.get(phase, {}).get('statut') in ('PUBLIE_A_TEMPS','PUBLIE_EN_RETARD'):
                     continue
                 deadline = depart-offset
-                if now < deadline-MARGE:
+                if now < deadline-ANTICIPATION:
                     continue
                 selected = {}
                 for kind, proof in proofs.items():
-                    if instant(proof['calcul_utc']) < deadline-MARGE:
+                    if instant(proof['calcul_utc']) < deadline-ANTICIPATION:
                         continue
                     stamp = instant(proof['calcul_utc']).astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
                     frozen = cache/'jalons'/key/f'{phase}_{kind}_{stamp}.json'
