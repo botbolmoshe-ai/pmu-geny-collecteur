@@ -1,7 +1,7 @@
 {
   "date": "2026-11-18",
   "course": "R6C6",
-  "calcul_utc": "2026-11-18T02:48:32.446418+01:00",
+  "calcul_utc": "2026-11-18T04:36:04.432048+01:00",
   "depart": "2026-11-18T15:30:00+01:00",
   "modele": "gradient_boosting",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
@@ -14,28 +14,28 @@
   "entrees_modele": [
     {
       "numero": 1,
-      "cheval_id": "",
+      "cheval_id": "2779006",
       "nom": "KALGARY",
-      "historique_ok": false,
-      "historique_complet": false,
-      "methode_liaison": "NON_ASSOCIE",
+      "historique_ok": true,
+      "historique_complet": true,
+      "methode_liaison": "NOM_EXACT_UNIQUE",
       "score_direct_pmu": 7.0,
       "features": {
         "courses_30j": 0,
         "courses_60j": 0,
-        "courses_120j": 0,
+        "courses_120j": 2,
         "podiums_30j": null,
-        "podiums_120j": null,
-        "victoires_120j": 0,
-        "disqualifications_120j": 0,
-        "score_forme": null,
+        "podiums_120j": 0.5,
+        "victoires_120j": 1,
+        "disqualifications_120j": 1,
+        "score_forme": 2.5,
         "forme_30j": null,
-        "forme_ancien": null,
-        "jours_repos": null,
+        "forme_ancien": 2.5,
+        "jours_repos": 83,
         "distance_m": 2300.0,
-        "distance_ecart_m": null,
+        "distance_ecart_m": 0.0,
         "aptitude_hippodrome": null,
-        "taux_podium_distance": null,
+        "taux_podium_distance": 0.25,
         "nb_partants": 10.0,
         "meteo_pluie_mm": null,
         "meteo_vent_kmh": null,
@@ -437,28 +437,28 @@
     },
     {
       "numero": 10,
-      "cheval_id": "",
+      "cheval_id": "2773309",
       "nom": "KAMIL VAN HALBEEK",
-      "historique_ok": false,
-      "historique_complet": false,
-      "methode_liaison": "NON_ASSOCIE",
+      "historique_ok": true,
+      "historique_complet": true,
+      "methode_liaison": "NOM_EXACT_UNIQUE",
       "score_direct_pmu": 0.0,
       "features": {
-        "courses_30j": 0,
-        "courses_60j": 0,
-        "courses_120j": 0,
-        "podiums_30j": null,
-        "podiums_120j": null,
+        "courses_30j": 1,
+        "courses_60j": 4,
+        "courses_120j": 5,
+        "podiums_30j": 0.0,
+        "podiums_120j": 0.0,
         "victoires_120j": 0,
         "disqualifications_120j": 0,
-        "score_forme": null,
-        "forme_30j": null,
-        "forme_ancien": null,
-        "jours_repos": null,
+        "score_forme": 0.0,
+        "forme_30j": 0.0,
+        "forme_ancien": 0.0,
+        "jours_repos": 23,
         "distance_m": 2300.0,
-        "distance_ecart_m": null,
+        "distance_ecart_m": 50.0,
         "aptitude_hippodrome": null,
-        "taux_podium_distance": null,
+        "taux_podium_distance": 0.2,
         "nb_partants": 10.0,
         "meteo_pluie_mm": null,
         "meteo_vent_kmh": null,
@@ -485,12 +485,6 @@
   ],
   "top3": [
     {
-      "numero": 1,
-      "nom": "KALGARY",
-      "cheval_id": "",
-      "score_non_calibre": 0.4577
-    },
-    {
       "numero": 4,
       "nom": "JOSE DU CHERISAY",
       "cheval_id": "2721274",
@@ -501,16 +495,16 @@
       "nom": "KING CRIMSON",
       "cheval_id": "",
       "score_non_calibre": 0.40571
+    },
+    {
+      "numero": 1,
+      "nom": "KALGARY",
+      "cheval_id": "2779006",
+      "score_non_calibre": 0.40456
     }
   ],
   "classement_complet": [
     {
-      "numero": 1,
-      "nom": "KALGARY",
-      "cheval_id": "",
-      "score_non_calibre": 0.4577
-    },
-    {
       "numero": 4,
       "nom": "JOSE DU CHERISAY",
       "cheval_id": "2721274",
@@ -521,6 +515,12 @@
       "nom": "KING CRIMSON",
       "cheval_id": "",
       "score_non_calibre": 0.40571
+    },
+    {
+      "numero": 1,
+      "nom": "KALGARY",
+      "cheval_id": "2779006",
+      "score_non_calibre": 0.40456
     },
     {
       "numero": 2,
@@ -561,8 +561,8 @@
     {
       "numero": 10,
       "nom": "KAMIL VAN HALBEEK",
-      "cheval_id": "",
-      "score_non_calibre": 0.13683
+      "cheval_id": "2773309",
+      "score_non_calibre": 0.07521
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."
