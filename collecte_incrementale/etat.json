@@ -32606,7 +32606,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:00:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2902156",
       "geny": {
         "id": "2902156",
@@ -32617,7 +32617,7 @@
       "derniere_verification_utc": "2026-11-17T00:21:20.288586+00:00",
       "prochaine_verification_utc": "2026-11-18T00:21:20.288586+00:00",
       "nombre_performances": 3,
-      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "erreur": "PermissionError: ACCES_REFUSE_403",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-11-02",
       "sync_details": {
@@ -32648,14 +32648,16 @@
         }
       },
       "sync_utc": "2026-11-17T00:21:38.665201+00:00",
-      "prochain_essai_utc": "2026-11-18T06:29:08.280659+00:00",
+      "prochain_essai_utc": "2026-11-18T14:45:32.694421+00:00",
       "dernier_echec_collecte": {
-        "utc": "2026-11-18T00:29:08.280675+00:00",
-        "statut": "COMPLET",
-        "motifs": [],
-        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
-        "identite_verifiee": true,
-        "diagnostic": "resultats/incremental/2902156/1794961742203097455/resultat.json"
+        "utc": "2026-11-18T08:45:32.694443+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [
+          "ACCES_REFUSE_403"
+        ],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2902156/1794991527863018790/resultat.json"
       }
     },
     "2908406": {
@@ -41705,13 +41707,13 @@
     }
   },
   "passage_utc": "2026-11-18T08:45:21.109784+00:00",
-  "maj_utc": "2026-11-18T08:45:25.400608+00:00",
+  "maj_utc": "2026-11-18T08:45:32.702305+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1536
   },
@@ -41722,7 +41724,7 @@
       "indicateurs_actualises": 45
     }
   },
-  "prochain_acces_geny_utc": "2026-11-17T09:15:31.489065+00:00",
+  "prochain_acces_geny_utc": "2026-11-18T09:15:32.694462+00:00",
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
