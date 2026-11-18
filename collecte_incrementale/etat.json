@@ -34022,7 +34022,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T13:00:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2801216",
       "geny": {
         "id": "2801216",
@@ -34033,7 +34033,7 @@
       "derniere_verification_utc": "2026-11-17T04:36:58.595699+00:00",
       "prochaine_verification_utc": "2026-11-18T04:36:58.595699+00:00",
       "nombre_performances": 18,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-11-02",
       "sync_details": {
@@ -34063,7 +34063,16 @@
           "lignes_source": 1
         }
       },
-      "sync_utc": "2026-11-17T04:37:22.967123+00:00"
+      "sync_utc": "2026-11-17T04:37:22.967123+00:00",
+      "prochain_essai_utc": "2026-11-18T11:04:10.155905+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T05:04:10.155923+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2801216/1794978243924285120/resultat.json"
+      }
     },
     "2811396": {
       "nom": "LECCE MARIS",
@@ -41633,13 +41642,13 @@
     }
   },
   "passage_utc": "2026-11-18T05:02:25.100526+00:00",
-  "maj_utc": "2026-11-18T05:04:00.641017+00:00",
+  "maj_utc": "2026-11-18T05:04:10.156101+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 2,
+    "tentatives_collecte": 3,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 2,
+    "collectes_rejetees": 3,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1512
   },
