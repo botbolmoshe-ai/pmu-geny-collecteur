@@ -107,6 +107,21 @@ class ProductionMLTests(unittest.TestCase):
         save(path, ['format invalide'])
         self.assertEqual(dataset(self.root, self.now)[1], 2)
 
+    def test_connections_use_only_prior_labels_and_same_discipline(self):
+        from pmu_geny.ml_v19 import scores_intervenants
+        self.examples()
+        for path in (self.root/'ml/instantanes').glob('*.json'):
+            doc = load(path)
+            for row in doc['chevaux']:
+                row['features']['discipline_montee'] = int(doc['date'] == '2026-11-14')
+                row['intervenants_pmu'] = {'entraineur_score': 'DUPONT'}
+            save(path, doc)
+        self.assertEqual(scores_intervenants(self.root, self.now, 'm'), {})
+        self.assertEqual(scores_intervenants(self.root, self.now, 'a'),
+                         {('entraineur_score', 'DUPONT'): 7/13})
+        earlier = datetime.fromisoformat('2026-11-13T12:30:00+00:00')
+        self.assertEqual(scores_intervenants(self.root, earlier, 'a'), {})
+
     def prospective_candidate(self):
         from pmu_geny.maturite_ml import CANDIDATE, sha, thresholds
         artifact = self.root / 'ml/staged.joblib'

@@ -171,4 +171,8 @@ def prospective(rows):
     observations = sum(r['couverture']['observations'] for r in rows)
     return {'courses': n, 'completude': sum(r['couverture']['completes'] for r in rows) / observations if observations else 0,
             **{f'moyenne_{kind}': sum(hits.values()) / n if n else None for kind, hits in paired.items()},
+            **{f'taux_3_sur_3_{kind}': sum(v == 3 for v in hits.values()) / n if n else None
+               for kind, hits in paired.items()},
+            **{f'taux_au_moins_2_sur_3_{kind}': sum(v >= 2 for v in hits.values()) / n if n else None
+               for kind, hits in paired.items()},
             'comparaison': paired_interval(paired['ml'], paired['direct'])}

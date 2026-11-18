@@ -6,8 +6,9 @@ Les cotes, rapports, prix et rangs à l'arrivée ne sont JAMAIS des features.
 """
 from __future__ import annotations
 import csv, hashlib, json, math, re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from collections import defaultdict
 
 FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_120j',
             'victoires_120j','disqualifications_120j','score_forme','forme_30j','forme_ancien',
@@ -98,7 +99,7 @@ def features(horse, history, course, context=None, *, legacy=False):
 
 CONTEXT_FEATURES = frozenset({
     'meteo_pluie_mm', 'meteo_vent_kmh', 'meteo_temperature_c', 'meteo_humidite_pct',
-    'avis_experts_score', 'info_ecurie_score', 'driver_score', 'entraineur_score',
+    'avis_experts_score', 'info_ecurie_score',
 })
 
 
@@ -116,8 +117,6 @@ def _valid_context(cache,course,now,*,legacy=False):
             continue
         if stamp>now or stamp>=datetime.fromisoformat(course['depart']):continue
         if key in (LEGACY_FEATURES if legacy else CONTEXT_FEATURES) and value is not None:
-            if key in ('driver_score', 'entraineur_score') and item.get('numero') is None:
-                continue
             # Pour les observations individuelles, prioriser l'index du cheval.
             numero=item.get('numero')
             results[(str(numero) if numero is not None else '*',key)]=value
@@ -159,13 +158,17 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
     cache=Path(cache)
     participants=_list(raw,'participants','partants')
     if len(participants)<3:return 'PARTANTS_INSUFFISANTS',[],{}
-    from .liaison_chevaux_v22 import etablir
+    from .liaison_chevaux_v22 import etablir, nom_normalise
     names=[{'numero':h.get('numPmu',h.get('numero')),
             'nom':h.get('nomCheval',h.get('nom',h.get('nomParticipant','')))}
            for h in participants if isinstance(h,dict)]
     association=etablir(cache,course,names)
     context=_valid_context(cache,course,now,legacy=legacy)
     profils=extraire_partants(raw)
+    discipline = _discipline(course.get('discipline'))
+    has_connections = any(p.get('driver_jockey') or p.get('entraineur') for p in profils.values())
+    connection_scores = scores_intervenants(cache, now, discipline) if (
+        not legacy and discipline and has_connections) else {}
     rows=[];seen=set();with_history=0;with_partial=0;unknown_np=0
     for item in participants:
         if not isinstance(item,dict):continue
@@ -189,9 +192,16 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
             else:with_history+=1
         c = {key: value for (num, key), value in context.items() if num == '*'}
         c.update({key: value for (num, key), value in context.items() if num == str(numero)})
-        direct = _form_score(item) if legacy else _musique_pmu(item, _discipline(course.get('discipline')))[0]
+        direct = _form_score(item) if legacy else _musique_pmu(item, discipline)[0]
         if direct is not None:c['pmu_score_direct']=direct
         profil=profils.get(numero,{})
+        intervenants = {role: nom_normalise(profil.get(field))
+                        for role, field in (('driver_score', 'driver_jockey'), ('entraineur_score', 'entraineur'))
+                        if profil.get(field)}
+        if not legacy:
+            for role, name in intervenants.items():
+                if (role, name) in connection_scores:
+                    c[role] = connection_scores[role, name]
         for feature in ('age_ans','gains_euros'):
             value=profil.get(feature)
             if value is not None:c[feature]=value
@@ -214,6 +224,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                      'methode_liaison':link.get('methode','NON_ASSOCIE'),
                      'source_historique':histo.get('source_url'),
                      'historique_extrait_utc':histo.get('extrait_utc'),
+                     'intervenants_pmu':intervenants,
                      'score_direct_pmu':direct,
                      'features':features_values})
     if len(rows)<3:return 'PARTANTS_INSUFFISANTS',[],{}
@@ -271,10 +282,32 @@ def dataset(cache, now=None):
                     and s.get('source') == 'PMU_API_PARTICIPANTS'
                     and arr.get('source') == 'PMU_API_PARTICIPANTS',
                 'y':int(int(row['numero']) in placed),
+                'intervenants_pmu': row.get('intervenants_pmu', {}),
                 'features':row['features'] if s.get('features_schema') == MODEL_SCHEMA else
                     {k: row['features'][k] for k in ('pmu_score_direct', 'distance_m', 'age_ans', 'gains_euros',
                      'sexe_male', 'sexe_femelle', 'sexe_hongre') if k in row['features']}})
     return examples,course_count
+
+
+def scores_intervenants(cache, now, discipline):
+    """Taux de podium lissé sur les captures PMU vérifiées des 90 derniers jours."""
+    window = now - timedelta(days=90)
+    records, _ = dataset(cache, now)
+    groups = defaultdict(list)
+    for row in records:
+        if (not row['capture_qualifiante'] or datetime.fromisoformat(row['depart']) < window
+                or numeric(row['features'].get('discipline_montee')) != int(discipline == 'm')):
+            continue
+        identities = row['intervenants_pmu']
+        if not isinstance(identities, dict):
+            continue
+        for role in ('driver_score', 'entraineur_score'):
+            name = identities.get(role)
+            if isinstance(name, str) and name:
+                groups[role, name].append(row)
+    return {key: (sum(row['y'] for row in rows) + 1) / (len(rows) + 5)
+            for key, rows in groups.items()
+            if len(rows) >= 5 and len({row['course'] for row in rows}) >= 2}
 
 
 def train(cache, min_courses=None, min_rows=None, now=None):

@@ -63,7 +63,10 @@ courant. Les seuils comptent les captures du schéma courant, appariées à une
 arrivée PMU sourcée. La complétude exige, pour chaque ligne, forme PMU, distance,
 discipline, âge, sexe et gains. La couverture de la ferrure, de l'historique
 comparable, du driver et de l'entraîneur est publiée séparément. Les deux
-derniers scores nécessitent une observation individuelle horodatée et sourcée.
+derniers critères utilisent les identités explicites du PMU. Leur taux de
+podium est lissé à partir des captures qualifiantes des 90 derniers jours,
+dans la même discipline, avec au moins cinq participations sur deux courses.
+Seules les arrivées déjà observées à l'instant du relevé entrent dans ce taux.
 
 | Niveau | Courses qualifiantes | Observations qualifiantes | Courses prospectives | Complétude |
 | --- | ---: | ---: | ---: | ---: |

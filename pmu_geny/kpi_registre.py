@@ -80,6 +80,13 @@ def calculer_kpi(cache, source=None, now=None):
             ('Borne basse IC 95 %', interval[0], 'Bootstrap apparié par course, différence ML − direct.'),
             ('Borne haute IC 95 %', interval[1], 'Bootstrap apparié par course, différence ML − direct.'),
         ]
+        for mode in ('ML', 'direct'):
+            fields.extend([
+                (f'Taux de 3 sur 3 · {mode}', prospective.get(f'taux_3_sur_3_{mode.lower()}'),
+                 'Proportion des courses prospectives avec trois chevaux du podium retrouvés.'),
+                (f'Taux d’au moins 2 sur 3 · {mode}', prospective.get(f'taux_au_moins_2_sur_3_{mode.lower()}'),
+                 'Proportion des courses prospectives avec au moins deux chevaux du podium retrouvés.'),
+            ])
         for stage, thresholds in maturity['seuils'].items():
             fields.append((f'Seuils {stage.lower()}',
                            f"{thresholds['courses']} courses / {thresholds['observations']} observations / "
@@ -191,6 +198,10 @@ def totaux_reference(metrics):
     if qualifying is not None:
         totals.update({label: qualifying for label in metrics if label.startswith(
             ('Maturité ML · Couverture · ', 'Maturité ML · Taux de complétude')) and not label.endswith('prospective')})
+    prospective_maturity=value('Maturité ML · Courses prospectives appariées')
+    if prospective_maturity is not None:
+        totals.update({label: prospective_maturity for label in metrics if label.startswith(
+            ('Maturité ML · Taux de 3 sur 3', 'Maturité ML · Taux d’au moins 2 sur 3'))})
     prospective=value('ML prospectif · Courses évaluées')
     if prospective is not None:totals['ML prospectif · TOP3 ML exacts']=prospective
     return totals

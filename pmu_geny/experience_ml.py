@@ -162,7 +162,14 @@ def run(cache, output, validation_day, test_day, now=None):
     from sklearn.base import clone
     from .maturite_ml import CRITERIA, coverage
     report['ablation_validation'] = {}
-    for criterion, keys in CRITERIA.items():
+    ablations = {**CRITERIA,
+        'Historique comparable': ('forme_geny_comparable', 'courses_30j', 'courses_60j', 'courses_120j',
+                                  'podiums_30j', 'podiums_120j', 'victoires_120j', 'disqualifications_120j',
+                                  'score_forme', 'forme_30j', 'forme_ancien', 'jours_repos',
+                                  'distance_ecart_m', 'aptitude_hippodrome', 'taux_podium_distance'),
+        'Distance': ('distance_m', 'distance_ecart_m', 'taux_podium_distance', 'forme_geny_comparable'),
+    }
+    for criterion, keys in ablations.items():
         indices = [FEATURES.index(key) for key in keys]
         if not np.isfinite(x_train[:, indices]).any() or not np.isfinite(x_validation[:, indices]).any():
             report['ablation_validation'][criterion] = {'etat': 'DONNEES_INSUFFISANTES'}

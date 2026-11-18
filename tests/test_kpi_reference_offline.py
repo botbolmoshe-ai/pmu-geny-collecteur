@@ -5,6 +5,23 @@ from tempfile import TemporaryDirectory
 from pmu_geny.kpi_registre import calculer_kpi,plan_kpi,totaux_reference
 
 class KPIReferenceTests(unittest.TestCase):
+    def test_maturity_metrics_are_re_read_without_duplicate_append(self):
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from pmu_geny.ml_v19 import train
+        from pmu_geny.moteur_sheets import SynchroniseurSheets
+        from test_v26_chaine_offline import SheetsSession
+
+        with TemporaryDirectory() as tmp:
+            cache = Path(tmp)
+            train(cache)
+            engine = SynchroniseurSheets(cache, 'test', session=SheetsSession())
+            source = {'Courses & Prévisions': {}, 'Résultats & Analyse': {}}
+            first = engine._synchroniser_kpi(engine.metadata(), source)
+            self.assertGreater(first['Data Quality & KPI']['indicateurs_actualises'], 25)
+            second = engine._synchroniser_kpi(engine.metadata(), source)
+            self.assertEqual(second['Data Quality & KPI']['indicateurs_actualises'], 0)
+
     def test_ml_counts_and_denominators_same_snapshot(self):
         participants={
             str(i):{'course_key':'C1' if i<2 else 'C2','cheval':f'Cheval {i}',
