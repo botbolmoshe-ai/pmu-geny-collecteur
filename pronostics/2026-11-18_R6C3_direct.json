@@ -2,14 +2,16 @@
   "date": "2026-11-18",
   "course": "R6C3",
   "depart": "2026-11-18T14:00:00+01:00",
-  "calcul_utc": "2026-11-18T11:50:48.372630+01:00",
+  "calcul_utc": "2026-11-18T12:49:17.473911+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-18T11:50:48.280131+01:00",
+  "donnees_observees_utc": "2026-11-18T12:49:17.350957+01:00",
   "version_moteur": "direct-v32-contextuel",
-  "non_partants_confirmes": [],
+  "non_partants_confirmes": [
+    14
+  ],
   "statut": "COMPLET",
-  "observations": 14,
-  "partants_eligibles": 14,
+  "observations": 13,
+  "partants_eligibles": 13,
   "classement_complet": [
     {
       "numero": 13,
@@ -80,20 +82,6 @@
       "ferrures_historiques_comparees": 23,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": "2805782"
-    },
-    {
-      "numero": 14,
-      "nom": "LASKA DU LIVIER",
-      "score_direct": 1.1745,
-      "source_forme": "PMU+GENY_CONTEXTUEL",
-      "qualite_score": "CONTEXTE_DOCUMENTE",
-      "musique_exploitable": 4,
-      "historique_exploitable": 14,
-      "distance_proche": 5,
-      "comparabilite_moyenne": 0.3374,
-      "ferrures_historiques_comparees": 14,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": "2804260"
     },
     {
       "numero": 2,
@@ -254,8 +242,8 @@
   ],
   "note": "Direct heuristique: musique PMU et historiques Geny anterieurs ponderes par discipline, distance, hippodrome, ferrure documentee et anciennete. Scores non calibres; facteurs manquants explicites.",
   "couverture_sources": {
-    "pmu_musique": 14,
-    "geny_historique": 14,
+    "pmu_musique": 13,
+    "geny_historique": 13,
     "pmu_seul": 0,
     "sans_score": 0,
     "effectif_declare_confirme": true

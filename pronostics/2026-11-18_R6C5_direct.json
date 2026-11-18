@@ -2,31 +2,18 @@
   "date": "2026-11-18",
   "course": "R6C5",
   "depart": "2026-11-18T15:00:00+01:00",
-  "calcul_utc": "2026-11-18T10:49:43.049400+01:00",
+  "calcul_utc": "2026-11-18T12:49:20.074577+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-18T10:49:42.959859+01:00",
+  "donnees_observees_utc": "2026-11-18T12:49:20.001756+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [
+    5,
     8
   ],
   "statut": "COMPLET",
-  "observations": 12,
-  "partants_eligibles": 12,
+  "observations": 11,
+  "partants_eligibles": 11,
   "classement_complet": [
-    {
-      "numero": 5,
-      "nom": "MISS LOUBRESSE",
-      "score_direct": 1.8735,
-      "source_forme": "PMU+GENY_CONTEXTUEL",
-      "qualite_score": "CONTEXTE_DOCUMENTE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 9,
-      "distance_proche": 3,
-      "comparabilite_moyenne": 0.3098,
-      "ferrures_historiques_comparees": 9,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": "2850992"
-    },
     {
       "numero": 2,
       "nom": "MACAO MIP",
@@ -184,20 +171,6 @@
   ],
   "top3": [
     {
-      "numero": 5,
-      "nom": "MISS LOUBRESSE",
-      "score_direct": 1.8735,
-      "source_forme": "PMU+GENY_CONTEXTUEL",
-      "qualite_score": "CONTEXTE_DOCUMENTE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 9,
-      "distance_proche": 3,
-      "comparabilite_moyenne": 0.3098,
-      "ferrures_historiques_comparees": 9,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": "2850992"
-    },
-    {
       "numero": 2,
       "nom": "MACAO MIP",
       "score_direct": 1.7186,
@@ -224,12 +197,26 @@
       "ferrures_historiques_comparees": 10,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": "2818533"
+    },
+    {
+      "numero": 3,
+      "nom": "MAMY BLUE TIT",
+      "score_direct": 1.3521,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_PARTIEL",
+      "musique_exploitable": 5,
+      "historique_exploitable": 10,
+      "distance_proche": 0,
+      "comparabilite_moyenne": 0.2016,
+      "ferrures_historiques_comparees": 10,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2857180"
     }
   ],
   "note": "Direct heuristique: musique PMU et historiques Geny anterieurs ponderes par discipline, distance, hippodrome, ferrure documentee et anciennete. Scores non calibres; facteurs manquants explicites.",
   "couverture_sources": {
-    "pmu_musique": 12,
-    "geny_historique": 12,
+    "pmu_musique": 11,
+    "geny_historique": 11,
     "pmu_seul": 0,
     "sans_score": 0,
     "effectif_declare_confirme": true

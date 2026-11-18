@@ -171,10 +171,10 @@
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE",
       "statut_np": "CONTROLE_DIFFERE",
-      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
-      "statut_maj_np": "H1_NON_FIGE",
-      "np_confirmes": 0,
-      "np_verification_utc": "2026-11-18T10:50:48.452779+00:00"
+      "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
+      "statut_maj_np": "ACTUALISE",
+      "np_confirmes": 1,
+      "np_verification_utc": "2026-11-18T11:49:17.600222+00:00"
     },
     "R6C4": {
       "identifiant_geny": "GENY-1698934",
@@ -209,7 +209,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -227,7 +227,7 @@
       "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
       "statut_maj_np": "H1_NON_FIGE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-18T09:49:41.401560+00:00"
+      "np_verification_utc": "2026-11-18T11:49:18.910701+00:00"
     },
     "R6C5": {
       "identifiant_geny": "GENY-1698930",
@@ -279,8 +279,8 @@
       "statut_maj_np": "H1_NON_FIGE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698930/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE",
-      "np_confirmes": 1,
-      "np_verification_utc": "2026-11-18T09:49:43.180256+00:00"
+      "np_confirmes": 2,
+      "np_verification_utc": "2026-11-18T11:49:20.206763+00:00"
     },
     "R6C6": {
       "identifiant_geny": null,
@@ -315,7 +315,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -499,7 +499,7 @@
       "motif_selection": "ALLOCATION_ELEVEE",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -591,7 +591,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -607,10 +607,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-18T10:50:41.494741+00:00",
+  "dernier_controle_pmu": "2026-11-18T11:49:10.622182+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-18",
-    "horodatage_utc": "2026-11-18T10:50:41.494741+00:00",
+    "horodatage_utc": "2026-11-18T11:49:10.622182+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
