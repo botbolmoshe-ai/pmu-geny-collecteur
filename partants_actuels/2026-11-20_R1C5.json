@@ -1,0 +1,470 @@
+{
+  "date": "2026-11-20",
+  "course": "R1C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MANDARINE TIVO",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 3298000,
+        "gainsVictoires": 1507500,
+        "gainsPlace": 1790500,
+        "gainsAnneeEnCours": 3298000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MAJORELLE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 3806000,
+        "gainsVictoires": 3780000,
+        "gainsPlace": 26000,
+        "gainsAnneeEnCours": 2591000,
+        "gainsAnneePrecedente": 1215000
+      }
+    },
+    {
+      "nom": "MAMZELLE D'HERIPRE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 4344000,
+        "gainsVictoires": 2520000,
+        "gainsPlace": 1824000,
+        "gainsAnneeEnCours": 1624000,
+        "gainsAnneePrecedente": 2720000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-18T23:13:38.626681+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "J. BESCHER",
+      "entraineur": "J. BESCHER",
+      "proprietaire": "J. BESCHER",
+      "musique_pmu": "Da1a4a2a3a7a2a3a4a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 32980.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "nom": "MANDARINE TIVO",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "M. IONESCU",
+      "entraineur": "R. DERIEUX",
+      "proprietaire": "Ecurie SERENITE",
+      "musique_pmu": "1aDa1a7a(25)Da1a1aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 38060.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "nom": "MAJORELLE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "A.A. BOULARD",
+      "entraineur": "R. DERIEUX",
+      "proprietaire": "Ecurie d' HERIPRE",
+      "musique_pmu": "7a3a6a1a(25)2a5a1aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 43440.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "nom": "MAMZELLE D'HERIPRE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "O. BIZOUX",
+      "entraineur": "O. BIZOUX",
+      "proprietaire": "Mme M. BIZOUX",
+      "musique_pmu": "4a4aDa7a9a3a4a4a7a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 46540.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "nom": "MARISA DU CHATELET",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "R. CONGARD",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "M. ALADENISE",
+      "ferrure": "D4",
+      "musique_pmu": "Da0aDa6a6a8aDm(25)Dm3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 46690.0,
+      "nom": "MISS BLACK BERRY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "A. MENAGER",
+      "entraineur": "A. MENAGER",
+      "proprietaire": "Mme A. MENAGER",
+      "musique_pmu": "Da1a8aDm(25)8a5aDa7a3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 49050.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "nom": "MERYTATON",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "A. REBECHE",
+      "entraineur": "V. LEBARQUE",
+      "proprietaire": "Ecurie Comte P. de MONTESSON",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da4a9a2a1a0a3a2a7a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 49805.0,
+      "nom": "MAMAMIA DES ARRIS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "G. SALLES",
+      "proprietaire": "Ecurie Jean Yves LECUYER",
+      "ferrure": "D4",
+      "musique_pmu": "3a1aDa1a(25)1a1a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 50375.0,
+      "nom": "MOON DU VIVIER",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "H.E. BONDO",
+      "proprietaire": "A. GOKESCH",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a5a7a0a5a6aAaDaDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 52035.0,
+      "nom": "MOONSTAR JYL",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "Anthony DOLLION",
+      "proprietaire": "Mme M.D. FAIRAND",
+      "ferrure": "D4",
+      "musique_pmu": "1a6a3a4a1a2a2a(25)2a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 52040.0,
+      "nom": "MARIE CHARLOTTE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "ANTHONY DOLLION",
+      "entraineur": "Anthony DOLLION",
+      "proprietaire": "Anthony DOLLION",
+      "ferrure": "DP",
+      "musique_pmu": "8a1a7a1a6a2a(25)Da5a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 52570.0,
+      "nom": "MAYA PONT VAUTIER",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "D. BONNE",
+      "entraineur": "D. BONNE",
+      "proprietaire": "Sté. Ent. Etienne DUBOIS",
+      "ferrure": "D4",
+      "musique_pmu": "Da0aDa0a0aDa6a4a7a8a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 52870.0,
+      "nom": "MY HAPPY STORY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "CEDRIC TERRY",
+      "entraineur": "F. TERRY",
+      "proprietaire": "Ecurie ALFAM",
+      "ferrure": "P4",
+      "musique_pmu": "7a2a1a7a8aDa(25)1a2a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 52915.0,
+      "nom": "MANUELLA DE PLAY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "J.PH. RAFFEGEAU",
+      "proprietaire": "Ecurie ELEVAGE DU ROY",
+      "ferrure": "D4",
+      "musique_pmu": "1aDa4a2a3a2aGa(25)1a6a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 53055.0,
+      "nom": "METALLICA SMART",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "V. LEBARQUE",
+      "proprietaire": "Ecurie Comte P. de MONTESSON",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1a2a5a1a3a3a0a0a(25)6a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 53370.0,
+      "nom": "MAYA DE MAHEY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "G. HORRACH VIDAL",
+      "entraineur": "Guillermo HORRACH VIDAL",
+      "proprietaire": "Guillermo HORRACH VIDAL",
+      "ferrure": "D4",
+      "musique_pmu": "6a0a3a3a2a8a7a9a3a(25)",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 54250.0,
+      "nom": "MUSE DE MONTCEAU",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "17": {
+      "driver_jockey": "CL. DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ecurie Thierry DUVALDESTIN",
+      "ferrure": "D4",
+      "musique_pmu": "0a1a2a2aDa3a(25)6a6a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 54330.0,
+      "nom": "MEGAFLECHE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "18": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "PH. DAUGEARD",
+      "proprietaire": "L. AUBERT",
+      "ferrure": "D4",
+      "musique_pmu": "7a8a8a0a5a6a9a(25)3a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 54970.0,
+      "nom": "MERRY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
+          "capture_utc": "2026-11-18T23:13:38.626681+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

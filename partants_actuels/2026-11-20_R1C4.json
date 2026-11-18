@@ -1,0 +1,402 @@
+{
+  "date": "2026-11-20",
+  "course": "R1C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KING FROMENTRO",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 13923500,
+        "gainsVictoires": 2925000,
+        "gainsPlace": 10998500,
+        "gainsAnneeEnCours": 5470000,
+        "gainsAnneePrecedente": 3612000
+      }
+    },
+    {
+      "nom": "KOQUERY DU BUISSON",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 14011000,
+        "gainsVictoires": 8055000,
+        "gainsPlace": 5956000,
+        "gainsAnneeEnCours": 3585500,
+        "gainsAnneePrecedente": 3909000
+      }
+    },
+    {
+      "nom": "IVON DE LA MONERIE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 14033400,
+        "gainsVictoires": 5580000,
+        "gainsPlace": 8453400,
+        "gainsAnneeEnCours": 3370000,
+        "gainsAnneePrecedente": 675000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-18T23:13:37.900972+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "TH. LARDILLIER",
+      "proprietaire": "Mme R. LARDILLIER",
+      "ferrure": "PA",
+      "musique_pmu": "5a2a2a2a1a1a8a(25)3a6a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 139235.0,
+      "nom": "KING FROMENTRO",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "A. LAMY",
+      "entraineur": "TH. RAFFEGEAU",
+      "proprietaire": "Ecurie Thierry RAFFEGEAU",
+      "ferrure": "PA",
+      "musique_pmu": "0a0a0a6a4a5a2a3a9a3a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 140110.0,
+      "nom": "KOQUERY DU BUISSON",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "F. DELENCLOS",
+      "proprietaire": "F. DELENCLOS",
+      "musique_pmu": "5a4a5a2aDa8a0a5a8a3a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 140334.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "nom": "IVON DE LA MONERIE",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "P.Y. VERVA",
+      "proprietaire": "Ecurie Eric LEMAITRE",
+      "ferrure": "D4",
+      "musique_pmu": "1a2a1a1a5a5a0a1a(25)9a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 142710.0,
+      "nom": "KERVELEAN",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "HUGHES LEVESQUE",
+      "proprietaire": "Ecurie de l' ITON",
+      "ferrure": "D4",
+      "musique_pmu": "2a1a5a9a1a7a1a7a3a7a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 145085.0,
+      "nom": "KELLER DE L'ITON",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "CH.A. MARY",
+      "proprietaire": "Ecurie CH. A. MARY",
+      "ferrure": "D4",
+      "musique_pmu": "5a9a3a3a4a1a3a5a9a2a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 147035.0,
+      "nom": "KETBERNY",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "Sté. Ent. Grégory THOREL",
+      "proprietaire": "Sté. Ent. Grégory THOREL",
+      "ferrure": "D4",
+      "musique_pmu": "8a0a0a9a0aDa7a3a0a4a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 152170.0,
+      "nom": "KHARNAS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "R. CONGARD",
+      "entraineur": "LEO ABRIVARD",
+      "proprietaire": "Ecurie Léo ABRIVARD",
+      "musique_pmu": "0aDaDaDaDa1a(25)1a4a9a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 152385.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "nom": "JORLANDO",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "M. GOETZ",
+      "entraineur": "V. RENAULT",
+      "proprietaire": "Ecurie HARMONY RACING",
+      "ferrure": "D4",
+      "musique_pmu": "6a4a2a1a1a1a1a1a3a1a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 152965.0,
+      "nom": "KANNABIS JELOCA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "R. LAMY",
+      "entraineur": "P. LEVESQUE",
+      "proprietaire": "Ecurie Pierre LEVESQUE",
+      "ferrure": "D4",
+      "musique_pmu": "0a3a4a2a4a3a0a7a0a9a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 153530.0,
+      "nom": "KARMA",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "B. ROBIN",
+      "entraineur": "J.L. BIGEON",
+      "proprietaire": "J. SECHE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1a0a7a4a1a1aDa4a4a0a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 155700.0,
+      "nom": "KER POULGWEN",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie Jean Michel BAZIRE",
+      "ferrure": "D4",
+      "musique_pmu": "DmDm0aDaDm0a3mDmDaDm",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 159380.0,
+      "nom": "KIKI AND CO",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "M. ABRIVARD",
+      "proprietaire": "Ecurie MARECHAL",
+      "ferrure": "D4",
+      "musique_pmu": "2a1a2a3a3a1a7a0a2a3a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 162160.0,
+      "nom": "KING D'HERMES",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "CH.A. MARY",
+      "proprietaire": "Ecurie du LYS",
+      "ferrure": "D4",
+      "musique_pmu": "4a2a2a0a2a3a1a2a8a2a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 163000.0,
+      "nom": "KANCALAIS",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "J. MAILLARD",
+      "entraineur": "Sté. Ent. Grégory THOREL",
+      "proprietaire": "M. PIGAUT",
+      "musique_pmu": "2m2m5m3m6aDm2m1m8a8m",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 164330.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C4/participants",
+          "capture_utc": "2026-11-18T23:13:37.900972+00:00"
+        }
+      },
+      "nom": "JACK DES MALBERAUX",
+      "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}
