@@ -1,5 +1,5 @@
 {
-  "entrainement_utc": "2026-11-18T19:24:40.205016+00:00",
+  "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
   "courses": 99,
   "lignes": 1322,
   "minimum_courses": 150,
@@ -34,23 +34,26 @@
       "Sexe": 0,
       "Gains": 0,
       "Driver": 0,
-      "Entraîneur": 0
+      "Entraîneur": 0,
+      "Tandem cheval-driver": 0,
+      "Comparaison ferrures historiques": 0,
+      "Avis PMU structuré": 0
     }
   },
   "etat": "INSUFFISANT",
   "maturite": "EXPÉRIMENTAL",
   "promotion_production": false,
   "jour_paris": "2026-11-18",
-  "empreinte_donnees": "8ff0e03c86eb2a157f366b98ac204d27c455b2de95bbc9721f4903b542e70dc4",
+  "empreinte_donnees": "dca1a2c7aa28277e6998e57103dc05793e24818ad68284490d9d826528597575",
   "experimental": {
     "version_cycle": 1,
-    "empreinte_donnees": "8ff0e03c86eb2a157f366b98ac204d27c455b2de95bbc9721f4903b542e70dc4",
-    "execute_utc": "2026-11-18T17:09:12.310861+00:00",
+    "empreinte_donnees": "dca1a2c7aa28277e6998e57103dc05793e24818ad68284490d9d826528597575",
+    "execute_utc": "2026-11-18T21:13:04.865522+00:00",
     "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
     "courses_admissibles": 99,
     "lignes_admissibles": 1322,
     "promotion_production": false,
-    "rapport": "ml/experiences/automatique-8ff0e03c86eb2a157f36/rapport.json",
+    "rapport": "ml/experiences/automatique-dca1a2c7aa28277e6998/rapport.json",
     "validation_day": "2026-11-17",
     "test_day": "2026-11-18",
     "modele": "gradient_boosting",
@@ -175,13 +178,12 @@
         "premier_depart": "2026-11-18T13:00:00+01:00",
         "dernier_depart": "2026-11-18T18:00:00+01:00"
       }
-    },
-    "execution": "DONNEES_INCHANGEES"
+    }
   },
   "experimental_actif": {
     "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
-    "verification_utc": "2026-11-18T19:24:40.205016+00:00",
-    "empreinte_entrainement": "d11f63e934b3788cf9018bcecc9020b92be1c2bf8a7f93a35981f9ef63ad46a8",
+    "verification_utc": "2026-11-18T21:13:04.865522+00:00",
+    "empreinte_entrainement": "2a86840c096649b0a73992d1d98cb015423bda16110c183aa24989d10a9703c3",
     "courses": 99,
     "lignes": 1322,
     "modele": "gradient_boosting",
@@ -189,15 +191,15 @@
     "schema": "pmu-podium-v34",
     "nature": "CANDIDAT_EXPERIMENTAL_NON_CALIBRE",
     "evaluation": "A_MESURER_SUR_LES_PREVISIONS_FUTURES_ENREGISTREES",
-    "entrainement_utc": "2026-11-18T17:09:12.310861+00:00",
+    "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
     "dernier_label_entrainement_utc": "2026-11-18T17:07:57.493627+00:00",
-    "fichier_modele": "ml/modeles_experimentaux/d11f63e934b3788cf9018bcecc9020b92be1c2bf8a7f93a35981f9ef63ad46a8/modele.joblib",
-    "sha256_modele": "bbca3833c776d5e2a57a3f402d56061183c5f5248504ef3ed34d30d5537cae7f",
-    "execution": "DONNEES_INCHANGEES"
+    "fichier_modele": "ml/modeles_experimentaux/2a86840c096649b0a73992d1d98cb015423bda16110c183aa24989d10a9703c3/modele.joblib",
+    "sha256_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+    "execution": "ENTRAINE"
   },
   "performance_prospective": {
     "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-    "controle_utc": "2026-11-18T19:24:40.205016+00:00",
+    "controle_utc": "2026-11-18T21:13:04.865522+00:00",
     "courses": 16,
     "moyenne_ml": 1.125,
     "moyenne_direct": 1.125,
