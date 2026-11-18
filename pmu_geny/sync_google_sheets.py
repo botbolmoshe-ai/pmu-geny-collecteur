@@ -759,7 +759,9 @@ def main():
     engine=None
     try:
         engine=SynchroniseurSheets(cache,spreadsheet)
-        engine.synchroniser_cycle()
+        if os.getenv('PMU_KPI_ONLY')=='true':engine.synchroniser_kpi()
+        elif os.getenv('PMU_KPI_DIFFERE')=='true':engine.synchroniser_cycle(include_kpi=False)
+        else:engine.synchroniser_cycle()
         return 0
     except Exception as exc:
         print(f'::error title=Synchronisation Sheets::Echec du moteur unique : {type(exc).__name__}')
