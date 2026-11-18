@@ -166,12 +166,32 @@ class SynchroniseurSheets:
     def _synchroniser_kpi(self,tables,source):
         from .kpi_registre import KPI_TAB,calculer_kpi,plan_kpi
         if KPI_TAB not in tables:return {}
-        path=quote("'"+KPI_TAB+"'!A1:E100",safe="!:'")
+        path=quote("'"+KPI_TAB+"'!A:E",safe="!:'")
         values=self.check(get_lecture(self.session,self.base+'/values/'+path,
             params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
-        updates=plan_kpi(values,calculer_kpi(self.cache,source))
+        metrics = calculer_kpi(self.cache, source)
+        updates=plan_kpi(values,metrics)
         if updates:self.check(self.session.post(self.base+'/values:batchUpdate',
             json={'valueInputOption':'RAW','data':updates},timeout=45))
+        maturity = {key: val for key, val in metrics.items() if key.startswith('Maturité ML · ')}
+        if maturity:
+            if updates:
+                values = self.check(get_lecture(self.session, self.base+'/values/'+path,
+                    params={'valueRenderOption':'UNFORMATTED_VALUE'}, timeout=30)).get('values', [])
+            readback = {}
+            for row in values[1:]:
+                if len(row) >= 4 and row[1] in maturity:
+                    if row[1] in readback:
+                        raise ErreurSynchronisation('Indicateur de maturité ML en double')
+                    readback[row[1]] = tuple(row[2:4])
+            if readback.keys() != maturity.keys() or any(
+                    definition != readback[key][1] or (
+                        abs(value-readback[key][0]) > 1e-12
+                        if isinstance(value, (int, float)) and isinstance(readback[key][0], (int, float))
+                        else value != readback[key][0])
+                    for key, (value, definition) in maturity.items()):
+                raise ErreurSynchronisation('Vérification Sheets des indicateurs de maturité ML échouée')
+            print(f'KPI_MATURITE_ML_VERIFIES={len(maturity)}', flush=True)
         print(f'SYNC_GOOGLE_SHEETS onglet={KPI_TAB} indicateurs_actualises={len(updates)}',flush=True)
         if os.getenv('PMU_KPI_HISTORY')=='true':
             from .historique_kpi import enregistrer

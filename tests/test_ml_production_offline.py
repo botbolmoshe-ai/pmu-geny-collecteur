@@ -47,9 +47,10 @@ class ProductionMLTests(unittest.TestCase):
             save(self.root / 'ml/instantanes' / (key + '.json'), {
                 'date': day, 'code': 'R1C1', 'depart': day + 'T12:00:00+00:00',
                 'capture_utc': day + 'T10:00:00+00:00',
+                'features_schema': MODEL_SCHEMA, 'source': 'PMU_API_PARTICIPANTS',
                 'chevaux': [{'numero': n, 'features': {'pmu_score_direct': n}} for n in range(1, 5)]})
             save(self.root / 'arrivees' / (key + '.json'), {
-                'date': day, 'course': 'R1C1', 'verifie_utc': day + 'T13:00:00+00:00',
+                'date': day, 'course': 'R1C1', 'source': 'PMU_API_PARTICIPANTS', 'verifie_utc': day + 'T13:00:00+00:00',
                 'arrivee': [{'numero': n, 'rang': n} for n in [1, 2, 3]]})
 
     def test_capture_and_inference_use_same_profiles_without_geny(self):
@@ -106,40 +107,109 @@ class ProductionMLTests(unittest.TestCase):
         save(path, ['format invalide'])
         self.assertEqual(dataset(self.root, self.now)[1], 2)
 
-    def report(self, output, low=-0.1, coverage=1):
-        output.mkdir(parents=True, exist_ok=True)
-        joblib.dump({'model': ProfileModel(), 'features': FEATURES, 'modele': 'test'}, output / 'modele_experimental.joblib')
-        return {'modele_choisi_avant_test': 'test',
-                'decoupage': {'validation': {'courses': 1}, 'test': {'courses': 1}},
-                'ecart_ml_forme_capture': {'courses': coverage, 'ic95_bootstrap_par_course': [low, 1], 'ecart_moyen': 0.5}}
+    def test_connections_use_only_prior_labels_and_same_discipline(self):
+        from pmu_geny.ml_v19 import scores_intervenants
+        self.examples()
+        for path in (self.root/'ml/instantanes').glob('*.json'):
+            doc = load(path)
+            for row in doc['chevaux']:
+                row['features']['discipline_montee'] = int(doc['date'] == '2026-11-14')
+                row['intervenants_pmu'] = {'entraineur_score': 'DUPONT'}
+            save(path, doc)
+        self.assertEqual(scores_intervenants(self.root, self.now, 'm'), {})
+        self.assertEqual(scores_intervenants(self.root, self.now, 'a'),
+                         {('entraineur_score', 'DUPONT'): 7/13})
+        earlier = datetime.fromisoformat('2026-11-13T12:30:00+00:00')
+        self.assertEqual(scores_intervenants(self.root, earlier, 'a'), {})
 
-    def test_non_improving_candidate_preserves_previous_model(self):
-        self.examples(); path = self.model(); before = path.read_bytes()
-        with patch('pmu_geny.experience_ml.run', side_effect=lambda c, o, *a, **k: self.report(o)):
-            status = train(self.root, min_courses=1, min_rows=1, now=self.now)
-        self.assertEqual(status['etat'], 'NON_PROMU_AVANTAGE_NON_DEMONTRE')
+    def prospective_candidate(self):
+        from pmu_geny.maturite_ml import CANDIDATE, sha, thresholds
+        artifact = self.root / 'ml/staged.joblib'
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        joblib.dump({'model': ProfileModel(), 'features': FEATURES, 'schema': MODEL_SCHEMA,
+                     'statut': 'ML_ENTRAINE_NON_CALIBRE', 'modele': 'test'}, artifact)
+        digest = sha(artifact)
+        path = self.root / 'ml/candidats' / digest / 'modele.joblib'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        artifact.replace(path)
+        limits = thresholds()
+        for limit in limits.values():
+            limit.update(courses=1, observations=1, prospectives=2)
+        candidate = {'sha256': digest, 'modele': 'test', 'seuils': limits, 'rapport': 'test',
+                     'entrainement_utc': '2026-11-14T15:00:00+00:00',
+                     'dernier_label_entrainement_utc': '2026-11-14T14:00:00+00:00',
+                     'apprentissage_final': {}}
+        save(self.root / CANDIDATE, candidate)
+        return candidate
+
+    def test_candidate_waits_for_prospective_evidence(self):
+        self.prospective_candidate()
+        path = self.model()
+        before = path.read_bytes()
+        status = train(self.root, now=self.now)
+        self.assertEqual(status['etat'], 'EVALUATION_PROSPECTIVE')
+        self.assertEqual(status['prospective']['courses'], 0)
+        self.assertFalse(status['promotion_production'])
         self.assertEqual(path.read_bytes(), before)
 
-    def test_incomplete_comparator_prevents_promotion(self):
+    def test_prospective_decision_keeps_or_promotes_exact_candidate(self):
+        from pmu_geny.maturite_ml import sha
         self.examples()
-        with patch('pmu_geny.experience_ml.run', side_effect=lambda c, o, *a, **k: self.report(o, low=0.1, coverage=0)):
-            status = train(self.root, min_courses=1, min_rows=1, now=self.now)
-        self.assertEqual(status['etat'], 'NON_PROMU_BENCHMARK_INCOMPLET')
-        self.assertFalse((self.root / 'ml/modele.joblib').exists())
+        path = self.model()
+        before = path.read_bytes()
+        for advantage in (False, True):
+            with self.subTest(advantage=advantage):
+                candidate = self.prospective_candidate()
+                result = [{'course': str(n), 'scores': {'direct': 2, 'ml': 3 if advantage else 2},
+                           'couverture': {'observations': 4, 'completes': 4}} for n in range(2)]
+                with patch('pmu_geny.maturite_ml.comparisons', return_value=result), \
+                     patch('pmu_geny.maturite_ml.coverage', return_value={'completude': 1}):
+                    status = train(self.root, now=self.now)
+                self.assertEqual(status['promotion_production'], advantage)
+                if advantage:
+                    self.assertEqual(sha(path), candidate['sha256'])
+                    self.assertEqual(load(self.root/'ml/preuve_promotion.json')['preuve'], result)
+                else:
+                    self.assertEqual(path.read_bytes(), before)
 
-    def test_positive_independent_test_promotes_with_explicit_schema(self):
-        self.examples()
-        with patch('pmu_geny.experience_ml.run', side_effect=lambda c, o, *a, **k: self.report(o, low=0.1)):
-            status = train(self.root, min_courses=1, min_rows=1, now=self.now)
-        self.assertTrue(status['promotion_production'])
-        packed = joblib.load(self.root / 'ml/modele.joblib')
-        self.assertEqual((packed['schema'], packed['statut']), (MODEL_SCHEMA, 'ML_ENTRAINE_NON_CALIBRE'))
+    def test_shadow_requires_same_observation_and_a_certified_predeparture_publication(self):
+        from pmu_geny.echeances_production import enregistrer_publication
+        from pmu_geny.maturite_ml import comparisons, score_shadow
+        from pmu_geny.top3_independants_v22 import calculer
+
+        candidate = self.prospective_candidate()
+        key = self.course['date'] + '_R1C1'
+        save(self.root/'sources_pmu'/f"programme_{self.course['date']}.json", {'programme': [self.course]})
+        save(self.root/'partants_actuels'/f'{key}.json', {
+            'capture_utc': self.now.isoformat(),
+            'chevaux': {str(n): {'statut_np': 'PARTANT'} for n in range(1, 5)},
+        })
+        calculer(self.root, self.course, self.raw, now=self.now)
+        score_shadow(self.root, self.course, self.raw, self.now + timedelta(seconds=1), lambda: self.now)
+        target = self.root/'ml/prospectif'/candidate['sha256']/f'{key}.json'
+        self.assertFalse(target.exists())
+        score_shadow(self.root, self.course, self.raw, self.now, lambda: self.now)
+        self.assertTrue(target.exists())
+        checked = self.now + timedelta(hours=5)
+        save(self.root/'arrivees'/f'{key}.json', {
+            'source': 'PMU_API_PARTICIPANTS', 'verifie_utc': checked.isoformat(),
+            'arrivee': [{'numero': n, 'rang': rank} for rank, n in enumerate((4, 3, 2), 1)],
+        })
+        enregistrer_publication(self.root, self.now, {'mode': 'GLOBAL'}, False)
+        self.assertEqual(comparisons(self.root, candidate, checked), [])
+        enregistrer_publication(self.root, self.now, {'mode': 'GLOBAL'}, True)
+        self.assertEqual(comparisons(self.root, candidate, checked)[0]['scores'], {'direct': 2, 'ml': 3})
+        payload = load(target)
+        payload['ml'] = [1, 2, 3]
+        save(target, payload)
+        self.assertEqual(comparisons(self.root, candidate, checked), [])
 
     def test_production_thresholds_are_not_lowered(self):
         self.examples()
         with patch('pmu_geny.experience_ml.run') as experiment:
             status = train(self.root, now=self.now)
-        self.assertEqual((status['etat'], status['minimum_courses'], status['minimum_lignes']), ('INSUFFISANT', 100, 700))
+        self.assertEqual((status['etat'], status['minimum_courses'], status['minimum_lignes']), ('INSUFFISANT', 150, 1500))
+        self.assertEqual(status['seuils']['PRODUCTION']['prospectives'], 100)
         experiment.assert_not_called()
 
     def test_direct_failure_does_not_block_pmu_ml_capture(self):

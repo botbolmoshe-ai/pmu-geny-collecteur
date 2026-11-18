@@ -5,9 +5,10 @@ arrivées PMU vérifiées; aucune reconstitution a posteriori des variables.
 Les cotes, rapports, prix et rangs à l'arrivée ne sont JAMAIS des features.
 """
 from __future__ import annotations
-import csv, hashlib, json, math
-from datetime import datetime, timezone
+import csv, hashlib, json, math, re
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from collections import defaultdict
 
 FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_120j',
             'victoires_120j','disqualifications_120j','score_forme','forme_30j','forme_ancien',
@@ -16,9 +17,9 @@ FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_12
             'avis_experts_score','info_ecurie_score','driver_score','entraineur_score','pmu_score_direct',
             'age_ans','gains_euros','sexe_male','sexe_femelle','sexe_hongre',
             'ferrure_d4','ferrure_dp','ferrure_da','ferrure_p4','ferrure_pa','ferrure_pp')
-MIN_COURSES_TRAIN = 100
-MIN_ROWS_TRAIN = 700
-MODEL_SCHEMA = 'pmu-podium-v33'
+LEGACY_FEATURES = FEATURES
+FEATURES += ('discipline_montee', 'forme_pmu_discipline', 'forme_geny_comparable')
+MODEL_SCHEMA = 'pmu-podium-v34'
 
 def load(path, default=None):
     try: return json.loads(Path(path).read_text(encoding='utf-8'))
@@ -34,20 +35,35 @@ def numeric(v):
         return x if math.isfinite(x) else None
     except (ValueError,TypeError): return None
 
-def features(horse, history, course, context=None):
+def features(horse, history, course, context=None, *, legacy=False):
     """Strictement les informations antérieures à la course; champs absents = None."""
+    from .formes_contextuelles_v32 import _classement, _discipline
     context=context or {}
+    discipline = None if legacy else _discipline(course.get('discipline'))
     departure=datetime.fromisoformat(course['depart'])
     date=departure.date()
     rows=[]
+    seen=set()
     for p in history.get('performances',[]):
         try: d=datetime.fromisoformat(p['date']).date()
         except (KeyError,ValueError,TypeError):continue
         age=(date-d).days
         if age<=0 or age>730:continue
-        rank=str(p.get('classement','')).strip()
-        num=int(rank) if rank.isdecimal() else None
+        if discipline and _discipline(p.get('discipline')) != discipline:
+            continue
+        rank=str(p.get('classement','')).strip().casefold()
         dist=numeric(p.get('distance_m'))
+        if legacy:
+            num = int(rank) if rank.isdecimal() else None
+        else:
+            if _classement(rank) is None:
+                continue
+            match = re.match(r'^[1-9][0-9]*', rank)
+            num = int(match[0]) if match else None
+            identity = (d, str(p.get('hippodrome', '')).casefold(), dist, rank)
+            if identity in seen:
+                continue
+            seen.add(identity)
         rows.append((age,num,rank.casefold(),dist,str(p.get('hippodrome','')).casefold()))
     def pts(rank):return {1:5.,2:3.5,3:2.5,4:1.3,5:1.}.get(rank,0.)
     recent=[r for r in rows if r[0]<=120]
@@ -68,15 +84,26 @@ def features(horse, history, course, context=None):
       'score_forme':avg(recent),'forme_30j':avg(last),'forme_ancien':avg(early),
       'jours_repos':min((r[0] for r in rows),default=None),
       'distance_m':target_dist,
+      'discipline_montee': int(discipline == 'm') if discipline else None,
+      'forme_geny_comparable':avg([r for r in comparable if r[0]<=120]),
       'distance_ecart_m':min((abs(r[3]-target_dist) for r in rows if r[3] is not None),default=None) if target_dist is not None else None,
       'aptitude_hippodrome':pct(hip),'taux_podium_distance':pct(comparable),
       'nb_partants':numeric(course.get('nombre_declares')),
     }
+    if not legacy and not history:
+        for key in ('courses_30j','courses_60j','courses_120j','victoires_120j','disqualifications_120j'):
+            out[key] = None
     for key in FEATURES:
         if key not in out:out[key]=numeric(context.get(key))
     return out
 
-def _valid_context(cache,course,now):
+CONTEXT_FEATURES = frozenset({
+    'meteo_pluie_mm', 'meteo_vent_kmh', 'meteo_temperature_c', 'meteo_humidite_pct',
+    'avis_experts_score', 'info_ecurie_score',
+})
+
+
+def _valid_context(cache,course,now,*,legacy=False):
     """Contexte facultatif saisi/importé et sourcé, antérieur au départ."""
     path=Path(cache)/'contextes'/f"{course['date']}_{course['code']}.json"
     d=load(path,{}) or {}; results={}
@@ -85,9 +112,11 @@ def _valid_context(cache,course,now):
         key=item.get('champ'); value=numeric(item.get('valeur'))
         try: stamp=datetime.fromisoformat(item['collecte_utc'])
         except (KeyError,TypeError,ValueError):continue
-        if stamp.tzinfo is None or not item.get('source_url'):continue
+        url = item.get('source_url')
+        if stamp.tzinfo is None or not isinstance(url, str) or not url.startswith(('https://', 'http://')):
+            continue
         if stamp>now or stamp>=datetime.fromisoformat(course['depart']):continue
-        if key in FEATURES and value is not None:
+        if key in (LEGACY_FEATURES if legacy else CONTEXT_FEATURES) and value is not None:
             # Pour les observations individuelles, prioriser l'index du cheval.
             numero=item.get('numero')
             results[(str(numero) if numero is not None else '*',key)]=value
@@ -119,21 +148,27 @@ def snapshot(cache,course,manifest,now=None):
     return 'CAPTURE'
 
 
-def pmu_rows(cache,course,raw,now):
+def pmu_rows(cache,course,raw,now,*,legacy=False):
     """Meme extraction PMU pour capture et inference; aucune requete reseau."""
     from .auto_v18 import _list, _num
+    from .formes_contextuelles_v32 import _discipline, _musique_pmu
+    from .echeances_production import instant
+    from .partants_actuels_v21 import extraire_partants, ferrure_normalisee
     from .top3_independants_v22 import _form_score
-    from .partants_actuels_v21 import extraire_partants
     cache=Path(cache)
     participants=_list(raw,'participants','partants')
     if len(participants)<3:return 'PARTANTS_INSUFFISANTS',[],{}
-    from .liaison_chevaux_v22 import etablir
+    from .liaison_chevaux_v22 import etablir, nom_normalise
     names=[{'numero':h.get('numPmu',h.get('numero')),
             'nom':h.get('nomCheval',h.get('nom',h.get('nomParticipant','')))}
            for h in participants if isinstance(h,dict)]
     association=etablir(cache,course,names)
-    context=_valid_context(cache,course,now)
+    context=_valid_context(cache,course,now,legacy=legacy)
     profils=extraire_partants(raw)
+    discipline = _discipline(course.get('discipline'))
+    has_connections = any(p.get('driver_jockey') or p.get('entraineur') for p in profils.values())
+    connection_scores = scores_intervenants(cache, now, discipline) if (
+        not legacy and discipline and has_connections) else {}
     rows=[];seen=set();with_history=0;with_partial=0;unknown_np=0
     for item in participants:
         if not isinstance(item,dict):continue
@@ -148,13 +183,28 @@ def pmu_rows(cache,course,raw,now):
         if not name:return 'IDENTITE_PMU_ABSENTE',[],{}
         link=association.get(str(numero),{})
         ident,histo=link.get('cheval_id',''),link.get('historique',{})
-        if ident:
+        historical_stamp = instant(histo.get('extrait_utc'))
+        # La date d'une performance ne prouve pas la disponibilité de sa fiche.
+        if not legacy and (not histo.get('source_url') or not historical_stamp or historical_stamp > now):
+            histo = {}
+        if ident and histo:
             if histo.get('statut')=='PARTIEL_HISTORIQUE':with_partial+=1
             else:with_history+=1
-        c={key:value for (num,key),value in context.items() if num in ('*',str(numero))}
-        direct=_form_score(item)
-        if direct is not None:c['pmu_score_direct']=direct
+        c = {key: value for (num, key), value in context.items() if num == '*'}
+        c.update({key: value for (num, key), value in context.items() if num == str(numero)})
+        direct = _form_score(item)
+        if direct is not None:
+            c['pmu_score_direct'] = direct
+        if not legacy:
+            c['forme_pmu_discipline'] = _musique_pmu(item, discipline)[0]
         profil=profils.get(numero,{})
+        intervenants = {role: nom_normalise(profil.get(field))
+                        for role, field in (('driver_score', 'driver_jockey'), ('entraineur_score', 'entraineur'))
+                        if profil.get(field)}
+        if not legacy:
+            for role, name in intervenants.items():
+                if (role, name) in connection_scores:
+                    c[role] = connection_scores[role, name]
         for feature in ('age_ans','gains_euros'):
             value=profil.get(feature)
             if value is not None:c[feature]=value
@@ -162,17 +212,22 @@ def pmu_rows(cache,course,raw,now):
         if sexe:
             for label,feature in (('Mâle','sexe_male'),('Femelle','sexe_femelle'),('Hongre','sexe_hongre')):
                 c[feature]=1 if sexe==label else 0
-        ferrure=profil.get('ferrure','')
+        ferrure = profil.get('ferrure', '')
+        if not legacy:
+            ferrure = ferrure_normalisee(ferrure)
         if ferrure:
             code=str(ferrure).upper()
             for ferrure_code,indicator in [('D4','ferrure_d4'),('DP','ferrure_dp'),
                                    ('DA','ferrure_da'),('P4','ferrure_p4'),
                                    ('PA','ferrure_pa'),('PP','ferrure_pp')]:
                 c[indicator]=1 if ferrure_code in code.split('/') else 0
-        features_values=features({'numero':numero,'nom':name},histo,course,c)
+        features_values=features({'numero':numero,'nom':name},histo,course,c,legacy=legacy)
         rows.append({'numero':numero,'cheval_id':ident,'nom':name,
-                     'historique_ok':bool(ident),'historique_complet':bool(ident) and histo.get('statut')=='COMPLET',
+                     'historique_ok':bool(histo),'historique_complet':bool(histo) and histo.get('statut')=='COMPLET',
                      'methode_liaison':link.get('methode','NON_ASSOCIE'),
+                     'source_historique':histo.get('source_url'),
+                     'historique_extrait_utc':histo.get('extrait_utc'),
+                     'intervenants_pmu':intervenants,
                      'score_direct_pmu':direct,
                      'features':features_values})
     if len(rows)<3:return 'PARTANTS_INSUFFISANTS',[],{}
@@ -194,7 +249,7 @@ def snapshot_pmu(cache,course,raw,now=None,clock=None):
     captured=clock() if clock else now
     if captured>=departure:return 'TROP_TARD'
     save(base,{'date':course['date'],'code':course['code'],'depart':course['depart'],
-               'capture_utc':captured.isoformat(),'features_schema':'v22.1',
+               'capture_utc':captured.isoformat(),'features_schema':MODEL_SCHEMA,
                'source':'PMU_API_PARTICIPANTS','nombre_chevaux':len(rows),
                **metadata,'chevaux':rows,
                'regle':'capture PMU pre-depart immutable, ni cote ni arrivee utilisee'})
@@ -211,6 +266,8 @@ def dataset(cache, now=None):
             checked=datetime.fromisoformat(arr['verifie_utc'])
             if any(t.tzinfo is None for t in (depart,capt,checked,now)):continue
             if not capt<depart<checked<=now or s.get('np_non_verifies',0):continue
+            if arr.get('source') not in (None, 'PMU_API_PARTICIPANTS'):
+                continue
             key=s['date']+'_'+s['code']
             if snap.stem!=key or arr.get('date',s['date'])!=s['date'] or arr.get('course',s['code'])!=s['code']:continue
             podium=[x for x in arr.get('arrivee',[]) if x.get('rang') in (1,2,3)]
@@ -224,56 +281,180 @@ def dataset(cache, now=None):
         for row in horses:
             examples.append({'course':key,'depart':s['depart'],'capture_utc':s['capture_utc'],
                 'verifie_utc':arr['verifie_utc'],'numero':int(row['numero']),
-                'y':int(int(row['numero']) in placed),'features':row['features']})
+                'capture_qualifiante': s.get('features_schema') == MODEL_SCHEMA
+                    and s.get('source') == 'PMU_API_PARTICIPANTS'
+                    and arr.get('source') == 'PMU_API_PARTICIPANTS',
+                'y':int(int(row['numero']) in placed),
+                'intervenants_pmu': row.get('intervenants_pmu', {}),
+                'features':row['features'] if s.get('features_schema') == MODEL_SCHEMA else
+                    {k: row['features'][k] for k in ('pmu_score_direct', 'distance_m', 'age_ans', 'gains_euros',
+                     'sexe_male', 'sexe_femelle', 'sexe_hongre') if k in row['features']}})
     return examples,course_count
 
 
-def train(cache, min_courses=MIN_COURSES_TRAIN, min_rows=MIN_ROWS_TRAIN, now=None):
-    """Entrainement commun avec test temporel et promotion conditionnelle."""
-    now=now or datetime.now(timezone.utc);cache=Path(cache)
-    records,n=dataset(cache,now)
-    status={'entrainement_utc':now.isoformat(),'courses':n,'lignes':len(records),
-            'minimum_courses':min_courses,'minimum_lignes':min_rows,'etat':'INSUFFISANT',
-            'promotion_production':False}
-    status_path=cache/'ml'/'entrainement.json'
-    if n<min_courses or len(records)<min_rows:
-        save(status_path,status);return status
-    days=sorted({r['depart'][:10] for r in records})
-    if len(days)<3:
-        status['etat']='PERIODES_TEMPORELLES_INSUFFISANTES'
-        save(status_path,status);return status
-    try:
-        import joblib
-        from .experience_ml import run
-    except ImportError:
-        status['etat']='DEPENDANCES_ML_ABSENTES';save(status_path,status);return status
-    output=cache/'ml'/'experiences'/now.astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
-    try:
-        report=run(cache,output,days[-2],days[-1],now=now)
-    except ValueError as exc:
-        status.update(etat='VALIDATION_TEMPORELLE_IMPOSSIBLE',motif=str(exc))
-        save(status_path,status);return status
-    status.update(rapport=str(output.relative_to(cache)/'rapport.json'),
-                  modele=report['modele_choisi_avant_test'],
-                  courses_validation=report['decoupage']['validation']['courses'],
-                  courses_test=report['decoupage']['test']['courses'],
-                  comparaison_test=report.get('ecart_ml_forme_capture'))
-    # Benchmark a la meme capture, sur TOUTES les courses test. L'experience
-    # seule ne promeut rien; un avantage strict avec IC positif est necessaire.
-    comparison=report.get('ecart_ml_forme_capture')
-    if not comparison or comparison['courses']!=status['courses_test']:
-        status['etat']='NON_PROMU_BENCHMARK_INCOMPLET'
-    elif comparison['ic95_bootstrap_par_course'][0]<=0:
-        status['etat']='NON_PROMU_AVANTAGE_NON_DEMONTRE'
+def scores_intervenants(cache, now, discipline):
+    """Taux de podium lissé sur les captures PMU vérifiées des 90 derniers jours."""
+    window = now - timedelta(days=90)
+    records, _ = dataset(cache, now)
+    groups = defaultdict(list)
+    for row in records:
+        if (not row['capture_qualifiante'] or datetime.fromisoformat(row['depart']) < window
+                or numeric(row['features'].get('discipline_montee')) != int(discipline == 'm')):
+            continue
+        identities = row['intervenants_pmu']
+        if not isinstance(identities, dict):
+            continue
+        for role in ('driver_score', 'entraineur_score'):
+            name = identities.get(role)
+            if isinstance(name, str) and name:
+                groups[role, name].append(row)
+    return {key: (sum(row['y'] for row in rows) + 1) / (len(rows) + 5)
+            for key, rows in groups.items()
+            if len(rows) >= 5 and len({row['course'] for row in rows}) >= 2}
+
+
+def train(cache, min_courses=None, min_rows=None, now=None):
+    """Figer un candidat puis appliquer une décision sur une cohorte prospective."""
+    from .maturite_ml import (CANDIDATE, REPORT, candidate_path, comparisons, coverage,
+                             prospective, sha, thresholds)
+    import shutil
+
+    now = now or datetime.now(timezone.utc)
+    cache = Path(cache)
+    limits = thresholds()
+    pre, prod = limits['PREPRODUCTION'], limits['PRODUCTION']
+    records, n = dataset(cache, now)
+    qualifying = [row for row in records if row['capture_qualifiante']]
+    quality = coverage(qualifying)
+    qualified_courses = len({row['course'] for row in qualifying})
+    minimum_courses = pre['courses'] if min_courses is None else min_courses
+    minimum_rows = pre['observations'] if min_rows is None else min_rows
+    live = cache / 'ml/modele.joblib'
+    status = {'entrainement_utc': now.isoformat(), 'courses': n, 'lignes': len(records),
+              'minimum_courses': minimum_courses, 'minimum_lignes': minimum_rows,
+              'courses_qualifiantes': qualified_courses, 'observations_qualifiantes': len(qualifying),
+              'seuils': limits, 'couverture': quality, 'etat': 'INSUFFISANT',
+              'maturite': 'EXPÉRIMENTAL', 'promotion_production': False}
+
+    def finish():
+        if live.is_file():
+            status['version_en_service'] = sha(live)
+            decision = load(cache / 'ml/preuve_promotion.json', {}) or {}
+            status['maturite_en_service'] = ('PRODUCTION VALIDÉE' if
+                decision.get('sha256') == status['version_en_service'] else 'MODÈLE HISTORIQUE')
+        save(cache / REPORT, status)
+        save(cache / 'ml/entrainement.json', status)
+        return status
+
+    candidate = load(cache / CANDIDATE, {}) or {}
+    path = candidate_path(cache, candidate)
+    if candidate and path is None:
+        status['etat'] = 'CANDIDAT_INTEGRITE_INVALIDE'
+        return finish()
+    if candidate and candidate.get('decision') == 'ACCEPTE':
+        # Reprise sûre si l'écriture de la preuve et la mise en service ont été interrompues.
+        proof_path = cache / 'ml/preuve_promotion.json'
+        if not live.is_file() or sha(live) != candidate['sha256']:
+            temporary = live.with_suffix('.tmp')
+            shutil.copyfile(path, temporary)
+            temporary.replace(live)
+        save(proof_path, candidate)
+        status.update(etat='ENTRAINE', maturite='PRODUCTION VALIDÉE',
+                      version=candidate['sha256'], prospective=candidate['prospective'])
+        if n < candidate['courses_a_la_decision'] + prod['prospectives']:
+            return finish()
+        candidate = {}
+    if candidate and candidate.get('decision') == 'REJETE':
+        status.update(etat='NON_PROMU_AVANTAGE_NON_DEMONTRE', version=candidate['sha256'],
+                      prospective=candidate['prospective'])
+        # Une nouvelle génération exige au moins une nouvelle cohorte de données.
+        if n < candidate['courses_a_la_decision'] + prod['prospectives']:
+            return finish()
+        candidate = {}
+
+    if not candidate:
+        if qualified_courses < minimum_courses or len(qualifying) < minimum_rows:
+            return finish()
+        if quality['completude'] < pre['completude']:
+            status['etat'] = 'COMPLETUDE_INSUFFISANTE'
+            return finish()
+        days = sorted({r['course'][:10] for r in records})
+        if len(days) < 3:
+            status['etat'] = 'PERIODES_TEMPORELLES_INSUFFISANTES'
+            return finish()
+        try:
+            import joblib
+            from .experience_ml import run
+        except ImportError:
+            status['etat'] = 'DEPENDANCES_ML_ABSENTES'
+            return finish()
+        output = cache / 'ml/experiences' / now.astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+        try:
+            report = run(cache, output, days[-2], days[-1], now=now)
+        except ValueError as exc:
+            status.update(etat='VALIDATION_TEMPORELLE_IMPOSSIBLE', motif=str(exc))
+            return finish()
+        artifact = output / 'modele_experimental.joblib'
+        if (report['apprentissage_final']['courses'] < minimum_courses
+                or report['apprentissage_final']['observations'] < minimum_rows
+                or report['apprentissage_final']['completude'] < pre['completude']):
+            status.update(etat='APPRENTISSAGE_FINAL_INSUFFISANT',
+                          apprentissage_final=report['apprentissage_final'])
+            return finish()
+        packed = joblib.load(artifact)
+        packed.update(statut='ML_ENTRAINE_NON_CALIBRE', entrainement_utc=now.isoformat(),
+                      dernier_label_entrainement_utc=report['dernier_label_entrainement_avant_test'])
+        joblib.dump(packed, artifact)
+        digest = sha(artifact)
+        path = cache / 'ml/candidats' / digest / 'modele.joblib'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(artifact, path)
+        candidate = {'sha256': digest, 'entrainement_utc': now.isoformat(),
+                     'dernier_label_entrainement_utc': packed['dernier_label_entrainement_utc'],
+                     'modele': packed['modele'], 'seuils': limits,
+                     'apprentissage_final': report['apprentissage_final'],
+                     'rapport': str(output.relative_to(cache) / 'rapport.json')}
+        save(cache / CANDIDATE, candidate)
+
+    # Les paramètres de décision d'une cohorte restent ceux de son lancement.
+    pre, prod = (candidate['seuils'][key] for key in ('PREPRODUCTION', 'PRODUCTION'))
+    rows = comparisons(cache, candidate, now)
+    result = prospective(rows[:prod['prospectives']])
+    status.update(etat='EVALUATION_PROSPECTIVE', version=candidate['sha256'],
+                  rapport=candidate['rapport'], modele=candidate['modele'],
+                  seuils=candidate['seuils'], prospective=result,
+                  apprentissage_final=candidate['apprentissage_final'])
+    if result['courses'] >= pre['prospectives'] and result['completude'] >= pre['completude']:
+        status['maturite'] = 'PRÉPRODUCTION'
+    if (qualified_courses < prod['courses'] or len(qualifying) < prod['observations']
+            or quality['completude'] < prod['completude'] or result['courses'] < prod['prospectives']):
+        return finish()
+    accepted = (result['completude'] >= prod['completude']
+                and result['comparaison']['ic95_bootstrap_par_course'][0] > 0)
+    candidate.update(decision='ACCEPTE' if accepted else 'REJETE', decision_utc=now.isoformat(),
+                     courses_a_la_decision=n, prospective=result,
+                     preuve=rows[:prod['prospectives']])
+    save(cache / CANDIDATE, candidate)
+    if accepted:
+        temporary = live.with_suffix('.tmp')
+        shutil.copyfile(path, temporary)
+        temporary.replace(live)
+        save(cache / 'ml/preuve_promotion.json', candidate)
+        status.update(etat='ENTRAINE', maturite='PRODUCTION VALIDÉE', promotion_production=True)
     else:
-        packed=joblib.load(output/'modele_experimental.joblib')
-        packed.update(schema=MODEL_SCHEMA,statut='ML_ENTRAINE_NON_CALIBRE',promotion_utc=now.isoformat())
-        target=cache/'ml'/'modele.joblib'
-        temporary=target.with_suffix('.tmp')
-        joblib.dump(packed,temporary);temporary.replace(target)
-        status.update(etat='ENTRAINE',promotion_production=True)
-    save(status_path,status)
-    return status
+        status.update(etat='NON_PROMU_AVANTAGE_NON_DEMONTRE', maturite='EXPÉRIMENTAL')
+    return finish()
+
+
+def ranking_for(packed, rows):
+    import numpy as np
+
+    vectors = [[numeric(h['features'].get(k)) if numeric(h['features'].get(k)) is not None
+                else float('nan') for k in packed['features']] for h in rows]
+    scores = packed['model'].predict_proba(np.asarray(vectors))[:, 1]
+    ranking = [{'numero': h['numero'], 'nom': h['nom'], 'cheval_id': h['cheval_id'],
+                'score_non_calibre': round(float(score), 5)} for h, score in zip(rows, scores)]
+    return sorted(ranking, key=lambda h: (-h['score_non_calibre'], h['numero']))
 
 
 def predict_pmu(cache,course,raw,now=None,clock=None):
@@ -291,10 +472,12 @@ def predict_pmu(cache,course,raw,now=None,clock=None):
         experimental=True
     try:
         import joblib
-        import numpy as np
         packed=joblib.load(path)
     except (ImportError,OSError,ValueError,KeyError) as exc:return f'MODELE_INDISPONIBLE_{type(exc).__name__}'
-    if packed.get('schema')!=MODEL_SCHEMA or tuple(packed.get('features',()))!=FEATURES:
+    signature = packed.get('schema'), tuple(packed.get('features', ()))
+    supported = signature == (MODEL_SCHEMA, FEATURES) or (
+        not experimental and signature == ('pmu-podium-v33', LEGACY_FEATURES))
+    if not supported:
         return 'MODELE_SCHEMA_OBSOLETE_REENTRAINEMENT_REQUIS'
     if experimental:
         from .cycle_ml_actif import STATUT
@@ -305,16 +488,16 @@ def predict_pmu(cache,course,raw,now=None,clock=None):
             if not labelled<=fitted<=now:return 'MODELE_EXPERIMENTAL_CHRONOLOGIE_INVALIDE'
         except (KeyError,TypeError,ValueError):return 'MODELE_EXPERIMENTAL_CHRONOLOGIE_INVALIDE'
     elif packed.get('statut')!='ML_ENTRAINE_NON_CALIBRE':return 'MODELE_NON_PROMU'
-    status,rows,metadata=pmu_rows(cache,course,raw,now)
+    elif packed.get('entrainement_utc'):
+        from .echeances_production import instant
+        fitted = instant(packed['entrainement_utc'])
+        labelled = instant(packed.get('dernier_label_entrainement_utc'))
+        if not fitted or not labelled or not labelled <= fitted <= now:
+            return 'MODELE_CHRONOLOGIE_INVALIDE'
+    status,rows,metadata=pmu_rows(cache,course,raw,now,legacy=signature[0]=='pmu-podium-v33')
     if status!='OK':return status
     if metadata['np_non_verifies']:return 'NP_NON_VERIFIE'
-    vectors=[[numeric(h['features'].get(k)) if numeric(h['features'].get(k)) is not None
-              else float('nan') for k in FEATURES] for h in rows]
-    scores=packed['model'].predict_proba(np.asarray(vectors))[:,1]
-    score_field='score_non_calibre' if experimental else 'proba_podium_estimee'
-    ranking=[{'numero':h['numero'],'nom':h['nom'],'cheval_id':h['cheval_id'],
-              score_field:round(float(score),5)} for h,score in zip(rows,scores)]
-    ranking.sort(key=lambda h:(-h[score_field],h['numero']))
+    ranking = ranking_for(packed, rows)
     created=clock() if clock else now
     if not decision_autorisee(created,course['date'],departure):return 'HORS_FENETRE_DECISION'
     base=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_ml_latest.json"
@@ -329,7 +512,7 @@ def predict_pmu(cache,course,raw,now=None,clock=None):
                'entrainement_utc':packed.get('entrainement_utc'),
                'dernier_label_entrainement_utc':packed.get('dernier_label_entrainement_utc'),
                'empreinte_modele':hashlib.sha256(path.read_bytes()).hexdigest(),
-               'features_schema':MODEL_SCHEMA,'entrees_modele':rows,
+               'features_schema':packed['schema'],'entrees_modele':rows,
                'top3':ranking[:3],'classement_complet':ranking,
                'note':'Score non calibre; cotes exclues des variables.'})
     return 'ML_EXPERIMENTAL_CALCULE' if experimental else 'ML_CALCULE'

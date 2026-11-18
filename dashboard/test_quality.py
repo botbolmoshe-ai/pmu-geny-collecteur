@@ -21,6 +21,13 @@ class QualityTests(unittest.TestCase):
         self.assertEqual(result["Nombre / valeur"],"75,0 %")
         self.assertEqual(result["Total"],"100")
 
+    def test_maturite_rates_have_a_dedicated_section(self):
+        row = {"Dimension": "ML", "Indicateur": "Maturité ML · Couverture · Forme PMU",
+               "Valeur (automatique)": 0.9, TOTAL_FIELD: 3000}
+        published = quality_sections([row])["Maturité ML"][0]
+        self.assertEqual(published["Nombre / valeur"], "90,0 %")
+        self.assertEqual(published["Total"], "3\u202f000")
+
     def test_sections_and_search_include_descriptions(self):
         rows=[{"Dimension":"ML","Indicateur":"Échéances · H1 ouvertes","Valeur (automatique)":8,"Définition / réserve":"Avant départ"},
               {"Dimension":"ML","Indicateur":"Collecte · Rejets dernier passage","Valeur (automatique)":0},{}]

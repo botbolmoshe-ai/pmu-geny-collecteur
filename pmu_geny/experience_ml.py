@@ -115,10 +115,14 @@ def run(cache, output, validation_day, test_day, now=None):
         return max(datetime.fromisoformat(r['verifie_utc']) for r in rows)
     def earliest_capture(rows):
         return min(datetime.fromisoformat(r['capture_utc']) for r in rows)
-    if latest_label(train) >= min(datetime.fromisoformat(r['depart']) for r in validation):
-        raise ValueError('Etiquettes train indisponibles avant la validation')
-    if latest_label(train + validation) >= earliest_capture(test):
-        raise ValueError('Etiquettes indisponibles a la premiere capture test')
+    validation_cutoff = earliest_capture(validation)
+    train = [row for row in train if datetime.fromisoformat(row['verifie_utc']) < validation_cutoff]
+    if not train or len({r['y'] for r in train}) < 2:
+        raise ValueError('Etiquettes train insuffisantes avant la première capture de validation')
+    test_cutoff = earliest_capture(test)
+    validation = [row for row in validation if datetime.fromisoformat(row['verifie_utc']) < test_cutoff]
+    if not validation:
+        raise ValueError('Etiquettes de validation indisponibles a la premiere capture test')
     report = {'statut': 'EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE', 'execute_utc': as_of.isoformat(),
               'nature_evaluation': 'REJEU_RETROSPECTIF_HORS_ECHANTILLON',
               'regle_selection': 'moyenne TOP3 validation decroissante, puis Brier croissant',
@@ -155,10 +159,39 @@ def run(cache, output, validation_day, test_day, now=None):
     winner = min(models, key=lambda name: (-validation_scores[name]['moyenne'],
                                           validation_scores[name]['brier_score_brut'], name))
     report['validation'] = validation_scores
+    from sklearn.base import clone
+    from .maturite_ml import CRITERIA, coverage
+    report['ablation_validation'] = {}
+    ablations = {**CRITERIA,
+        'Historique comparable': ('forme_geny_comparable', 'courses_30j', 'courses_60j', 'courses_120j',
+                                  'podiums_30j', 'podiums_120j', 'victoires_120j', 'disqualifications_120j',
+                                  'score_forme', 'forme_30j', 'forme_ancien', 'jours_repos',
+                                  'distance_ecart_m', 'aptitude_hippodrome', 'taux_podium_distance'),
+        'Distance': ('distance_m', 'distance_ecart_m', 'taux_podium_distance', 'forme_geny_comparable'),
+    }
+    for criterion, keys in ablations.items():
+        indices = [FEATURES.index(key) for key in keys]
+        if not np.isfinite(x_train[:, indices]).any() or not np.isfinite(x_validation[:, indices]).any():
+            report['ablation_validation'][criterion] = {'etat': 'DONNEES_INSUFFISANTES'}
+            continue
+        train_masked, validation_masked = x_train.copy(), x_validation.copy()
+        train_masked[:, indices] = np.nan
+        validation_masked[:, indices] = np.nan
+        ablated = clone(models[winner]).fit(train_masked, y_train)
+        evaluation = evaluate(validation, ablated.predict_proba(validation_masked)[:, 1])
+        report['ablation_validation'][criterion] = {
+            'moyenne_sans_critere': evaluation['moyenne'],
+            'ecart_avec_modele_complet': paired_interval(
+                validation_scores[winner]['hits_par_course'], evaluation['hits_par_course']),
+        }
     report['modele_choisi_avant_test'] = winner
     # Refit sur train+validation uniquement; la journee test reste inconnue du modele.
     model = models[winner]
     fitted_rows = train + validation
+    qualified_fit = [row for row in fitted_rows if row['capture_qualifiante']]
+    report['apprentissage_final'] = {**coverage(qualified_fit),
+                                     'courses': len({r['course'] for r in qualified_fit}),
+                                     'observations_totales': len(fitted_rows)}
     model.fit(matrix(fitted_rows), [r['y'] for r in fitted_rows])
     scores = model.predict_proba(matrix(test))[:, 1]
     report['test_ml'] = evaluate(test, scores)
