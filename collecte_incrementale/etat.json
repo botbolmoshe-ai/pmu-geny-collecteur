@@ -32903,7 +32903,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:30:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2881236",
       "geny": {
         "id": "2881236",
@@ -32914,7 +32914,7 @@
       "derniere_verification_utc": "2026-11-17T00:27:49.691829+00:00",
       "prochaine_verification_utc": "2026-11-18T00:27:49.691829+00:00",
       "nombre_performances": 14,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-10-16",
       "sync_details": {
@@ -32944,7 +32944,16 @@
           "lignes_source": 1
         }
       },
-      "sync_utc": "2026-11-17T00:28:06.765066+00:00"
+      "sync_utc": "2026-11-17T00:28:06.765066+00:00",
+      "prochain_essai_utc": "2026-11-18T07:59:08.081732+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T01:59:08.081754+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2881236/1794967141394460905/resultat.json"
+      }
     },
     "2854300": {
       "nom": "NEW STORM",
@@ -41423,13 +41432,13 @@
     }
   },
   "passage_utc": "2026-11-18T01:54:51.390726+00:00",
-  "maj_utc": "2026-11-18T01:58:58.030534+00:00",
+  "maj_utc": "2026-11-18T01:59:08.082815+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 5,
+    "tentatives_collecte": 6,
     "captures_validees": 1,
     "captures_partielles": 0,
-    "collectes_rejetees": 4,
+    "collectes_rejetees": 5,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1503
   },
