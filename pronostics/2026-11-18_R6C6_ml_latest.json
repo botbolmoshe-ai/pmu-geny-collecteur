@@ -1,15 +1,15 @@
 {
   "date": "2026-11-18",
   "course": "R6C6",
-  "calcul_utc": "2026-11-18T13:35:15.192980+01:00",
+  "calcul_utc": "2026-11-18T14:53:51.560025+01:00",
   "depart": "2026-11-18T15:30:00+01:00",
-  "modele": "gradient_boosting",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-17T18:05:46.862857+00:00",
-  "dernier_label_entrainement_utc": "2026-11-17T18:05:14.073342+00:00",
-  "empreinte_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf",
+  "entrainement_utc": "2026-11-18T12:37:13.326003+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T12:35:36.448016+00:00",
+  "empreinte_modele": "f6531f2ae361ffc50ba8b12c1e24a9bf3e070836b62a3b38201b7b3ee7a6cdf1",
   "features_schema": "pmu-podium-v33",
   "entrees_modele": [
     {
@@ -485,84 +485,84 @@
   ],
   "top3": [
     {
-      "numero": 4,
-      "nom": "JOSE DU CHERISAY",
-      "cheval_id": "2721274",
-      "score_non_calibre": 0.43619
-    },
-    {
-      "numero": 3,
-      "nom": "KING CRIMSON",
-      "cheval_id": "",
-      "score_non_calibre": 0.40571
-    },
-    {
-      "numero": 1,
-      "nom": "KALGARY",
-      "cheval_id": "2779006",
-      "score_non_calibre": 0.40456
-    }
-  ],
-  "classement_complet": [
-    {
-      "numero": 4,
-      "nom": "JOSE DU CHERISAY",
-      "cheval_id": "2721274",
-      "score_non_calibre": 0.43619
-    },
-    {
-      "numero": 3,
-      "nom": "KING CRIMSON",
-      "cheval_id": "",
-      "score_non_calibre": 0.40571
-    },
-    {
-      "numero": 1,
-      "nom": "KALGARY",
-      "cheval_id": "2779006",
-      "score_non_calibre": 0.40456
-    },
-    {
       "numero": 2,
       "nom": "JAGUAR D'HERMES",
       "cheval_id": "",
-      "score_non_calibre": 0.38309
-    },
-    {
-      "numero": 7,
-      "nom": "KEPI DU HOME",
-      "cheval_id": "",
-      "score_non_calibre": 0.31385
-    },
-    {
-      "numero": 5,
-      "nom": "KYLLIAN",
-      "cheval_id": "",
-      "score_non_calibre": 0.30343
-    },
-    {
-      "numero": 6,
-      "nom": "JUAN CARLOS GIFONT",
-      "cheval_id": "",
-      "score_non_calibre": 0.25599
-    },
-    {
-      "numero": 8,
-      "nom": "KATCHINA",
-      "cheval_id": "",
-      "score_non_calibre": 0.21743
+      "score_non_calibre": 0.6808
     },
     {
       "numero": 9,
       "nom": "KOOL DU CHATELET",
       "cheval_id": "2792083",
-      "score_non_calibre": 0.13766
+      "score_non_calibre": 0.65829
+    },
+    {
+      "numero": 7,
+      "nom": "KEPI DU HOME",
+      "cheval_id": "",
+      "score_non_calibre": 0.58103
+    }
+  ],
+  "classement_complet": [
+    {
+      "numero": 2,
+      "nom": "JAGUAR D'HERMES",
+      "cheval_id": "",
+      "score_non_calibre": 0.6808
+    },
+    {
+      "numero": 9,
+      "nom": "KOOL DU CHATELET",
+      "cheval_id": "2792083",
+      "score_non_calibre": 0.65829
+    },
+    {
+      "numero": 7,
+      "nom": "KEPI DU HOME",
+      "cheval_id": "",
+      "score_non_calibre": 0.58103
+    },
+    {
+      "numero": 6,
+      "nom": "JUAN CARLOS GIFONT",
+      "cheval_id": "",
+      "score_non_calibre": 0.56484
+    },
+    {
+      "numero": 3,
+      "nom": "KING CRIMSON",
+      "cheval_id": "",
+      "score_non_calibre": 0.56056
+    },
+    {
+      "numero": 1,
+      "nom": "KALGARY",
+      "cheval_id": "2779006",
+      "score_non_calibre": 0.43009
+    },
+    {
+      "numero": 5,
+      "nom": "KYLLIAN",
+      "cheval_id": "",
+      "score_non_calibre": 0.40922
+    },
+    {
+      "numero": 8,
+      "nom": "KATCHINA",
+      "cheval_id": "",
+      "score_non_calibre": 0.36646
+    },
+    {
+      "numero": 4,
+      "nom": "JOSE DU CHERISAY",
+      "cheval_id": "2721274",
+      "score_non_calibre": 0.36245
     },
     {
       "numero": 10,
       "nom": "KAMIL VAN HALBEEK",
       "cheval_id": "2773309",
-      "score_non_calibre": 0.07521
+      "score_non_calibre": 0.07681
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

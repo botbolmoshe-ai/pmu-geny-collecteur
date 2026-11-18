@@ -1,15 +1,15 @@
 {
   "date": "2026-11-18",
   "course": "R1C6",
-  "calcul_utc": "2026-11-18T13:35:33.914551+01:00",
+  "calcul_utc": "2026-11-18T14:53:55.431620+01:00",
   "depart": "2026-11-18T16:50:00+01:00",
-  "modele": "gradient_boosting",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-17T18:05:46.862857+00:00",
-  "dernier_label_entrainement_utc": "2026-11-17T18:05:14.073342+00:00",
-  "empreinte_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf",
+  "entrainement_utc": "2026-11-18T12:37:13.326003+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T12:35:36.448016+00:00",
+  "empreinte_modele": "f6531f2ae361ffc50ba8b12c1e24a9bf3e070836b62a3b38201b7b3ee7a6cdf1",
   "features_schema": "pmu-podium-v33",
   "entrees_modele": [
     {
@@ -391,72 +391,72 @@
   ],
   "top3": [
     {
+      "numero": 8,
+      "nom": "LEARN TO FLY",
+      "cheval_id": "",
+      "score_non_calibre": 0.85191
+    },
+    {
       "numero": 6,
       "nom": "LORDIUS",
       "cheval_id": "",
-      "score_non_calibre": 0.63445
+      "score_non_calibre": 0.74254
     },
     {
       "numero": 2,
       "nom": "LADY D'ELFE",
       "cheval_id": "",
-      "score_non_calibre": 0.38336
-    },
-    {
-      "numero": 5,
-      "nom": "LAST DES BROUSSES",
-      "cheval_id": "",
-      "score_non_calibre": 0.34325
+      "score_non_calibre": 0.74163
     }
   ],
   "classement_complet": [
     {
+      "numero": 8,
+      "nom": "LEARN TO FLY",
+      "cheval_id": "",
+      "score_non_calibre": 0.85191
+    },
+    {
       "numero": 6,
       "nom": "LORDIUS",
       "cheval_id": "",
-      "score_non_calibre": 0.63445
+      "score_non_calibre": 0.74254
     },
     {
       "numero": 2,
       "nom": "LADY D'ELFE",
       "cheval_id": "",
-      "score_non_calibre": 0.38336
+      "score_non_calibre": 0.74163
     },
     {
       "numero": 5,
       "nom": "LAST DES BROUSSES",
       "cheval_id": "",
-      "score_non_calibre": 0.34325
-    },
-    {
-      "numero": 7,
-      "nom": "LOUNA DU LOCHEUR",
-      "cheval_id": "",
-      "score_non_calibre": 0.33252
-    },
-    {
-      "numero": 3,
-      "nom": "LULU JIVE",
-      "cheval_id": "",
-      "score_non_calibre": 0.28987
-    },
-    {
-      "numero": 8,
-      "nom": "LEARN TO FLY",
-      "cheval_id": "",
-      "score_non_calibre": 0.27841
-    },
-    {
-      "numero": 1,
-      "nom": "LADY VICTORY",
-      "cheval_id": "",
-      "score_non_calibre": 0.18946
+      "score_non_calibre": 0.72943
     },
     {
       "numero": 4,
       "nom": "LADY PRINCESS",
       "cheval_id": "",
-      "score_non_calibre": 0.16859
+      "score_non_calibre": 0.698
+    },
+    {
+      "numero": 3,
+      "nom": "LULU JIVE",
+      "cheval_id": "",
+      "score_non_calibre": 0.67859
+    },
+    {
+      "numero": 7,
+      "nom": "LOUNA DU LOCHEUR",
+      "cheval_id": "",
+      "score_non_calibre": 0.46707
+    },
+    {
+      "numero": 1,
+      "nom": "LADY VICTORY",
+      "cheval_id": "",
+      "score_non_calibre": 0.4028
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

@@ -46,7 +46,7 @@
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R6C2": {
       "identifiant_geny": null,
@@ -93,11 +93,11 @@
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE",
-      "statut_arrivee": "ARRIVEE_NON_VERIFIEE"
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C1": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "AUCUNE_CORRESPONDANCE_FIABLE",
         "candidats": 0,
@@ -110,7 +110,7 @@
       "nombre_declares": 18,
       "priorite_metier": "P1",
       "motif_selection": "ALLOCATION_ELEVEE",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -123,7 +123,8 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R6C3": {
       "identifiant_geny": "GENY-1698935",
@@ -156,7 +157,7 @@
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -165,7 +166,7 @@
       "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_cotes": "COTES_NON_EXTRAITES",
       "comparatif_csv": "cache_pmu/exports/GENY-1698935/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE",
+      "audit_predictif": "AUDIT_ENREGISTRE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -176,7 +177,9 @@
       "statut_prevision": "DEJA_FIGE",
       "statut_maj_np": "INCHANGE",
       "np_confirmes": 1,
-      "np_verification_utc": "2026-11-18T12:35:11.971560+00:00"
+      "np_verification_utc": "2026-11-18T12:35:11.971560+00:00",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R6C4": {
       "identifiant_geny": "GENY-1698934",
@@ -209,7 +212,7 @@
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -218,7 +221,7 @@
       "motif_attente_geny": "AUCUNE_ASSOCIATION_VERIFIEE",
       "statut_cotes": "COTES_NON_EXTRAITES",
       "comparatif_csv": "cache_pmu/exports/GENY-1698934/comparatif_predictions.csv",
-      "audit_predictif": "ARRIVEE_NON_VERIFIEE",
+      "audit_predictif": "AUDIT_ENREGISTRE",
       "paliers_independants": {
         "direct": "CALCULE_COMPLET",
         "cotes": "DONNEES_INSUFFISANTES"
@@ -229,7 +232,9 @@
       "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
       "statut_maj_np": "ACTUALISE",
       "np_confirmes": 0,
-      "np_verification_utc": "2026-11-18T12:35:13.068736+00:00"
+      "np_verification_utc": "2026-11-18T12:35:13.068736+00:00",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE",
+      "bilan_audits_csv": "cache_pmu/audits/bilan_comparatif.csv"
     },
     "R6C5": {
       "identifiant_geny": "GENY-1698930",
@@ -277,12 +282,12 @@
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE",
       "statut_np": "CONTROLE_DIFFERE",
-      "statut_prevision": "HORS_FENETRE_AVANT_DEPART",
-      "statut_maj_np": "H1_NON_FIGE",
+      "statut_prevision": "FIGE_BASELINE_EXPERIMENTALE",
+      "statut_maj_np": "ACTUALISE",
       "comparatif_csv": "cache_pmu/exports/GENY-1698930/comparatif_predictions.csv",
       "audit_predictif": "ARRIVEE_NON_VERIFIEE",
       "np_confirmes": 2,
-      "np_verification_utc": "2026-11-18T12:35:14.116068+00:00"
+      "np_verification_utc": "2026-11-18T13:53:50.610407+00:00"
     },
     "R6C6": {
       "identifiant_geny": null,
@@ -409,7 +414,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MARSEILLE BORELY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -547,7 +552,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
@@ -609,10 +614,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-18T12:35:07.639600+00:00",
+  "dernier_controle_pmu": "2026-11-18T13:53:47.901811+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-18",
-    "horodatage_utc": "2026-11-18T12:35:07.639600+00:00",
+    "horodatage_utc": "2026-11-18T13:53:47.901811+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
@@ -749,7 +754,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "regionHippique",
           "specialites",
           "statut",

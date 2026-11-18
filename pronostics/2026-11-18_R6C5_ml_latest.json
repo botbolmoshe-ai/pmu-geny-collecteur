@@ -1,15 +1,15 @@
 {
   "date": "2026-11-18",
   "course": "R6C5",
-  "calcul_utc": "2026-11-18T13:35:14.108619+01:00",
+  "calcul_utc": "2026-11-18T14:53:50.601139+01:00",
   "depart": "2026-11-18T15:00:00+01:00",
-  "modele": "gradient_boosting",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-17T18:05:46.862857+00:00",
-  "dernier_label_entrainement_utc": "2026-11-17T18:05:14.073342+00:00",
-  "empreinte_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf",
+  "entrainement_utc": "2026-11-18T12:37:13.326003+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T12:35:36.448016+00:00",
+  "empreinte_modele": "f6531f2ae361ffc50ba8b12c1e24a9bf3e070836b62a3b38201b7b3ee7a6cdf1",
   "features_schema": "pmu-podium-v33",
   "entrees_modele": [
     {
@@ -532,90 +532,90 @@
   ],
   "top3": [
     {
-      "numero": 13,
-      "nom": "MA FELICITE",
-      "cheval_id": "2839247",
-      "score_non_calibre": 0.33416
+      "numero": 9,
+      "nom": "MILAZZO",
+      "cheval_id": "2835009",
+      "score_non_calibre": 0.84327
     },
     {
       "numero": 2,
       "nom": "MACAO MIP",
       "cheval_id": "2850986",
-      "score_non_calibre": 0.32343
+      "score_non_calibre": 0.8241
     },
     {
-      "numero": 7,
-      "nom": "MY LOVE PANAME",
-      "cheval_id": "2836112",
-      "score_non_calibre": 0.29162
+      "numero": 13,
+      "nom": "MA FELICITE",
+      "cheval_id": "2839247",
+      "score_non_calibre": 0.75122
     }
   ],
   "classement_complet": [
     {
-      "numero": 13,
-      "nom": "MA FELICITE",
-      "cheval_id": "2839247",
-      "score_non_calibre": 0.33416
+      "numero": 9,
+      "nom": "MILAZZO",
+      "cheval_id": "2835009",
+      "score_non_calibre": 0.84327
     },
     {
       "numero": 2,
       "nom": "MACAO MIP",
       "cheval_id": "2850986",
-      "score_non_calibre": 0.32343
+      "score_non_calibre": 0.8241
     },
     {
-      "numero": 7,
-      "nom": "MY LOVE PANAME",
-      "cheval_id": "2836112",
-      "score_non_calibre": 0.29162
-    },
-    {
-      "numero": 1,
-      "nom": "MINOS DES CHARRONS",
-      "cheval_id": "2818533",
-      "score_non_calibre": 0.2578
-    },
-    {
-      "numero": 4,
-      "nom": "MATCH LOVE",
-      "cheval_id": "2840163",
-      "score_non_calibre": 0.23829
-    },
-    {
-      "numero": 3,
-      "nom": "MAMY BLUE TIT",
-      "cheval_id": "2857180",
-      "score_non_calibre": 0.21757
-    },
-    {
-      "numero": 11,
-      "nom": "MUTINE DU LUDE",
-      "cheval_id": "2844293",
-      "score_non_calibre": 0.16116
-    },
-    {
-      "numero": 9,
-      "nom": "MILAZZO",
-      "cheval_id": "2835009",
-      "score_non_calibre": 0.15312
-    },
-    {
-      "numero": 10,
-      "nom": "MAGIC DU SAPTEL",
-      "cheval_id": "2820637",
-      "score_non_calibre": 0.11538
+      "numero": 13,
+      "nom": "MA FELICITE",
+      "cheval_id": "2839247",
+      "score_non_calibre": 0.75122
     },
     {
       "numero": 6,
       "nom": "MAMZELLE CARLESS",
       "cheval_id": "2854420",
-      "score_non_calibre": 0.08303
+      "score_non_calibre": 0.70622
+    },
+    {
+      "numero": 3,
+      "nom": "MAMY BLUE TIT",
+      "cheval_id": "2857180",
+      "score_non_calibre": 0.64673
+    },
+    {
+      "numero": 4,
+      "nom": "MATCH LOVE",
+      "cheval_id": "2840163",
+      "score_non_calibre": 0.57101
+    },
+    {
+      "numero": 1,
+      "nom": "MINOS DES CHARRONS",
+      "cheval_id": "2818533",
+      "score_non_calibre": 0.55286
+    },
+    {
+      "numero": 7,
+      "nom": "MY LOVE PANAME",
+      "cheval_id": "2836112",
+      "score_non_calibre": 0.53548
+    },
+    {
+      "numero": 10,
+      "nom": "MAGIC DU SAPTEL",
+      "cheval_id": "2820637",
+      "score_non_calibre": 0.49385
+    },
+    {
+      "numero": 11,
+      "nom": "MUTINE DU LUDE",
+      "cheval_id": "2844293",
+      "score_non_calibre": 0.20612
     },
     {
       "numero": 12,
       "nom": "MADISON ATALANTE",
       "cheval_id": "2835003",
-      "score_non_calibre": 0.05426
+      "score_non_calibre": 0.12001
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

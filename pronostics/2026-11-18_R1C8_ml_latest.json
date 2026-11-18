@@ -1,15 +1,15 @@
 {
   "date": "2026-11-18",
   "course": "R1C8",
-  "calcul_utc": "2026-11-18T13:35:36.036334+01:00",
+  "calcul_utc": "2026-11-18T14:54:12.055970+01:00",
   "depart": "2026-11-18T18:00:00+01:00",
-  "modele": "gradient_boosting",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-17T18:05:46.862857+00:00",
-  "dernier_label_entrainement_utc": "2026-11-17T18:05:14.073342+00:00",
-  "empreinte_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf",
+  "entrainement_utc": "2026-11-18T12:37:13.326003+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T12:35:36.448016+00:00",
+  "empreinte_modele": "f6531f2ae361ffc50ba8b12c1e24a9bf3e070836b62a3b38201b7b3ee7a6cdf1",
   "features_schema": "pmu-podium-v33",
   "entrees_modele": [
     {
@@ -861,132 +861,132 @@
   ],
   "top3": [
     {
-      "numero": 7,
-      "nom": "KING OF THE WORLD",
-      "cheval_id": "2788425",
-      "score_non_calibre": 0.50622
-    },
-    {
-      "numero": 15,
-      "nom": "KELLOU DES BRUMES",
-      "cheval_id": "",
-      "score_non_calibre": 0.47279
-    },
-    {
       "numero": 17,
       "nom": "KID SMILE",
       "cheval_id": "",
-      "score_non_calibre": 0.42313
-    }
-  ],
-  "classement_complet": [
-    {
-      "numero": 7,
-      "nom": "KING OF THE WORLD",
-      "cheval_id": "2788425",
-      "score_non_calibre": 0.50622
-    },
-    {
-      "numero": 15,
-      "nom": "KELLOU DES BRUMES",
-      "cheval_id": "",
-      "score_non_calibre": 0.47279
-    },
-    {
-      "numero": 17,
-      "nom": "KID SMILE",
-      "cheval_id": "",
-      "score_non_calibre": 0.42313
+      "score_non_calibre": 0.47028
     },
     {
       "numero": 14,
       "nom": "KEOPS DE JUMILLY",
       "cheval_id": "",
-      "score_non_calibre": 0.4066
-    },
-    {
-      "numero": 12,
-      "nom": "KAISER TURGOT",
-      "cheval_id": "",
-      "score_non_calibre": 0.39058
-    },
-    {
-      "numero": 16,
-      "nom": "KALICO JACK",
-      "cheval_id": "",
-      "score_non_calibre": 0.37913
+      "score_non_calibre": 0.46298
     },
     {
       "numero": 9,
       "nom": "KAID DES BOSC",
       "cheval_id": "",
-      "score_non_calibre": 0.37263
+      "score_non_calibre": 0.44884
+    }
+  ],
+  "classement_complet": [
+    {
+      "numero": 17,
+      "nom": "KID SMILE",
+      "cheval_id": "",
+      "score_non_calibre": 0.47028
+    },
+    {
+      "numero": 14,
+      "nom": "KEOPS DE JUMILLY",
+      "cheval_id": "",
+      "score_non_calibre": 0.46298
+    },
+    {
+      "numero": 9,
+      "nom": "KAID DES BOSC",
+      "cheval_id": "",
+      "score_non_calibre": 0.44884
+    },
+    {
+      "numero": 7,
+      "nom": "KING OF THE WORLD",
+      "cheval_id": "2788425",
+      "score_non_calibre": 0.44873
     },
     {
       "numero": 18,
       "nom": "KRUGER DU NORD",
       "cheval_id": "",
-      "score_non_calibre": 0.34462
+      "score_non_calibre": 0.44355
     },
     {
       "numero": 2,
       "nom": "KONG DODVILLE",
       "cheval_id": "",
-      "score_non_calibre": 0.31622
-    },
-    {
-      "numero": 8,
-      "nom": "KAKINANI",
-      "cheval_id": "",
-      "score_non_calibre": 0.27827
+      "score_non_calibre": 0.44325
     },
     {
       "numero": 6,
       "nom": "KANDERO BELLO",
       "cheval_id": "",
-      "score_non_calibre": 0.25161
+      "score_non_calibre": 0.43353
     },
     {
-      "numero": 3,
-      "nom": "KALIE DREAM",
+      "numero": 12,
+      "nom": "KAISER TURGOT",
       "cheval_id": "",
-      "score_non_calibre": 0.20605
+      "score_non_calibre": 0.43082
     },
     {
-      "numero": 11,
-      "nom": "KENENISA SKILL",
+      "numero": 15,
+      "nom": "KELLOU DES BRUMES",
       "cheval_id": "",
-      "score_non_calibre": 0.14512
+      "score_non_calibre": 0.3446
     },
     {
-      "numero": 10,
-      "nom": "KIDAM DU METZ",
+      "numero": 8,
+      "nom": "KAKINANI",
       "cheval_id": "",
-      "score_non_calibre": 0.13946
+      "score_non_calibre": 0.34161
     },
     {
       "numero": 5,
       "nom": "KAELLE TURGOT",
       "cheval_id": "",
-      "score_non_calibre": 0.10138
+      "score_non_calibre": 0.32526
+    },
+    {
+      "numero": 16,
+      "nom": "KALICO JACK",
+      "cheval_id": "",
+      "score_non_calibre": 0.32256
+    },
+    {
+      "numero": 3,
+      "nom": "KALIE DREAM",
+      "cheval_id": "",
+      "score_non_calibre": 0.20491
     },
     {
       "numero": 1,
       "nom": "KAPORAL DE VIETTE",
       "cheval_id": "",
-      "score_non_calibre": 0.07249
+      "score_non_calibre": 0.20125
+    },
+    {
+      "numero": 10,
+      "nom": "KIDAM DU METZ",
+      "cheval_id": "",
+      "score_non_calibre": 0.18162
     },
     {
       "numero": 13,
       "nom": "KARAT COOL",
       "cheval_id": "",
-      "score_non_calibre": 0.0609
+      "score_non_calibre": 0.17039
+    },
+    {
+      "numero": 11,
+      "nom": "KENENISA SKILL",
+      "cheval_id": "",
+      "score_non_calibre": 0.16716
     },
     {
       "numero": 4,
       "nom": "KINO DE LAUMIERE",
       "cheval_id": "",
-      "score_non_calibre": 0.05314
+      "score_non_calibre": 0.14908
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

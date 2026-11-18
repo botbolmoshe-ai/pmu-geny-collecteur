@@ -1,15 +1,15 @@
 {
   "date": "2026-11-18",
   "course": "R6C7",
-  "calcul_utc": "2026-11-18T13:35:31.837836+01:00",
+  "calcul_utc": "2026-11-18T14:53:53.598421+01:00",
   "depart": "2026-11-18T16:00:00+01:00",
-  "modele": "gradient_boosting",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-17T18:05:46.862857+00:00",
-  "dernier_label_entrainement_utc": "2026-11-17T18:05:14.073342+00:00",
-  "empreinte_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf",
+  "entrainement_utc": "2026-11-18T12:37:13.326003+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T12:35:36.448016+00:00",
+  "empreinte_modele": "f6531f2ae361ffc50ba8b12c1e24a9bf3e070836b62a3b38201b7b3ee7a6cdf1",
   "features_schema": "pmu-podium-v33",
   "entrees_modele": [
     {
@@ -626,102 +626,102 @@
   ],
   "top3": [
     {
-      "numero": 9,
-      "nom": "HACH DES CAPELLES",
-      "cheval_id": "",
-      "score_non_calibre": 0.33932
-    },
-    {
-      "numero": 13,
-      "nom": "ISLA",
-      "cheval_id": "",
-      "score_non_calibre": 0.30498
-    },
-    {
       "numero": 5,
       "nom": "IDEAL DE NGANDA",
       "cheval_id": "",
-      "score_non_calibre": 0.28815
-    }
-  ],
-  "classement_complet": [
-    {
-      "numero": 9,
-      "nom": "HACH DES CAPELLES",
-      "cheval_id": "",
-      "score_non_calibre": 0.33932
-    },
-    {
-      "numero": 13,
-      "nom": "ISLA",
-      "cheval_id": "",
-      "score_non_calibre": 0.30498
-    },
-    {
-      "numero": 5,
-      "nom": "IDEAL DE NGANDA",
-      "cheval_id": "",
-      "score_non_calibre": 0.28815
-    },
-    {
-      "numero": 7,
-      "nom": "HAYRTON MAGIC",
-      "cheval_id": "",
-      "score_non_calibre": 0.24122
-    },
-    {
-      "numero": 3,
-      "nom": "IMBRIN BUROIS",
-      "cheval_id": "",
-      "score_non_calibre": 0.22928
-    },
-    {
-      "numero": 4,
-      "nom": "ILLICO D'AMOUR",
-      "cheval_id": "",
-      "score_non_calibre": 0.19061
-    },
-    {
-      "numero": 6,
-      "nom": "HOUSTON D'ARIANE",
-      "cheval_id": "",
-      "score_non_calibre": 0.14006
-    },
-    {
-      "numero": 10,
-      "nom": "IVANOVITCH EST LA",
-      "cheval_id": "",
-      "score_non_calibre": 0.13836
-    },
-    {
-      "numero": 8,
-      "nom": "HERMES SCOTT",
-      "cheval_id": "",
-      "score_non_calibre": 0.13548
-    },
-    {
-      "numero": 11,
-      "nom": "IBERICO",
-      "cheval_id": "",
-      "score_non_calibre": 0.13422
+      "score_non_calibre": 0.58686
     },
     {
       "numero": 1,
       "nom": "IPSO SIMARDIERE",
       "cheval_id": "",
-      "score_non_calibre": 0.12751
+      "score_non_calibre": 0.55514
     },
     {
       "numero": 2,
       "nom": "ILLYTRASS",
       "cheval_id": "",
-      "score_non_calibre": 0.10792
+      "score_non_calibre": 0.52733
+    }
+  ],
+  "classement_complet": [
+    {
+      "numero": 5,
+      "nom": "IDEAL DE NGANDA",
+      "cheval_id": "",
+      "score_non_calibre": 0.58686
+    },
+    {
+      "numero": 1,
+      "nom": "IPSO SIMARDIERE",
+      "cheval_id": "",
+      "score_non_calibre": 0.55514
+    },
+    {
+      "numero": 2,
+      "nom": "ILLYTRASS",
+      "cheval_id": "",
+      "score_non_calibre": 0.52733
+    },
+    {
+      "numero": 4,
+      "nom": "ILLICO D'AMOUR",
+      "cheval_id": "",
+      "score_non_calibre": 0.48365
+    },
+    {
+      "numero": 11,
+      "nom": "IBERICO",
+      "cheval_id": "",
+      "score_non_calibre": 0.46747
+    },
+    {
+      "numero": 10,
+      "nom": "IVANOVITCH EST LA",
+      "cheval_id": "",
+      "score_non_calibre": 0.45732
+    },
+    {
+      "numero": 8,
+      "nom": "HERMES SCOTT",
+      "cheval_id": "",
+      "score_non_calibre": 0.45381
+    },
+    {
+      "numero": 3,
+      "nom": "IMBRIN BUROIS",
+      "cheval_id": "",
+      "score_non_calibre": 0.44398
+    },
+    {
+      "numero": 13,
+      "nom": "ISLA",
+      "cheval_id": "",
+      "score_non_calibre": 0.44321
+    },
+    {
+      "numero": 6,
+      "nom": "HOUSTON D'ARIANE",
+      "cheval_id": "",
+      "score_non_calibre": 0.43313
     },
     {
       "numero": 12,
       "nom": "INGLETON DE BRY",
       "cheval_id": "",
-      "score_non_calibre": 0.09354
+      "score_non_calibre": 0.38361
+    },
+    {
+      "numero": 7,
+      "nom": "HAYRTON MAGIC",
+      "cheval_id": "",
+      "score_non_calibre": 0.36982
+    },
+    {
+      "numero": 9,
+      "nom": "HACH DES CAPELLES",
+      "cheval_id": "",
+      "score_non_calibre": 0.17872
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

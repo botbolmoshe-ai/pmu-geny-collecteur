@@ -1,15 +1,15 @@
 {
   "date": "2026-11-18",
   "course": "R1C4",
-  "calcul_utc": "2026-11-18T13:35:16.238549+01:00",
+  "calcul_utc": "2026-11-18T14:53:52.574613+01:00",
   "depart": "2026-11-18T15:40:00+01:00",
-  "modele": "gradient_boosting",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-17T18:05:46.862857+00:00",
-  "dernier_label_entrainement_utc": "2026-11-17T18:05:14.073342+00:00",
-  "empreinte_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf",
+  "entrainement_utc": "2026-11-18T12:37:13.326003+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T12:35:36.448016+00:00",
+  "empreinte_modele": "f6531f2ae361ffc50ba8b12c1e24a9bf3e070836b62a3b38201b7b3ee7a6cdf1",
   "features_schema": "pmu-podium-v33",
   "entrees_modele": [
     {
@@ -394,19 +394,19 @@
       "numero": 6,
       "nom": "MARS COBBA",
       "cheval_id": "",
-      "score_non_calibre": 0.49898
-    },
-    {
-      "numero": 1,
-      "nom": "MONSIEUR WILLIAM",
-      "cheval_id": "",
-      "score_non_calibre": 0.43974
+      "score_non_calibre": 0.84782
     },
     {
       "numero": 4,
       "nom": "MYSTERE CERIZE",
       "cheval_id": "",
-      "score_non_calibre": 0.42203
+      "score_non_calibre": 0.82705
+    },
+    {
+      "numero": 8,
+      "nom": "MAGICO DE LOU",
+      "cheval_id": "",
+      "score_non_calibre": 0.79838
     }
   ],
   "classement_complet": [
@@ -414,49 +414,49 @@
       "numero": 6,
       "nom": "MARS COBBA",
       "cheval_id": "",
-      "score_non_calibre": 0.49898
-    },
-    {
-      "numero": 1,
-      "nom": "MONSIEUR WILLIAM",
-      "cheval_id": "",
-      "score_non_calibre": 0.43974
+      "score_non_calibre": 0.84782
     },
     {
       "numero": 4,
       "nom": "MYSTERE CERIZE",
       "cheval_id": "",
-      "score_non_calibre": 0.42203
+      "score_non_calibre": 0.82705
     },
     {
       "numero": 8,
       "nom": "MAGICO DE LOU",
       "cheval_id": "",
-      "score_non_calibre": 0.28139
+      "score_non_calibre": 0.79838
     },
     {
       "numero": 5,
       "nom": "MORETIME DU CAMPUS",
       "cheval_id": "",
-      "score_non_calibre": 0.25901
+      "score_non_calibre": 0.79624
     },
     {
-      "numero": 2,
-      "nom": "MURO",
+      "numero": 1,
+      "nom": "MONSIEUR WILLIAM",
       "cheval_id": "",
-      "score_non_calibre": 0.24562
-    },
-    {
-      "numero": 7,
-      "nom": "MISSANDEI",
-      "cheval_id": "",
-      "score_non_calibre": 0.23467
+      "score_non_calibre": 0.77312
     },
     {
       "numero": 3,
       "nom": "MARCUS BERRY",
       "cheval_id": "",
-      "score_non_calibre": 0.18509
+      "score_non_calibre": 0.72801
+    },
+    {
+      "numero": 7,
+      "nom": "MISSANDEI",
+      "cheval_id": "",
+      "score_non_calibre": 0.67265
+    },
+    {
+      "numero": 2,
+      "nom": "MURO",
+      "cheval_id": "",
+      "score_non_calibre": 0.60602
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

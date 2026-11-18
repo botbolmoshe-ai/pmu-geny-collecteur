@@ -1,15 +1,15 @@
 {
   "date": "2026-11-18",
   "course": "R1C7",
-  "calcul_utc": "2026-11-18T13:35:34.953294+01:00",
+  "calcul_utc": "2026-11-18T14:54:11.113946+01:00",
   "depart": "2026-11-18T17:25:00+01:00",
-  "modele": "gradient_boosting",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-17T18:05:46.862857+00:00",
-  "dernier_label_entrainement_utc": "2026-11-17T18:05:14.073342+00:00",
-  "empreinte_modele": "b5add2230be548043033ed3182d897a9c93e8e72414f86d26eaf5f52fe736adf",
+  "entrainement_utc": "2026-11-18T12:37:13.326003+00:00",
+  "dernier_label_entrainement_utc": "2026-11-18T12:35:36.448016+00:00",
+  "empreinte_modele": "f6531f2ae361ffc50ba8b12c1e24a9bf3e070836b62a3b38201b7b3ee7a6cdf1",
   "features_schema": "pmu-podium-v33",
   "entrees_modele": [
     {
@@ -676,19 +676,19 @@
       "numero": 14,
       "nom": "JAZZMAN",
       "cheval_id": "",
-      "score_non_calibre": 0.45777
+      "score_non_calibre": 0.62187
     },
     {
-      "numero": 12,
-      "nom": "JACK DU CEBE",
+      "numero": 7,
+      "nom": "JEUNE AMI",
       "cheval_id": "",
-      "score_non_calibre": 0.28277
+      "score_non_calibre": 0.56174
     },
     {
       "numero": 6,
       "nom": "KASH KEEPER",
       "cheval_id": "",
-      "score_non_calibre": 0.25872
+      "score_non_calibre": 0.55082
     }
   ],
   "classement_complet": [
@@ -696,85 +696,85 @@
       "numero": 14,
       "nom": "JAZZMAN",
       "cheval_id": "",
-      "score_non_calibre": 0.45777
-    },
-    {
-      "numero": 12,
-      "nom": "JACK DU CEBE",
-      "cheval_id": "",
-      "score_non_calibre": 0.28277
-    },
-    {
-      "numero": 6,
-      "nom": "KASH KEEPER",
-      "cheval_id": "",
-      "score_non_calibre": 0.25872
-    },
-    {
-      "numero": 8,
-      "nom": "JOKER D'OCCAGNES",
-      "cheval_id": "",
-      "score_non_calibre": 0.20095
-    },
-    {
-      "numero": 9,
-      "nom": "DIE HARD (ITY)",
-      "cheval_id": "",
-      "score_non_calibre": 0.18377
-    },
-    {
-      "numero": 10,
-      "nom": "JACK L'EVENTREUR",
-      "cheval_id": "",
-      "score_non_calibre": 0.17762
-    },
-    {
-      "numero": 13,
-      "nom": "ICI PARIS EFJI",
-      "cheval_id": "",
-      "score_non_calibre": 0.14679
+      "score_non_calibre": 0.62187
     },
     {
       "numero": 7,
       "nom": "JEUNE AMI",
       "cheval_id": "",
-      "score_non_calibre": 0.13609
+      "score_non_calibre": 0.56174
     },
     {
-      "numero": 1,
-      "nom": "TOSCANA SOUTHWIND",
+      "numero": 6,
+      "nom": "KASH KEEPER",
       "cheval_id": "",
-      "score_non_calibre": 0.12072
-    },
-    {
-      "numero": 5,
-      "nom": "IDEAL MOSSA",
-      "cheval_id": "",
-      "score_non_calibre": 0.09995
+      "score_non_calibre": 0.55082
     },
     {
       "numero": 4,
       "nom": "JOUEUSE DU MIREL",
       "cheval_id": "",
-      "score_non_calibre": 0.08678
-    },
-    {
-      "numero": 11,
-      "nom": "LOOK OF LOVE",
-      "cheval_id": "",
-      "score_non_calibre": 0.0836
+      "score_non_calibre": 0.52658
     },
     {
       "numero": 2,
       "nom": "IMPERATUR AM",
       "cheval_id": "",
-      "score_non_calibre": 0.0656
+      "score_non_calibre": 0.51671
+    },
+    {
+      "numero": 11,
+      "nom": "LOOK OF LOVE",
+      "cheval_id": "",
+      "score_non_calibre": 0.49692
+    },
+    {
+      "numero": 10,
+      "nom": "JACK L'EVENTREUR",
+      "cheval_id": "",
+      "score_non_calibre": 0.44959
+    },
+    {
+      "numero": 9,
+      "nom": "DIE HARD (ITY)",
+      "cheval_id": "",
+      "score_non_calibre": 0.44881
+    },
+    {
+      "numero": 8,
+      "nom": "JOKER D'OCCAGNES",
+      "cheval_id": "",
+      "score_non_calibre": 0.44496
+    },
+    {
+      "numero": 13,
+      "nom": "ICI PARIS EFJI",
+      "cheval_id": "",
+      "score_non_calibre": 0.42417
+    },
+    {
+      "numero": 1,
+      "nom": "TOSCANA SOUTHWIND",
+      "cheval_id": "",
+      "score_non_calibre": 0.40258
+    },
+    {
+      "numero": 12,
+      "nom": "JACK DU CEBE",
+      "cheval_id": "",
+      "score_non_calibre": 0.40127
     },
     {
       "numero": 3,
       "nom": "LORENZO BOKO",
       "cheval_id": "",
-      "score_non_calibre": 0.04586
+      "score_non_calibre": 0.37819
+    },
+    {
+      "numero": 5,
+      "nom": "IDEAL MOSSA",
+      "cheval_id": "",
+      "score_non_calibre": 0.24229
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."
