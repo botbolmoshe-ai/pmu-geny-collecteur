@@ -598,10 +598,14 @@ def main():
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
         from .preparation_prochaines import autoriser_fond
         from .echeances_production import besoin_pmu
+        def controle_pmu():
+            return priorite_production() or besoin_pmu(cache, datetime.now(inc.UTC))
+
         def controle_fond():
-            return priorite_production() or besoin_pmu(cache,datetime.now(inc.UTC)) or autoriser_fond(cache,datetime.now(inc.UTC),
+            return controle_pmu() or autoriser_fond(cache,datetime.now(inc.UTC),
                 diagnostic=Path('resultats/rattrapage/ordonnancement_fond.json'))
-        reason=controle_fond()
+
+        reason = controle_pmu() if args.actualiser_inventaire else controle_fond()
         if reason and not (args.reconcilier_identites or args.archives_diagnostics):
             state=inc.lire(cache/QUEUE)
             if state.get('chevaux'):
@@ -620,8 +624,18 @@ def main():
             inc.ecrire(cache/INVENTAIRE,engine.inventaire_rattrapage())
         finally:engine.fermer()
         if args.actualiser_inventaire:
-            recuperer_listes_manquantes(cache, datetime.now(inc.UTC), controle_fond)
-            actualiser_inventaire(cache, datetime.now(inc.UTC))
+            recuperer_listes_manquantes(cache, datetime.now(inc.UTC), controle_pmu)
+            state = actualiser_inventaire(cache, datetime.now(inc.UTC))
+            reason = controle_fond()
+            if reason:
+                state.update(motif_fin_passage=reason, maj_utc=datetime.now(inc.UTC).isoformat())
+                inc.ecrire(cache/QUEUE, state)
+                inc.ecrire(cache/QUEUE.parent/'bilan.json', rapport(state))
+                inc.checkpoint_distant(cache, queue=QUEUE)
+                print('INVENTAIRE_COURSES_PASSEES_PERSISTE '+json.dumps(
+                    state['courses_passees_par_nom'], ensure_ascii=False), flush=True)
+                print('RATTRAPAGE_FOND_DIFFERE '+reason, flush=True)
+                return
         if args.archives_diagnostics:
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
