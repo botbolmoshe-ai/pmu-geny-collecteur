@@ -76,6 +76,24 @@ class ProductionMLTests(unittest.TestCase):
         self.model(schema='v19.1')
         self.assertEqual(predict_pmu(self.root, self.course, self.raw, self.now), 'MODELE_SCHEMA_OBSOLETE_REENTRAINEMENT_REQUIS')
 
+    def test_existing_experimental_model_serves_during_schema_transition(self):
+        from pmu_geny.cycle_ml_actif import POINTEUR, STATUT
+        from pmu_geny.maturite_ml import sha
+        from pmu_geny.ml_v19 import LEGACY_FEATURES
+
+        path = self.root / 'ml/modeles_experimentaux/precedent/modele.joblib'
+        path.parent.mkdir(parents=True)
+        joblib.dump({'model': ProfileModel(), 'features': LEGACY_FEATURES,
+                     'schema': 'pmu-podium-v33', 'modele': 'test', 'statut': STATUT,
+                     'entrainement_utc': '2026-11-14T16:00:00+00:00',
+                     'dernier_label_entrainement_utc': '2026-11-14T15:00:00+00:00'}, path)
+        save(self.root / POINTEUR, {'statut': STATUT, 'fichier_modele': str(path.relative_to(self.root)),
+                                   'sha256_modele': sha(path)})
+        self.assertEqual(predict_pmu(self.root, self.course, self.raw, self.now), 'ML_EXPERIMENTAL_CALCULE')
+        doc = load(self.root/'pronostics/2026-11-15_R1C1_ml_latest.json')
+        self.assertEqual(doc['features_schema'], 'pmu-podium-v33')
+        self.assertEqual([row['numero'] for row in doc['top3']], [4, 3, 2])
+
     def test_live_gates_and_unknown_np(self):
         self.model()
         for stamp in ['2026-11-14T12:00:00+01:00',
