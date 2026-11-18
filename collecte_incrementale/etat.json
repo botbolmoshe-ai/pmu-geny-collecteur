@@ -34112,7 +34112,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T13:00:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2811396",
       "geny": {
         "id": "2811396",
@@ -34123,7 +34123,7 @@
       "derniere_verification_utc": "2026-11-17T04:38:13.597107+00:00",
       "prochaine_verification_utc": "2026-11-18T04:38:13.597107+00:00",
       "nombre_performances": 26,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-11-08",
       "sync_details": {
@@ -34153,7 +34153,16 @@
           "lignes_source": 1
         }
       },
-      "sync_utc": "2026-11-17T04:38:35.444630+00:00"
+      "sync_utc": "2026-11-17T04:38:35.444630+00:00",
+      "prochain_essai_utc": "2026-11-18T11:07:01.337938+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T05:07:01.337953+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2811396/1794978415455808009/resultat.json"
+      }
     },
     "2822790": {
       "nom": "LAURIER D'AIROU",
@@ -41669,13 +41678,13 @@
     }
   },
   "passage_utc": "2026-11-18T05:02:25.100526+00:00",
-  "maj_utc": "2026-11-18T05:06:51.685567+00:00",
+  "maj_utc": "2026-11-18T05:07:01.338159+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 6,
+    "tentatives_collecte": 7,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 6,
+    "collectes_rejetees": 7,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1512
   },
