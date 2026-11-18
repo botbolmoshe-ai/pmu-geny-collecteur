@@ -47,3 +47,7 @@ L'onglet historique est facultatif à la lecture : son absence n'empêche pas le
 autres vues. Il est alimenté par le moteur de production, jamais par l'application.
 La conservation est quotidienne (dernier relevé du jour), avec heure d'observation
 affichée. Les relevés en double, incohérents ou futurs ne sont pas utilisés.
+
+### Performance
+
+Deux barres horizontales TOP3 direct / TOP3 ML, période et hippodrome filtrables, courbes quotidiennes ou cumulées. Les deux méthodes sont comparées exclusivement sur les mêmes courses possédant deux matchings publiés et vérifiés. Les résultats manquants sont exclus, jamais convertis en zéro. Chaque course contribue au même poids ; aucun pronostic n'est recalculé et aucune écriture Sheets n'est effectuée.
