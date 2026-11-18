@@ -3,6 +3,7 @@ import fcntl
 import hashlib
 import json
 import os
+import re
 import tempfile
 import time
 from contextlib import contextmanager
@@ -219,8 +220,16 @@ class SynchroniseurSheets:
         metrics = (calculer_kpi(self.cache, source, sheets_courses=self.lire_courses(tables))
                    if relire_courses else calculer_kpi(self.cache, source))
         updates=plan_kpi(values,metrics)
-        if updates:self.check(self.session.post(self.base+'/values:batchUpdate',
-            json={'valueInputOption':'RAW','data':updates},timeout=45))
+        if updates:
+            properties = tables[KPI_TAB]
+            row_count = properties['gridProperties']['rowCount']
+            last_row = max(int(re.search(r'\d+$', entry['range'])[0]) for entry in updates)
+            if last_row > row_count:
+                self.check(self.session.post(self.base+':batchUpdate', json={'requests': [
+                    {'appendDimension': {'sheetId': properties['sheetId'], 'dimension': 'ROWS',
+                                         'length': last_row-row_count}}]}, timeout=30))
+            self.check(self.session.post(self.base+'/values:batchUpdate',
+                json={'valueInputOption':'RAW','data':updates},timeout=45))
         totals = totaux_reference(metrics)
         managed = {key: (value, definition, totals.get(key, '')) for key, (value, definition) in metrics.items()
                    if key.startswith(PUBLISHED_PREFIXES)}
