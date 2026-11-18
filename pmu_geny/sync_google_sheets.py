@@ -35,7 +35,7 @@ SHEET_HEADER_LABELS = {
 EXPERT_COLUMNS = ('avis_pmu','prono_pmu','source_pmu','couverture_experts',
                   'conditions_course','age_ans','sexe','gains_euros')
 PROFILE_COLUMNS = ('profil_partant', 'profil_partant_indices')
-COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut')
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut')
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','score_ml','etat_ml',
@@ -133,6 +133,7 @@ DISPLAY_NAMES = {
     'synthese_actualite':'Synthèse des avis',
     'ml_modele_statut':'ML · État du modèle',
     'ml_rang':'ML · Rang',
+    'version_ml_utc':'ML · Calcul UTC',
     'ml_top3':'ML · Sélection',
     'ml_proba_podium':'ML · Probabilité calibrée',
     'ml_score_non_calibre':'ML · Score non calibré',
@@ -148,7 +149,7 @@ DISPLAY_NAMES = {
 }
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
-INVERSE_NAMES.update({'PMU · Complétude fiche':'actuel_statut',
+INVERSE_NAMES.update({'Ferrure':'ferrure', 'PMU · Complétude fiche':'actuel_statut',
                       'Experts · Disponibilité par source':'couverture_experts'})
 
 def canonical_headers(visible):
@@ -727,7 +728,7 @@ def limiter_cours_registre(source, date_debut=LIVE_RESET_DATE):
     return result
 
 
-def lire_feuille_complete(session, base, tab, properties, page_rows=2000):
+def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, unformatted=False):
     """Lire toutes les lignes sans perdre les positions des plages vides.
 
     Une lecture limitée aux 5000 premières lignes faisait réinsérer les clés
@@ -748,8 +749,10 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000):
     # requêtes. Les contrôles étroits de clés restent une lecture distincte.
     for offset in range(0,len(pages),3):
         group=pages[offset:offset+3]
-        response=get_lecture(session,base+'/values:batchGet',
-            params={'ranges':[p[0] for p in group],'majorDimension':'ROWS'},timeout=60)
+        params = {'ranges': [p[0] for p in group], 'majorDimension': 'ROWS'}
+        if unformatted:
+            params['valueRenderOption'] = 'UNFORMATTED_VALUE'
+        response=get_lecture(session,base+'/values:batchGet',params=params,timeout=60)
         if response.status_code!=200:
             raise RuntimeError(f'Lecture incomplete {tab} lignes {group[0][1]}:{group[-1][2]}, HTTP {response.status_code}')
         ranges=response.json().get('valueRanges')

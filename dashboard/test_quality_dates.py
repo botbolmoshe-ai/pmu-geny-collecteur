@@ -9,6 +9,14 @@ class QualityDatesTests(unittest.TestCase):
             'Non-partant (NP)':np,'Historique · Nb performances récupérées':hist,
             'Ferrure · Course du jour':'D4','Âge (ans)':5,'Sexe':'Hongre','Gains carrière (€)':0}
 
+    def test_ferrure_legacy_et_son_statut_source_sont_lus(self):
+        rows = [{'Date':'2026-11-18', 'Non-partant (NP)':'PARTANT', 'Ferrure':'F',
+                 'PMU · État ferrure':'CONVENTION_PMU'}]
+        d = date(2026,11,18)
+        metrics = {r['Indicateur']: r[VALUE] for r in cohort_metrics(rows, d, d)}
+        self.assertEqual(metrics['Partants ferrés (F)'], 1)
+        self.assertEqual(metrics['Partants avec ferrure inconnue'], 0)
+
     def test_focus_date_et_intervalle_avec_denoms_et_np(self):
         rows=[self.row('2026-11-16',hist=3),self.row('2026-11-17',hist=0),self.row('2026-11-17',2,4,'NON_PARTANT')]
         one={m['Indicateur']:m for m in cohort_metrics(rows,date(2026,11,17),date(2026,11,17))}

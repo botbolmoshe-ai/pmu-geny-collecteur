@@ -44,7 +44,7 @@ def cohort_metrics(courses,start,end):
     add('Historique','Partants avec historique partiel',partial,n,'Historique Geny explicitement partiel.')
     add('Historique','Partants avec historique complet',complete,n,'Historique Geny lié avec un statut HISTO_OK.')
     def ferrure(row):
-        code = row.get('Ferrure · Course du jour')
+        code = str(row.get('Ferrure · Course du jour') or row.get('Ferrure') or '').strip().upper()
         status = row.get('PMU · État ferrure') or row.get('PMU · Complétude fiche')
         if status in ('CODE_INCONNU', 'NON_RECUPEREE', 'FERRURE_NON_RECUPEREE'):
             return ''

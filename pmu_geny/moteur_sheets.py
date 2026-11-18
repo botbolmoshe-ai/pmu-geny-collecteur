@@ -204,7 +204,7 @@ class SynchroniseurSheets:
         tab = 'Courses & Prévisions'
         if tab not in tables:
             raise ErreurSynchronisation('Onglet absent : ' + tab)
-        values = lire_feuille_complete(self.session, self.base, tab, tables[tab])
+        values = lire_feuille_complete(self.session, self.base, tab, tables[tab], unformatted=True)
         if not values:
             raise ErreurSynchronisation('Onglet sans en-têtes : ' + tab)
         headers = canonical_headers(values[0])
