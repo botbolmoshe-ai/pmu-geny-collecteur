@@ -43697,7 +43697,7 @@
     }
   },
   "passage_utc": "2026-11-18T18:12:24.362064+00:00",
-  "maj_utc": "2026-11-18T18:19:38.573680+00:00",
+  "maj_utc": "2026-11-18T18:20:28.405228+00:00",
   "bilan": {
     "chevaux_suivis": 1808,
     "tentatives_collecte": 6,
@@ -43705,10 +43705,10 @@
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 1624
+    "actualisations_en_attente": 1618
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 7
@@ -43718,48 +43718,18 @@
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-18T18:12:24.362064+00:00",
+    "controle_utc": "2026-11-18T18:20:11.786979+00:00",
     "pret": false,
     "partants_a_venir": 207,
     "couverture_par_jour": {
       "2026-11-19": {
         "partants": 207,
-        "historiques_complets": 10,
-        "sans_historique_complet": 197,
-        "historiques_a_actualiser": 202
+        "historiques_complets": 16,
+        "sans_historique_complet": 191,
+        "historiques_a_actualiser": 196
       }
     },
     "blocages": [
-      {
-        "course": "2026-11-19_R3C1",
-        "numero": "4",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-19_R3C1",
-        "numero": "5",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-19_R3C1",
-        "numero": "6",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-19_R3C1",
-        "numero": "7",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-19_R3C1",
-        "numero": "8",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-19_R3C1",
-        "numero": "9",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
       {
         "course": "2026-11-19_R3C2",
         "numero": "1",
@@ -44741,5 +44711,6 @@
         "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       }
     ]
-  }
+  },
+  "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
 }
