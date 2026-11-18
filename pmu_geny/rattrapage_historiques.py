@@ -166,22 +166,66 @@ def nom_reference(nom):
     return str(nom or '').strip().casefold()
 
 
+def arrivees_verifiees(cache, now):
+    for path in sorted((cache/'arrivees').glob('*.json')):
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}_R\d+C\d+', path.stem):
+            continue
+        arrival = inc.lire(path)
+        checked = inc.instant(arrival.get('verifie_utc'))
+        if arrival.get('source') == 'PMU_API_PARTICIPANTS' and checked and checked <= now and arrival.get('arrivee'):
+            yield path, arrival
+
+
+def profils_passe(cache, race):
+    for folder in (Path('partants_actuels'), QUEUE.parent/'partants_retrouves'):
+        doc = inc.lire(cache/folder/race)
+        if doc.get('source') == 'PMU_API_PARTICIPANTS' and doc.get('chevaux'):
+            return doc['chevaux']
+    return {}
+
+
+def recuperer_listes_manquantes(cache, now, stop_requested):
+    """Compléter trois listes au maximum, uniquement pendant l'extension manuelle."""
+    from .auto_v18 import BASE, get_json
+    from .partants_actuels_v21 import extraire_partants
+
+    missing = [(path, arrival) for path, arrival in arrivees_verifiees(cache, now)
+               if not profils_passe(cache, path.name)]
+    for path, arrival in missing[:3]:
+        if stop_requested():
+            break
+        day, race = path.stem.split('_')
+        meeting, number = race.split('C')
+        url = f"{BASE}{datetime.fromisoformat(day):%d%m%Y}/{meeting}/C{number}/participants"
+        try:
+            horses = extraire_partants(get_json(url, timeout=8))
+            ranked = {int(h['numero']) for h in arrival['arrivee']}
+        except (OSError, ValueError, RuntimeError, TypeError, KeyError) as error:
+            print(f'LISTE_PMU_DIFFEREE {path.stem} {type(error).__name__}', flush=True)
+            break
+        confirmed = {n for n, h in horses.items() if h.get('statut_np') == 'PARTANT' and h.get('nom')}
+        if not ranked or not ranked <= confirmed or any(
+                h.get('statut_np') not in ('PARTANT', 'NON_PARTANT') or not h.get('nom') for h in horses.values()):
+            print(f'LISTE_PMU_INCOHERENTE {path.stem}', flush=True)
+            continue
+        inc.ecrire(cache/QUEUE.parent/'partants_retrouves'/path.name, {
+            'source': 'PMU_API_PARTICIPANTS', 'source_url': url,
+            'capture_utc': datetime.now(inc.UTC).isoformat(), 'chevaux': horses})
+        print(f'LISTE_PMU_RECUPEREE {path.stem} {len(confirmed)}', flush=True)
+
+
 def courses_passees(cache, now):
     """Liste des partants confirmés, une ligne par nom et preuves par course."""
     names = {}
     sans_liste = 0
     courses = 0
-    for path in sorted((cache/'arrivees').glob('*.json')):
-        arrival = inc.lire(path)
-        checked = inc.instant(arrival.get('verifie_utc'))
-        if arrival.get('source') != 'PMU_API_PARTICIPANTS' or not checked or checked > now or not arrival.get('arrivee'):
-            continue
+    for path, _ in arrivees_verifiees(cache, now):
         courses += 1
-        profile = inc.lire(cache/'partants_actuels'/path.name)
-        if profile.get('source') != 'PMU_API_PARTICIPANTS' or not profile.get('chevaux'):
+        horses = profils_passe(cache, path.name)
+        if not horses:
             sans_liste += 1
             continue
-        for number, horse in profile['chevaux'].items():
+        for number, horse in horses.items():
             key = nom_reference(horse.get('nom'))
             if not key or horse.get('statut_np') != 'PARTANT':
                 continue
@@ -575,7 +619,9 @@ def main():
                 reparer(engine)
             inc.ecrire(cache/INVENTAIRE,engine.inventaire_rattrapage())
         finally:engine.fermer()
-        if args.actualiser_inventaire:actualiser_inventaire(cache,datetime.now(inc.UTC))
+        if args.actualiser_inventaire:
+            recuperer_listes_manquantes(cache, datetime.now(inc.UTC), controle_fond)
+            actualiser_inventaire(cache, datetime.now(inc.UTC))
         if args.archives_diagnostics:
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
