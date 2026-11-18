@@ -21102,7 +21102,7 @@
       "verification_periodique": true,
       "course_url": "https://www.geny.com/course/1698467/partants-pronostics",
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2696992",
       "geny": {
         "id": "2696992",
@@ -21113,7 +21113,7 @@
       "derniere_verification_utc": "2026-11-17T03:31:39.596284+00:00",
       "prochaine_verification_utc": "2026-11-18T03:31:39.596284+00:00",
       "nombre_performances": 54,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "derniere_performance_date": "2026-11-14",
       "sync_details": {
         "Historique chevaux": {
@@ -21146,7 +21146,16 @@
       "derniere_course_officielle_utc": "2026-11-14T16:07:00+00:00",
       "ferrures_manquantes": 0,
       "depart_a_venir_utc": "2026-11-18T12:55:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "prochain_essai_utc": "2026-11-18T11:02:44.438485+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T05:02:44.438501+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2696992/1794978155601076494/resultat.json"
+      }
     },
     "2762839": {
       "nom": "ROCKY OASIS",
@@ -41615,13 +41624,13 @@
     }
   },
   "passage_utc": "2026-11-18T05:02:25.100526+00:00",
-  "maj_utc": "2026-11-18T05:02:29.734881+00:00",
+  "maj_utc": "2026-11-18T05:02:44.440052+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1512
   },
