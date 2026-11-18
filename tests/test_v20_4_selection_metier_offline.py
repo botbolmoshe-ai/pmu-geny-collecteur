@@ -45,7 +45,15 @@ class SelectionTrotTest(unittest.TestCase):
         outside['heureDepart']=int(datetime(2026,11,10,22,15,tzinfo=ZoneInfo('Europe/Paris')).timestamp()*1000)
         output,diag=self.run_prog([self.r(1,'Vincennes',[outside])])
         self.assertEqual(output,[])
-        self.assertEqual(diag['exclusions']['depart_hors_plage_08_19'],1)
+        self.assertEqual(diag['exclusions']['depart_hors_plage_07_21'],1)
+    def test_limites_07_21_paris(self):
+        cases=[(6,59,False),(7,0,True),(7,30,True),(19,30,True),(21,0,True),(21,1,False)]
+        for h,m,expected in cases:
+            with self.subTest(hour=h,minute=m):
+                course=self.c(1)
+                course['heureDepart']=int(datetime(2026,11,10,h,m,tzinfo=ZoneInfo('Europe/Paris')).timestamp()*1000)
+                output,diag=self.run_prog([self.r(1,'Vincennes',[course])])
+                self.assertEqual(bool(output),expected)
     def test_groupe_et_allocation(self):
         c=self.c(1,alloc=41000)
         tier,reason,_=niveau(c,{},'Fontainebleau',14)
