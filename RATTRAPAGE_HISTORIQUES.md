@@ -184,3 +184,19 @@ python -m unittest discover -s tests -p 'test_v30*offline.py' -v
 
 Les tests techniques ne mesurent pas une amélioration des pronostics : celle-ci
 se vérifie sur les sélections figées avant départ et les arrivées officielles.
+
+## Inventaire des courses disputées par nom
+
+Le bilan `rattrapage_historiques/courses_passees_par_nom.json` recense les
+partants confirmés par le PMU des courses avec une arrivée vérifiée dans le
+cache. Le nom est comparé sans tenir compte de la casse. Chaque entrée garde
+la graphie d'origine et les numéros et courses observés. Les courses sans
+liste de partants vérifiée sont comptées séparément.
+
+Actualiser l'inventaire avec le paramètre `actualiser_inventaire` du workflow
+existant pour prendre en charge les nouveaux noms. Une seule cible par nom
+est sélectionnée dans cette liste. Les contextes et historiques restent
+disponibles pour vérifier les filiations et les homonymes. Une contradiction
+entre sources ou deux numéros distincts dans la même course suspendent la
+collecte du nom concerné. Les quotas et la priorité aux échéances PMU
+s'appliquent à chaque passage.

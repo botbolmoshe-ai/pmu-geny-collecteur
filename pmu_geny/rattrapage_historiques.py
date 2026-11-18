@@ -137,6 +137,7 @@ def actualiser_inventaire(cache,now):
     # Valider le snapshot et l'état avant d'archiver ou de modifier quoi que ce soit.
     state=preparer(cache,now)
     local=inventaire_local(cache,inc.lire(cache/INVENTAIRE))
+    ajouter_noms_pmu(cache, local, now)
     additions={k:h for k,h in local.items() if k not in state['chevaux']}
     if additions:
         previous=inc.lire(cache/QUEUE) or state
@@ -161,6 +162,144 @@ def actualiser_inventaire(cache,now):
     return state
 
 
+def nom_reference(nom):
+    return str(nom or '').strip().casefold()
+
+
+def arrivees_verifiees(cache, now):
+    for path in sorted((cache/'arrivees').glob('*.json')):
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}_R\d+C\d+', path.stem):
+            continue
+        arrival = inc.lire(path)
+        checked = inc.instant(arrival.get('verifie_utc'))
+        if arrival.get('source') == 'PMU_API_PARTICIPANTS' and checked and checked <= now and arrival.get('arrivee'):
+            yield path, arrival
+
+
+def profils_passe(cache, race):
+    for folder in (Path('partants_actuels'), QUEUE.parent/'partants_retrouves'):
+        doc = inc.lire(cache/folder/race)
+        if doc.get('source') == 'PMU_API_PARTICIPANTS' and doc.get('chevaux'):
+            return doc['chevaux']
+    return {}
+
+
+def recuperer_listes_manquantes(cache, now, stop_requested):
+    """Compléter trois listes au maximum, uniquement pendant l'extension manuelle."""
+    from .auto_v18 import BASE, get_json
+    from .partants_actuels_v21 import extraire_partants
+
+    missing = [(path, arrival) for path, arrival in arrivees_verifiees(cache, now)
+               if not profils_passe(cache, path.name)]
+    for path, arrival in missing[:3]:
+        if stop_requested():
+            break
+        day, race = path.stem.split('_')
+        meeting, number = race.split('C')
+        url = f"{BASE}{datetime.fromisoformat(day):%d%m%Y}/{meeting}/C{number}/participants"
+        try:
+            horses = extraire_partants(get_json(url, timeout=8))
+            ranked = {int(h['numero']) for h in arrival['arrivee']}
+        except (OSError, ValueError, RuntimeError, TypeError, KeyError) as error:
+            print(f'LISTE_PMU_DIFFEREE {path.stem} {type(error).__name__}', flush=True)
+            break
+        confirmed = {n for n, h in horses.items() if h.get('statut_np') == 'PARTANT' and h.get('nom')}
+        if not ranked or not ranked <= confirmed or any(
+                h.get('statut_np') not in ('PARTANT', 'NON_PARTANT') or not h.get('nom') for h in horses.values()):
+            print(f'LISTE_PMU_INCOHERENTE {path.stem}', flush=True)
+            continue
+        inc.ecrire(cache/QUEUE.parent/'partants_retrouves'/path.name, {
+            'source': 'PMU_API_PARTICIPANTS', 'source_url': url,
+            'capture_utc': datetime.now(inc.UTC).isoformat(), 'chevaux': horses})
+        print(f'LISTE_PMU_RECUPEREE {path.stem} {len(confirmed)}', flush=True)
+
+
+def courses_passees(cache, now):
+    """Liste des partants confirmés, une ligne par nom et preuves par course."""
+    names = {}
+    sans_liste = 0
+    courses = 0
+    for path, _ in arrivees_verifiees(cache, now):
+        courses += 1
+        horses = profils_passe(cache, path.name)
+        if not horses:
+            sans_liste += 1
+            continue
+        for number, horse in horses.items():
+            key = nom_reference(horse.get('nom'))
+            if not key or horse.get('statut_np') != 'PARTANT':
+                continue
+            entry = names.setdefault(key, {'nom': horse['nom'], 'courses': {}})
+            entry['courses'].setdefault(path.stem, []).append(number)
+    return {'courses_avec_arrivee': courses, 'courses_sans_liste_partants': sans_liste, 'noms': names}
+
+
+def ajouter_noms_pmu(cache, targets, now):
+    """Conserver la graphie PMU si une graphie différente est déjà dans le stock."""
+    existing = {nom_reference(h.get('nom')) for h in targets.values()}
+    for name, entry in courses_passees(cache, now)['noms'].items():
+        if name in existing:
+            continue
+        contexts = []
+        for race, numbers in entry['courses'].items():
+            cid = inc.course_geny_connue(cache, race)
+            url = ('https://www.geny.com/course/'+cid[5:]+'/partants-pronostics'
+                   if re.fullmatch(r'GENY-\d+', str(cid)) else '')
+            contexts.extend((not bool(url), race, number, url) for number in numbers)
+        _, race, number, url = min(contexts)
+        key = 'nom-pmu:'+hashlib.sha256(name.encode()).hexdigest()[:24]
+        targets[key] = {'nom': entry['nom'], 'engagement': race, 'numero': number,
+                        'course_url': url, 'nom_reference_pmu': True, 'origines': ['PMU:'+race]}
+
+
+def preparer_noms_passes(cache, state, now):
+    inventory = courses_passees(cache, now)
+    targets = {}
+    for key, horse in state['chevaux'].items():
+        horse.pop('autre_contexte_meme_nom', None)
+        horse.pop('nom_passe_en_conflit', None)
+        horse.pop('partant_course_passee', None)
+        targets.setdefault(nom_reference(horse.get('nom')), []).append((key, horse))
+    for name, entry in inventory['noms'].items():
+        group = targets.get(name, [])
+        if not group:
+            entry['etat'] = 'ABSENT_DE_LA_FILE'
+            continue
+        for _, horse in group:
+            horse['partant_course_passee'] = True
+        ids = {h['id'] for _, h in group if h.get('id')}
+        if (len(ids) > 1 or any(h.get('conflit_identite') or h.get('identifiant_externe_non_reconcilie')
+                                for _, h in group)
+                or any(len(numbers) > 1 for numbers in entry['courses'].values())):
+            entry['etat'] = 'IDENTITE_A_VERIFIER'
+            for _, horse in group:
+                horse['nom_passe_en_conflit'] = True
+            continue
+        eligible = [(key, h) for key, h in group if not h.get('cible_equivalente_a')] or group
+        key, primary = min(eligible, key=lambda item: (
+            not bool(item[1].get('historique_complet_au_utc')),
+            item[1].get('collecte') in ('LIEN_GENY_A_RESOUDRE', 'IDENTITE_A_VERIFIER'),
+            not bool(item[1].get('geny')), not bool(item[1].get('id')), item[0]))
+        for other, horse in group:
+            if other != key:
+                horse['autre_contexte_meme_nom'] = key
+            retry = inc.instant(horse.get('prochain_essai_utc'))
+            if retry and retry > now and retry > (inc.instant(primary.get('prochain_essai_utc')) or now):
+                primary['prochain_essai_utc'] = retry.isoformat()
+        entry['cible'] = key
+        entry['etat'] = ('COMPLET' if primary.get('rattrapage_complet_au_utc') and primary.get('sync') == 'OK'
+                         else 'SYNCHRONISATION_A_REPRENDRE' if primary.get('historique_complet_au_utc')
+                         else primary.get('collecte', 'A_REPRENDRE'))
+        if entry['etat'] == 'COMPLET' and primary.get('ferrures_manquantes'):
+            entry['etat'] = 'FERRURES_A_COMPLETER'
+    from collections import Counter
+    inventory['bilan'] = dict(sorted(Counter(h['etat'] for h in inventory['noms'].values()).items()))
+    inventory['noms_distincts'] = len(inventory['noms'])
+    inventory['controle_utc'] = now.isoformat()
+    state['courses_passees_par_nom'] = {k: v for k, v in inventory.items() if k != 'noms'}
+    inc.ecrire(cache/QUEUE.parent/'courses_passees_par_nom.json', inventory)
+
+
 def preparer(cache,now):
     cache=Path(cache)
     sheets=inc.lire(cache/INVENTAIRE)
@@ -171,6 +310,7 @@ def preparer(cache,now):
         raise ValueError('FILE_RATTRAPAGE_INCOMPATIBLE')
     if not state:
         targets=inventaire_local(cache,sheets)
+        ajouter_noms_pmu(cache, targets, now)
         if not targets:raise ValueError('INVENTAIRE_VIDE')
         state={'version':1,'mode':'RATTRAPAGE_GLOBAL','inventaire_utc':now.isoformat(),
             'inventaire_id':hashlib.sha256((now.isoformat()+'\n'+'\n'.join(sorted(targets))).encode()).hexdigest()[:24],
@@ -248,11 +388,12 @@ def preparer(cache,now):
         if not trusted:
             h.pop('historique_complet_au_utc',None)
             h.pop('rattrapage_complet_au_utc',None)
-        if not h.get('id') and not h.get('identifiant_externe_non_reconcilie'):
+        if not h.get('id') and not h.get('identifiant_externe_non_reconcilie') and not h.get('nom_reference_pmu'):
             ids=names.get(nom_normalise(h.get('nom')),set())
             if len(ids)==1:h['id']=next(iter(ids))
         fresh=local.get(h.get('id')) or local.get(key) or local.get(cle_contexte(h)) or {}
-        if nom_normalise(fresh.get('nom'))==nom_normalise(h.get('nom')):
+        if (nom_normalise(fresh.get('nom'))==nom_normalise(h.get('nom'))
+                and (not h.get('nom_reference_pmu') or nom_reference(fresh.get('nom')) == nom_reference(h.get('nom')))):
             for field in ('geny','course_url','numero','conflit_identite','identifiant_externe_non_reconcilie',
                           'identifiants_sources','reconciliation_identite'):
                 if fresh.get(field):h[field]=fresh[field]
@@ -294,7 +435,7 @@ def preparer(cache,now):
     for key,h in state['chevaux'].items():
         h.pop('cible_equivalente_a',None)
         context=contexte_verifiable(h)
-        if context:groups.setdefault(context,[]).append(key)
+        if context and not h.get('nom_reference_pmu'):groups.setdefault(context,[]).append(key)
     for keys in groups.values():
         if len(keys)<2:continue
         members=[state['chevaux'][k] for k in keys]
@@ -305,6 +446,7 @@ def preparer(cache,now):
             if key!=primary:state['chevaux'][key]['cible_equivalente_a']=primary
         if state['chevaux'][primary].get('rattrapage_complet_au_utc') and state['chevaux'][primary].get('sync')=='OK':
             propager_preuve(state,state['chevaux'][primary])
+    preparer_noms_passes(cache, state, now)
     bilan(state)
     return state
 
@@ -312,7 +454,7 @@ def preparer(cache,now):
 def prochaine_tache(state,now,attempts):
     # Une publication en échec est reprise sans nouvelle consultation Geny.
     for key,h in state['chevaux'].items():
-        if h.get('cible_equivalente_a'):continue
+        if h.get('cible_equivalente_a') or h.get('autre_contexte_meme_nom') or h.get('nom_passe_en_conflit'):continue
         if h.get('sync')=='A_FAIRE' and attempts.get(('SYNC',key),0)<1:
             retry=inc.instant(h.get('prochaine_sync_utc'))
             if not retry or retry<=now:return key,'SYNC'
@@ -321,7 +463,7 @@ def prochaine_tache(state,now,attempts):
     candidates=[]
     protected=set(state.get('noms_partants_proteges',[]))
     for key,h in state['chevaux'].items():
-        if h.get('cible_equivalente_a'):continue
+        if h.get('cible_equivalente_a') or h.get('autre_contexte_meme_nom') or h.get('nom_passe_en_conflit'):continue
         if nom_normalise(h.get('nom')) in protected:continue
         if (h.get('rattrapage_complet_au_utc') and not h.get('ferrures_manquantes')) or not h.get('motif_actualisation'):continue
         if h.get('collecte') in ('LIEN_GENY_A_RESOUDRE','IDENTITE_A_VERIFIER'):continue
@@ -337,7 +479,7 @@ def prochaine_tache(state,now,attempts):
         unidentified=not bool(h.get('id'))
         corrected=bool(h.get('priorite_identite_corrigee') and not h.get('historique_complet_au_utc'))
         # Le besoin J+1 doit primer sur une identite corrigee ancienne pendant la nuit.
-        candidates.append(((enrichment,night,not corrected,unidentified,priority,h.get('engagement',''),key),key))
+        candidates.append(((enrichment,night,not h.get('partant_course_passee'),not corrected,unidentified,priority,h.get('engagement',''),key),key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 
@@ -406,7 +548,7 @@ def bilan(state):
 def rapport(state):
     keys=('version','mode','inventaire_id','inventaire_utc','revision_inventaire','inventaire_actualise_utc',
           'extensions_inventaire','phase_reprise','derniere_revalidation','passage_utc','maj_utc','statut','priorite_collecte',
-          'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire')
+          'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
     report={k:state[k] for k in keys if k in state}
     proofs=[]
     for horse in state['chevaux'].values():
@@ -477,7 +619,9 @@ def main():
                 reparer(engine)
             inc.ecrire(cache/INVENTAIRE,engine.inventaire_rattrapage())
         finally:engine.fermer()
-        if args.actualiser_inventaire:actualiser_inventaire(cache,datetime.now(inc.UTC))
+        if args.actualiser_inventaire:
+            recuperer_listes_manquantes(cache, datetime.now(inc.UTC), controle_fond)
+            actualiser_inventaire(cache, datetime.now(inc.UTC))
         if args.archives_diagnostics:
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
@@ -487,7 +631,7 @@ def main():
     else:
         state=(actualiser_inventaire if args.actualiser_inventaire else preparer)(cache,datetime.now(inc.UTC))
     print('BILAN_RATTRAPAGE '+json.dumps({'statut':state['statut'],'inventaire_id':state['inventaire_id'],
-                                       'revision_inventaire':state.get('revision_inventaire',1),'phase_reprise':state['phase_reprise'],
+                                       'revision_inventaire':state.get('revision_inventaire',1),'courses_passees_par_nom':state.get('courses_passees_par_nom'),'phase_reprise':state['phase_reprise'],
                                        'motif_fin_passage':state.get('motif_fin_passage','BUDGET_OU_FILE_EPUISE'),
                                        **state['bilan']},ensure_ascii=False),flush=True)
 

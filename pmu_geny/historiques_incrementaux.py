@@ -563,6 +563,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             state['sync_kpi']='A_REPRENDRE';save()
             raise
         finally:sheets_engine.fermer()
+    if reprise:
+        reprise.preparer_noms_passes(cache, state, datetime.now(UTC))
     save()
     return state
 

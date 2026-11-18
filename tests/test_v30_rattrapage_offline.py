@@ -390,6 +390,36 @@ class RepriseTests(unittest.TestCase):
             get.side_effect=RuntimeError('API indisponible')
             self.assertEqual(back.priorite_production(),'PRIORITE_PRODUCTION_NON_VERIFIABLE')
 
+    def test_courses_passees_regroupe_la_casse_et_recense_les_conflits(self):
+        source = 'PMU_API_PARTICIPANTS'
+        for index, name in enumerate(('Étoile du Nord', 'étoile du nord'), 1):
+            race = f'2020-01-0{index}_R1C1.json'
+            inc.ecrire(self.cache/'arrivees'/race, {
+                'source': source, 'verifie_utc': '2020-01-03T10:00:00+00:00',
+                'arrivee': [{'numero': 3, 'rang': 1}],
+            })
+            inc.ecrire(self.cache/'partants_actuels'/race, {'source': source, 'chevaux': {
+                '1': {'nom': name, 'statut_np': 'PARTANT'},
+                '2': {'nom': 'Non partant', 'statut_np': 'NON_PARTANT'},
+            }})
+        state = {'chevaux': {
+            'c1': {'nom': 'Étoile du Nord', 'motif_actualisation': 'MANQUANT'},
+            'c2': {'nom': 'étoile du nord', 'motif_actualisation': 'MANQUANT'},
+        }}
+        back.preparer_noms_passes(self.cache, state, self.now)
+        report = inc.lire(self.cache/back.QUEUE.parent/'courses_passees_par_nom.json')
+        self.assertEqual(set(report['noms']), {'étoile du nord'})
+        self.assertEqual(report['noms']['étoile du nord']['courses'],
+                         {'2020-01-01_R1C1': ['1'], '2020-01-02_R1C1': ['1']})
+        self.assertEqual(back.prochaine_tache(state, self.now, {}), ('c1', 'COLLECTE'))
+        self.assertEqual(back.prochaine_tache(state, self.now, {('COLLECTE', 'c1'): 1}),
+                         (None, 'TERMINE_PASSAGE'))
+        state['chevaux']['c1']['id'] = '12345'
+        state['chevaux']['c2']['id'] = '67890'
+        back.preparer_noms_passes(self.cache, state, self.now)
+        self.assertEqual(state['courses_passees_par_nom']['bilan'], {'IDENTITE_A_VERIFIER': 1})
+        self.assertEqual(back.prochaine_tache(state, self.now, {}), (None, 'TERMINE_PASSAGE'))
+
     def test_formats_sheet_et_pmu_designent_un_seul_contexte(self):
         day='2020-01-01'
         inc.ecrire(self.cache/'partants_actuels'/f'{day}_R1C1.json',{'chevaux':{'1':{'nom':'Test'}}})
