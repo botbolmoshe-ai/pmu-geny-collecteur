@@ -29,6 +29,22 @@ class KPIReferenceTests(unittest.TestCase):
             second = engine._synchroniser_kpi(engine.metadata(), source)
             self.assertEqual(second['Data Quality & KPI']['indicateurs_actualises'], 0)
 
+    def test_j_j1_emploient_les_lignes_relues_et_exigent_la_provenance_du_f(self):
+        day = '2026-11-18'
+        first = {'date_course': day, 'non_partant':'PARTANT', 'ferrure':'F'}
+        other = {**first, 'date_course':'2026-11-19', 'actuel_statut':'CONVENTION_PMU',
+                 'historique_statut':'HISTO_PARTIEL_GENY', 'historique_nb_courses_datees':2}
+        rows = [first, other, {**other, 'non_partant':'NON_PARTANT'}]
+        with TemporaryDirectory() as folder:
+            metrics = calculer_kpi(folder, {'Courses & Prévisions':{}, 'Résultats & Analyse':{}},
+                                   datetime(2026,11,18,10,tzinfo=timezone.utc), sheets_courses=rows)
+        self.assertEqual(metrics['J · Ferrures inconnues'][0], 1)
+        self.assertEqual(metrics['J · Ferrés (F)'][0], 0)
+        self.assertEqual(metrics['J+1 · Ferrés (F)'][0], 1)
+        self.assertEqual(metrics['J+1 · Historiques partiels'][0], 1)
+        self.assertEqual(metrics['J+1 · Historiques complets'][0], 0)
+        self.assertEqual(metrics['J+1 · Historiques publiés avec performances'][0], 1)
+
     def test_ml_counts_and_denominators_same_snapshot(self):
         participants={
             str(i):{'course_key':'C1' if i<2 else 'C2','cheval':f'Cheval {i}',

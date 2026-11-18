@@ -198,40 +198,66 @@ class SynchroniseurSheets:
               f'cellules_mises_a_jour={len(updates)} lignes_ajoutees={len(appends)}',flush=True)
         return result
 
-    def _synchroniser_kpi(self,tables,source):
-        from .kpi_registre import KPI_TAB,calculer_kpi,plan_kpi
-        if KPI_TAB not in tables:return {}
+    def lire_courses(self, tables):
+        from .sync_google_sheets import canonical_headers, lire_feuille_complete
+        tab = 'Courses & Prévisions'
+        if tab not in tables:
+            raise ErreurSynchronisation('Onglet absent : ' + tab)
+        values = lire_feuille_complete(self.session, self.base, tab, tables[tab])
+        if not values:
+            raise ErreurSynchronisation('Onglet sans en-têtes : ' + tab)
+        headers = canonical_headers(values[0])
+        return [dict(zip(headers, row)) for row in values[1:] if row]
+
+    def _synchroniser_kpi(self,tables,source,*,relire_courses=False):
+        from .kpi_registre import KPI_TAB, PUBLISHED_PREFIXES, calculer_kpi, plan_kpi, totaux_reference
+        if KPI_TAB not in tables:
+            raise ErreurSynchronisation('Onglet absent : ' + KPI_TAB)
         path=quote("'"+KPI_TAB+"'!A:E",safe="!:'")
         values=self.check(get_lecture(self.session,self.base+'/values/'+path,
             params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
-        metrics = calculer_kpi(self.cache, source)
+        metrics = (calculer_kpi(self.cache, source, sheets_courses=self.lire_courses(tables))
+                   if relire_courses else calculer_kpi(self.cache, source))
         updates=plan_kpi(values,metrics)
         if updates:self.check(self.session.post(self.base+'/values:batchUpdate',
             json={'valueInputOption':'RAW','data':updates},timeout=45))
-        maturity = {key: val for key, val in metrics.items() if key.startswith('Maturité ML · ')}
-        if maturity:
+        totals = totaux_reference(metrics)
+        managed = {key: (value, definition, totals.get(key, '')) for key, (value, definition) in metrics.items()
+                   if key.startswith(PUBLISHED_PREFIXES)}
+        if managed:
             if updates:
                 values = self.check(get_lecture(self.session, self.base+'/values/'+path,
                     params={'valueRenderOption':'UNFORMATTED_VALUE'}, timeout=30)).get('values', [])
-            readback = {}
+            seen = set()
             for row in values[1:]:
-                if len(row) >= 4 and row[1] in maturity:
-                    if row[1] in readback:
-                        raise ErreurSynchronisation('Indicateur de maturité ML en double')
-                    readback[row[1]] = tuple(row[2:4])
-            if readback.keys() != maturity.keys() or any(
-                    definition != readback[key][1] or (
-                        abs(value-readback[key][0]) > 1e-12
-                        if isinstance(value, (int, float)) and isinstance(readback[key][0], (int, float))
-                        else value != readback[key][0])
-                    for key, (value, definition) in maturity.items()):
-                raise ErreurSynchronisation('Vérification Sheets des indicateurs de maturité ML échouée')
-            print(f'KPI_MATURITE_ML_VERIFIES={len(maturity)}', flush=True)
+                if len(row) < 2 or row[1] not in managed:
+                    continue
+                key = row[1]
+                if key in seen:
+                    raise ErreurSynchronisation('Indicateur KPI en double : ' + key)
+                seen.add(key)
+                for index, expected in enumerate(managed[key], 2):
+                    if index == 4 and key not in totals:
+                        continue
+                    actual = row[index] if index < len(row) else ''
+                    if actual != expected and not (
+                            isinstance(expected, (float, int)) and isinstance(actual, (float, int))
+                            and abs(expected - actual) <= 1e-12):
+                        raise ErreurSynchronisation('Vérification Sheets KPI échouée : ' + key)
+            if seen != managed.keys():
+                raise ErreurSynchronisation('Indicateurs KPI absents après synchronisation')
+            print(f'KPI_MATURITE_ML_VERIFIES={sum(k.startswith("Maturité ML · ") for k in seen)}',
+                  f'KPI_SHEETS_VERIFIES={len(seen)}', flush=True)
+        if relire_courses:
+            print('KPI_COHORTES_SHEETS ' + json.dumps({
+                key: value for key, (value, _) in metrics.items()
+                if key.startswith(('J · ', 'J+1 · ', 'Rattrapage · lot de 96 · '))},
+                ensure_ascii=False), flush=True)
         print(f'SYNC_GOOGLE_SHEETS onglet={KPI_TAB} indicateurs_actualises={len(updates)}',flush=True)
         if os.getenv('PMU_KPI_HISTORY')=='true':
             from .historique_kpi import enregistrer
             enregistrer(self,tables)
-        return {KPI_TAB:{'indicateurs_actualises':len(updates)}}
+        return {KPI_TAB:{'indicateurs_actualises':len(updates), 'indicateurs_verifies':len(managed)}}
 
     def synchroniser_tables(self,source,*,scope,full_source=False,allow_structure=False,kpi_source=None):
         start=time.monotonic();before=(self.session.lectures,self.session.ecritures)
@@ -311,4 +337,4 @@ class SynchroniseurSheets:
                 'lignes_historique':len(rows),'controle':control}
 
     def synchroniser_kpi(self):
-        with verrou_local(self.spreadsheet):return self._synchroniser_kpi(self.metadata(),self.source())
+        with verrou_local(self.spreadsheet):return self._synchroniser_kpi(self.metadata(),self.source(),relire_courses=True)

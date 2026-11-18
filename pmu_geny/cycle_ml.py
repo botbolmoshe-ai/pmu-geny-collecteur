@@ -31,7 +31,8 @@ def run(cache, now=None, force=False):
         digest.update(str(path.relative_to(cache)).encode())
         digest.update(path.read_bytes())
     for module_file in (Path(__file__), Path(__file__).with_name('ml_v19.py'),
-                        Path(__file__).with_name('maturite_ml.py')):
+                        *(Path(__file__).with_name(name) for name in ('maturite_ml.py', 'experience_ml.py',
+                            'cycle_ml_experimental.py', 'formes_contextuelles_v32.py'))):
         digest.update(module_file.read_bytes())
     digest.update(json.dumps(thresholds(), sort_keys=True).encode())
     fingerprint = digest.hexdigest()

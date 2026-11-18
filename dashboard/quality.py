@@ -40,6 +40,10 @@ def quality_sections(kpis, query=""):
             dimension = "Échéances"
         elif label.startswith("Collecte · "):
             dimension = "Collecte"
+        elif label.startswith(("J · ", "J+1 · ", "Registre · ")):
+            dimension = "Lecture Sheets J/J+1"
+        elif label.startswith("Rattrapage · "):
+            dimension = "Rattrapage"
         if query and query not in f"{dimension} {label} {definition}".casefold():
             continue
         sections.setdefault(dimension, []).append({

@@ -39,4 +39,4 @@ class QualityDatesTests(unittest.TestCase):
 
     def test_date_future_de_course_admise_mais_date_invalide_ignoree(self):
         rows=[self.row('2026-11-18'),self.row('invalide')]
-        self.assertEqual(len(daily_series(rows,date(2026,11,18),date(2026,11,18))),12)
+        self.assertEqual(len(daily_series(rows,date(2026,11,18),date(2026,11,18))),17)

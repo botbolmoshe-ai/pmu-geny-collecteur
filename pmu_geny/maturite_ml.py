@@ -20,6 +20,9 @@ CRITERIA = {
     'Gains': ('gains_euros',),
     'Driver': ('driver_score',),
     'Entraîneur': ('entraineur_score',),
+    'Tandem cheval-driver': ('tandem_podium_lisse', 'tandem_courses'),
+    'Comparaison ferrures historiques': ('forme_ferrure_actuelle',),
+    'Avis PMU structuré': ('avis_pmu_structure',),
 }
 ESSENTIAL = ('Forme PMU', 'Distance', 'Discipline', 'Âge', 'Sexe', 'Gains')
 
@@ -68,7 +71,7 @@ def candidate_path(cache, candidate):
     return path if path.is_file() and sha(path) == digest else None
 
 
-def score_shadow(cache, course, raw, observed, clock):
+def score_shadow(cache, course, raw, observed, clock, *, prepared=None):
     """Figer une seule comparaison par course et version, avant son départ."""
     from .ml_v19 import pmu_rows, ranking_for
     import joblib
@@ -92,7 +95,7 @@ def score_shadow(cache, course, raw, observed, clock):
         return
     if instant(direct.get('donnees_observees_utc')) != observed:
         return
-    status, rows, metadata = pmu_rows(cache, course, raw, observed)
+    status, rows, metadata = prepared if prepared is not None else pmu_rows(cache, course, raw, observed)
     if status != 'OK' or metadata['np_non_verifies']:
         return
     packed = joblib.load(path)

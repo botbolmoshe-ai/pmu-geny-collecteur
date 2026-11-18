@@ -131,7 +131,7 @@ class MoteurTests(unittest.TestCase):
                          'historique_nb_courses_datees':1} for i in range(1,stage[0]+1)},
                         'Résultats & Analyse':{}}
             with patch('pmu_geny.sync_google_sheets.source_rows',side_effect=source), \
-                 patch('pmu_geny.kpi_registre.calculer_kpi',side_effect=lambda *args:{'Indicateur test':(stage[0],'preuve')}), \
+                 patch('pmu_geny.kpi_registre.calculer_kpi',side_effect=lambda *args, **kwargs:{'Indicateur test':(stage[0],'preuve')}), \
                  patch('pmu_geny.moteur_sheets.ouvrir_session',return_value=session) as opened:
                 engine=SynchroniseurSheets(self.cache,'fake') if shared else None
                 for i,horse in enumerate(horses,1):

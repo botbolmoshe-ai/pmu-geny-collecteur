@@ -50,6 +50,25 @@ class EcheancesTests(unittest.TestCase):
         later=self.now+timedelta(hours=1)
         self.assertEqual(e.plan_collecte(self.cache,later)['motif'],'ECHEANCE_PMU_PRIORITAIRE')
 
+    def test_relecture_sheets_justifie_la_version_avant_depart(self):
+        now = self.now + timedelta(minutes=20)
+        self.predictions(now)
+        plan = e.planifier(self.cache, now)
+        rows = [{'date_course': '2026-11-17', 'rncn': 'R3C1', 'numero': str(n),
+                 'non_partant': 'PARTANT', 'top3_direct_rang': str(n), 'ml_rang': str(n),
+                 'top3_direct_top3': 'OUI', 'ml_top3': 'OUI', 'top3_direct_utc': now.isoformat(),
+                 'version_ml_utc': now.isoformat()} for n in (1, 2, 3)]
+        proof = e.preuves_sheets(rows, now)
+        proof['courses'][self.key]['ml']['numeros'].reverse()
+        failed = e.enregistrer_publication(self.cache, now, plan, True, sheets=proof)
+        self.assertIn('TOP3_NON_CONFIRME_SHEETS', {row['motif'] for row in failed['erreurs']})
+        self.assertFalse((self.cache/'publications'/f'{self.key}.json').exists())
+
+        report = e.enregistrer_publication(self.cache, now, plan, True, sheets=e.preuves_sheets(rows, now))
+        self.assertEqual(report['erreurs'], [])
+        certificate = e.lire(self.cache/'publications'/f'{self.key}.json')
+        self.assertEqual(certificate['versions']['ml']['lecture_sheets_utc'], now.isoformat())
+
     def test_h2_reserve_trente_minutes_et_reste_du_si_non_publie(self):
         now=self.now+timedelta(minutes=30)
         plan=e.planifier(self.cache,now)
