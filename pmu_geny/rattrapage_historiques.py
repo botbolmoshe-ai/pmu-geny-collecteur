@@ -177,7 +177,7 @@ def arrivees_verifiees(cache, now):
 
 
 def profils_passe(cache, race):
-    for folder in (Path('partants_actuels'), QUEUE.parent/'partants_retrouves'):
+    for folder in (QUEUE.parent/'partants_retrouves', Path('partants_actuels')):
         doc = inc.lire(cache/folder/race)
         if doc.get('source') == 'PMU_API_PARTICIPANTS' and doc.get('chevaux'):
             return doc['chevaux']
@@ -189,8 +189,11 @@ def recuperer_listes_manquantes(cache, now, stop_requested):
     from .auto_v18 import BASE, get_json
     from .partants_actuels_v21 import extraire_partants
 
-    missing = [(path, arrival) for path, arrival in arrivees_verifiees(cache, now)
-               if not profils_passe(cache, path.name)]
+    missing = []
+    for path, arrival in arrivees_verifiees(cache, now):
+        profiles = profils_passe(cache, path.name)
+        if not profiles or any(h.get('statut_np') not in ('PARTANT', 'NON_PARTANT') for h in profiles.values()):
+            missing.append((path, arrival))
     for path, arrival in missing[:3]:
         if stop_requested():
             break
@@ -219,19 +222,26 @@ def courses_passees(cache, now):
     names = {}
     sans_liste = 0
     courses = 0
-    for path, _ in arrivees_verifiees(cache, now):
+    inconnus = 0
+    for path, arrival in arrivees_verifiees(cache, now):
         courses += 1
         horses = profils_passe(cache, path.name)
         if not horses:
             sans_liste += 1
             continue
+        ranked = {str(h['numero']) for h in arrival['arrivee']}
         for number, horse in horses.items():
             key = nom_reference(horse.get('nom'))
-            if not key or horse.get('statut_np') != 'PARTANT':
+            status = horse.get('statut_np')
+            if status == 'NON_PARTANT' and str(number) not in ranked:
+                continue
+            if not key or status == 'NON_PARTANT' or (status != 'PARTANT' and str(number) not in ranked):
+                inconnus += 1
                 continue
             entry = names.setdefault(key, {'nom': horse['nom'], 'courses': {}})
             entry['courses'].setdefault(path.stem, []).append(number)
-    return {'courses_avec_arrivee': courses, 'courses_sans_liste_partants': sans_liste, 'noms': names}
+    return {'courses_avec_arrivee': courses, 'courses_sans_liste_partants': sans_liste,
+            'participations_a_confirmer': inconnus, 'noms': names}
 
 
 def ajouter_noms_pmu(cache, targets, now):
@@ -598,10 +608,14 @@ def main():
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
         from .preparation_prochaines import autoriser_fond
         from .echeances_production import besoin_pmu
+        def controle_pmu():
+            return priorite_production() or besoin_pmu(cache, datetime.now(inc.UTC))
+
         def controle_fond():
-            return priorite_production() or besoin_pmu(cache,datetime.now(inc.UTC)) or autoriser_fond(cache,datetime.now(inc.UTC),
+            return controle_pmu() or autoriser_fond(cache,datetime.now(inc.UTC),
                 diagnostic=Path('resultats/rattrapage/ordonnancement_fond.json'))
-        reason=controle_fond()
+
+        reason = controle_pmu() if args.actualiser_inventaire else controle_fond()
         if reason and not (args.reconcilier_identites or args.archives_diagnostics):
             state=inc.lire(cache/QUEUE)
             if state.get('chevaux'):
@@ -620,8 +634,18 @@ def main():
             inc.ecrire(cache/INVENTAIRE,engine.inventaire_rattrapage())
         finally:engine.fermer()
         if args.actualiser_inventaire:
-            recuperer_listes_manquantes(cache, datetime.now(inc.UTC), controle_fond)
-            actualiser_inventaire(cache, datetime.now(inc.UTC))
+            recuperer_listes_manquantes(cache, datetime.now(inc.UTC), controle_pmu)
+            state = actualiser_inventaire(cache, datetime.now(inc.UTC))
+            reason = controle_fond()
+            if reason:
+                state.update(motif_fin_passage=reason, maj_utc=datetime.now(inc.UTC).isoformat())
+                inc.ecrire(cache/QUEUE, state)
+                inc.ecrire(cache/QUEUE.parent/'bilan.json', rapport(state))
+                inc.checkpoint_distant(cache, queue=QUEUE)
+                print('INVENTAIRE_COURSES_PASSEES_PERSISTE '+json.dumps(
+                    state['courses_passees_par_nom'], ensure_ascii=False), flush=True)
+                print('RATTRAPAGE_FOND_DIFFERE '+reason, flush=True)
+                return
         if args.archives_diagnostics:
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
