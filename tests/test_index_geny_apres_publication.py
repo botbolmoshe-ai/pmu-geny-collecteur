@@ -51,7 +51,7 @@ class IndexApresPublicationTest(unittest.TestCase):
         s = workflow.read_text(encoding="utf-8")
         self.assertLess(s.index("Cycle automatique quotidien"),s.index("Synchroniser le registre Google Sheets"))
         self.assertLess(s.index("Synchroniser le registre Google Sheets"),s.index("Rafraichir les index Geny apres publication"))
-        self.assertLess(s.index("Synchroniser le registre Google Sheets"),s.index("Preparer le candidat ML experimental"))
+        self.assertLess(s.index("Synchroniser le registre Google Sheets"),s.index("Apprentissage ML unique apres les cycles de resultats"))
         auto = s.split("Cycle automatique quotidien",1)[1].split("Experience ML manuelle",1)[0]
         self.assertNotIn("max_discoveries=1",auto)
         self.assertNotIn("max_discoveries=0 if",auto)

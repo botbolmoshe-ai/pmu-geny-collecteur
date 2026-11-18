@@ -48,7 +48,7 @@ def planifier(source,existing,now):
 
 def enregistrer(engine,tables,now=None):
     from .lectures_sheets import get_lecture
-    source_path=quote("'Data Quality & KPI'!A1:E100",safe="!:'")
+    source_path=quote("'Data Quality & KPI'!A:E",safe="!:'")
     source=engine.check(get_lecture(engine.session,engine.base+'/values/'+source_path,
         params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
     now=now or datetime.now(timezone.utc)

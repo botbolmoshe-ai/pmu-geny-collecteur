@@ -19,6 +19,10 @@ def display_value(value, *, rate=False):
     return f"{numeric:,.2f}".replace(",", "\u202f").replace(".", ",")
 
 
+def is_rate(label):
+    return label.startswith(("Taux", "Maturité ML · Taux", "Maturité ML · Couverture ·"))
+
+
 def quality_sections(kpis, query=""):
     """Keep the source denominator; no ratio or total is inferred by the UI."""
     sections = OrderedDict()
@@ -30,7 +34,9 @@ def quality_sections(kpis, query=""):
         definition = str(row.get("Définition / réserve") or "").strip()
         dimension = str(row.get("Dimension") or "Autres").strip() or "Autres"
         # These new metrics can still be published under the generic ML dimension.
-        if label.startswith("Échéances · "):
+        if label.startswith("Maturité ML · "):
+            dimension = "Maturité ML"
+        elif label.startswith("Échéances · "):
             dimension = "Échéances"
         elif label.startswith("Collecte · "):
             dimension = "Collecte"
@@ -39,7 +45,7 @@ def quality_sections(kpis, query=""):
         sections.setdefault(dimension, []).append({
             "Indicateur": label,
             "Description": definition or "—",
-            "Nombre / valeur": display_value(row.get("Valeur (automatique)"), rate=label.startswith("Taux")),
+            "Nombre / valeur": display_value(row.get("Valeur (automatique)"), rate=is_rate(label)),
             "Total": display_value(row.get(TOTAL_FIELD)),
         })
     return sections
@@ -108,7 +114,7 @@ def render_quality(kpis, courses=None, history=None):
             if labels:
                 choice=st.selectbox("Indicateur à suivre",labels,key="quality_trend")
                 points=sorted([r for r in numeric if r['Indicateur']==choice],key=lambda r:r['Date'])
-                rate=choice.startswith('Taux')
+                rate=is_rate(choice)
                 frame=pd.DataFrame([{'Date':r['Date'],'Valeur (%)' if rate else 'Valeur':number(r['Valeur (automatique)'])*(100 if rate else 1)} for r in points])
                 if len(frame)>1:
                     st.line_chart(frame.set_index('Date'),height=220)

@@ -28,8 +28,8 @@ Les cotes, résultats et rapports sont exclus des variables du modèle.
 Une capture existante n'est jamais réécrite ou enrichie après coup. Le défaut de
 nom écrasé par le code de ferrure « PP » est corrigé pour les nouvelles captures.
 La prédiction courante filtre les NP et refuse un statut NP inconnu ; ses versions
-précédentes sont archivées. Le schéma `pmu-podium-v33` évite de réutiliser un ancien
-modèle entraîné avec un parcours de variables différent.
+précédentes sont archivées. Le schéma `pmu-podium-v34` documente les nouveaux critères. Le schéma v33 reste
+lisible pour un modèle historique déjà en service.
 
 ## Déclenchement quotidien
 
@@ -48,28 +48,49 @@ Le mode manuel `entrainer_ml` du workflow force seulement la planification :
 
 ## Validation et promotion
 
-L'apprentissage de production et l'expérience manuelle réutilisent le même
-validateur `experience_ml.run()`. Seules les captures antérieures au départ et
-les arrivées horodatées après départ, déjà observées, sont admissibles. Le podium
-complet doit appartenir aux chevaux capturés ; les NP inconnus et formats invalides
-sont écartés.
+L'apprentissage utilise des captures antérieures au départ et des arrivées déjà
+observées après le départ. Les historiques Geny enrichissent la ligne du partant
+si la fiche est sourcée, reliée par identité, collectée avant le relevé et si
+les performances datent d'un jour antérieur à la course. Les performances
+historiques ne créent pas de nouvelles lignes supervisées.
 
-Les seuils d'entrée restent **100 courses et 700 lignes cheval**. Les deux derniers
-jours admissibles servent respectivement à la validation et au test ; les jours
-précédents servent à l'apprentissage initial. Les candidats sont choisis sur la
-validation, puis réentraînés sur apprentissage+validation. Le jour test reste exclu
-du modèle sauvegardé. La disponibilité temporelle des étiquettes est contrôlée.
+La validation chronologique choisit entre régression logistique et gradient
+boosting. Elle rapporte l'effet du retrait de chaque critère sur la validation.
+Le jour test reste exclu du modèle candidat, et chaque étiquette d'apprentissage
+doit être observée avant la première capture de la période qui l'évalue.
+Les captures anciennes contribuent avec leurs seuls champs repris par le schéma
+courant. Les seuils comptent les captures du schéma courant, appariées à une
+arrivée PMU sourcée. La complétude exige, pour chaque ligne, forme PMU, distance,
+discipline, âge, sexe et gains. La couverture de la ferrure, de l'historique
+comparable, du driver et de l'entraîneur est publiée séparément. Les deux
+derniers scores nécessitent une observation individuelle horodatée et sourcée.
 
-La promotion exige un comparateur « forme PMU » complet au même instant de capture
-sur toutes les courses test et un écart positif dont la borne basse du bootstrap
-par course est strictement supérieure à zéro. Sinon le candidat reste dans
-`ml/experiences/` et l'éventuel modèle précédent est conservé. Cette règle est un
-filtre opérationnel conservateur ; elle ne démontre pas une fiabilité durable ni
-une calibration des probabilités. Les scores restent explicitement non calibrés.
+| Niveau | Courses qualifiantes | Observations qualifiantes | Courses prospectives | Complétude |
+| --- | ---: | ---: | ---: | ---: |
+| Préproduction | 150 | 1 500 | 30 | 80 % |
+| Production validée | 300 | 3 000 | 100 | 90 % |
 
-La finalité définitive des arrivées anciennes n'étant pas tracée par le collecteur,
-cette limite reste indiquée dans les rapports ; aucune garantie de réussite n'est
-associée à une promotion.
+Les seuils sont configurables avec les variables GitHub Actions
+`ML_PREPRODUCTION_*` et `ML_PRODUCTION_*` et les suffixes `COURSES`,
+`OBSERVATIONS`, `PROSPECTIVES` et `COMPLETUDE`. Pour la complétude, utiliser
+une valeur décimale entre 0 et 1. Une cohorte conserve ses seuils de lancement.
+
+Après les seuils d'apprentissage de préproduction, le modèle candidat est
+figé et évalué en parallèle du modèle en service. Chaque paire utilise le même
+relevé PMU que le TOP3 direct. Elle compte une fois par course, après confirmation
+de la publication du TOP3 direct avant départ puis vérification de l'arrivée.
+Le contrôle de promotion a lieu sur la première cohorte atteignant l'effectif
+prospectif fixé. Il exige une borne basse strictement positive pour l'intervalle
+bootstrap apparié à 95 %, exprimé en chevaux retrouvés par course. Un rejet
+laisse le modèle en service et le TOP3 direct disponibles. Le candidat n'est
+pas réentraîné entre son évaluation et sa promotion.
+
+Le cycle inscrit les effectifs, couvertures et résultats sous
+`ml/maturite.json`. Une décision favorable ajoute `ml/preuve_promotion.json`
+avec les empreintes de la version et les preuves appariées. Les indicateurs
+sont relus dans « Data Quality & KPI » après synchronisation et visibles dans
+la section « Maturité ML » du registre actuel de Streamlit. Les scores restent
+non calibrés. Le collecteur ne trace pas la finalité définitive de l'arrivée.
 
 ## Expérience sans promotion
 

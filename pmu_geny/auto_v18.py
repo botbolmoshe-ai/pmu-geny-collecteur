@@ -305,20 +305,27 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     entry['statut_avis_experts']='EXPERTS_NON_VERIFIES'
                     entry['erreur_avis_experts']=f'{type(exc).__name__}: {exc}'
             if fenetre_decision:
+                observed = clock()
                 try:
                     from .top3_independants_v22 import calculer
                     from .cotes_v19 import collecter
-                    entry['paliers_independants']=calculer(cache,c,pmu_participants,now=clock(),clock=clock)
+                    entry['paliers_independants']=calculer(cache,c,pmu_participants,now=observed,clock=clock)
                     entry['statut_cotes']=collecter(cache,c,pmu_participants,now=now)
                 except Exception as exc:
                     entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
                 # Desormais la capture ML ne depend ni de Geny ni des historiques.
                 try:
                     from .ml_v19 import snapshot_pmu, predict_pmu
-                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=clock(),clock=clock)
+                    entry['statut_snapshot_ml']=snapshot_pmu(cache,c,pmu_participants,now=observed,clock=clock)
                     entry['statut_ml']=predict_pmu(cache,c,pmu_participants,now=clock(),clock=clock)
                 except Exception as exc:
                     entry['erreur_ml']=f'{type(exc).__name__}: {exc}'
+                if entry.get('paliers_independants', {}).get('direct') in ('CALCULE_COMPLET', 'CALCULE_PARTIEL'):
+                    try:
+                        from .maturite_ml import score_shadow
+                        score_shadow(cache,c,pmu_participants,observed,clock)
+                    except Exception as exc:
+                        entry['erreur_ml_preproduction']=f'{type(exc).__name__}: {exc}'
         except Exception as exc:
             entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
         # Pas de consultation Geny sur une course terminee.

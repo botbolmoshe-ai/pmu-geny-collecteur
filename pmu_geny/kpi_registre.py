@@ -57,6 +57,39 @@ def calculer_kpi(cache, source=None, now=None):
             ('Entraînement UTC','entrainement_utc','Date du fit effectif, conservée si les données sont inchangées.'),
             ('Vérification UTC','verification_utc','Dernier contrôle du jeu disponible, distinct du dernier fit.')):
             ml_metrics.append(metric('ML expérimental · '+label,active.get(field,''),definition))
+    maturity = _load(cache/'ml/maturite.json')
+    if maturity:
+        quality = maturity['couverture']
+        prospective = maturity.get('prospective', {})
+        comparison = prospective.get('comparaison') or {}
+        interval = comparison.get('ic95_bootstrap_par_course', ['', ''])
+        fields = [
+            ('Statut candidat', maturity['maturite'], maturity['etat']),
+            ('Version candidate', maturity.get('version', ''), 'SHA-256 du modèle figé pour l’évaluation.'),
+            ('Version en service', maturity.get('version_en_service', ''), maturity.get('maturite_en_service', 'Aucun modèle promu.')),
+            ('Courses admissibles', maturity['courses'], 'Captures pré-départ appariées à une arrivée admissible.'),
+            ('Observations admissibles', maturity['lignes'], 'Une observation par cheval et par course capturée.'),
+            ('Courses qualifiantes', maturity['courses_qualifiantes'], 'Courses du schéma courant avec capture et arrivée sourcées.'),
+            ('Observations qualifiantes', maturity['observations_qualifiantes'], 'Observations du schéma courant sur les courses qualifiantes.'),
+            ('Taux de complétude', quality['completude'], 'Part des observations qualifiantes avec forme PMU, distance, discipline, âge, sexe et gains.'),
+            ('Courses prospectives appariées', prospective.get('courses', 0), 'Même relevé PMU et preuve de publication du TOP3 direct avant départ.'),
+            ('Taux de complétude prospective', prospective.get('completude', ''), 'Six critères essentiels sur les prévisions de la cohorte prospective.'),
+            ('Moyenne prospective ML', prospective.get('moyenne_ml'), 'Nombre moyen de chevaux du podium retrouvés sur trois.'),
+            ('Moyenne prospective direct', prospective.get('moyenne_direct'), 'Nombre moyen sur les mêmes courses et au même instant de relevé.'),
+            ('Écart prospectif ML − direct', comparison.get('ecart_moyen'), 'Écart moyen de chevaux trouvés par course appariée.'),
+            ('Borne basse IC 95 %', interval[0], 'Bootstrap apparié par course, différence ML − direct.'),
+            ('Borne haute IC 95 %', interval[1], 'Bootstrap apparié par course, différence ML − direct.'),
+        ]
+        for stage, thresholds in maturity['seuils'].items():
+            fields.append((f'Seuils {stage.lower()}',
+                           f"{thresholds['courses']} courses / {thresholds['observations']} observations / "
+                           f"{thresholds['prospectives']} prospectives / {thresholds['completude']:.0%}",
+                           'Effectifs et complétude minimaux de la cohorte.'))
+        for criterion, present in quality['criteres'].items():
+            fields.append((f'Couverture · {criterion}', present / quality['observations'] if quality['observations'] else '',
+                           f"{present} observations qualifiantes renseignées sur {quality['observations']}."))
+        ml_metrics.extend(metric('Maturité ML · '+label, '' if value is None else value, definition)
+                          for label, value, definition in fields)
     performance=_load(cache/'ml/performance_prospective.json')
     operational=[]
     for label,field,definition in (
@@ -154,6 +187,10 @@ def totaux_reference(metrics):
         if opened is not None:
             totals['Échéances · '+phase+' publiées à temps']=opened
             totals['Échéances · '+phase+' dépassées sans preuve à temps']=opened
+    qualifying=value('Maturité ML · Observations qualifiantes')
+    if qualifying is not None:
+        totals.update({label: qualifying for label in metrics if label.startswith(
+            ('Maturité ML · Couverture · ', 'Maturité ML · Taux de complétude')) and not label.endswith('prospective')})
     prospective=value('ML prospectif · Courses évaluées')
     if prospective is not None:totals['ML prospectif · TOP3 ML exacts']=prospective
     return totals
@@ -180,7 +217,7 @@ def plan_kpi(values, metrics):
     present={row[1] for row in values[1:] if len(row)>1}
     last=max((i for i,row in enumerate(values,start=1) if any(str(v or '').strip() for v in row)),default=1)
     for label,(value,definition) in metrics.items():
-        if label.startswith(('ML expérimental · ','ML prospectif · ','Échéances · ','Collecte · ')) and label not in present:
+        if label.startswith(('ML expérimental · ','ML prospectif · ','Maturité ML · ','Échéances · ','Collecte · ')) and label not in present:
             last+=1
             desired=['ML',label,value,definition]+([totals[label]] if label in totals else [])
             end='E' if label in totals else 'D'

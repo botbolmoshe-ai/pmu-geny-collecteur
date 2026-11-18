@@ -163,6 +163,9 @@ def enregistrer_publication(cache, now, plan, publie):
                 proofs[kind] = {'calcul_utc':doc['calcul_utc'], 'publication_utc':now.isoformat(),
                     'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
                     'fichier':str(path.relative_to(cache)), 'empreinte_modele':doc.get('empreinte_modele')}
+            if 'direct' in proofs:
+                from .maturite_ml import certify_shadow
+                certify_shadow(cache, key, proofs['direct'], now)
             if len(proofs) == 2:
                 sauver(cache/'publications'/f'{key}.json',
                        {'course':key,'depart':depart.isoformat(),'versions':proofs})

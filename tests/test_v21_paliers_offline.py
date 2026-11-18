@@ -235,7 +235,8 @@ class V21PaliersTests(unittest.TestCase):
             perf={'date':'2026-10-31','hippodrome':'Vincennes','discipline':'Attelé',
                   'distance_m':'2700','classement':'2','texte_source':'course test unique'}
             write('historiques/81235/historique_geny.json',
-                  {'statut':'COMPLET','nombre_extrait':1,'performances':[perf]})
+                  {'statut':'COMPLET','nombre_extrait':1,'performances':[perf],
+                   'extrait_utc':'2026-11-12T10:00:00+00:00','source_url':'https://www.geny.com/cheval/81235'})
             course={'date':'2026-11-12','code':'R1C1','depart':'2026-11-12T15:00:00+01:00',
                     'nombre_declares':4,'hippodrome':'Vincennes','distance_m':2700}
             raw={'participants':[

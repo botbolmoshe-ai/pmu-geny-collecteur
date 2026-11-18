@@ -344,17 +344,17 @@ jobs:
               timeout 120s python -m pmu_geny.index_geny_apres_publication --cache cache_pmu --plan resultats/plan_production.json
             fi
           fi
-      - name: Preparer le candidat ML experimental sur les donnees disponibles
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
-        continue-on-error: true
-        env:
-          OMP_NUM_THREADS: '2'
-          OPENBLAS_NUM_THREADS: '2'
-        run: timeout 90s python -m pmu_geny.cycle_ml_actif --cache cache_pmu
       - name: Apprentissage ML unique apres les cycles de resultats
         if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
-        continue-on-error: true
         env:
+          ML_PREPRODUCTION_COURSES: ${{ vars.ML_PREPRODUCTION_COURSES }}
+          ML_PREPRODUCTION_OBSERVATIONS: ${{ vars.ML_PREPRODUCTION_OBSERVATIONS }}
+          ML_PREPRODUCTION_PROSPECTIVES: ${{ vars.ML_PREPRODUCTION_PROSPECTIVES }}
+          ML_PREPRODUCTION_COMPLETUDE: ${{ vars.ML_PREPRODUCTION_COMPLETUDE }}
+          ML_PRODUCTION_COURSES: ${{ vars.ML_PRODUCTION_COURSES }}
+          ML_PRODUCTION_OBSERVATIONS: ${{ vars.ML_PRODUCTION_OBSERVATIONS }}
+          ML_PRODUCTION_PROSPECTIVES: ${{ vars.ML_PRODUCTION_PROSPECTIVES }}
+          ML_PRODUCTION_COMPLETUDE: ${{ vars.ML_PRODUCTION_COMPLETUDE }}
           MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
           OMP_NUM_THREADS: '2'
           OPENBLAS_NUM_THREADS: '2'
@@ -388,4 +388,6 @@ jobs:
             cache_pmu/qualite/dernier_controle_production.json
             cache_pmu/jalons/
             cache_pmu/publications/
+            cache_pmu/ml/maturite.json
+            cache_pmu/ml/preuve_promotion.json
           retention-days: 30
