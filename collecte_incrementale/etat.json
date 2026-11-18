@@ -33284,7 +33284,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:30:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2865764",
       "geny": {
         "id": "2865764",
@@ -33295,7 +33295,7 @@
       "derniere_verification_utc": "2026-11-17T03:27:04.479300+00:00",
       "prochaine_verification_utc": "2026-11-18T03:27:04.479300+00:00",
       "nombre_performances": 9,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-11-08",
       "sync_details": {
@@ -33325,7 +33325,16 @@
           "lignes_source": 1
         }
       },
-      "sync_utc": "2026-11-17T03:27:25.092419+00:00"
+      "sync_utc": "2026-11-17T03:27:25.092419+00:00",
+      "prochain_essai_utc": "2026-11-18T09:58:26.578598+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T03:58:26.578616+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2865764/1794974300498972763/resultat.json"
+      }
     },
     "2900137": {
       "nom": "NEWREV NARCY",
@@ -41534,13 +41543,13 @@
     }
   },
   "passage_utc": "2026-11-18T03:57:28.179733+00:00",
-  "maj_utc": "2026-11-18T03:58:16.746718+00:00",
+  "maj_utc": "2026-11-18T03:58:26.578787+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 1,
+    "tentatives_collecte": 2,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 1,
+    "collectes_rejetees": 2,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1500
   },
