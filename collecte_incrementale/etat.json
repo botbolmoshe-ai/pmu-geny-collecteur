@@ -32951,7 +32951,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:30:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2854300",
       "geny": {
         "id": "2854300",
@@ -32962,7 +32962,7 @@
       "derniere_verification_utc": "2026-11-17T03:18:54.522681+00:00",
       "prochaine_verification_utc": "2026-11-18T03:18:54.522681+00:00",
       "nombre_performances": 3,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-10-18",
       "sync_details": {
@@ -32992,7 +32992,16 @@
           "lignes_source": 1
         }
       },
-      "sync_utc": "2026-11-17T03:19:16.779741+00:00"
+      "sync_utc": "2026-11-17T03:19:16.779741+00:00",
+      "prochain_essai_utc": "2026-11-18T09:57:42.449332+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T03:57:42.449349+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2854300/1794974256318744755/resultat.json"
+      }
     },
     "2868306": {
       "nom": "NATIVEDARCHE",
@@ -41525,13 +41534,13 @@
     }
   },
   "passage_utc": "2026-11-18T03:57:28.179733+00:00",
-  "maj_utc": "2026-11-18T03:57:32.935345+00:00",
+  "maj_utc": "2026-11-18T03:57:42.451172+00:00",
   "bilan": {
     "chevaux_suivis": 1731,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1500
   },
