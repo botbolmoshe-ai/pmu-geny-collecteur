@@ -481,7 +481,7 @@
     },
     "R1C6": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698923",
@@ -510,7 +510,7 @@
       "nombre_declares": 8,
       "priorite_metier": "P1",
       "motif_selection": "ALLOCATION_ELEVEE",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -523,11 +523,12 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C7": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698927",
@@ -556,7 +557,7 @@
       "nombre_declares": 14,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -569,11 +570,12 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     },
     "R1C8": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "rapprochement_geny": {
         "statut": "CORRESPONDANCE_CONFIRMEE",
         "geny_id": "1698920",
@@ -602,7 +604,7 @@
       "nombre_declares": 18,
       "priorite_metier": "P2",
       "motif_selection": "HIPPODROME_MAJEUR_P2",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_NON_VERIFIEE",
       "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
@@ -615,15 +617,16 @@
       },
       "statut_cotes": "COTES_NON_EXTRAITES",
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-18T15:49:52.540671+00:00",
+  "dernier_controle_pmu": "2026-11-18T17:07:56.058264+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-18",
-    "horodatage_utc": "2026-11-18T15:49:52.540671+00:00",
+    "horodatage_utc": "2026-11-18T17:07:56.058264+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/18112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 13,
@@ -667,7 +670,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
