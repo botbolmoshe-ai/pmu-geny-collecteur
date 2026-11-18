@@ -69,10 +69,11 @@ class KPIReferenceTests(unittest.TestCase):
             self.assertEqual(second['indicateurs_actualises'], 0)
 
     def test_j_j1_emploient_les_lignes_relues_et_exigent_la_provenance_du_f(self):
-        day = '2026-11-18'
-        first = {'date_course': day, 'non_partant':'PARTANT', 'ferrure':'F'}
-        other = {**first, 'date_course':'2026-11-19', 'actuel_statut':'CONVENTION_PMU',
-                 'historique_statut':'HISTO_PARTIEL_GENY', 'historique_nb_courses_datees':2}
+        from pmu_geny.sync_google_sheets import canonical_headers
+        headers = canonical_headers(['Date', 'Non-partant (NP)', 'Ferrure', 'PMU · État ferrure',
+                                     'Historique · État', 'Historique · Nb performances récupérées'])
+        first = dict(zip(headers, ('2026-11-18', 'PARTANT', 'F')))
+        other = dict(zip(headers, ('2026-11-19', 'PARTANT', 'F', 'CONVENTION_PMU', 'HISTO_PARTIEL_GENY', 2)))
         rows = [first, other, {**other, 'non_partant':'NON_PARTANT'}]
         with TemporaryDirectory() as folder:
             metrics = calculer_kpi(folder, {'Courses & Prévisions':{}, 'Résultats & Analyse':{}},
