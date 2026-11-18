@@ -10,7 +10,7 @@ from .ml_v19 import load, numeric, save
 REPORT = Path('ml/maturite.json')
 CANDIDATE = Path('ml/candidat_preproduction.json')
 CRITERIA = {
-    'Forme PMU': ('pmu_score_direct',),
+    'Forme PMU': ('pmu_score_direct', 'forme_pmu_discipline'),
     'Historique comparable': ('forme_geny_comparable',),
     'Distance': ('distance_m',),
     'Discipline': ('discipline_montee',),

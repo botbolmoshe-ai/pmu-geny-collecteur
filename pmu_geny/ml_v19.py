@@ -18,7 +18,7 @@ FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_12
             'age_ans','gains_euros','sexe_male','sexe_femelle','sexe_hongre',
             'ferrure_d4','ferrure_dp','ferrure_da','ferrure_p4','ferrure_pa','ferrure_pp')
 LEGACY_FEATURES = FEATURES
-FEATURES += ('discipline_montee', 'forme_geny_comparable')
+FEATURES += ('discipline_montee', 'forme_pmu_discipline', 'forme_geny_comparable')
 MODEL_SCHEMA = 'pmu-podium-v34'
 
 def load(path, default=None):
@@ -192,8 +192,11 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
             else:with_history+=1
         c = {key: value for (num, key), value in context.items() if num == '*'}
         c.update({key: value for (num, key), value in context.items() if num == str(numero)})
-        direct = _form_score(item) if legacy else _musique_pmu(item, discipline)[0]
-        if direct is not None:c['pmu_score_direct']=direct
+        direct = _form_score(item)
+        if direct is not None:
+            c['pmu_score_direct'] = direct
+        if not legacy:
+            c['forme_pmu_discipline'] = _musique_pmu(item, discipline)[0]
         profil=profils.get(numero,{})
         intervenants = {role: nom_normalise(profil.get(field))
                         for role, field in (('driver_score', 'driver_jockey'), ('entraineur_score', 'entraineur'))
