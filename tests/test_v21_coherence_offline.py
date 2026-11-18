@@ -14,15 +14,15 @@ from pmu_geny.sync_google_sheets import source_rows
 PARIS=ZoneInfo("Europe/Paris")
 
 class V21CoherenceTest(unittest.TestCase):
-    def test_perimetre_france_trot_08_19(self):
+    def test_perimetre_france_trot_07_21(self):
         courses=[]
-        for i,(h,m) in enumerate(((7,59),(8,0),(18,59),(19,0),(19,1)),1):
+        for i,(h,m) in enumerate(((6,59),(7,0),(19,1),(21,0),(21,1)),1):
             courses.append({"numOrdre":i,"heureDepart":int(datetime(2026,11,12,h,m,tzinfo=PARIS).timestamp()*1000),
                             "nombreDeclaresPartants":12,"specialite":"TROT_ATTELE","libelle":f"Prix {i}"})
         obj={"reunions":[{"numOfficiel":1,"pays":"FRA","hippodrome":{"libelleLong":"Vincennes"},"courses":courses}]}
         selected,diag=programme_diagnostic(obj,"2026-11-12")
         self.assertEqual([c["code"] for c in selected],["R1C2","R1C3","R1C4"])
-        self.assertEqual(diag["exclusions"].get("depart_hors_plage_08_19"),2)
+        self.assertEqual(diag["exclusions"].get("depart_hors_plage_07_21"),2)
     def test_deux_performances_distinctes_meme_date(self):
         base={"date":"2026-05-03","hippodrome":"Naples","discipline":"Attelé",
               "distance_m":"1600","classement":"2"}
