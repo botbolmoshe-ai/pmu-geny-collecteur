@@ -167,7 +167,8 @@ class SynchroniseurSheets:
         from .kpi_registre import KPI_TAB,calculer_kpi,plan_kpi
         if KPI_TAB not in tables:return {}
         path=quote("'"+KPI_TAB+"'!A1:E100",safe="!:'")
-        values=self.check(get_lecture(self.session,self.base+'/values/'+path,timeout=30)).get('values',[])
+        values=self.check(get_lecture(self.session,self.base+'/values/'+path,
+            params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
         updates=plan_kpi(values,calculer_kpi(self.cache,source))
         if updates:self.check(self.session.post(self.base+'/values:batchUpdate',
             json={'valueInputOption':'RAW','data':updates},timeout=45))
