@@ -32585,7 +32585,7 @@
       "motif_actualisation": "VERIFICATION_PERIODIQUE",
       "depart_a_venir_utc": "2026-11-18T12:00:00+00:00",
       "preparation_pmu_ok": true,
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "id": "2902156",
       "geny": {
         "id": "2902156",
@@ -32596,7 +32596,7 @@
       "derniere_verification_utc": "2026-11-17T00:21:20.288586+00:00",
       "prochaine_verification_utc": "2026-11-18T00:21:20.288586+00:00",
       "nombre_performances": 3,
-      "erreur": "",
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-11-02",
       "sync_details": {
@@ -32626,7 +32626,16 @@
           "lignes_source": 1
         }
       },
-      "sync_utc": "2026-11-17T00:21:38.665201+00:00"
+      "sync_utc": "2026-11-17T00:21:38.665201+00:00",
+      "prochain_essai_utc": "2026-11-18T06:29:08.280659+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-18T00:29:08.280675+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2902156/1794961742203097455/resultat.json"
+      }
     },
     "2908406": {
       "nom": "OKANAGAN",
@@ -41360,13 +41369,13 @@
     }
   },
   "passage_utc": "2026-11-18T00:26:03.030684+00:00",
-  "maj_utc": "2026-11-18T00:28:58.747475+00:00",
+  "maj_utc": "2026-11-18T00:29:08.280885+00:00",
   "bilan": {
     "chevaux_suivis": 1605,
-    "tentatives_collecte": 4,
+    "tentatives_collecte": 5,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 4,
+    "collectes_rejetees": 5,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1365
   },
