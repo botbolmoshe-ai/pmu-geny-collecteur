@@ -53,13 +53,13 @@ class AppTests(unittest.TestCase):
         self.app.run()
         self.assertEqual(len(self.app.exception),0)
         self.mock_build.assert_not_called()
-        self.assertTrue(any('Version interface : 2026.11.17.2' in x.value for x in self.app.caption))
+        self.assertTrue(any('Version interface : 2026.11.18.1' in x.value for x in self.app.caption))
 
     def test_navigation_date_filters_and_optional_history(self):
         self.source()
         self.app.session_state.authenticated=True
         self.app.run();self.assertEqual(len(self.app.exception),0)
-        for page in ('Courses','Résultats','Qualité'):
+        for page in ('Courses','Résultats','Performance','Qualité'):
             self.app.radio[0].set_value(page).run()
             self.assertEqual(len(self.app.exception),0,page)
         self.assertEqual(len(self.app.date_input),1)
@@ -76,3 +76,29 @@ class AppTests(unittest.TestCase):
         self.app.selectbox(key='quality_mode').set_value('Relevés historiques').run()
         self.assertEqual(len(self.app.exception),0)
         self.assertTrue(any('Aucun relevé' in x.value for x in self.app.info))
+
+
+    def test_performance_real_page_and_filters(self):
+        self.source()
+        d=self.today-timedelta(days=1)
+        t=datetime.combine(d,time(12),ZoneInfo('Europe/Paris'))
+        row={'Clé course (technique)':d.isoformat()+'|VINCENNES|R1C1',
+             'Date':d.isoformat(),'Hippodrome':'VINCENNES','Départ (Paris)':t.isoformat(),
+             'Arrivée · Vérifiée UTC':(t+timedelta(minutes=15)).isoformat(),
+             'Évaluation · État':'EVALUE','Arrivée · N° officiels':'1,2,3',
+             'TOP3 direct · Chevaux':'1,2,4','TOP3 direct · Heure calcul UTC':(t-timedelta(hours=1)).isoformat(),
+             'TOP3 direct · Chevaux à l’arrivée (0–3)':2,'TOP3 direct · Matching (%)':66.67,
+             'TOP3 ML · Chevaux':'4,5,6','TOP3 ML · Chevaux à l’arrivée (0–3)':0,
+             'TOP3 ML · Matching (%)':0,'ML · Statut':'ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE'}
+        data=self.api.spreadsheets().values().batchGet().execute.return_value['valueRanges']
+        data[1]={'values':[list(row),list(row.values())]}
+        self.app.session_state.authenticated=True
+        self.app.run()
+        self.app.radio[0].set_value('Performance').run()
+        self.assertEqual(len(self.app.exception),0)
+        self.assertEqual(len(self.app.error),0)
+        self.assertEqual(self.app.metric[0].value,'1/1')
+        self.assertEqual(len(self.app.get('plotly_chart')),2)
+        self.app.radio(key='performance_mode').set_value('Par jour').run()
+        self.assertEqual(len(self.app.exception),0)
+        self.assertEqual(len(self.app.get('plotly_chart')),2)
