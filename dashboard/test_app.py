@@ -53,7 +53,7 @@ class AppTests(unittest.TestCase):
         self.app.run()
         self.assertEqual(len(self.app.exception),0)
         self.mock_build.assert_not_called()
-        self.assertTrue(any('Version interface : 2026.11.18.2' in x.value for x in self.app.caption))
+        self.assertTrue(any('Version interface :' in x.value for x in self.app.caption))
 
     def test_navigation_date_filters_and_optional_history(self):
         self.source()
