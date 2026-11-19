@@ -32,7 +32,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.1 · Critères PMU et résultats nominatifs")
+st.caption("Version interface : 2026.11.19.2 · Contexte de course")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -105,16 +105,24 @@ elif page=="Courses":
             label += " · " + str(first["Course · Nom PMU"])
         with st.expander(label,expanded=len(groups)==1):
             st.caption("Course passée — prévisions archivées" if depart and depart<=now else "Prévisions stockées · non recalculées")
-            st.write(first.get("Discipline",""),"·",first.get("Distance (m)",""),"m")
-            criteria = [first.get(column) for column in (
-                "Course · Catégorie PMU", "Course · Âges admis", "Course · Parcours",
-                "Course · Mode de départ",
-            )]
+            # En-tête compact, valeurs sourcées du registre uniquement.
+            discipline = {"TROT_ATTELE": "Trot attelé", "TROT_MONTE": "Trot monté"}.get(
+                first.get("Discipline"), first.get("Discipline"))
+            distance = number(first.get("Distance (m)"))
             allocation = number(first.get("Course · Allocation (€)"))
-            if allocation is not None:
-                criteria.append(f"{allocation:,.0f} €".replace(",", "\u202f"))
-            if any(criteria):
-                st.caption(" · ".join(str(value) for value in criteria if value))
+            def fmt(value, unit):
+                return f"{value:,.0f}".replace(",", "\u202f") + " " + unit if value is not None else None
+            def show_details(items):
+                st.caption(" · ".join(str(value) for value in items if value))
+            show_details([discipline, first.get("Course · Catégorie PMU"),
+                          fmt(distance, "m"), fmt(allocation, "€")])
+            show_details([first.get("Course · Âges admis"), first.get("Course · Parcours"),
+                          first.get("Course · Mode de départ")])
+            if first.get("Météo · Synthèse"):
+                st.caption("Météo : " + str(first["Météo · Synthèse"]))
+            if first.get("Conditions de course"):
+                with st.popover("Conditions détaillées"):
+                    st.write(str(first["Conditions de course"]))
             for method,title in [("direct","TOP3 direct"),("ml","TOP3 ML")]:
                 chosen=selected(rows,method)
                 if chosen:
