@@ -505,11 +505,11 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             report = {}
             try:
                 report = collect(horse, out)
+                if report.get('statut') in ('ACCES_REFUSE_403', 'ACCES_LIMITE_429'):
+                    raise PermissionError(report['statut'])
                 memoriser_resolution(horse,report,out,cache=cache)
                 if reprise and horse.get('preuve_identite'):
                     reprise.propager_identite(state,horse)
-                if report.get('statut') in ('ACCES_REFUSE_403', 'ACCES_LIMITE_429'):
-                    raise PermissionError(report['statut'])
                 if report.get('complet'):
                     if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
                     else:accepter(cache, horse, report)
@@ -546,7 +546,11 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
                     journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': '403' if '403' in str(exc) else '429'}
                     ecrire(cache/'etat_persistant.json', journal)
-                # Un échec réseau ne rend pas le lien déjà résolu périmé.
+                # Le sous-processus peut s'arrêter après la preuve et avant son bilan.
+                if not report or isinstance(exc, PermissionError):
+                    memoriser_resolution(horse,report,out,cache=cache)
+                    if reprise and horse.get('preuve_identite'):
+                        reprise.propager_identite(state,horse)
             if reprise:
                 attempts[reprise.cle_travail_geny(horse)] = 1
             count += 1
