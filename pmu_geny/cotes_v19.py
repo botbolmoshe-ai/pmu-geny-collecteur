@@ -1,8 +1,10 @@
 """Relevés pré-départ du simple gagnant PMU et classement de marché."""
 from datetime import datetime, timezone
+from hashlib import sha256
 import fcntl
 from math import isfinite
 from pathlib import Path
+from tempfile import gettempdir
 
 from .ml_v19 import load, numeric, save
 
@@ -105,6 +107,12 @@ def _nouveaux_partants(participants, observed, depart):
     return rows
 
 
+def _chemin_verrou(cache, key):
+    # Un fichier partagé par les processus qui utilisent ce cache, hors des données persistées.
+    scope = sha256(str(Path(cache).resolve()).encode()).hexdigest()
+    return Path(gettempdir()) / f'pmu-cotes-{scope}-{key}.lock'
+
+
 def collecter(cache, course, participants, now=None):
     now = now or datetime.now(timezone.utc)
     depart = instant(course['depart'])
@@ -115,9 +123,7 @@ def collecter(cache, course, participants, now=None):
         return 'APRES_DEPART_SANS_RELEVE'
     incoming = _nouveaux_partants(participants, now, depart)
     path = Path(cache) / 'cotes' / f"{course['date']}_{course['code']}.json"
-    lock_dir = Path(cache) / 'verrous'
-    lock_dir.mkdir(parents=True, exist_ok=True)
-    with (lock_dir / f'{path.stem}_cotes.lock').open('a') as lock:
+    with _chemin_verrou(cache, f'{path.stem}_cotes').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         old = dernier_releve(cache, course)
         if not incoming:
@@ -186,9 +192,7 @@ def calculer_cotes(cache, course, now, clock=None):
         return 'APRES_DEPART'
     archive_key = f"{course['date']}_{course['code']}_cotes"
     directory = Path(cache) / 'pronostics'
-    lock_dir = Path(cache) / 'verrous'
-    lock_dir.mkdir(parents=True, exist_ok=True)
-    with (lock_dir / f'{archive_key}.lock').open('a') as lock:
+    with _chemin_verrou(cache, archive_key).open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         doc = dernier_releve(cache, course)
         if doc.get('schema') != 2:
