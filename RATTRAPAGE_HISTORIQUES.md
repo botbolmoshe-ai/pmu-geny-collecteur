@@ -1,7 +1,6 @@
 # Reprise globale des historiques déjà rencontrés
 
-Le workflow `rattrapage-historiques.yml` dispose de son propre déclenchement et
-de son état `pmu-data/rattrapage_historiques/etat.json`. Il ne dépend d'aucun
+Le workflow manuel `rattrapage-historiques.yml` dispose de son propre état `pmu-data/rattrapage_historiques/etat.json`. Il ne dépend d'aucun
 nouvel engagement et n'utilise aucune fenêtre de sept jours. Son code est
 développé sur `feature/reprise-historiques-globale`, puis déployé sur `main`.
 
@@ -78,13 +77,12 @@ complète et de relecture après écriture sont ceux de la production.
 
 ## Planification et limites
 
-Le workflow est proposé aux minutes 15 et 45 de chaque heure, avec un budget de
-collecte de dix minutes par passage. Il partage `pmu-donnees-production`, sans
-interruption d'un traitement actif. Il est autonome dans son déclenchement et sa
-file, mais ses accès aux données partagées sont sérialisés avec la production.
-GitHub peut retarder les horaires et remplacer un passage en attente par un
-autre : la file persistante garantit sa reprise à un passage ultérieur, pas une
-heure d'exécution exacte ni une priorité absolue de production.
+Le rattrapage automatique utilise le temps restant des passages de minuit à
+05 h (Europe/Paris) du workflow `historiques-incrementaux.yml`. Les deux étapes
+s'exécutent successivement sous le verrou `pmu-donnees-production`. Le stock
+ne passe qu'après les partants du jour et respecte les échéances PMU, la pause
+Geny et les reprises imminentes. Le workflow manuel reste disponible avec les
+mêmes protections. GitHub Actions peut retarder un déclenchement.
 
 Entre deux chevaux, le rattrapage vérifie si un cycle PMU ou le collecteur courant
 attend le verrou. Il termine alors son passage et consolide ses KPI pour céder
@@ -106,7 +104,7 @@ date de la capture. Les revalidations d'archives ont leurs propres compteurs
 (`derniere_revalidation`) et ne comptent pas comme de nouvelles consultations.
 
 Un sous-processus déjà commencé peut terminer après le budget ; sa limite reste
-240 secondes. Les chevaux sont espacés de 30 secondes. Les 403/429 activent la
+240 secondes. Les 403/429 activent la
 pause partagée de 30 minutes ; aucun accès n'est contourné. Les autres échecs
 conservent un motif et une prochaine tentative après six heures.
 

@@ -40,6 +40,30 @@ class PreparationTests(unittest.TestCase):
         self.assertEqual(inc.prochaine_tache(s,self.now,{('COLLECTE',k):1}),(None,'TERMINE'))
         self.assertIsNotNone(autoriser_fond(self.cache,self.now))
 
+    def test_nuit_jour_seulement_dans_l_ordre_des_departs_sans_top3(self):
+        self.now = self.now.replace(hour=1)
+        for day in ('2026-11-16', '2026-11-17'):
+            inc.ecrire(self.cache / 'sources_pmu' / f'programme_{day}.json',
+                       {'date_controle_utc': self.now.isoformat(), 'programme': []})
+        early, early_key = self.course('R1C2', '2026-11-16T09:00:00+01:00')
+        late, late_key = self.course('R1C1', '2026-11-16T18:00:00+01:00', nom='Plus tard')
+        _, next_key = self.course('R3C1', '2026-11-17T09:00:00+01:00', nom='Demain')
+        for engagement in (early, late):
+            (self.cache / 'pronostics' / f'{engagement}_direct.json').unlink()
+        state = inc.alimenter(self.cache, self.now, sauvegarder=False)
+        state['passage_utc'] = self.now.isoformat()
+        appliquer(self.cache, state, self.now, nocturne=True)
+        self.assertEqual(inc.prochaine_tache(state, self.now, {}), (early_key, 'COLLECTE'))
+        attempts = {('COLLECTE', early_key): 1}
+        self.assertEqual(inc.prochaine_tache(state, self.now, attempts), (late_key, 'COLLECTE'))
+        self.assertIsNone(state['chevaux'][next_key]['depart_a_venir_utc'])
+        self.assertEqual(decision_fond(self.cache, self.now, nocturne=True)['motif'],
+                         'PARTANT_PRIORITAIRE_DISPONIBLE')
+        for key in (early_key, late_key):
+            state['chevaux'][key]['prochain_essai_utc'] = (self.now + timedelta(hours=1)).isoformat()
+        inc.ecrire(self.cache / inc.QUEUE, state)
+        self.assertTrue(decision_fond(self.cache, self.now, nocturne=True)['autorise'])
+
     def test_course_deja_partie_exclue_meme_si_jour_identique(self):
         e,k=self.course('R1C1','2026-11-16T12:00:00+01:00');s=self.state(e,k)
         appliquer(self.cache,s,self.now)

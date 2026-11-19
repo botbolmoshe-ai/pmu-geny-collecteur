@@ -50,6 +50,32 @@ class EcheancesTests(unittest.TestCase):
         later=self.now+timedelta(hours=1)
         self.assertEqual(e.plan_collecte(self.cache,later)['motif'],'ECHEANCE_PMU_PRIORITAIRE')
 
+    def test_creneau_nocturne_suit_paris_ete_hiver_et_garde_la_marge(self):
+        for month, hour_utc in ((1, 3), (7, 2)):
+            with self.subTest(month=month):
+                now = datetime(2026, month, 17, hour_utc, 12, tzinfo=timezone.utc)
+                self.mark_global(now)
+                self.assertTrue(e.plan_collecte(self.cache, now, nocturne=True)['executer'])
+                for minute in (53, 59):
+                    end = now.replace(minute=minute)
+                    self.assertEqual(e.plan_collecte(self.cache, end, nocturne=True)['motif'],
+                                     'HORS_CRENEAU_NOCTURNE')
+                after = now.replace(hour=hour_utc + 1, minute=0)
+                self.assertEqual(e.plan_collecte(self.cache, after, nocturne=True)['motif'],
+                                 'HORS_CRENEAU_NOCTURNE')
+
+    def test_collecte_nocturne_cede_avant_un_besoin_pmu(self):
+        now = datetime(2026, 11, 17, 1, 12, tzinfo=timezone.utc)
+        self.mark_global(now - timedelta(minutes=54))
+        self.assertEqual(e.plan_collecte(self.cache, now, nocturne=True)['motif'],
+                         'ECHEANCE_PMU_PRIORITAIRE')
+        self.mark_global(now)
+        e.sauver(self.cache / 'sources_pmu/programme_2026-11-17.json', {'programme': [{
+            'code': 'R1C1', 'depart': (now + timedelta(hours=3)).isoformat(),
+        }]})
+        self.assertEqual(e.plan_collecte(self.cache, now, nocturne=True)['motif'],
+                         'ECHEANCE_PMU_PRIORITAIRE')
+
     def test_relecture_sheets_justifie_la_version_avant_depart(self):
         now = self.now + timedelta(minutes=20)
         self.predictions(now)

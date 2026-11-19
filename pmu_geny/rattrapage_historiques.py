@@ -543,7 +543,12 @@ def prochaine_tache(state,now,attempts):
         unidentified=not bool(h.get('id'))
         corrected=bool(h.get('priorite_identite_corrigee') and not h.get('historique_complet_au_utc'))
         # Le besoin J+1 doit primer sur une identite corrigee ancienne pendant la nuit.
-        candidates.append(((enrichment,night,not h.get('partant_course_passee'),not corrected,unidentified,priority,h.get('engagement',''),key),key))
+        if state.get('priorite_collecte') == 'STOCK_NOCTURNE':
+            order = (enrichment, unidentified, priority, night, h.get('engagement',''), key)
+        else:
+            order = (enrichment, night, not h.get('partant_course_passee'), not corrected,
+                     unidentified, priority, h.get('engagement',''), key)
+        candidates.append((order,key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 
@@ -785,6 +790,7 @@ def main():
     parser.add_argument('--max-minutes',type=int,default=10)
     parser.add_argument('--max-chevaux',type=int,default=1000)
     parser.add_argument('--publier',action='store_true')
+    parser.add_argument('--nocturne',action='store_true')
     parser.add_argument('--actualiser-inventaire',action='store_true')
     parser.add_argument('--archives-diagnostics',default='')
     parser.add_argument('--reconcilier-identites',action='store_true')
@@ -795,14 +801,20 @@ def main():
         if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID','GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
         from .preparation_prochaines import autoriser_fond
-        from .echeances_production import besoin_pmu
+        from .echeances_production import besoin_pmu, motif_pause_collecte_nocturne
         from .moteur_sheets import SynchroniseurSheets
+        if args.nocturne and inc.lire(cache / QUEUE).get('statut') == 'TERMINE':
+            print('RATTRAPAGE_DEJA_TERMINE', flush=True)
+            return
+        verifier_echeances = motif_pause_collecte_nocturne if args.nocturne else besoin_pmu
         def controle_pmu():
-            return priorite_production() or besoin_pmu(cache, datetime.now(inc.UTC))
+            # Le workflow courant traite déjà la collecte incrémentale avant ce passage.
+            workflows = {'.github/workflows/pmu-v16.yml'} if args.nocturne else None
+            return priorite_production(workflows) or verifier_echeances(cache, datetime.now(inc.UTC))
 
         def controle_fond():
-            return controle_pmu() or autoriser_fond(cache,datetime.now(inc.UTC), reserve=True,
-                diagnostic=Path('resultats/rattrapage/ordonnancement_fond.json'))
+            return controle_pmu() or autoriser_fond(cache,datetime.now(inc.UTC), reserve=not args.nocturne,
+                nocturne=args.nocturne, diagnostic=Path('resultats/rattrapage/ordonnancement_fond.json'))
 
         def differer(reason, state):
             if state.get('chevaux'):
@@ -858,8 +870,9 @@ def main():
         if args.archives_diagnostics:
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
-        state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=min(args.max_chevaux,1),
-                      publier=True,mode='rattrapage',
+        max_chevaux = args.max_chevaux if args.nocturne else min(args.max_chevaux, 1)
+        state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=max_chevaux,
+                      publier=True,mode='rattrapage',nocturne=args.nocturne,
                       stop_requested=controle_fond,
                       creneau_reserve=lambda: inc.lire(Path('resultats/rattrapage/ordonnancement_fond.json')).get('creneau_reserve'))
     else:

@@ -437,7 +437,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
 
 def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None,
-        prochains_depart=False, creneau_reserve=None):
+        prochains_depart=False, creneau_reserve=None, nocturne=False):
     cache = Path(cache)
     now = datetime.now(UTC)
     reprise=None
@@ -449,16 +449,22 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
     if prochains_depart and not reprise:
         from .preparation_prochaines import appliquer
-        appliquer(cache,state,now)
+        appliquer(cache,state,now,nocturne=nocturne)
     elif not reprise:state.pop('politique_collecte',None)
     state['passage_utc'] = now.isoformat()
-    state['priorite_collecte']='PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR'
+    state['priorite_collecte'] = ('STOCK_NOCTURNE' if reprise else 'DEPARTS_DU_JOUR_NOCTURNE') if nocturne else (
+        'PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR')
     state.pop('motif_fin_passage',None)
     state.pop('creneau_reserve', None)
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
-    if blocked and now < blocked+timedelta(minutes=30):
-        state['prochain_acces_geny_utc'] = (blocked+timedelta(minutes=30)).isoformat()
+    autre_file = QUEUE if reprise else Path('rattrapage_historiques/etat.json')
+    pauses = (instant(state.get('prochain_acces_geny_utc')),
+              instant(lire(cache / autre_file).get('prochain_acces_geny_utc')),
+              blocked + timedelta(minutes=30) if blocked else None)
+    pauses_actives = [pause for pause in pauses if pause and pause > now]
+    if pauses_actives:
+        state['prochain_acces_geny_utc'] = max(pauses_actives).isoformat()
     attempts, count, accepted, partials = {}, 0, 0, 0
     sheets_engine=None
     deadline = time.monotonic()+max_minutes*60
@@ -517,7 +523,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             # Le dernier checkpoint distant suffit à reprendre une capture interrompue.
             # En rattrapage, le créneau réservé doit être marqué à distance avant la requête.
             save(distant=bool(reprise))
-            out = Path('resultats/incremental')/key/str(time.time_ns())
+            # Une clé de contexte peut contenir « : », interdit dans un artefact Actions.
+            out = Path('resultats/incremental') / key.replace(':', '_') / str(time.time_ns())
             report = {}
             try:
                 report = collect(horse, out)
@@ -602,7 +609,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     state.setdefault('motif_fin_passage','BUDGET_TEMPS_ATTEINT')
     if prochains_depart and not reprise:
         from .preparation_prochaines import appliquer
-        appliquer(cache,state,datetime.now(UTC))
+        appliquer(cache,state,datetime.now(UTC),nocturne=nocturne)
     state['bilan'] = {'chevaux_suivis': len(state['chevaux']), 'tentatives_collecte': count,
                       'captures_validees':accepted,'captures_partielles':partials,
                       'collectes_rejetees':count-accepted-partials,
@@ -635,6 +642,7 @@ def main():
     parser.add_argument('--max-minutes', type=int, default=15)
     parser.add_argument('--max-chevaux', type=int, default=1000)
     parser.add_argument('--publier', action='store_true')
+    parser.add_argument('--nocturne', action='store_true')
     args = parser.parse_args()
     if args.max_minutes < 1 or args.max_chevaux < 1:
         parser.error('Bornes positives requises')
@@ -645,12 +653,16 @@ def main():
     if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID', 'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
         raise SystemExit('Secrets Sheets absents : aucune collecte lancée')
     from .rattrapage_historiques import priorite_production
-    from .echeances_production import besoin_pmu
-    state = run(Path(args.cache), max_minutes=args.max_minutes, max_chevaux=args.max_chevaux, publier=True,
-                prochains_depart=True,
+    from .echeances_production import besoin_pmu, motif_pause_collecte_nocturne
+    cache = Path(args.cache)
+    verifier_echeances = motif_pause_collecte_nocturne if args.nocturne else besoin_pmu
+    state = run(cache, max_minutes=args.max_minutes, max_chevaux=args.max_chevaux, publier=True,
+                prochains_depart=True, nocturne=args.nocturne,
                 stop_requested=lambda:(priorite_production({'.github/workflows/pmu-v16.yml'})
-                    or besoin_pmu(Path(args.cache),datetime.now(UTC))))
-    print('BILAN_INCREMENTAL '+json.dumps(state['bilan']))
+                    or verifier_echeances(cache, datetime.now(UTC))))
+    print('BILAN_INCREMENTAL '+json.dumps({**state['bilan'],
+        'motif_fin_passage':state['motif_fin_passage'],
+        'couverture_par_jour':state['preparation_prochaines_courses']['couverture_par_jour']}))
 
 
 if __name__ == '__main__':

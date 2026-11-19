@@ -1,7 +1,5 @@
 name: PMU - Rattrapage global des historiques
 on:
-  schedule:
-    - cron: '12 * * * *'
   workflow_dispatch:
     inputs:
       max_minutes:
