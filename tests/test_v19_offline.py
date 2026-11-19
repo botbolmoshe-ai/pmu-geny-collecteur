@@ -2,7 +2,7 @@ import csv,json,tempfile,unittest
 from pathlib import Path
 from datetime import datetime,timedelta,timezone
 from pmu_geny.ml_v19 import features,snapshot,dataset,train,export_comparatif,FEATURES
-from pmu_geny.cotes_v19 import collecter
+from pmu_geny.cotes_v19 import collecter,extraire_cote
 from pmu_geny.pronostics_v18 import preparer_top3,actualiser_top3_np
 from pmu_geny.auto_v18 import save
 
@@ -31,6 +31,17 @@ class TestV19(unittest.TestCase):
   self.assertEqual(data['chevaux'][0]['cote'],4.8)
   self.assertIsNone(data['chevaux'][1]['cote'])
   self.assertEqual(collecter(self.root,self.course,participants,self.now+timedelta(hours=2)),'APRES_DEPART_SANS_RELEVE')
+ def test_dernier_rapport_direct(self):
+  self.assertEqual(extraire_cote({'dernierRapportDirect':{'rapport':3.7},'rapportDirect':9}), (3.7,'dernierRapportDirect'))
+  self.assertEqual(extraire_cote({'dernierRapportDirect':{'rapport':'4,2'}}), (4.2,'dernierRapportDirect'))
+  for value in (0, -1, True, float('inf'), float('nan'), None):
+   self.assertEqual(extraire_cote({'dernierRapportDirect':{'rapport':value}}), (None,None))
+  participants={'participants':[{'numPmu':1,'dernierRapportDirect':{'rapport':3.7}}]}
+  self.assertEqual(collecter(self.root,self.course,participants,self.now),'COTES_PARTIELLES')
+  self.assertEqual(collecter(self.root,self.course,participants,self.now),'COTES_PARTIELLES')
+  data=json.loads((self.root/'cotes'/'2026-11-15_R2C1.json').read_text())
+  self.assertEqual(len(data['releves']),1)
+  self.assertEqual(collecter(self.root,self.course,participants,datetime.fromisoformat(self.course['depart'])),'APRES_DEPART_SANS_RELEVE')
  def test_retrait_updates_baseline_and_csv(self):
   from zoneinfo import ZoneInfo
   now=datetime(2026,11,15,15,15,tzinfo=ZoneInfo('Europe/Paris'))
