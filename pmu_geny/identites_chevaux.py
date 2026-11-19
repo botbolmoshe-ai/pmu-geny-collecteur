@@ -100,3 +100,143 @@ def cle_inter_sources(row):
     row = dict(canoniser_ligne(row))
     row['chrono'] = str(row.get('chrono', '')).replace('"', "''")
     return cle_sportive(row)
+
+
+class IndexGeny:
+    """Index des preuves d'identité, commun aux collecteurs et aux lecteurs."""
+
+    def __init__(self, cache, *, observations=None):
+        from collections import defaultdict
+        from .ml_v19 import load
+
+        self.noms = defaultdict(dict)
+        self.contextes = defaultdict(set)
+        self.annees = defaultdict(set)
+        self.noms_par_id = defaultdict(set)
+        self.cache = Path(cache)
+        journal = (load(self.cache/'etat_persistant.json', {}) or {}).get('chevaux', {})
+        for proof in correspondances():
+            self.ajouter(proof['nom'], proof['identifiants']['geny'], proof['url_geny'], 'REGISTRE_VERIFIE')
+        if observations is None:
+            snapshot = load(self.cache/'rattrapage_historiques/inventaire_sheets.json', {}) or {}
+            observations = snapshot.get('chevaux', [])
+        for record in observations:
+            record = qualifier_observation(record)
+            self.ajouter(record.get('nom'), record.get('id'),
+                         record.get('url_geny') or record.get('source_url'), 'SHEETS_SOURCE_GENY')
+        for folder in ('historiques', 'historiques_partiels'):
+            for path in (self.cache/folder).glob('*/historique_geny.json'):
+                doc = load(path, {}) or {}
+                ident = path.parent.name
+                if str(doc.get('identifiant_cheval', ident)) != ident:
+                    continue
+                if folder == 'historiques_partiels' and doc.get('identite_verifiee') is not True:
+                    continue
+                meta = journal.get(ident, {})
+                url = doc.get('source_url')
+                name = doc.get('nom') or meta.get('nom')
+                if not url and meta.get('statut') in ('COMPLET', 'PARTIEL') and isinstance(doc.get('performances'), list):
+                    # Anciennes captures du collecteur Geny, rangées par ID.
+                    url = 'https://www.geny.com/cheval/'+ident
+                self.ajouter(name, ident, url, 'CAPTURE_GENY')
+        for path in sorted((self.cache/'manifestes').glob('GENY-*.json')):
+            for block in (load(path, {}) or {}).get('courses', []):
+                if block.get('course_id') != path.stem:
+                    continue
+                for horse in block.get('partants', []):
+                    ident = str(horse.get('id', ''))
+                    self.ajouter(horse.get('nom'), ident, horse.get('url_geny'),
+                                 'MANIFESTE_GENY', path.stem, horse.get('numero'))
+        for path in (self.cache/'sources_geny/liens').glob('*.json'):
+            proof = load(path, {}) or {}
+            from .historiques_incrementaux import instant
+            stamp = instant(proof.get('capture_utc'))
+            source = urlparse(proof.get('source_url') or '')
+            match = re.match(r'/course/(\d+)(?:\D|$)', source.path)
+            if (proof.get('engagement') != path.stem or proof.get('http') != 200 or not stamp
+                    or stamp > datetime.now(timezone.utc) or source.scheme != 'https'
+                    or source.hostname not in ('geny.com', 'www.geny.com')
+                    or not match or match[1] != str(proof.get('course_geny_id'))):
+                continue
+            for number, horse in proof.get('chevaux', {}).items():
+                self.ajouter(horse.get('nom'), horse.get('id'), horse.get('url_geny'),
+                             'LIENS_COURSE_GENY', 'GENY-'+match[1], number)
+        for folder in sorted((self.cache/'diagnostics/decouverte').glob('*')):
+            pages = set()
+            for attempt in load(folder/'tentatives.json', []) or []:
+                source = urlparse(attempt.get('url') or '')
+                match = re.match(r'/course/(\d+)(?:\D|$)', source.path)
+                if (attempt.get('http') == 200 and match and source.scheme == 'https'
+                        and source.hostname in ('geny.com', 'www.geny.com')):
+                    pages.add(match[1])
+            if not pages:
+                continue
+            rows = load(folder/'lignes_tableau.json', []) or []
+            numbers = defaultdict(set)
+            for row in rows:
+                cells = row.get('cells', [])
+                if len(cells) > 2 and str(cells[0]).isdigit():
+                    numbers[nom_normalise(cells[2])].add(str(cells[0]))
+            for path in sorted(folder.glob('clic_*.json')):
+                click = load(path, {}) or {}
+                url = click.get('url') or ''
+                match = re.fullmatch(r'/cheval/(\d+)(?:-[^/]+)?/course/(\d+)/?', urlparse(url).path)
+                name = click.get('nom')
+                found = numbers[nom_normalise(name)]
+                if (match and match[2] in pages and len(found) == 1
+                        and click.get('mode') in ('nouvel_onglet', 'meme_onglet')):
+                    self.ajouter(name, match[1], url, 'ARCHIVE_CLIC_GENY', 'GENY-'+match[2], next(iter(found)))
+        for path in sorted((self.cache/'sources_geny/identites').glob('*.json')):
+            proof = load(path, {}) or {}
+            if preuve_resolution_valide(proof):
+                horse = proof['geny']
+                self.ajouter(horse['nom'], horse['id'], horse['url_geny'], proof['preuve'])
+                if horse.get('annee_naissance_pmu'):
+                    self.annees[(nom_normalise(horse['nom']), horse['annee_naissance_pmu'])].add(str(horse['id']))
+                for candidate in horse.get('homonymes', []):
+                    if nom_normalise(candidate.get('nom')) == nom_normalise(horse['nom']):
+                        self.ajouter(candidate.get('nom'), candidate.get('id'), candidate.get('url_geny'),
+                                     'RECHERCHE_GENY_NOM_AMBIGU')
+
+    def ajouter(self, nom, ident, url, preuve, course=None, numero=None):
+        key = nom_normalise(nom)
+        ident = str(ident or '')
+        if not key or not re.fullmatch(r'\d{1,15}', ident) or source_identifiant(ident, url) != 'geny':
+            return
+        self.noms_par_id[ident].add(key)
+        self.noms[key].setdefault(ident, {
+            'id': ident, 'nom': nom, 'url_geny': url.replace('https://geny.com/', 'https://www.geny.com/'),
+            'preuve': preuve})
+        if course and numero is not None:
+            self.contextes[(key, course, str(numero))].add(ident)
+
+    def resoudre(self, nom, course=None, numero=None, *, nom_repris=False, annee=None):
+        key = nom_normalise(nom)
+        candidates = self.noms.get(key, {})
+        context = self.contextes.get((key, course, str(numero)), set())
+        if len(candidates) > 1 or nom_repris:
+            annee_ids = self.annees.get((key, annee), set())
+            confirmed = context & annee_ids if context and annee_ids else context or annee_ids
+            if len(confirmed) == 1:
+                ident = next(iter(confirmed))
+                if len(self.noms_par_id[ident]) == 1:
+                    return candidates[ident], 'NOM_AMBIGU_ID_CONFIRME'
+        elif len(candidates) == 1:
+            ident = next(iter(candidates))
+            if len(self.noms_par_id[ident]) == 1:
+                return candidates[ident], ('NOM_EXACT_ET_ID_GENY_CONFIRME' if context
+                                           else 'NOM_EXACT_UNIQUE')
+        return {}, 'NOM_AMBIGU' if candidates or nom_repris else 'NON_ASSOCIE'
+
+
+def preuve_resolution_valide(proof):
+    from .historiques_incrementaux import instant
+    horse = proof.get('geny') or {}
+    ident = str(horse.get('id', ''))
+    stamp = instant(proof.get('resolution_utc'))
+    return (proof.get('preuve') in ('RECHERCHE_GENY_NOM_EXACT', 'FICHE_GENY_VERIFIEE', 'COURSE_GENY_VERIFIEE')
+            and stamp and stamp <= datetime.now(timezone.utc)
+            and re.fullmatch(r'\d{4,15}', ident)
+            and source_identifiant(ident, horse.get('url_geny')) == 'geny'
+            and bool(nom_normalise(horse.get('nom')))
+            and nom_normalise(horse['nom']) == nom_normalise(proof.get('nom_attendu')))

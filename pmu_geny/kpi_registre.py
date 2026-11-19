@@ -173,6 +173,16 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
                             ('Révision inventaire', 'revision_inventaire')]:
             operational.append(metric('Rattrapage · ' + name, backfill.get(field, ''),
                                       'État durable du lot de rattrapage.'))
+        counts = backfill.get('bilan', {})
+        for label, field, definition in (
+            ('Chevaux non identifiés (noms distincts)', 'noms_distincts_sans_identifiant',
+             'Noms exacts normalisés distincts parmi les contextes sans identifiant Geny.'),
+            ('Contextes sans identifiant Geny', 'contextes_distincts_sans_identifiant',
+             'Contextes du lot sans identifiant Geny, après dédoublonnage des cibles équivalentes.'),
+            ('Chevaux identifiés sans carrière complète', 'identifiants_sans_carriere_complete',
+             'Identifiants Geny distincts du lot sans capture complète validée.'),
+        ):
+            operational.append(metric('Rattrapage · '+label, counts.get(field, ''), definition))
         from .rattrapage_historiques import actualiser_cohortes, bilan_lot_96, bornes_cohortes
         back_state = _load(cache / 'rattrapage_historiques/etat.json')
         cohorts = backfill.get('cohortes', {})

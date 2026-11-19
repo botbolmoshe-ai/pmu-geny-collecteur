@@ -268,6 +268,8 @@ def conclusion_methodes(scores):
 
 def source_rows(cache):
     from .partants_actuels_v21 import profil_pmu_exclusif
+    from .identites_chevaux import IndexGeny
+    identites_geny = IndexGeny(cache)
     courses, history, reports = {}, {}, {}
     from .cycle_ml_actif import modele_disponible,STATUT
     candidat_disponible=modele_disponible(cache) is not None
@@ -423,9 +425,9 @@ def source_rows(cache):
             direct.get('version_profils') and calcul and depart and calcul < depart
             and instant(direct.get('depart')) == depart) else {}
         liens=etablir(cache,{'date':date,'code':code},[
-            {'numero':n,'nom':v.get('nom','')}
+            {'numero':n,'nom':v.get('nom',''),'age_ans':v.get('age_ans')}
             for n,v in (participant.get('chevaux') or {}).items()
-        ])
+        ],index=identites_geny)
         for n,act in (participant.get('chevaux') or {}).items():
             act=profil_pmu_exclusif(act)
             krow=f'{k}|{n}'
@@ -438,7 +440,8 @@ def source_rows(cache):
             link_method=link.get('methode','NON_ASSOCIE')
             hist=link.get('historique',{})
             hist_status=(
-                'HISTO_PARTIEL_GENY' if hist.get('statut')=='PARTIEL_HISTORIQUE'
+                'HISTO_PARTIEL_GENY' if hist.get('statut') in ('PARTIEL', 'PARTIEL_HISTORIQUE')
+                else 'GENY_IDENTIFIE_CARRIERE_MANQUANTE' if link.get('cheval_id') and not hist
                 else 'HISTO_OK_NOM_ID' if link_method in ('NOM_EXACT_ET_ID_GENY_CONFIRME','NOM_AMBIGU_ID_CONFIRME','ID_GENY_MANIFESTE_VERIFIE')
                 else 'HISTO_OK_NOM' if link_method=='NOM_EXACT_UNIQUE'
                 else 'HISTO_AMBIGU' if link_method=='NOM_AMBIGU'

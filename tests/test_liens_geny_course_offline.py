@@ -63,15 +63,15 @@ class LiensTests(unittest.TestCase):
         proof=self.extraire();proof['http']=403;self.memoriser(proof)
         self.assertFalse((self.cache/'sources_geny/liens'/f'{self.engagement}.json').exists())
 
-    def test_alimentation_reutilise_lien_sans_promouvoir_identite_ni_carriere(self):
+    def test_alimentation_reutilise_identite_sans_promouvoir_carriere(self):
         self.memoriser(self.extraire())
         inc.ecrire(self.cache/'orchestration/correspondances_geny.json',{self.engagement:'GENY-1698831'})
         inc.ecrire(self.cache/'partants_actuels'/f'{self.engagement}.json',{'chevaux':{
             '2':{'nom':'Open Oam','statut_np':'PARTANT'}}})
         state=inc.alimenter(self.cache,self.now)
-        h=state['chevaux'][self.engagement+'_2']
+        h=state['chevaux']['2895700']
         self.assertEqual(h['geny']['id'],'2895700')
-        self.assertNotIn('id',h)
+        self.assertEqual(h['id'],'2895700')
         self.assertEqual(h['motif_actualisation'],'HISTORIQUE_ABSENT_OU_NON_DATE')
         self.assertNotIn('historique_complet_au_utc',h)
 

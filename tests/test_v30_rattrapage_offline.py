@@ -301,11 +301,13 @@ class RepriseTests(unittest.TestCase):
         state=back.preparer(self.cache,self.now)
         self.assertFalse(state['chevaux']['123456'].get('rattrapage_complet_au_utc'))
 
-    def test_aucune_tache_eligible_ne_signifie_pas_stock_termine(self):
+    def test_nom_sans_course_est_eligible_a_la_recherche_individuelle(self):
         snapshot=inc.lire(self.cache/back.INVENTAIRE)
         snapshot['chevaux']=[{'nom':'Sans lien'}];inc.ecrire(self.cache/back.INVENTAIRE,snapshot)
         state=back.preparer(self.cache,self.now);state['sync_kpi']='OK';back.bilan(state)
-        self.assertEqual(back.prochaine_tache(state,self.now,{}),(None,'TERMINE_PASSAGE'))
+        key = next(iter(state['chevaux']))
+        self.assertEqual(back.prochaine_tache(state,self.now,{}),(key,'COLLECTE'))
+        self.assertEqual(back.prochaine_tache(state,self.now,{('NOM', 'SANSLIEN'): 1}),(None,'TERMINE_PASSAGE'))
         self.assertEqual(state['statut'],'PARTIEL_REPRENABLE')
         self.assertEqual(state['bilan']['liens_a_resoudre'],1)
 

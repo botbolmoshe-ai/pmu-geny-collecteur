@@ -13,56 +13,48 @@ def nom_normalise(value):
     value=unicodedata.normalize('NFKD',str(value or '').upper())
     return ''.join(ch for ch in value if ch.isalnum() and not unicodedata.combining(ch))
 
-def etablir(cache, course, participants=None):
-    cache=Path(cache)
-    date,code=course['date'],course['code']
-    noms={}
+def etablir(cache, course, participants=None, *, index=None):
+    from collections import Counter
+    from .identites_chevaux import IndexGeny
+    from .historiques_incrementaux import course_geny_connue
+
+    cache = Path(cache)
+    index = IndexGeny(cache) if index is None else index
+    names = {}
     for h in participants or []:
-        if not isinstance(h,dict):continue
-        numero=h.get('numero',h.get('numPmu'))
-        name=h.get('nom',h.get('nomCheval',''))
-        if numero is not None:noms[str(numero)]=nom_normalise(name)
-    journal=(load(cache/'etat_persistant.json',{}) or {}).get('chevaux',{})
-    known={}
-    for ident,meta in journal.items():
-        if meta.get('statut') not in ('COMPLET','PARTIEL'):continue
-        doc=load(cache/'historiques'/str(ident)/'historique_geny.json',{}) or {}
-        if doc.get('statut')!='COMPLET':
-            partial=load(cache/'historiques_partiels'/str(ident)/'historique_geny.json',{}) or {}
-            if partial.get('identite_verifiee') is True:doc=partial
-        if doc.get('statut') not in ('COMPLET','PARTIEL','PARTIEL_HISTORIQUE') or not isinstance(doc.get('performances'),list):continue
-        key=nom_normalise(meta.get('nom',''))
-        if key:known.setdefault(key,[]).append((str(ident),doc))
-    by_number={}
-    correspondences=load(cache/'orchestration'/'correspondances_geny.json',{}) or {}
-    cid=correspondences.get(f'{date}_{code}')
+        if not isinstance(h, dict):
+            continue
+        number = h.get('numero', h.get('numPmu'))
+        if number is not None:
+            names[str(number)] = h.get('nom', h.get('nomCheval', ''))
+    ages = {str(h.get('numero', h.get('numPmu'))): str(h.get('age_ans', h.get('age', '')))
+            for h in participants or [] if isinstance(h, dict)}
+    counts = Counter(nom_normalise(name) for name in names.values())
+    cid = course_geny_connue(cache, f"{course['date']}_{course['code']}")
     if cid:
-        manifest=load(cache/'manifestes'/f'{cid}.json',{}) or {}
-        blocks=manifest.get('courses',[])
-        if len(blocks)==1 and blocks[0].get('course_id')==cid:
-            for h in blocks[0].get('partants',[]):
-                num=str(h.get('numero',''))
-                name=nom_normalise(h.get('nom',''))
-                if not num or not name or noms.get(num)!=name:continue
-                ident=str(h.get('id',''))
-                doc=load(cache/'historiques'/ident/'historique_geny.json',{}) or {}
-                if doc.get('statut') in ('COMPLET','PARTIEL') and isinstance(doc.get('performances'),list):
-                    by_number[num]=(ident,doc,'ID_GENY_MANIFESTE_VERIFIE')
-    matches={}
-    for numero,name in noms.items():
-        candidates=known.get(name,[])
-        if len(candidates)==1:
-            ident,doc=candidates[0]
-            method='NOM_EXACT_UNIQUE'
-            if numero in by_number and by_number[numero][0]==ident:
-                method='NOM_EXACT_ET_ID_GENY_CONFIRME'
-            matches[numero]={'cheval_id':ident,'historique':doc,'methode':method}
-        elif len(candidates)>1:
-            if numero in by_number and any(x[0]==by_number[numero][0] for x in candidates):
-                ident,doc,_=by_number[numero]
-                matches[numero]={'cheval_id':ident,'historique':doc,'methode':'NOM_AMBIGU_ID_CONFIRME'}
-            else:
-                matches[numero]={'cheval_id':'','historique':{},'methode':'NOM_AMBIGU'}
-        else:
-            matches[numero]={'cheval_id':'','historique':{},'methode':'NON_ASSOCIE'}
+        manifest = load(cache/'manifestes'/f'{cid}.json', {}) or {}
+        for block in manifest.get('courses', []):
+            if block.get('course_id') != cid:
+                continue
+            for h in block.get('partants', []):
+                ident = str(h.get('id', ''))
+                if ident in index.noms.get(nom_normalise(h.get('nom')), {}):
+                    index.contextes[(nom_normalise(h['nom']), cid, str(h.get('numero', '')))].add(ident)
+    matches = {}
+    for number, name in names.items():
+        age = ages[number]
+        year = int(course['date'][:4]) - int(age) if age.isdigit() else None
+        link, method = index.resoudre(name, cid, number, nom_repris=counts[nom_normalise(name)] > 1, annee=year)
+        ident = link.get('id', '')
+        doc = {}
+        if ident:
+            doc = load(cache/'historiques'/ident/'historique_geny.json', {}) or {}
+            if doc.get('statut') != 'COMPLET':
+                partial = load(cache/'historiques_partiels'/ident/'historique_geny.json', {}) or {}
+                if partial.get('identite_verifiee') is True:
+                    doc = partial
+            if (doc.get('statut') not in ('COMPLET', 'PARTIEL', 'PARTIEL_HISTORIQUE')
+                    or not isinstance(doc.get('performances'), list)):
+                doc = {}
+        matches[number] = {'cheval_id': ident, 'historique': doc, 'methode': method}
     return matches
