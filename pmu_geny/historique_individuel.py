@@ -10,7 +10,7 @@ from zoneinfo import ZoneInfo
 
 from .extraction_historique_par_cheval import extraire_cheval
 from .controle_historique import classifier
-from .liaison_chevaux_v22 import nom_normalise
+from .liaison_chevaux_v22 import nom_geny_concordant, nom_normalise, separer_pays_pmu
 from .decouverte_partants import get_rows, participants_from_rows, try_direct_url
 from .collecte_geny_v4 import diagnostic_acces, dismiss_consent
 
@@ -50,8 +50,12 @@ def candidats_recherche(html, nom):
             if item.get('type') == 'CHEVAL' and title.startswith('Fiche cheval - ') and link:
                 name = title.removeprefix('Fiche cheval - ').strip()
                 if nom_normalise(name) == nom_normalise(nom):
-                    age = re.search(r'\bâge\s*:\s*(\d+)\s+ans?\b', str(item.get('resume') or ''))
+                    summary = str(item.get('resume') or '')
+                    age = re.search(r'\bâge\s*:\s*(\d+)\s+ans?\b', summary)
+                    country = re.search(r'\bpays\s*:\s*([^,]+)', summary, re.I)
+                    iso = {'SUEDE': 'SE', 'ITALIE': 'IT'}.get(nom_normalise(country[1])) if country else None
                     candidates[link[1]] = {'id': link[1], 'nom': name, 'age_geny': int(age[1]) if age else None,
+                                           'nationalite_geny': iso,
                                            'url_geny': 'https://www.geny.com/cheval/'+link[1]}
     if not established:
         raise ValueError('RECHERCHE_GENY_NON_INTERPRETABLE')
@@ -59,7 +63,8 @@ def candidats_recherche(html, nom):
 
 
 def rechercher(horse, page):
-    url = 'https://www.geny.com/recherche?'+urlencode({'q': horse['nom']})
+    name, country = separer_pays_pmu(horse['nom'])
+    url = 'https://www.geny.com/recherche?'+urlencode({'q': name})
     response = page.goto(url, wait_until='domcontentloaded', timeout=45000)
     html = page.content()
     verdict = diagnostic_acces(response.status if response else None, page.title(),
@@ -71,11 +76,14 @@ def rechercher(horse, page):
             or target.hostname not in ('geny.com', 'www.geny.com') or target.path.rstrip('/') != '/recherche'):
         raise ValueError('RECHERCHE_GENY_INDISPONIBLE')
     try:
-        candidates = candidats_recherche(html, horse['nom'])
+        candidates = candidats_recherche(html, name)
     except ValueError as exc:
         if horse.get('course_url') and horse.get('numero') and str(exc) == 'RECHERCHE_GENY_NON_INTERPRETABLE':
             return None
         raise
+    if country:
+        candidates = {ident: {**fiche, 'nom_pmu': horse['nom']} for ident, fiche in candidates.items()
+                      if nom_geny_concordant(horse['nom'], fiche)}
     if len(candidates) == 1 and horse.get('rapprochement_geny') != 'NOM_AMBIGU':
         return {**next(iter(candidates.values())), 'preuve': 'RECHERCHE_GENY_NOM_EXACT'}
     year = horse.get('annee_naissance_pmu')
@@ -149,7 +157,9 @@ def ouvrir_source(horse, out, page):
     from .liens_geny_course import extraire
     proof = extraire([], page.content(), horse.get('engagement'), url, datetime.now(timezone.utc).isoformat())
     found = proof.get('chevaux', {}).get(str(horse['numero']))
-    if found and nom_normalise(found['nom']) == nom_normalise(horse['nom']):
+    if found and nom_geny_concordant(horse['nom'], found):
+        if nom_normalise(found['nom']) != nom_normalise(horse['nom']):
+            found['nom_pmu'] = horse['nom']
         (out/'liens_course.json').write_text(json.dumps(proof, ensure_ascii=False, indent=2), encoding='utf-8')
         return {**found, 'preuve': 'COURSE_GENY_VERIFIEE', 'homonymes': horse.get('homonymes_geny', [])}
     dismiss_consent(page)
@@ -254,12 +264,20 @@ def collecter(horse, out):
         folder = out/geny['id']
         textfile = folder/'diagnostic_texte_geny.txt'
         text = textfile.read_text(encoding='utf-8') if textfile.exists() else ''
-        identity = nom_normalise(horse['nom']) in nom_normalise(text[:6000])
+        expected = geny['nom'] if nom_geny_concordant(horse['nom'], geny) else horse['nom']
+        htmlfile = folder/'diagnostic_geny.html'
+        name = nom_fiche(htmlfile.read_text(encoding='utf-8'), geny['id']) if htmlfile.exists() else ''
+        identity = (nom_normalise(expected) == nom_normalise(name) if name
+                    else bool(nom_normalise(expected) and nom_normalise(expected) in nom_normalise(text[:6000])))
         report.update(geny=geny, statut=status, motifs=reasons,
                       identite_verifiee=identity, complet=status == 'COMPLET' and identity,
                       dossier=str(folder))
     except Exception as exc:
-        status = 'ACCES_LIMITE_429' if '429' in str(exc) else 'ACCES_REFUSE_403' if '403' in str(exc) else 'ERREUR'
+        reason = str(exc)
+        reason_codes = {'ACCES_LIMITE_429', 'ACCES_REFUSE_403', 'RECHERCHE_GENY_NON_INTERPRETABLE',
+                        'RECHERCHE_GENY_SANS_NOM_EXACT', 'RECHERCHE_GENY_NOM_AMBIGU',
+                        'RECHERCHE_GENY_INDISPONIBLE', 'FICHE_EXACTE_NON_IDENTIFIEE'}
+        status = reason if reason in reason_codes else 'ERREUR'
         report.update(statut=status, erreur=f'{type(exc).__name__}: {exc}')
     report['fin_utc'] = datetime.now(timezone.utc).isoformat()
     return report

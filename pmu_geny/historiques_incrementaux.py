@@ -22,7 +22,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from .controle_historique import classifier
-from .liaison_chevaux_v22 import nom_normalise
+from .liaison_chevaux_v22 import nom_geny_concordant, nom_normalise
 
 UTC = timezone.utc
 QUEUE = Path('collecte_incrementale/etat.json')
@@ -303,7 +303,7 @@ def memoriser_resolution(horse, report, out, *, cache=None):
     ident=str(geny.get('id',''))
     if (source_identifiant(ident,geny.get('url_geny'))!='geny'
             or not re.fullmatch(r'\d{4,15}',ident)
-            or nom_normalise(geny.get('nom'))!=nom_normalise(horse.get('nom'))
+            or not nom_geny_concordant(horse.get('nom'), geny)
             or horse.get('id') and str(horse['id'])!=ident):return
     if not report.get('geny') and (proof.get('engagement')!=horse.get('engagement')
             or proof.get('numero')!=str(horse.get('numero',''))):return
@@ -389,7 +389,7 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
     horse['derniere_performance_date'] = max((r.get('date', '') for r in doc['performances']), default='')
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     journal.setdefault('chevaux', {})[ident] = {**journal.get('chevaux', {}).get(ident, {}),
-        'id': ident, 'nom': horse['nom'], 'statut': 'COMPLET', 'motifs': [],
+        'id': ident, 'nom': report['geny'].get('nom') or horse['nom'], 'statut': 'COMPLET', 'motifs': [],
         'nombre_extrait': doc['nombre_extrait'], 'nombre_annonce_geny': doc['nombre_annonce_geny'],
         'maj_utc': stamp, 'historique_complet_au_utc': stamp,
         'prochaine_verification_utc': horse['prochaine_verification_utc'],

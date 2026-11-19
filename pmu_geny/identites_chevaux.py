@@ -10,7 +10,7 @@ from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlparse
 
-from .liaison_chevaux_v22 import nom_normalise
+from .liaison_chevaux_v22 import nom_geny_concordant, nom_normalise
 
 REGISTRE = Path(__file__).with_name('identites_chevaux_verifiees.json')
 
@@ -167,7 +167,7 @@ class IndexGeny:
                 continue
             for number, horse in proof.get('chevaux', {}).items():
                 self.ajouter(horse.get('nom'), horse.get('id'), horse.get('url_geny'),
-                             'LIENS_COURSE_GENY', 'GENY-'+match[1], number)
+                             'LIENS_COURSE_GENY', 'GENY-'+match[1], number, fiche=horse)
         for folder in sorted((self.cache/'diagnostics/decouverte').glob('*')):
             pages = set()
             for attempt in load(folder/'tentatives.json', []) or []:
@@ -197,7 +197,7 @@ class IndexGeny:
             proof = load(path, {}) or {}
             if preuve_resolution_valide(proof):
                 horse = proof['geny']
-                self.ajouter(horse['nom'], horse['id'], horse['url_geny'], proof['preuve'])
+                self.ajouter(horse['nom'], horse['id'], horse['url_geny'], proof['preuve'], fiche=horse)
                 if horse.get('annee_naissance_pmu'):
                     self.annees[(nom_normalise(horse['nom']), horse['annee_naissance_pmu'])].add(str(horse['id']))
                 for candidate in horse.get('homonymes', []):
@@ -205,7 +205,7 @@ class IndexGeny:
                         self.ajouter(candidate.get('nom'), candidate.get('id'), candidate.get('url_geny'),
                                      'RECHERCHE_GENY_NOM_AMBIGU')
 
-    def ajouter(self, nom, ident, url, preuve, course=None, numero=None):
+    def ajouter(self, nom, ident, url, preuve, course=None, numero=None, *, fiche=None):
         key = nom_normalise(nom)
         ident = str(ident or '')
         if not key or not re.fullmatch(r'\d{1,15}', ident) or source_identifiant(ident, url) != 'geny':
@@ -214,8 +214,15 @@ class IndexGeny:
         self.noms[key].setdefault(ident, {
             'id': ident, 'nom': nom, 'url_geny': url.replace('https://geny.com/', 'https://www.geny.com/'),
             'preuve': preuve})
+        keys = {key}
+        if fiche and nom_geny_concordant(fiche.get('nom_pmu'), fiche):
+            alias = nom_normalise(fiche['nom_pmu'])
+            self.noms[alias][ident] = {**self.noms[key][ident], 'nom': nom,
+                                      'nationalite_geny': fiche.get('nationalite_geny'), 'nom_pmu': fiche['nom_pmu']}
+            keys.add(alias)
         if course and numero is not None:
-            self.contextes[(key, course, str(numero))].add(ident)
+            for name in keys:
+                self.contextes[(name, course, str(numero))].add(ident)
 
     def resoudre(self, nom, course=None, numero=None, *, nom_repris=False, annee=None):
         key = nom_normalise(nom)
@@ -246,4 +253,4 @@ def preuve_resolution_valide(proof):
             and re.fullmatch(r'\d{4,15}', ident)
             and source_identifiant(ident, horse.get('url_geny')) == 'geny'
             and bool(nom_normalise(horse.get('nom')))
-            and nom_normalise(horse['nom']) == nom_normalise(proof.get('nom_attendu')))
+            and nom_geny_concordant(proof.get('nom_attendu'), horse))

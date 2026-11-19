@@ -5,6 +5,7 @@ uniquement au rattachement du partant actuel. L'identifiant Geny stable peut
 confirmer la correspondance et departager des homonymes.
 """
 from __future__ import annotations
+import re
 import unicodedata
 from pathlib import Path
 from .ml_v19 import load
@@ -12,6 +13,24 @@ from .ml_v19 import load
 def nom_normalise(value):
     value=unicodedata.normalize('NFKD',str(value or '').upper())
     return ''.join(ch for ch in value if ch.isalnum() and not unicodedata.combining(ch))
+
+def separer_pays_pmu(nom):
+    countries = {'SWE': 'SE', 'ITY': 'IT', 'ITA': 'IT'}
+    suffix = re.fullmatch(r'(.+?)\s*\((SWE|ITY|ITA)\)\s*', str(nom or ''), flags=re.I)
+    return (suffix[1], countries[suffix[2].upper()]) if suffix else (nom, '')
+
+
+def nom_geny_concordant(nom_pmu, fiche):
+    """Les suffixes de pays PMU sont confirmés par la nationalité Geny."""
+    expected = nom_normalise(nom_pmu)
+    actual = nom_normalise(fiche.get('nom'))
+    if not expected or not actual:
+        return False
+    if expected == actual:
+        return True
+    base, country = separer_pays_pmu(nom_pmu)
+    return bool(country and country == fiche.get('nationalite_geny') and nom_normalise(base) == actual)
+
 
 def etablir(cache, course, participants=None, *, index=None):
     from collections import Counter
