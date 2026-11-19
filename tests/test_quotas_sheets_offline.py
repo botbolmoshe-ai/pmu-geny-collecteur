@@ -12,7 +12,7 @@ from test_v29_moteur_unique_offline import SessionTracee
 
 
 class QuotaTests(unittest.TestCase):
-    def test_grille_23000_lignes_11_lectures_avec_cles_independantes_et_relecture(self):
+    def test_grille_23000_lignes_7_lectures_avec_cles_independantes_et_relecture(self):
         class Big(SessionTracee):
             def get(self,url,**kwargs):
                 response=super().get(url,**kwargs)
@@ -29,7 +29,7 @@ class QuotaTests(unittest.TestCase):
             'PMU_SHEETS_LOCK_DIR':tmp,'PMU_SHEETS_CONTROLES':tmp+'/controle.jsonl','GITHUB_STEP_SUMMARY':''}),patch('builtins.print'):
             engine=SynchroniseurSheets(Path(tmp),'fake',session=s)
             first=engine.synchroniser_tables(source,scope='TEST')
-            self.assertEqual(engine.session.lectures,11)
+            self.assertEqual(engine.session.lectures,7)
             self.assertEqual(first['Historique chevaux']['lignes_ajoutees'],1)
             self.assertTrue(any('/values/' in u for u in s.reads))
             again=engine.synchroniser_tables(source,scope='TEST')
