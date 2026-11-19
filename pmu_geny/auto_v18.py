@@ -122,10 +122,20 @@ def programme_diagnostic(doc, date):
             tier,motif,metadata=niveau(c,r,hp,nb)
             decision_courses.append({'code':f'R{numero_reunion}C{no}', 'niveau':tier or 'EXCLU', 'motif':motif, **metadata})
             if tier is None:exclusion('metier_'+motif.lower());continue
+            ordre = c.get('ordreArrivee')
+            podium_definitif = []
+            if (any(c.get(flag) is True for flag in ('arriveeDefinitive', 'isArriveeDefinitive'))
+                    and all(c.get(flag) is not False for flag in ('arriveeDefinitive', 'isArriveeDefinitive'))
+                    and isinstance(ordre, list) and len(ordre) >= 3
+                    and all(isinstance(rang, list) and len(rang) == 1
+                            and type(rang[0]) is int and 1 <= rang[0] <= 30 for rang in ordre[:3])):
+                podium_definitif = [rang[0] for rang in ordre[:3]]
+                if len(set(podium_definitif)) != 3:
+                    podium_definitif = []
             output.append({'priorite_metier':tier,'motif_selection':motif,'allocation_eur':metadata['allocation_eur'], 'date':date,'code':f'R{numero_reunion}C{no}','hippodrome':hp,'nom':_str(c,'libelle','nomCourse'),
                            'depart':instant.isoformat(),'nombre_declares':nb,'num_reunion':numero_reunion,'num_course':no,
                            'distance_m':_num(c,'distance','distanceMetres','distanceCourse'),
-                           'discipline':metadata['discipline'],
+                           'discipline':metadata['discipline'], 'podium_definitif_pmu':podium_definitif,
                            'parametres_pmu':{k:c[k] for k in ('distance','discipline','specialite','parcours','conditions','conditionAge','conditionSexe','categorieParticularite','montantPrix','typePiste','corde','typeDepart') if c.get(k) is not None}})
     diag['courses_retenues']=len(output)
     diag['courses_p1']=sum(c['priorite_metier']=='P1' for c in output)

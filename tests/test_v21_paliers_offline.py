@@ -132,6 +132,12 @@ class V21PaliersTests(unittest.TestCase):
             self.assertEqual(enregistrer_resultats(root,course,raw,observe=course["depart"]),
                              "ARRIVEE_NON_VERIFIEE")
             observation = "2026-11-12T13:42:30+01:00"
+            self.assertEqual(enregistrer_resultats(root,course,raw,observe=observation),
+                             "ARRIVEE_NON_VERIFIEE")
+            course["podium_definitif_pmu"] = [1,2,3]
+            self.assertEqual(enregistrer_resultats(root,course,raw,observe=observation),
+                             "ARRIVEE_NON_VERIFIEE")
+            course["podium_definitif_pmu"] = [2,3,1]
             self.assertEqual(enregistrer_resultats(root,course,raw,observe=observation),"ARRIVEE_ENREGISTREE")
             self.assertEqual(enregistrer_resultats(root,course,raw,observe="2026-11-12T14:30:00+01:00"),
                              "ARRIVEE_DEJA_ENREGISTREE")
