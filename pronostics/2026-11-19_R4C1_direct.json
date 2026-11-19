@@ -2,9 +2,9 @@
   "date": "2026-11-19",
   "course": "R4C1",
   "depart": "2026-11-19T16:50:00+01:00",
-  "calcul_utc": "2026-11-19T00:12:47.825061+01:00",
+  "calcul_utc": "2026-11-19T02:40:36.440094+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-19T00:12:47.700724+01:00",
+  "donnees_observees_utc": "2026-11-19T02:40:36.352050+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [],
   "statut": "COMPLET",
@@ -54,20 +54,6 @@
       "identifiant_historique": null
     },
     {
-      "numero": 1,
-      "nom": "KALINE DE VIRE",
-      "score_direct": 2.2,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
-    {
       "numero": 11,
       "nom": "KELLY DU LUPIN",
       "score_direct": 1.7684,
@@ -82,23 +68,37 @@
       "identifiant_historique": null
     },
     {
-      "numero": 14,
-      "nom": "KALANSKA",
-      "score_direct": 1.2789,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
+      "numero": 1,
+      "nom": "KALINE DE VIRE",
+      "score_direct": 1.7531,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
       "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
+      "historique_exploitable": 7,
+      "distance_proche": 3,
+      "comparabilite_moyenne": 0.4547,
+      "ferrures_historiques_comparees": 7,
       "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
+      "identifiant_historique": "2768084"
     },
     {
       "numero": 10,
       "nom": "KAPRICE D'EVAILLES",
-      "score_direct": 1.2737,
+      "score_direct": 1.6808,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 5,
+      "historique_exploitable": 10,
+      "distance_proche": 9,
+      "comparabilite_moyenne": 0.461,
+      "ferrures_historiques_comparees": 10,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2765180"
+    },
+    {
+      "numero": 14,
+      "nom": "KALANSKA",
+      "score_direct": 1.2789,
       "source_forme": "PMU_MUSIQUE_SEULE",
       "qualite_score": "PMU_NON_CONTEXTUALISE",
       "musique_exploitable": 5,
@@ -261,7 +261,10 @@
       "crack": null,
       "gains_carriere_euros": 74560.0,
       "haut_potentiel": null,
-      "sorties_verifiees": 0
+      "sorties_verifiees": 7,
+      "historique_extrait_utc": "2026-11-18T23:30:53.440980+00:00",
+      "source_historique": "https://www.geny.com/cheval/2768084-kaline-de-vire/course/1699040",
+      "identifiant_historique": "2768084"
     },
     "2": {
       "nom": "KOMINA",
@@ -333,7 +336,10 @@
       "crack": null,
       "gains_carriere_euros": 72250.0,
       "haut_potentiel": null,
-      "sorties_verifiees": 0
+      "sorties_verifiees": 10,
+      "historique_extrait_utc": "2026-11-18T23:32:32.979622+00:00",
+      "source_historique": "https://www.geny.com/cheval/2765180-kaprice-d-evailles/course/1699040",
+      "identifiant_historique": "2765180"
     },
     "11": {
       "nom": "KELLY DU LUPIN",
@@ -370,8 +376,8 @@
   },
   "couverture_sources": {
     "pmu_musique": 14,
-    "geny_historique": 0,
-    "pmu_seul": 14,
+    "geny_historique": 2,
+    "pmu_seul": 12,
     "sans_score": 0,
     "effectif_declare_confirme": true
   },
