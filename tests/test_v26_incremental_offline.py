@@ -164,7 +164,9 @@ class IncrementalTests(unittest.TestCase):
         self.seed()
         events = []
         def checkpoint(cache):
-            events.append(('checkpoint', inc.lire(cache/inc.QUEUE)))
+            saved = inc.lire(cache/inc.QUEUE)
+            self.assertFalse(any(h.get('collecte') == 'EN_COURS' for h in saved['chevaux'].values()))
+            events.append(('checkpoint', saved))
         def sync(h):
             self.assertEqual(events[-1][0], 'checkpoint')
             self.assertEqual(events[-1][1]['chevaux']['123456']['sync'], 'A_FAIRE')
