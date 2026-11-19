@@ -86,7 +86,7 @@ class LiensTests(unittest.TestCase):
                 patch('pmu_geny.historique_individuel.rechercher', return_value={'id': '2895699'}) as search:
             self.assertEqual(resolve(self.horse, self.out, page)['id'], '2895699')
             self.assertEqual(search.call_args.args[0]['course_url'], '')
-            pause.assert_called_once_with(30)
+            pause.assert_not_called()
         with patch('pmu_geny.historique_individuel.ouvrir_source', side_effect=RuntimeError('ACCES_LIMITE_429')), \
                 patch('pmu_geny.historique_individuel.rechercher') as search:
             with self.assertRaisesRegex(RuntimeError, '429'):

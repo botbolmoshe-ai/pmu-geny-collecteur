@@ -65,6 +65,37 @@ class IncrementalTests(unittest.TestCase):
         return {'complet': True, 'identite_verifiee': True, 'statut': 'COMPLET',
                 'geny': self.gen, 'dossier': str(out)}
 
+    def test_reutilise_les_liens_de_course_dans_le_meme_passage_sans_pause(self):
+        inc.ecrire(self.cache/'partants_actuels'/f'{self.engagement}.json', {'chevaux': {
+            '1': {'nom': 'Test', 'statut_np': 'PARTANT'},
+            '2': {'nom': 'Autre', 'statut_np': 'PARTANT'},
+        }})
+        seen = []
+
+        def collect(horse, out):
+            seen.append(horse['numero'])
+            if horse['numero'] == '1':
+                inc.ecrire(out/'liens_course.json', {
+                    'engagement': self.engagement, 'source_url': horse['course_url'],
+                    'course_geny_id': '1698061', 'capture_utc': datetime.now(UTC).isoformat(),
+                    'http': 200, 'chevaux': {
+                        '1': self.gen,
+                        '2': {'id': '123457', 'nom': 'Autre', 'url_geny': 'https://www.geny.com/cheval/123457'},
+                    },
+                })
+                inc.ecrire(out/'historique_geny.json', doc(datetime.now(UTC)))
+                return {'complet': True, 'identite_verifiee': True,
+                        'geny': self.gen, 'dossier': str(out)}
+            self.assertEqual(horse['geny']['id'], '123457')
+            return {'statut': 'ACCES_LIMITE_429'}
+
+        with patch.object(inc.time, 'sleep') as pause:
+            state = inc.run(self.cache, collect=collect, sync=lambda h: {})
+        self.assertEqual(seen, ['1', '2'])
+        self.assertEqual(state['motif_fin_passage'], 'COOLDOWN')
+        self.assertEqual(state['chevaux']['123456']['sync'], 'OK')
+        pause.assert_not_called()
+
     def test_capture_validee_annule_un_ancien_delai_d_echec(self):
         self.seed()
         horse={'nom':'Test','id':'123456','geny':self.gen,
