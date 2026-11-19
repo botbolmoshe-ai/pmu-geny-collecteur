@@ -83,7 +83,7 @@ def participations(html,ident):
             horse=value.get('cheval')
             if (isinstance(horse,dict) and str(horse.get('id'))==str(ident)
                     and isinstance(value.get('course'),dict)
-                    and ('deferre' in value or 'positionDepart' in value)):
+                    and ('deferre' in value or depart_historique_geny(value['course'], value))):
                 key=(value.get('id'), value['course'].get('id'), value.get('deferre'),
                      value['course'].get('depart'), str(value.get('positionDepart')))
                 found[key]=value
@@ -174,7 +174,7 @@ def couverture(doc):
 
 
 def enrichir(doc,html,ident,source_url,capture_utc=None):
-    candidates=observations(html,ident);added=0;conflicts=0
+    candidates=observations(html,ident);added=0;conflicts=0;departures_added=0
     capture = instant(capture_utc)
     for row in doc.get('performances',[]):
         found=candidates.get(cle_performance(row),[])
@@ -186,12 +186,13 @@ def enrichir(doc,html,ident,source_url,capture_utc=None):
         if exact:found=exact
         departures = [x for x in found if x.get('depart_trot') and x.get('course_id')
                       and capture and x.get('depart_course') and x['depart_course'] < capture]
-        if (departures and len({x['course_id'] for x in departures}) == 1
+        if (not row.get('depart_trot') and departures and len({x['course_id'] for x in departures}) == 1
                 and all(x['depart_trot'] == departures[0]['depart_trot'] for x in departures)):
             proof = departures[0]
             row['depart_trot'] = {**proof['depart_trot'], 'source':proof['source'],
                                   'url':source_url, 'capture_utc':capture_utc,
                                   'course_id':proof['course_id']}
+            departures_added += 1
         found = [x for x in found if x.get('ferrure')]
         if not found:
             continue
@@ -209,4 +210,5 @@ def enrichir(doc,html,ident,source_url,capture_utc=None):
             'courses_ids':sorted({x['course_id'] for x in found if x.get('course_id')})})
         added+=1
     couverture(doc)
-    return {'ferrures_ajoutees':added,'conflits':conflicts,'ferrures_manquantes':doc['ferrures_manquantes']}
+    return {'ferrures_ajoutees':added,'departs_ajoutes':departures_added,
+            'conflits':conflicts,'ferrures_manquantes':doc['ferrures_manquantes']}

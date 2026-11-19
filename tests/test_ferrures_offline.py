@@ -180,6 +180,29 @@ class FerruresTests(unittest.TestCase):
         inc.ecrire(path,original)
         self.assertEqual(reparer_partants(self.cache,fetch=lambda url:pmu(name='Autre'))['ferrures_courantes_ajoutees'],0)
 
+    def test_archive_de_depart_persistante_sans_nouvelle_ferrure(self):
+        original = self.seed_capture(ferrure='F')
+        folder = self.cache / 'diagnostics/GENY-1698061/123456'
+        folder.mkdir(parents=True)
+        record = participation()
+        record.pop('deferre')
+        record['course'].update(depart='ELASTIQUE', dateHeureCourse='2026-01-01T14:00:00+01:00')
+        (folder / 'diagnostic_geny.html').write_text(html([record]))
+        inc.ecrire(folder / 'historique_geny.json', original)
+
+        repaired = reparer(self.cache)
+        self.assertEqual((repaired['departs_ajoutes'], repaired['ferrures_ajoutees']), (1, 0))
+        saved = inc.capture_valide(self.cache, '123456')
+        proof = saved['performances'][0]['depart_trot']
+        self.assertEqual(proof['mode'], 'Volté')
+        self.assertEqual(proof['capture_utc'], original['extrait_utc'])
+        self.assertEqual(saved['extrait_utc'], original['extrait_utc'])
+        self.assertEqual(reparer(self.cache)['departs_ajoutes'], 0)
+        self.assertEqual(len(list((self.cache / 'historiques_versions/123456').glob('*.json'))), 1)
+
+        inc.accepter(self.cache, {'id': '123456', 'nom': 'Test'}, self.report())
+        self.assertEqual(inc.capture_valide(self.cache, '123456')['performances'][0]['depart_trot'], proof)
+
     def test_carriere_complete_sans_ferrures_reste_a_completer(self):
         original=self.seed_capture()
         inc.ecrire(self.cache/back.INVENTAIRE,{'capture_utc':self.now.isoformat(),'chevaux':[],
