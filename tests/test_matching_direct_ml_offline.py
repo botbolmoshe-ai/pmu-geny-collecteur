@@ -43,11 +43,25 @@ class MatchingTests(unittest.TestCase):
         with TemporaryDirectory() as folder:
             root=Path(folder); day='2026-11-12'; code='R3C1'
             save(root/'sources_pmu'/f'programme_{day}.json',{'programme':[{
-                'date':day,'code':code,'depart':self.depart,'hippodrome':'VINCENNES'}]})
+                'date':day,'code':code,'depart':self.depart,'hippodrome':'VINCENNES',
+                'nom':'PRIX TEST (GR A)','allocation_eur':40000,
+                'parametres_pmu':{'conditions':"PRIX TEST Course 1 Course D Départ à l'Autostart. Pour 4 et 5 ans.",
+                                 'parcours':'GRANDE PISTE'}}]})
+            save(root/'partants_actuels'/f'{day}_{code}.json',{'chevaux':{
+                str(n):{'nom':f'CHEVAL {n}','age_ans':4} for n in range(1,7)}})
             save(root/'arrivees'/f'{day}_{code}.json',self.arr)
-            save(root/'pronostics'/f'{day}_{code}_direct.json',self.pred([1,2,4]))
+            save(root/'pronostics'/f'{day}_{code}_direct.json',self.pred([2,4,1]))
             save(root/'pronostics'/f'{day}_{code}_ml_latest.json',self.pred([4,5,6]))
-            item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
+            output=source_rows(root)
+            item=next(iter(output['Résultats & Analyse'].values()))
+            runner=next(iter(output['Courses & Prévisions'].values()))
+            self.assertEqual([runner[field] for field in (
+                'course_nom_pmu','course_categorie_pmu','course_ages_admis',
+                'course_allocation_eur','course_parcours','course_mode_depart','age_ans')],
+                ['PRIX TEST (GR A)','Course D','4 et 5 ans',40000,'Grande piste','Autostart',4])
+            self.assertEqual(item['top3_direct_noms'],'CHEVAL 2 · CHEVAL 4 · CHEVAL 1')
+            self.assertEqual(item['top3_ml_noms'],'CHEVAL 4 · CHEVAL 5 · CHEVAL 6')
+            self.assertEqual(item['arrivee_officielle_noms'],'CHEVAL 1 · CHEVAL 2 · CHEVAL 3')
             self.assertEqual(item['matching_direct_pct'],66.67)
             self.assertEqual(item['matching_ml_pct'],0)
             self.assertTrue(item['conclusion'].startswith('Meilleure méthode : Direct'))
@@ -60,3 +74,4 @@ class MatchingTests(unittest.TestCase):
             (root/'pronostics'/f'{day}_{code}_ml_latest.json').unlink()
             item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
             self.assertEqual(item['matching_ml_pct'],'')
+            self.assertNotIn('top3_ml_noms', item)

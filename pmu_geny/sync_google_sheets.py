@@ -35,11 +35,16 @@ SHEET_HEADER_LABELS = {
 EXPERT_COLUMNS = ('avis_pmu','prono_pmu','source_pmu','couverture_experts',
                   'conditions_course','age_ans','sexe','gains_euros')
 PROFILE_COLUMNS = ('profil_partant', 'profil_partant_indices')
-COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut')
+COURSE_PMU_COLUMNS = ('course_nom_pmu', 'course_categorie_pmu', 'course_ages_admis',
+                      'course_allocation_eur', 'course_parcours', 'course_mode_depart')
+REPORT_NAME_COLUMNS = {'top3_direct_numeros': 'top3_direct_noms',
+                       'top3_ml_numeros': 'top3_ml_noms',
+                       'arrivee_officielle_numeros': 'arrivee_officielle_noms'}
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
-                  'top3_direct_numeros','top3_direct_calcule_utc','score_direct',
-                  'top3_ml_numeros','score_ml','etat_ml',
-                  'arrivee_officielle_numeros','arrivee_verifiee_utc',
+                  'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
+                  'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
+                  'arrivee_officielle_numeros','arrivee_officielle_noms','arrivee_verifiee_utc',
                   'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct')
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
@@ -49,11 +54,14 @@ CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS) | MATCHING_COLUMNS | frozenset(EX
     'top3_direct_rang','top3_direct_score','top3_direct_top3',
     'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
     'ml_proba_podium','ml_score_non_calibre',
-    'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites'})
+    'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites',
+    *REPORT_NAME_COLUMNS.values()})
 PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','ferrure','musique_pmu'})
 
 def sheet_value(field, value):
     if value is None:return ''
+    if field == 'course_allocation_eur':
+        return value if type(value) is int and value > 0 else ''
     if field in MATCHING_COLUMNS:
         return value if isinstance(value,(int,float)) and not isinstance(value,bool) and 0<=value<=100 else ''
     if field in NUMERIC_SCORES and str(value) in ('0','1','2','3'):
@@ -92,16 +100,19 @@ DISPLAY_NAMES = {
     'proprietaire':'Propriétaire',
     'ferrure':'Ferrure · Course du jour',
     'top3_direct_numeros':'TOP3 direct · Chevaux',
+    'top3_direct_noms':'TOP3 direct · Noms',
     'top3_direct_calcule_utc':'TOP3 direct · Heure calcul UTC',
     'score_direct':'TOP3 direct · Chevaux à l’arrivée (0–3)',
     'top3_cotes_numeros':'TOP3 cotes · Chevaux',
     'score_cotes':'TOP3 cotes · Chevaux à l’arrivée (0–3)',
     'top3_ml_numeros':'TOP3 ML · Chevaux',
+    'top3_ml_noms':'TOP3 ML · Noms',
     'score_ml':'TOP3 ML · Chevaux à l’arrivée (0–3)',
     'matching_direct_pct':'TOP3 direct · Matching (%)',
     'matching_ml_pct':'TOP3 ML · Matching (%)',
     'etat_ml':'ML · Statut',
     'arrivee_officielle_numeros':'Arrivée · N° officiels',
+    'arrivee_officielle_noms':'Arrivée · Noms officiels',
     'arrivee_verifiee_utc':'Arrivée · Vérifiée UTC',
     'statut_evaluation':'Évaluation · État',
     'analyse_comparative':'Évaluation · Comparatif 3 méthodes',
@@ -130,6 +141,12 @@ DISPLAY_NAMES = {
     'couverture_experts':'PMU · Disponibilité avis/pronostic',
     'divergences_sources':'Sources · Divergences / avis identiques',
     'conditions_course':'Conditions de course',
+    'course_nom_pmu':'Course · Nom PMU',
+    'course_categorie_pmu':'Course · Catégorie PMU',
+    'course_ages_admis':'Course · Âges admis',
+    'course_allocation_eur':'Course · Allocation (€)',
+    'course_parcours':'Course · Parcours',
+    'course_mode_depart':'Course · Mode de départ',
     'synthese_actualite':'Synthèse des avis',
     'ml_modele_statut':'ML · État du modèle',
     'ml_rang':'ML · Rang',
@@ -178,6 +195,29 @@ def course_info(cache,code,date):
     for x in data.get('programme',[]):
         if x.get('code')==code:return x
     return {}
+
+
+def champs_course_pmu(info):
+    params = info.get('parametres_pmu') or {}
+    conditions = params.get('conditions') or ''
+    category = re.search(r'\b(?:Groupe [IVX]+|Course [A-Z])\b', conditions, re.IGNORECASE)
+    ages = re.search(
+        r'\bPour\b[^,.;]{0,100}?\b(\d{1,2}(?:(?:\s*(?:à|et)\s*|\s*,\s*)\d{1,2})*)\s+ans\b',
+        conditions, re.IGNORECASE)
+    depart = ' '.join(str(params.get(field) or '') for field in ('typeDepart', 'categorieParticularite'))
+    mode = ''
+    if 'AUTOSTART' in depart.upper() or re.search(r"Départ à l['’]Autostart", conditions, re.IGNORECASE):
+        mode = 'Autostart'
+    elif re.search(r'\bVOLT[ÉE]\b', depart, re.IGNORECASE) or re.search(r'\bdépart\s+volté\b', conditions, re.IGNORECASE):
+        mode = 'Volté'
+    return {
+        'course_nom_pmu': info.get('nom') or '',
+        'course_categorie_pmu': category.group() if category else '',
+        'course_ages_admis': f'{ages.group(1)} ans' if ages else '',
+        'course_allocation_eur': info.get('allocation_eur') or params.get('montantPrix'),
+        'course_parcours': (params.get('parcours') or '').capitalize(),
+        'course_mode_depart': mode,
+    }
 
 
 def course_key(date,hippodrome,code):
@@ -284,6 +324,7 @@ def source_rows(cache):
             forecast_state=('FIGE_HISTORIQUE' if has_historical else
                             'ML_SEUL_DISPONIBLE' if has_ml else 'TOP3_NON_FIGE')
             doc={'course_key':k,'date_course':date,'hippodrome':hip,'rncn':code,
+                 **champs_course_pmu(info),
                  'heure_depart_paris':depart,'discipline':info.get('discipline',''),
                  'distance_m':info.get('distance_m',''),'numero':n,'cheval':r.get('nom',''),
                  'driver_jockey':actual.get('driver_jockey',''),
@@ -306,7 +347,7 @@ def source_rows(cache):
                  'baseline_final_top3':'OUI' if any(str(h.get('numero'))==str(n) for h in (latest or frozen).get('top3',[])) else '',
                  'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else ''}
             for c in COMPARE_COLUMNS:
-                if c not in doc and c not in PROFILE_COLUMNS:doc[c]=r.get(c,'')
+                 if c not in doc and c not in PROFILE_COLUMNS:doc[c]=r.get(c,'')
             # Un score brut ML n'est pas une probabilite calibree.
             if ml.get('statut')!='ML_ENTRAINE_CALIBRE':
                 doc['ml_score_non_calibre']=r.get('ml_proba_podium','')
@@ -368,6 +409,7 @@ def source_rows(cache):
         meteo_statut=contexte.get('meteo_statut') if meteo_resume else 'METEO_NON_RECUPEREE'
         hip=info.get('hippodrome','')
         k=course_key(date,hip,code)
+        criteres = champs_course_pmu(info)
         ranks={}
         for mode,document in (('direct',direct),('cotes',marche),('ml',ml)):
             ranks[mode]={str(h.get('numero')):(i,h) for i,h in
@@ -403,6 +445,7 @@ def source_rows(cache):
                 else 'HISTO_NON_COLLECTE')
             current={
                 **champs_sheet(avis_experts,n,act.get('nom','')),
+                **criteres,
                 'meteo_resume':meteo_resume,
                 'meteo_statut':meteo_statut,
                 'historique_statut':hist_status,
@@ -524,6 +567,13 @@ def source_rows(cache):
                     'arrivee_verifiee_utc':arrivee.get('verifie_utc',''),
                     'score_sur_3':scores,
                     'statut_evaluation':'EVALUE' if any(x!='' for x in (scores,direct_hits,cote_hits,ml_hits)) else 'ARRIVEE_SANS_TOP3_FIGE'}
+        participants = load_json(cache/'partants_actuels'/f'{date}_{code}.json').get('chevaux') or {}
+        for numeros, noms in REPORT_NAME_COLUMNS.items():
+            selection = reports[k].get(numeros)
+            if selection:
+                ordered_names = [str(participants.get(n, {}).get('nom') or '').strip()
+                                 for n in selection.split(',')]
+                reports[k][noms] = ' · '.join(ordered_names) if all(ordered_names) else ''
     # V31: la provenance textuelle (URL ou descriptif) n'est PAS une
     # identite de course. Les memes performances sont presentes dans les
     # exports de course et les captures persistantes par cheval.
@@ -654,6 +704,10 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                 differs=((before!=value or (isinstance(value,int) and
                            (not isinstance(before,(int,float)) or isinstance(before,bool))))
                          if name in NUMERIC_SCORES else (before!=value or (isinstance(before,bool) and not isinstance(value,bool)) if name in MATCHING_COLUMNS else str(before)!=str(value)))
+                if name == 'course_allocation_eur':
+                    differs = ''.join(str(before).split()) != str(value)
+                    if not value:
+                        continue
                 # Nettoyage ciblé de l'ancien scan texte : PP de petite piste,
                 # DA du nom Da Costa. Une vraie ferrure sourcée reste prioritaire.
                 if tab=='Historique chevaux' and name=='ferrure' and val=='':
