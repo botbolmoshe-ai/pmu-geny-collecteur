@@ -870,6 +870,19 @@ def main():
         if args.archives_diagnostics:
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
+        if args.nocturne:
+            from .resolution_identites_courses import PILOTE, passage
+
+            if inc.lire(cache/PILOTE).get('statut') != 'TERMINE':
+                now = datetime.now(inc.UTC)
+                state = preparer(cache, now)
+                if prochaine_tache(state, now, {})[1] != 'SYNC':
+                    def checkpoint_identites():
+                        persister_etat(cache, state)
+                        inc.checkpoint_distant(cache, queue=QUEUE)
+
+                    if passage(cache, state, stop_requested=controle_fond, checkpoint=checkpoint_identites):
+                        return
         max_chevaux = args.max_chevaux if args.nocturne else min(args.max_chevaux, 1)
         state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=max_chevaux,
                       publier=True,mode='rattrapage',nocturne=args.nocturne,
