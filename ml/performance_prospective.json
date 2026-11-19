@@ -1,10 +1,10 @@
 {
   "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-  "controle_utc": "2026-11-19T16:16:12.779038+00:00",
-  "courses": 20,
-  "moyenne_ml": 1.1,
-  "moyenne_direct": 1.1,
-  "ecart_ml_direct": 0.0,
+  "controle_utc": "2026-11-19T16:49:44.310868+00:00",
+  "courses": 21,
+  "moyenne_ml": 1.0952380952380953,
+  "moyenne_direct": 1.1428571428571428,
+  "ecart_ml_direct": -0.047619047619047616,
   "exact_3_sur_3_ml": 0,
   "au_moins_2_sur_3_ml": 5,
   "resultats": [
@@ -287,14 +287,40 @@
         "ml": "b5b48cff837585e675468ba41621abe26d5f1a3fd79a950b372baf739b9f5f44"
       },
       "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16"
+    },
+    {
+      "course": "2026-11-19_R4C2",
+      "depart": "2026-11-19T17:25:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-19T16:48:49.976657+00:00",
+      "scores": {
+        "direct": 2,
+        "ml": 1
+      },
+      "versions": {
+        "direct": "7268e6bba20db55ff79754850b1112268ea68665942f6bb4a80b4d3f60c6cd87",
+        "ml": "20dc361f22e97098c929dff3e3d4e73e599ce40f51b80ca6c6cd852c43c07edb"
+      },
+      "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34"
     }
   ],
   "rejets": [],
   "regle_ajustement": "Réentraînement sur nouveaux labels admissibles ; choix sur validation temporelle, sans promotion sur ces seuls scores.",
   "candidat_depart": {
-    "courses": 0,
-    "direct_evaluable": 4,
+    "courses": 1,
+    "direct_evaluable": 5,
     "rejets": [],
-    "statut": "DONNEES_INSUFFISANTES"
+    "statut": "EXPERIMENTAL",
+    "moyenne": 2.0,
+    "moyenne_direct": 2.0,
+    "ecart_moyen": 0.0,
+    "exact_3_sur_3": 0,
+    "au_moins_2_sur_3": 1,
+    "comparaison": null,
+    "scores_candidat_par_course": {
+      "2026-11-19_R4C2": 2
+    },
+    "scores_direct_par_course": {
+      "2026-11-19_R4C2": 2
+    }
   }
 }

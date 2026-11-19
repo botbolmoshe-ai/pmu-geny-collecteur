@@ -1,30 +1,31 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "1e2001dfa84ccc1a4503b2c1d79add4f494d1200b0f58c2c34daeaa8d9c1ec68",
-  "execute_utc": "2026-11-19T16:16:12.779038+00:00",
+  "empreinte_donnees": "273570bc0099f9b23ddddb19c509860e2f5d8bd6038d80ff3f8edef2388a9fe4",
+  "execute_utc": "2026-11-19T16:49:44.310868+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 103,
-  "lignes_admissibles": 1374,
+  "courses_admissibles": 104,
+  "lignes_admissibles": 1384,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-1e2001dfa84ccc1a4503/rapport.json",
+  "rapport": "ml/experiences/automatique-273570bc0099f9b23ddd/rapport.json",
   "validation_day": "2026-11-18",
   "test_day": "2026-11-19",
   "modele": "regression_logistique",
   "test_ml": {
-    "courses": 4,
-    "chevaux_retrouves": 5,
-    "moyenne": 1.25,
-    "au_moins_2_sur_3": 1,
+    "courses": 5,
+    "chevaux_retrouves": 7,
+    "moyenne": 1.4,
+    "au_moins_2_sur_3": 2,
     "exact_3_sur_3": 0,
     "distribution": {
       "1": 3,
-      "2": 1
+      "2": 2
     },
     "hits_par_course": {
       "2026-11-19_R3C1": 2,
       "2026-11-19_R3C2": 1,
       "2026-11-19_R3C3": 1,
-      "2026-11-19_R4C1": 1
+      "2026-11-19_R4C1": 1,
+      "2026-11-19_R4C2": 2
     },
     "selections": {
       "2026-11-19_R3C1": [
@@ -46,15 +47,20 @@
         5,
         13,
         2
+      ],
+      "2026-11-19_R4C2": [
+        4,
+        1,
+        5
       ]
     }
   },
   "comparaison": {
-    "courses": 3,
-    "ecart_moyen": 0.3333333333333333,
+    "courses": 4,
+    "ecart_moyen": 0.25,
     "ic95_bootstrap_par_course": [
       0.0,
-      1.0
+      0.75
     ]
   },
   "decoupage": {
@@ -71,10 +77,10 @@
       "dernier_depart": "2026-11-18T18:00:00+01:00"
     },
     "test": {
-      "courses": 4,
-      "lignes": 52,
+      "courses": 5,
+      "lignes": 62,
       "premier_depart": "2026-11-19T15:57:00+01:00",
-      "dernier_depart": "2026-11-19T17:08:00+01:00"
+      "dernier_depart": "2026-11-19T17:25:00+01:00"
     }
   }
 }
