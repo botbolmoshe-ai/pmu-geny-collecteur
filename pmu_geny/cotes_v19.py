@@ -1,7 +1,7 @@
 """Relevé informatif des cotes PMU; hors features prédictives.
 Une valeur enregistrée est un instantané, PAS une cote définitive garantie.
 """
-from datetime import datetime,timezone,timedelta
+from datetime import datetime,timezone
 from pathlib import Path
 from math import isfinite
 from .ml_v19 import load, save, numeric
@@ -13,7 +13,9 @@ def extraire_cote(participant):
     for key in KEYS:
         value=participant.get(key)
         if isinstance(value,dict):
-            if value.get('indisponible') is True:
+            if (value.get('indisponible') is True
+                    or value.get('typePari') not in (None, 'SIMPLE_GAGNANT')
+                    or value.get('typeRapport') not in (None, 'DIRECT')):
                 continue
             value=value.get('rapport',value.get('valeur'))
         if isinstance(value,bool):
@@ -36,7 +38,9 @@ def collecter(cache,course,participants,now=None):
     for p in raw:
         if not isinstance(p,dict):continue
         n=_num(p,'numPmu','num','numero','numeroPmu')
-        if n is None:continue
+        if (n is None or p.get('nonPartant') is True
+                or str(p.get('statut', '')).upper() in ('NP', 'NON_PARTANT')):
+            continue
         cote,champ=extraire_cote(p)
         data.append({'numero':n,'cote':cote,'source':'PMU_API_PARTICIPANTS' if cote else '',
                      'champ_pmu':champ or '', 'heure_utc':now.isoformat(),
