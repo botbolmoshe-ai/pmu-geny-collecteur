@@ -1,0 +1,443 @@
+{
+  "date": "2026-11-21",
+  "course": "R2C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NICE GALAXIE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 264000,
+        "gainsVictoires": 0,
+        "gainsPlace": 264000,
+        "gainsAnneeEnCours": 264000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NIMOISE DE NIMES",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 328500,
+        "gainsVictoires": 0,
+        "gainsPlace": 328500,
+        "gainsAnneeEnCours": 328500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NOBLESSE DU ROI",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 375000,
+        "gainsVictoires": 0,
+        "gainsPlace": 375000,
+        "gainsAnneeEnCours": 375000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-19T23:22:37.940366+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "J.CH. FERON",
+      "entraineur": "G. ALAINE",
+      "proprietaire": "G. ALAINE",
+      "musique_pmu": "9a4a0a0aDaDa9aDa4aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2640.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NICE GALAXIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "F. TUGEND",
+      "entraineur": "N. JULIEN",
+      "proprietaire": "Y. LACHAUD",
+      "ferrure": "PA",
+      "musique_pmu": "9a5a3aDa5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 3285.0,
+      "nom": "NIMOISE DE NIMES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "A. GAUDIN",
+      "entraineur": "A. GAUDIN",
+      "proprietaire": "A. GAUDIN",
+      "musique_pmu": "Da2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 3750.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NOBLESSE DU ROI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "CH. MARTENS",
+      "entraineur": "V. MARTENS",
+      "proprietaire": "Steve FARRUGIA",
+      "musique_pmu": "DaDa3a3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 4550.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NODESSA JOSSELYN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "N. JULIEN",
+      "entraineur": "N. JULIEN",
+      "proprietaire": "A. ORSINI",
+      "musique_pmu": "2a6a7a7aDa6a5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 5165.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NOUMEA DE NIMES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "S. STEFANO",
+      "entraineur": "G. TOURON",
+      "proprietaire": "Mlle CL. CRIADO",
+      "musique_pmu": "6aDaDaDa4aDa7a4aDa2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 5785.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NICE FLEUR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "Y.A. BRIAND",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "musique_pmu": "DaDa1mDaDaDa(25)Da",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 6300.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NICKY DES CHARMES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "G. RAFFESTIN",
+      "proprietaire": "G. RAFFESTIN",
+      "musique_pmu": "Da1a4aDa4aDa9a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 9110.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NATASHA CANTATE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "B. RUET",
+      "entraineur": "B. RUET",
+      "proprietaire": "François Eric FEDRY",
+      "musique_pmu": "1a2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 9875.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NINIVICI WIND",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "N. ENSCH",
+      "entraineur": "N. ENSCH",
+      "proprietaire": "Ecurie DARCHE",
+      "ferrure": "PA",
+      "musique_pmu": "2a3aDa3aDa4aDa4aDa7a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 11460.0,
+      "nom": "NATIVEDARCHE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "L. GOETZ",
+      "entraineur": "CHARLES BOUVIER",
+      "proprietaire": "Ecurie des CHARMES",
+      "musique_pmu": "Da7aDaDa8aDa1aDa5a2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 11570.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NATALIA MELODY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "P. REPICHET",
+      "entraineur": "P. REPICHET",
+      "proprietaire": "Christian PAILLET",
+      "musique_pmu": "4a1a6a3a4a4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 11850.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+          "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+        }
+      },
+      "nom": "NOUBA DU PREY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C2/participants",
+        "capture_utc": "2026-11-19T23:22:37.940366+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

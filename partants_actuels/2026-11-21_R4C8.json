@@ -1,0 +1,443 @@
+{
+  "date": "2026-11-21",
+  "course": "R4C8",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NIGHT PIYA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 664000,
+        "gainsVictoires": 540000,
+        "gainsPlace": 124000,
+        "gainsAnneeEnCours": 664000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NENA NINETY NINE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 752000,
+        "gainsVictoires": 0,
+        "gainsPlace": 752000,
+        "gainsAnneeEnCours": 752000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NUIT SAUVAGE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 765500,
+        "gainsVictoires": 607500,
+        "gainsPlace": 158000,
+        "gainsAnneeEnCours": 765500,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-19T23:23:29.232487+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "A. DE VAUGIRAUD",
+      "entraineur": "A. DE VAUGIRAUD",
+      "proprietaire": "Mme N. VIEL-PIERRE",
+      "musique_pmu": "1a4aDa6a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 6640.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NIGHT PIYA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "N. D'HAENENS",
+      "entraineur": "N. D'HAENENS",
+      "proprietaire": "N. D'HAENENS",
+      "musique_pmu": "2a8m9m8a4mDa7aDa5aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 7520.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NENA NINETY NINE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "H.E. BONDO",
+      "proprietaire": "WE DO STRATEGY APS",
+      "musique_pmu": "1a5aDaDa5aDa7a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 7655.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NUIT SAUVAGE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "J. CORBANIE",
+      "proprietaire": "M. BRUYNEEL",
+      "musique_pmu": "8a1aDaDa9a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 7875.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NIKITA D'ORGUEIL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "DAVID LEFEVRE",
+      "entraineur": "Mlle C. LECLERCQ",
+      "proprietaire": "Mlle C. LECLERCQ",
+      "ferrure": "PA",
+      "musique_pmu": "0a4a5a6a0a0aDa8aDa1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 7890.0,
+      "nom": "NEMESIS DES CHAMPS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "Jean-François MOQUET",
+      "proprietaire": "Jean-François MOQUET",
+      "musique_pmu": "7a6a4a4aDa8a3a3a6a4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 8640.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NIKA DU FERS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "LYNUS LANNOO",
+      "entraineur": "A. LANNOO",
+      "proprietaire": "Mme Frans DRYEPONDT",
+      "musique_pmu": "5a5a8a1a4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 8770.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NOUNE D'OSTENDE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "J.R. DELLIAUX",
+      "proprietaire": "Ecurie du DAMIER",
+      "ferrure": "P4",
+      "musique_pmu": "1a3aDaDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 8850.0,
+      "nom": "NESMILE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "E. HERBEAU",
+      "entraineur": "F. DELENCLOS",
+      "proprietaire": "A. GANTIER",
+      "musique_pmu": "Da4a0a0a2a7a4aDa6a5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 8900.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NIKITA DE MONCHEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Mlle Floriane FOSSARD",
+      "musique_pmu": "2a1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 8900.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NOTRE FOLIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "JULIEN RAFFESTIN",
+      "entraineur": "Julien RAFFESTIN",
+      "proprietaire": "Ecurie WARRIORS",
+      "musique_pmu": "8a4a2a2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 9055.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NUIT MAGIQUE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "O. BIZOUX",
+      "entraineur": "O. BIZOUX",
+      "proprietaire": "Mme M. BIZOUX",
+      "musique_pmu": "5a4a1a5a8a8a7a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 9130.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+          "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+        }
+      },
+      "nom": "NEW GIRL MELOC",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C8/participants",
+        "capture_utc": "2026-11-19T23:23:29.232487+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

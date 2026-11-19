@@ -1,0 +1,425 @@
+{
+  "date": "2026-11-21",
+  "course": "R2C6",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LANNISTER",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 6855000,
+        "gainsVictoires": 2745000,
+        "gainsPlace": 4110000,
+        "gainsAnneeEnCours": 3437000,
+        "gainsAnneePrecedente": 3418000
+      }
+    },
+    {
+      "nom": "LAVAMA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 6934500,
+        "gainsVictoires": 4342500,
+        "gainsPlace": 2592000,
+        "gainsAnneeEnCours": 1821500,
+        "gainsAnneePrecedente": 3655000
+      }
+    },
+    {
+      "nom": "LOIC BARON",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 7012000,
+        "gainsVictoires": 2385000,
+        "gainsPlace": 4627000,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 3221000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-19T23:22:44.533772+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "P. VERCRUYSSE",
+      "entraineur": "P. VERCRUYSSE",
+      "proprietaire": "Mme L. VERCRUYSSE",
+      "musique_pmu": "5a6a2a1a2a3a6a(25)2a1a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 68550.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "nom": "LANNISTER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "N. ENSCH",
+      "entraineur": "N. ENSCH",
+      "proprietaire": "Ecurie Nicolas ENSCH",
+      "musique_pmu": "7a9a6aDa2a4a6a1a(25)5a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 69345.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "nom": "LAVAMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "F. TUGEND",
+      "entraineur": "R. MOURICE",
+      "proprietaire": "Ecurie Des AULNAIES",
+      "musique_pmu": "0a(25)0a0a6a0aDa4a2a1a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 70120.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "nom": "LOIC BARON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "P. REPICHET",
+      "entraineur": "N. ENSCH",
+      "proprietaire": "Ecurie Nicolas ENSCH",
+      "musique_pmu": "9m6mDm6a7a8a3a8m2a8a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 71050.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "nom": "LAWMAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "D. BEKAERT",
+      "entraineur": "CH. CUILLER",
+      "proprietaire": "Ecurie du Haras de L'EPINAY",
+      "ferrure": "D4",
+      "musique_pmu": "6a0aDa5m2aDaDm2mDa5a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 72970.0,
+      "nom": "LETTY DE BEYLEV",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "D4",
+      "musique_pmu": "8a5a3a3a3a3a7a7a(25)1a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 74125.0,
+      "nom": "L'AMIRAL FLOWER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "L. LAMAZIERE",
+      "entraineur": "M. BONNEFOY",
+      "proprietaire": "R. MARGAINE",
+      "ferrure": "D4",
+      "musique_pmu": "5a1a2a4aDa7aAa7a5a1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 74770.0,
+      "nom": "LIBERATA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "N. MORTAGNE",
+      "entraineur": "R. LE VEXIER",
+      "proprietaire": "Simon ZURIA",
+      "ferrure": "PA",
+      "musique_pmu": "5aDa3a1a1a3aDa3a8a8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 76080.0,
+      "nom": "LOVELY LA CHENAIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "D. CINIER",
+      "entraineur": "D. CINIER",
+      "proprietaire": "D. CINIER",
+      "ferrure": "P4",
+      "musique_pmu": "7a6a2a3a5a5a4a3aDa1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 76185.0,
+      "nom": "LILIBETH SMART",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "S. CINGLAND",
+      "entraineur": "M. BONNEFOY",
+      "proprietaire": "L. HUET",
+      "ferrure": "DA/PP",
+      "musique_pmu": "0aDaDaDaDa0a9a(25)5aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 76490.0,
+      "nom": "L'ESPOIR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "TH. PRUDHON",
+      "entraineur": "E. PRUDHON",
+      "proprietaire": "Ecurie DUEM",
+      "ferrure": "DA",
+      "musique_pmu": "1a9a0aDaDa7a7a9a8aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 77455.0,
+      "nom": "LOVE ME TRUE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "S. LALOUM",
+      "entraineur": "S. LALOUM",
+      "proprietaire": "A. LALOUM",
+      "ferrure": "D4",
+      "musique_pmu": "AaDm4a4m8a4a8a8a8a6a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 78530.0,
+      "nom": "L'AVENIR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+        "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R2/C6/participants",
+          "capture_utc": "2026-11-19T23:22:44.533772+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

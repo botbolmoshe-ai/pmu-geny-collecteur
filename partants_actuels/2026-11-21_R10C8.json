@@ -1,0 +1,517 @@
+{
+  "date": "2026-11-21",
+  "course": "R10C8",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MISS SCARLET",
+      "deferre": "PROTEGE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2228500,
+        "gainsVictoires": 697500,
+        "gainsPlace": 1531000,
+        "gainsAnneeEnCours": 729500,
+        "gainsAnneePrecedente": 1499000
+      }
+    },
+    {
+      "nom": "MILAMONDINA",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2389000,
+        "gainsVictoires": 607500,
+        "gainsPlace": 1781500,
+        "gainsAnneeEnCours": 1768000,
+        "gainsAnneePrecedente": 621000
+      }
+    },
+    {
+      "nom": "MEET AND GREET",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2246000,
+        "gainsVictoires": 742500,
+        "gainsPlace": 1503500,
+        "gainsAnneeEnCours": 1200500,
+        "gainsAnneePrecedente": 949500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-19T23:23:07.418773+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "L. TRAVERT",
+      "entraineur": "E. GARNIER",
+      "proprietaire": "Yannick JORE",
+      "ferrure": "PP",
+      "musique_pmu": "8a0a3a2a7a6a8a9a7a(25)",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 22285.0,
+      "nom": "MISS SCARLET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "L.F. LARUE",
+      "entraineur": "A. REVEILLON",
+      "proprietaire": "A. REVEILLON",
+      "ferrure": "PA",
+      "musique_pmu": "1a4a7a4a2a4a2aDa4a7a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 23890.0,
+      "nom": "MILAMONDINA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "R. VILAULT",
+      "entraineur": "D. LOCQUENEUX",
+      "proprietaire": "Ecurie LUCKY 8 RACING",
+      "ferrure": "D4",
+      "musique_pmu": "0a1a2a4aDa(25)4a4a3a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 22460.0,
+      "nom": "MEET AND GREET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "A. LAY POTTIER",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie Marc SASSIER",
+      "musique_pmu": "0a2a6a(25)6a1a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 22850.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "nom": "MA LILI GEMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "J. LEVESQUE",
+      "entraineur": "J.P. MARMION",
+      "proprietaire": "Ecurie Jean Paul MARMION",
+      "musique_pmu": "5a9a6a5a1a(25)2a1a6a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 23850.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "nom": "MAGIE DU LUPIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "R. HERNOT",
+      "entraineur": "J.P. MARMION",
+      "proprietaire": "Ecurie Jean Paul MARMION",
+      "musique_pmu": "2a1aDaDa8a2a(25)4a2a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 22150.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "nom": "MOME DU LUPIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "G. GILARD",
+      "entraineur": "R. BERNIER",
+      "proprietaire": "S. BERNIER",
+      "ferrure": "D4",
+      "musique_pmu": "3a1a4a7a3a3a1a3a4aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 22695.0,
+      "nom": "MAJESTY TECE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mme L. DERSOIR",
+      "entraineur": "Mme C. HALLAIS-DERSOIR",
+      "proprietaire": "Ecurie JELOCA",
+      "musique_pmu": "2aDa7a4a9aDa3a2aDa4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18045.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "nom": "MEDINA DU RIB",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "C. GILLET",
+      "entraineur": "J.L. DERSOIR",
+      "proprietaire": "Ecurie LUCK",
+      "musique_pmu": "Da1a0a6aDa2a8a4a7a(25)",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 21340.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "nom": "MERVEILLE DE JIEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "N. ROUSSEAU",
+      "entraineur": "S. ROGER",
+      "proprietaire": "Ecurie La PETTEVINIERE",
+      "ferrure": "D4",
+      "musique_pmu": "DaDaDa5a5aDa7aDaDa1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 21285.0,
+      "nom": "MARIE LOU DE LARRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "K. BROSSARD",
+      "entraineur": "PH. DAUGEARD",
+      "proprietaire": "Matthias BIGOT",
+      "ferrure": "DP",
+      "musique_pmu": "4a4a3a3a7a2a0a7a8a(25)",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 19100.0,
+      "nom": "MASCOTTE DU PERCHE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "L. BELLOCHE",
+      "entraineur": "P. BELLOCHE",
+      "proprietaire": "Mme E. BELLOCHE-TINOIS",
+      "musique_pmu": "1aDa0aDa1aDaDa5a(25)1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 20175.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "nom": "MUSICIENNE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "N. PICARD",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "M. ALADENISE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a7a5a5m9a0a4aDa1a(25)",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 22060.0,
+      "nom": "MISS LOVE BERRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "LOUIS FORTIN",
+      "entraineur": "G. LESSIEU",
+      "proprietaire": "A. GARNIER",
+      "ferrure": "P4",
+      "musique_pmu": "6aDa7aDa5a8a7aDa8aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 3505.0,
+      "nom": "MALA STRANA DE MA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+        "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C8/participants",
+          "capture_utc": "2026-11-19T23:23:07.418773+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

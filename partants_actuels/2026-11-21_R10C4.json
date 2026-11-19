@@ -1,0 +1,472 @@
+{
+  "date": "2026-11-21",
+  "course": "R10C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MIGHTY DU DOME",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1861500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1861500,
+        "gainsAnneeEnCours": 1149000,
+        "gainsAnneePrecedente": 712500
+      }
+    },
+    {
+      "nom": "MACHISTADOR",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2119500,
+        "gainsVictoires": 1170000,
+        "gainsPlace": 949500,
+        "gainsAnneeEnCours": 1509500,
+        "gainsAnneePrecedente": 610000
+      }
+    },
+    {
+      "nom": "MISTER LOVE QUICK",
+      "deferre": "PROTEGE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1990500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1990500,
+        "gainsAnneeEnCours": 1670500,
+        "gainsAnneePrecedente": 320000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-19T23:22:45.492793+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "K. BROSSARD",
+      "entraineur": "PH. DAUGEARD",
+      "proprietaire": "Ecurie Philippe DAUGEARD",
+      "ferrure": "DP",
+      "musique_pmu": "0a4a2a3a4a2aDaDaDa0a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 18615.0,
+      "nom": "MIGHTY DU DOME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "R. VILAULT",
+      "entraineur": "G. HOUEL",
+      "proprietaire": "Ecurie H.G. HOUEL",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da8a1aDa4a2aDa5aDa6a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 21195.0,
+      "nom": "MACHISTADOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "L. TRAVERT",
+      "entraineur": "E. GARNIER",
+      "proprietaire": "Yannick JORE",
+      "ferrure": "PP",
+      "musique_pmu": "3a7a8aDa8a4aDm2a5aDm",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 19905.0,
+      "nom": "MISTER LOVE QUICK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Mlle E. KARLEN",
+      "entraineur": "G. LESSIEU",
+      "proprietaire": "G. LESSIEU",
+      "ferrure": "DP",
+      "musique_pmu": "5a6a3a6a2a3a6a0a7aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 19545.0,
+      "nom": "MERCURE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "R. LEVILLAIN",
+      "entraineur": "A. HUBERT",
+      "proprietaire": "B. COLIN",
+      "ferrure": "D4",
+      "musique_pmu": "1a2a1a(25)7m3a9a3a4aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 23715.0,
+      "nom": "MUGUET DE MAI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "J. MAILLARD",
+      "entraineur": "J. DESHAYES",
+      "proprietaire": "J. DESHAYES",
+      "ferrure": "D4",
+      "musique_pmu": "1a5a4a6a4a3a0aAa4a4a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 22150.0,
+      "nom": "MANHATTAN BEAT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "TH. ROUSSIN",
+      "entraineur": "A.G. MAILLARD",
+      "proprietaire": "A. HOLLIE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1a5aDa4aDa4a7a2a8a4a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 22440.0,
+      "nom": "METEORE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "N. ERNAULT",
+      "entraineur": "W. MICHEL",
+      "proprietaire": "PH.L. LEVASSEUR",
+      "ferrure": "D4",
+      "musique_pmu": "9m5a4a6a4a7a3a3a3a6a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 18145.0,
+      "nom": "MILORD DE COQUERIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "P.E. COLLARD",
+      "entraineur": "St. PROVOOST",
+      "proprietaire": "Ecurie DANOVER",
+      "musique_pmu": "0a6aDa0aDm6a0a4m3m2a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 14480.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "nom": "MY TOP GIFT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. LAY POTTIER",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Pascal GERARD",
+      "ferrure": "D4",
+      "musique_pmu": "6a2a6a2a(25)1aDa3a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 15750.0,
+      "nom": "MISTER DRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "FRANCOIS LECATHELINAIS",
+      "entraineur": "Fabio PASQUALIN",
+      "proprietaire": "J. GUITTON",
+      "ferrure": "DP",
+      "musique_pmu": "6aDa8aDaDa(25)0a7a4a7a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 1605.0,
+      "nom": "MILLE VOLTS JERSOP",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "A. BORDEAU",
+      "entraineur": "H. COMBOT",
+      "proprietaire": "H. COMBOT",
+      "ferrure": "D4",
+      "musique_pmu": "0a3a0a0a1a0aDa(25)0a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 7585.0,
+      "nom": "MAZOU DE L'ITON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "L. DIABAT",
+      "entraineur": "J.P. DIABAT",
+      "proprietaire": "J.P. DIABAT",
+      "ferrure": "DP",
+      "musique_pmu": "8a5a3a8a8a4a7a3a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 5295.0,
+      "nom": "MOUSHTICK SEPTHEMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+        "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C4/participants",
+          "capture_utc": "2026-11-19T23:22:45.492793+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

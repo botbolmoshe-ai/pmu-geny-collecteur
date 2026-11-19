@@ -1,0 +1,502 @@
+{
+  "date": "2026-11-21",
+  "course": "R4C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KALA DES RACQUES",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5098500,
+        "gainsVictoires": 1282500,
+        "gainsPlace": 3816000,
+        "gainsAnneeEnCours": 1385500,
+        "gainsAnneePrecedente": 1012000
+      }
+    },
+    {
+      "nom": "KLARISSA",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4959000,
+        "gainsVictoires": 2430000,
+        "gainsPlace": 2529000,
+        "gainsAnneeEnCours": 1528500,
+        "gainsAnneePrecedente": 1263000
+      }
+    },
+    {
+      "nom": "KELIADE DE L'ITON",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5205000,
+        "gainsVictoires": 1710000,
+        "gainsPlace": 3495000,
+        "gainsAnneeEnCours": 717000,
+        "gainsAnneePrecedente": 2262500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-19T23:23:26.107136+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "N. PIERQUIN",
+      "entraineur": "Sté. Ent. Charles CRIADO",
+      "proprietaire": "Ecurie KARIBOU",
+      "ferrure": "D4",
+      "musique_pmu": "5a5aDa1a7a2aDa3a0aDa",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 50985.0,
+      "nom": "KALA DES RACQUES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "L. CUEFF",
+      "entraineur": "A. LANNOO",
+      "proprietaire": "Mme Michel HAGON",
+      "ferrure": "D4",
+      "musique_pmu": "Dm4a3a9a0a9a5a4a9a1a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 49590.0,
+      "nom": "KLARISSA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "FL. BUTTIER",
+      "entraineur": "HUGHES LEVESQUE",
+      "proprietaire": "Ecurie de l' ITON",
+      "ferrure": "D4",
+      "musique_pmu": "1a4aDa8a(25)5a2aDa2a4a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 52050.0,
+      "nom": "KELIADE DE L'ITON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Mme L. MARION",
+      "entraineur": "D. KUMPEN",
+      "proprietaire": "D. KUMPEN",
+      "ferrure": "D4",
+      "musique_pmu": "Da4a1a2aDaDa3a2a5a2a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 53140.0,
+      "nom": "KONSPIRATOR GAME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "L. PITON",
+      "entraineur": "P. GODEY",
+      "proprietaire": "Th. BLOQUET",
+      "ferrure": "D4",
+      "musique_pmu": "5aDaDaDm0a8a6a1aDa2a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 46375.0,
+      "nom": "KORLEON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "D. THIEFAINE",
+      "entraineur": "J. KOUBICHE",
+      "proprietaire": "CH. MONTAIGNE",
+      "ferrure": "D4",
+      "musique_pmu": "2a2a2aDa0a0aDm3m2a8a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 48830.0,
+      "nom": "KUROSIO DES LOVES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "A. THOLLAS",
+      "entraineur": "Ch. NICOLE",
+      "proprietaire": "Benoît MACAIGNE",
+      "ferrure": "D4",
+      "musique_pmu": "Da0a0aDaDmDaDaDa7a9a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 48685.0,
+      "nom": "KINDER DE LA NAVE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "E. HANOT",
+      "entraineur": "M. DUPUIS",
+      "proprietaire": "R. HEMERY",
+      "ferrure": "D4",
+      "musique_pmu": "Aa9m8m0aDaDaDa6a6a0a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 41650.0,
+      "nom": "KALIE DU BLEQUIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "J. DENISOT",
+      "entraineur": "B. BARBIER",
+      "proprietaire": "P.A. DUPIRE",
+      "ferrure": "D4",
+      "musique_pmu": "8a5a8a9a2a1a7aDa7a0a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 41375.0,
+      "nom": "KAKI DE VAL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "N. BECQUET",
+      "entraineur": "V. SOYEZ",
+      "proprietaire": "S. DALES",
+      "ferrure": "D4",
+      "musique_pmu": "6a7aDa5aDa5a7a(25)3a8a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 42045.0,
+      "nom": "KELLE BLEUE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "ADRIEN RAFFEGEAU",
+      "entraineur": "D. KUMPEN",
+      "proprietaire": "D. KUMPEN",
+      "ferrure": "DP",
+      "musique_pmu": "Da8aDaDa0a0aDa0a(25)0a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 35520.0,
+      "nom": "KAPITAN TER BLEKTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "M. GARCON",
+      "entraineur": "B. HOJKA",
+      "proprietaire": "Mme Sonja BIASINO",
+      "ferrure": "D4",
+      "musique_pmu": "DaDa7a6a4a3a0a0a(25)3a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 45115.0,
+      "nom": "KIPLING IRON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "LORIS BIZOUX",
+      "entraineur": "B. BARBIER",
+      "proprietaire": "B. BARBIER",
+      "ferrure": "D4",
+      "musique_pmu": "7a8a0a8aDa4a5a9a7a5a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 27205.0,
+      "nom": "KHEOPS DE L'EST",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "Mme L. CHARRIAUD",
+      "entraineur": "E. BEUDARD",
+      "proprietaire": "E. BEUDARD",
+      "musique_pmu": "5m2m6m9m6m4m6m(25)0m3m",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 44420.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+          "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+        }
+      },
+      "nom": "KISSME COOL D'EB",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R4/C5/participants",
+        "capture_utc": "2026-11-19T23:23:26.107136+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}
