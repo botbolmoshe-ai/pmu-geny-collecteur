@@ -2,9 +2,9 @@
   "date": "2026-11-19",
   "course": "R4C1",
   "depart": "2026-11-19T16:50:00+01:00",
-  "calcul_utc": "2026-11-19T05:49:31.017950+01:00",
+  "calcul_utc": "2026-11-19T07:49:53.794030+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-19T05:49:30.921760+01:00",
+  "donnees_observees_utc": "2026-11-19T07:49:53.671012+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [],
   "statut": "COMPLET",
@@ -124,6 +124,20 @@
       "identifiant_historique": "2782038"
     },
     {
+      "numero": 9,
+      "nom": "KARAMEL DES BOSC",
+      "score_direct": 1.2548,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_PARTIEL",
+      "musique_exploitable": 5,
+      "historique_exploitable": 1,
+      "distance_proche": 0,
+      "comparabilite_moyenne": 0.25,
+      "ferrures_historiques_comparees": 1,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2770250"
+    },
+    {
       "numero": 7,
       "nom": "KINGSTON DU DOME",
       "score_direct": 1.0967,
@@ -178,20 +192,6 @@
       "ferrures_historiques_comparees": 13,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": "2767522"
-    },
-    {
-      "numero": 9,
-      "nom": "KARAMEL DES BOSC",
-      "score_direct": 0.7474,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
     },
     {
       "numero": 4,
@@ -349,7 +349,10 @@
       "crack": null,
       "gains_carriere_euros": 72345.0,
       "haut_potentiel": null,
-      "sorties_verifiees": 0
+      "sorties_verifiees": 1,
+      "historique_extrait_utc": "2026-11-19T05:08:26.432660+00:00",
+      "source_historique": "https://www.geny.com/cheval/2770250-karamel-des-bosc/course/1699040",
+      "identifiant_historique": "2770250"
     },
     "10": {
       "nom": "KAPRICE D'EVAILLES",
@@ -409,8 +412,8 @@
   },
   "couverture_sources": {
     "pmu_musique": 14,
-    "geny_historique": 13,
-    "pmu_seul": 1,
+    "geny_historique": 14,
+    "pmu_seul": 0,
     "sans_score": 0,
     "effectif_declare_confirme": true
   },

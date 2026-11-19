@@ -2,29 +2,15 @@
   "date": "2026-11-19",
   "course": "R3C3",
   "depart": "2026-11-19T17:08:00+01:00",
-  "calcul_utc": "2026-11-19T05:49:31.846642+01:00",
+  "calcul_utc": "2026-11-19T07:50:09.718325+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-19T05:49:31.753938+01:00",
+  "donnees_observees_utc": "2026-11-19T07:50:09.607067+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [],
   "statut": "PARTIEL",
   "observations": 8,
   "partants_eligibles": 10,
   "classement_complet": [
-    {
-      "numero": 4,
-      "nom": "KRACDARCHE",
-      "score_direct": 5.0,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 1,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
     {
       "numero": 8,
       "nom": "KADOR DELO",
@@ -38,6 +24,20 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 4,
+      "nom": "KRACDARCHE",
+      "score_direct": 3.0678,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 1,
+      "historique_exploitable": 4,
+      "distance_proche": 4,
+      "comparabilite_moyenne": 0.5018,
+      "ferrures_historiques_comparees": 4,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2762183"
     },
     {
       "numero": 7,
@@ -84,16 +84,16 @@
     {
       "numero": 10,
       "nom": "KERSIGAN",
-      "score_direct": 1.1579,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
+      "score_direct": 1.4886,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
       "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
+      "historique_exploitable": 12,
+      "distance_proche": 10,
+      "comparabilite_moyenne": 0.4583,
+      "ferrures_historiques_comparees": 12,
       "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
+      "identifiant_historique": "2783334"
     },
     {
       "numero": 9,
@@ -112,33 +112,19 @@
     {
       "numero": 3,
       "nom": "KAPITEN DU MELEUC",
-      "score_direct": 0.0,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
+      "score_direct": 0.7592,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_PARTIEL",
       "musique_exploitable": 1,
-      "historique_exploitable": 0,
+      "historique_exploitable": 1,
       "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
+      "comparabilite_moyenne": 0.327,
+      "ferrures_historiques_comparees": 1,
       "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
+      "identifiant_historique": "2771935"
     }
   ],
   "top3": [
-    {
-      "numero": 4,
-      "nom": "KRACDARCHE",
-      "score_direct": 5.0,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 1,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
-    },
     {
       "numero": 8,
       "nom": "KADOR DELO",
@@ -152,6 +138,20 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
+    },
+    {
+      "numero": 4,
+      "nom": "KRACDARCHE",
+      "score_direct": 3.0678,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 1,
+      "historique_exploitable": 4,
+      "distance_proche": 4,
+      "comparabilite_moyenne": 0.5018,
+      "ferrures_historiques_comparees": 4,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2762183"
     },
     {
       "numero": 7,
@@ -254,8 +254,8 @@
   },
   "couverture_sources": {
     "pmu_musique": 8,
-    "geny_historique": 0,
-    "pmu_seul": 8,
+    "geny_historique": 3,
+    "pmu_seul": 5,
     "sans_score": 2,
     "effectif_declare_confirme": true
   },
