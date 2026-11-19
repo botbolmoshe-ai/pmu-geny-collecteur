@@ -63,6 +63,9 @@ class EcheancesTests(unittest.TestCase):
         failed = e.enregistrer_publication(self.cache, now, plan, True, sheets=proof)
         self.assertIn('TOP3_NON_CONFIRME_SHEETS', {row['motif'] for row in failed['erreurs']})
         self.assertFalse((self.cache/'publications'/f'{self.key}.json').exists())
+        direct_only = e.lire(self.cache/'publications'/'direct'/f'{self.key}.json')
+        self.assertEqual(set(direct_only['versions']), {'direct'})
+        self.assertEqual(direct_only['versions']['direct']['lecture_sheets_utc'], now.isoformat())
 
         report = e.enregistrer_publication(self.cache, now, plan, True, sheets=e.preuves_sheets(rows, now))
         self.assertEqual(report['erreurs'], [])

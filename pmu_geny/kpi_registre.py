@@ -128,6 +128,23 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
         ('Écart ML contre direct','ecart_ml_direct','Écart moyen sur courses appariées ; aucune garantie de gain futur.'),
         ('TOP3 ML exacts','exact_3_sur_3_ml','Nombre de courses avec trois chevaux retrouvés, sur le dénominateur Courses évaluées.')):
         operational.append(metric('ML prospectif · '+label,performance.get(field) if performance.get(field) is not None else '',definition))
+    start = performance.get('candidat_depart')
+    if start:
+        interval = (start.get('comparaison') or {}).get('ic95_bootstrap_par_course', (None, None))
+        for label, value, definition in (
+            ('Contrôle UTC', performance.get('controle_utc'), 'Dernier calcul prospectif.'),
+            ('Statut', start['statut'], 'État de l’évaluation de la variante de forme par mode de départ.'),
+            ('Courses direct évaluables', start.get('direct_evaluable'), 'TOP3 direct relu dans Sheets avant départ et arrivée PMU vérifiée.'),
+            ('Courses appariées', start['courses'], 'Variante et référence conservées dans la même version du TOP3 direct.'),
+            ('Moyenne variante sur 3', start.get('moyenne'), 'Chevaux du podium retrouvés, sur les courses appariées.'),
+            ('Moyenne direct sur 3', start.get('moyenne_direct'), 'Référence directe sur les mêmes courses.'),
+            ('Écart variante − direct', start.get('ecart_moyen'), 'Écart de chevaux retrouvés par course appariée.'),
+            ('Borne basse IC 95 %', interval[0], 'Bootstrap des écarts appariés par course.'),
+            ('Borne haute IC 95 %', interval[1], 'Bootstrap des écarts appariés par course.'),
+            ('Courses avec 3 sur 3', start.get('exact_3_sur_3'), 'Variante expérimentale, sur les courses appariées.'),
+            ('Courses avec au moins 2 sur 3', start.get('au_moins_2_sur_3'), 'Variante expérimentale, sur les courses appariées.'),
+        ):
+            operational.append(metric('Autostart prospectif · ' + label, '' if value is None else value, definition))
     from .echeances_production import courses_du_jour, PHASES, ANTICIPATION, instant
     day,courses=courses_du_jour(cache,now)
     for phase,offset in PHASES.items():
@@ -342,12 +359,19 @@ def totaux_reference(metrics):
     if prospective_maturity is not None:
         totals.update({label: prospective_maturity for label in metrics if label.startswith(
             ('Maturité ML · Taux de 3 sur 3', 'Maturité ML · Taux d’au moins 2 sur 3'))})
+    direct = value('Autostart prospectif · Courses direct évaluables')
+    paired = value('Autostart prospectif · Courses appariées')
+    if direct is not None:
+        totals['Autostart prospectif · Courses appariées'] = direct
+    if paired is not None:
+        totals['Autostart prospectif · Courses avec 3 sur 3'] = paired
+        totals['Autostart prospectif · Courses avec au moins 2 sur 3'] = paired
     prospective=value('ML prospectif · Courses évaluées')
     if prospective is not None:totals['ML prospectif · TOP3 ML exacts']=prospective
     return totals
 
 
-PUBLISHED_PREFIXES = ('ML expérimental · ', 'ML prospectif · ', 'Maturité ML · ',
+PUBLISHED_PREFIXES = ('ML expérimental · ', 'ML prospectif · ', 'Maturité ML · ', 'Autostart prospectif · ',
                       'Échéances · ', 'Collecte · ', 'Cotes PMU · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ')
 
 

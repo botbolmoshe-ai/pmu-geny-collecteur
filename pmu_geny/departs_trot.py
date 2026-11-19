@@ -4,6 +4,7 @@ from .selection_metier_v20_4 import normaliser, normaliser_hippodrome
 
 FAQ_PMU = ('https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/'
            'comment-fonctionne-autostart-course-hippique/')
+POIDS_FORME_MEME_DEPART = 0.10
 CAPACITES_PAR_PARCOURS = {
     ('vincennes', 2100): 9,
     ('cabourg', 2725): 7,

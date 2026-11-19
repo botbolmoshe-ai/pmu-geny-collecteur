@@ -36,6 +36,8 @@ def quality_sections(kpis, query=""):
         # These new metrics can still be published under the generic ML dimension.
         if label.startswith("Maturité ML · "):
             dimension = "Maturité ML"
+        elif label.startswith("Autostart prospectif · "):
+            dimension = "Autostart prospectif"
         elif label.startswith("Échéances · "):
             dimension = "Échéances"
         elif label.startswith("Collecte · "):

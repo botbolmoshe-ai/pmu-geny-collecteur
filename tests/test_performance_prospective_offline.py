@@ -46,6 +46,31 @@ class ProspectiveTests(unittest.TestCase):
         sauver(path,{**original,'top3':[{'numero':n} for n in (6,7,8)]})
         self.assertEqual(mesurer(self.cache,self.now)['moyenne_ml'],3)
 
+    def test_depart_apparie_au_direct_sans_publication_ml(self):
+        proof = self.certificate['versions']['direct']
+        path = self.cache / proof['fichier']
+        doc = lire(path)
+        doc['classement_complet'] = [{'numero': n} for n in (1, 2, 3, 4, 5)]
+        doc['candidat_depart'] = {'poids': 0.10, 'top3': [1, 2, 3], 'partants_avec_forme_meme_depart': 2}
+        sauver(path, doc)
+        proof['sha256'] = hashlib.sha256(path.read_bytes()).hexdigest()
+        proof['lecture_sheets_utc'] = proof['publication_utc']
+        (self.cache / 'publications' / f'{self.key}.json').unlink()
+        sauver(self.cache / 'publications' / 'direct' / f'{self.key}.json',
+               {'depart': self.depart.isoformat(), 'versions': {'direct': proof}})
+
+        report = mesurer(self.cache, self.now)
+        self.assertEqual(report['courses'], 0)
+        variant = report['candidat_depart']
+        self.assertEqual((variant['courses'], variant['direct_evaluable']), (1, 1))
+        self.assertEqual((variant['moyenne'], variant['moyenne_direct']), (3, 1))
+        self.assertIsNone(variant['comparaison'])
+
+        proof.pop('lecture_sheets_utc')
+        sauver(self.cache / 'publications' / 'direct' / f'{self.key}.json',
+               {'depart': self.depart.isoformat(), 'versions': {'direct': proof}})
+        self.assertEqual(mesurer(self.cache, self.now)['candidat_depart']['courses'], 0)
+
     def test_ferrure_inconnue_reste_vide_et_convention_est_distincte(self):
         p=qualifier_ferrure({'ferrure':'INCONNU_X'})
         self.assertEqual(p['ferrure'],'');self.assertEqual(p['ferrure_brute'],'INCONNU_X')

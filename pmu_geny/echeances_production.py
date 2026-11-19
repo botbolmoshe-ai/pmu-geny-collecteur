@@ -206,6 +206,9 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
             if 'direct' in proofs:
                 from .maturite_ml import certify_shadow
                 certify_shadow(cache, key, proofs['direct'], now)
+                if sheets is not None:
+                    sauver(cache/'publications'/'direct'/f'{key}.json',
+                           {'course': key, 'depart': depart.isoformat(), 'versions': {'direct': proofs['direct']}})
             if len(proofs) == 2:
                 sauver(cache/'publications'/f'{key}.json',
                        {'course':key,'depart':depart.isoformat(),'versions':proofs})
