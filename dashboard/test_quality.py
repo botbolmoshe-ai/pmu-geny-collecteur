@@ -28,6 +28,20 @@ class QualityTests(unittest.TestCase):
         self.assertEqual(published["Nombre / valeur"], "90,0 %")
         self.assertEqual(published["Total"], "3\u202f000")
 
+    def test_geny_identity_indicators_keep_their_own_counts(self):
+        values = {
+            "Chevaux non identifiés (noms distincts)": 1000,
+            "Contextes sans identifiant Geny": 1005,
+            "Chevaux identifiés sans carrière complète": 24,
+        }
+        rows = [{"Indicateur": "Rattrapage · "+label, "Valeur (automatique)": value}
+                for label, value in values.items()]
+        published = quality_sections(rows)["Rattrapage"]
+        self.assertEqual([row["Indicateur"] for row in published],
+                         ["Rattrapage · "+label for label in values])
+        self.assertEqual([row["Nombre / valeur"] for row in published],
+                         ["1\u202f000", "1\u202f005", "24"])
+
     def test_sections_and_search_include_descriptions(self):
         rows=[{"Dimension":"ML","Indicateur":"Échéances · H1 ouvertes","Valeur (automatique)":8,"Définition / réserve":"Avant départ"},
               {"Dimension":"ML","Indicateur":"Collecte · Rejets dernier passage","Valeur (automatique)":0},{}]

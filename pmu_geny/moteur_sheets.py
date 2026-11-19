@@ -255,6 +255,10 @@ class SynchroniseurSheets:
                         raise ErreurSynchronisation('Vérification Sheets KPI échouée : ' + key)
             if seen != managed.keys():
                 raise ErreurSynchronisation('Indicateurs KPI absents après synchronisation')
+            identity = {key: managed[key][0] for key in sorted(seen)
+                        if key.startswith(('Rattrapage · Chevaux ', 'Rattrapage · Contextes '))}
+            if identity:
+                print('KPI_IDENTIFICATION_GENY_VERIFIES ' + json.dumps(identity, ensure_ascii=False), flush=True)
             print(f'KPI_MATURITE_ML_VERIFIES={sum(k.startswith("Maturité ML · ") for k in seen)}',
                   f'KPI_SHEETS_VERIFIES={len(seen)}', flush=True)
         if relire_courses:
