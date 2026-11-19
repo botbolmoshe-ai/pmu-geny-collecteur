@@ -8,7 +8,8 @@ from __future__ import annotations
 import csv
 from datetime import datetime, timezone
 from pathlib import Path
-from .ml_v19 import load, save, numeric
+from .ml_v19 import load, save
+from .cotes_v19 import dernier_releve, instant
 
 
 def analyser_course(cache, course, manifest):
@@ -21,19 +22,16 @@ def analyser_course(cache, course, manifest):
     base=load(cache/'pronostics'/f'{key}_top3.json',{}) or {}
     base_final=load(cache/'pronostics'/f'{key}_baseline_latest.json',{}) or base
     ml=load(cache/'pronostics'/f'{key}_ml_latest.json',{}) or {}
-    odds=load(cache/'cotes'/f'{key}.json',{}) or {}
+    odds=dernier_releve(cache, course)
     participants=manifest['courses'][0]['partants']
     codes={int(h['numero']):h.get('nom','') for h in participants}
     # N'utiliser que les dernières cotes relevées avant le départ.
-    try: departure=datetime.fromisoformat(course['depart'])
-    except (ValueError,KeyError):return 'DEPART_INVALIDE'
-    valid_odds={}
-    for h in odds.get('chevaux',[]):
-        try:
-            n=int(h['numero']);t=datetime.fromisoformat(h['heure_utc']);o=numeric(h.get('cote'))
-            if t.tzinfo is None or departure.tzinfo is None or t>departure or o is None or o<=0:continue
-            valid_odds[n]=o
-        except (ValueError,TypeError,KeyError):continue
+    departure = instant(course.get('depart'))
+    if not departure:
+        return 'DEPART_INVALIDE'
+    valid_odds = {h['numero']: h['cote'] for h in odds.get('chevaux', [])
+                  if h.get('cote') is not None and (observed := instant(h.get('heure_utc')))
+                  and observed < departure}
     market_order=sorted(valid_odds,key=lambda n:(valid_odds[n],n))
     market_rank={n:i for i,n in enumerate(market_order,1)}
     def ranking(doc):

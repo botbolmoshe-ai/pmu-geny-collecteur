@@ -10,9 +10,7 @@ d'index, puis les mises à jour utilisent les nouvelles positions.
 
 - Courses & Prévisions : `ml_proba_podium` (aucune calibration disponible),
   `synthese_actualite` (ancienne synthèse multisources, redondante avec PMU),
-  `divergences_sources` (restes des comparaisons Equidia/ZEturf),
-  `top3_cotes_top3`, `top3_cotes_statut`, `top3_cotes_utc`
-  (aucune cote ni sélection effectivement publiée sur les lignes auditées).
+  `divergences_sources` (restes des comparaisons Equidia/ZEturf).
 - Historique chevaux : `rncn`, `nombre_partants`, `gains_course_eur`,
   `driver_jockey`, `entraineur`, `date_source` (champs hérités, sans alimentation
   régulière dans le collecteur historique actuel).
@@ -65,5 +63,16 @@ clés de performance et les comptages réels après publication.
 
 Deux colonnes numériques supplémentaires sont ajoutées à Résultats & Analyse (15 → 17) : `matching_direct_pct` et `matching_ml_pct`. Chaque taux représente le nombre de chevaux distincts retrouvés dans le podium divisé par trois, exprimé sur 100 et arrondi à deux décimales. Une preuve manquante ou chronologiquement invalide laisse la cellule vide ; 0 est un score réel. Aucun pronostic historique n'est recalculé.
 
-Les cotes PMU observées avant départ sont publiées dans
-`top3_cotes_valeur` et `cote_releve_utc` pour les partants confirmés.
+## Cotes PMU pré-départ
+
+La valeur, l'heure de collecte et l'heure du rapport PMU sont publiées dans
+`top3_cotes_valeur`, `cote_releve_utc` et `cote_rapport_utc`. Une cote
+conservée après un incident garde ses horodatages. Les non-partants ont des
+cellules de cote et de sélection vides.
+
+La sélection de marché publie ses propres rangs, son état et son heure de
+calcul. Trois cotes suffisent à proposer un TOP3 partiel. L'état complet
+requiert une liste complète et une cote pour chaque cheval éligible.
+La section « Cotes PMU » mesure la couverture, la fraîcheur et les TOP3
+complets à partir du jour J. Le contrôle de consolidation compare les
+valeurs publiées aux fichiers du collecteur.

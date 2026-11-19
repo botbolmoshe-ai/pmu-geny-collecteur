@@ -1,6 +1,7 @@
 """Quality by race date versus genuine dated observations: distinct populations."""
 from collections import OrderedDict
 from datetime import date,datetime,timezone
+from statistics import median
 from zoneinfo import ZoneInfo
 from logic import number, selected,timestamp
 
@@ -20,7 +21,7 @@ def date_rows(rows,field,start,end):
     return [r for r in rows if day(r.get(field)) and start<=day(r[field])<=end]
 
 
-def cohort_metrics(courses,start,end):
+def cohort_metrics(courses,start,end,now=None):
     rows=date_rows(courses,'Date',start,end)
     active=[r for r in rows if r.get('Non-partant (NP)')=='PARTANT']
     n=len(active);groups=OrderedDict()
@@ -58,9 +59,6 @@ def cohort_metrics(courses,start,end):
         'Code F issu du profil participant ou de la convention PMU documentée.')
     add('Qualité','Partants avec ferrure reconnue',shoes,n,'Code de ferrure reconnu ; ne prouve pas à lui seul une provenance historique complète.')
     add('Qualité','Taux de ferrure reconnue',shoes/n if n else '',n,'Partants confirmés avec code reconnu / partants confirmés de la période.')
-    odds = sum((number(r.get('Cotes · Valeur')) or 0) > 0
-               and timestamp(r.get('Cotes · Relevé UTC')) is not None for r in active)
-    add('Qualité','Partants avec cote PMU relevée',odds,n,'Cote PMU positive avec heure de relevé dans le registre.')
     essentials=sum(number(r.get('Âge (ans)')) is not None and bool(r.get('Sexe'))
                    and number(r.get('Gains carrière (€)')) is not None
                    and bool(ferrure(r)) for r in active)
@@ -69,6 +67,37 @@ def cohort_metrics(courses,start,end):
     for method,title in [('direct','direct'),('ml','ML')]:
         add('Prévisions','Courses avec TOP3 '+title+' complet',sum(bool(selected(r,method)) for r in groups.values()),len(groups),
             'Sélection stockée de trois numéros distincts avec rangs 1/2/3, tous partants confirmés ; ne certifie pas sa publication passée.')
+    now = now or datetime.now(timezone.utc)
+    today = now.astimezone(ZoneInfo('Europe/Paris')).date()
+    eligible = collected = 0
+    ages = []
+    complete = followed = 0
+    for group in groups.values():
+        depart = timestamp(group[0].get('Départ (Paris)'))
+        if not depart or depart.astimezone(ZoneInfo('Europe/Paris')).date() > today:
+            continue
+        followed += 1
+        picked = selected(group, 'cotes')
+        complete += bool(picked and picked[0].get('Cotes · État') == 'COMPLET')
+        for row in group:
+            if row.get('Non-partant (NP)') == 'NON_PARTANT':
+                continue
+            eligible += 1
+            observed = timestamp(row.get('Cotes · Relevé UTC'))
+            if (number(row.get('Cotes · Valeur')) or 0) <= 0 or not observed or not observed < depart or observed > now:
+                continue
+            collected += 1
+            reported = timestamp(row.get('Cotes · Rapport PMU UTC')) or observed
+            reported = min(reported, observed)
+            ages.append((min(now, depart) - reported).total_seconds() / 60)
+    add('Cotes PMU','Chevaux éligibles',eligible,eligible,'Participations recensées hors non-partants, à partir du jour J.')
+    add('Cotes PMU','Cotes collectées',collected,eligible,'Cotes valides relevées avant le départ.')
+    add('Cotes PMU','Cotes manquantes',eligible-collected,eligible,'Chevaux éligibles sans cote valide horodatée.')
+    add('Cotes PMU','Taux de couverture',collected/eligible if eligible else '',eligible,'Cotes valides / chevaux éligibles.')
+    add('Cotes PMU','Fraîcheur médiane (min)',round(median(ages), 1) if ages else '', '',
+        'Âge du rapport PMU ou du relevé au contrôle ou au départ si la course est passée.')
+    add('Cotes PMU','Taux de TOP3 complets',complete/followed if followed else '',followed,
+        'TOP3 publié couvrant tous les chevaux éligibles / courses suivies.')
     return result
 
 

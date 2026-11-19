@@ -65,7 +65,7 @@ class SchemaTests(unittest.TestCase):
         r=dict(zip(canonical_headers(session.tables['Résultats & Analyse'][0]),session.tables['Résultats & Analyse'][1]))
         self.assertEqual(r['score_direct'],0)
 
-    def test_publication_exclut_les_champs_retires_et_garde_le_ml_actif(self):
+    def test_publication_exclut_les_champs_retires_et_garde_le_ml_et_les_cotes(self):
         raw={'Courses & Prévisions':{'k':{'course_key':'2026-11-17|VINCENNES|R3C1','numero':'1',
              'date_course':'2026-11-17','ml_proba_podium':0.5,'ml_top3':'OUI','ml_rang':1,
              'top3_cotes_top3':'OUI'}},'Historique chevaux':{},'Résultats & Analyse':{}}
@@ -74,7 +74,7 @@ class SchemaTests(unittest.TestCase):
             published=SynchroniseurSheets(self.cache,'fake',session=SheetsSession()).source()
         row=published['Courses & Prévisions']['k']
         self.assertEqual(row['ml_top3'],'OUI');self.assertEqual(row['ml_rang'],1)
-        self.assertNotIn('ml_proba_podium',row);self.assertNotIn('top3_cotes_top3',row)
+        self.assertNotIn('ml_proba_podium',row);self.assertEqual(row['top3_cotes_top3'],'OUI')
         self.assertEqual(raw,original)
 
     def test_date_capture_source_et_rang_arrivee_sans_manifeste(self):

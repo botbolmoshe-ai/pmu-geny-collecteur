@@ -26,9 +26,13 @@ def records(values):
 
 def selected(rows, method):
     selection,rank={'direct':('TOP3 direct · Sélection','TOP3 direct · Rang'),
-                    'ml':('ML · Sélection','ML · Rang')}[method]
+                    'ml':('ML · Sélection','ML · Rang'),
+                    'cotes':('Cotes · Sélection','Cotes · Rang')}[method]
     picked=[r for r in rows if str(r.get(selection,'')).upper()=='OUI']
-    if len(picked)!=3 or any(r.get('Non-partant (NP)')!='PARTANT' for r in picked): return []
+    if len(picked)!=3 or any(r.get('Non-partant (NP)') == 'NON_PARTANT' or
+                             (method != 'cotes' and r.get('Non-partant (NP)') != 'PARTANT')
+                             for r in picked):
+        return []
     nums=[number(r.get('N°')) for r in picked]
     ranks=[number(r.get(rank)) for r in picked]
     if None in nums or len(set(nums))!=3 or set(ranks)!={1,2,3}: return []

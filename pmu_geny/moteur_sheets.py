@@ -246,8 +246,24 @@ class SynchroniseurSheets:
         path=quote("'"+KPI_TAB+"'!A:E",safe="!:'")
         values=self.check(get_lecture(self.session,self.base+'/values/'+path,
             params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
-        metrics = (calculer_kpi(self.cache, source, sheets_courses=self.lire_courses(tables))
-                   if relire_courses else calculer_kpi(self.cache, source))
+        sheets_courses = self.lire_courses(tables) if relire_courses else None
+        if sheets_courses is not None:
+            from .sync_google_sheets import COTES_COLUMNS, sheet_value
+            published = {(row.get('course_key'), str(row.get('numero'))): row for row in sheets_courses}
+            verified = set()
+            for row in source['Courses & Prévisions'].values():
+                if 'cote_releve_utc' not in row:
+                    continue
+                key = (row['course_key'], str(row['numero']))
+                actual = published.get(key, {})
+                for field in COTES_COLUMNS:
+                    if field in row and sheet_value(field, row[field]) != sheet_value(field, actual.get(field)):
+                        raise ErreurSynchronisation(f'Cote Sheets différente du collecteur : {key}, {field}')
+                if row['cote_releve_utc']:
+                    verified.add(key)
+            print(f'COTES_SHEETS_VERIFIEES {len(verified)} cotes sur '
+                  f'{len({key for key, _ in verified})} courses', flush=True)
+        metrics = calculer_kpi(self.cache, source, sheets_courses=sheets_courses)
         updates=plan_kpi(values,metrics)
         if updates:
             properties = tables[KPI_TAB]

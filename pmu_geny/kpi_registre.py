@@ -1,4 +1,6 @@
 """KPI du registre calcules depuis les sources, sans formules dependantes des lignes."""
+from collections import defaultdict
+from statistics import median
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import json
@@ -202,8 +204,46 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
     for label,field in [('Captures complètes','captures_validees'),('Captures partielles','captures_partielles'),('Rejets','collectes_rejetees')]:
         operational.append(metric('Collecte · '+label+' dernier passage',queue.get('bilan',{}).get(field,''),
                                   'Compteur du passage horodaté '+str(queue.get('passage_utc','non disponible'))))
+    from .cotes_v19 import cote_valide, instant
+    from .auto_v18 import PARIS
+    odds_cohorts = defaultdict(list)
+    ages = []
+    eligible = collected = 0
+    for row in (sheets_courses if sheets_courses is not None else participants):
+        departure = instant(row.get('heure_depart_paris'))
+        if not departure or departure.astimezone(PARIS).date() > now.astimezone(PARIS).date():
+            continue
+        odds_cohorts[row['course_key']].append(row)
+        if row.get('non_partant') == 'NON_PARTANT':
+            continue
+        eligible += 1
+        observed = instant(row.get('cote_releve_utc'))
+        if cote_valide(row.get('top3_cotes_valeur')) is None or not observed or not observed < departure or observed > now:
+            continue
+        collected += 1
+        reported = instant(row.get('cote_rapport_utc')) or observed
+        reported = min(reported, observed)
+        ages.append((min(now, departure) - reported).total_seconds() / 60)
+    odds_complete = sum(
+        {str(row.get('top3_cotes_rang')) for row in rows if row.get('non_partant') != 'NON_PARTANT'
+         and row.get('top3_cotes_top3') == 'OUI' and row.get('top3_cotes_statut') == 'COMPLET'} == {'1', '2', '3'}
+        for rows in odds_cohorts.values()
+    )
+    odds_metrics = [
+        metric('Cotes PMU · Chevaux éligibles', eligible, 'Participations recensées hors non-partants, à partir du jour J.'),
+        metric('Cotes PMU · Cotes collectées', collected, 'Chevaux éligibles avec cote valide et relevé antérieur au départ.'),
+        metric('Cotes PMU · Cotes manquantes', eligible-collected, 'Chevaux éligibles sans cote valide horodatée.'),
+        metric('Cotes PMU · Taux de couverture', collected/eligible if eligible else '', 'Cotes valides / chevaux éligibles.'),
+        metric('Cotes PMU · Fraîcheur médiane (min)', round(median(ages), 1) if ages else '',
+               'Âge du rapport PMU ou du relevé, mesuré au contrôle ou au départ si la course est passée.'),
+        metric('Cotes PMU · Courses suivies', len(odds_cohorts), 'Courses du registre à partir du jour J.'),
+        metric('Cotes PMU · Courses avec TOP3 complet', odds_complete, 'Trois rangs publiés et couverture de tous les chevaux éligibles.'),
+        metric('Cotes PMU · Taux de TOP3 complets', odds_complete/len(odds_cohorts) if odds_cohorts else '',
+               'Courses avec TOP3 Cotes complet / courses suivies.'),
+    ]
     return dict([
         *ml_metrics,
+        *odds_metrics,
         *operational,
         metric('Chevaux distincts rencontrés',len({nom_normalise(r.get('cheval')) for r in participants if nom_normalise(r.get('cheval'))}),'Noms normalisés distincts ; identifiant stable à privilégier.'),
         metric('Courses distinctes collectées',len({r['course_key'] for r in participants}),'Courses présentes, préparations J+1 incluses.'),
@@ -247,6 +287,12 @@ def totaux_reference(metrics):
     courses=value('Courses distinctes collectées')
     evaluated=value('Courses évaluées')
     totals={}
+    for suffix in ('Cotes collectées', 'Cotes manquantes', 'Taux de couverture'):
+        if 'Cotes PMU · Chevaux éligibles' in metrics:
+            totals['Cotes PMU · '+suffix] = value('Cotes PMU · Chevaux éligibles')
+    for suffix in ('Courses avec TOP3 complet', 'Taux de TOP3 complets'):
+        if 'Cotes PMU · Courses suivies' in metrics:
+            totals['Cotes PMU · '+suffix] = value('Cotes PMU · Courses suivies')
     for label in (
         'Chevaux distincts rencontrés','Partants avec historique identifié (nom/ID)',
         'Chevaux avec historique partiel','Partants avec historique disponible',
@@ -293,7 +339,7 @@ def totaux_reference(metrics):
 
 
 PUBLISHED_PREFIXES = ('ML expérimental · ', 'ML prospectif · ', 'Maturité ML · ',
-                      'Échéances · ', 'Collecte · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ')
+                      'Échéances · ', 'Collecte · ', 'Cotes PMU · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ')
 
 
 def plan_kpi(values, metrics):
@@ -319,7 +365,7 @@ def plan_kpi(values, metrics):
     for label,(value,definition) in metrics.items():
         if label.startswith(PUBLISHED_PREFIXES) and label not in present:
             last+=1
-            desired=['ML',label,value,definition]+([totals[label]] if label in totals else [])
+            desired=['Cotes PMU' if label.startswith('Cotes PMU · ') else 'ML',label,value,definition]+([totals[label]] if label in totals else [])
             end='E' if label in totals else 'D'
             updates.append({'range':f"'{KPI_TAB}'!A{last}:{end}{last}",'values':[desired]})
     return updates
