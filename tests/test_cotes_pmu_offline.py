@@ -49,6 +49,7 @@ class CotesPMUTests(TestCase):
         self.assertEqual(doc['chevaux'][1]['heure_utc'], self.now.isoformat())
         self.assertEqual(collecter(self.cache, self.course, None, later + timedelta(minutes=1)), 'COTES_CONSERVEES')
         self.assertEqual(dernier_releve(self.cache, self.course), doc)
+        self.assertFalse(list(self.cache.rglob('*.lock')))
         self.assertEqual(calculer_cotes(self.cache, self.course, later + timedelta(minutes=1)), 'CALCULE_COMPLET')
 
     def test_rapport_futur_ou_ancien_et_retrait(self):
