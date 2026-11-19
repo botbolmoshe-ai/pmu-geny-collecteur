@@ -1,11 +1,11 @@
 {
-  "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
-  "courses": 99,
-  "lignes": 1322,
+  "entrainement_utc": "2026-11-19T19:28:15.292965+00:00",
+  "courses": 112,
+  "lignes": 1489,
   "minimum_courses": 150,
   "minimum_lignes": 1500,
-  "courses_qualifiantes": 0,
-  "observations_qualifiantes": 0,
+  "courses_qualifiantes": 13,
+  "observations_qualifiantes": 167,
   "seuils": {
     "PREPRODUCTION": {
       "courses": 150,
@@ -21,191 +21,191 @@
     }
   },
   "couverture": {
-    "observations": 0,
-    "completes": 0,
-    "completude": 0,
+    "observations": 167,
+    "completes": 158,
+    "completude": 0.9461077844311377,
     "criteres": {
-      "Forme PMU": 0,
-      "Historique comparable": 0,
-      "Distance": 0,
-      "Discipline": 0,
-      "Ferrure sourcée": 0,
-      "Âge": 0,
-      "Sexe": 0,
-      "Gains": 0,
+      "Forme PMU": 158,
+      "Historique comparable": 24,
+      "Distance": 167,
+      "Discipline": 167,
+      "Ferrure sourcée": 167,
+      "Âge": 167,
+      "Sexe": 167,
+      "Gains": 167,
       "Driver": 0,
       "Entraîneur": 0,
       "Tandem cheval-driver": 0,
-      "Comparaison ferrures historiques": 0,
+      "Comparaison ferrures historiques": 22,
       "Avis PMU structuré": 0
     }
   },
   "etat": "INSUFFISANT",
   "maturite": "EXPÉRIMENTAL",
   "promotion_production": false,
-  "jour_paris": "2026-11-18",
-  "empreinte_donnees": "dca1a2c7aa28277e6998e57103dc05793e24818ad68284490d9d826528597575",
+  "jour_paris": "2026-11-19",
+  "empreinte_donnees": "2837cedb671f7b1baa6418acca4015864fc204284f0505cbd2a4981e855b9e81",
   "experimental": {
     "version_cycle": 1,
-    "empreinte_donnees": "dca1a2c7aa28277e6998e57103dc05793e24818ad68284490d9d826528597575",
-    "execute_utc": "2026-11-18T21:13:04.865522+00:00",
+    "empreinte_donnees": "2837cedb671f7b1baa6418acca4015864fc204284f0505cbd2a4981e855b9e81",
+    "execute_utc": "2026-11-19T19:28:15.292965+00:00",
     "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-    "courses_admissibles": 99,
-    "lignes_admissibles": 1322,
+    "courses_admissibles": 112,
+    "lignes_admissibles": 1489,
     "promotion_production": false,
-    "rapport": "ml/experiences/automatique-dca1a2c7aa28277e6998/rapport.json",
-    "validation_day": "2026-11-17",
-    "test_day": "2026-11-18",
-    "modele": "gradient_boosting",
+    "rapport": "ml/experiences/automatique-2837cedb671f7b1baa64/rapport.json",
+    "validation_day": "2026-11-18",
+    "test_day": "2026-11-19",
+    "modele": "regression_logistique",
     "test_ml": {
       "courses": 13,
-      "chevaux_retrouves": 12,
-      "moyenne": 0.9230769230769231,
-      "au_moins_2_sur_3": 1,
-      "exact_3_sur_3": 1,
+      "chevaux_retrouves": 15,
+      "moyenne": 1.1538461538461537,
+      "au_moins_2_sur_3": 5,
+      "exact_3_sur_3": 0,
       "distribution": {
         "0": 3,
-        "1": 9,
-        "3": 1
+        "1": 5,
+        "2": 5
       },
       "hits_par_course": {
-        "2026-11-18_R1C1": 1,
-        "2026-11-18_R1C4": 1,
-        "2026-11-18_R1C5": 1,
-        "2026-11-18_R1C6": 1,
-        "2026-11-18_R1C7": 1,
-        "2026-11-18_R1C8": 0,
-        "2026-11-18_R6C1": 3,
-        "2026-11-18_R6C2": 0,
-        "2026-11-18_R6C3": 1,
-        "2026-11-18_R6C4": 0,
-        "2026-11-18_R6C5": 1,
-        "2026-11-18_R6C6": 1,
-        "2026-11-18_R6C7": 1
+        "2026-11-19_R3C1": 2,
+        "2026-11-19_R3C2": 1,
+        "2026-11-19_R3C3": 1,
+        "2026-11-19_R3C4": 0,
+        "2026-11-19_R3C5": 2,
+        "2026-11-19_R3C6": 1,
+        "2026-11-19_R3C8": 0,
+        "2026-11-19_R4C1": 1,
+        "2026-11-19_R4C2": 2,
+        "2026-11-19_R4C3": 0,
+        "2026-11-19_R4C4": 2,
+        "2026-11-19_R4C5": 2,
+        "2026-11-19_R4C6": 1
       },
       "selections": {
-        "2026-11-18_R1C1": [
-          1,
+        "2026-11-19_R3C1": [
+          11,
+          8,
+          10
+        ],
+        "2026-11-19_R3C2": [
+          16,
+          15,
+          3
+        ],
+        "2026-11-19_R3C3": [
+          7,
+          8,
+          4
+        ],
+        "2026-11-19_R3C4": [
+          9,
           13,
           3
         ],
-        "2026-11-18_R1C4": [
-          6,
-          1,
-          4
-        ],
-        "2026-11-18_R1C5": [
+        "2026-11-19_R3C5": [
+          10,
           3,
-          7,
-          1
-        ],
-        "2026-11-18_R1C6": [
-          6,
-          2,
-          7
-        ],
-        "2026-11-18_R1C7": [
-          12,
-          14,
           8
         ],
-        "2026-11-18_R1C8": [
-          16,
-          15,
-          11
-        ],
-        "2026-11-18_R6C1": [
-          3,
-          4,
+        "2026-11-19_R3C6": [
+          6,
+          9,
           5
         ],
-        "2026-11-18_R6C2": [
-          11,
-          12,
-          9
+        "2026-11-19_R3C8": [
+          2,
+          4,
+          16
         ],
-        "2026-11-18_R6C3": [
-          13,
-          12,
-          14
-        ],
-        "2026-11-18_R6C4": [
-          12,
-          10,
-          2
-        ],
-        "2026-11-18_R6C5": [
+        "2026-11-19_R4C1": [
           5,
           13,
           2
         ],
-        "2026-11-18_R6C6": [
-          3,
+        "2026-11-19_R4C2": [
+          4,
           1,
           5
         ],
-        "2026-11-18_R6C7": [
-          9,
-          13,
-          7
+        "2026-11-19_R4C3": [
+          10,
+          1,
+          4
+        ],
+        "2026-11-19_R4C4": [
+          6,
+          2,
+          4
+        ],
+        "2026-11-19_R4C5": [
+          3,
+          5,
+          8
+        ],
+        "2026-11-19_R4C6": [
+          4,
+          1,
+          12
         ]
       }
     },
     "comparaison": {
-      "courses": 11,
-      "ecart_moyen": -0.18181818181818182,
+      "courses": 12,
+      "ecart_moyen": 0.08333333333333333,
       "ic95_bootstrap_par_course": [
-        -0.6363636363636364,
-        0.18181818181818182
+        0.0,
+        0.25
       ]
     },
     "decoupage": {
       "train": {
-        "courses": 78,
-        "lignes": 1052,
+        "courses": 86,
+        "lignes": 1155,
         "premier_depart": "2026-11-11T16:42:00+01:00",
-        "dernier_depart": "2026-11-16T18:00:00+01:00"
-      },
-      "validation": {
-        "courses": 8,
-        "lignes": 103,
-        "premier_depart": "2026-11-17T14:12:00+01:00",
         "dernier_depart": "2026-11-17T18:17:00+01:00"
       },
-      "test": {
+      "validation": {
         "courses": 13,
         "lignes": 167,
         "premier_depart": "2026-11-18T13:00:00+01:00",
         "dernier_depart": "2026-11-18T18:00:00+01:00"
+      },
+      "test": {
+        "courses": 13,
+        "lignes": 167,
+        "premier_depart": "2026-11-19T15:57:00+01:00",
+        "dernier_depart": "2026-11-19T20:05:00+01:00"
       }
     }
   },
   "experimental_actif": {
     "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
-    "verification_utc": "2026-11-18T21:13:04.865522+00:00",
-    "empreinte_entrainement": "2a86840c096649b0a73992d1d98cb015423bda16110c183aa24989d10a9703c3",
-    "courses": 99,
-    "lignes": 1322,
-    "modele": "gradient_boosting",
+    "verification_utc": "2026-11-19T19:28:15.292965+00:00",
+    "empreinte_entrainement": "6094776dc83c7bf8a4347676378352f1f9275f3497c1e2e759b02c9bcdbf0f81",
+    "courses": 112,
+    "lignes": 1489,
+    "modele": "regression_logistique",
     "promotion_production": false,
     "schema": "pmu-podium-v34",
     "nature": "CANDIDAT_EXPERIMENTAL_NON_CALIBRE",
     "evaluation": "A_MESURER_SUR_LES_PREVISIONS_FUTURES_ENREGISTREES",
-    "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
-    "dernier_label_entrainement_utc": "2026-11-18T17:07:57.493627+00:00",
-    "fichier_modele": "ml/modeles_experimentaux/2a86840c096649b0a73992d1d98cb015423bda16110c183aa24989d10a9703c3/modele.joblib",
-    "sha256_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+    "entrainement_utc": "2026-11-19T19:28:15.292965+00:00",
+    "dernier_label_entrainement_utc": "2026-11-19T19:26:58.085079+00:00",
+    "fichier_modele": "ml/modeles_experimentaux/6094776dc83c7bf8a4347676378352f1f9275f3497c1e2e759b02c9bcdbf0f81/modele.joblib",
+    "sha256_modele": "bf7673ffbdf0d94875aac68a1e71f505425821a8d4816f565d222734698e58fb",
     "execution": "ENTRAINE"
   },
   "performance_prospective": {
     "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-    "controle_utc": "2026-11-18T21:13:04.865522+00:00",
-    "courses": 16,
-    "moyenne_ml": 1.125,
-    "moyenne_direct": 1.125,
+    "controle_utc": "2026-11-19T19:28:15.292965+00:00",
+    "courses": 29,
+    "moyenne_ml": 1.103448275862069,
+    "moyenne_direct": 1.103448275862069,
     "ecart_ml_direct": 0.0,
     "exact_3_sur_3_ml": 0,
-    "au_moins_2_sur_3_ml": 4,
+    "au_moins_2_sur_3_ml": 8,
     "resultats": [
       {
         "course": "2026-11-17_R3C6",
@@ -430,9 +430,218 @@
           "ml": "25499819936ece4ed6e098ff46e0598b1565f72466644e6ed22e619ae25e85bb"
         },
         "empreinte_modele": "5908ddda49adc3cd7755c8992bf584f7edfd44a0188ec5f2634b132c17c3b7aa"
+      },
+      {
+        "course": "2026-11-19_R3C1",
+        "depart": "2026-11-19T15:57:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T16:01:17.470623+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "e2c109d88811ce3429338bfd59f8e6467aefeb9549a04d7978b1bae4ba572611",
+          "ml": "fefb330839add98e0b496bfa98264ee7f781efaab88b6e32c1b831fba3960463"
+        },
+        "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16"
+      },
+      {
+        "course": "2026-11-19_R3C2",
+        "depart": "2026-11-19T16:33:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T16:01:17.208343+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "1b1d941dce5ebf174fc1bd97272648e4e327f3dd976f9729133ebdd1b01ebd69",
+          "ml": "40f835f1ae4b30e6e7d0a3d3c72956c3d9fa8d1ea663a486e5b3505c743fbac4"
+        },
+        "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16"
+      },
+      {
+        "course": "2026-11-19_R3C3",
+        "depart": "2026-11-19T17:09:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T16:15:32.914236+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "2fe32643e9912cd371ee8b972f91624167b0a0b96d7d83525573c78ba8d368c9",
+          "ml": "46a18e397031cd1e6afdc6da3274b9353bef845f6f12a0fa346476fdfa8809dc"
+        },
+        "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16"
+      },
+      {
+        "course": "2026-11-19_R3C4",
+        "depart": "2026-11-19T17:45:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T16:57:29.344834+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "91682278f20332900343387e9068ae93c27a3cca50b2b563196604f9c23aa3cb",
+          "ml": "4053ceb84fcbf3f41d20edb21fa9b8e0ba3a8c124ce7567b656e267dc24e4472"
+        },
+        "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34"
+      },
+      {
+        "course": "2026-11-19_R3C5",
+        "depart": "2026-11-19T18:20:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T17:45:32.992069+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "69cf815d13b4bf0ed766ce53e6fe19cbb19bb26a934a22c76b8f1c7060b8ef9a",
+          "ml": "e2f9037c9a35f4c759a9b4f1b60f36afcc55ef2941570144f99d7b9db1fc60f3"
+        },
+        "empreinte_modele": "4257583e0ed69aa0eacb7a18ac0a562ee6897eb93791e2c8e13f126ed20009dd"
+      },
+      {
+        "course": "2026-11-19_R3C6",
+        "depart": "2026-11-19T18:55:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T19:26:57.916282+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "5c6139deda2eb9d0f092d11238266dcaa512d0104e778bf62c16d37ced8fcfb6",
+          "ml": "f70737791829bf385195583f595b8c8628e758307f357e2993d4b4981ba4d115"
+        },
+        "empreinte_modele": "65d0b62a73b0d1ea88054e576aab7b5161483b3de16e1f21afd0af55de83eafe"
+      },
+      {
+        "course": "2026-11-19_R3C8",
+        "depart": "2026-11-19T20:05:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T19:26:56.859036+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "dc2731464a17523e0897d0cd43b8b3a5805d1a9c167f3a601d0b1a530ba078e1",
+          "ml": "98bcd8821cc12b3176c3ae093d9d34d09093662bea00b878573fb432be15cca0"
+        },
+        "empreinte_modele": "65d0b62a73b0d1ea88054e576aab7b5161483b3de16e1f21afd0af55de83eafe"
+      },
+      {
+        "course": "2026-11-19_R4C1",
+        "depart": "2026-11-19T16:50:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T16:01:17.029833+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "50b2f691cff185baec770eef697935cc7d5c2361960352225945168993580c7d",
+          "ml": "b5b48cff837585e675468ba41621abe26d5f1a3fd79a950b372baf739b9f5f44"
+        },
+        "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16"
+      },
+      {
+        "course": "2026-11-19_R4C2",
+        "depart": "2026-11-19T17:25:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T16:48:49.976657+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "7268e6bba20db55ff79754850b1112268ea68665942f6bb4a80b4d3f60c6cd87",
+          "ml": "20dc361f22e97098c929dff3e3d4e73e599ce40f51b80ca6c6cd852c43c07edb"
+        },
+        "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34"
+      },
+      {
+        "course": "2026-11-19_R4C3",
+        "depart": "2026-11-19T18:02:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T17:45:33.105338+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "8acdbd176290e0cadbc99c9e7d1088c4a6b70c534af2e9d5cbcea95f29e3c55c",
+          "ml": "0bfafcf7a42dccb583509d5bec5341db954a5bf4cbe9d3fe8bba2ef0b5527755"
+        },
+        "empreinte_modele": "4257583e0ed69aa0eacb7a18ac0a562ee6897eb93791e2c8e13f126ed20009dd"
+      },
+      {
+        "course": "2026-11-19_R4C4",
+        "depart": "2026-11-19T18:37:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T19:26:58.085079+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "98f5055ac12405ac71e6ac3d5401260f702ef77131658ca3b8f1d352a93fc896",
+          "ml": "64bfb4f71faffe7b476d7341889b44d75144e59c286221a4cb17f8a6ef20a991"
+        },
+        "empreinte_modele": "4257583e0ed69aa0eacb7a18ac0a562ee6897eb93791e2c8e13f126ed20009dd"
+      },
+      {
+        "course": "2026-11-19_R4C5",
+        "depart": "2026-11-19T19:12:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T19:26:57.686680+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "b8f3e4018459226fca139da60bf42edde574925c7918722bb6ca258ead6a3c03",
+          "ml": "7ffc643c90d330f00c93361a873cf5be542ec88f441b69d40f27be5187f93371"
+        },
+        "empreinte_modele": "65d0b62a73b0d1ea88054e576aab7b5161483b3de16e1f21afd0af55de83eafe"
+      },
+      {
+        "course": "2026-11-19_R4C6",
+        "depart": "2026-11-19T19:47:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T19:26:57.174877+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "aa7f19e42e405ef3702e3c826add7f086bf66a93b4d528947991bf5b4a7c28b0",
+          "ml": "99db1388d912b1072b325f0bb13636439c8b7d380c03c9850b8a175ba9a94905"
+        },
+        "empreinte_modele": "65d0b62a73b0d1ea88054e576aab7b5161483b3de16e1f21afd0af55de83eafe"
       }
     ],
     "rejets": [],
-    "regle_ajustement": "Reentrainement sur nouveaux labels admissibles ; choix sur validation temporelle, jamais sur le test ni promotion sur ces seuls scores."
+    "regle_ajustement": "Réentraînement sur nouveaux labels admissibles ; choix sur validation temporelle, sans promotion sur ces seuls scores.",
+    "candidat_depart": {
+      "courses": 2,
+      "direct_evaluable": 13,
+      "rejets": [],
+      "statut": "EXPERIMENTAL",
+      "moyenne": 1.0,
+      "moyenne_direct": 1.0,
+      "ecart_moyen": 0.0,
+      "exact_3_sur_3": 0,
+      "au_moins_2_sur_3": 1,
+      "comparaison": {
+        "courses": 2,
+        "ecart_moyen": 0.0,
+        "ic95_bootstrap_par_course": [
+          0.0,
+          0.0
+        ]
+      },
+      "scores_candidat_par_course": {
+        "2026-11-19_R4C2": 2,
+        "2026-11-19_R4C3": 0
+      },
+      "scores_direct_par_course": {
+        "2026-11-19_R4C2": 2,
+        "2026-11-19_R4C3": 0
+      }
+    }
   }
 }

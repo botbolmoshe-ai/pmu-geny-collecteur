@@ -1,25 +1,25 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "8cce6730b0f77d7d16bd8cca292fb2de7a74a70db7f9d9aa7f3ea3364a234f0a",
-  "execute_utc": "2026-11-19T17:46:14.057117+00:00",
+  "empreinte_donnees": "2837cedb671f7b1baa6418acca4015864fc204284f0505cbd2a4981e855b9e81",
+  "execute_utc": "2026-11-19T19:28:15.292965+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 107,
-  "lignes_admissibles": 1425,
+  "courses_admissibles": 112,
+  "lignes_admissibles": 1489,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-8cce6730b0f77d7d16bd/rapport.json",
+  "rapport": "ml/experiences/automatique-2837cedb671f7b1baa64/rapport.json",
   "validation_day": "2026-11-18",
   "test_day": "2026-11-19",
   "modele": "regression_logistique",
   "test_ml": {
-    "courses": 8,
-    "chevaux_retrouves": 9,
-    "moyenne": 1.125,
-    "au_moins_2_sur_3": 3,
+    "courses": 13,
+    "chevaux_retrouves": 15,
+    "moyenne": 1.1538461538461537,
+    "au_moins_2_sur_3": 5,
     "exact_3_sur_3": 0,
     "distribution": {
-      "0": 2,
-      "1": 3,
-      "2": 3
+      "0": 3,
+      "1": 5,
+      "2": 5
     },
     "hits_par_course": {
       "2026-11-19_R3C1": 2,
@@ -27,9 +27,14 @@
       "2026-11-19_R3C3": 1,
       "2026-11-19_R3C4": 0,
       "2026-11-19_R3C5": 2,
+      "2026-11-19_R3C6": 1,
+      "2026-11-19_R3C8": 0,
       "2026-11-19_R4C1": 1,
       "2026-11-19_R4C2": 2,
-      "2026-11-19_R4C3": 0
+      "2026-11-19_R4C3": 0,
+      "2026-11-19_R4C4": 2,
+      "2026-11-19_R4C5": 2,
+      "2026-11-19_R4C6": 1
     },
     "selections": {
       "2026-11-19_R3C1": [
@@ -57,6 +62,16 @@
         3,
         8
       ],
+      "2026-11-19_R3C6": [
+        6,
+        9,
+        5
+      ],
+      "2026-11-19_R3C8": [
+        2,
+        4,
+        16
+      ],
       "2026-11-19_R4C1": [
         5,
         13,
@@ -71,15 +86,30 @@
         10,
         1,
         4
+      ],
+      "2026-11-19_R4C4": [
+        6,
+        2,
+        4
+      ],
+      "2026-11-19_R4C5": [
+        3,
+        5,
+        8
+      ],
+      "2026-11-19_R4C6": [
+        4,
+        1,
+        12
       ]
     }
   },
   "comparaison": {
-    "courses": 7,
-    "ecart_moyen": 0.14285714285714285,
+    "courses": 12,
+    "ecart_moyen": 0.08333333333333333,
     "ic95_bootstrap_par_course": [
       0.0,
-      0.42857142857142855
+      0.25
     ]
   },
   "decoupage": {
@@ -96,10 +126,10 @@
       "dernier_depart": "2026-11-18T18:00:00+01:00"
     },
     "test": {
-      "courses": 8,
-      "lignes": 103,
+      "courses": 13,
+      "lignes": 167,
       "premier_depart": "2026-11-19T15:57:00+01:00",
-      "dernier_depart": "2026-11-19T18:20:00+01:00"
+      "dernier_depart": "2026-11-19T20:05:00+01:00"
     }
   }
 }
