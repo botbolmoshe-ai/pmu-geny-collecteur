@@ -160,7 +160,7 @@ class AppTests(unittest.TestCase):
              'Arrivée · Noms officiels':'A · B · C',
              'Gagnant potentiel direct · N°':'1','Gagnant potentiel direct · Nom':'A',
              'Gagnant potentiel direct · Rang officiel':'1','Gagnant potentiel direct · Verdict':'Trouvé',
-             'Gagnant potentiel ML · N°':'4','Gagnant potentiel ML · Nom':'D',
+             'Gagnant potentiel ML · N°':'4','Gagnant potentiel ML · Nom':'ENTRAINEUR',
              'Gagnant potentiel ML · Rang officiel':'7','Gagnant potentiel ML · Verdict':'Non trouvé'}
         data=self.api.spreadsheets().values().batchGet().execute.return_value['valueRanges']
         data[1]={'values':[list(row),list(row.values())]}
@@ -175,6 +175,8 @@ class AppTests(unittest.TestCase):
                          ['1,2,4', 'A · B · D', '4,5,6', 'D · E · F', '1,2,3', 'A · B · C'])
         self.assertEqual(result.iloc[0]['Gagnant potentiel direct · Verdict'],'Trouvé')
         self.assertEqual(result.iloc[0]['Gagnant potentiel ML · Rang officiel'],'7')
+        self.assertEqual(result.iloc[0]['Gagnant potentiel ML · Nom'],'D')
+        self.assertEqual(result.iloc[0]['Arrivée lue dans le flux PMU (Paris)'],d.strftime('%d/%m/%Y')+' 12:15')
         self.app.radio[0].set_value('Performance').run()
         self.assertEqual(len(self.app.exception),0)
         self.assertEqual(len(self.app.error),0)

@@ -76,3 +76,22 @@ requiert une liste complète et une cote pour chaque cheval éligible.
 La section « Cotes PMU » mesure la couverture, la fraîcheur et les TOP3
 complets à partir du jour J. Le contrôle de consolidation compare les
 valeurs publiées aux fichiers du collecteur.
+
+## Identités et horodatages opérationnels
+
+Le TOP3, le nom du gagnant potentiel et le podium partagent la jointure par
+clé de course et numéro PMU. Le nom d'un intervenant enregistré dans un ancien
+pronostic ML ne constitue pas une preuve d'identité. Les conclusions de
+l'onglet Résultats & Analyse comparent les matchings Direct et ML publiés.
+Le TOP3 Cotes de l'onglet Courses & Prévisions reste disponible séparément.
+
+Les nouveaux horodatages opérationnels écrits dans Sheets sont en ISO 8601
+avec décalage explicite. Le départ prévu est exprimé en Europe/Paris. Les
+colonnes UTC sont exprimées en UTC. Les séries numériques déjà publiées sont
+relues dans le fuseau indiqué par leur colonne. Un horaire local ambigu au
+changement d'heure nécessite une source avec décalage explicite. Les dates
+civiles gardent leur format natif Sheets. Streamlit affiche le départ prévu et
+l'heure de lecture de l'arrivée à Paris. Cette dernière correspond à la
+lecture des rangs dans le flux participants. Pour les nouvelles arrivées, le
+podium lu doit concorder avec le podium déclaré définitif par le programme
+PMU. Le programme fournit ce statut sans heure de proclamation officielle.

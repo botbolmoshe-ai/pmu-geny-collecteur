@@ -55,6 +55,9 @@ class ProductionMLTests(unittest.TestCase):
 
     def test_capture_and_inference_use_same_profiles_without_geny(self):
         self.model()
+        for n, partant in enumerate(self.raw['participants'], 1):
+            partant.update(nomCheval={'nom': f'CHEVAL {n}'}, nom=f'Autre libellé {n}',
+                           driver=f'Driver {n}', entraineur=f'Entraîneur {n}')
         self.assertEqual(snapshot_pmu(self.root, self.course, self.raw, self.now), 'CAPTURE_PMU')
         snap_path = self.root / 'ml/instantanes/2026-11-15_R1C1.json'
         before = snap_path.read_bytes()
@@ -62,7 +65,10 @@ class ProductionMLTests(unittest.TestCase):
         self.assertEqual([h['features'] for h in load(snap_path)['chevaux']], [h['features'] for h in rows])
         self.assertEqual(predict_pmu(self.root, self.course, self.raw, self.now), 'ML_CALCULE')
         doc = load(self.root / 'pronostics/2026-11-15_R1C1_ml_latest.json')
-        self.assertEqual([h['numero'] for h in doc['top3']], [4, 3, 2])
+        self.assertEqual([(h['numero'], h['nom']) for h in doc['top3']],
+                         [(4, 'CHEVAL 4'), (3, 'CHEVAL 3'), (2, 'CHEVAL 2')])
+        self.assertEqual([h['nom'] for h in load(snap_path)['chevaux']],
+                         [f'CHEVAL {n}' for n in range(1, 5)])
         self.raw['participants'][3]['nonPartant'] = True
         self.assertEqual(predict_pmu(self.root, self.course, self.raw, self.now + timedelta(minutes=1)), 'ML_CALCULE')
         doc = load(self.root / 'pronostics/2026-11-15_R1C1_ml_latest.json')

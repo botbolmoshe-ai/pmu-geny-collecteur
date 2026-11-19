@@ -169,12 +169,11 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
     participants=_list(raw,'participants','partants')
     if len(participants)<3:return 'PARTANTS_INSUFFISANTS',[],{}
     from .liaison_chevaux_v22 import etablir, nom_normalise
-    names=[{'numero':h.get('numPmu',h.get('numero')),
-            'nom':h.get('nomCheval',h.get('nom',h.get('nomParticipant','')))}
-           for h in participants if isinstance(h,dict)]
+    profils=extraire_partants(raw, course=course if not legacy else None)
+    names=[{'numero':numero,'nom':profil['nom']}
+           for numero,profil in profils.items() if profil.get('nom')]
     association=etablir(cache,course,names)
     context=_valid_context(cache,course,now,legacy=legacy)
-    profils=extraire_partants(raw, course=course if not legacy else None)
     discipline = _discipline(course.get('discipline'))
     has_connections = any(p.get('driver_jockey') or p.get('entraineur') for p in profils.values())
     connection_scores = scores_intervenants(cache, now, discipline) if (
@@ -190,8 +189,9 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
             continue
         if item.get('nonPartant') is not False and str(item.get('statut','')).upper()!='PARTANT':
             unknown_np+=1
-        name=next((str(item[k]).strip() for k in ('nomCheval','nom','nomParticipant') if isinstance(item.get(k),str) and item[k].strip()),'')
-        if not name:return 'IDENTITE_PMU_ABSENTE',[],{}
+        profil=profils.get(numero,{})
+        horse_name=profil.get('nom')
+        if not horse_name:return 'IDENTITE_PMU_ABSENTE',[],{}
         link=association.get(str(numero),{})
         ident,histo=link.get('cheval_id',''),link.get('historique',{})
         historical_stamp = instant(histo.get('extrait_utc'))
@@ -208,14 +208,13 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
             c['pmu_score_direct'] = direct
         if not legacy:
             c['forme_pmu_discipline'] = _musique_pmu(item, discipline)[0]
-        profil=profils.get(numero,{})
         intervenants = {role: nom_normalise(profil.get(field))
                         for role, field in (('driver_score', 'driver_jockey'), ('entraineur_score', 'entraineur'))
                         if profil.get(field)}
         if not legacy:
-            for role, name in intervenants.items():
-                if (role, name) in connection_scores:
-                    c[role] = connection_scores[role, name]
+            for role, person in intervenants.items():
+                if (role, person) in connection_scores:
+                    c[role] = connection_scores[role, person]
         for feature in ('age_ans','gains_euros'):
             value=profil.get(feature)
             if value is not None:c[feature]=value
@@ -252,7 +251,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                 research.update(forme_geny_meme_depart=same_mode['score'],
                                 sorties_geny_meme_depart=same_mode['performances_valides'])
             driver = intervenants.get('driver_score')
-            tandem = connection_scores.get(('tandem', ident, nom_normalise(name), driver))
+            tandem = connection_scores.get(('tandem', ident, nom_normalise(horse_name), driver))
             if tandem:
                 research.update(tandem_podium_lisse=tandem[0], tandem_courses=tandem[1])
             if histo and discipline and ferrure:
@@ -267,8 +266,8 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                 value = {'NEGATIF': -1, 'NEUTRE': 0, 'POSITIF': 1}.get(POSITIVE.get(label))
                 if value is not None:
                     research['avis_pmu_structure'] = value
-        features_values=features({'numero':numero,'nom':name},histo,course,c,legacy=legacy)
-        rows.append({'numero':numero,'cheval_id':ident,'nom':name,
+        features_values=features({'numero':numero,'nom':horse_name},histo,course,c,legacy=legacy)
+        rows.append({'numero':numero,'cheval_id':ident,'nom':horse_name,
                      'historique_ok':bool(histo),'historique_complet':bool(histo) and histo.get('statut')=='COMPLET',
                      'methode_liaison':link.get('methode','NON_ASSOCIE'),
                      'source_historique':histo.get('source_url'),
@@ -296,7 +295,8 @@ def snapshot_pmu(cache,course,raw,now=None,clock=None,*,prepared=None):
     captured=clock() if clock else now
     if captured>=departure:return 'TROP_TARD'
     save(base,{'date':course['date'],'code':course['code'],'depart':course['depart'],
-               'capture_utc':captured.isoformat(),'observation_utc':now.isoformat(),'features_schema':MODEL_SCHEMA,
+               'capture_utc':captured.astimezone(timezone.utc).isoformat(),
+               'observation_utc':now.astimezone(timezone.utc).isoformat(),'features_schema':MODEL_SCHEMA,
                'source':'PMU_API_PARTICIPANTS','nombre_chevaux':len(rows),
                **metadata,'chevaux':rows,
                'regle':'capture PMU pre-depart immutable, ni cote ni arrivee utilisee'})
@@ -365,7 +365,10 @@ def scores_intervenants(cache, now, discipline):
                 groups[role, name].append(row)
         driver = identities.get('driver_score')
         horse = nom_normalise(row.get('nom'))
-        if row['cheval_id'] and horse and isinstance(driver, str) and driver:
+        # Les anciennes captures peuvent porter le nom d'un intervenant.
+        # Elles restent exploitables pour les taux par rôle.
+        if (row['cheval_id'] and horse and horse not in identities.values()
+                and isinstance(driver, str) and driver):
             tandems['tandem', row['cheval_id'], horse, driver][row['course']] = row['y']
     scores = {key: (sum(row['y'] for row in rows) + 1) / (len(rows) + 5)
               for key, rows in groups.items()
@@ -574,8 +577,8 @@ def predict_pmu(cache,course,raw,now=None,clock=None,*,prepared=None):
         stamp=datetime.fromisoformat(old['calcul_utc']).astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
         archive=base.parent/'versions'/f"{course['date']}_{course['code']}_ml_{stamp}.json"
         if not archive.exists():save(archive,old)
-    save(base,{'date':course['date'],'course':course['code'],'calcul_utc':created.isoformat(),
-               'depart':course['depart'],'donnees_observees_utc':now.isoformat(),'modele':packed['modele'],'statut':packed['statut'],
+    save(base,{'date':course['date'],'course':course['code'],'calcul_utc':created.astimezone(timezone.utc).isoformat(),
+               'depart':course['depart'],'donnees_observees_utc':now.astimezone(timezone.utc).isoformat(),'modele':packed['modele'],'statut':packed['statut'],
                'experimental':experimental,'promotion_production':not experimental,
                'entrainement_utc':packed.get('entrainement_utc'),
                'dernier_label_entrainement_utc':packed.get('dernier_label_entrainement_utc'),

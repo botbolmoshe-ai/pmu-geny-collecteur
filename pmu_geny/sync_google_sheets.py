@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 from datetime import datetime, timezone
 
-from dashboard.trot_analytics.dates import date_kind, depuis_nombre, meme_date_sheets
+from dashboard.trot_analytics.dates import date_kind, depuis_nombre, instant_iso, meme_date_sheets
 
 SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analyse')
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
@@ -321,10 +321,9 @@ def source_rows(cache):
     def statut_ml(document,depart):
         if document.get('statut'):return document['statut']
         if candidat_disponible:
-            try:
-                if datetime.fromisoformat(depart)<=datetime.now(timezone.utc):
-                    return 'ML_NON_PUBLIE_AVANT_DEPART'
-            except (ValueError,TypeError):pass
+            departure = instant_iso(depart)
+            if departure and departure <= now:
+                return 'ML_NON_PUBLIE_AVANT_DEPART'
             return STATUT+'_SANS_PREVISION'
         return 'ML_NON_ENTRAINE'
     import unicodedata
@@ -637,7 +636,7 @@ def source_rows(cache):
         ml_nums,ml_hits=_eval_podium(ml)
         scores_by_mode = {
             name:matching_pct(doc,arrivee,info.get('depart',''),now)
-            for name,doc in (('Direct',direct),('Cotes',marche),('ML',ml))}
+            for name,doc in (('Direct',direct),('ML',ml))}
         conclusion=conclusion_methodes(scores_by_mode)
         reports[k]={**existing,
                     'etat_ml':statut_ml(ml,info.get('depart','')),
@@ -658,28 +657,30 @@ def source_rows(cache):
                     'arrivee_verifiee_utc':arrivee.get('verifie_utc',''),
                     'score_sur_3':scores,
                     'statut_evaluation':'EVALUE' if any(x!='' for x in (scores,direct_hits,cote_hits,ml_hits)) else 'ARRIVEE_SANS_TOP3_FIGE'}
-        participants = load_json(cache/'partants_actuels'/f'{date}_{code}.json').get('chevaux') or {}
+        def nom_partant(numero):
+            return str(courses.get(f'{k}|{numero}', {}).get('cheval') or '').strip()
+
         for numeros, noms in REPORT_NAME_COLUMNS.items():
             selection = reports[k].get(numeros)
             if selection:
-                ordered_names = [str(participants.get(n, {}).get('nom') or '').strip()
-                                 for n in selection.split(',')]
-                reports[k][noms] = ' · '.join(ordered_names) if all(ordered_names) else ''
+                ordered_names = [nom_partant(n) for n in selection.split(',')]
+                if all(ordered_names):
+                    reports[k][noms] = ' · '.join(ordered_names)
         for mode, document, matching_value in (
             ('direct', direct, scores_by_mode['Direct']), ('ml', ml, scores_by_mode['ML'])
         ):
             prefix = f'gagnant_{mode}_'
-            reports[k].update({prefix + field: '' for field in ('numero', 'nom', 'rang', 'verdict')})
             if matching_value == '':
+                reports[k].update({prefix + field: '' for field in ('numero', 'nom', 'rang', 'verdict')})
                 continue
-            first = document['top3'][0]
-            number = int(first['numero'])
-            name = first.get('nom') or participants.get(str(number), {}).get('nom', '')
+            number = int(document['top3'][0]['numero'])
+            name = nom_partant(number)
+            if name:
+                reports[k][prefix + 'nom'] = name
             ranks = [h['rang'] for h in arrivee['arrivee']
                      if str(h.get('numero')) == str(number) and type(h.get('rang')) is int and h['rang'] > 0]
             reports[k].update({
                 prefix + 'numero': number,
-                prefix + 'nom': str(name or '').strip(),
                 prefix + 'rang': ranks[0] if len(ranks) == 1 else '',
                 prefix + 'verdict': 'Trouvé' if number == int(podium[0]['numero']) else 'Non trouvé',
             })
@@ -814,6 +815,8 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                            (not isinstance(before,(int,float)) or isinstance(before,bool))))
                          if name in NUMERIC_SCORES or name == 'top3_cotes_valeur' else (before!=value or (isinstance(before,bool) and not isinstance(value,bool)) if name in MATCHING_COLUMNS else str(before)!=str(value)))
                 if date_kind(name):
+                    if tab != 'Historique chevaux' and date_kind(name) == 'DATE_TIME' and value and not instant_iso(value):
+                        continue
                     differs = not meme_date_sheets(name, before, value)
                 if name == 'course_allocation_eur':
                     differs = ''.join(str(before).split()) != str(value)

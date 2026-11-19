@@ -24,7 +24,7 @@ def instant_iso(value):
     try:
         stamp = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
         return stamp if stamp.tzinfo is not None else None
-    except ValueError:
+    except (OverflowError, ValueError):
         return None
 
 
@@ -55,7 +55,21 @@ def depuis_nombre(field, value):
     if kind == "DATE":
         return wall.date().isoformat()
     zone = PARIS if field in PARIS_FIELDS else timezone.utc
-    return wall.replace(tzinfo=zone).isoformat()
+    stamp = wall.replace(tzinfo=zone)
+    if zone == PARIS and stamp.utcoffset() != stamp.replace(fold=1).utcoffset():
+        # Une ancienne série locale dans l'heure sautée ou répétée ne prouve aucun instant.
+        return value
+    return stamp.isoformat()
+
+
+def vers_cellule_operationnelle(field, value):
+    if date_kind(field) != "DATE_TIME":
+        return vers_nombre(field, value)
+    stamp = instant_iso(value)
+    if stamp is None:
+        return ""
+    zone = PARIS if field in PARIS_FIELDS else timezone.utc
+    return stamp.astimezone(zone).isoformat()
 
 
 def afficher_date(value):
@@ -71,8 +85,11 @@ def afficher_instant(value, zone=PARIS):
 
 
 def meme_date_sheets(field, left, right):
-    left, right = vers_nombre(field, left), vers_nombre(field, right)
-    if date_kind(field) == "DATE_TIME" and type(left) in (int, float) and type(right) in (int, float):
-        # Le nombre de jours peut perdre quelques microsecondes côté Sheets.
-        return abs(left - right) <= 10 / 86_400_000_000
-    return left == right
+    if date_kind(field) == "DATE_TIME":
+        a = instant_iso(depuis_nombre(field, left))
+        b = instant_iso(depuis_nombre(field, right))
+        if a and b:
+            # Le nombre de jours peut perdre quelques microsecondes côté Sheets.
+            return abs(a - b) <= timedelta(microseconds=10)
+        return left == right
+    return vers_nombre(field, left) == vers_nombre(field, right)

@@ -129,7 +129,18 @@ class V21PaliersTests(unittest.TestCase):
                 {"numPmu":2,"ordreArrivee":1},
                 {"numPmu":3,"ordreArrivee":2},
                 {"numPmu":4}]}
-            self.assertEqual(enregistrer_resultats(root,course,raw),"ARRIVEE_ENREGISTREE")
+            self.assertEqual(enregistrer_resultats(root,course,raw,observe=course["depart"]),
+                             "ARRIVEE_NON_VERIFIEE")
+            observation = "2026-11-12T13:42:30+01:00"
+            self.assertEqual(enregistrer_resultats(root,course,raw,observe=observation),
+                             "ARRIVEE_NON_VERIFIEE")
+            course["podium_definitif_pmu"] = [1,2,3]
+            self.assertEqual(enregistrer_resultats(root,course,raw,observe=observation),
+                             "ARRIVEE_NON_VERIFIEE")
+            course["podium_definitif_pmu"] = [2,3,1]
+            self.assertEqual(enregistrer_resultats(root,course,raw,observe=observation),"ARRIVEE_ENREGISTREE")
+            self.assertEqual(enregistrer_resultats(root,course,raw,observe="2026-11-12T14:30:00+01:00"),
+                             "ARRIVEE_DEJA_ENREGISTREE")
             src=root/"sources_pmu"/f"programme_{day}.json"
             src.parent.mkdir(parents=True,exist_ok=True)
             src.write_text(json.dumps({"programme":[course]}),encoding="utf8")
@@ -137,6 +148,7 @@ class V21PaliersTests(unittest.TestCase):
             self.assertEqual(len(output),1)
             row=next(iter(output.values()))
             self.assertEqual(row["arrivee_officielle_numeros"],"2,3,1")
+            self.assertEqual(row["arrivee_verifiee_utc"],"2026-11-12T12:42:30+00:00")
             self.assertEqual(row["statut_evaluation"],"ARRIVEE_SANS_TOP3_FIGE")
             self.assertEqual(row["top3_prevu_numeros"],"")
             self.assertEqual(row["score_sur_3"],"")

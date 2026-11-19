@@ -8,9 +8,8 @@ import json
 from collections import defaultdict
 import os
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS, instant_iso as instant
 
-PARIS = ZoneInfo('Europe/Paris')
 PHASES = {'H2': timedelta(hours=2), 'H1': timedelta(hours=1)}
 MARGE = timedelta(minutes=30)  # fraîcheur des données, inchangée
 ANTICIPATION = timedelta(minutes=55)  # fenêtres H2/H1 non superposées
@@ -29,14 +28,6 @@ def sauver(path, value):
     tmp = path.with_suffix('.tmp')
     tmp.write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     tmp.replace(path)
-
-
-def instant(value):
-    try:
-        result = datetime.fromisoformat(value)
-        return result if result.tzinfo else None
-    except (ValueError, TypeError):
-        return None
 
 
 def courses_du_jour(cache, now):
@@ -133,6 +124,8 @@ def prevision_valide(doc, depart, now, ml=False, key=None):
 
 def preuves_sheets(rows, now):
     """Reconstituer les sélections effectivement lisibles dans le registre."""
+    from dashboard.trot_analytics.dates import meme_date_sheets
+
     groups = defaultdict(list)
     for row in rows:
         day, code = row.get('date_course'), row.get('rncn')
@@ -151,10 +144,11 @@ def preuves_sheets(rows, now):
                 ranking = sorted((int(r[rank]), int(r['numero'])) for r in picked)
             except (KeyError, TypeError, ValueError):
                 continue
-            versions = {str(r.get(version, '')) for r in picked}
-            if [i for i, _ in ranking] == [1, 2, 3] and len(versions) == 1 and instant(next(iter(versions))):
+            first_version = picked[0].get(version)
+            if ([i for i, _ in ranking] == [1, 2, 3] and instant(first_version)
+                    and all(meme_date_sheets(version, r.get(version), first_version) for r in picked[1:])):
                 proofs.setdefault(key, {})[kind] = {'numeros': [n for _, n in ranking],
-                                                     'calcul_utc': versions.pop()}
+                                                     'calcul_utc': first_version}
     return {'lecture_utc': now.isoformat(), 'courses': proofs}
 
 

@@ -3,8 +3,13 @@ from datetime import datetime,timezone
 from pathlib import Path
 import json
 
-def enregistrer_resultats(cache:Path,course:dict,participants:dict):
+def enregistrer_resultats(cache:Path,course:dict,participants:dict,*,observe=None):
     from .auto_v18 import _list,_num,save
+    from .echeances_production import instant
+    depart = instant(course.get('depart'))
+    observe = datetime.now(timezone.utc) if observe is None else instant(observe)
+    if not depart or not observe or observe <= depart:
+        return 'ARRIVEE_NON_VERIFIEE'
     raw=_list(participants,'participants','partants')
     if not raw:return 'ARRIVEE_NON_VERIFIEE'
     rows=[]
@@ -16,11 +21,17 @@ def enregistrer_resultats(cache:Path,course:dict,participants:dict):
     ranks={x['rang'] for x in rows}
     if not {1,2,3}.issubset(ranks) or len({x['numero'] for x in rows})!=len(rows):
         return 'ARRIVEE_NON_VERIFIEE'
-    if len([r for r in rows if r['rang'] in (1,2,3)])!=3:return 'ARRIVEE_NON_VERIFIEE'
+    rows.sort(key=lambda row: row['rang'])
+    podium = [row['numero'] for row in rows if row['rang'] in (1, 2, 3)]
+    if len(podium) != 3 or podium != course.get('podium_definitif_pmu'):
+        return 'ARRIVEE_NON_VERIFIEE'
     file=Path(cache)/'arrivees'/f"{course['date']}_{course['code']}.json"
     if file.exists():return 'ARRIVEE_DEJA_ENREGISTREE'
+    # Heure de lecture des rangs dans le flux PMU. L'heure de proclamation
+    # officielle n'est pas fournie par cette réponse.
     save(file,{'date':course['date'],'course':course['code'],'source':'PMU_API_PARTICIPANTS',
-               'verifie_utc':datetime.now(timezone.utc).isoformat(),'arrivee':sorted(rows,key=lambda r:r['rang'])})
+               'verifie_utc':observe.astimezone(timezone.utc).isoformat(),
+               'podium_definitif_pmu':podium,'arrivee':rows})
     topfile=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_top3.json"
     if topfile.exists():
         top=json.loads(topfile.read_text(encoding='utf-8'))

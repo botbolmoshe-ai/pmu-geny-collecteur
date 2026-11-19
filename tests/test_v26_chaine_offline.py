@@ -107,6 +107,42 @@ class ChaineTests(unittest.TestCase):
         self.assertFalse(meme_date_sheets('extraction_utc', capture, '2026-11-19T16:02:46+01:00'))
 
 
+    def test_instants_operationnels_sheets_et_streamlit(self):
+        from dashboard.trot_analytics.dates import afficher_instant, meme_date_sheets, vers_nombre
+        from dashboard.trot_analytics.logic import records
+        from pmu_geny.moteur_sheets import SynchroniseurSheets
+        from pmu_geny.sync_google_sheets import DISPLAY_NAMES, REPORT_COLUMNS
+
+        tab = 'Résultats & Analyse'
+        headers = [DISPLAY_NAMES.get(field, field) for field in REPORT_COLUMNS]
+        session = SheetsSession()
+        departure = '2026-11-19T16:52:00+01:00'
+        observed = '2026-11-19T17:01:17.029833+01:00'
+        incoming = {'course_key': 'new', 'heure_depart_paris': departure,
+                    'arrivee_verifiee_utc': observed}
+        old = {**incoming, 'course_key': 'old'}
+        old_row = [vers_nombre(field, old.get(field, '')) for field in REPORT_COLUMNS]
+        session.tables[tab] = [headers, old_row[:]]
+        with tempfile.TemporaryDirectory() as tmp:
+            engine = SynchroniseurSheets(tmp, 'fake', session=session)
+            props = engine.metadata()[tab]
+            items = {'old': old, 'new': incoming}
+            engine._synchroniser_onglet(tab, items, props, full_source=False, allow_structure=True)
+            second = engine._synchroniser_onglet(tab, items, props, full_source=False, allow_structure=True)
+        self.assertEqual(session.tables[tab][1], old_row)
+        raw = dict(zip(REPORT_COLUMNS, session.tables[tab][2]))
+        self.assertEqual(raw['heure_depart_paris'], departure)
+        self.assertEqual(raw['arrivee_verifiee_utc'], '2026-11-19T16:01:17.029833+00:00')
+        self.assertEqual(second['cellules_actualisees'], 0)
+        for row in records(session.tables[tab]):
+            self.assertEqual(afficher_instant(row['Départ (Paris)']), '19/11/2026 16:52')
+            self.assertEqual(afficher_instant(row['Arrivée · Vérifiée UTC']), '19/11/2026 17:01')
+
+        early = '2026-10-25T02:30:00+02:00'
+        late = '2026-10-25T02:30:00+01:00'
+        self.assertFalse(meme_date_sheets('heure_depart_paris', early, late))
+        self.assertFalse(meme_date_sheets('heure_depart_paris', vers_nombre('heure_depart_paris', early), late))
+
     def test_plan_corrompu_bloque_avant_tout_post_sheets(self):
         from pmu_geny.controle_sync_sheets import BlocageSynchronisation
         session=SheetsSession()
