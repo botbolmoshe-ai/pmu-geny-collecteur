@@ -19,7 +19,7 @@ SCOPES=["https://www.googleapis.com/auth/spreadsheets.readonly"]
 def read_registry():
     creds=Credentials.from_service_account_info(dict(st.secrets["google_service_account"]),scopes=SCOPES)
     api=build("sheets","v4",credentials=creds,cache_discovery=False)
-    ranges=["'"+tab+"'!A1:"+last for tab,last in zip(TABS,("BA","AZ","AZ"))]
+    ranges=["'"+tab+"'!A1:"+last for tab,last in zip(TABS,("BC","AZ","AZ"))]
     metadata=api.spreadsheets().get(spreadsheetId=st.secrets['spreadsheet_id'],fields='sheets(properties(title))').execute(num_retries=2)
     has_history=any(s.get('properties',{}).get('title')==HISTORY_TAB for s in metadata.get('sheets',[]))
     if has_history:ranges.append("'"+HISTORY_TAB+"'!A1:H")
@@ -32,7 +32,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.1 · Critères PMU et résultats nominatifs")
+st.caption("Version interface : 2026.11.19.2 · Gagnants potentiels direct et ML")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -121,6 +121,12 @@ elif page=="Courses":
                     st.markdown("**"+title+" : "+" — ".join(str(h["N°"]) for h in chosen)+"**")
                     st.caption(" / ".join(str(h.get("Cheval","")) for h in chosen))
                 else: st.caption(title+" : sélection indisponible ou non vérifiée")
+                winner_label = "Gagnant potentiel " + title.removeprefix("TOP3 ")
+                if chosen and chosen[0].get(winner_label + " · Sélection") == "OUI":
+                    winner = chosen[0]
+                    st.markdown(f"**{winner_label} : {winner['N°']} — {winner.get('Cheval') or '—'}**")
+                else:
+                    st.caption(winner_label + " : indisponible")
             st.caption("Calcul direct : "+str(first.get("TOP3 direct · Calcul UTC") or "non renseigné"))
             st.caption("ML : "+str(first.get("ML · État du modèle") or "non renseigné"))
             st.caption("NP : "+", ".join(str(h["N°"]) for h in rows if h.get("Non-partant (NP)")=="NON_PARTANT") if any(h.get("Non-partant (NP)")=="NON_PARTANT" for h in rows) else "Aucun NP enregistré (voir fraîcheur des fiches)")
@@ -144,12 +150,17 @@ elif page=="Résultats":
     st.caption("Matching en % · uniquement sur preuves disponibles. Absence ≠ 0 %. ML non évaluable sans preuve enregistrée.")
     table=[]
     for r in day_results:
-        table.append({"Course":r.get("Course R/C"),
+        row = {"Course":r.get("Course R/C"),
             "Direct":r.get("TOP3 direct · Chevaux"),"Direct · Noms":r.get("TOP3 direct · Noms"),
             "ML":r.get("TOP3 ML · Chevaux"),"ML · Noms":r.get("TOP3 ML · Noms"),
             "Podium enregistré":r.get("Arrivée · N° officiels"),"Podium · Noms":r.get("Arrivée · Noms officiels"),
             "Direct (%)":result_matching(r,"direct",now),
-            "ML (%)":result_matching(r,"ml",now),"État":r.get("Évaluation · État"),"ML statut":r.get("ML · Statut")})
+            "ML (%)":result_matching(r,"ml",now),"État":r.get("Évaluation · État"),"ML statut":r.get("ML · Statut")}
+        for mode in ("direct", "ML"):
+            for field in ("N°", "Nom", "Rang officiel", "Verdict"):
+                key = f"Gagnant potentiel {mode} · {field}"
+                row[key] = r.get(key) or None
+        table.append(row)
     if not table: st.info("Aucun bilan enregistré.")
     else:
         df=pd.DataFrame(table)

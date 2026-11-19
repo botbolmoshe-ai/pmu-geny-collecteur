@@ -48,13 +48,21 @@ class MatchingTests(unittest.TestCase):
                 'parametres_pmu':{'conditions':"PRIX TEST Course 1 Course D Départ à l'Autostart. Pour 4 et 5 ans.",
                                  'parcours':'GRANDE PISTE'}}]})
             save(root/'partants_actuels'/f'{day}_{code}.json',{'chevaux':{
-                str(n):{'nom':f'CHEVAL {n}','age_ans':4} for n in range(1,7)}})
+                str(n):{'nom':f'CHEVAL {n}','age_ans':4,'statut_np':'PARTANT'} for n in range(1,7)}})
             save(root/'arrivees'/f'{day}_{code}.json',self.arr)
             save(root/'pronostics'/f'{day}_{code}_direct.json',self.pred([2,4,1]))
             save(root/'pronostics'/f'{day}_{code}_ml_latest.json',self.pred([4,5,6]))
             output=source_rows(root)
             item=next(iter(output['Résultats & Analyse'].values()))
-            runner=next(iter(output['Courses & Prévisions'].values()))
+            runners={row['numero']:row for row in output['Courses & Prévisions'].values()}
+            runner=runners['1']
+            self.assertEqual(runners['2']['gagnant_direct_selection'],'OUI')
+            self.assertEqual(runners['2']['gagnant_ml_selection'],'')
+            self.assertEqual(runners['4']['gagnant_ml_selection'],'OUI')
+            self.assertEqual([item[f'gagnant_direct_{field}'] for field in ('numero','nom','rang','verdict')],
+                             [2,'CHEVAL 2',2,'Non trouvé'])
+            self.assertEqual([item[f'gagnant_ml_{field}'] for field in ('numero','nom','rang','verdict')],
+                             [4,'CHEVAL 4','','Non trouvé'])
             self.assertEqual([runner[field] for field in (
                 'course_nom_pmu','course_categorie_pmu','course_ages_admis',
                 'course_allocation_eur','course_parcours','course_mode_depart','age_ans')],
@@ -68,10 +76,18 @@ class MatchingTests(unittest.TestCase):
             save(root/'pronostics'/f'{day}_{code}_direct.json',self.pred([4,5,6]))
             item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
             self.assertTrue(item['conclusion'].startswith('Échec commun'))
+            save(root/'arrivees'/f'{day}_{code}.json',{
+                **self.arr,'arrivee':self.arr['arrivee']+[{'numero':4,'rang':7}]})
+            save(root/'pronostics'/f'{day}_{code}_direct.json',self.pred([1,2,3]))
+            item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
+            self.assertEqual(item['gagnant_direct_verdict'],'Trouvé')
+            self.assertEqual(item['gagnant_ml_rang'],7)
             save(root/'pronostics'/f'{day}_{code}_direct.json',{**self.pred([1,2,3]),'calcul_utc':self.depart})
             item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
             self.assertEqual(item['conclusion'],'ML : 0/3 ; aucune autre méthode évaluable')
+            self.assertEqual(item['gagnant_direct_verdict'],'')
             (root/'pronostics'/f'{day}_{code}_ml_latest.json').unlink()
             item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
             self.assertEqual(item['matching_ml_pct'],'')
+            self.assertEqual(item['gagnant_ml_numero'],'')
             self.assertNotIn('top3_ml_noms', item)
