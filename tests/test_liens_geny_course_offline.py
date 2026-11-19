@@ -111,6 +111,15 @@ class LiensTests(unittest.TestCase):
         proof=self.extraire();proof['http']=403;self.memoriser(proof)
         self.assertFalse((self.cache/'sources_geny/liens'/f'{self.engagement}.json').exists())
 
+    def test_relecture_partielle_conserve_les_autres_liens(self):
+        self.memoriser(self.extraire())
+        self.memoriser(self.extraire(self.rows()[:1]))
+        link = liens.pour_cheval(self.cache, self.engagement, '2', 'Open Oam', self.now, self.url)
+        self.assertEqual(link['id'], '2895700')
+        self.now += timedelta(hours=25)
+        self.memoriser(self.extraire(self.rows()[:1]))
+        self.assertIsNone(liens.pour_cheval(self.cache, self.engagement, '2', 'Open Oam', self.now, self.url))
+
     def test_alimentation_reutilise_identite_sans_promouvoir_carriere(self):
         self.memoriser(self.extraire())
         inc.ecrire(self.cache/'orchestration/correspondances_geny.json',{self.engagement:'GENY-1698831'})

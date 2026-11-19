@@ -92,6 +92,12 @@ def extraire(rows,html,engagement,source_url,stamp):
             'capture_utc':stamp,'http':200,'chevaux':horses}
 
 
+def conserver_liens_precedents(proof, previous):
+    carried = {n: {**h, 'preuve_course_utc': h.get('preuve_course_utc') or previous['capture_utc']}
+               for n, h in previous.get('chevaux', {}).items()}
+    return {**proof, 'chevaux': {**carried, **proof['chevaux']}}
+
+
 def memoriser(cache,horse,out):
     from .historiques_incrementaux import lire,ecrire,instant
     proof=lire(out/'liens_course.json')
@@ -104,7 +110,18 @@ def memoriser(cache,horse,out):
     own=proof.get('chevaux',{}).get(str(horse.get('numero')),{})
     if not nom_geny_concordant(horse.get('nom'), own):return
     if any(not lien_valide(h.get('url_geny'),h.get('id')) for h in proof['chevaux'].values()):return
-    ecrire(cache/'sources_geny/liens'/f"{horse['engagement']}.json",proof)
+    path = cache/'sources_geny/liens'/f"{horse['engagement']}.json"
+    old = lire(path)
+    if (old.get('http') == 200 and old.get('engagement') == proof['engagement']
+            and old.get('course_geny_id') == proof['course_geny_id'] and instant(old.get('capture_utc'))):
+        # Une page relue partiellement ne doit pas effacer les liens déjà prouvés.
+        # Conserver la preuve d'origine si la lecture signale un autre ID au même numéro.
+        existing = old.get('chevaux', {})
+        new = proof['chevaux']
+        if any(n in existing and existing[n].get('id') != h['id'] for n, h in new.items()):
+            return
+        proof = conserver_liens_precedents(proof, old)
+    ecrire(path, proof)
 
 
 def pour_cheval(cache,engagement,numero,nom,now,course_url):
@@ -117,6 +134,8 @@ def pour_cheval(cache,engagement,numero,nom,now,course_url):
             or proof.get('http')!=200 or not stamp or not timedelta(0)<=now-stamp<=timedelta(hours=24)):
         return None
     h=proof.get('chevaux',{}).get(str(numero),{})
-    if not nom_geny_concordant(nom, h) or not lien_valide(h.get('url_geny'),h.get('id')):
+    link_stamp = instant(h.get('preuve_course_utc') or proof['capture_utc'])
+    if (not nom_geny_concordant(nom, h) or not lien_valide(h.get('url_geny'), h.get('id'))
+            or not link_stamp or not timedelta(0) <= now-link_stamp <= timedelta(hours=24)):
         return None
-    return {**h,'preuve_course_utc':proof['capture_utc']}
+    return {**h, 'preuve_course_utc': link_stamp.isoformat()}

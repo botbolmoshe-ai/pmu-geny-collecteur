@@ -399,6 +399,13 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
     ecrire(cache/'etat_persistant.json', journal)
 
 
+def suspendre_geny(cache, state, stamp, code):
+    state['prochain_acces_geny_utc'] = (stamp + timedelta(minutes=30)).isoformat()
+    journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
+    journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': code}
+    ecrire(cache/'etat_persistant.json', journal)
+
+
 def checkpoint_distant(cache, *, queue=QUEUE):
     """Publier seulement les fichiers de collecte sous le verrou partagé des workflows."""
     root = Path(__file__).resolve().parents[1]
@@ -564,11 +571,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     'identite_verifiee':report.get('identite_verifiee'),
                     'diagnostic':str(out/'resultat.json')}
                 if isinstance(exc, PermissionError):
-                    stamp = datetime.now(UTC)
-                    state['prochain_acces_geny_utc'] = (stamp+timedelta(minutes=30)).isoformat()
-                    journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
-                    journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': '403' if '403' in str(exc) else '429'}
-                    ecrire(cache/'etat_persistant.json', journal)
+                    suspendre_geny(cache, state, datetime.now(UTC), '403' if '403' in str(exc) else '429')
                 # Le sous-processus peut s'arrêter après la preuve et avant son bilan.
                 if not report or isinstance(exc, PermissionError):
                     memoriser_resolution(horse,report,out,cache=cache)

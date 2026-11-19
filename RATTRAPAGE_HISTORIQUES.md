@@ -170,6 +170,27 @@ Après `TERMINE`, les passages suivants ne relancent aucune collecte.
 La notification finale relève de la supervision PMU existante, avec identifiant
 de lot, dénominateurs, ajouts confirmés et blocages.
 
+## Pilote de résolution des identités par course
+
+Un créneau nocturne de rattrapage commence par rejouer les preuves locales.
+Le pilote fixe ensuite une cohorte de dix courses Geny confirmées couvrant le
+plus de places PMU encore sans identifiant. Il ouvre au plus une page de partants
+par passage, après les partants prioritaires et sous le verrou habituel. Le
+même passage est réservé à cette page. Les lectures individuelles de carrières
+reprennent sur les passages suivants et après la fin du pilote.
+
+Chaque lien doit être corroboré par le contexte PMU archivé, le numéro et le nom.
+Les conflits restent visibles. Un nom seul ne suffit pas et un lien confirmé
+ne valide aucune carrière. Les preuves écrites dans `sources_geny/liens` sont
+relues par l'index commun. Les engagements sans rapprochement Geny confirmé
+restent dans le bilan. Une nouvelle preuve locale peut les rendre éligibles au
+rattrapage ordinaire. Les 403/429 déclenchent la pause commune de trente minutes.
+Le pilote permet une seule nouvelle tentative après un tel refus par course.
+
+`rattrapage_historiques/resolution_identites_courses.json` conserve la cohorte,
+le nombre de pages lues, les identités confirmées, les conflits, les numéros
+sans lien et les exclusions, indépendamment de la publication des historiques.
+
 ## Exploitation
 
 Lancement manuel : « PMU - Rattrapage global des historiques », `max_minutes`
