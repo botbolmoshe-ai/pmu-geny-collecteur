@@ -32,6 +32,8 @@ class AppTests(unittest.TestCase):
         day=self.today.isoformat();depart=datetime.combine(self.today,time(12),ZoneInfo('Europe/Paris'))
         courses=[{'Clé course (technique)':day+'|R1C1','Date':day,'Course R/C':'R1C1','Hippodrome':'VINCENNES',
             'Départ (Paris)':depart.isoformat(),'Discipline':'Attelé','Distance (m)':2700,
+            'Course · Nom PMU':'PRIX TEST','Course · Catégorie PMU':'Course C','Course · Âges admis':'5 ans',
+            'Course · Allocation (€)':53000,'Course · Parcours':'Grande piste','Course · Mode de départ':'Autostart',
             'N°':n,'Cheval':f'Cheval test {n}','Non-partant (NP)':'PARTANT',
             'TOP3 direct · Rang':n,'TOP3 direct · Sélection':'OUI','ML · Rang':n,'ML · Sélection':'OUI',
             'Historique · Nb performances récupérées':2,'Ferrure · Course du jour':'D4',
@@ -87,6 +89,12 @@ class AppTests(unittest.TestCase):
         self.app.radio[0].set_value('Courses').run()
         self.assertEqual(len(self.app.exception), 0)
         tableau = self.app.dataframe[0]
+        self.assertIn('PRIX TEST', self.app.expander[0].label)
+        self.assertIn('Course C · 5 ans · Grande piste · Autostart · 53\u202f000 €',
+                      [caption.value for caption in self.app.caption])
+        self.assertEqual(list(tableau.value['Âge (ans)']), [5, 5, 5])
+        ranges = self.api.spreadsheets().values().batchGet.call_args.kwargs['ranges']
+        self.assertIn("'Courses & Prévisions'!A1:BA", ranges)
         self.assertEqual(list(tableau.value['Profil du cheval']), ['Crack', 'Haut potentiel', ''])
         css = getattr(tableau.proto, "arrow_data", tableau.proto).styler.styles
         self.assertIn('background-color: #ffe375', css)
@@ -98,17 +106,26 @@ class AppTests(unittest.TestCase):
         d=self.today-timedelta(days=1)
         t=datetime.combine(d,time(12),ZoneInfo('Europe/Paris'))
         row={'Clé course (technique)':d.isoformat()+'|VINCENNES|R1C1',
-             'Date':d.isoformat(),'Hippodrome':'VINCENNES','Départ (Paris)':t.isoformat(),
+             'Date':d.isoformat(),'Course R/C':'R1C1','Hippodrome':'VINCENNES','Départ (Paris)':t.isoformat(),
              'Arrivée · Vérifiée UTC':(t+timedelta(minutes=15)).isoformat(),
              'Évaluation · État':'EVALUE','Arrivée · N° officiels':'1,2,3',
              'TOP3 direct · Chevaux':'1,2,4','TOP3 direct · Heure calcul UTC':(t-timedelta(hours=1)).isoformat(),
              'TOP3 direct · Chevaux à l’arrivée (0–3)':2,'TOP3 direct · Matching (%)':66.67,
              'TOP3 ML · Chevaux':'4,5,6','TOP3 ML · Chevaux à l’arrivée (0–3)':0,
-             'TOP3 ML · Matching (%)':0,'ML · Statut':'ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE'}
+             'TOP3 ML · Matching (%)':0,'ML · Statut':'ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE',
+             'TOP3 direct · Noms':'A · B · D','TOP3 ML · Noms':'D · E · F',
+             'Arrivée · Noms officiels':'A · B · C'}
         data=self.api.spreadsheets().values().batchGet().execute.return_value['valueRanges']
         data[1]={'values':[list(row),list(row.values())]}
         self.app.session_state.authenticated=True
         self.app.run()
+        self.app.radio[0].set_value('Résultats').run()
+        self.app.date_input[0].set_value(d).run()
+        result = self.app.dataframe[0].value
+        columns = ['Direct', 'Direct · Noms', 'ML', 'ML · Noms', 'Podium enregistré', 'Podium · Noms']
+        self.assertEqual(list(result.columns[1:7]), columns)
+        self.assertEqual(result.iloc[0][columns].tolist(),
+                         ['1,2,4', 'A · B · D', '4,5,6', 'D · E · F', '1,2,3', 'A · B · C'])
         self.app.radio[0].set_value('Performance').run()
         self.assertEqual(len(self.app.exception),0)
         self.assertEqual(len(self.app.error),0)
