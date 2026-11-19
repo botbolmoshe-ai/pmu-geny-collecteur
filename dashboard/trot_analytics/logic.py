@@ -1,6 +1,7 @@
 """Read-only presentation helpers. No prediction or collection."""
 from datetime import datetime, timezone
 import math
+from .dates import depuis_nombre, instant_iso
 
 def number(value):
     try:
@@ -9,10 +10,7 @@ def number(value):
     except (ValueError,TypeError): return None
 
 def timestamp(value):
-    try:
-        x=datetime.fromisoformat(str(value).replace('Z','+00:00'))
-        return x if x.tzinfo else None
-    except (ValueError,TypeError): return None
+    return instant_iso(value)
 
 def matching(value):
     x=number(value)
@@ -22,7 +20,7 @@ def records(values):
     if not values or not values[0]: return []
     headers=list(values[0])
     if len(set(headers))!=len(headers): raise ValueError('En-têtes non uniques')
-    return [dict(zip(headers,row)) for row in values[1:] if row and any(v not in ('',None) for v in row)]
+    return [{field: depuis_nombre(field, value) for field, value in zip(headers, row)} for row in values[1:] if row and any(v not in ('',None) for v in row)]
 
 def selected(rows, method):
     selection,rank={'direct':('TOP3 direct · Sélection','TOP3 direct · Rang'),

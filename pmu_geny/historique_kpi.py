@@ -4,6 +4,8 @@ import json
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
+from dashboard.trot_analytics.dates import afficher_instant, depuis_nombre, vers_nombre
+
 TAB='Historique qualité'
 SOURCE_HEADERS=['Dimension','Indicateur','Valeur (automatique)','Définition / réserve','Total de référence (automatique)']
 HEADERS=['Clé du relevé','Date du relevé','Relevé UTC',*SOURCE_HEADERS]
@@ -60,11 +62,35 @@ def enregistrer(engine,tables,now=None):
     path=quote(f"'{TAB}'!A1:H{count}",safe="!:'")
     existing=engine.check(get_lecture(engine.session,engine.base+'/values/'+path,
         params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
-    updates,last=planifier(source,existing,now)
+    normalise = [row[:] for row in existing]
+    for row in normalise[1:]:
+        for col in (1, 2):
+            if col < len(row):
+                row[col] = depuis_nombre(HEADERS[col], row[col])
+    updates,last=planifier(source,normalise,now)
+    replaced = {int(entry['range'].split('!A')[1].split(':')[0]) for entry in updates}
+    for index, row in enumerate(normalise[1:], 2):
+        if index in replaced or len(row) < 3:
+            continue
+        dates = [vers_nombre(HEADERS[col], row[col]) for col in (1, 2)]
+        if dates != existing[index - 1][1:3]:
+            updates.append({'range': f"'{TAB}'!B{index}:C{index}", 'values': [dates]})
+        value = afficher_instant(row[5], timezone.utc) if len(row) > 5 else ''
+        if value:
+            updates.append({'range': f"'{TAB}'!F{index}", 'values': [[value]]})
+    for entry in updates:
+        if '!A' in entry['range'] and '!A1:H1' not in entry['range']:
+            row = entry['values'][0]
+            for col in (1, 2):
+                row[col] = vers_nombre(HEADERS[col], row[col])
+            row[5] = afficher_instant(row[5], timezone.utc) or row[5]
     if last>count:
         engine.check(engine.session.post(engine.base+':batchUpdate',json={'requests':[{'appendDimension':{
             'sheetId':properties['sheetId'],'dimension':'ROWS','length':max(last-count,1000)}}]},timeout=30))
     if updates:
+        from .moteur_sheets import formats_dates
+        engine.check(engine.session.post(engine.base+':batchUpdate',
+            json={'requests':formats_dates(properties['sheetId'], HEADERS)},timeout=30))
         # Ranges explicites : relire puis réessayer ne crée pas un deuxième append.
         engine.check(engine.session.post(engine.base+'/values:batchUpdate',json={
             'valueInputOption':'RAW','data':updates},timeout=45))

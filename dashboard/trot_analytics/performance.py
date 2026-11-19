@@ -1,6 +1,7 @@
 """Comparable performance of published, verified TOP3 results; read only."""
 from collections import Counter, defaultdict
 from datetime import date
+from .dates import afficher_date
 from .logic import number, result_matching
 
 METHODS = ("direct", "ml")
@@ -72,7 +73,7 @@ def render_performance(results, now):
         st.info("Aucun résultat vérifiable disponible.")
         return
     start,end=rows[0]["date"],rows[-1]["date"]
-    period=st.date_input("Période",value=(start,end),min_value=start,max_value=end,key="performance_period")
+    period=st.date_input("Période",value=(start,end),min_value=start,max_value=end,format="DD/MM/YYYY",key="performance_period")
     if not isinstance(period,(tuple,list)) or len(period)!=2:
         st.info("Sélectionner les deux dates de la période.")
         return
@@ -107,10 +108,11 @@ def render_performance(results, now):
     plot=series.rename(columns=dict(zip(fields,labels))) if mode=="Cumulée" else series
     if mode=="Cumulée":
         plot=series[["Date","Courses cumulées",*fields]].rename(columns=dict(zip(fields,labels)))
+    plot = plot.assign(Date=plot["Date"].map(afficher_date))
     fig=px.line(plot,x="Date",y=labels,markers=True,range_y=[0,100],
                 color_discrete_map=colors,labels={"value":"Matching (%)","variable":"Méthode"},
                 hover_data=["Courses cumulées" if mode=="Cumulée" else "Courses communes"])
     fig.update_layout(yaxis=dict(ticksuffix="%"),legend_title_text=None)
     st.plotly_chart(fig,use_container_width=True)
     st.caption("La courbe cumulée pondère chaque course à l’identique. Ces scores décrivent les résultats enregistrés, pas une garantie de performance future.")
-    st.dataframe(series,hide_index=True,use_container_width=True)
+    st.dataframe(series.assign(Date=series["Date"].map(afficher_date)),hide_index=True,use_container_width=True)

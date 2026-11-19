@@ -1,5 +1,7 @@
 """Compact, read-only presentation of the published quality indicators."""
 from collections import OrderedDict
+from datetime import timezone
+from .dates import afficher_date, afficher_instant
 from .logic import number,timestamp
 
 TOTAL_FIELD = "Total de référence (automatique)"
@@ -11,7 +13,7 @@ def display_value(value, *, rate=False):
         return "—"
     numeric = number(value)
     if numeric is None:
-        return str(value)
+        return afficher_instant(value, timezone.utc) or str(value)
     if rate:
         return f"{numeric * 100:.1f}".replace(".", ",") + " %"
     if numeric.is_integer():
@@ -92,9 +94,9 @@ def render_quality(kpis, courses=None, history=None):
             if not kpis:
                 st.info("Aucun relevé conservé pour cette période. Le passé n’est pas reconstitué à partir des valeurs actuelles.")
                 return
-            st.caption("Tableaux : dernier relevé de la période, le "+latest+". Évolution : ensemble des relevés sélectionnés.")
+            st.caption("Tableaux : dernier relevé de la période, le "+str(afficher_date(latest))+". Évolution : ensemble des relevés sélectionnés.")
             observed=max(timestamp(r['Relevé UTC']) for r in kpis)
-            st.caption("Observation : "+observed.astimezone(ZoneInfo('Europe/Paris')).strftime('%d/%m/%Y à %H:%M')+" (Paris).")
+            st.caption("Observation : "+afficher_instant(observed)+" (Paris).")
     else:
         st.caption("Indicateurs globaux actuels du registre, sans filtre de date.")
     if not any(row.get("Indicateur") for row in kpis):
@@ -121,11 +123,15 @@ def render_quality(kpis, courses=None, history=None):
                 choice=st.selectbox("Indicateur à suivre",labels,key="quality_trend")
                 points=sorted([r for r in numeric if r['Indicateur']==choice],key=lambda r:r['Date'])
                 rate=is_rate(choice)
-                frame=pd.DataFrame([{'Date':r['Date'],'Valeur (%)' if rate else 'Valeur':number(r['Valeur (automatique)'])*(100 if rate else 1)} for r in points])
+                frame=pd.DataFrame([{'Date':afficher_date(r['Date']),'Valeur (%)' if rate else 'Valeur':number(r['Valeur (automatique)'])*(100 if rate else 1)} for r in points])
                 if len(frame)>1:
-                    st.line_chart(frame.set_index('Date'),height=220)
+                    import plotly.express as px
+                    frame['Date'] = pd.to_datetime(frame['Date'])
+                    fig = px.line(frame, x='Date', y=frame.columns[1], height=220)
+                    fig.update_xaxes(tickformat='%d/%m/%Y', hoverformat='%d/%m/%Y')
+                    st.plotly_chart(fig, width="stretch")
                 else:st.info("Un seul jour disponible : il faut au moins deux dates pour observer une évolution.")
-                st.dataframe(pd.DataFrame([{'Date':r['Date'],'Nombre / valeur':display_value(r.get('Valeur (automatique)'),rate=rate),
+                st.dataframe(pd.DataFrame([{'Date':afficher_date(r['Date']),'Nombre / valeur':display_value(r.get('Valeur (automatique)'),rate=rate),
                                            'Total':display_value(r.get(TOTAL_FIELD))} for r in points]),hide_index=True,width="stretch",height=min(250,35*(len(points)+1)+3))
             else:st.info("Aucune valeur numérique disponible pour tracer une évolution.")
     for index, (dimension, rows) in enumerate(visible.items()):

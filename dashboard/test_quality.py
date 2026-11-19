@@ -50,7 +50,7 @@ class QualityTests(unittest.TestCase):
         self.assertEqual(quality_sections(rows,"Introuvable"),{})
 
     def test_text_timestamps_and_decimals_are_display_values(self):
-        self.assertEqual(display_value("2026-11-17T16:02:00+00:00"),"2026-11-17T16:02:00+00:00")
+        self.assertEqual(display_value("2026-11-17T16:02:00+00:00"),"17/11/2026 16:02")
         self.assertEqual(display_value(1.02564),"1,03")
         self.assertEqual(display_value(0,rate=True),"0,0 %")
 
