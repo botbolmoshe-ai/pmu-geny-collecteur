@@ -5,9 +5,9 @@ from __future__ import annotations
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from .ml_v19 import load, save, numeric
+from .ml_v19 import load, save
 from .auto_v18 import _list, _num
-from .cotes_v19 import extraire_cote
+from .cotes_v19 import calculer_cotes, collecter
 from .profils_partants import (
     CRACK, HAUT_POTENTIEL, PRIORITE, VERSION_PROFILS,
     detecter_crack, detecter_haut_potentiel, sorties_verifiees,
@@ -42,13 +42,23 @@ def _form_score(participant):
     ranks=[int(re.match(r'\d+',t).group()) if t[0].isdigit() else 0 for t in series]
     return round(sum(points.get(r,0.0)*(1-0.12*i) for i,r in enumerate(ranks)),3)
 
-def calculer(cache,course,raw,now=None,clock=None):
-    now=now or datetime.now(timezone.utc)
+def calculer(cache, course, raw, now=None, clock=None, *, inclure_cotes=True):
+    """Compatibilité des appels existants, avec publication du marché séparée."""
+    now = now or datetime.now(timezone.utc)
+    output = {}
+    if inclure_cotes:
+        collecter(cache, course, raw, now)
+        output['cotes'] = calculer_cotes(cache, course, now, clock)
+    output['direct'] = _calculer_direct(cache, course, raw, now, clock)
+    return output
+
+
+def _calculer_direct(cache, course, raw, now, clock):
     depart=datetime.fromisoformat(course['depart'])
     if now.tzinfo is None or depart.tzinfo is None:raise ValueError('Fuseau obligatoire')
-    if now>=depart:return {'direct':'APRES_DEPART','cotes':'APRES_DEPART'}
+    if now>=depart:return 'APRES_DEPART'
     participants=_list(raw,'participants','partants')
-    if not participants:return {'direct':'PARTANTS_ABSENTS','cotes':'PARTANTS_ABSENTS'}
+    if not participants:return 'PARTANTS_ABSENTS'
     from .formes_contextuelles_v32 import forme_meme_depart, noter_partant
     from .liaison_chevaux_v22 import etablir
     from .partants_actuels_v21 import extraire_partants
@@ -65,21 +75,21 @@ def calculer(cache,course,raw,now=None,clock=None):
     liens=etablir(cache,course,identites)
     base=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}"
     expected=course.get('nombre_declares')
-    old_docs={mode:load(Path(str(base)+f'_{mode}.json'),{}) or {} for mode in ('direct','cotes')}
-    known_np=set()
-    for old in old_docs.values():
-        try:
-            if datetime.fromisoformat(old['calcul_utc'])<=now and old.get('depart')==course['depart']:
-                known_np.update(int(n) for n in old.get('non_partants_confirmes',[]))
-        except (KeyError,TypeError,ValueError):continue
+    old = load(Path(str(base)+'_direct.json'), {}) or {}
+    known_np = set()
+    try:
+        if datetime.fromisoformat(old['calcul_utc']) <= now and old.get('depart') == course['depart']:
+            known_np.update(int(n) for n in old.get('non_partants_confirmes', []))
+    except (KeyError, TypeError, ValueError):
+        pass
     all_numbers=set()
-    eligible=[];direct=[];market=[]
+    eligible=[];direct=[]
     signaux = {}
     for item in participants:
         if not isinstance(item,dict):continue
         n=_num(item,'numPmu','num','numero','numeroPmu')
         if n is None or n in all_numbers:
-            return {'direct':'PARTANTS_INCOHERENTS','cotes':'PARTANTS_INCOHERENTS'}
+            return 'PARTANTS_INCOHERENTS'
         all_numbers.add(n)
         if item.get('nonPartant') is True or str(item.get('statut','')).upper() in ('NP','NON_PARTANT'):
             known_np.add(n)
@@ -126,92 +136,75 @@ def calculer(cache,course,raw,now=None,clock=None):
             if forme_depart:
                 direct[-1].update(forme_geny_meme_depart=forme_depart['score'],
                                   sorties_geny_meme_depart=forme_depart['performances_valides'])
-        cote,_=extraire_cote(item)
-        if cote is not None:market.append({'numero':n,'nom':label,'cote':cote})
-    output={}
-    for mode,ranking,key in [('direct',direct,'score_direct'),('cotes',market,'cote')]:
-        observed_at=now.isoformat()
-        reuse_previous = False
-        old=old_docs[mode]
-        old_ranking=[h for h in old.get('classement_complet',[]) if int(h['numero']) not in known_np]
-        old_usable=False
-        try:
-            old_usable=(datetime.fromisoformat(old['calcul_utc'])<=now and
-                        old.get('depart')==course['depart'] and old.get('version_moteur')==VERSION_MOTEUR)
-        except (KeyError,ValueError,TypeError):pass
-        complete_list=expected is not None and len(all_numbers)==int(expected)
-        # Comparer la couverture APRES exclusion des retraits, jamais le nombre brut.
-        if old_usable and len(old_ranking)>len(ranking) and not (complete_list and len(eligible)<3):
-            if known_np==set(old.get('non_partants_confirmes',[])):
-                output[mode]='ANCIEN_RELEVE_PLUS_COMPLET'
-                continue
-            ranking=old_ranking
-            reuse_previous = True
-            observed_at=old.get('donnees_observees_utc',old['calcul_utc'])
-            if mode == 'direct':
-                signaux = {n: signal for n, signal in old.get('profils_partants', {}).items()
-                           if int(n) not in known_np}
-        if mode == 'direct':
-            ranking.sort(key=lambda h: (-h[key], -PRIORITE.get(
-                signaux.get(str(h['numero']), {}).get('statut'), 0), h['numero']))
-        else:
-            ranking.sort(key=lambda h: (h[key], h['numero']))
-        sufficient=len(ranking)>=3 and not (complete_list and len(eligible)<3)
-        doc={'date':course['date'],'course':course['code'],'depart':course['depart'],
-             'calcul_utc':now.isoformat(),'mode':mode.upper(),
-             'donnees_observees_utc':observed_at,
-             'version_moteur':VERSION_MOTEUR,'non_partants_confirmes':sorted(known_np),
-             'statut':('COMPLET' if complete_list and len(ranking)==len(eligible) else 'PARTIEL') if sufficient else 'DONNEES_INSUFFISANTES',
-             'observations':len(ranking),'partants_eligibles':len(eligible),
-             'classement_complet':ranking if sufficient else [],'top3':ranking[:3] if sufficient else [],
-             'note':('Direct heuristique: musique PMU et historiques Geny anterieurs'
-                     ' ponderes par discipline, distance, hippodrome, ferrure documentee'
-                     ' et anciennete. Scores non calibres; facteurs manquants explicites.'
-                     if mode=='direct' else 'Cotes PMU: palier de marche independant.')}
-        if mode=='direct':
-            if not reuse_previous or old.get('version_profils'):
-                doc['version_profils'] = old['version_profils'] if reuse_previous else VERSION_PROFILS
-                doc['profils_partants'] = signaux
-            # Calcul expérimental conservé avec la même observation que le direct.
-            # La forme du même mode est lissée dans le moteur contextuel.
-            if sufficient and any('forme_geny_meme_depart' in horse for horse in ranking):
-                def score_experimental(horse):
-                    base_score = horse['score_direct']
-                    shape = horse.get('forme_geny_meme_depart', base_score)
-                    return base_score + 0.10 * (shape - base_score)
+    ranking = direct
+    observed_at = now.isoformat()
+    reuse_previous = False
+    old_ranking = [h for h in old.get('classement_complet', []) if int(h['numero']) not in known_np]
+    old_usable = False
+    try:
+        old_usable = (datetime.fromisoformat(old['calcul_utc']) <= now
+                      and old.get('depart') == course['depart'] and old.get('version_moteur') == VERSION_MOTEUR)
+    except (KeyError, ValueError, TypeError):
+        pass
+    complete_list = expected is not None and len(all_numbers) == int(expected)
+    if old_usable and len(old_ranking) > len(ranking) and not (complete_list and len(eligible) < 3):
+        if known_np == set(old.get('non_partants_confirmes', [])):
+            return 'ANCIEN_RELEVE_PLUS_COMPLET'
+        ranking = old_ranking
+        reuse_previous = True
+        observed_at = old.get('donnees_observees_utc', old['calcul_utc'])
+        signaux = {n: signal for n, signal in old.get('profils_partants', {}).items() if int(n) not in known_np}
+    ranking.sort(key=lambda h: (-h['score_direct'], -PRIORITE.get(
+        signaux.get(str(h['numero']), {}).get('statut'), 0), h['numero']))
+    sufficient = len(ranking) >= 3 and not (complete_list and len(eligible) < 3)
+    doc = {'date':course['date'],'course':course['code'],'depart':course['depart'],
+           'mode':'DIRECT','donnees_observees_utc':observed_at,
+           'version_moteur':VERSION_MOTEUR,'non_partants_confirmes':sorted(known_np),
+           'statut':('COMPLET' if complete_list and len(ranking)==len(eligible) else 'PARTIEL') if sufficient else 'DONNEES_INSUFFISANTES',
+           'observations':len(ranking),'partants_eligibles':len(eligible),
+           'classement_complet':ranking if sufficient else [],'top3':ranking[:3] if sufficient else [],
+           'note':'Direct heuristique: musique PMU et historiques Geny anterieurs'
+                  ' ponderes par discipline, distance, hippodrome, ferrure documentee'
+                  ' et anciennete. Scores non calibres; facteurs manquants explicites.'}
+    if not reuse_previous or old.get('version_profils'):
+        doc['version_profils'] = old['version_profils'] if reuse_previous else VERSION_PROFILS
+        doc['profils_partants'] = signaux
+    # Calcul expérimental conservé avec la même observation que le direct.
+    # La forme du même mode est lissée dans le moteur contextuel.
+    if sufficient and any('forme_geny_meme_depart' in horse for horse in ranking):
+        def score_experimental(horse):
+            base_score = horse['score_direct']
+            shape = horse.get('forme_geny_meme_depart', base_score)
+            return base_score + 0.10 * (shape - base_score)
 
-                candidate = sorted(ranking, key=lambda horse: (
-                    -score_experimental(horse),
-                    -PRIORITE.get(signaux.get(str(horse['numero']), {}).get('statut'), 0),
-                    horse['numero'],
-                ))
-                doc['candidat_depart'] = {
-                    'poids': 0.10,
-                    'top3': [horse['numero'] for horse in candidate[:3]],
-                    'partants_avec_forme_meme_depart': sum('forme_geny_meme_depart' in horse for horse in ranking),
-                }
-            doc['couverture_sources']={
-                'pmu_musique':sum(h.get('musique_exploitable',0)>0 for h in ranking),
-                'geny_historique':sum(h.get('historique_exploitable',0)>0 for h in ranking),
-                'pmu_seul':sum(h.get('source_forme')=='PMU_MUSIQUE_SEULE' for h in ranking),
-                'sans_score':max(0,len(eligible)-len(ranking)),
-                'effectif_declare_confirme':complete_list,
-            }
-        filename=Path(str(base)+f'_{mode}.json')
-        if not sufficient and not old and not known_np and not (mode == 'direct' and any(
-                signal['statut'] for signal in signaux.values())):
-            output[mode]='DONNEES_INSUFFISANTES'
-            continue
-        captured=clock() if clock else now
-        if captured>=depart:
-            output[mode]='APRES_DEPART'
-            continue
-        doc['calcul_utc']=captured.isoformat()
-        doc['premier_calcul_utc']=old.get('premier_calcul_utc',doc['calcul_utc'])
-        if old:
-            version=datetime.fromisoformat(old['calcul_utc']).astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
-            archive=Path(cache)/'pronostics'/'versions'/f"{course['date']}_{course['code']}_{mode}_{version}.json"
-            if not archive.exists():save(archive,old)
-        save(filename,doc)
-        output[mode]='CALCULE_'+doc['statut'] if sufficient else 'DONNEES_INSUFFISANTES'
-    return output
+        candidate = sorted(ranking, key=lambda horse: (
+            -score_experimental(horse),
+            -PRIORITE.get(signaux.get(str(horse['numero']), {}).get('statut'), 0),
+            horse['numero'],
+        ))
+        doc['candidat_depart'] = {
+            'poids': 0.10,
+            'top3': [horse['numero'] for horse in candidate[:3]],
+            'partants_avec_forme_meme_depart': sum('forme_geny_meme_depart' in horse for horse in ranking),
+        }
+    doc['couverture_sources'] = {
+        'pmu_musique':sum(h.get('musique_exploitable',0)>0 for h in ranking),
+        'geny_historique':sum(h.get('historique_exploitable',0)>0 for h in ranking),
+        'pmu_seul':sum(h.get('source_forme')=='PMU_MUSIQUE_SEULE' for h in ranking),
+        'sans_score':max(0,len(eligible)-len(ranking)),
+        'effectif_declare_confirme':complete_list,
+    }
+    if not sufficient and not old and not known_np and not any(signal['statut'] for signal in signaux.values()):
+        return 'DONNEES_INSUFFISANTES'
+    captured = clock() if clock else now
+    if captured >= depart:
+        return 'APRES_DEPART'
+    doc['calcul_utc'] = captured.isoformat()
+    doc['premier_calcul_utc'] = old.get('premier_calcul_utc', doc['calcul_utc'])
+    if old:
+        version = datetime.fromisoformat(old['calcul_utc']).astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+        archive = Path(cache)/'pronostics'/'versions'/f"{course['date']}_{course['code']}_direct_{version}.json"
+        if not archive.exists():
+            save(archive, old)
+    save(Path(str(base)+'_direct.json'), doc)
+    return 'CALCULE_'+doc['statut'] if sufficient else 'DONNEES_INSUFFISANTES'

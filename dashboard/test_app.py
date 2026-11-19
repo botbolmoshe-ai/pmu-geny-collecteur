@@ -27,7 +27,7 @@ class AppTests(unittest.TestCase):
         self.mock_build=self.build.start();self.addCleanup(self.build.stop)
         self.credentials.start();self.addCleanup(self.credentials.stop)
 
-    def source(self,history=True):
+    def source(self,history=True,odds=False):
         from quality_dates import VALUE,TOTAL
         day=self.today.isoformat();depart=datetime.combine(self.today,time(12),ZoneInfo('Europe/Paris'))
         courses=[{'Clé course (technique)':day+'|R1C1','Date':day,'Course R/C':'R1C1','Hippodrome':'VINCENNES',
@@ -35,8 +35,8 @@ class AppTests(unittest.TestCase):
             'Course · Nom PMU':'PRIX TEST','Course · Catégorie PMU':'Course C','Course · Âges admis':'5 ans',
             'Course · Allocation (€)':53000,'Course · Parcours':'Grande piste','Course · Mode de départ':'Autostart',
             'Autostart · Position assignée': n + 2, 'Autostart · Ligne': 1,
-            'Cotes · Valeur': n + 0.5, 'Cotes · Relevé UTC': (depart - timedelta(hours=1)).isoformat(),
             'N°':n,'Cheval':f'Cheval test {n}','Non-partant (NP)':'PARTANT',
+            'Cotes · Valeur': n+0.5, 'Cotes · Relevé UTC': (min(self.now, depart)-timedelta(minutes=5)).isoformat(),
             'TOP3 direct · Rang':n,'TOP3 direct · Sélection':'OUI','ML · Rang':n,'ML · Sélection':'OUI',
             'Gagnant potentiel direct · Sélection':'OUI' if n==1 else '',
             'Gagnant potentiel ML · Sélection':'OUI' if n==1 else '',
@@ -44,6 +44,9 @@ class AppTests(unittest.TestCase):
             'Profil du cheval': {1:'Crack',2:'Haut potentiel'}.get(n,''),
             'Profil · Indices': {1:'2 podiums en Groupe I/II',2:'2 podiums sur 3'}.get(n,''),
             'Âge (ans)':5,'Sexe':'Hongre','Gains carrière (€)':0} for n in (1,2,3)]
+        if odds:
+            stamp = min(self.now, depart) - timedelta(minutes=5)
+            courses[0].update({'Cotes · Valeur': 7.5, 'Cotes · Relevé UTC': stamp.isoformat()})
         kpis=[{'Dimension':'Historique','Indicateur':'Taux de couverture',VALUE:0.75,TOTAL:4,'Définition / réserve':'Fixture locale'}]
         yesterday=self.today-timedelta(days=1)
         old=datetime.combine(yesterday,time(12),ZoneInfo('Europe/Paris'))
@@ -101,7 +104,7 @@ class AppTests(unittest.TestCase):
         self.assertEqual(list(tableau.value['Autostart · Position assignée']), [3, 4, 5])
         self.assertEqual(list(tableau.value['Cote PMU']), [1.5, 2.5, 3.5])
         ranges = self.api.spreadsheets().values().batchGet.call_args.kwargs['ranges']
-        self.assertIn("'Courses & Prévisions'!A1:BI", ranges)
+        self.assertIn("'Courses & Prévisions'", ranges)
         self.assertIn('**Gagnant potentiel direct : 1 — Cheval test 1**',
                       [item.value for item in self.app.markdown])
         self.assertIn('**Gagnant potentiel ML : 1 — Cheval test 1**',
@@ -111,6 +114,16 @@ class AppTests(unittest.TestCase):
         self.assertIn('background-color: #ffe375', css)
         self.assertIn('background-color: #bae8c4', css)
         self.assertIn('font-weight: bold', css)
+
+    def test_cote_horodatee_visible_sans_selection_de_marche(self):
+        self.source(odds=True)
+        self.app.session_state.authenticated=True
+        self.app.run()
+        self.app.radio[0].set_value('Courses').run()
+        self.assertFalse(self.app.exception)
+        self.assertEqual(self.app.dataframe[0].value['Cote PMU'].iloc[0], 7.5)
+        self.assertTrue(any('Dernier relevé PMU à' in x.value for x in self.app.caption))
+        self.assertTrue(any('TOP3 Cotes indisponible' in x.value for x in self.app.caption))
 
     def test_performance_real_page_and_filters(self):
         self.source()

@@ -11,7 +11,6 @@ import re
 import sys
 from pathlib import Path
 from datetime import datetime, timezone
-from math import isfinite
 
 SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analyse')
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
@@ -21,8 +20,7 @@ RETIRED_EXPERT_COLUMNS = frozenset({'avis_equidia','avis_zeturf','prono_equidia'
                                    'source_equidia','source_zeturf'})
 RETIRED_SHEET_COLUMNS = {
     'Courses & Prévisions':RETIRED_EXPERT_COLUMNS | frozenset({
-        'ml_proba_podium','synthese_actualite','divergences_sources',
-        'top3_cotes_top3','top3_cotes_statut','top3_cotes_utc'}),
+        'ml_proba_podium','synthese_actualite','divergences_sources'}),
     'Historique chevaux':frozenset({'rncn','nombre_partants','gains_course_eur',
         'driver_jockey','entraineur','date_source'}),
     'Résultats & Analyse':frozenset({'top3_cotes_numeros','score_cotes',
@@ -42,14 +40,15 @@ REPORT_NAME_COLUMNS = {'top3_direct_numeros': 'top3_direct_noms',
                        'top3_ml_numeros': 'top3_ml_noms',
                        'arrivee_officielle_numeros': 'arrivee_officielle_noms'}
 DEPART_COLUMNS = ('position_autostart', 'ligne_autostart', 'capacite_autostart', 'recul_depart_m')
-ODDS_COLUMNS = ('top3_cotes_valeur', 'cote_releve_utc')
 WINNER_SELECTION_COLUMNS = ('gagnant_direct_selection', 'gagnant_ml_selection')
 WINNER_REPORT_COLUMNS = tuple(
     f'gagnant_{mode}_{field}'
     for mode in ('direct', 'ml')
     for field in ('numero', 'nom', 'rang', 'verdict')
 )
-COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + ODDS_COLUMNS + DEPART_COLUMNS
+COTES_COLUMNS = ('top3_cotes_valeur', 'cote_releve_utc', 'cote_rapport_utc',
+                 'top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_statut', 'top3_cotes_utc')
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS + DEPART_COLUMNS
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
@@ -58,10 +57,10 @@ REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_p
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
-CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + ODDS_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
+CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
     *RETIRED_EXPERT_COLUMNS,  # Lecture/nettoyage des anciens formats uniquement.
     'top3_direct_rang','top3_direct_score','top3_direct_top3',
-    'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
+    *COTES_COLUMNS,'ml_rang','ml_top3',
     'ml_proba_podium','ml_score_non_calibre',
     'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites',
     *REPORT_NAME_COLUMNS.values(), *WINNER_SELECTION_COLUMNS, *WINNER_REPORT_COLUMNS})
@@ -69,10 +68,11 @@ PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','fe
 
 def sheet_value(field, value):
     if value is None:return ''
+    if field == 'top3_cotes_valeur':
+        from .cotes_v19 import cote_valide
+        return cote_valide(value) or ''
     if field == 'course_allocation_eur':
         return value if type(value) is int and value > 0 else ''
-    if field == 'top3_cotes_valeur':
-        return value if type(value) in (int, float) and isfinite(value) and value > 0 else ''
     if field in MATCHING_COLUMNS:
         return value if isinstance(value,(int,float)) and not isinstance(value,bool) and 0<=value<=100 else ''
     if field in NUMERIC_SCORES and str(value) in ('0','1','2','3'):
@@ -181,7 +181,9 @@ DISPLAY_NAMES = {
     'ml_score_non_calibre':'ML · Score non calibré',
     'top3_cotes_valeur':'Cotes · Valeur',
     'cote_releve_utc':'Cotes · Relevé UTC',
+    'cote_rapport_utc':'Cotes · Rapport PMU UTC',
     'top3_cotes_top3':'Cotes · Sélection',
+    'top3_cotes_rang':'Cotes · Rang',
     'top3_cotes_statut':'Cotes · État',
     'top3_direct_utc':'TOP3 direct · Calcul UTC',
     'top3_cotes_utc':'TOP3 cotes · Calcul UTC',
@@ -307,6 +309,7 @@ def conclusion_methodes(scores):
 
 def source_rows(cache):
     from .partants_actuels_v21 import profil_pmu_exclusif
+    from .cotes_v19 import cote_valide, dernier_releve
     from .identites_chevaux import IndexGeny
     identites_geny = IndexGeny(cache)
     courses, history, reports = {}, {}, {}
@@ -324,7 +327,6 @@ def source_rows(cache):
         return 'ML_NON_ENTRAINE'
     import unicodedata
     from .sources_experts_v23 import champs_sheet
-    from .echeances_production import instant
     def normalize_horse_name(value):
         s=unicodedata.normalize('NFKD',str(value or '').casefold())
         return ''.join(c for c in s if c.isalnum() and not unicodedata.combining(c))
@@ -417,23 +419,29 @@ def source_rows(cache):
                             'statut_evaluation':'EVALUE' if comparison_present and r.get('baseline_final_hits_course') else 'ARRIVEE_SANS_TOP3_FIGE'}
     # PMU seul : creer la fiche de chaque partant meme sans manifeste/historique Geny.
     # Les trois paliers sont independants; aucun score n'est invente.
-    for participant_file in sorted((cache/'partants_actuels').glob('????-??-??_R*C*.json')):
-        match=re.fullmatch(r'(\d{4}-\d{2}-\d{2})_(R\d+C\d+)\.json',participant_file.name)
+    course_files = {path.name for folder in ('partants_actuels', 'cotes')
+                    for path in (cache/folder).glob('????-??-??_R*C*.json')}
+    for filename in sorted(course_files):
+        match=re.fullmatch(r'(\d{4}-\d{2}-\d{2})_(R\d+C\d+)\.json',filename)
         if not match:continue
         date,code=match.groups()
         info=course_info(cache,code,date)
         if not info:continue
-        participant=load_json(participant_file)
+        participant=load_json(cache/'partants_actuels'/filename)
         official=load_json(cache/'arrivees'/f'{date}_{code}.json')
         official_ranks={str(h.get('numero')):h['rang'] for h in official.get('arrivee',[])
                         if isinstance(h.get('rang'),int) and h['rang']>0}
         direct=load_json(cache/'pronostics'/f'{date}_{code}_direct.json')
         marche=load_json(cache/'pronostics'/f'{date}_{code}_cotes.json')
-        cotes_source=load_json(cache/'cotes'/f'{date}_{code}.json')
-        cotes_releve={str(h.get('numero')):h for h in cotes_source.get('chevaux',[]) if isinstance(h,dict)}
-        cotes_etat=marche.get('statut') or cotes_source.get('statut') or (
-            'COTES_NON_EXTRAITES' if cotes_source.get('chevaux') and not any(
-                h.get('cote') is not None for h in cotes_source['chevaux']) else 'PAS_DE_RELEVE')
+        cotes_source = dernier_releve(cache, {**info, 'date': date, 'code': code})
+        cotes_releve = {str(h['numero']): h for h in cotes_source.get('chevaux', [])}
+        participants = {n: {'nom': h.get('nom'), 'statut_np': h.get('statut_np')}
+                        for n, h in cotes_releve.items()}
+        participants.update(participant.get('chevaux') or {})
+        selection_cotes = {n: rank for rank, n in enumerate(
+            selection_predepart(marche, info.get('depart', ''), now), start=1)}
+        cotes_etat = marche.get('statut', '') if selection_cotes else (
+            'DONNEES_INSUFFISANTES' if marche or cotes_source else 'PAS_DE_RELEVE')
         ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
         avis_experts=load_json(cache/'avis_experts'/f'{date}_{code}.json')
         contexte=load_json(cache/'contextes'/f'{date}_{code}.json')
@@ -455,9 +463,10 @@ def source_rows(cache):
         k=course_key(date,hip,code)
         criteres = champs_course_pmu(info)
         ranks={}
-        for mode,document in (('direct',direct),('cotes',marche),('ml',ml)):
+        for mode,document in (('direct',direct),('cotes',marche if selection_cotes else {}),('ml',ml)):
             ranks[mode]={str(h.get('numero')):(i,h) for i,h in
                          enumerate(document.get('classement_complet',[]),start=1)}
+        from .echeances_production import instant
         from .liaison_chevaux_v22 import etablir, nom_normalise
         from .profils_partants import PRIORITE, CRACK
         calcul = instant(direct.get('calcul_utc'))
@@ -472,26 +481,27 @@ def source_rows(cache):
             and instant(direct.get('depart')) == depart) else {}
         liens=etablir(cache,{'date':date,'code':code},[
             {'numero':n,'nom':v.get('nom',''),'age_ans':v.get('age_ans')}
-            for n,v in (participant.get('chevaux') or {}).items()
+            for n,v in participants.items()
         ],index=identites_geny)
-        for n,act in (participant.get('chevaux') or {}).items():
+        for n,act in participants.items():
             act=profil_pmu_exclusif(act)
             krow=f'{k}|{n}'
             existing=courses.get(krow,{})
             direct_rank,direct_h=ranks['direct'].get(str(n),('',{}))
-            cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
+            cote_observee = cotes_releve.get(str(n), {})
+            statut_np = act.get('statut_np') or cote_observee.get('statut_np') or 'NP_NON_VERIFIE'
+            if cote_observee.get('statut_np') == 'NON_PARTANT':
+                statut_np = 'NON_PARTANT'
+            cote_heure = instant(cote_observee.get('heure_utc'))
+            valeur_cote = cote_valide(cote_observee.get('cote')) if (
+                statut_np != 'NON_PARTANT' and cote_heure and depart and cote_heure < depart
+                and cote_heure <= now) else None
             depart_trot = act.get('depart_trot', {})
             capture_depart = instant(depart_trot.get('capture_utc'))
             if not (depart_trot.get('source') == 'PMU_API_PARTICIPANTS' and capture_depart
                     and depart and capture_depart < depart and capture_depart <= now
-                    and act.get('statut_np') == 'PARTANT'):
+                    and statut_np == 'PARTANT'):
                 depart_trot = {}
-            cote_observee=cotes_releve.get(str(n),{})
-            valeur_cote = sheet_value('top3_cotes_valeur', cote_observee.get('cote'))
-            releve_utc = instant(cote_observee.get('heure_utc'))
-            if (not releve_utc or not depart or not releve_utc < depart
-                    or releve_utc > now or act.get('statut_np') != 'PARTANT'):
-                valeur_cote = ''
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
             avis=(avis_experts.get('chevaux') or {}).get(str(n),{})
             link=liens.get(str(n),{})
@@ -516,7 +526,7 @@ def source_rows(cache):
                 'heure_depart_paris':info.get('depart',''),
                 'discipline':info.get('discipline',''),
                 'distance_m':info.get('distance_m',''),
-                'numero':str(n),'cheval':act.get('nom','') or existing.get('cheval',''),
+                'numero':str(n),'cheval':act.get('nom','') or cote_observee.get('nom') or existing.get('cheval',''),
                 'driver_jockey':act.get('driver_jockey',''),
                 'entraineur':act.get('entraineur',''),
                 'proprietaire':act.get('proprietaire',''),
@@ -525,7 +535,7 @@ def source_rows(cache):
                 'age_ans':act.get('age_ans') if act.get('age_ans') is not None else '',
                 'sexe':act.get('sexe',''),
                 'gains_euros':act.get('gains_euros') if act.get('gains_euros') is not None else '',
-                'non_partant':act.get('statut_np','NP_NON_VERIFIE'),
+                'non_partant':statut_np,
                 'arrivee_rang':official_ranks.get(str(n),''),
                 'actuel_statut':act.get('ferrure_qualification') or ('FERRURE_DISPONIBLE_SOURCEE' if act.get('ferrure') else 'FERRURE_NON_RECUPEREE') if act else 'PMU_PARTANTS_NON_RECUPERES',
                 'actuel_maj_utc':participant.get('capture_utc',''),
@@ -540,9 +550,11 @@ def source_rows(cache):
                 'ligne_autostart':depart_trot.get('ligne', ''),
                 'capacite_autostart':depart_trot.get('capacite', ''),
                 'recul_depart_m':depart_trot.get('recul_m', ''),
-                'top3_cotes_valeur':valeur_cote,
-                'cote_releve_utc':releve_utc.isoformat() if valeur_cote else '',
-                'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
+                'top3_cotes_valeur':valeur_cote if valeur_cote is not None else '',
+                'cote_releve_utc':cote_observee.get('heure_utc', '') if valeur_cote is not None else '',
+                'cote_rapport_utc':cote_observee.get('date_rapport_utc', '') if valeur_cote is not None else '',
+                'top3_cotes_top3':'OUI' if int(n) in selection_cotes and statut_np != 'NON_PARTANT' else '',
+                'top3_cotes_rang':selection_cotes.get(int(n), '') if statut_np != 'NON_PARTANT' else '',
                 'top3_cotes_statut':cotes_etat,
                 'ml_rang':ml_rank,
                 'ml_score_non_calibre':ml_h.get('score_non_calibre',ml_h.get('proba_podium_estimee','')),
@@ -551,7 +563,7 @@ def source_rows(cache):
                 'statut_prevision':'PREVISIONS_DISPONIBLES' if any(ranks[mode] for mode in ('direct','cotes','ml')) else existing.get('statut_prevision','TOP3_NON_CALCULE'),
                 'mode_calcul_top3':'DIRECT+COTES+ML_SEPARES' if any(ranks[mode] for mode in ('direct','cotes','ml')) else existing.get('mode_calcul_top3','NON_CALCULE'),
                 'top3_direct_utc':direct.get('calcul_utc',''),
-                'top3_cotes_utc':marche.get('calcul_utc',''),
+                'top3_cotes_utc':marche.get('calcul_utc','') if selection_cotes else '',
                 'version_ml_utc':ml.get('calcul_utc',''),
             }
             facts=act.get('divergences_sources',[])
@@ -582,15 +594,12 @@ def source_rows(cache):
                     signal.get('crack' if statut == CRACK else 'haut_potentiel') or ''
                     if statut in PRIORITE else '')
                 authoritative.update(PROFILE_COLUMNS)
-            if marche:
-                authoritative.add('top3_cotes_top3')
-            if depart_trot or act.get('statut_np') == 'NON_PARTANT':
+            if marche or cotes_source or statut_np == 'NON_PARTANT':
+                authoritative.update(('top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_utc'))
+            if cotes_source or statut_np == 'NON_PARTANT':
+                authoritative.update(('top3_cotes_valeur', 'cote_releve_utc', 'cote_rapport_utc'))
+            if depart_trot or statut_np == 'NON_PARTANT':
                 authoritative.update(DEPART_COLUMNS)
-            if cote_observee or act.get('statut_np') == 'NON_PARTANT':
-                authoritative.update(ODDS_COLUMNS)
-            if act.get('statut_np') == 'NON_PARTANT':
-                authoritative.add('top3_cotes_top3')
-                current['top3_cotes_top3']=''
             if ml:
                 authoritative.update(('ml_rang','ml_top3','ml_score_non_calibre'))
             courses[krow]={**existing,**{key:value for key,value in current.items()
@@ -801,7 +810,7 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                 before=existing_rows[present[k]-2].get(name,'')
                 differs=((before!=value or (isinstance(value,int) and
                            (not isinstance(before,(int,float)) or isinstance(before,bool))))
-                         if name in NUMERIC_SCORES else (before!=value or (isinstance(before,bool) and not isinstance(value,bool)) if name in MATCHING_COLUMNS else str(before)!=str(value)))
+                         if name in NUMERIC_SCORES or name == 'top3_cotes_valeur' else (before!=value or (isinstance(before,bool) and not isinstance(value,bool)) if name in MATCHING_COLUMNS else str(before)!=str(value)))
                 if name == 'course_allocation_eur':
                     differs = ''.join(str(before).split()) != str(value)
                     if not value:

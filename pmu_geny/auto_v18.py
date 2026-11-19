@@ -219,6 +219,48 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     order = {code: index for index, code in enumerate(priorites)}
     if order:
         selected.sort(key=lambda course: order.get(course['code'], len(order)))
+    from .cotes_v19 import calculer_cotes, collecter
+    from .planification_v20_2 import decision_autorisee
+
+    participants_by_course = {}
+
+    def charger_participants(code):
+        if code not in participants_by_course:
+            raw = None
+            error = ''
+            try:
+                reunion, number = code.split('C', 1)
+                raw = get_json(BASE + datetime.fromisoformat(date).strftime('%d%m%Y')
+                               + f'/{reunion}/C{number}/participants')
+            except Exception as exc:
+                error = f'{type(exc).__name__}: {exc}'
+            participants_by_course[code] = (raw, clock(), error)
+        return participants_by_course[code]
+
+    # Enregistrer le marché avant les enrichissements et partager une requête
+    # par course entre collecte, modèles, contrôle des NP et résultats.
+    for course in selected:
+        depart = datetime.fromisoformat(course['depart'])
+        if not decision_autorisee(clock(), date, depart):
+            continue
+        code = course['code']
+        entry = state['courses'].setdefault(code, {'identifiant_geny': None, 'etat': 'A_DECOUVRIR'})
+        raw, observed, error = charger_participants(code)
+        if error:
+            entry['erreur_pmu_participants'] = error
+        else:
+            entry.pop('erreur_pmu_participants', None)
+        try:
+            entry['statut_cotes'] = collecter(cache, course, raw, now=observed)
+            entry.pop('erreur_cotes', None)
+        except Exception as exc:
+            entry['erreur_cotes'] = f'{type(exc).__name__}: {exc}'
+        try:
+            entry['statut_top3_cotes'] = calculer_cotes(cache, course, observed, clock)
+            entry.pop('erreur_top3_cotes', None)
+        except Exception as exc:
+            entry['erreur_top3_cotes'] = f'{type(exc).__name__}: {exc}'
+
     remaining_new=max_new
     remaining_discoveries=max_discoveries
     correspondences_path=cache/'orchestration'/'correspondances_geny.json'
@@ -267,7 +309,6 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         entry.update({'depart':c['depart'],'nom':c['nom'],'hippodrome':c['hippodrome'],'nombre_declares':c['nombre_declares'], 'priorite_metier':c.get('priorite_metier'), 'motif_selection':c.get('motif_selection')})
         departure=datetime.fromisoformat(c['depart'])
         est_partie=now>=departure
-        from .planification_v20_2 import decision_autorisee
         fenetre_decision=decision_autorisee(now,date,departure)
         # Aucune prévision rétroactive, même si PMU n'a pas encore communiqué le statut.
         if est_partie:
@@ -287,38 +328,38 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 entry['erreur_meteo']=f'{type(exc).__name__}: {exc}'
         # PMU independant : produire les niveaux direct et cotes meme sans Geny.
         # Avant depart seulement. Ne jamais bloquer ces TOP3 sur les historiques.
-        pmu_participants=None
+        pmu_participants, observed, error = charger_participants(key)
+        if error:
+            entry['erreur_pmu_participants'] = error
+        else:
+            entry.pop('erreur_pmu_participants', None)
+        now = clock()
+        est_partie = now >= departure
+        fenetre_decision = decision_autorisee(now, date, departure)
+        if est_partie:
+            entry['traitement'] = 'RESULTATS_SEULEMENT'
         try:
-            pmu_participants=get_json(
-                BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+
-                f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
-            from .partants_actuels_v21 import enregistrer
-            entry['statut_partants_actuels']=enregistrer(cache,c,pmu_participants)
-            # Le réseau peut avoir dépassé le départ depuis le début du cycle.
-            now=clock();est_partie=now>=departure
-            fenetre_decision=decision_autorisee(now,date,departure)
-            if est_partie:entry['traitement']='RESULTATS_SEULEMENT'
-            if not est_partie:
-                # Commentaires sourcés, facultatifs : un accès tiers refusé
-                # n'empêche ni la préparation PMU, ni les captures ML.
+            if pmu_participants is not None:
+                try:
+                    from .partants_actuels_v21 import enregistrer
+                    entry['statut_partants_actuels'] = enregistrer(cache, c, pmu_participants)
+                except Exception as exc:
+                    entry['erreur_partants_actuels'] = f'{type(exc).__name__}: {exc}'
+            if not est_partie and pmu_participants is not None:
                 try:
                     from .sources_experts_v23 import collecter as collecter_avis
-                    entry['statut_avis_experts']=collecter_avis(cache,c,pmu_participants)
+                    entry['statut_avis_experts'] = collecter_avis(cache, c, pmu_participants)
                 except Exception as exc:
-                    entry['statut_avis_experts']='EXPERTS_NON_VERIFIES'
-                    entry['erreur_avis_experts']=f'{type(exc).__name__}: {exc}'
-            if fenetre_decision:
-                observed = clock()
-                try:
-                    from .cotes_v19 import collecter
-                    entry['statut_cotes']=collecter(cache,c,pmu_participants,now=observed)
-                except Exception as exc:
-                    entry['erreur_cotes']=f'{type(exc).__name__}: {exc}'
+                    entry['statut_avis_experts'] = 'EXPERTS_NON_VERIFIES'
+                    entry['erreur_avis_experts'] = f'{type(exc).__name__}: {exc}'
+            if fenetre_decision and pmu_participants is not None:
                 try:
                     from .top3_independants_v22 import calculer
-                    entry['paliers_independants']=calculer(cache,c,pmu_participants,now=observed,clock=clock)
+                    direct = calculer(cache, c, pmu_participants, now=observed, clock=clock, inclure_cotes=False)
+                    if isinstance(direct, dict):
+                        entry['paliers_independants'] = {**direct, 'cotes': entry.get('statut_top3_cotes')}
                 except Exception as exc:
-                    entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
+                    entry['erreur_paliers_independants'] = f'{type(exc).__name__}: {exc}'
                 evidence = None
                 # Desormais la capture ML ne depend ni de Geny ni des historiques.
                 try:
@@ -374,11 +415,10 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         # Ce traitement n'engendre jamais de prevision apres le depart.
         if manifest is None and est_partie:
             try:
-                participants_resultat=pmu_participants or get_json(
-                    BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+
-                    f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
+                if pmu_participants is None:
+                    raise ValueError(error or 'PARTICIPANTS_PMU_ABSENTS')
                 from .resultats_v18 import enregistrer_resultats
-                entry['statut_arrivee']=enregistrer_resultats(cache,c,participants_resultat)
+                entry['statut_arrivee']=enregistrer_resultats(cache,c,pmu_participants)
                 entry['etat']='ARRIVEE_PMU_SANS_GENY'
             except Exception as exc:
                 entry['statut_arrivee']='ARRIVEE_NON_VERIFIEE'
@@ -399,10 +439,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         verifier_participants=est_partie or (departure-now)<=timedelta(hours=6) or date>now.astimezone(PARIS).date().isoformat()
         try:
             if not verifier_participants: raise LookupError('CONTROLE_NP_DIFFERE_JUSQU_A_H6')
-            raw=pmu_participants or get_json(BASE+datetime.fromisoformat(date).strftime('%d%m%Y')+f"/{key[:key.index('C')]}/{key[key.index('C'):]}/participants")
-            # Enregistrer les caracteristiques explicites PMU independamment du controle NP.
-            from .partants_actuels_v21 import enregistrer as enregistrer_partants_actuels
-            entry['statut_partants_actuels']=enregistrer_partants_actuels(cache,c,raw)
+            if pmu_participants is None:
+                raise ValueError(error or 'PARTICIPANTS_PMU_ABSENTS')
+            raw = pmu_participants
             # Une course passée ne reçoit plus de nouvelles vérifications NP.
             # Les données brutes servent uniquement à confirmer l'arrivée.
             if fenetre_decision:
@@ -419,12 +458,6 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             except (NameError,ValueError,TypeError) as exc:
                 entry['statut_arrivee']='ARRIVEE_NON_VERIFIEE'
                 entry['erreur_arrivee']=str(exc)
-        # Cotes: derniers instantanes AVANT le depart seulement, jamais variables ML.
-        if raw is not None and not est_partie and fenetre_decision and 'statut_cotes' not in entry:
-            try:
-                from .cotes_v19 import collecter
-                entry['statut_cotes']=collecter(cache,c,raw)
-            except Exception as exc:entry['erreur_cotes']=f'{type(exc).__name__}: {exc}'
         if fenetre_decision:
             try:
                 from .pronostics_v18 import preparer_top3, actualiser_top3_np

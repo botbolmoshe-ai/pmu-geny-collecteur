@@ -135,6 +135,18 @@ def faux_code_ferrure_historique(value,code):
     return bool(code=='PP' and re.search(r'\|\s*[\d\s]+\|\s*PP\s*\|\s*[GD]\s*\|',text)
                 or code=='DA' and re.search(r'\bDa Costa\b',text,re.I))
 
+def statut_participation(item):
+    flag = item.get('nonPartant')
+    if isinstance(flag, str):
+        flag = {'true': True, 'false': False}.get(flag.lower())
+    status = str(item.get('statut', '')).upper()
+    if flag is True or status in ('NP', 'NON_PARTANT'):
+        return 'NON_PARTANT'
+    if flag is False or status == 'PARTANT':
+        return 'PARTANT'
+    return 'NP_NON_VERIFIE'
+
+
 def extraire_partants(raw, *, course=None):
     resultat = {}
     for item in _list(raw, "participants", "partants"):
@@ -178,12 +190,7 @@ def extraire_partants(raw, *, course=None):
             if nom:
                 fields["nom"]=nom
                 break
-        if item.get("nonPartant") is True or str(item.get("statut","")).upper() in ("NP","NON_PARTANT"):
-            fields["statut_np"]="NON_PARTANT"
-        elif item.get("nonPartant") is False or str(item.get("statut","")).upper()=="PARTANT":
-            fields["statut_np"]="PARTANT"
-        else:
-            fields["statut_np"]="NP_NON_VERIFIE"
+        fields["statut_np"] = statut_participation(item)
         if course and fields['statut_np'] == 'PARTANT':
             depart = depart_partant_pmu(course, item)
             if depart:

@@ -20,7 +20,7 @@ def display_value(value, *, rate=False):
 
 
 def is_rate(label):
-    return label.startswith(("Taux", "Maturité ML · Taux", "Maturité ML · Couverture ·"))
+    return label.startswith(("Taux", "Maturité ML · Taux", "Maturité ML · Couverture ·", "Cotes PMU · Taux"))
 
 
 def quality_sections(kpis, query=""):

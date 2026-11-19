@@ -20,7 +20,7 @@ SCOPES=["https://www.googleapis.com/auth/spreadsheets.readonly"]
 def read_registry():
     creds=Credentials.from_service_account_info(dict(st.secrets["google_service_account"]),scopes=SCOPES)
     api=build("sheets","v4",credentials=creds,cache_discovery=False)
-    ranges=["'"+tab+"'!A1:"+last for tab,last in zip(TABS,("BI","AZ","AZ"))]
+    ranges=[f"'{TABS[0]}'", *(f"'{tab}'!A1:AZ" for tab in TABS[1:])]
     metadata=api.spreadsheets().get(spreadsheetId=st.secrets['spreadsheet_id'],fields='sheets(properties(title))').execute(num_retries=2)
     has_history=any(s.get('properties',{}).get('title')==HISTORY_TAB for s in metadata.get('sheets',[]))
     if has_history:ranges.append("'"+HISTORY_TAB+"'!A1:H")
@@ -149,21 +149,35 @@ elif page=="Courses":
             st.caption("Calcul direct : "+str(first.get("TOP3 direct · Calcul UTC") or "non renseigné"))
             st.caption("ML : "+str(first.get("ML · État du modèle") or "non renseigné"))
             st.caption("NP : "+", ".join(str(h["N°"]) for h in rows if h.get("Non-partant (NP)")=="NON_PARTANT") if any(h.get("Non-partant (NP)")=="NON_PARTANT" for h in rows) else "Aucun NP enregistré (voir fraîcheur des fiches)")
+            odds_top3 = selected(rows, "cotes")
+            if odds_top3:
+                state = " (partiel)" if odds_top3[0].get("Cotes · État") == "PARTIEL" else ""
+                st.markdown(f"**TOP3 Cotes{state}** · " + " — ".join(str(h["N°"]) for h in odds_top3))
+            else:
+                st.caption("TOP3 Cotes indisponible")
+            odds = []
+            odds_times = []
+            for row in rows:
+                stamp = timestamp(row.get("Cotes · Relevé UTC"))
+                value = number(row.get("Cotes · Valeur"))
+                if (value is not None and value > 0 and stamp and depart and stamp < depart
+                        and stamp <= now and row.get("Non-partant (NP)") != "NON_PARTANT"):
+                    odds.append(value)
+                    odds_times.append(stamp)
+                else:
+                    odds.append(None)
+            latest_odds = max(odds_times, default=None)
+            if latest_odds:
+                st.caption("Dernier relevé PMU à " + latest_odds.astimezone(PARIS).strftime("%H:%M:%S")
+                           + " (Paris)")
             profile_column = "Profil du cheval"
-            columns = ["N°", "Cheval", "Âge (ans)", profile_column, "Profil · Indices", "Ferrure", "Musique PMU",
+            columns = ["N°", "Cheval", "Cote PMU", "Âge (ans)", profile_column, "Profil · Indices", "Ferrure", "Musique PMU",
                        "Non-partant (NP)", "Historique · Nb performances récupérées",
                        "Données actuelles · Mise à jour UTC"]
             partants = pd.DataFrame(rows)
+            partants["Cote PMU"] = odds
             if "Ferrure" not in partants and "Ferrure · Course du jour" in partants:
                 partants = partants.rename(columns={"Ferrure · Course du jour": "Ferrure"})
-            if "Cotes · Relevé UTC" in partants:
-                partants["Cote PMU"] = [
-                    number(row.get("Cotes · Valeur"))
-                    if row.get("Non-partant (NP)") == "PARTANT" and timestamp(row.get("Cotes · Relevé UTC"))
-                    else None for row in rows
-                ]
-                if partants["Cote PMU"].notna().any():
-                    columns[2:2] = ["Cote PMU", "Cotes · Relevé UTC"]
             for field in ("Autostart · Position assignée", "Autostart · Ligne", "Départ · Recul (m)"):
                 if field in partants:
                     partants[field] = [
@@ -180,7 +194,8 @@ elif page=="Courses":
                     for statut, couleur in couleurs.items()
                 }).fillna("")
                 partants = partants.style.apply(lambda _: styles, subset=["Cheval", profile_column])
-            st.dataframe(partants, hide_index=True, use_container_width=True)
+            st.dataframe(partants, hide_index=True, use_container_width=True,
+                         column_config={"Cote PMU": st.column_config.NumberColumn(format="localized", width="small")})
 elif page=="Résultats":
     st.caption("Matching en % · uniquement sur preuves disponibles. Absence ≠ 0 %. ML non évaluable sans preuve enregistrée.")
     table=[]

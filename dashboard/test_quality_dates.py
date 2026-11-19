@@ -29,12 +29,13 @@ class QualityDatesTests(unittest.TestCase):
 
     def test_cotes_sans_releve_et_non_partants_exclus(self):
         day = '2026-11-19'
-        confirmed = {**self.row(day), 'Cotes · Valeur': 7.5, 'Cotes · Relevé UTC': day + 'T11:00:00+00:00'}
+        confirmed = {**self.row(day), 'Cotes · Valeur': 7.5, 'Cotes · Relevé UTC': day + 'T11:00:00+00:00',
+                     'Départ (Paris)': day + 'T13:00:00+00:00'}
         rows = [confirmed, {**confirmed, 'N°': 2, 'Non-partant (NP)': 'NON_PARTANT'},
                 {**confirmed, 'N°': 3, 'Cotes · Relevé UTC': ''}]
         focus = date.fromisoformat(day)
-        metric = next(row for row in cohort_metrics(rows, focus, focus)
-                      if row['Indicateur'] == 'Partants avec cote PMU relevée')
+        metric = next(row for row in cohort_metrics(rows, focus, focus, datetime.fromisoformat(day + 'T12:00:00+00:00'))
+                      if row['Indicateur'] == 'Cotes collectées')
         self.assertEqual((metric[VALUE], metric[TOTAL]), (1, 2))
 
     def test_aucune_donnee_ne_devient_un_taux_zero(self):
@@ -57,4 +58,4 @@ class QualityDatesTests(unittest.TestCase):
 
     def test_date_future_de_course_admise_mais_date_invalide_ignoree(self):
         rows=[self.row('2026-11-18'),self.row('invalide')]
-        self.assertEqual(len(daily_series(rows,date(2026,11,18),date(2026,11,18))),18)
+        self.assertEqual({r['Date'] for r in daily_series(rows,date(2026,11,18),date(2026,11,18))}, {'2026-11-18'})

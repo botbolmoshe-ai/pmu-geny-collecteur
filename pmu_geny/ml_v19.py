@@ -603,7 +603,8 @@ def export_comparatif(cache,course,manifest):
     ml=load(Path(cache)/'pronostics'/f'{key}_ml_latest.json',{}) or {}
     baseline_final=load(Path(cache)/'pronostics'/f'{key}_baseline_latest.json',{}) or base
     np=load(Path(cache)/'participations'/f'{cid}.json',{}) or {}
-    odds=load(Path(cache)/'cotes'/f'{key}.json',{}) or {}
+    from .cotes_v19 import dernier_releve
+    odds=dernier_releve(cache, course)
     arrived=load(Path(cache)/'arrivees'/f'{key}.json',{}) or {}
     b_rank={int(x['numero']):i for i,x in enumerate(base.get('classement_complet',[]),1)}
     bf_rank={int(x['numero']):i for i,x in enumerate(baseline_final.get('classement_complet',[]),1)}

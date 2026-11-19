@@ -179,14 +179,12 @@ class V21PaliersTests(unittest.TestCase):
             self.assertEqual(sum(x.get("top3_cotes_top3")=="OUI" for x in rows.values()),3)
             self.assertTrue(all(x.get("ml_modele_statut")=="ML_NON_ENTRAINE" for x in rows.values()))
             self.assertTrue(all(not x.get("ml_score_non_calibre") for x in rows.values()))
-            self.assertTrue(all(not row.get("top3_cotes_valeur") for row in rows.values()))
-            from pmu_geny.cotes_v19 import collecter
-            collecter(root,course,raw,moment)
             (dossier/f"{day}_{code}_cotes.json").unlink()
             rows=source_rows(root)["Courses & Prévisions"]
             odds={str(row["numero"]):row["top3_cotes_valeur"] for row in rows.values()}
             self.assertEqual(odds,{"1":4.2,"2":3.2,"3":9.4,"4":14.5})
             self.assertTrue(all(row["cote_releve_utc"] == moment.isoformat() for row in rows.values()))
+            self.assertTrue(all(not row.get("top3_cotes_top3") for row in rows.values()))
 
 
     def test_v22_comparaison_trois_top3_avec_arrivee(self):
