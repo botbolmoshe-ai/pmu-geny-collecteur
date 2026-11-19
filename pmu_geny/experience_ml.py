@@ -162,7 +162,7 @@ def run(cache, output, validation_day, test_day, now=None, *, select_research=Fa
     report['validation'] = validation_scores
     from sklearn.base import clone
     from .maturite_ml import CRITERIA, coverage
-    from .ml_v19 import FERRURE_RESEARCH
+    from .ml_v19 import DEPART_RESEARCH, FERRURE_RESEARCH
     report['ablation_validation'] = {}
     ablations = {**CRITERIA,
         'Historique comparable': ('forme_geny_comparable', 'courses_30j', 'courses_60j', 'courses_120j',
@@ -194,6 +194,7 @@ def run(cache, output, validation_day, test_day, now=None, *, select_research=Fa
         'Ferrure · coefficients actuels': (FERRURE_RESEARCH[2],),
         'Tandem cheval-driver': ('tandem_podium_lisse', 'tandem_courses'),
         'Avis PMU structuré': ('avis_pmu_structure',),
+        **DEPART_RESEARCH,
     }
     report['variantes_validation'] = {}
     chosen_fields = FEATURES

@@ -20,7 +20,7 @@ SCOPES=["https://www.googleapis.com/auth/spreadsheets.readonly"]
 def read_registry():
     creds=Credentials.from_service_account_info(dict(st.secrets["google_service_account"]),scopes=SCOPES)
     api=build("sheets","v4",credentials=creds,cache_discovery=False)
-    ranges=["'"+tab+"'!A1:"+last for tab,last in zip(TABS,("BE","AZ","AZ"))]
+    ranges=["'"+tab+"'!A1:"+last for tab,last in zip(TABS,("BI","AZ","AZ"))]
     metadata=api.spreadsheets().get(spreadsheetId=st.secrets['spreadsheet_id'],fields='sheets(properties(title))').execute(num_retries=2)
     has_history=any(s.get('properties',{}).get('title')==HISTORY_TAB for s in metadata.get('sheets',[]))
     if has_history:ranges.append("'"+HISTORY_TAB+"'!A1:H")
@@ -33,7 +33,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.4 · Cotes PMU")
+st.caption("Version interface : 2026.11.19.5 · Départs et cotes PMU")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -164,6 +164,14 @@ elif page=="Courses":
                 ]
                 if partants["Cote PMU"].notna().any():
                     columns[2:2] = ["Cote PMU", "Cotes · Relevé UTC"]
+            for field in ("Autostart · Position assignée", "Autostart · Ligne", "Départ · Recul (m)"):
+                if field in partants:
+                    partants[field] = [
+                        number(row.get(field)) if row.get("Non-partant (NP)") == "PARTANT" else None
+                        for row in rows
+                    ]
+                    if partants[field].notna().any():
+                        columns.append(field)
             partants = partants.reindex(columns=columns)
             couleurs = {"Crack": "#ffe375", "Haut potentiel": "#bae8c4"}
             if partants[profile_column].isin(couleurs).any():

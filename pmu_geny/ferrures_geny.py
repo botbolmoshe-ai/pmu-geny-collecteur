@@ -5,7 +5,10 @@ import json
 import re
 import unicodedata
 from collections import defaultdict
+from datetime import datetime
 from bs4 import BeautifulSoup
+from .departs_trot import depart_historique_geny
+from .echeances_production import PARIS, instant
 
 CODES={'FF':'F','DD':'D4','DF':'DA','FD':'DP','PP':'P4','PF':'PA','FP':'PP',
        'PD':'DP/PA','DP':'DA/PP'}
@@ -79,8 +82,10 @@ def participations(html,ident):
         if isinstance(value,dict):
             horse=value.get('cheval')
             if (isinstance(horse,dict) and str(horse.get('id'))==str(ident)
-                    and isinstance(value.get('course'),dict) and 'deferre' in value):
-                key=(value.get('id'),value['course'].get('id'),value.get('deferre'))
+                    and isinstance(value.get('course'),dict)
+                    and ('deferre' in value or 'positionDepart' in value)):
+                key=(value.get('id'), value['course'].get('id'), value.get('deferre'),
+                     value['course'].get('depart'), str(value.get('positionDepart')))
                 found[key]=value
             for item in value.values():walk(item)
         elif isinstance(value,list):
@@ -101,7 +106,6 @@ def observations(html,ident):
         # performance passée, même si le cheval a déjà couru le même jour.
         if not item.get('rang') and not item.get('incident'):continue
         code=CODES.get(item.get('deferre'))
-        if not code:continue
         course=item['course'];distance=course.get('distance');recul=item.get('recul') or 0
         if not isinstance(distance,int) or not isinstance(recul,int):continue
         hip=item.get('hippodrome') or (item.get('reunion') or {}).get('hippodrome') or {}
@@ -109,9 +113,18 @@ def observations(html,ident):
              'discipline':{'ATTELE':'Attelé','MONTE':'Monté'}.get(course.get('specialite'),''),
              'distance_m':str(distance+recul),'classement':str(item.get('rang') or ''),
              'chrono':str(item.get('redKm') or '')}
-        if all(cle_performance(row)):
-            result[cle_performance(row)].append({'ferrure':code,'code_brut':item['deferre'],
-                'source':'GENY_DONNEES_STRUCTUREES','course_id':course.get('id'),**row})
+        departure = depart_historique_geny(course, item)
+        when_raw = course.get('dateHeureCourse')
+        when = instant(when_raw)
+        if not when and hip.get('nationaliteIso') == 'FR':
+            try:
+                when = datetime.fromisoformat(when_raw).replace(tzinfo=PARIS)
+            except (TypeError, ValueError):
+                pass
+        if (code or departure) and all(cle_performance(row)):
+            result[cle_performance(row)].append({'ferrure':code,'code_brut':item.get('deferre'),
+                'depart_trot':departure, 'source':'GENY_DONNEES_STRUCTUREES',
+                'course_id':course.get('id'), 'depart_course':when,**row})
     # Les performances chargées au défilement ne sont pas toujours dans le bloc
     # initial Next.js. Leurs attributs aria-label restent dans le DOM final.
     soup=BeautifulSoup(html,'html.parser');verified=False
@@ -162,6 +175,7 @@ def couverture(doc):
 
 def enrichir(doc,html,ident,source_url,capture_utc=None):
     candidates=observations(html,ident);added=0;conflicts=0
+    capture = instant(capture_utc)
     for row in doc.get('performances',[]):
         found=candidates.get(cle_performance(row),[])
         if not found:continue
@@ -170,6 +184,17 @@ def enrichir(doc,html,ident,source_url,capture_utc=None):
         exact=[x for x in found if normaliser(x.get('classement'))==normaliser(row.get('classement'))
                and normaliser(x.get('chrono'))==normaliser(row.get('chrono'))]
         if exact:found=exact
+        departures = [x for x in found if x.get('depart_trot') and x.get('course_id')
+                      and capture and x.get('depart_course') and x['depart_course'] < capture]
+        if (departures and len({x['course_id'] for x in departures}) == 1
+                and all(x['depart_trot'] == departures[0]['depart_trot'] for x in departures)):
+            proof = departures[0]
+            row['depart_trot'] = {**proof['depart_trot'], 'source':proof['source'],
+                                  'url':source_url, 'capture_utc':capture_utc,
+                                  'course_id':proof['course_id']}
+        found = [x for x in found if x.get('ferrure')]
+        if not found:
+            continue
         codes={x['ferrure'] for x in found}
         if len(codes)!=1:
             conflicts+=1;row['ferrure_qualification']='CONFLIT';continue

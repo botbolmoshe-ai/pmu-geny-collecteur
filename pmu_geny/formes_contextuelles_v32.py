@@ -92,8 +92,11 @@ def _facteur_niveau(course, row):
     return (0.70 if ratio > 2 else 0.85 if ratio > 1.35 else 1.0), True
 
 
-def _historique_contextuel(historique, course, profil, *, ferrure_differente=.65, ferrure_inconnue=.85):
+def _historique_contextuel(historique, course, profil, *, ferrure_differente=.65,
+                          ferrure_inconnue=.85, mode_depart=None, observation=None):
     """Pondere les performances passees selon les conditions de la course cible."""
+    from .echeances_production import instant
+
     try:
         depart = datetime.fromisoformat(course["depart"])
     except (KeyError, TypeError, ValueError):
@@ -119,6 +122,13 @@ def _historique_contextuel(historique, course, profil, *, ferrure_differente=.65
         disc_histo = _discipline(row.get("discipline"))
         if discipline and disc_histo != discipline:
             continue  # Ne pas traiter une victoire montee comme une victoire attelee.
+        if mode_depart:
+            proof = row.get('depart_trot') or {}
+            capture = instant(proof.get('capture_utc'))
+            if (not discipline or proof.get('source') != 'GENY_DONNEES_STRUCTUREES'
+                    or proof.get('mode') != mode_depart or not capture or capture > observation
+                    or not str(proof.get('url', '')).startswith(('https://www.geny.com/', 'https://geny.com/'))):
+                continue
         points = _classement(row.get("classement"))
         if points is None:
             continue
@@ -159,6 +169,18 @@ def _historique_contextuel(historique, course, profil, *, ferrure_differente=.65
         "poids_total": round(poids_total, 4),
         "comparabilite_moyenne": round(sum(facteurs) / n, 4),
     }
+
+
+def forme_meme_depart(historique, course, profil, observation):
+    from .departs_trot import mode_pmu
+    from .echeances_production import instant
+
+    mode, _ = mode_pmu(course)
+    captured = instant(historique.get('extrait_utc'))
+    if (not mode or not captured or not observation or captured > observation
+            or not str(historique.get('source_url', '')).startswith(('https://www.geny.com/', 'https://geny.com/'))):
+        return None
+    return _historique_contextuel(historique, course, profil, mode_depart=mode, observation=observation)
 
 
 def noter_partant(participant, course, lien, profil):
