@@ -1,45 +1,13 @@
 {
-  "controle_utc": "2026-11-19T13:52:03.220510+00:00",
+  "controle_utc": "2026-11-19T13:56:00.666413+00:00",
   "publication_reussie": true,
   "plan": {
-    "plan_utc": "2026-11-19T13:50:28.412830+00:00",
+    "plan_utc": "2026-11-19T13:54:57.144680+00:00",
     "date": "2026-11-19",
     "executer": true,
     "mode": "GLOBAL",
-    "selection": [
-      "R3C1",
-      "R3C3",
-      "R4C2",
-      "R3C2",
-      "R3C4"
-    ],
-    "jalons_dus": [
-      {
-        "course": "2026-11-19_R3C1",
-        "phase": "H1",
-        "echeance": "2026-11-19T14:57:00+01:00"
-      },
-      {
-        "course": "2026-11-19_R3C3",
-        "phase": "H2",
-        "echeance": "2026-11-19T15:08:00+01:00"
-      },
-      {
-        "course": "2026-11-19_R4C2",
-        "phase": "H2",
-        "echeance": "2026-11-19T15:25:00+01:00"
-      },
-      {
-        "course": "2026-11-19_R3C2",
-        "phase": "H1",
-        "echeance": "2026-11-19T15:33:00+01:00"
-      },
-      {
-        "course": "2026-11-19_R3C4",
-        "phase": "H2",
-        "echeance": "2026-11-19T15:45:00+01:00"
-      }
-    ],
+    "selection": [],
+    "jalons_dus": [],
     "prochain_besoin_utc": "2026-11-19T14:55:00+01:00"
   },
   "courses": [
@@ -176,6 +144,30 @@
               "fichier": "jalons/2026-11-19_R4C1/H2_ml_20261119T125542219504Z.json",
               "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
               "lecture_sheets_utc": "2026-11-19T12:56:56.066729+00:00"
+            }
+          }
+        },
+        "H1": {
+          "echeance": "2026-11-19T15:50:00+01:00",
+          "controle_utc": "2026-11-19T13:56:00.666413+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-19T14:55:22.137181+01:00",
+              "publication_utc": "2026-11-19T13:56:00.666413+00:00",
+              "sha256": "c4f0a86b0e37aa9e1d63c12e46fa1de4156d963413b22b27711507a356a142e1",
+              "fichier": "jalons/2026-11-19_R4C1/H1_direct_20261119T135522137181Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-19T13:55:59.193013+00:00"
+            },
+            "ml": {
+              "calcul_utc": "2026-11-19T14:55:22.298665+01:00",
+              "publication_utc": "2026-11-19T13:56:00.666413+00:00",
+              "sha256": "90aa30f84749a12e5735c50bf91c17cf805b4c5cbb2cdc5175ea600fa7eec4df",
+              "fichier": "jalons/2026-11-19_R4C1/H1_ml_20261119T135522298665Z.json",
+              "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+              "lecture_sheets_utc": "2026-11-19T13:55:59.193013+00:00"
             }
           }
         }
