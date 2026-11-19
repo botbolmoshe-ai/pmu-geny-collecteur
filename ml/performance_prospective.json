@@ -1,12 +1,12 @@
 {
   "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-  "controle_utc": "2026-11-19T16:58:03.744775+00:00",
-  "courses": 22,
-  "moyenne_ml": 1.0909090909090908,
-  "moyenne_direct": 1.0909090909090908,
+  "controle_utc": "2026-11-19T17:46:14.057117+00:00",
+  "courses": 24,
+  "moyenne_ml": 1.0833333333333333,
+  "moyenne_direct": 1.0833333333333333,
   "ecart_ml_direct": 0.0,
   "exact_3_sur_3_ml": 0,
-  "au_moins_2_sur_3_ml": 5,
+  "au_moins_2_sur_3_ml": 6,
   "resultats": [
     {
       "course": "2026-11-17_R3C6",
@@ -289,6 +289,20 @@
       "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34"
     },
     {
+      "course": "2026-11-19_R3C5",
+      "depart": "2026-11-19T18:20:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-19T17:45:32.992069+00:00",
+      "scores": {
+        "direct": 2,
+        "ml": 2
+      },
+      "versions": {
+        "direct": "69cf815d13b4bf0ed766ce53e6fe19cbb19bb26a934a22c76b8f1c7060b8ef9a",
+        "ml": "e2f9037c9a35f4c759a9b4f1b60f36afcc55ef2941570144f99d7b9db1fc60f3"
+      },
+      "empreinte_modele": "4257583e0ed69aa0eacb7a18ac0a562ee6897eb93791e2c8e13f126ed20009dd"
+    },
+    {
       "course": "2026-11-19_R4C1",
       "depart": "2026-11-19T16:50:00+01:00",
       "arrivee_verifiee_utc": "2026-11-19T16:01:17.029833+00:00",
@@ -315,26 +329,49 @@
         "ml": "20dc361f22e97098c929dff3e3d4e73e599ce40f51b80ca6c6cd852c43c07edb"
       },
       "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34"
+    },
+    {
+      "course": "2026-11-19_R4C3",
+      "depart": "2026-11-19T18:02:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-19T17:45:33.105338+00:00",
+      "scores": {
+        "direct": 0,
+        "ml": 0
+      },
+      "versions": {
+        "direct": "8acdbd176290e0cadbc99c9e7d1088c4a6b70c534af2e9d5cbcea95f29e3c55c",
+        "ml": "0bfafcf7a42dccb583509d5bec5341db954a5bf4cbe9d3fe8bba2ef0b5527755"
+      },
+      "empreinte_modele": "4257583e0ed69aa0eacb7a18ac0a562ee6897eb93791e2c8e13f126ed20009dd"
     }
   ],
   "rejets": [],
   "regle_ajustement": "Réentraînement sur nouveaux labels admissibles ; choix sur validation temporelle, sans promotion sur ces seuls scores.",
   "candidat_depart": {
-    "courses": 1,
-    "direct_evaluable": 6,
+    "courses": 2,
+    "direct_evaluable": 8,
     "rejets": [],
     "statut": "EXPERIMENTAL",
-    "moyenne": 2.0,
-    "moyenne_direct": 2.0,
+    "moyenne": 1.0,
+    "moyenne_direct": 1.0,
     "ecart_moyen": 0.0,
     "exact_3_sur_3": 0,
     "au_moins_2_sur_3": 1,
-    "comparaison": null,
+    "comparaison": {
+      "courses": 2,
+      "ecart_moyen": 0.0,
+      "ic95_bootstrap_par_course": [
+        0.0,
+        0.0
+      ]
+    },
     "scores_candidat_par_course": {
-      "2026-11-19_R4C2": 2
+      "2026-11-19_R4C2": 2,
+      "2026-11-19_R4C3": 0
     },
     "scores_direct_par_course": {
-      "2026-11-19_R4C2": 2
+      "2026-11-19_R4C2": 2,
+      "2026-11-19_R4C3": 0
     }
   }
 }
