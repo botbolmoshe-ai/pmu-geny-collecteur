@@ -6,9 +6,9 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-from logic import records, selected, number, timestamp, result_matching
-from quality import render_quality
-from performance import render_performance
+from trot_analytics.logic import records, selected, number, timestamp, result_matching
+from trot_analytics.quality import render_quality
+from trot_analytics.performance import render_performance
 
 st.set_page_config(page_title="TROT Analytics",page_icon="📊",layout="wide")
 PARIS=ZoneInfo("Europe/Paris")
@@ -33,7 +33,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.5 · Départs et cotes PMU")
+st.caption("Version interface : 2026.11.19.6 · Départs et cotes PMU")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:

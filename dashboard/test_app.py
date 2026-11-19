@@ -27,8 +27,8 @@ class AppTests(unittest.TestCase):
         self.mock_build=self.build.start();self.addCleanup(self.build.stop)
         self.credentials.start();self.addCleanup(self.credentials.stop)
 
-    def source(self,history=True,odds=False):
-        from quality_dates import VALUE,TOTAL
+    def source(self,history=True,odds=False,market_top3=False):
+        from trot_analytics.quality_dates import VALUE,TOTAL
         day=self.today.isoformat();depart=datetime.combine(self.today,time(12),ZoneInfo('Europe/Paris'))
         courses=[{'Clé course (technique)':day+'|R1C1','Date':day,'Course R/C':'R1C1','Hippodrome':'VINCENNES',
             'Départ (Paris)':depart.isoformat(),'Discipline':'Attelé','Distance (m)':2700,
@@ -47,6 +47,9 @@ class AppTests(unittest.TestCase):
         if odds:
             stamp = min(self.now, depart) - timedelta(minutes=5)
             courses[0].update({'Cotes · Valeur': 7.5, 'Cotes · Relevé UTC': stamp.isoformat()})
+        if market_top3:
+            for row in courses:
+                row.update({'Cotes · Sélection': 'OUI', 'Cotes · Rang': 4 - row['N°']})
         kpis=[{'Dimension':'Historique','Indicateur':'Taux de couverture',VALUE:0.75,TOTAL:4,'Définition / réserve':'Fixture locale'}]
         yesterday=self.today-timedelta(days=1)
         old=datetime.combine(yesterday,time(12),ZoneInfo('Europe/Paris'))
@@ -124,6 +127,22 @@ class AppTests(unittest.TestCase):
         self.assertEqual(self.app.dataframe[0].value['Cote PMU'].iloc[0], 7.5)
         self.assertTrue(any('Dernier relevé PMU à' in x.value for x in self.app.caption))
         self.assertTrue(any('TOP3 Cotes indisponible' in x.value for x in self.app.caption))
+
+    def test_courses_charge_le_top3_cotes_meme_si_un_ancien_module_est_en_memoire(self):
+        from types import ModuleType
+        from trot_analytics import logic
+
+        legacy = ModuleType('logic')
+        for name in ('records', 'number', 'timestamp', 'result_matching'):
+            setattr(legacy, name, getattr(logic, name))
+        legacy.selected = lambda rows, method: {'direct': [], 'ml': []}[method]
+        self.source(market_top3=True)
+        self.app.session_state.authenticated = True
+        with patch.dict('sys.modules', {'logic': legacy}):
+            self.app.run()
+            self.app.radio[0].set_value('Courses').run()
+        self.assertFalse(self.app.exception)
+        self.assertIn('**TOP3 Cotes** · 3 — 2 — 1', [item.value for item in self.app.markdown])
 
     def test_performance_real_page_and_filters(self):
         self.source()

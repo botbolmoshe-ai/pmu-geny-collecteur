@@ -1,6 +1,6 @@
 """Compact, read-only presentation of the published quality indicators."""
 from collections import OrderedDict
-from logic import number,timestamp
+from .logic import number,timestamp
 
 TOTAL_FIELD = "Total de référence (automatique)"
 COLUMNS = ["Indicateur", "Description", "Nombre / valeur", "Total"]
@@ -62,7 +62,7 @@ def render_quality(kpis, courses=None, history=None):
     import streamlit as st
     from datetime import datetime
     from zoneinfo import ZoneInfo
-    from quality_dates import cohort_metrics, daily_series, history_series, latest_history, date_rows
+    from .quality_dates import cohort_metrics, daily_series, history_series, latest_history, date_rows
 
     modes=["Courses de la période", "Relevés historiques", "Registre actuel"] if courses is not None else ["Registre actuel"]
     controls=st.columns(2)
