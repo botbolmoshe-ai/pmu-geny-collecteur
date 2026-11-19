@@ -54,6 +54,8 @@ class SheetsSession:
     def post(self, url, **kwargs):
         data = kwargs['json']
         self.writes.append((url, data))
+        if 'requests' in data and all('repeatCell' in request for request in data['requests']):
+            return Response({})
         if url.endswith(':append'):
             tab = unquote(url.split('/values/')[1]).split('!')[0].strip("'")
             self.tables[tab].extend(data['values'])
@@ -76,6 +78,35 @@ class SheetsSession:
 
 
 class ChaineTests(unittest.TestCase):
+    def test_migration_dates_sheets_preserve_colonnes_et_version(self):
+        from dashboard.trot_analytics.dates import meme_date_sheets, vers_nombre
+        from pmu_geny.moteur_sheets import SynchroniseurSheets
+
+        session = SheetsSession()
+        tab = 'Historique chevaux'
+        headers = ['Capture historique · UTC', 'cle_performance', 'date_course_historique', 'cheval']
+        capture = '2026-11-19T16:02:47.123456+01:00'
+        session.tables[tab] = [headers[:], [capture, 'perf', '2026-11-12', 'Test']]
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(
+                'os.environ', {'PMU_SHEETS_CONTROLES': str(Path(tmp) / 'controle.jsonl')}):
+            engine = SynchroniseurSheets(tmp, 'fake', session=session)
+            props = engine.metadata()[tab]
+            first = engine._synchroniser_onglet(tab, {}, props, full_source=False, allow_structure=True)
+            second = engine._synchroniser_onglet(tab, {}, props, full_source=False, allow_structure=True)
+
+        self.assertEqual(session.tables[tab][0], headers)
+        self.assertEqual(session.tables[tab][1], [
+            vers_nombre('extraction_utc', capture), 'perf',
+            vers_nombre('date_course_historique', '2026-11-12'), 'Test',
+        ])
+        patterns = [request['repeatCell']['cell']['userEnteredFormat']['numberFormat']['pattern']
+                    for _, payload in session.writes for request in payload.get('requests', [])]
+        self.assertEqual(patterns, ['dd/mm/yyyy hh:mm', 'dd/mm/yyyy'])
+        self.assertEqual((first['cellules_actualisees'], second['cellules_actualisees']), (2, 0))
+        self.assertTrue(meme_date_sheets('extraction_utc', capture, session.tables[tab][1][0]))
+        self.assertFalse(meme_date_sheets('extraction_utc', capture, '2026-11-19T16:02:46+01:00'))
+
+
     def test_plan_corrompu_bloque_avant_tout_post_sheets(self):
         from pmu_geny.controle_sync_sheets import BlocageSynchronisation
         session=SheetsSession()

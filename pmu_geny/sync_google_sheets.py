@@ -12,6 +12,8 @@ import sys
 from pathlib import Path
 from datetime import datetime, timezone
 
+from dashboard.trot_analytics.dates import date_kind, depuis_nombre, meme_date_sheets
+
 SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analyse')
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
 # Les fichiers bruts, les audits et tous les historiques sont conserves dans pmu-data.
@@ -811,6 +813,8 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                 differs=((before!=value or (isinstance(value,int) and
                            (not isinstance(before,(int,float)) or isinstance(before,bool))))
                          if name in NUMERIC_SCORES or name == 'top3_cotes_valeur' else (before!=value or (isinstance(before,bool) and not isinstance(value,bool)) if name in MATCHING_COLUMNS else str(before)!=str(value)))
+                if date_kind(name):
+                    differs = not meme_date_sheets(name, before, value)
                 if name == 'course_allocation_eur':
                     differs = ''.join(str(before).split()) != str(value)
                     if not value:
@@ -889,7 +893,7 @@ def limiter_cours_registre(source, date_debut=LIVE_RESET_DATE):
     return result
 
 
-def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, unformatted=False):
+def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, raw_dates=False):
     """Lire toutes les lignes sans perdre les positions des plages vides.
 
     Une lecture limitée aux 5000 premières lignes faisait réinsérer les clés
@@ -911,8 +915,7 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, unf
     for offset in range(0,len(pages),3):
         group=pages[offset:offset+3]
         params = {'ranges': [p[0] for p in group], 'majorDimension': 'ROWS'}
-        if unformatted:
-            params['valueRenderOption'] = 'UNFORMATTED_VALUE'
+        params['valueRenderOption'] = 'UNFORMATTED_VALUE'
         response=get_lecture(session,base+'/values:batchGet',params=params,timeout=60)
         if response.status_code!=200:
             raise RuntimeError(f'Lecture incomplete {tab} lignes {group[0][1]}:{group[-1][2]}, HTTP {response.status_code}')
@@ -933,6 +936,10 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, unf
             values.extend(rows)
             values.extend([[] for _ in range(end-start+1-len(rows))])
     while values and not values[-1]:values.pop()
+    if values and not raw_dates:
+        headers = canonical_headers(values[0])
+        values[1:] = [[depuis_nombre(field, cell) for field, cell in zip(headers, row)] + row[len(headers):]
+                      for row in values[1:]]
     return values
 
 

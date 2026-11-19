@@ -160,6 +160,7 @@ def preuves_sheets(rows, now):
 
 def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
     """Appeler après Sheets : une tentative ou un calcul seul ne vaut pas publication."""
+    from dashboard.trot_analytics.dates import meme_date_sheets
     cache = Path(cache)
     report = {'controle_utc':now.isoformat(), 'publication_reussie':bool(publie),
               'plan':plan, 'courses':[], 'erreurs':[]}
@@ -193,7 +194,7 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                 if sheets is not None:
                     observed = sheets.get('courses', {}).get(key, {}).get(kind, {})
                     numbers = [int(h['numero']) for h in doc['top3']]
-                    if (observed.get('numeros') != numbers or instant(observed.get('calcul_utc')) != instant(doc['calcul_utc'])
+                    if (observed.get('numeros') != numbers or not meme_date_sheets('calcul_utc', observed.get('calcul_utc'), doc['calcul_utc'])
                             or not observation or not instant(doc['calcul_utc']) <= observation <= now or observation >= depart):
                         report['erreurs'].append({'course': key, 'mode': kind, 'motif': 'TOP3_NON_CONFIRME_SHEETS'})
                         continue

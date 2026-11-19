@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
+from trot_analytics.dates import afficher_instant
 from trot_analytics.logic import records, selected, number, timestamp, result_matching
 from trot_analytics.quality import render_quality
 from trot_analytics.performance import render_performance
@@ -33,7 +34,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.6 · Départs et cotes PMU")
+st.caption("Version interface : 2026.11.19.7 · Dates et heures")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -66,12 +67,12 @@ except Exception:
     st.error("Registre inaccessible ou configuration incompatible. Aucune donnée simulée.")
     st.stop()
 now=datetime.now(timezone.utc)
-st.caption("Registre lu à "+loaded.astimezone(PARIS).strftime("%d/%m/%Y %H:%M:%S")+" · fraîcheur des fiches distincte")
+st.caption("Registre lu à "+afficher_instant(loaded)+" · fraîcheur des fiches distincte")
 page=st.radio("Navigation",["Accueil","Courses","Résultats","Performance","Qualité"],horizontal=True,label_visibility="collapsed")
 if page in ("Accueil","Courses","Résultats"):
     dates=sorted({str(r.get("Date")) for r in courses if r.get("Date")})
     today=now.astimezone(PARIS).date().isoformat()
-    day=st.date_input("Date",value=now.astimezone(PARIS).date()).isoformat()
+    day=st.date_input("Date",value=now.astimezone(PARIS).date(),format="DD/MM/YYYY").isoformat()
     groups={}
     for row in courses:
         if str(row.get("Date"))==day and row.get("Clé course (technique)"):
@@ -95,13 +96,15 @@ if page=="Accueil":
     st.subheader("Prochains départs")
     upcoming=[r[0] for r in groups.values() if timestamp(r[0].get("Départ (Paris)")) and timestamp(r[0]["Départ (Paris)"])>now]
     if upcoming:
-        st.dataframe(pd.DataFrame(upcoming)[["Course R/C","Hippodrome","Départ (Paris)","Discipline"]],hide_index=True,use_container_width=True)
+        table = pd.DataFrame(upcoming).reindex(columns=["Course R/C","Hippodrome","Départ (Paris)","Discipline"])
+        table["Départ (Paris)"] = table["Départ (Paris)"].map(afficher_instant)
+        st.dataframe(table,hide_index=True,use_container_width=True)
     else: st.caption("Aucun départ futur enregistré pour cette date.")
 elif page=="Courses":
     if not groups: st.info("Aucune course pour ce filtre.")
     for key,rows in groups.items():
         first=rows[0]; depart=timestamp(first.get("Départ (Paris)"))
-        label=first.get("Course R/C","")+" · "+str(first.get("Hippodrome",""))+" · "+(depart.astimezone(PARIS).strftime("%H:%M") if depart else "heure inconnue")
+        label=first.get("Course R/C","")+" · "+str(first.get("Hippodrome",""))+" · "+(afficher_instant(depart) if depart else "heure inconnue")
         if first.get("Course · Nom PMU"):
             label += " · " + str(first["Course · Nom PMU"])
         with st.expander(label,expanded=len(groups)==1):
@@ -146,7 +149,7 @@ elif page=="Courses":
                     st.markdown(f"**{winner_label} : {winner['N°']} — {winner.get('Cheval') or '—'}**")
                 else:
                     st.caption(winner_label + " : indisponible")
-            st.caption("Calcul direct : "+str(first.get("TOP3 direct · Calcul UTC") or "non renseigné"))
+            st.caption("Calcul direct : "+(afficher_instant(first.get("TOP3 direct · Calcul UTC")) + " (Paris)" if timestamp(first.get("TOP3 direct · Calcul UTC")) else "non renseigné"))
             st.caption("ML : "+str(first.get("ML · État du modèle") or "non renseigné"))
             st.caption("NP : "+", ".join(str(h["N°"]) for h in rows if h.get("Non-partant (NP)")=="NON_PARTANT") if any(h.get("Non-partant (NP)")=="NON_PARTANT" for h in rows) else "Aucun NP enregistré (voir fraîcheur des fiches)")
             odds_top3 = selected(rows, "cotes")
@@ -168,7 +171,7 @@ elif page=="Courses":
                     odds.append(None)
             latest_odds = max(odds_times, default=None)
             if latest_odds:
-                st.caption("Dernier relevé PMU à " + latest_odds.astimezone(PARIS).strftime("%H:%M:%S")
+                st.caption("Dernier relevé PMU à " + afficher_instant(latest_odds)
                            + " (Paris)")
             profile_column = "Profil du cheval"
             columns = ["N°", "Cheval", "Cote PMU", "Âge (ans)", profile_column, "Profil · Indices", "Ferrure", "Musique PMU",
@@ -187,6 +190,8 @@ elif page=="Courses":
                     if partants[field].notna().any():
                         columns.append(field)
             partants = partants.reindex(columns=columns)
+            partants["Données actuelles · Mise à jour UTC"] = partants["Données actuelles · Mise à jour UTC"].map(
+                lambda value: afficher_instant(value, timezone.utc))
             couleurs = {"Crack": "#ffe375", "Haut potentiel": "#bae8c4"}
             if partants[profile_column].isin(couleurs).any():
                 styles = partants[profile_column].map({

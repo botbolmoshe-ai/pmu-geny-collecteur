@@ -6,9 +6,12 @@ import os
 import re
 import tempfile
 import time
+from datetime import timezone
 from contextlib import contextmanager
 from pathlib import Path
 from urllib.parse import quote
+
+from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, afficher_instant, date_kind, depuis_nombre, meme_date_sheets, vers_nombre
 
 from .controle_sync_sheets import HISTORY,lire_cles_independantes,verifier_avant,verifier_apres
 from .lectures_sheets import get_lecture
@@ -57,6 +60,22 @@ def regrouper_cellules(tab, updates):
             result.append(block)
         previous_row,previous_col=row,col
     return result
+
+
+def formats_dates(sheet_id, headers):
+    requests = []
+    for col, field in enumerate(headers):
+        kind = date_kind(field)
+        if kind is None:
+            continue
+        pattern = DATE_PATTERN if kind == "DATE" else DATETIME_PATTERN
+        requests.append({"repeatCell": {
+            "range": {"sheetId": sheet_id, "startRowIndex": 1,
+                      "startColumnIndex": col, "endColumnIndex": col + 1},
+            "cell": {"userEnteredFormat": {"numberFormat": {"type": kind, "pattern": pattern}}},
+            "fields": "userEnteredFormat.numberFormat",
+        }})
+    return requests
 
 
 class SessionMesuree:
@@ -132,7 +151,7 @@ class SynchroniseurSheets:
 
     def _synchroniser_onglet(self,tab,incoming,properties,*,full_source,allow_structure):
         from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques,RETIRED_SHEET_COLUMNS,SHEET_HEADER_LABELS
-        values=lire_feuille_complete(self.session,self.base,tab,properties)
+        values=lire_feuille_complete(self.session,self.base,tab,properties,raw_dates=True)
         if not values:raise ErreurSynchronisation('Onglet sans en-tetes : '+tab)
         if allow_structure:
             removed=[i for i,name in enumerate(canonical_headers(values[0])) if name in RETIRED_SHEET_COLUMNS.get(tab,())]
@@ -142,7 +161,7 @@ class SynchroniseurSheets:
                                                'startIndex':i,'endIndex':i+1}}}
                     for i in reversed(removed)]},timeout=30))
                 properties=self.metadata()[tab]
-                values=lire_feuille_complete(self.session,self.base,tab,properties)
+                values=lire_feuille_complete(self.session,self.base,tab,properties,raw_dates=True)
                 if not values:raise ErreurSynchronisation('En-tetes absents apres retrait des colonnes')
             labels=SHEET_HEADER_LABELS.get(tab,{})
             replacements=[{'range':f"'{tab}'!{colname(i+1)}1",'values':[[labels[name]]]} for i,name in
@@ -150,9 +169,10 @@ class SynchroniseurSheets:
             if replacements:
                 self.check(self.session.post(self.base+'/values:batchUpdate',
                     json={'valueInputOption':'RAW','data':replacements},timeout=30))
-                values=lire_feuille_complete(self.session,self.base,tab,properties)
+                values=lire_feuille_complete(self.session,self.base,tab,properties,raw_dates=True)
         headers=canonical_headers(values[0])
-        existing=[dict(zip(headers,row)) for row in values[1:]]
+        existing=[{name: depuis_nombre(name, value) for name, value in zip(headers, row)}
+                  for row in values[1:]]
         if tab==HISTORY:
             incoming=reconcilier_cles_historiques(existing,incoming)
         all_headers,updates,appends=plan_sheet(headers,existing,incoming,tab)
@@ -198,6 +218,21 @@ class SynchroniseurSheets:
                     'fields': 'pixelSize',
                 }},
             ])
+        staged = {(row, col): vers_nombre(effective_headers[col - 1], value)
+                  for row, col, value in updates}
+        if allow_structure:
+            for row_number, raw in enumerate(values[1:], start=2):
+                for col, (field, value) in enumerate(zip(headers, raw), start=1):
+                    converted = vers_nombre(field, value)
+                    if converted != value:
+                        staged.setdefault((row_number, col), converted)
+        updates = [(row, col, value) for (row, col), value in staged.items()]
+        appends = [[vers_nombre(field, value) for field, value in zip(effective_headers, row)]
+                   for row in appends]
+        if (any(date_kind(field) for field in extra)
+                or any(date_kind(effective_headers[col - 1]) for _, col, _ in updates)
+                or appends and any(map(date_kind, effective_headers))):
+            structure.extend(formats_dates(sheet_id, effective_headers))
         if structure:
             self.check(self.session.post(self.base+':batchUpdate',json={'requests':structure},timeout=30))
         cells=[]
@@ -233,7 +268,7 @@ class SynchroniseurSheets:
         tab = 'Courses & Prévisions'
         if tab not in tables:
             raise ErreurSynchronisation('Onglet absent : ' + tab)
-        values = lire_feuille_complete(self.session, self.base, tab, tables[tab], unformatted=True)
+        values = lire_feuille_complete(self.session, self.base, tab, tables[tab])
         if not values:
             raise ErreurSynchronisation('Onglet sans en-têtes : ' + tab)
         headers = canonical_headers(values[0])
@@ -257,13 +292,18 @@ class SynchroniseurSheets:
                 key = (row['course_key'], str(row['numero']))
                 actual = published.get(key, {})
                 for field in COTES_COLUMNS:
-                    if field in row and sheet_value(field, row[field]) != sheet_value(field, actual.get(field)):
+                    if field in row and not meme_date_sheets(
+                            field, sheet_value(field, row[field]), sheet_value(field, actual.get(field))):
                         raise ErreurSynchronisation(f'Cote Sheets différente du collecteur : {key}, {field}')
                 if row['cote_releve_utc']:
                     verified.add(key)
             print(f'COTES_SHEETS_VERIFIEES {len(verified)} cotes sur '
                   f'{len({key for key, _ in verified})} courses', flush=True)
         metrics = calculer_kpi(self.cache, source, sheets_courses=sheets_courses)
+        # La colonne Valeur mélange dates, taux et effectifs. Seules les
+        # valeurs horodatées sont présentées en texte français, en UTC.
+        metrics = {key: (afficher_instant(value, timezone.utc) or value, definition)
+                   for key, (value, definition) in metrics.items()}
         updates=plan_kpi(values,metrics)
         if updates:
             properties = tables[KPI_TAB]
