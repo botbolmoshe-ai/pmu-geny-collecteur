@@ -1,16 +1,16 @@
 {
   "date": "2026-11-19",
   "course": "R4C2",
-  "calcul_utc": "2026-11-19T17:01:13.070519+01:00",
+  "calcul_utc": "2026-11-19T17:15:26.563600+01:00",
   "depart": "2026-11-19T17:25:00+01:00",
-  "donnees_observees_utc": "2026-11-19T17:00:48.000073+01:00",
-  "modele": "gradient_boosting",
+  "donnees_observees_utc": "2026-11-19T17:15:23.010995+01:00",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
-  "dernier_label_entrainement_utc": "2026-11-18T17:07:57.493627+00:00",
-  "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+  "entrainement_utc": "2026-11-19T16:02:06.293323+00:00",
+  "dernier_label_entrainement_utc": "2026-11-19T16:01:17.470623+00:00",
+  "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34",
   "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
@@ -570,19 +570,19 @@
       "numero": 4,
       "nom": "SROGER",
       "cheval_id": "2760248",
-      "score_non_calibre": 0.66125
+      "score_non_calibre": 0.99475
     },
     {
-      "numero": 5,
-      "nom": "FTERRY",
-      "cheval_id": "2756009",
-      "score_non_calibre": 0.46264
+      "numero": 9,
+      "nom": "WMICHEL",
+      "cheval_id": "2740077",
+      "score_non_calibre": 0.98107
     },
     {
-      "numero": 2,
-      "nom": "GLESSIEU",
-      "cheval_id": "2786829",
-      "score_non_calibre": 0.36042
+      "numero": 1,
+      "nom": "JMCHAINEUX",
+      "cheval_id": "2770387",
+      "score_non_calibre": 0.97842
     }
   ],
   "classement_complet": [
@@ -590,55 +590,55 @@
       "numero": 4,
       "nom": "SROGER",
       "cheval_id": "2760248",
-      "score_non_calibre": 0.66125
-    },
-    {
-      "numero": 5,
-      "nom": "FTERRY",
-      "cheval_id": "2756009",
-      "score_non_calibre": 0.46264
-    },
-    {
-      "numero": 2,
-      "nom": "GLESSIEU",
-      "cheval_id": "2786829",
-      "score_non_calibre": 0.36042
-    },
-    {
-      "numero": 7,
-      "nom": "JCHEVREUX",
-      "cheval_id": "2737300",
-      "score_non_calibre": 0.31783
-    },
-    {
-      "numero": 1,
-      "nom": "JMCHAINEUX",
-      "cheval_id": "2770387",
-      "score_non_calibre": 0.27896
-    },
-    {
-      "numero": 10,
-      "nom": "MVARIN",
-      "cheval_id": "2781545",
-      "score_non_calibre": 0.27869
-    },
-    {
-      "numero": 6,
-      "nom": "GVERVA",
-      "cheval_id": "2723110",
-      "score_non_calibre": 0.24832
-    },
-    {
-      "numero": 8,
-      "nom": "MLLEVMGOETZ",
-      "cheval_id": "2760498",
-      "score_non_calibre": 0.16495
+      "score_non_calibre": 0.99475
     },
     {
       "numero": 9,
       "nom": "WMICHEL",
       "cheval_id": "2740077",
-      "score_non_calibre": 0.14427
+      "score_non_calibre": 0.98107
+    },
+    {
+      "numero": 1,
+      "nom": "JMCHAINEUX",
+      "cheval_id": "2770387",
+      "score_non_calibre": 0.97842
+    },
+    {
+      "numero": 10,
+      "nom": "MVARIN",
+      "cheval_id": "2781545",
+      "score_non_calibre": 0.9778
+    },
+    {
+      "numero": 2,
+      "nom": "GLESSIEU",
+      "cheval_id": "2786829",
+      "score_non_calibre": 0.96542
+    },
+    {
+      "numero": 6,
+      "nom": "GVERVA",
+      "cheval_id": "2723110",
+      "score_non_calibre": 0.93975
+    },
+    {
+      "numero": 5,
+      "nom": "FTERRY",
+      "cheval_id": "2756009",
+      "score_non_calibre": 0.89755
+    },
+    {
+      "numero": 8,
+      "nom": "MLLEVMGOETZ",
+      "cheval_id": "2760498",
+      "score_non_calibre": 0.55331
+    },
+    {
+      "numero": 7,
+      "nom": "JCHEVREUX",
+      "cheval_id": "2737300",
+      "score_non_calibre": 0.03401
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

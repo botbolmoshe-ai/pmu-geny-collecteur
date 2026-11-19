@@ -1,16 +1,16 @@
 {
   "date": "2026-11-19",
   "course": "R4C7",
-  "calcul_utc": "2026-11-19T17:01:15.696096+01:00",
+  "calcul_utc": "2026-11-19T17:15:31.841329+01:00",
   "depart": "2026-11-19T20:22:00+01:00",
-  "donnees_observees_utc": "2026-11-19T17:00:48.528329+01:00",
-  "modele": "gradient_boosting",
+  "donnees_observees_utc": "2026-11-19T17:15:24.454294+01:00",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
-  "dernier_label_entrainement_utc": "2026-11-18T17:07:57.493627+00:00",
-  "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+  "entrainement_utc": "2026-11-19T16:02:06.293323+00:00",
+  "dernier_label_entrainement_utc": "2026-11-19T16:01:17.470623+00:00",
+  "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34",
   "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
@@ -928,120 +928,120 @@
   ],
   "top3": [
     {
-      "numero": 11,
-      "nom": "ELAMY",
+      "numero": 12,
+      "nom": "MLEMERCIER",
       "cheval_id": "",
-      "score_non_calibre": 0.30649
+      "score_non_calibre": 0.99794
     },
-    {
-      "numero": 14,
-      "nom": "PHDAUGEARD",
-      "cheval_id": "",
-      "score_non_calibre": 0.2938
-    },
-    {
-      "numero": 15,
-      "nom": "JCERISIER",
-      "cheval_id": "",
-      "score_non_calibre": 0.2741
-    }
-  ],
-  "classement_complet": [
     {
       "numero": 11,
       "nom": "ELAMY",
       "cheval_id": "",
-      "score_non_calibre": 0.30649
-    },
-    {
-      "numero": 14,
-      "nom": "PHDAUGEARD",
-      "cheval_id": "",
-      "score_non_calibre": 0.2938
-    },
-    {
-      "numero": 15,
-      "nom": "JCERISIER",
-      "cheval_id": "",
-      "score_non_calibre": 0.2741
+      "score_non_calibre": 0.99385
     },
     {
       "numero": 10,
       "nom": "LOICGROUSSARD",
       "cheval_id": "",
-      "score_non_calibre": 0.24518
-    },
-    {
-      "numero": 2,
-      "nom": "SERNAULT",
-      "cheval_id": "",
-      "score_non_calibre": 0.21973
-    },
-    {
-      "numero": 3,
-      "nom": "FQUITTET",
-      "cheval_id": "",
-      "score_non_calibre": 0.21518
-    },
+      "score_non_calibre": 0.80783
+    }
+  ],
+  "classement_complet": [
     {
       "numero": 12,
       "nom": "MLEMERCIER",
       "cheval_id": "",
-      "score_non_calibre": 0.20807
+      "score_non_calibre": 0.99794
     },
     {
-      "numero": 8,
-      "nom": "EVARIN",
+      "numero": 11,
+      "nom": "ELAMY",
       "cheval_id": "",
-      "score_non_calibre": 0.1836
+      "score_non_calibre": 0.99385
     },
     {
-      "numero": 13,
-      "nom": "STMEUNIER",
+      "numero": 10,
+      "nom": "LOICGROUSSARD",
       "cheval_id": "",
-      "score_non_calibre": 0.18357
+      "score_non_calibre": 0.80783
     },
     {
-      "numero": 5,
-      "nom": "FLERCIER",
+      "numero": 14,
+      "nom": "PHDAUGEARD",
       "cheval_id": "",
-      "score_non_calibre": 0.16129
-    },
-    {
-      "numero": 16,
-      "nom": "THRAFFEGEAU",
-      "cheval_id": "",
-      "score_non_calibre": 0.15738
+      "score_non_calibre": 0.80431
     },
     {
       "numero": 6,
       "nom": "WILLIAMSOUCHET",
       "cheval_id": "",
-      "score_non_calibre": 0.1562
-    },
-    {
-      "numero": 9,
-      "nom": "PHETRIBLE",
-      "cheval_id": "",
-      "score_non_calibre": 0.14316
-    },
-    {
-      "numero": 4,
-      "nom": "OLECHARPENTIER",
-      "cheval_id": "",
-      "score_non_calibre": 0.08136
-    },
-    {
-      "numero": 7,
-      "nom": "FCRUAUD",
-      "cheval_id": "",
-      "score_non_calibre": 0.08132
+      "score_non_calibre": 0.63331
     },
     {
       "numero": 1,
       "nom": "PSORAIS",
       "cheval_id": "",
-      "score_non_calibre": 0.05618
+      "score_non_calibre": 0.55784
+    },
+    {
+      "numero": 15,
+      "nom": "JCERISIER",
+      "cheval_id": "",
+      "score_non_calibre": 0.37259
+    },
+    {
+      "numero": 3,
+      "nom": "FQUITTET",
+      "cheval_id": "",
+      "score_non_calibre": 0.3641
+    },
+    {
+      "numero": 13,
+      "nom": "STMEUNIER",
+      "cheval_id": "",
+      "score_non_calibre": 0.36347
+    },
+    {
+      "numero": 5,
+      "nom": "FLERCIER",
+      "cheval_id": "",
+      "score_non_calibre": 0.3019
+    },
+    {
+      "numero": 8,
+      "nom": "EVARIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.27524
+    },
+    {
+      "numero": 7,
+      "nom": "FCRUAUD",
+      "cheval_id": "",
+      "score_non_calibre": 0.21691
+    },
+    {
+      "numero": 2,
+      "nom": "SERNAULT",
+      "cheval_id": "",
+      "score_non_calibre": 0.12021
+    },
+    {
+      "numero": 4,
+      "nom": "OLECHARPENTIER",
+      "cheval_id": "",
+      "score_non_calibre": 0.06281
+    },
+    {
+      "numero": 16,
+      "nom": "THRAFFEGEAU",
+      "cheval_id": "",
+      "score_non_calibre": 0.05139
+    },
+    {
+      "numero": 9,
+      "nom": "PHETRIBLE",
+      "cheval_id": "",
+      "score_non_calibre": 0.02444
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

@@ -1,16 +1,16 @@
 {
   "date": "2026-11-19",
   "course": "R3C6",
-  "calcul_utc": "2026-11-19T17:00:56.449475+01:00",
+  "calcul_utc": "2026-11-19T17:15:29.190604+01:00",
   "depart": "2026-11-19T18:55:00+01:00",
-  "donnees_observees_utc": "2026-11-19T17:00:47.376674+01:00",
-  "modele": "gradient_boosting",
+  "donnees_observees_utc": "2026-11-19T17:15:23.817015+01:00",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
-  "dernier_label_entrainement_utc": "2026-11-18T17:07:57.493627+00:00",
-  "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+  "entrainement_utc": "2026-11-19T16:02:06.293323+00:00",
+  "dernier_label_entrainement_utc": "2026-11-19T16:01:17.470623+00:00",
+  "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34",
   "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
@@ -46,10 +46,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -106,10 +106,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -166,10 +166,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -226,10 +226,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -286,10 +286,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -346,10 +346,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -406,10 +406,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -466,10 +466,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -526,10 +526,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -586,10 +586,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -646,10 +646,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -706,10 +706,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -766,10 +766,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -826,10 +826,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -886,10 +886,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -946,10 +946,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 16.0,
-        "meteo_pluie_mm": null,
-        "meteo_vent_kmh": null,
-        "meteo_temperature_c": null,
-        "meteo_humidite_pct": null,
+        "meteo_pluie_mm": 0.0,
+        "meteo_vent_kmh": 17.6,
+        "meteo_temperature_c": 12.8,
+        "meteo_humidite_pct": 69.0,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -976,120 +976,120 @@
   ],
   "top3": [
     {
-      "numero": 10,
-      "nom": "THEOCHERADAME",
-      "cheval_id": "",
-      "score_non_calibre": 0.40204
-    },
-    {
-      "numero": 16,
-      "nom": "JMBAUDOUIN",
-      "cheval_id": "",
-      "score_non_calibre": 0.35458
-    },
-    {
-      "numero": 3,
-      "nom": "WBIGEON",
-      "cheval_id": "",
-      "score_non_calibre": 0.35184
-    }
-  ],
-  "classement_complet": [
-    {
-      "numero": 10,
-      "nom": "THEOCHERADAME",
-      "cheval_id": "",
-      "score_non_calibre": 0.40204
-    },
-    {
-      "numero": 16,
-      "nom": "JMBAUDOUIN",
-      "cheval_id": "",
-      "score_non_calibre": 0.35458
-    },
-    {
-      "numero": 3,
-      "nom": "WBIGEON",
-      "cheval_id": "",
-      "score_non_calibre": 0.35184
-    },
-    {
       "numero": 6,
       "nom": "THDUVALDESTIN",
       "cheval_id": "",
-      "score_non_calibre": 0.32499
-    },
-    {
-      "numero": 12,
-      "nom": "LCLABRIVARD",
-      "cheval_id": "",
-      "score_non_calibre": 0.21845
-    },
-    {
-      "numero": 5,
-      "nom": "JGVANEECKHAUTE",
-      "cheval_id": "",
-      "score_non_calibre": 0.1894
+      "score_non_calibre": 0.60914
     },
     {
       "numero": 9,
       "nom": "KLEBLANC",
       "cheval_id": "",
-      "score_non_calibre": 0.17297
+      "score_non_calibre": 0.31
     },
     {
-      "numero": 8,
-      "nom": "RCHLARUE",
+      "numero": 5,
+      "nom": "JGVANEECKHAUTE",
       "cheval_id": "",
-      "score_non_calibre": 0.17256
+      "score_non_calibre": 0.22026
+    }
+  ],
+  "classement_complet": [
+    {
+      "numero": 6,
+      "nom": "THDUVALDESTIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.60914
     },
     {
-      "numero": 4,
-      "nom": "BROBIN",
+      "numero": 9,
+      "nom": "KLEBLANC",
       "cheval_id": "",
-      "score_non_calibre": 0.16379
+      "score_non_calibre": 0.31
+    },
+    {
+      "numero": 5,
+      "nom": "JGVANEECKHAUTE",
+      "cheval_id": "",
+      "score_non_calibre": 0.22026
     },
     {
       "numero": 1,
       "nom": "LBAUDRON",
       "cheval_id": "",
-      "score_non_calibre": 0.15691
+      "score_non_calibre": 0.1623
+    },
+    {
+      "numero": 12,
+      "nom": "LCLABRIVARD",
+      "cheval_id": "",
+      "score_non_calibre": 0.1603
     },
     {
       "numero": 2,
       "nom": "NBAZIRE",
       "cheval_id": "",
-      "score_non_calibre": 0.15691
+      "score_non_calibre": 0.15383
     },
     {
       "numero": 7,
       "nom": "WBIGEON",
       "cheval_id": "",
-      "score_non_calibre": 0.15691
+      "score_non_calibre": 0.14902
+    },
+    {
+      "numero": 10,
+      "nom": "THEOCHERADAME",
+      "cheval_id": "",
+      "score_non_calibre": 0.0415
+    },
+    {
+      "numero": 3,
+      "nom": "WBIGEON",
+      "cheval_id": "",
+      "score_non_calibre": 0.0405
+    },
+    {
+      "numero": 4,
+      "nom": "BROBIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.02696
+    },
+    {
+      "numero": 8,
+      "nom": "RCHLARUE",
+      "cheval_id": "",
+      "score_non_calibre": 0.02664
+    },
+    {
+      "numero": 16,
+      "nom": "JMBAUDOUIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.02174
     },
     {
       "numero": 14,
       "nom": "PPLOQUIN",
       "cheval_id": "",
-      "score_non_calibre": 0.09206
-    },
-    {
-      "numero": 11,
-      "nom": "ABUISSON",
-      "cheval_id": "",
-      "score_non_calibre": 0.09163
-    },
-    {
-      "numero": 13,
-      "nom": "DBONNE",
-      "cheval_id": "",
-      "score_non_calibre": 0.09163
+      "score_non_calibre": 0.01236
     },
     {
       "numero": 15,
       "nom": "BMICHARDIERE",
       "cheval_id": "",
-      "score_non_calibre": 0.09163
+      "score_non_calibre": 0.00846
+    },
+    {
+      "numero": 11,
+      "nom": "ABUISSON",
+      "cheval_id": "",
+      "score_non_calibre": 0.00396
+    },
+    {
+      "numero": 13,
+      "nom": "DBONNE",
+      "cheval_id": "",
+      "score_non_calibre": 0.00396
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

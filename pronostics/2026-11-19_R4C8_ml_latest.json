@@ -1,16 +1,16 @@
 {
   "date": "2026-11-19",
   "course": "R4C8",
-  "calcul_utc": "2026-11-19T17:01:16.760683+01:00",
+  "calcul_utc": "2026-11-19T17:15:32.594122+01:00",
   "depart": "2026-11-19T20:47:00+01:00",
-  "donnees_observees_utc": "2026-11-19T17:00:48.715895+01:00",
-  "modele": "gradient_boosting",
+  "donnees_observees_utc": "2026-11-19T17:15:24.581748+01:00",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
-  "dernier_label_entrainement_utc": "2026-11-18T17:07:57.493627+00:00",
-  "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+  "entrainement_utc": "2026-11-19T16:02:06.293323+00:00",
+  "dernier_label_entrainement_utc": "2026-11-19T16:01:17.470623+00:00",
+  "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34",
   "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
@@ -700,96 +700,96 @@
   ],
   "top3": [
     {
-      "numero": 12,
-      "nom": "SLEBLOND",
+      "numero": 5,
+      "nom": "HEBONDO",
       "cheval_id": "",
-      "score_non_calibre": 0.38783
-    },
-    {
-      "numero": 6,
-      "nom": "CHECALARD",
-      "cheval_id": "",
-      "score_non_calibre": 0.35539
-    },
-    {
-      "numero": 7,
-      "nom": "GDELACOUR",
-      "cheval_id": "2886858",
-      "score_non_calibre": 0.25943
-    }
-  ],
-  "classement_complet": [
-    {
-      "numero": 12,
-      "nom": "SLEBLOND",
-      "cheval_id": "",
-      "score_non_calibre": 0.38783
-    },
-    {
-      "numero": 6,
-      "nom": "CHECALARD",
-      "cheval_id": "",
-      "score_non_calibre": 0.35539
-    },
-    {
-      "numero": 7,
-      "nom": "GDELACOUR",
-      "cheval_id": "2886858",
-      "score_non_calibre": 0.25943
-    },
-    {
-      "numero": 3,
-      "nom": "THDUVALDESTIN",
-      "cheval_id": "",
-      "score_non_calibre": 0.23872
+      "score_non_calibre": 0.99472
     },
     {
       "numero": 8,
       "nom": "GUILLAUMEJOUVE",
       "cheval_id": "",
-      "score_non_calibre": 0.23821
+      "score_non_calibre": 0.94796
     },
     {
-      "numero": 2,
-      "nom": "CHECALARD",
+      "numero": 3,
+      "nom": "THDUVALDESTIN",
       "cheval_id": "",
-      "score_non_calibre": 0.2194
-    },
+      "score_non_calibre": 0.92501
+    }
+  ],
+  "classement_complet": [
     {
       "numero": 5,
       "nom": "HEBONDO",
       "cheval_id": "",
-      "score_non_calibre": 0.21817
+      "score_non_calibre": 0.99472
     },
     {
-      "numero": 1,
-      "nom": "CLTHOMAIN",
+      "numero": 8,
+      "nom": "GUILLAUMEJOUVE",
       "cheval_id": "",
-      "score_non_calibre": 0.21342
+      "score_non_calibre": 0.94796
+    },
+    {
+      "numero": 3,
+      "nom": "THDUVALDESTIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.92501
+    },
+    {
+      "numero": 12,
+      "nom": "SLEBLOND",
+      "cheval_id": "",
+      "score_non_calibre": 0.91218
+    },
+    {
+      "numero": 7,
+      "nom": "GDELACOUR",
+      "cheval_id": "2886858",
+      "score_non_calibre": 0.91108
     },
     {
       "numero": 4,
       "nom": "ALELODET",
       "cheval_id": "",
-      "score_non_calibre": 0.21201
+      "score_non_calibre": 0.88828
     },
     {
       "numero": 10,
       "nom": "MMONACO",
       "cheval_id": "",
-      "score_non_calibre": 0.17554
+      "score_non_calibre": 0.8469
     },
     {
       "numero": 9,
       "nom": "FNIVARD",
       "cheval_id": "",
-      "score_non_calibre": 0.16394
+      "score_non_calibre": 0.67324
+    },
+    {
+      "numero": 2,
+      "nom": "CHECALARD",
+      "cheval_id": "",
+      "score_non_calibre": 0.63589
+    },
+    {
+      "numero": 1,
+      "nom": "CLTHOMAIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.49487
+    },
+    {
+      "numero": 6,
+      "nom": "CHECALARD",
+      "cheval_id": "",
+      "score_non_calibre": 0.30249
     },
     {
       "numero": 11,
       "nom": "CFERRE",
       "cheval_id": "",
-      "score_non_calibre": 0.08435
+      "score_non_calibre": 0.00964
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

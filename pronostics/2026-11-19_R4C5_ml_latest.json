@@ -1,16 +1,16 @@
 {
   "date": "2026-11-19",
   "course": "R4C5",
-  "calcul_utc": "2026-11-19T17:00:51.925470+01:00",
+  "calcul_utc": "2026-11-19T17:15:29.948474+01:00",
   "depart": "2026-11-19T19:12:00+01:00",
-  "donnees_observees_utc": "2026-11-19T17:00:46.009073+01:00",
-  "modele": "gradient_boosting",
+  "donnees_observees_utc": "2026-11-19T17:15:23.946055+01:00",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
-  "dernier_label_entrainement_utc": "2026-11-18T17:07:57.493627+00:00",
-  "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+  "entrainement_utc": "2026-11-19T16:02:06.293323+00:00",
+  "dernier_label_entrainement_utc": "2026-11-19T16:01:17.470623+00:00",
+  "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34",
   "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
@@ -643,90 +643,90 @@
   ],
   "top3": [
     {
-      "numero": 7,
-      "nom": "JBLELIEVRE",
-      "cheval_id": "",
-      "score_non_calibre": 0.28175
-    },
-    {
       "numero": 3,
       "nom": "RCORBIN",
       "cheval_id": "",
-      "score_non_calibre": 0.26348
-    },
-    {
-      "numero": 9,
-      "nom": "LPESCHET",
-      "cheval_id": "",
-      "score_non_calibre": 0.15493
-    }
-  ],
-  "classement_complet": [
-    {
-      "numero": 7,
-      "nom": "JBLELIEVRE",
-      "cheval_id": "",
-      "score_non_calibre": 0.28175
-    },
-    {
-      "numero": 3,
-      "nom": "RCORBIN",
-      "cheval_id": "",
-      "score_non_calibre": 0.26348
-    },
-    {
-      "numero": 9,
-      "nom": "LPESCHET",
-      "cheval_id": "",
-      "score_non_calibre": 0.15493
+      "score_non_calibre": 0.9944
     },
     {
       "numero": 5,
       "nom": "LOICGROUSSARD",
       "cheval_id": "",
-      "score_non_calibre": 0.11914
+      "score_non_calibre": 0.95688
     },
     {
       "numero": 8,
       "nom": "THLEVESQUE",
       "cheval_id": "",
-      "score_non_calibre": 0.11047
+      "score_non_calibre": 0.95135
+    }
+  ],
+  "classement_complet": [
+    {
+      "numero": 3,
+      "nom": "RCORBIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.9944
     },
     {
-      "numero": 10,
-      "nom": "MVARIN",
+      "numero": 5,
+      "nom": "LOICGROUSSARD",
       "cheval_id": "",
-      "score_non_calibre": 0.10592
+      "score_non_calibre": 0.95688
+    },
+    {
+      "numero": 8,
+      "nom": "THLEVESQUE",
+      "cheval_id": "",
+      "score_non_calibre": 0.95135
     },
     {
       "numero": 11,
       "nom": "STEENTCHRISTOPHECLIN",
       "cheval_id": "",
-      "score_non_calibre": 0.07764
+      "score_non_calibre": 0.70113
     },
     {
-      "numero": 4,
-      "nom": "JBLAVETTE",
+      "numero": 7,
+      "nom": "JBLELIEVRE",
       "cheval_id": "",
-      "score_non_calibre": 0.07217
+      "score_non_calibre": 0.61784
     },
     {
       "numero": 6,
       "nom": "FLERCIER",
       "cheval_id": "",
-      "score_non_calibre": 0.04542
+      "score_non_calibre": 0.51894
     },
     {
-      "numero": 2,
-      "nom": "FGUINE",
+      "numero": 10,
+      "nom": "MVARIN",
       "cheval_id": "",
-      "score_non_calibre": 0.03216
+      "score_non_calibre": 0.27846
+    },
+    {
+      "numero": 4,
+      "nom": "JBLAVETTE",
+      "cheval_id": "",
+      "score_non_calibre": 0.27339
+    },
+    {
+      "numero": 9,
+      "nom": "LPESCHET",
+      "cheval_id": "",
+      "score_non_calibre": 0.11528
     },
     {
       "numero": 1,
       "nom": "JBLELIEVRE",
       "cheval_id": "",
-      "score_non_calibre": 0.03028
+      "score_non_calibre": 0.08564
+    },
+    {
+      "numero": 2,
+      "nom": "FGUINE",
+      "cheval_id": "",
+      "score_non_calibre": 0.01039
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

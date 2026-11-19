@@ -1,16 +1,16 @@
 {
   "date": "2026-11-19",
   "course": "R4C3",
-  "calcul_utc": "2026-11-19T17:00:50.839253+01:00",
+  "calcul_utc": "2026-11-19T17:15:27.717889+01:00",
   "depart": "2026-11-19T18:02:00+01:00",
-  "donnees_observees_utc": "2026-11-19T17:00:45.663541+01:00",
-  "modele": "gradient_boosting",
+  "donnees_observees_utc": "2026-11-19T17:15:23.277280+01:00",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-18T21:13:04.865522+00:00",
-  "dernier_label_entrainement_utc": "2026-11-18T17:07:57.493627+00:00",
-  "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+  "entrainement_utc": "2026-11-19T16:02:06.293323+00:00",
+  "dernier_label_entrainement_utc": "2026-11-19T16:01:17.470623+00:00",
+  "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34",
   "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
@@ -777,7 +777,7 @@
       "source_historique": null,
       "historique_extrait_utc": null,
       "intervenants_pmu": {
-        "driver_score": "MLLEMBLOT",
+        "driver_score": "MGOETZ",
         "entraineur_score": "ALEBOURGEOIS"
       },
       "score_direct_pmu": 5.84,
@@ -828,108 +828,108 @@
   ],
   "top3": [
     {
-      "numero": 1,
-      "nom": "LVAUBERT",
-      "cheval_id": "",
-      "score_non_calibre": 0.53389
-    },
-    {
       "numero": 10,
       "nom": "OTIRARD",
       "cheval_id": "",
-      "score_non_calibre": 0.41082
+      "score_non_calibre": 0.97785
     },
-    {
-      "numero": 6,
-      "nom": "MVARIN",
-      "cheval_id": "",
-      "score_non_calibre": 0.32972
-    }
-  ],
-  "classement_complet": [
     {
       "numero": 1,
       "nom": "LVAUBERT",
       "cheval_id": "",
-      "score_non_calibre": 0.53389
-    },
-    {
-      "numero": 10,
-      "nom": "OTIRARD",
-      "cheval_id": "",
-      "score_non_calibre": 0.41082
-    },
-    {
-      "numero": 6,
-      "nom": "MVARIN",
-      "cheval_id": "",
-      "score_non_calibre": 0.32972
-    },
-    {
-      "numero": 4,
-      "nom": "MCONSTANTIN",
-      "cheval_id": "",
-      "score_non_calibre": 0.23469
-    },
-    {
-      "numero": 5,
-      "nom": "FQUITTET",
-      "cheval_id": "",
-      "score_non_calibre": 0.22008
-    },
-    {
-      "numero": 7,
-      "nom": "HMARIE",
-      "cheval_id": "",
-      "score_non_calibre": 0.21595
-    },
-    {
-      "numero": 3,
-      "nom": "FLAGADEUC",
-      "cheval_id": "",
-      "score_non_calibre": 0.19956
-    },
-    {
-      "numero": 14,
-      "nom": "ALEBOURGEOIS",
-      "cheval_id": "",
-      "score_non_calibre": 0.19956
-    },
-    {
-      "numero": 2,
-      "nom": "SLEBLOND",
-      "cheval_id": "",
-      "score_non_calibre": 0.1965
-    },
-    {
-      "numero": 8,
-      "nom": "JWHALLAIS",
-      "cheval_id": "",
-      "score_non_calibre": 0.1965
+      "score_non_calibre": 0.7915
     },
     {
       "numero": 13,
       "nom": "RENAUDJULIEN",
       "cheval_id": "",
-      "score_non_calibre": 0.1965
+      "score_non_calibre": 0.73225
+    }
+  ],
+  "classement_complet": [
+    {
+      "numero": 10,
+      "nom": "OTIRARD",
+      "cheval_id": "",
+      "score_non_calibre": 0.97785
     },
     {
-      "numero": 12,
-      "nom": "FTERRY",
+      "numero": 1,
+      "nom": "LVAUBERT",
       "cheval_id": "",
-      "score_non_calibre": 0.18844
+      "score_non_calibre": 0.7915
+    },
+    {
+      "numero": 13,
+      "nom": "RENAUDJULIEN",
+      "cheval_id": "",
+      "score_non_calibre": 0.73225
+    },
+    {
+      "numero": 4,
+      "nom": "MCONSTANTIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.72305
+    },
+    {
+      "numero": 14,
+      "nom": "ALEBOURGEOIS",
+      "cheval_id": "",
+      "score_non_calibre": 0.70839
+    },
+    {
+      "numero": 6,
+      "nom": "MVARIN",
+      "cheval_id": "",
+      "score_non_calibre": 0.6863
     },
     {
       "numero": 11,
       "nom": "APLARD",
       "cheval_id": "",
-      "score_non_calibre": 0.15734
+      "score_non_calibre": 0.60696
+    },
+    {
+      "numero": 5,
+      "nom": "FQUITTET",
+      "cheval_id": "",
+      "score_non_calibre": 0.47453
     },
     {
       "numero": 9,
       "nom": "JEANMORICE",
       "cheval_id": "",
-      "score_non_calibre": 0.12437
+      "score_non_calibre": 0.4686
+    },
+    {
+      "numero": 3,
+      "nom": "FLAGADEUC",
+      "cheval_id": "",
+      "score_non_calibre": 0.46719
+    },
+    {
+      "numero": 7,
+      "nom": "HMARIE",
+      "cheval_id": "",
+      "score_non_calibre": 0.24682
+    },
+    {
+      "numero": 8,
+      "nom": "JWHALLAIS",
+      "cheval_id": "",
+      "score_non_calibre": 0.1381
+    },
+    {
+      "numero": 2,
+      "nom": "SLEBLOND",
+      "cheval_id": "",
+      "score_non_calibre": 0.13389
+    },
+    {
+      "numero": 12,
+      "nom": "FTERRY",
+      "cheval_id": "",
+      "score_non_calibre": 0.11656
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."
