@@ -117,13 +117,11 @@ def resolve(horse, out, page=None):
         found = rechercher(horse, page)
         if found:
             return found
-        time.sleep(30)
     try:
         return ouvrir_source(horse, out, page)
     except LookupError:
         if candidate or search_first or horse.get('id'):
             raise
-        time.sleep(30)
         # La course a été consultée. Rechercher la fiche sans revenir sur la même page.
         return rechercher({**horse, 'course_url': ''}, page)
 
@@ -254,7 +252,6 @@ def collecter(horse, out):
                 resolution.replace(out/'resolution_geny.json')
                 loaded=next((candidate for candidate in ctx.pages if candidate.url==geny['url_geny']),None)
                 if loaded:loaded.wait_for_load_state('domcontentloaded',timeout=15000)
-                if not loaded and not horse.get('geny'):time.sleep(30)
                 result=extraire_cheval(geny['url_geny'],geny['id'],out,
                     page=loaded or page,page_chargee=loaded is not None,
                     http_status=statuses.get(geny['url_geny']))

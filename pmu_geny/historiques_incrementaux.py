@@ -498,6 +498,12 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         horse = state['chevaux'][key]
         attempts[(action, key)] = attempts.get((action, key), 0)+1
         if action == 'COLLECTE':
+            if not horse.get('geny') and horse.get('course_url'):
+                from .liens_geny_course import pour_cheval
+                link = pour_cheval(cache, horse.get('engagement'), horse.get('numero'),
+                                   horse['nom'], datetime.now(UTC), horse['course_url'])
+                if link and (not horse.get('id') or str(horse['id']) == link['id']):
+                    horse['geny'] = {**link, 'preuve': 'COURSE_GENY_VERIFIEE'}
             if reprise:
                 stamp = datetime.now(UTC).isoformat()
                 state.update(collecte_tentee_utc=stamp, sync_kpi='A_REPRENDRE')
@@ -562,9 +568,6 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             count += 1
             save()  # Publier les données AVANT toute écriture Sheets.
             if horse.get('sync') != 'A_FAIRE':
-                if instant(state.get('prochain_acces_geny_utc')) and datetime.now(UTC) < instant(state['prochain_acces_geny_utc']):
-                    continue
-                time.sleep(30)
                 continue
         try:
             if sync:
@@ -592,8 +595,6 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                 if sheets_engine:sheets_engine.fermer()
                 raise  # Incident visible en échec Actions ; ne pas continuer silencieusement.
         save()
-        if action == 'COLLECTE':
-            time.sleep(30)
     state.setdefault('motif_fin_passage','BUDGET_TEMPS_ATTEINT')
     if prochains_depart and not reprise:
         from .preparation_prochaines import appliquer
