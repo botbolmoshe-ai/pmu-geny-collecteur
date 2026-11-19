@@ -1,7 +1,7 @@
 """Comparable performance of published, verified TOP3 results; read only."""
 from collections import Counter, defaultdict
 from datetime import date
-from logic import number, result_matching
+from .logic import number, result_matching
 
 METHODS = ("direct", "ml")
 

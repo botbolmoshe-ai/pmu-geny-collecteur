@@ -3,7 +3,7 @@ from collections import OrderedDict
 from datetime import date,datetime,timezone
 from statistics import median
 from zoneinfo import ZoneInfo
-from logic import number, selected,timestamp
+from .logic import number, selected,timestamp
 
 VALUE='Valeur (automatique)'
 TOTAL='Total de référence (automatique)'

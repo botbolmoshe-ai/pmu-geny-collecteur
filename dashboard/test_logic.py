@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime,timezone
-from logic import records,selected,matching,result_matching
+from trot_analytics.logic import records,selected,matching,result_matching
 class Tests(unittest.TestCase):
     def test_matching(self):
         self.assertEqual([matching(x) for x in (0,1,2,3,None,'')],[0,33.33,66.67,100,None,None])

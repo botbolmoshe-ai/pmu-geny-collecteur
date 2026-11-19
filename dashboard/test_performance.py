@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime, timezone, date
-from performance import performance_rows, summarize, evolution
+from trot_analytics.performance import performance_rows, summarize, evolution
 
 
 class PerformanceTests(unittest.TestCase):

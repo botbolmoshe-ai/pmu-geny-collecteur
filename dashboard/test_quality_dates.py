@@ -1,6 +1,6 @@
 from datetime import date,datetime,timezone
 import unittest
-from quality_dates import cohort_metrics, daily_series, history_series, latest_history,VALUE,TOTAL
+from trot_analytics.quality_dates import cohort_metrics, daily_series, history_series, latest_history,VALUE,TOTAL
 
 
 class QualityDatesTests(unittest.TestCase):

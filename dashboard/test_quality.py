@@ -1,6 +1,6 @@
 import copy
 import unittest
-from quality import quality_sections, display_value, TOTAL_FIELD
+from trot_analytics.quality import quality_sections, display_value, TOTAL_FIELD
 
 
 class QualityTests(unittest.TestCase):
