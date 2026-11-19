@@ -423,6 +423,7 @@ def source_rows(cache):
         direct=load_json(cache/'pronostics'/f'{date}_{code}_direct.json')
         marche=load_json(cache/'pronostics'/f'{date}_{code}_cotes.json')
         cotes_source=load_json(cache/'cotes'/f'{date}_{code}.json')
+        cotes_releve={str(h.get('numero')):h for h in cotes_source.get('chevaux',[]) if isinstance(h,dict)}
         cotes_etat=marche.get('statut') or cotes_source.get('statut') or (
             'COTES_NON_EXTRAITES' if cotes_source.get('chevaux') and not any(
                 h.get('cote') is not None for h in cotes_source['chevaux']) else 'PAS_DE_RELEVE')
@@ -473,6 +474,12 @@ def source_rows(cache):
             existing=courses.get(krow,{})
             direct_rank,direct_h=ranks['direct'].get(str(n),('',{}))
             cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
+            cote_observee=cotes_releve.get(str(n),{})
+            valeur_cote=cote_observee.get('cote')
+            if valeur_cote is None:
+                valeur_cote=cote_h.get('cote','')
+            if act.get('statut_np') == 'NON_PARTANT':
+                valeur_cote=''
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
             avis=(avis_experts.get('chevaux') or {}).get(str(n),{})
             link=liens.get(str(n),{})
@@ -517,7 +524,7 @@ def source_rows(cache):
                 'top3_direct_source_forme':direct_h.get('source_forme',''),
                 'top3_direct_qualite':direct_h.get('qualite_score',''),
                 'top3_direct_historiques_exploites':direct_h.get('historique_exploitable','') if direct_rank else '',
-                'top3_cotes_valeur':cote_h.get('cote',''),
+                'top3_cotes_valeur':valeur_cote,
                 'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
                 'top3_cotes_statut':cotes_etat,
                 'ml_rang':ml_rank,
@@ -559,7 +566,10 @@ def source_rows(cache):
                     if statut in PRIORITE else '')
                 authoritative.update(PROFILE_COLUMNS)
             if marche:
+                authoritative.add('top3_cotes_top3')
+            if act.get('statut_np') == 'NON_PARTANT':
                 authoritative.update(('top3_cotes_valeur','top3_cotes_top3'))
+                current['top3_cotes_top3']=''
             if ml:
                 authoritative.update(('ml_rang','ml_top3','ml_score_non_calibre'))
             courses[krow]={**existing,**{key:value for key,value in current.items()
