@@ -40,12 +40,18 @@ COURSE_PMU_COLUMNS = ('course_nom_pmu', 'course_categorie_pmu', 'course_ages_adm
 REPORT_NAME_COLUMNS = {'top3_direct_numeros': 'top3_direct_noms',
                        'top3_ml_numeros': 'top3_ml_noms',
                        'arrivee_officielle_numeros': 'arrivee_officielle_noms'}
-COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS
+WINNER_SELECTION_COLUMNS = ('gagnant_direct_selection', 'gagnant_ml_selection')
+WINNER_REPORT_COLUMNS = tuple(
+    f'gagnant_{mode}_{field}'
+    for mode in ('direct', 'ml')
+    for field in ('numero', 'nom', 'rang', 'verdict')
+)
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
                   'arrivee_officielle_numeros','arrivee_officielle_noms','arrivee_verifiee_utc',
-                  'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct')
+                  'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct') + WINNER_REPORT_COLUMNS
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
@@ -55,7 +61,7 @@ CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS) | MATCHING_COLUMNS | frozenset(EX
     'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
     'ml_proba_podium','ml_score_non_calibre',
     'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites',
-    *REPORT_NAME_COLUMNS.values()})
+    *REPORT_NAME_COLUMNS.values(), *WINNER_SELECTION_COLUMNS, *WINNER_REPORT_COLUMNS})
 PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','ferrure','musique_pmu'})
 
 def sheet_value(field, value):
@@ -110,6 +116,16 @@ DISPLAY_NAMES = {
     'score_ml':'TOP3 ML · Chevaux à l’arrivée (0–3)',
     'matching_direct_pct':'TOP3 direct · Matching (%)',
     'matching_ml_pct':'TOP3 ML · Matching (%)',
+    'gagnant_direct_selection':'Gagnant potentiel direct · Sélection',
+    'gagnant_ml_selection':'Gagnant potentiel ML · Sélection',
+    'gagnant_direct_numero':'Gagnant potentiel direct · N°',
+    'gagnant_direct_nom':'Gagnant potentiel direct · Nom',
+    'gagnant_direct_rang':'Gagnant potentiel direct · Rang officiel',
+    'gagnant_direct_verdict':'Gagnant potentiel direct · Verdict',
+    'gagnant_ml_numero':'Gagnant potentiel ML · N°',
+    'gagnant_ml_nom':'Gagnant potentiel ML · Nom',
+    'gagnant_ml_rang':'Gagnant potentiel ML · Rang officiel',
+    'gagnant_ml_verdict':'Gagnant potentiel ML · Verdict',
     'etat_ml':'ML · Statut',
     'arrivee_officielle_numeros':'Arrivée · N° officiels',
     'arrivee_officielle_noms':'Arrivée · Noms officiels',
@@ -227,22 +243,39 @@ def course_key(date,hippodrome,code):
     return '|'.join([date,hip,code])
 
 
+def selection_predepart(prediction, departure, now):
+    """Numéros du TOP3 enregistré, dans l'ordre de la prévision."""
+    from .echeances_production import instant
+    depart = instant(departure)
+    created = instant(prediction.get('calcul_utc'))
+    if not depart or not created or not now.tzinfo or not created < depart or created > now:
+        return []
+    try:
+        selected = [int(h['numero']) for h in prediction['top3']]
+        withdrawn = {int(n) for n in prediction.get('non_partants_confirmes', [])}
+    except (KeyError, TypeError, ValueError, OverflowError):
+        return []
+    if len(selected) != 3 or len(set(selected)) != 3 or set(selected) & withdrawn:
+        return []
+    return selected if all(1 <= n <= 30 for n in selected) else []
+
+
 def matching_pct(prediction, arrival, departure, now=None):
     """Score 0–100, uniquement avec preuves temporelles et podium unique."""
-    now=now or datetime.now(timezone.utc)
+    from .echeances_production import instant
+    now = now or datetime.now(timezone.utc)
+    depart = instant(departure)
+    checked = instant(arrival.get('verifie_utc'))
+    if not depart or not checked or not now.tzinfo or not depart < checked <= now:
+        return ''
+    selected = selection_predepart(prediction, departure, now)
+    if not selected:
+        return ''
     try:
-        depart=datetime.fromisoformat(departure)
-        checked=datetime.fromisoformat(arrival['verifie_utc'])
-        created=datetime.fromisoformat(prediction['calcul_utc'])
-        if not created<depart<checked<=now:return ''
-        if not all(t.tzinfo is not None for t in (depart,checked,created,now)):return ''
         podium=sorted((h for h in arrival['arrivee'] if h['rang'] in (1,2,3)),key=lambda h:h['rang'])
         if [h['rang'] for h in podium]!=[1,2,3]:return ''
         actual={int(h['numero']) for h in podium}
-        selected=[int(h['numero']) for h in prediction['top3']]
-        if len(actual)!=3 or len(selected)!=3 or len(set(selected))!=3:return ''
-        if not all(1<=n<=30 for n in actual|set(selected)):return ''
-        if set(selected)&{int(n) for n in prediction.get('non_partants_confirmes',[])}:return ''
+        if len(actual)!=3 or not all(1<=n<=30 for n in actual):return ''
         return round(100*len(actual&set(selected))/3,2)
     except (KeyError,TypeError,ValueError,OverflowError):
         return ''
@@ -271,6 +304,7 @@ def source_rows(cache):
     from .identites_chevaux import IndexGeny
     identites_geny = IndexGeny(cache)
     courses, history, reports = {}, {}, {}
+    now = datetime.now(timezone.utc)
     from .cycle_ml_actif import modele_disponible,STATUT
     candidat_disponible=modele_disponible(cache) is not None
     def statut_ml(document,depart):
@@ -421,6 +455,11 @@ def source_rows(cache):
         from .profils_partants import PRIORITE, CRACK
         calcul = instant(direct.get('calcul_utc'))
         depart = instant(info.get('depart'))
+        leaders = {}
+        for mode, document in (('direct', direct), ('ml', ml)):
+            selection = selection_predepart(document, info.get('depart', ''), now)
+            if selection:
+                leaders[mode] = str(selection[0])
         profils_predits = direct.get('profils_partants', {}) if (
             direct.get('version_profils') and calcul and depart and calcul < depart
             and instant(direct.get('depart')) == depart) else {}
@@ -498,6 +537,12 @@ def source_rows(cache):
             # champs vides (retrait NP, sélection devenue insuffisante).
             # Un fichier absent, en revanche, n'autorise pas un effacement.
             authoritative=set(EXPERT_COLUMNS)
+            for mode, document in (('direct', direct), ('ml', ml)):
+                field = f'gagnant_{mode}_selection'
+                if document or act.get('statut_np') == 'NON_PARTANT':
+                    current[field] = ('OUI' if str(n) == leaders.get(mode)
+                                      and act.get('statut_np') == 'PARTANT' else '')
+                    authoritative.add(field)
             if direct:
                 authoritative.update(('top3_direct_rang','top3_direct_score','top3_direct_top3',
                     'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites'))
@@ -548,9 +593,10 @@ def source_rows(cache):
         direct_nums,direct_hits=_eval_podium(direct)
         cote_nums,cote_hits=_eval_podium(marche)
         ml_nums,ml_hits=_eval_podium(ml)
-        conclusion=conclusion_methodes({
-            name:matching_pct(doc,arrivee,info.get('depart',''))
-            for name,doc in (('Direct',direct),('Cotes',marche),('ML',ml))})
+        scores_by_mode = {
+            name:matching_pct(doc,arrivee,info.get('depart',''),now)
+            for name,doc in (('Direct',direct),('Cotes',marche),('ML',ml))}
+        conclusion=conclusion_methodes(scores_by_mode)
         reports[k]={**existing,
                     'etat_ml':statut_ml(ml,info.get('depart','')),
                     'top3_direct_calcule_utc':direct.get('calcul_utc',''),
@@ -558,8 +604,8 @@ def source_rows(cache):
                     'top3_direct_numeros':direct_nums,'score_direct':direct_hits,
                     'top3_cotes_numeros':cote_nums,'score_cotes':cote_hits,
                     'top3_ml_numeros':ml_nums,'score_ml':ml_hits,
-                    'matching_direct_pct':matching_pct(direct,arrivee,info.get('depart','')),
-                    'matching_ml_pct':matching_pct(ml,arrivee,info.get('depart','')),
+                    'matching_direct_pct':scores_by_mode['Direct'],
+                    'matching_ml_pct':scores_by_mode['ML'],
                     'analyse_comparative':('DIRECT='+str(direct_hits)+'; COTES='+str(cote_hits)+'; ML='+str(ml_hits)),
                     'course_key':k,'date_course':date,'hippodrome':info.get('hippodrome',''),
                     'rncn':code,'heure_depart_paris':info.get('depart',''),
@@ -577,6 +623,24 @@ def source_rows(cache):
                 ordered_names = [str(participants.get(n, {}).get('nom') or '').strip()
                                  for n in selection.split(',')]
                 reports[k][noms] = ' · '.join(ordered_names) if all(ordered_names) else ''
+        for mode, document, matching_value in (
+            ('direct', direct, scores_by_mode['Direct']), ('ml', ml, scores_by_mode['ML'])
+        ):
+            prefix = f'gagnant_{mode}_'
+            reports[k].update({prefix + field: '' for field in ('numero', 'nom', 'rang', 'verdict')})
+            if matching_value == '':
+                continue
+            first = document['top3'][0]
+            number = int(first['numero'])
+            name = first.get('nom') or participants.get(str(number), {}).get('nom', '')
+            ranks = [h['rang'] for h in arrivee['arrivee']
+                     if str(h.get('numero')) == str(number) and type(h.get('rang')) is int and h['rang'] > 0]
+            reports[k].update({
+                prefix + 'numero': number,
+                prefix + 'nom': str(name or '').strip(),
+                prefix + 'rang': ranks[0] if len(ranks) == 1 else '',
+                prefix + 'verdict': 'Trouvé' if number == int(podium[0]['numero']) else 'Non trouvé',
+            })
     # V31: la provenance textuelle (URL ou descriptif) n'est PAS une
     # identite de course. Les memes performances sont presentes dans les
     # exports de course et les captures persistantes par cheval.

@@ -167,10 +167,39 @@ class SynchroniseurSheets:
                                   full_source=full_source,observed_keys=independent)
         extra=effective_headers[len(headers):]
         width=properties['gridProperties']['columnCount']
+        structure = []
         if len(effective_headers)>width:
-            self.check(self.session.post(self.base+':batchUpdate',json={'requests':[
-                {'appendDimension':{'sheetId':properties['sheetId'],'dimension':'COLUMNS',
-                                    'length':len(effective_headers)-width}}]},timeout=30))
+            structure.append({'appendDimension':{'sheetId':properties['sheetId'],'dimension':'COLUMNS',
+                                                 'length':len(effective_headers)-width}})
+        exemplars = {
+            'gagnant_direct_selection': 'top3_direct_top3',
+            'gagnant_ml_selection': 'ml_top3',
+            **{f'gagnant_{mode}_{field}': reference
+               for mode in ('direct', 'ml')
+               for field, reference in (
+                   ('numero', f'top3_{mode}_numeros'), ('nom', f'top3_{mode}_noms'),
+                   ('rang', f'score_{mode}'), ('verdict', f'score_{mode}'))},
+        }
+        sheet_id = properties['sheetId']
+        for index, name in enumerate(extra, start=len(headers)):
+            reference = exemplars.get(name)
+            if reference not in headers:
+                continue
+            source = headers.index(reference)
+            structure.extend([
+                {'copyPaste': {
+                    'source': {'sheetId':sheet_id,'startColumnIndex':source,'endColumnIndex':source+1},
+                    'destination': {'sheetId':sheet_id,'startColumnIndex':index,'endColumnIndex':index+1},
+                    'pasteType': 'PASTE_FORMAT',
+                }},
+                {'updateDimensionProperties': {
+                    'range': {'sheetId':sheet_id,'dimension':'COLUMNS','startIndex':index,'endIndex':index+1},
+                    'properties': {'pixelSize':205 if name.endswith('_nom') else 175},
+                    'fields': 'pixelSize',
+                }},
+            ])
+        if structure:
+            self.check(self.session.post(self.base+':batchUpdate',json={'requests':structure},timeout=30))
         cells=[]
         if extra:cells.append({'range':f"'{tab}'!{colname(len(headers)+1)}1:{colname(len(effective_headers))}1",
                                'values':[[DISPLAY_NAMES.get(k,k) for k in extra]]})
