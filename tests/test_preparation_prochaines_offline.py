@@ -192,3 +192,24 @@ class PreparationTests(unittest.TestCase):
             back.main()
         engine.assert_not_called();checkpoint.assert_called_once()
         self.assertEqual(inc.lire(self.cache/back.QUEUE)['motif_fin_passage'],'PREPARATION_INCOMPLETE')
+
+    def test_publication_locale_autorisee_quand_geny_est_en_pause(self):
+        from unittest.mock import patch
+        from pmu_geny import rattrapage_historiques as back
+        import os
+
+        state = {'chevaux': {'old': {'nom': 'Ancien', 'sync': 'A_FAIRE'}}}
+        inc.ecrire(self.cache / back.QUEUE, state)
+        inc.ecrire(self.cache / back.INVENTAIRE, {'instantane': True})
+        with patch('sys.argv', ['rattrapage', '--cache', str(self.cache), '--publier']), \
+             patch.dict(os.environ, {'GOOGLE_SHEETS_ID': 'test', 'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON': '{}'}), \
+             patch.object(back, 'priorite_production', return_value=None), \
+             patch.object(back, 'preparer', return_value=state), \
+             patch('pmu_geny.echeances_production.besoin_pmu', return_value=None), \
+             patch('pmu_geny.preparation_prochaines.autoriser_fond', return_value='COOLDOWN_GENY_GLOBAL'), \
+             patch.object(inc, 'run') as run:
+            back.main()
+        run.assert_called_once()
+        self.assertEqual(run.call_args.kwargs['max_chevaux'], 0)
+        self.assertTrue(run.call_args.kwargs['publier'])
+        self.assertIn('stop_requested', run.call_args.kwargs)
