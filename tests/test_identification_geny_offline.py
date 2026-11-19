@@ -67,6 +67,30 @@ class IdentificationGenyTests(unittest.TestCase):
         self.assertEqual(link['1']['cheval_id'], '123456')
         self.assertEqual(link['1']['historique'], {})
 
+    def test_timeout_after_identification_keeps_published_proof(self):
+        from subprocess import TimeoutExpired
+
+        inc.ecrire(self.cache/back.INVENTAIRE, {'capture_utc': self.now.isoformat(), 'chevaux': [
+            {'nom': self.horse['nom'], 'numero': '1', 'engagement': '2020-01-01_R1C1'},
+        ]})
+
+        def collect(horse, out):
+            proof = 'RECHERCHE_GENY_NOM_EXACT'
+            inc.ecrire(out/'resolution_geny.json', {'geny': {**self.horse, 'preuve': proof},
+                       'preuve': proof, 'nom_attendu': horse['nom'], 'numero': str(horse['numero']),
+                       'engagement': horse['engagement'], 'resolution_utc': self.now.isoformat()})
+            raise TimeoutExpired('historique_individuel', 240)
+
+        output = self.cache/'resultats'
+        with patch.object(inc, 'Path', side_effect=lambda p: output if p == 'resultats/incremental' else Path(p)), \
+                patch.object(inc.time, 'sleep'):
+            state = inc.run(self.cache, mode='rattrapage', collect=collect)
+        horse = next(iter(state['chevaux'].values()))
+        self.assertEqual(horse['id'], '123456')
+        self.assertEqual(horse['collecte'], 'A_REPRENDRE')
+        self.assertEqual(state['bilan']['identifiants_sans_carriere_complete'], 1)
+        self.assertEqual(len(list((self.cache/'sources_geny/identites').glob('*.json'))), 1)
+
     def test_retry_is_shared_across_engagements_of_one_confirmed_id(self):
         from datetime import timedelta
 

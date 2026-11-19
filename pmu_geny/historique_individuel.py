@@ -212,10 +212,12 @@ def collecter(horse, out):
                 geny=horse.get('geny') or resolve(horse,out,page)
                 report['geny']=geny
                 # Le lien résolu survit même à une interruption de l'extraction.
-                (out/'resolution_geny.json').write_text(json.dumps({'geny':geny,
+                resolution = out/'resolution_geny.tmp'
+                resolution.write_text(json.dumps({'geny':geny,
                     'preuve':geny.get('preuve'), 'nom_attendu':horse['nom'],'engagement':horse.get('engagement'),
                     'numero':str(horse.get('numero','')),
                     'resolution_utc':datetime.now(timezone.utc).isoformat()},ensure_ascii=False),encoding='utf-8')
+                resolution.replace(out/'resolution_geny.json')
                 loaded=next((candidate for candidate in ctx.pages if candidate.url==geny['url_geny']),None)
                 if loaded:loaded.wait_for_load_state('domcontentloaded',timeout=15000)
                 if not loaded and not horse.get('geny'):time.sleep(30)
