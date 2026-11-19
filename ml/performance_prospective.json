@@ -1,10 +1,10 @@
 {
   "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-  "controle_utc": "2026-11-19T16:49:44.310868+00:00",
-  "courses": 21,
-  "moyenne_ml": 1.0952380952380953,
-  "moyenne_direct": 1.1428571428571428,
-  "ecart_ml_direct": -0.047619047619047616,
+  "controle_utc": "2026-11-19T16:58:03.744775+00:00",
+  "courses": 22,
+  "moyenne_ml": 1.0909090909090908,
+  "moyenne_direct": 1.0909090909090908,
+  "ecart_ml_direct": 0.0,
   "exact_3_sur_3_ml": 0,
   "au_moins_2_sur_3_ml": 5,
   "resultats": [
@@ -275,6 +275,20 @@
       "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16"
     },
     {
+      "course": "2026-11-19_R3C4",
+      "depart": "2026-11-19T17:45:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-19T16:57:29.344834+00:00",
+      "scores": {
+        "direct": 0,
+        "ml": 1
+      },
+      "versions": {
+        "direct": "91682278f20332900343387e9068ae93c27a3cca50b2b563196604f9c23aa3cb",
+        "ml": "4053ceb84fcbf3f41d20edb21fa9b8e0ba3a8c124ce7567b656e267dc24e4472"
+      },
+      "empreinte_modele": "f83683673b170d14f095e666d02962b70ff8af5b32796b1cb4b904e560e4af34"
+    },
+    {
       "course": "2026-11-19_R4C1",
       "depart": "2026-11-19T16:50:00+01:00",
       "arrivee_verifiee_utc": "2026-11-19T16:01:17.029833+00:00",
@@ -307,7 +321,7 @@
   "regle_ajustement": "Réentraînement sur nouveaux labels admissibles ; choix sur validation temporelle, sans promotion sur ces seuls scores.",
   "candidat_depart": {
     "courses": 1,
-    "direct_evaluable": 5,
+    "direct_evaluable": 6,
     "rejets": [],
     "statut": "EXPERIMENTAL",
     "moyenne": 2.0,
