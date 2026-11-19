@@ -51,7 +51,7 @@ def reparer_partants(cache,fetch=None):
 
 
 def reparer(cache,*,partants=False,fetch=None):
-    cache=Path(cache);report={'archives_lues':0,'historiques_enrichis':0,'ferrures_ajoutees':0,'conflits':0}
+    cache=Path(cache);report={'archives_lues':0,'historiques_enrichis':0,'ferrures_ajoutees':0,'departs_ajoutes':0,'conflits':0}
     for html in sorted((cache/'diagnostics').rglob('diagnostic_geny.html')):
         ident=html.parent.name
         if not re.fullmatch(r'\d{4,15}',ident):continue
@@ -64,7 +64,7 @@ def reparer(cache,*,partants=False,fetch=None):
         doc=copy.deepcopy(previous)
         result=enrichir(doc,html.read_text(encoding='utf-8'),ident,url,evidence.get('extrait_utc'))
         report['archives_lues']+=1;report['conflits']+=result['conflits']
-        if not result['ferrures_ajoutees']:continue
+        if not (result['ferrures_ajoutees'] or result['departs_ajoutes']):continue
         # La date de capture de carrière reste celle d'origine ; ne jamais la
         # remplacer par la date de réparation ou par le mtime d'un fichier.
         archive=cache/'historiques_versions'/ident/(hashlib.sha256(json.dumps(previous,sort_keys=True).encode()).hexdigest()+'.json')
@@ -74,6 +74,7 @@ def reparer(cache,*,partants=False,fetch=None):
             writer=csv.DictWriter(stream,fieldnames=columns,delimiter=';',extrasaction='ignore')
             writer.writeheader();writer.writerows(doc['performances'])
         report['historiques_enrichis']+=1;report['ferrures_ajoutees']+=result['ferrures_ajoutees']
+        report['departs_ajoutes']+=result['departs_ajoutes']
     if partants:report.update(reparer_partants(cache,fetch))
     return report
 

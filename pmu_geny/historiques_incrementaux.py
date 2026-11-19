@@ -341,7 +341,7 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
         def indexed(d):
             result={}
             for row in d['performances']:
-                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source')}
+                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source','depart_trot')}
                 clean['texte_source']=re.sub(r'\s*\|\s*\d{1,2}:\d{2}\s*\|\s*/\s*\|\s*\d{1,2}:\d{2}\s*$',
                                              '',str(clean.get('texte_source','')))
                 result.setdefault(json.dumps(clean, sort_keys=True, ensure_ascii=False),[]).append(row)
@@ -352,8 +352,10 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
         for key,rows in before.items():
             for old in rows:
                 ferrure=old.get('ferrure')
-                if not ferrure:continue
                 for new in after[key]:
+                    if old.get('depart_trot') and not new.get('depart_trot'):
+                        new['depart_trot'] = old['depart_trot']
+                    if not ferrure:continue
                     if new.get('ferrure') and new['ferrure']!=ferrure:
                         raise ValueError('REGRESSION_FERRURE_A_CONTROLER')
                     if not new.get('ferrure'):
