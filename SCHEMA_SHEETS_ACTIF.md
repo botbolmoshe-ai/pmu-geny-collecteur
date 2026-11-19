@@ -11,7 +11,7 @@ d'index, puis les mises à jour utilisent les nouvelles positions.
 - Courses & Prévisions : `ml_proba_podium` (aucune calibration disponible),
   `synthese_actualite` (ancienne synthèse multisources, redondante avec PMU),
   `divergences_sources` (restes des comparaisons Equidia/ZEturf),
-  `top3_cotes_valeur`, `top3_cotes_top3`, `top3_cotes_statut`, `top3_cotes_utc`
+  `top3_cotes_top3`, `top3_cotes_statut`, `top3_cotes_utc`
   (aucune cote ni sélection effectivement publiée sur les lignes auditées).
 - Historique chevaux : `rncn`, `nombre_partants`, `gains_course_eur`,
   `driver_jockey`, `entraineur`, `date_source` (champs hérités, sans alimentation
@@ -64,3 +64,6 @@ clés de performance et les comptages réels après publication.
 ## Matching direct et ML
 
 Deux colonnes numériques supplémentaires sont ajoutées à Résultats & Analyse (15 → 17) : `matching_direct_pct` et `matching_ml_pct`. Chaque taux représente le nombre de chevaux distincts retrouvés dans le podium divisé par trois, exprimé sur 100 et arrondi à deux décimales. Une preuve manquante ou chronologiquement invalide laisse la cellule vide ; 0 est un score réel. Aucun pronostic historique n'est recalculé.
+
+Les cotes PMU observées avant départ sont publiées dans
+`top3_cotes_valeur` et `cote_releve_utc` pour les partants confirmés.

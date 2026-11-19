@@ -58,6 +58,9 @@ def cohort_metrics(courses,start,end):
         'Code F issu du profil participant ou de la convention PMU documentée.')
     add('Qualité','Partants avec ferrure reconnue',shoes,n,'Code de ferrure reconnu ; ne prouve pas à lui seul une provenance historique complète.')
     add('Qualité','Taux de ferrure reconnue',shoes/n if n else '',n,'Partants confirmés avec code reconnu / partants confirmés de la période.')
+    odds = sum((number(r.get('Cotes · Valeur')) or 0) > 0
+               and timestamp(r.get('Cotes · Relevé UTC')) is not None for r in active)
+    add('Qualité','Partants avec cote PMU relevée',odds,n,'Cote PMU positive avec heure de relevé dans le registre.')
     essentials=sum(number(r.get('Âge (ans)')) is not None and bool(r.get('Sexe'))
                    and number(r.get('Gains carrière (€)')) is not None
                    and bool(ferrure(r)) for r in active)

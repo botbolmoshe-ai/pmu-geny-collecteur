@@ -11,6 +11,7 @@ import re
 import sys
 from pathlib import Path
 from datetime import datetime, timezone
+from math import isfinite
 
 SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analyse')
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
@@ -21,7 +22,7 @@ RETIRED_EXPERT_COLUMNS = frozenset({'avis_equidia','avis_zeturf','prono_equidia'
 RETIRED_SHEET_COLUMNS = {
     'Courses & Prévisions':RETIRED_EXPERT_COLUMNS | frozenset({
         'ml_proba_podium','synthese_actualite','divergences_sources',
-        'top3_cotes_valeur','top3_cotes_top3','top3_cotes_statut','top3_cotes_utc'}),
+        'top3_cotes_top3','top3_cotes_statut','top3_cotes_utc'}),
     'Historique chevaux':frozenset({'rncn','nombre_partants','gains_course_eur',
         'driver_jockey','entraineur','date_source'}),
     'Résultats & Analyse':frozenset({'top3_cotes_numeros','score_cotes',
@@ -40,13 +41,14 @@ COURSE_PMU_COLUMNS = ('course_nom_pmu', 'course_categorie_pmu', 'course_ages_adm
 REPORT_NAME_COLUMNS = {'top3_direct_numeros': 'top3_direct_noms',
                        'top3_ml_numeros': 'top3_ml_noms',
                        'arrivee_officielle_numeros': 'arrivee_officielle_noms'}
+ODDS_COLUMNS = ('top3_cotes_valeur', 'cote_releve_utc')
 WINNER_SELECTION_COLUMNS = ('gagnant_direct_selection', 'gagnant_ml_selection')
 WINNER_REPORT_COLUMNS = tuple(
     f'gagnant_{mode}_{field}'
     for mode in ('direct', 'ml')
     for field in ('numero', 'nom', 'rang', 'verdict')
 )
-COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + ODDS_COLUMNS
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
@@ -55,7 +57,7 @@ REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_p
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
-CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
+CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + ODDS_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
     *RETIRED_EXPERT_COLUMNS,  # Lecture/nettoyage des anciens formats uniquement.
     'top3_direct_rang','top3_direct_score','top3_direct_top3',
     'top3_cotes_valeur','top3_cotes_top3','ml_rang','ml_top3',
@@ -68,6 +70,8 @@ def sheet_value(field, value):
     if value is None:return ''
     if field == 'course_allocation_eur':
         return value if type(value) is int and value > 0 else ''
+    if field == 'top3_cotes_valeur':
+        return value if type(value) in (int, float) and isfinite(value) and value > 0 else ''
     if field in MATCHING_COLUMNS:
         return value if isinstance(value,(int,float)) and not isinstance(value,bool) and 0<=value<=100 else ''
     if field in NUMERIC_SCORES and str(value) in ('0','1','2','3'):
@@ -171,6 +175,7 @@ DISPLAY_NAMES = {
     'ml_proba_podium':'ML · Probabilité calibrée',
     'ml_score_non_calibre':'ML · Score non calibré',
     'top3_cotes_valeur':'Cotes · Valeur',
+    'cote_releve_utc':'Cotes · Relevé UTC',
     'top3_cotes_top3':'Cotes · Sélection',
     'top3_cotes_statut':'Cotes · État',
     'top3_direct_utc':'TOP3 direct · Calcul UTC',
@@ -318,6 +323,7 @@ def source_rows(cache):
         return 'ML_NON_ENTRAINE'
     import unicodedata
     from .sources_experts_v23 import champs_sheet
+    from .echeances_production import instant
     def normalize_horse_name(value):
         s=unicodedata.normalize('NFKD',str(value or '').casefold())
         return ''.join(c for c in s if c.isalnum() and not unicodedata.combining(c))
@@ -423,6 +429,7 @@ def source_rows(cache):
         direct=load_json(cache/'pronostics'/f'{date}_{code}_direct.json')
         marche=load_json(cache/'pronostics'/f'{date}_{code}_cotes.json')
         cotes_source=load_json(cache/'cotes'/f'{date}_{code}.json')
+        cotes_releve={str(h.get('numero')):h for h in cotes_source.get('chevaux',[]) if isinstance(h,dict)}
         cotes_etat=marche.get('statut') or cotes_source.get('statut') or (
             'COTES_NON_EXTRAITES' if cotes_source.get('chevaux') and not any(
                 h.get('cote') is not None for h in cotes_source['chevaux']) else 'PAS_DE_RELEVE')
@@ -450,7 +457,6 @@ def source_rows(cache):
         for mode,document in (('direct',direct),('cotes',marche),('ml',ml)):
             ranks[mode]={str(h.get('numero')):(i,h) for i,h in
                          enumerate(document.get('classement_complet',[]),start=1)}
-        from .echeances_production import instant
         from .liaison_chevaux_v22 import etablir, nom_normalise
         from .profils_partants import PRIORITE, CRACK
         calcul = instant(direct.get('calcul_utc'))
@@ -473,6 +479,12 @@ def source_rows(cache):
             existing=courses.get(krow,{})
             direct_rank,direct_h=ranks['direct'].get(str(n),('',{}))
             cote_rank,cote_h=ranks['cotes'].get(str(n),('',{}))
+            cote_observee=cotes_releve.get(str(n),{})
+            valeur_cote = sheet_value('top3_cotes_valeur', cote_observee.get('cote'))
+            releve_utc = instant(cote_observee.get('heure_utc'))
+            if (not releve_utc or not depart or not releve_utc < depart
+                    or releve_utc > now or act.get('statut_np') != 'PARTANT'):
+                valeur_cote = ''
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
             avis=(avis_experts.get('chevaux') or {}).get(str(n),{})
             link=liens.get(str(n),{})
@@ -517,7 +529,8 @@ def source_rows(cache):
                 'top3_direct_source_forme':direct_h.get('source_forme',''),
                 'top3_direct_qualite':direct_h.get('qualite_score',''),
                 'top3_direct_historiques_exploites':direct_h.get('historique_exploitable','') if direct_rank else '',
-                'top3_cotes_valeur':cote_h.get('cote',''),
+                'top3_cotes_valeur':valeur_cote,
+                'cote_releve_utc':releve_utc.isoformat() if valeur_cote else '',
                 'top3_cotes_top3':'OUI' if cote_rank and cote_rank<=3 else '',
                 'top3_cotes_statut':cotes_etat,
                 'ml_rang':ml_rank,
@@ -559,7 +572,12 @@ def source_rows(cache):
                     if statut in PRIORITE else '')
                 authoritative.update(PROFILE_COLUMNS)
             if marche:
-                authoritative.update(('top3_cotes_valeur','top3_cotes_top3'))
+                authoritative.add('top3_cotes_top3')
+            if cote_observee or act.get('statut_np') == 'NON_PARTANT':
+                authoritative.update(ODDS_COLUMNS)
+            if act.get('statut_np') == 'NON_PARTANT':
+                authoritative.add('top3_cotes_top3')
+                current['top3_cotes_top3']=''
             if ml:
                 authoritative.update(('ml_rang','ml_top3','ml_score_non_calibre'))
             courses[krow]={**existing,**{key:value for key,value in current.items()

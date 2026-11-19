@@ -155,6 +155,8 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
             counts = {
                 'Partants confirmés': len(cohort),
                 'Ferrures renseignées': sum(bool(ferrure_sourcee(r)) for r in cohort),
+                'Cotes PMU renseignées': sum((_nombre(r.get('top3_cotes_valeur')) or 0) > 0
+                                             and bool(r.get('cote_releve_utc')) for r in cohort),
                 'Ferrures inconnues': sum(not ferrure_sourcee(r) for r in cohort),
                 'Ferrés (F)': sum(ferrure_sourcee(r) == 'F' for r in cohort),
                 'Historiques identifiés': sum(str(r.get('historique_statut', '')).startswith(('HISTO_OK','HISTO_PARTIEL')) for r in cohort),

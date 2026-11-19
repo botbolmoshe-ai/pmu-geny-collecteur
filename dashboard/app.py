@@ -20,7 +20,7 @@ SCOPES=["https://www.googleapis.com/auth/spreadsheets.readonly"]
 def read_registry():
     creds=Credentials.from_service_account_info(dict(st.secrets["google_service_account"]),scopes=SCOPES)
     api=build("sheets","v4",credentials=creds,cache_discovery=False)
-    ranges=["'"+tab+"'!A1:"+last for tab,last in zip(TABS,("BC","AZ","AZ"))]
+    ranges=["'"+tab+"'!A1:"+last for tab,last in zip(TABS,("BE","AZ","AZ"))]
     metadata=api.spreadsheets().get(spreadsheetId=st.secrets['spreadsheet_id'],fields='sheets(properties(title))').execute(num_retries=2)
     has_history=any(s.get('properties',{}).get('title')==HISTORY_TAB for s in metadata.get('sheets',[]))
     if has_history:ranges.append("'"+HISTORY_TAB+"'!A1:H")
@@ -33,7 +33,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.3 · Contexte de course et gagnants potentiels")
+st.caption("Version interface : 2026.11.19.4 · Cotes PMU")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -156,6 +156,14 @@ elif page=="Courses":
             partants = pd.DataFrame(rows)
             if "Ferrure" not in partants and "Ferrure · Course du jour" in partants:
                 partants = partants.rename(columns={"Ferrure · Course du jour": "Ferrure"})
+            if "Cotes · Relevé UTC" in partants:
+                partants["Cote PMU"] = [
+                    number(row.get("Cotes · Valeur"))
+                    if row.get("Non-partant (NP)") == "PARTANT" and timestamp(row.get("Cotes · Relevé UTC"))
+                    else None for row in rows
+                ]
+                if partants["Cote PMU"].notna().any():
+                    columns[2:2] = ["Cote PMU", "Cotes · Relevé UTC"]
             partants = partants.reindex(columns=columns)
             couleurs = {"Crack": "#ffe375", "Haut potentiel": "#bae8c4"}
             if partants[profile_column].isin(couleurs).any():

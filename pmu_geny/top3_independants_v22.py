@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from .ml_v19 import load, save, numeric
 from .auto_v18 import _list, _num
+from .cotes_v19 import extraire_cote
 from .profils_partants import (
     CRACK, HAUT_POTENTIEL, PRIORITE, VERSION_PROFILS,
     detecter_crack, detecter_haut_potentiel, sorties_verifiees,
@@ -121,12 +122,7 @@ def calculer(cache,course,raw,now=None,clock=None):
                            'ferrures_historiques_comparees':info.get('ferrures_historiques_comparees',0),
                            'source_ferrure_courante':profils.get(n,{}).get('source_ferrure','PMU' if profils.get(n,{}).get('ferrure') else 'NON_DOCUMENTEE'),
                            'identifiant_historique':info.get('identifiant_historique')})
-        cote=None
-        for field in ('rapportDirect','coteDirect','cote','rapportProbable'):
-            raw_cote=item.get(field)
-            if isinstance(raw_cote,dict):raw_cote=raw_cote.get('rapport') or raw_cote.get('valeur')
-            x=numeric(raw_cote)
-            if x is not None and x>0:cote=x;break
+        cote,_=extraire_cote(item)
         if cote is not None:market.append({'numero':n,'nom':label,'cote':cote})
     output={}
     for mode,ranking,key in [('direct',direct,'score_direct'),('cotes',market,'cote')]:

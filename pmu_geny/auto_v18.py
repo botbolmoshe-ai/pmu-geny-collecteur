@@ -310,10 +310,13 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             if fenetre_decision:
                 observed = clock()
                 try:
-                    from .top3_independants_v22 import calculer
                     from .cotes_v19 import collecter
+                    entry['statut_cotes']=collecter(cache,c,pmu_participants,now=observed)
+                except Exception as exc:
+                    entry['erreur_cotes']=f'{type(exc).__name__}: {exc}'
+                try:
+                    from .top3_independants_v22 import calculer
                     entry['paliers_independants']=calculer(cache,c,pmu_participants,now=observed,clock=clock)
-                    entry['statut_cotes']=collecter(cache,c,pmu_participants,now=now)
                 except Exception as exc:
                     entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
                 evidence = None
@@ -417,7 +420,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 entry['statut_arrivee']='ARRIVEE_NON_VERIFIEE'
                 entry['erreur_arrivee']=str(exc)
         # Cotes: derniers instantanes AVANT le depart seulement, jamais variables ML.
-        if raw is not None and not est_partie:
+        if raw is not None and not est_partie and fenetre_decision and 'statut_cotes' not in entry:
             try:
                 from .cotes_v19 import collecter
                 entry['statut_cotes']=collecter(cache,c,raw)

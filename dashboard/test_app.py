@@ -97,7 +97,7 @@ class AppTests(unittest.TestCase):
         self.assertTrue(any('5 ans' in line and 'Grande piste · Autostart' in line for line in captions))
         self.assertEqual(list(tableau.value['Âge (ans)']), [5, 5, 5])
         ranges = self.api.spreadsheets().values().batchGet.call_args.kwargs['ranges']
-        self.assertIn("'Courses & Prévisions'!A1:BC", ranges)
+        self.assertIn("'Courses & Prévisions'!A1:BE", ranges)
         self.assertIn('**Gagnant potentiel direct : 1 — Cheval test 1**',
                       [item.value for item in self.app.markdown])
         self.assertIn('**Gagnant potentiel ML : 1 — Cheval test 1**',
