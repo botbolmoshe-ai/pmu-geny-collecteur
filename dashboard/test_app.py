@@ -34,7 +34,9 @@ class AppTests(unittest.TestCase):
             'Départ (Paris)':depart.isoformat(),'Discipline':'Attelé','Distance (m)':2700,
             'Course · Nom PMU':'PRIX TEST','Course · Catégorie PMU':'Course C','Course · Âges admis':'5 ans',
             'Course · Allocation (€)':53000,'Course · Parcours':'Grande piste','Course · Mode de départ':'Autostart',
+            'Autostart · Position assignée': n + 2, 'Autostart · Ligne': 1,
             'N°':n,'Cheval':f'Cheval test {n}','Non-partant (NP)':'PARTANT',
+            'Cotes · Valeur': n+0.5, 'Cotes · Relevé UTC': (min(self.now, depart)-timedelta(minutes=5)).isoformat(),
             'TOP3 direct · Rang':n,'TOP3 direct · Sélection':'OUI','ML · Rang':n,'ML · Sélection':'OUI',
             'Gagnant potentiel direct · Sélection':'OUI' if n==1 else '',
             'Gagnant potentiel ML · Sélection':'OUI' if n==1 else '',
@@ -99,6 +101,8 @@ class AppTests(unittest.TestCase):
         self.assertTrue(any('Course C' in line and '53\u202f000 €' in line for line in captions))
         self.assertTrue(any('5 ans' in line and 'Grande piste · Autostart' in line for line in captions))
         self.assertEqual(list(tableau.value['Âge (ans)']), [5, 5, 5])
+        self.assertEqual(list(tableau.value['Autostart · Position assignée']), [3, 4, 5])
+        self.assertEqual(list(tableau.value['Cote PMU']), [1.5, 2.5, 3.5])
         ranges = self.api.spreadsheets().values().batchGet.call_args.kwargs['ranges']
         self.assertIn("'Courses & Prévisions'", ranges)
         self.assertIn('**Gagnant potentiel direct : 1 — Cheval test 1**',

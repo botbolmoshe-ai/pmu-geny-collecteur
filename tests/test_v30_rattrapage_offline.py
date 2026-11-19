@@ -228,7 +228,7 @@ class RepriseTests(unittest.TestCase):
         first['chevaux']['123456']['prochaine_sync_utc']=(self.now-timedelta(minutes=1)).isoformat()
         inc.ecrire(self.cache/back.QUEUE,first)
         collect=Mock(side_effect=AssertionError('Ne pas recollecter'))
-        second=inc.run(self.cache,mode='rattrapage',collect=collect,sync=lambda h:{})
+        second=inc.run(self.cache,mode='rattrapage',max_chevaux=0,collect=collect,sync=lambda h:{})
         collect.assert_not_called();self.assertEqual(second['chevaux']['123456']['sync'],'OK')
 
     def test_blocage_403_partage_avec_production_sans_contournement(self):

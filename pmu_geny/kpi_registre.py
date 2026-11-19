@@ -157,6 +157,11 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
             counts = {
                 'Partants confirmés': len(cohort),
                 'Ferrures renseignées': sum(bool(ferrure_sourcee(r)) for r in cohort),
+                'Modes de départ documentés': sum(bool(r.get('course_mode_depart')) for r in cohort),
+                'Partants en départ autostart documenté': sum(r.get('course_mode_depart') == 'Autostart' for r in cohort),
+                'Positions autostart renseignées': sum((_nombre(r.get('position_autostart')) or 0) > 0 for r in cohort),
+                'Lignes autostart renseignées': sum((_nombre(r.get('ligne_autostart')) or 0) > 0 for r in cohort),
+                'Reculs renseignés': sum(_nombre(r.get('recul_depart_m')) is not None for r in cohort),
                 'Cotes PMU renseignées': sum((_nombre(r.get('top3_cotes_valeur')) or 0) > 0
                                              and bool(r.get('cote_releve_utc')) for r in cohort),
                 'Ferrures inconnues': sum(not ferrure_sourcee(r) for r in cohort),
@@ -324,6 +329,10 @@ def totaux_reference(metrics):
         total = value(prefix + 'Partants confirmés')
         if total is not None:
             totals.update({label: total for label in metrics if label.startswith(prefix)})
+            auto = value(prefix + 'Partants en départ autostart documenté')
+            if auto is not None:
+                totals[prefix + 'Positions autostart renseignées'] = auto
+                totals[prefix + 'Lignes autostart renseignées'] = auto
     for cohort in ('initiale', 'extensions', 'lot de 96'):
         prefix = f'Rattrapage · {cohort} · '
         total = value(prefix + 'cibles')

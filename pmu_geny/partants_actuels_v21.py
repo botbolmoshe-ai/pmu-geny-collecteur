@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 import re
 from .auto_v18 import _list, _num, save
+from .departs_trot import depart_partant_pmu
+from .echeances_production import instant
 
 FIELDS = {
     "driver_jockey": ("driver", "jockey", "nomDriver", "nomJockey", "driverJockey"),
@@ -145,7 +147,7 @@ def statut_participation(item):
     return 'NP_NON_VERIFIE'
 
 
-def extraire_partants(raw):
+def extraire_partants(raw, *, course=None):
     resultat = {}
     for item in _list(raw, "participants", "partants"):
         if not isinstance(item,dict):
@@ -189,11 +191,18 @@ def extraire_partants(raw):
                 fields["nom"]=nom
                 break
         fields["statut_np"] = statut_participation(item)
+        if course and fields['statut_np'] == 'PARTANT':
+            depart = depart_partant_pmu(course, item)
+            if depart:
+                fields['depart_trot'] = depart
         resultat[n]=qualifier_ferrure(fields)
     return resultat
 
 def enregistrer(cache:Path, course:dict, raw):
-    resultat=extraire_partants(raw)
+    captured = datetime.now(timezone.utc)
+    depart = instant(course.get('depart'))
+    avant_depart = depart is not None and captured < depart
+    resultat=extraire_partants(raw, course=course if avant_depart else None)
     if not resultat:
         return "PARTANTS_NON_VERIFIES"
     samples=_list(raw,"participants","partants")
@@ -208,15 +217,26 @@ def enregistrer(cache:Path, course:dict, raw):
               "gainsParticipant":item.get("gainsParticipant")}
              for item in samples[:3] if isinstance(item,dict)],
          "source":"PMU_API_PARTICIPANTS",
-         "capture_utc":datetime.now(timezone.utc).isoformat(),
+         "capture_utc":captured.isoformat(),
          "chevaux":{str(n):values for n,values in resultat.items()}}
     r,c=course['code'].split('C',1)
     source_url='https://online.turfinfo.api.pmu.fr/rest/client/1/programme/'+datetime.fromisoformat(course['date']).strftime('%d%m%Y')+'/'+r+'/C'+c+'/participants'
+    path = Path(cache)/"partants_actuels"/f'{course["date"]}_{course["code"]}.json'
+    if not avant_depart:
+        from .ml_v19 import load
+        previous = load(path, {}) or {}
+        for numero, fields in doc['chevaux'].items():
+            old = previous.get('chevaux', {}).get(numero, {})
+            if old.get('nom') == fields.get('nom') and old.get('depart_trot'):
+                fields['depart_trot'] = old['depart_trot']
     for fields in resultat.values():
+        if avant_depart and fields.get('depart_trot'):
+            fields['depart_trot'].update(source='PMU_API_PARTICIPANTS', url=source_url,
+                                         capture_utc=doc['capture_utc'])
         if fields.get('ferrure'):
             provenance=fields.setdefault('provenance_champs',{}).setdefault('ferrure',{'source':'PMU_API_PARTICIPANTS'})
             provenance.update(url=source_url,capture_utc=doc['capture_utc'])
-    save(Path(cache)/"partants_actuels"/f'{course["date"]}_{course["code"]}.json',doc)
+    save(path,doc)
     from .sources_experts_v23 import completer_partants
     completer_partants(cache,course)
     return "PARTANTS_ACTUELS_ENREGISTRES"

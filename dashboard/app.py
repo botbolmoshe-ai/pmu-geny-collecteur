@@ -33,7 +33,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.4 · Cotes PMU")
+st.caption("Version interface : 2026.11.19.5 · Départs et cotes PMU")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -178,6 +178,14 @@ elif page=="Courses":
             partants["Cote PMU"] = odds
             if "Ferrure" not in partants and "Ferrure · Course du jour" in partants:
                 partants = partants.rename(columns={"Ferrure · Course du jour": "Ferrure"})
+            for field in ("Autostart · Position assignée", "Autostart · Ligne", "Départ · Recul (m)"):
+                if field in partants:
+                    partants[field] = [
+                        number(row.get(field)) if row.get("Non-partant (NP)") == "PARTANT" else None
+                        for row in rows
+                    ]
+                    if partants[field].notna().any():
+                        columns.append(field)
             partants = partants.reindex(columns=columns)
             couleurs = {"Crack": "#ffe375", "Haut potentiel": "#bae8c4"}
             if partants[profile_column].isin(couleurs).any():

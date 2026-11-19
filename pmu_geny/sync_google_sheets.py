@@ -39,6 +39,7 @@ COURSE_PMU_COLUMNS = ('course_nom_pmu', 'course_categorie_pmu', 'course_ages_adm
 REPORT_NAME_COLUMNS = {'top3_direct_numeros': 'top3_direct_noms',
                        'top3_ml_numeros': 'top3_ml_noms',
                        'arrivee_officielle_numeros': 'arrivee_officielle_noms'}
+DEPART_COLUMNS = ('position_autostart', 'ligne_autostart', 'capacite_autostart', 'recul_depart_m')
 WINNER_SELECTION_COLUMNS = ('gagnant_direct_selection', 'gagnant_ml_selection')
 WINNER_REPORT_COLUMNS = tuple(
     f'gagnant_{mode}_{field}'
@@ -47,7 +48,7 @@ WINNER_REPORT_COLUMNS = tuple(
 )
 COTES_COLUMNS = ('top3_cotes_valeur', 'cote_releve_utc', 'cote_rapport_utc',
                  'top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_statut', 'top3_cotes_utc')
-COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS + DEPART_COLUMNS
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
@@ -56,7 +57,7 @@ REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_p
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final'})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
-CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
+CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
     *RETIRED_EXPERT_COLUMNS,  # Lecture/nettoyage des anciens formats uniquement.
     'top3_direct_rang','top3_direct_score','top3_direct_top3',
     *COTES_COLUMNS,'ml_rang','ml_top3',
@@ -167,6 +168,10 @@ DISPLAY_NAMES = {
     'course_allocation_eur':'Course · Allocation (€)',
     'course_parcours':'Course · Parcours',
     'course_mode_depart':'Course · Mode de départ',
+    'position_autostart':'Autostart · Position assignée',
+    'ligne_autostart':'Autostart · Ligne',
+    'capacite_autostart':'Autostart · Capacité première ligne',
+    'recul_depart_m':'Départ · Recul (m)',
     'synthese_actualite':'Synthèse des avis',
     'ml_modele_statut':'ML · État du modèle',
     'ml_rang':'ML · Rang',
@@ -227,12 +232,8 @@ def champs_course_pmu(info):
     ages = re.search(
         r'\bPour\b[^,.;]{0,100}?\b(\d{1,2}(?:(?:\s*(?:à|et)\s*|\s*,\s*)\d{1,2})*)\s+ans\b',
         conditions, re.IGNORECASE)
-    depart = ' '.join(str(params.get(field) or '') for field in ('typeDepart', 'categorieParticularite'))
-    mode = ''
-    if 'AUTOSTART' in depart.upper() or re.search(r"Départ à l['’]Autostart", conditions, re.IGNORECASE):
-        mode = 'Autostart'
-    elif re.search(r'\bVOLT[ÉE]\b', depart, re.IGNORECASE) or re.search(r'\bdépart\s+volté\b', conditions, re.IGNORECASE):
-        mode = 'Volté'
+    from .departs_trot import mode_pmu
+    mode, _ = mode_pmu(info)
     return {
         'course_nom_pmu': info.get('nom') or '',
         'course_categorie_pmu': category.group() if category else '',
@@ -495,6 +496,12 @@ def source_rows(cache):
             valeur_cote = cote_valide(cote_observee.get('cote')) if (
                 statut_np != 'NON_PARTANT' and cote_heure and depart and cote_heure < depart
                 and cote_heure <= now) else None
+            depart_trot = act.get('depart_trot', {})
+            capture_depart = instant(depart_trot.get('capture_utc'))
+            if not (depart_trot.get('source') == 'PMU_API_PARTICIPANTS' and capture_depart
+                    and depart and capture_depart < depart and capture_depart <= now
+                    and statut_np == 'PARTANT'):
+                depart_trot = {}
             ml_rank,ml_h=ranks['ml'].get(str(n),('',{}))
             avis=(avis_experts.get('chevaux') or {}).get(str(n),{})
             link=liens.get(str(n),{})
@@ -539,6 +546,10 @@ def source_rows(cache):
                 'top3_direct_source_forme':direct_h.get('source_forme',''),
                 'top3_direct_qualite':direct_h.get('qualite_score',''),
                 'top3_direct_historiques_exploites':direct_h.get('historique_exploitable','') if direct_rank else '',
+                'position_autostart':depart_trot.get('position', ''),
+                'ligne_autostart':depart_trot.get('ligne', ''),
+                'capacite_autostart':depart_trot.get('capacite', ''),
+                'recul_depart_m':depart_trot.get('recul_m', ''),
                 'top3_cotes_valeur':valeur_cote if valeur_cote is not None else '',
                 'cote_releve_utc':cote_observee.get('heure_utc', '') if valeur_cote is not None else '',
                 'cote_rapport_utc':cote_observee.get('date_rapport_utc', '') if valeur_cote is not None else '',
@@ -587,6 +598,8 @@ def source_rows(cache):
                 authoritative.update(('top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_utc'))
             if cotes_source or statut_np == 'NON_PARTANT':
                 authoritative.update(('top3_cotes_valeur', 'cote_releve_utc', 'cote_rapport_utc'))
+            if depart_trot or statut_np == 'NON_PARTANT':
+                authoritative.update(DEPART_COLUMNS)
             if ml:
                 authoritative.update(('ml_rang','ml_top3','ml_score_non_calibre'))
             courses[krow]={**existing,**{key:value for key,value in current.items()

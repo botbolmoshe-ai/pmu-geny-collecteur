@@ -59,7 +59,7 @@ def _calculer_direct(cache, course, raw, now, clock):
     if now>=depart:return 'APRES_DEPART'
     participants=_list(raw,'participants','partants')
     if not participants:return 'PARTANTS_ABSENTS'
-    from .formes_contextuelles_v32 import noter_partant
+    from .formes_contextuelles_v32 import forme_meme_depart, noter_partant
     from .liaison_chevaux_v22 import etablir
     from .partants_actuels_v21 import extraire_partants
     profils=extraire_partants(raw)
@@ -132,6 +132,10 @@ def _calculer_direct(cache, course, raw, now, clock):
                            'ferrures_historiques_comparees':info.get('ferrures_historiques_comparees',0),
                            'source_ferrure_courante':profils.get(n,{}).get('source_ferrure','PMU' if profils.get(n,{}).get('ferrure') else 'NON_DOCUMENTEE'),
                            'identifiant_historique':info.get('identifiant_historique')})
+            forme_depart = forme_meme_depart(lien.get('historique') or {}, course, profil, now)
+            if forme_depart:
+                direct[-1].update(forme_geny_meme_depart=forme_depart['score'],
+                                  sorties_geny_meme_depart=forme_depart['performances_valides'])
     ranking = direct
     observed_at = now.isoformat()
     reuse_previous = False
@@ -165,6 +169,24 @@ def _calculer_direct(cache, course, raw, now, clock):
     if not reuse_previous or old.get('version_profils'):
         doc['version_profils'] = old['version_profils'] if reuse_previous else VERSION_PROFILS
         doc['profils_partants'] = signaux
+    # Calcul expérimental conservé avec la même observation que le direct.
+    # La forme du même mode est lissée dans le moteur contextuel.
+    if sufficient and any('forme_geny_meme_depart' in horse for horse in ranking):
+        def score_experimental(horse):
+            base_score = horse['score_direct']
+            shape = horse.get('forme_geny_meme_depart', base_score)
+            return base_score + 0.10 * (shape - base_score)
+
+        candidate = sorted(ranking, key=lambda horse: (
+            -score_experimental(horse),
+            -PRIORITE.get(signaux.get(str(horse['numero']), {}).get('statut'), 0),
+            horse['numero'],
+        ))
+        doc['candidat_depart'] = {
+            'poids': 0.10,
+            'top3': [horse['numero'] for horse in candidate[:3]],
+            'partants_avec_forme_meme_depart': sum('forme_geny_meme_depart' in horse for horse in ranking),
+        }
     doc['couverture_sources'] = {
         'pmu_musique':sum(h.get('musique_exploitable',0)>0 for h in ranking),
         'geny_historique':sum(h.get('historique_exploitable',0)>0 for h in ranking),
