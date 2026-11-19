@@ -68257,7 +68257,7 @@
       "sync": "SANS_MODIFICATION",
       "ferrures_manquantes": 0,
       "engagement_prioritaire": "2026-11-19_R4C3",
-      "collecte": "EN_COURS",
+      "collecte": "A_REPRENDRE",
       "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
       "annee_naissance_pmu": 2021,
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
@@ -68270,7 +68270,19 @@
         "preuve": "LIENS_COURSE_GENY"
       },
       "preuve_identite": "LIENS_COURSE_GENY",
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "erreur": "PermissionError: ACCES_REFUSE_403",
+      "prochain_essai_utc": "2026-11-20T02:07:31.650221+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-19T20:07:31.650241+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [
+          "ACCES_REFUSE_403"
+        ],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/contexte:08a88e81f5da3558c43f288c/1795118844770058091/resultat.json"
+      }
     },
     "contexte:27b9a7ed9f96ce769b223214": {
       "nom": "LUCKY LEOMAX",
@@ -71272,14 +71284,14 @@
     "identites_a_verifier": 0,
     "synchronisations_en_attente": 0,
     "ajouts_confirmes": 3559,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0
+    "collectes_rejetees": 1
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-19T20:07:14.721211+00:00",
-  "maj_utc": "2026-11-19T20:07:22.244188+00:00",
+  "maj_utc": "2026-11-19T20:07:31.661109+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -71306,7 +71318,7 @@
     }
   },
   "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
-  "prochain_acces_geny_utc": "2026-11-19T17:29:09.498636+00:00",
+  "prochain_acces_geny_utc": "2026-11-19T20:37:31.650260+00:00",
   "phase_reprise": "CARRIERES_MANQUANTES",
   "revision_inventaire": 5,
   "inventaire_actualise_utc": "2026-11-18T16:19:39.396358+00:00",
