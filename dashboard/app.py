@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import re
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from google.oauth2.service_account import Credentials
@@ -32,7 +33,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.2 · Gagnants potentiels direct et ML")
+st.caption("Version interface : 2026.11.19.3 · Contexte de course et gagnants potentiels")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -105,16 +106,34 @@ elif page=="Courses":
             label += " · " + str(first["Course · Nom PMU"])
         with st.expander(label,expanded=len(groups)==1):
             st.caption("Course passée — prévisions archivées" if depart and depart<=now else "Prévisions stockées · non recalculées")
-            st.write(first.get("Discipline",""),"·",first.get("Distance (m)",""),"m")
-            criteria = [first.get(column) for column in (
-                "Course · Catégorie PMU", "Course · Âges admis", "Course · Parcours",
-                "Course · Mode de départ",
-            )]
-            allocation = number(first.get("Course · Allocation (€)"))
-            if allocation is not None:
-                criteria.append(f"{allocation:,.0f} €".replace(",", "\u202f"))
-            if any(criteria):
-                st.caption(" · ".join(str(value) for value in criteria if value))
+            discipline = {"TROT_ATTELE": "Trot attelé", "TROT_MONTE": "Trot monté"}.get(
+                first.get("Discipline"), first.get("Discipline"))
+            conditions = str(first.get("Conditions de course") or "")
+            gains = re.search(
+                r"\b(?:n['’]ayant pas gagné|ayant gagné|à réclamer pour)\s+[^.;]+"
+                r"(?:[., \u202f]\d{3}\b[^.;]*)*", conditions, re.IGNORECASE)
+            count = sum(row.get("Non-partant (NP)") == "PARTANT" for row in rows)
+            count_label = f"{count} partant{'s' if count > 1 else ''}" if all(
+                row.get("Non-partant (NP)") in ("PARTANT", "NON_PARTANT") for row in rows
+            ) else f"{len(rows)} inscrits"
+
+            def fmt(value, unit):
+                value = number(value)
+                return f"{value:,.0f} {unit}".replace(",", "\u202f") if value is not None else ""
+
+            for items in (
+                (discipline, first.get("Course · Catégorie PMU"),
+                 fmt(first.get("Distance (m)"), "m"), fmt(first.get("Course · Allocation (€)"), "€")),
+                (first.get("Course · Âges admis"), gains.group() if gains else None,
+                 first.get("Course · Parcours"), first.get("Course · Mode de départ")),
+                (count_label, first.get("Météo · Synthèse")),
+            ):
+                context = " · ".join(str(value) for value in items if value)
+                if context:
+                    st.caption(context)
+            if conditions:
+                with st.popover("Conditions détaillées"):
+                    st.write(conditions)
             for method,title in [("direct","TOP3 direct"),("ml","TOP3 ML")]:
                 chosen=selected(rows,method)
                 if chosen:

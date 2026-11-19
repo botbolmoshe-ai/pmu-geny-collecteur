@@ -92,8 +92,9 @@ class AppTests(unittest.TestCase):
         self.assertEqual(len(self.app.exception), 0)
         tableau = self.app.dataframe[0]
         self.assertIn('PRIX TEST', self.app.expander[0].label)
-        self.assertIn('Course C · 5 ans · Grande piste · Autostart · 53\u202f000 €',
-                      [caption.value for caption in self.app.caption])
+        captions = [caption.value for caption in self.app.caption]
+        self.assertTrue(any('Course C' in line and '53\u202f000 €' in line for line in captions))
+        self.assertTrue(any('5 ans' in line and 'Grande piste · Autostart' in line for line in captions))
         self.assertEqual(list(tableau.value['Âge (ans)']), [5, 5, 5])
         ranges = self.api.spreadsheets().values().batchGet.call_args.kwargs['ranges']
         self.assertIn("'Courses & Prévisions'!A1:BC", ranges)
