@@ -68270,7 +68270,6 @@
         "preuve": "LIENS_COURSE_GENY"
       },
       "preuve_identite": "LIENS_COURSE_GENY",
-      "partant_course_passee": true,
       "erreur": "PermissionError: ACCES_REFUSE_403",
       "prochain_essai_utc": "2026-11-20T02:07:31.650221+00:00",
       "dernier_echec_collecte": {
@@ -68282,7 +68281,8 @@
         "erreur": "ACCES_REFUSE_403",
         "identite_verifiee": false,
         "diagnostic": "resultats/incremental/contexte:08a88e81f5da3558c43f288c/1795118844770058091/resultat.json"
-      }
+      },
+      "partant_course_passee": true
     },
     "contexte:27b9a7ed9f96ce769b223214": {
       "nom": "LUCKY LEOMAX",
@@ -71265,7 +71265,7 @@
       "partant_course_passee": true
     }
   },
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
@@ -71291,10 +71291,10 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-19T20:07:14.721211+00:00",
-  "maj_utc": "2026-11-19T20:07:31.661109+00:00",
+  "maj_utc": "2026-11-19T20:07:40.537350+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
-      "indicateurs_actualises": 15,
+      "indicateurs_actualises": 10,
       "indicateurs_verifies": 128
     }
   },
@@ -71452,7 +71452,7 @@
       "LIEN_GENY_A_RESOUDRE": 56
     },
     "noms_distincts": 1788,
-    "controle_utc": "2026-11-19T20:07:14.721211+00:00"
+    "controle_utc": "2026-11-19T20:07:37.595720+00:00"
   },
   "cles_initiales": [
     "1717076",
@@ -73246,10 +73246,11 @@
   "collecte_tentee_utc": "2026-11-19T20:07:22.244110+00:00",
   "dernier_creneau_reserve_utc": "2026-11-19T20:07:22.244110+00:00",
   "controle_ordonnancement_utc": "2026-11-19T19:00:56.692642+00:00",
-  "sync_kpi_utc": "2026-11-19T17:10:13.668763+00:00",
+  "sync_kpi_utc": "2026-11-19T20:07:40.535698+00:00",
   "causes_contextes_sans_geny": {
     "AUCUNE_PREUVE_LOCALE_AVEC_COURSE": 873,
     "AUCUNE_PREUVE_LOCALE_SANS_COURSE": 57
   },
-  "creneau_reserve": true
+  "creneau_reserve": true,
+  "motif_fin_passage": "COOLDOWN_GENY_GLOBAL"
 }
