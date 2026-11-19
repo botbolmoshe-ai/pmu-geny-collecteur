@@ -1,11 +1,11 @@
 {
-  "entrainement_utc": "2026-11-19T19:28:15.292965+00:00",
-  "courses": 112,
-  "lignes": 1489,
+  "entrainement_utc": "2026-11-19T20:31:13.398979+00:00",
+  "courses": 114,
+  "lignes": 1517,
   "minimum_courses": 150,
   "minimum_lignes": 1500,
-  "courses_qualifiantes": 13,
-  "observations_qualifiantes": 167,
+  "courses_qualifiantes": 15,
+  "observations_qualifiantes": 195,
   "seuils": {
     "PREPRODUCTION": {
       "courses": 150,
@@ -21,18 +21,18 @@
     }
   },
   "couverture": {
-    "observations": 167,
-    "completes": 158,
-    "completude": 0.9461077844311377,
+    "observations": 195,
+    "completes": 182,
+    "completude": 0.9333333333333333,
     "criteres": {
-      "Forme PMU": 158,
-      "Historique comparable": 24,
-      "Distance": 167,
-      "Discipline": 167,
-      "Ferrure sourcée": 167,
-      "Âge": 167,
-      "Sexe": 167,
-      "Gains": 167,
+      "Forme PMU": 182,
+      "Historique comparable": 25,
+      "Distance": 195,
+      "Discipline": 195,
+      "Ferrure sourcée": 195,
+      "Âge": 195,
+      "Sexe": 195,
+      "Gains": 195,
       "Driver": 0,
       "Entraîneur": 0,
       "Tandem cheval-driver": 0,
@@ -44,28 +44,28 @@
   "maturite": "EXPÉRIMENTAL",
   "promotion_production": false,
   "jour_paris": "2026-11-19",
-  "empreinte_donnees": "2837cedb671f7b1baa6418acca4015864fc204284f0505cbd2a4981e855b9e81",
+  "empreinte_donnees": "a24cf2e9fec1e5a5c21e0022e0f1583ef03ca7976a3da0b70bf23a383d73a07c",
   "experimental": {
     "version_cycle": 1,
-    "empreinte_donnees": "2837cedb671f7b1baa6418acca4015864fc204284f0505cbd2a4981e855b9e81",
-    "execute_utc": "2026-11-19T19:28:15.292965+00:00",
+    "empreinte_donnees": "a24cf2e9fec1e5a5c21e0022e0f1583ef03ca7976a3da0b70bf23a383d73a07c",
+    "execute_utc": "2026-11-19T20:31:13.398979+00:00",
     "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-    "courses_admissibles": 112,
-    "lignes_admissibles": 1489,
+    "courses_admissibles": 114,
+    "lignes_admissibles": 1517,
     "promotion_production": false,
-    "rapport": "ml/experiences/automatique-2837cedb671f7b1baa64/rapport.json",
+    "rapport": "ml/experiences/automatique-a24cf2e9fec1e5a5c21e/rapport.json",
     "validation_day": "2026-11-18",
     "test_day": "2026-11-19",
     "modele": "regression_logistique",
     "test_ml": {
-      "courses": 13,
-      "chevaux_retrouves": 15,
-      "moyenne": 1.1538461538461537,
+      "courses": 15,
+      "chevaux_retrouves": 16,
+      "moyenne": 1.0666666666666667,
       "au_moins_2_sur_3": 5,
       "exact_3_sur_3": 0,
       "distribution": {
-        "0": 3,
-        "1": 5,
+        "0": 4,
+        "1": 6,
         "2": 5
       },
       "hits_par_course": {
@@ -81,7 +81,9 @@
         "2026-11-19_R4C3": 0,
         "2026-11-19_R4C4": 2,
         "2026-11-19_R4C5": 2,
-        "2026-11-19_R4C6": 1
+        "2026-11-19_R4C6": 1,
+        "2026-11-19_R4C7": 1,
+        "2026-11-19_R4C8": 0
       },
       "selections": {
         "2026-11-19_R3C1": [
@@ -148,15 +150,25 @@
           4,
           1,
           12
+        ],
+        "2026-11-19_R4C7": [
+          12,
+          11,
+          13
+        ],
+        "2026-11-19_R4C8": [
+          12,
+          3,
+          8
         ]
       }
     },
     "comparaison": {
-      "courses": 12,
-      "ecart_moyen": 0.08333333333333333,
+      "courses": 14,
+      "ecart_moyen": 0.0,
       "ic95_bootstrap_par_course": [
-        0.0,
-        0.25
+        -0.21428571428571427,
+        0.21428571428571427
       ]
     },
     "decoupage": {
@@ -173,36 +185,36 @@
         "dernier_depart": "2026-11-18T18:00:00+01:00"
       },
       "test": {
-        "courses": 13,
-        "lignes": 167,
+        "courses": 15,
+        "lignes": 195,
         "premier_depart": "2026-11-19T15:57:00+01:00",
-        "dernier_depart": "2026-11-19T20:05:00+01:00"
+        "dernier_depart": "2026-11-19T20:47:00+01:00"
       }
     }
   },
   "experimental_actif": {
     "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
-    "verification_utc": "2026-11-19T19:28:15.292965+00:00",
-    "empreinte_entrainement": "6094776dc83c7bf8a4347676378352f1f9275f3497c1e2e759b02c9bcdbf0f81",
-    "courses": 112,
-    "lignes": 1489,
+    "verification_utc": "2026-11-19T20:31:13.398979+00:00",
+    "empreinte_entrainement": "0e7631d3ffebd97d421a50aee66834da82bf508b24c93a1c1670d07de2c7526d",
+    "courses": 114,
+    "lignes": 1517,
     "modele": "regression_logistique",
     "promotion_production": false,
     "schema": "pmu-podium-v34",
     "nature": "CANDIDAT_EXPERIMENTAL_NON_CALIBRE",
     "evaluation": "A_MESURER_SUR_LES_PREVISIONS_FUTURES_ENREGISTREES",
-    "entrainement_utc": "2026-11-19T19:28:15.292965+00:00",
-    "dernier_label_entrainement_utc": "2026-11-19T19:26:58.085079+00:00",
-    "fichier_modele": "ml/modeles_experimentaux/6094776dc83c7bf8a4347676378352f1f9275f3497c1e2e759b02c9bcdbf0f81/modele.joblib",
-    "sha256_modele": "bf7673ffbdf0d94875aac68a1e71f505425821a8d4816f565d222734698e58fb",
+    "entrainement_utc": "2026-11-19T20:31:13.398979+00:00",
+    "dernier_label_entrainement_utc": "2026-11-19T20:30:30.661821+00:00",
+    "fichier_modele": "ml/modeles_experimentaux/0e7631d3ffebd97d421a50aee66834da82bf508b24c93a1c1670d07de2c7526d/modele.joblib",
+    "sha256_modele": "2e45cd280abe7ade2cc42c86d4913828ba568af4c4570cbb175456a5fb5bf440",
     "execution": "ENTRAINE"
   },
   "performance_prospective": {
     "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-    "controle_utc": "2026-11-19T19:28:15.292965+00:00",
-    "courses": 29,
-    "moyenne_ml": 1.103448275862069,
-    "moyenne_direct": 1.103448275862069,
+    "controle_utc": "2026-11-19T20:31:13.398979+00:00",
+    "courses": 31,
+    "moyenne_ml": 1.096774193548387,
+    "moyenne_direct": 1.096774193548387,
     "ecart_ml_direct": 0.0,
     "exact_3_sur_3_ml": 0,
     "au_moins_2_sur_3_ml": 8,
@@ -612,13 +624,41 @@
           "ml": "99db1388d912b1072b325f0bb13636439c8b7d380c03c9850b8a175ba9a94905"
         },
         "empreinte_modele": "65d0b62a73b0d1ea88054e576aab7b5161483b3de16e1f21afd0af55de83eafe"
+      },
+      {
+        "course": "2026-11-19_R4C7",
+        "depart": "2026-11-19T20:22:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T20:30:30.661821+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "c3b0b1e4796230be98caade42a056121250a5857136d3a289580c45262ae63ca",
+          "ml": "0432f8b7570f9d62deb223b2a0589efac06a24e0077d37a3521a8e08ac9d78eb"
+        },
+        "empreinte_modele": "65d0b62a73b0d1ea88054e576aab7b5161483b3de16e1f21afd0af55de83eafe"
+      },
+      {
+        "course": "2026-11-19_R4C8",
+        "depart": "2026-11-19T20:47:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-19T20:30:30.363108+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "5b936aeaa545045e95026d71300829c1d81c4867604754aeefa5f55e93c45279",
+          "ml": "57d2aa41416303e344253f7e90ba78a31e434f378d600fed64d436d21db95888"
+        },
+        "empreinte_modele": "ceb42bc3b48151517b979bf5953b155034ffa37390074d0588dc34ac361ebd7e"
       }
     ],
     "rejets": [],
     "regle_ajustement": "Réentraînement sur nouveaux labels admissibles ; choix sur validation temporelle, sans promotion sur ces seuls scores.",
     "candidat_depart": {
       "courses": 2,
-      "direct_evaluable": 13,
+      "direct_evaluable": 15,
       "rejets": [],
       "statut": "EXPERIMENTAL",
       "moyenne": 1.0,

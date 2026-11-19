@@ -1,9 +1,9 @@
 {
   "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-  "controle_utc": "2026-11-19T19:28:15.292965+00:00",
-  "courses": 29,
-  "moyenne_ml": 1.103448275862069,
-  "moyenne_direct": 1.103448275862069,
+  "controle_utc": "2026-11-19T20:31:13.398979+00:00",
+  "courses": 31,
+  "moyenne_ml": 1.096774193548387,
+  "moyenne_direct": 1.096774193548387,
   "ecart_ml_direct": 0.0,
   "exact_3_sur_3_ml": 0,
   "au_moins_2_sur_3_ml": 8,
@@ -413,13 +413,41 @@
         "ml": "99db1388d912b1072b325f0bb13636439c8b7d380c03c9850b8a175ba9a94905"
       },
       "empreinte_modele": "65d0b62a73b0d1ea88054e576aab7b5161483b3de16e1f21afd0af55de83eafe"
+    },
+    {
+      "course": "2026-11-19_R4C7",
+      "depart": "2026-11-19T20:22:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-19T20:30:30.661821+00:00",
+      "scores": {
+        "direct": 1,
+        "ml": 1
+      },
+      "versions": {
+        "direct": "c3b0b1e4796230be98caade42a056121250a5857136d3a289580c45262ae63ca",
+        "ml": "0432f8b7570f9d62deb223b2a0589efac06a24e0077d37a3521a8e08ac9d78eb"
+      },
+      "empreinte_modele": "65d0b62a73b0d1ea88054e576aab7b5161483b3de16e1f21afd0af55de83eafe"
+    },
+    {
+      "course": "2026-11-19_R4C8",
+      "depart": "2026-11-19T20:47:00+01:00",
+      "arrivee_verifiee_utc": "2026-11-19T20:30:30.363108+00:00",
+      "scores": {
+        "direct": 1,
+        "ml": 1
+      },
+      "versions": {
+        "direct": "5b936aeaa545045e95026d71300829c1d81c4867604754aeefa5f55e93c45279",
+        "ml": "57d2aa41416303e344253f7e90ba78a31e434f378d600fed64d436d21db95888"
+      },
+      "empreinte_modele": "ceb42bc3b48151517b979bf5953b155034ffa37390074d0588dc34ac361ebd7e"
     }
   ],
   "rejets": [],
   "regle_ajustement": "Réentraînement sur nouveaux labels admissibles ; choix sur validation temporelle, sans promotion sur ces seuls scores.",
   "candidat_depart": {
     "courses": 2,
-    "direct_evaluable": 13,
+    "direct_evaluable": 15,
     "rejets": [],
     "statut": "EXPERIMENTAL",
     "moyenne": 1.0,
