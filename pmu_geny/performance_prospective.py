@@ -19,7 +19,7 @@ def retrouver(cache,key,kind,proof):
 
 def mesurer(cache,now=None):
     cache=Path(cache);now=now or datetime.now(timezone.utc)
-    results=[];rejected=[]
+    results=[];rejected=[];depart_candidate={};depart_baseline={}
     for p in sorted((cache/'publications').glob('*.json')):
         certificate=lire(p);key=p.stem;depart=instant(certificate.get('depart'))
         arrival=lire(cache/'arrivees'/f'{key}.json');checked=instant(arrival.get('verifie_utc'))
@@ -31,7 +31,7 @@ def mesurer(cache,now=None):
             podium=[int(h['numero']) for h in arrival['arrivee'] if h['rang'] in (1,2,3)]
             if (len(podium)!=3 or len(set(podium))!=3
                     or {h['rang'] for h in arrival['arrivee'] if h['rang'] in (1,2,3)}!={1,2,3}):raise ValueError()
-            scores={};versions={}
+            scores={};versions={};alternate=None
             for kind in ('direct','ml'):
                 proof=certificate['versions'][kind]
                 published=instant(proof.get('publication_utc'))
@@ -49,7 +49,16 @@ def mesurer(cache,now=None):
                 numbers=[int(h['numero']) for h in doc['top3']]
                 if len(numbers)!=3 or len(set(numbers))!=3:raise ValueError('TOP3_INVALIDE')
                 scores[kind]=len(set(numbers)&set(podium))
+                if kind == 'direct':
+                    candidate = doc.get('candidat_depart', {})
+                    proposed = candidate.get('top3', [])
+                    eligible = {h.get('numero') for h in doc.get('classement_complet', [])}
+                    if len(proposed) == len(set(proposed)) == 3 and set(proposed) <= eligible:
+                        alternate = len(set(proposed) & set(podium))
                 versions[kind]=proof['sha256']
+            if alternate is not None:
+                depart_candidate[key] = alternate
+                depart_baseline[key] = scores['direct']
             results.append({'course':key,'depart':depart.isoformat(),'arrivee_verifiee_utc':checked.isoformat(),
                 'scores':scores,'versions':versions,'empreinte_modele':certificate['versions']['ml'].get('empreinte_modele')})
         except (KeyError,ValueError,TypeError) as exc:
@@ -63,5 +72,12 @@ def mesurer(cache,now=None):
             'au_moins_2_sur_3_ml':sum(r['scores']['ml']>=2 for r in results),
             'resultats':results,'rejets':rejected,
             'regle_ajustement':'Reentrainement sur nouveaux labels admissibles ; choix sur validation temporelle, jamais sur le test ni promotion sur ces seuls scores.'}
+    report['candidat_depart'] = {'courses': len(depart_candidate), 'statut': 'DONNEES_INSUFFISANTES'}
+    if depart_candidate:
+        from .experience_ml import paired_interval
+        report['candidat_depart'].update(
+            statut='EXPERIMENTAL', comparaison=paired_interval(depart_candidate, depart_baseline),
+            scores_candidat_par_course=depart_candidate, scores_direct_par_course=depart_baseline,
+        )
     sauver(cache/'ml/performance_prospective.json',report)
     return report

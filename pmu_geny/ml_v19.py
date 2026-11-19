@@ -21,7 +21,14 @@ LEGACY_FEATURES = FEATURES
 FEATURES += ('discipline_montee', 'forme_pmu_discipline', 'forme_geny_comparable')
 MODEL_SCHEMA = 'pmu-podium-v34'
 FERRURE_RESEARCH = ('forme_ferrure_neutre', 'forme_ferrure_moderee', 'forme_ferrure_actuelle')
-OPTIONAL_FEATURES = (*FERRURE_RESEARCH, 'tandem_podium_lisse', 'tandem_courses', 'avis_pmu_structure')
+DEPART_RESEARCH = {
+    'Mode de départ et distance': ('depart_autostart', 'distance_autostart'),
+    'Position et ligne autostart': ('position_autostart_relative', 'ligne_autostart'),
+    'Forme Geny par mode de départ': ('forme_geny_meme_depart', 'sorties_geny_meme_depart'),
+    'Recul au départ': ('recul_depart_m',),
+}
+OPTIONAL_FEATURES = (*FERRURE_RESEARCH, 'tandem_podium_lisse', 'tandem_courses', 'avis_pmu_structure',
+                     *(field for fields in DEPART_RESEARCH.values() for field in fields))
 
 
 def load(path, default=None):
@@ -154,7 +161,7 @@ def snapshot(cache,course,manifest,now=None):
 def pmu_rows(cache,course,raw,now,*,legacy=False):
     """Meme extraction PMU pour capture et inference; aucune requete reseau."""
     from .auto_v18 import _list, _num
-    from .formes_contextuelles_v32 import _discipline, _historique_contextuel, _musique_pmu
+    from .formes_contextuelles_v32 import _discipline, _historique_contextuel, _musique_pmu, forme_meme_depart
     from .echeances_production import instant
     from .partants_actuels_v21 import extraire_partants, ferrure_normalisee
     from .top3_independants_v22 import _form_score
@@ -167,7 +174,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
            for h in participants if isinstance(h,dict)]
     association=etablir(cache,course,names)
     context=_valid_context(cache,course,now,legacy=legacy)
-    profils=extraire_partants(raw)
+    profils=extraire_partants(raw, course=course if not legacy else None)
     discipline = _discipline(course.get('discipline'))
     has_connections = any(p.get('driver_jockey') or p.get('entraineur') for p in profils.values())
     connection_scores = scores_intervenants(cache, now, discipline) if (
@@ -227,6 +234,23 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                 c[indicator]=1 if ferrure_code in code.split('/') else 0
         research = {}
         if not legacy:
+            depart_trot = profil.get('depart_trot', {})
+            if depart_trot.get('mode'):
+                auto = int(depart_trot['mode'] == 'Autostart')
+                research['depart_autostart'] = auto
+                distance = numeric(course.get('distance_m'))
+                if distance is not None:
+                    research['distance_autostart'] = auto * distance
+            if depart_trot.get('ligne'):
+                capacity = depart_trot['capacite']
+                research['ligne_autostart'] = depart_trot['ligne']
+                research['position_autostart_relative'] = ((depart_trot['position'] - 1) % capacity) / capacity
+            if 'recul_m' in depart_trot:
+                research['recul_depart_m'] = depart_trot['recul_m']
+            same_mode = forme_meme_depart(histo, course, profil, now)
+            if same_mode:
+                research.update(forme_geny_meme_depart=same_mode['score'],
+                                sorties_geny_meme_depart=same_mode['performances_valides'])
             driver = intervenants.get('driver_score')
             tandem = connection_scores.get(('tandem', ident, nom_normalise(name), driver))
             if tandem:
