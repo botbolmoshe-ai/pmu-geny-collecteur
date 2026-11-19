@@ -45,6 +45,54 @@ class LiensTests(unittest.TestCase):
         foreign=html.replace('1698831','1698832')
         self.assertEqual(self.extraire(rows,foreign)['chevaux'],{})
 
+    def test_flight_text_before_partants_is_read_without_table_or_click(self):
+        from unittest.mock import Mock, patch
+        from pmu_geny.historique_individuel import ouvrir_source
+
+        query = {'queryKey': ['course', 1698831, 'withPartants'],
+                 'state': {'status': 'success', 'data': {
+                     'dateReunion': self.engagement[:10],
+                     'course': {'id': 1698831, 'participants': [
+                         {'numero': 1, 'cheval': {'id': 2895699, 'nom': 'Opera Wood', 'slug': 'opera-wood'}},
+                         {'numero': 2, 'cheval': {'id': 2895700, 'nom': 'Open Oam', 'slug': 'open-oam'}},
+                     ]}}}}
+        text = 'Partants à l’arrivée\nRésumé'
+        flight = f'3:T{len(text.encode("utf-8")):x},'+text+'28:'+json.dumps(query)
+        html = '<script>self.__next_f.push('+json.dumps([1, flight])+')</script>'
+        self.assertEqual(set(self.extraire([], html)['chevaux']), {'1', '2'})
+        wrong_day = html.replace(self.engagement[:10], '2026-11-18')
+        self.assertEqual(self.extraire([], wrong_day)['chevaux'], {})
+
+        page = Mock(url=self.url)
+        page.goto.return_value.status = 200
+        page.title.return_value = 'Partants Geny'
+        page.locator.return_value.inner_text.return_value = ''
+        page.content.return_value = html
+        with patch('pmu_geny.historique_individuel.get_rows', side_effect=AssertionError('Table inutile')):
+            horse = ouvrir_source(self.horse, self.out, page)
+        self.assertEqual(horse['id'], '2895699')
+        self.assertEqual(horse['preuve'], 'COURSE_GENY_VERIFIEE')
+        self.assertEqual(len(inc.lire(self.out/'liens_course.json')['chevaux']), 2)
+        page.goto.assert_called_once()
+
+    def test_missing_course_link_tries_search_but_access_refusal_does_not(self):
+        from unittest.mock import Mock, patch
+        from pmu_geny.historique_individuel import resolve
+
+        page = Mock()
+        with patch('pmu_geny.historique_individuel.ouvrir_source',
+                   side_effect=LookupError('FICHE_EXACTE_NON_IDENTIFIEE')), \
+                patch('pmu_geny.historique_individuel.time.sleep') as pause, \
+                patch('pmu_geny.historique_individuel.rechercher', return_value={'id': '2895699'}) as search:
+            self.assertEqual(resolve(self.horse, self.out, page)['id'], '2895699')
+            self.assertEqual(search.call_args.args[0]['course_url'], '')
+            pause.assert_called_once_with(30)
+        with patch('pmu_geny.historique_individuel.ouvrir_source', side_effect=RuntimeError('ACCES_LIMITE_429')), \
+                patch('pmu_geny.historique_individuel.rechercher') as search:
+            with self.assertRaisesRegex(RuntimeError, '429'):
+                resolve(self.horse, self.out, page)
+            search.assert_not_called()
+
     def test_nom_numero_course_et_fraicheur_obligatoires_pour_reutiliser(self):
         self.memoriser(self.extraire())
         for num,name,date,url in [

@@ -153,7 +153,7 @@ def decision_fond(cache,now,*,reserve=False):
         depart=inc.instant(h.get('depart_a_venir_utc'))
         retry=inc.instant(h.get('prochain_essai_utc'))
         if (depart and depart>now and h.get('preparation_pmu_ok')
-                and h.get('motif_actualisation') and (h.get('geny') or h.get('course_url'))
+                and h.get('motif_actualisation') and (h.get('geny') or h.get('course_url') or h.get('recherche_geny_par_nom'))
                 and retry and now<retry<depart):retries.append(retry)
     if retries:
         result['prochaine_reprise_prioritaire_utc']=min(retries).isoformat()

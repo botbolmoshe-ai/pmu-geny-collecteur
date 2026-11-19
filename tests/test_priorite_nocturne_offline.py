@@ -126,12 +126,12 @@ class NuitTests(unittest.TestCase):
         state['passage_utc']=self.now.isoformat()
         self.assertEqual(inc.prochaine_tache(state,self.now,{})[1],'COLLECTE')
 
-    def test_index_ambigu_ne_produit_pas_un_faux_lien(self):
+    def test_index_course_ambigu_declenche_une_recherche_par_nom(self):
         self.seed_index(ambiguous=True);state=inc.alimenter(self.cache,self.now)
         horse=next(iter(state['chevaux'].values()));self.assertNotIn('course_url',horse)
         state['passage_utc']=self.now.isoformat()
-        self.assertIsNone(inc.prochaine_tache(state,self.now,{})[0])
-        self.assertEqual(horse['collecte'],'LIEN_GENY_A_RESOUDRE')
+        self.assertTrue(horse['recherche_geny_par_nom'])
+        self.assertEqual(inc.prochaine_tache(state,self.now,{})[1],'COLLECTE')
 
 
 if __name__=='__main__':unittest.main()

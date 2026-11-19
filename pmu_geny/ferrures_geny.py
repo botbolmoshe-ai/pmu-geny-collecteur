@@ -48,11 +48,29 @@ def flux_next(html):
 
 
 def documents(html):
-    for line in flux_next(html).splitlines():
-        match=re.fullmatch(r'[0-9a-fA-F]+:(.*)',line,re.S)
-        if not match:continue
-        try:yield json.loads(match[1])
-        except ValueError:continue
+    # Les enregistrements texte Flight sont préfixés par leur longueur UTF-8.
+    # Un document JSON peut commencer juste après ce texte, sans saut de ligne.
+    flux = flux_next(html).encode('utf-8', errors='replace')
+    header = re.compile(rb'[0-9a-fA-F]+:')
+    sized = re.compile(rb'[TAOoUSsLlGgMmV]([0-9a-fA-F]+),')
+    position = 0
+    while position < len(flux):
+        marker = header.match(flux, position)
+        if marker:
+            start = marker.end()
+            frame = sized.match(flux, start)
+            if frame:
+                position = frame.end() + int(frame[1], 16)
+                continue
+        end = flux.find(b'\n', position)
+        if end == -1:
+            end = len(flux)
+        position = end + 1
+        if marker:
+            try:
+                yield json.loads(flux[start:end])
+            except ValueError:
+                continue
 
 
 def participations(html,ident):

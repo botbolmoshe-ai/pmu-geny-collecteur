@@ -107,6 +107,16 @@ class IdentificationGenyTests(unittest.TestCase):
         self.assertEqual(back.prochaine_tache(state, retry, {('IDENTIFIANT', '123456'): 1}),
                          (None, 'TERMINE_PASSAGE'))
 
+    def test_country_suffix_requires_geny_nationality(self):
+        from pmu_geny.liaison_chevaux_v22 import nom_geny_concordant
+
+        self.assertTrue(nom_geny_concordant('JUNKIE (SWE)', {'nom': 'Junkie', 'nationalite_geny': 'SE'}))
+        self.assertFalse(nom_geny_concordant('JUNKIE (SWE)', {'nom': 'Junkie', 'nationalite_geny': 'IT'}))
+        self.assertFalse(nom_geny_concordant('JUNKIE (SWE)', {'nom': 'Junkie'}))
+        links = etablir(self.cache, {'date': '2020-01-01', 'code': 'R1C1'},
+                        [{'numero': 12, 'nom': 'JUNKIE (SWE)'}])
+        self.assertEqual(links['12']['cheval_id'], '2736204')
+
     def test_geny_search_checks_exact_query_and_keeps_homonyms(self):
         names = [('123456', 'Étoile du Nord'), ('234567', 'Etoile du Nord'),
                  ('345678', 'Étoile du Nord II')]
@@ -130,3 +140,11 @@ class IdentificationGenyTests(unittest.TestCase):
             resolved = rechercher({**self.horse, 'annee_naissance_pmu': self.now.year-4}, page)
         self.assertEqual(resolved['id'], '123456')
         self.assertEqual(len(resolved['homonymes']), 2)
+        query['state']['data'][0]['resume'] += ', pays : Suède, discipline : Trot'
+        flight = '28:'+json.dumps(query, ensure_ascii=False)
+        page.content.return_value = '<script>self.__next_f.push('+json.dumps([1, flight])+')</script>'
+        with patch('pmu_geny.historique_individuel.diagnostic_acces', return_value=''):
+            alias = rechercher({'nom': self.horse['nom']+' (SWE)'}, page)
+        self.assertEqual(alias['id'], '123456')
+        self.assertEqual(alias['nom_pmu'], self.horse['nom']+' (SWE)')
+        self.assertNotIn('SWE', page.goto.call_args.args[0])

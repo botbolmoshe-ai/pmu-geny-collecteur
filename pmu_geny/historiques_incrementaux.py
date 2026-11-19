@@ -22,7 +22,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from .controle_historique import classifier
-from .liaison_chevaux_v22 import nom_normalise
+from .liaison_chevaux_v22 import nom_geny_concordant, nom_normalise
 
 UTC = timezone.utc
 QUEUE = Path('collecte_incrementale/etat.json')
@@ -198,6 +198,10 @@ def alimenter(cache, now, *, sauvegarder=True):
                 previous = instant(horse.get('derniere_course_officielle_utc'))
                 if not previous or departure > previous:
                     horse['derniere_course_officielle_utc'] = departure.isoformat()
+            horse['rapprochement_geny'] = method
+            horse['annee_naissance_pmu'] = year
+            horse['recherche_geny_par_nom'] = bool(not horse.get('id') and not horse.get('geny')
+                                                     and not horse.get('course_url') and method != 'NOM_AMBIGU')
             horse['motif_actualisation'] = actualisation_requise(horse, now)
             if horse.get('collecte') == 'EN_COURS':
                 horse['collecte'] = 'A_REPRENDRE'
@@ -264,7 +268,7 @@ def prochaine_tache(state, now, attempts):
         retry = instant(h.get('prochain_essai_utc'))
         if attempts.get(('COLLECTE', key), 0) >= 1 or retry and now < retry:
             continue
-        if not h.get('geny') and not h.get('course_url'):
+        if not (h.get('geny') or h.get('course_url') or h.get('recherche_geny_par_nom')):
             h['collecte'] = 'LIEN_GENY_A_RESOUDRE'
             continue
         # La nuit, combler les carrières absentes avant les actualisations.
@@ -299,7 +303,7 @@ def memoriser_resolution(horse, report, out, *, cache=None):
     ident=str(geny.get('id',''))
     if (source_identifiant(ident,geny.get('url_geny'))!='geny'
             or not re.fullmatch(r'\d{4,15}',ident)
-            or nom_normalise(geny.get('nom'))!=nom_normalise(horse.get('nom'))
+            or not nom_geny_concordant(horse.get('nom'), geny)
             or horse.get('id') and str(horse['id'])!=ident):return
     if not report.get('geny') and (proof.get('engagement')!=horse.get('engagement')
             or proof.get('numero')!=str(horse.get('numero',''))):return
@@ -385,7 +389,7 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
     horse['derniere_performance_date'] = max((r.get('date', '') for r in doc['performances']), default='')
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     journal.setdefault('chevaux', {})[ident] = {**journal.get('chevaux', {}).get(ident, {}),
-        'id': ident, 'nom': horse['nom'], 'statut': 'COMPLET', 'motifs': [],
+        'id': ident, 'nom': report['geny'].get('nom') or horse['nom'], 'statut': 'COMPLET', 'motifs': [],
         'nombre_extrait': doc['nombre_extrait'], 'nombre_annonce_geny': doc['nombre_annonce_geny'],
         'maj_utc': stamp, 'historique_complet_au_utc': stamp,
         'prochaine_verification_utc': horse['prochaine_verification_utc'],

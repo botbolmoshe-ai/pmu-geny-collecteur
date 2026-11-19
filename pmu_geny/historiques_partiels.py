@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 
 from .controle_historique import PARTIELS, classifier
-from .liaison_chevaux_v22 import nom_normalise
+from .liaison_chevaux_v22 import nom_geny_concordant
 
 
 def conserver(cache, horse, report):
@@ -17,7 +17,7 @@ def conserver(cache, horse, report):
         return False
     geny=report.get('geny') or {};ident=str(geny.get('id',''))
     if (not re.fullmatch(r'\d{4,15}',ident) or horse.get('id') and horse['id']!=ident
-            or nom_normalise(geny.get('nom'))!=nom_normalise(horse.get('nom'))):
+            or not nom_geny_concordant(horse.get('nom'), geny)):
         return False
     doc=inc.lire(Path(report['dossier'])/'historique_geny.json')
     parsed=urlparse(str(doc.get('source_url','')))
@@ -42,7 +42,8 @@ def conserver(cache, horse, report):
     if previous:
         digest=hashlib.sha256(json.dumps(previous,sort_keys=True).encode()).hexdigest()
         inc.ecrire(Path(cache)/'historiques_versions'/ident/('partiel-'+digest+'.json'),previous)
-    partial={**doc,'nom':horse['nom'],'identifiant_cheval':ident,'statut':'PARTIEL_HISTORIQUE',
+    name = geny.get('nom') or horse['nom']
+    partial={**doc,'nom':name,'identifiant_cheval':ident,'statut':'PARTIEL_HISTORIQUE',
              'complet':False,'performances':rows,'nombre_extrait':len(rows),
              'motifs_incompletude':report.get('motifs',[]),'identite_verifiee':True}
     from .ferrures_geny import couverture
@@ -54,7 +55,7 @@ def conserver(cache, horse, report):
     journal=inc.lire(Path(cache)/'etat_persistant.json',{'version':1,'chevaux':{}})
     existing=journal.setdefault('chevaux',{}).get(ident,{})
     if existing.get('statut')!='COMPLET':
-        journal['chevaux'][ident]={**existing,'id':ident,'nom':horse['nom'],'statut':'PARTIEL',
+        journal['chevaux'][ident]={**existing,'id':ident,'nom':name,'statut':'PARTIEL',
             'maj_utc':stamp.isoformat(),'nombre_extrait':len(rows),'origine':'GENY_PARTIEL_VERIFIE'}
         inc.ecrire(Path(cache)/'etat_persistant.json',journal)
     return True
