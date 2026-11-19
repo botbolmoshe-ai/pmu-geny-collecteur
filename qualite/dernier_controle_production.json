@@ -1,20 +1,53 @@
 {
-  "controle_utc": "2026-11-19T11:58:29.587686+00:00",
+  "controle_utc": "2026-11-19T12:07:48.680294+00:00",
   "publication_reussie": true,
   "plan": {
-    "plan_utc": "2026-11-19T11:57:32.830366+00:00",
+    "plan_utc": "2026-11-19T12:06:55.347819+00:00",
     "date": "2026-11-19",
     "executer": true,
     "mode": "GLOBAL",
-    "selection": [],
-    "jalons_dus": [],
-    "prochain_besoin_utc": "2026-11-19T13:02:00+01:00"
+    "selection": [
+      "R3C1"
+    ],
+    "jalons_dus": [
+      {
+        "course": "2026-11-19_R3C1",
+        "phase": "H2",
+        "echeance": "2026-11-19T13:57:00+01:00"
+      }
+    ],
+    "prochain_besoin_utc": "2026-11-19T13:38:00+01:00"
   },
   "courses": [
     {
       "course": "2026-11-19_R3C1",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H2": {
+          "echeance": "2026-11-19T13:57:00+01:00",
+          "controle_utc": "2026-11-19T12:07:48.680294+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-19T13:07:13.204469+01:00",
+              "publication_utc": "2026-11-19T12:07:48.680294+00:00",
+              "sha256": "2b671bb3f0db0be6d1d9cace83e34da4d09e62fa6ab1502ffd7d9b0216cfdbf3",
+              "fichier": "jalons/2026-11-19_R3C1/H2_direct_20261119T120713204469Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-19T12:07:47.878335+00:00"
+            },
+            "ml": {
+              "calcul_utc": "2026-11-19T13:07:14.466360+01:00",
+              "publication_utc": "2026-11-19T12:07:48.680294+00:00",
+              "sha256": "5ea3baf9454631d76aafd1e48048d7f3ceaf768d956deeac854b70b8ef0199da",
+              "fichier": "jalons/2026-11-19_R3C1/H2_ml_20261119T120714466360Z.json",
+              "empreinte_modele": "610a9119afecb4b67f4264cc55e35b8eb30168f368274c83cf93d37485013c16",
+              "lecture_sheets_utc": "2026-11-19T12:07:47.878335+00:00"
+            }
+          }
+        }
+      }
     },
     {
       "course": "2026-11-19_R3C2",
