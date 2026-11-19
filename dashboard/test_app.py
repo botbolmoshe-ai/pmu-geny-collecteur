@@ -36,6 +36,8 @@ class AppTests(unittest.TestCase):
             'Course · Allocation (€)':53000,'Course · Parcours':'Grande piste','Course · Mode de départ':'Autostart',
             'N°':n,'Cheval':f'Cheval test {n}','Non-partant (NP)':'PARTANT',
             'TOP3 direct · Rang':n,'TOP3 direct · Sélection':'OUI','ML · Rang':n,'ML · Sélection':'OUI',
+            'Gagnant potentiel direct · Sélection':'OUI' if n==1 else '',
+            'Gagnant potentiel ML · Sélection':'OUI' if n==1 else '',
             'Historique · Nb performances récupérées':2,'Ferrure · Course du jour':'D4',
             'Profil du cheval': {1:'Crack',2:'Haut potentiel'}.get(n,''),
             'Profil · Indices': {1:'2 podiums en Groupe I/II',2:'2 podiums sur 3'}.get(n,''),
@@ -94,7 +96,11 @@ class AppTests(unittest.TestCase):
                       [caption.value for caption in self.app.caption])
         self.assertEqual(list(tableau.value['Âge (ans)']), [5, 5, 5])
         ranges = self.api.spreadsheets().values().batchGet.call_args.kwargs['ranges']
-        self.assertIn("'Courses & Prévisions'!A1:BA", ranges)
+        self.assertIn("'Courses & Prévisions'!A1:BC", ranges)
+        self.assertIn('**Gagnant potentiel direct : 1 — Cheval test 1**',
+                      [item.value for item in self.app.markdown])
+        self.assertIn('**Gagnant potentiel ML : 1 — Cheval test 1**',
+                      [item.value for item in self.app.markdown])
         self.assertEqual(list(tableau.value['Profil du cheval']), ['Crack', 'Haut potentiel', ''])
         css = getattr(tableau.proto, "arrow_data", tableau.proto).styler.styles
         self.assertIn('background-color: #ffe375', css)
@@ -114,7 +120,11 @@ class AppTests(unittest.TestCase):
              'TOP3 ML · Chevaux':'4,5,6','TOP3 ML · Chevaux à l’arrivée (0–3)':0,
              'TOP3 ML · Matching (%)':0,'ML · Statut':'ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE',
              'TOP3 direct · Noms':'A · B · D','TOP3 ML · Noms':'D · E · F',
-             'Arrivée · Noms officiels':'A · B · C'}
+             'Arrivée · Noms officiels':'A · B · C',
+             'Gagnant potentiel direct · N°':'1','Gagnant potentiel direct · Nom':'A',
+             'Gagnant potentiel direct · Rang officiel':'1','Gagnant potentiel direct · Verdict':'Trouvé',
+             'Gagnant potentiel ML · N°':'4','Gagnant potentiel ML · Nom':'D',
+             'Gagnant potentiel ML · Rang officiel':'7','Gagnant potentiel ML · Verdict':'Non trouvé'}
         data=self.api.spreadsheets().values().batchGet().execute.return_value['valueRanges']
         data[1]={'values':[list(row),list(row.values())]}
         self.app.session_state.authenticated=True
@@ -126,6 +136,8 @@ class AppTests(unittest.TestCase):
         self.assertEqual(list(result.columns[1:7]), columns)
         self.assertEqual(result.iloc[0][columns].tolist(),
                          ['1,2,4', 'A · B · D', '4,5,6', 'D · E · F', '1,2,3', 'A · B · C'])
+        self.assertEqual(result.iloc[0]['Gagnant potentiel direct · Verdict'],'Trouvé')
+        self.assertEqual(result.iloc[0]['Gagnant potentiel ML · Rang officiel'],'7')
         self.app.radio[0].set_value('Performance').run()
         self.assertEqual(len(self.app.exception),0)
         self.assertEqual(len(self.app.error),0)
