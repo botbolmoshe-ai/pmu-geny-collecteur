@@ -462,7 +462,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
     attempts, count, accepted, partials = {}, 0, 0, 0
     sheets_engine=None
     deadline = time.monotonic()+max_minutes*60
-    def save():
+    def save(*, distant=True):
         state['maj_utc'] = datetime.now(UTC).isoformat()
         state.setdefault('bilan',{}).update(tentatives_collecte=count,
             captures_validees=accepted,captures_partielles=partials,collectes_rejetees=count-accepted-partials)
@@ -476,6 +476,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         else:materialiser_manifestes(cache, state)
         ecrire(cache/queue, state)
         if reprise:ecrire(cache/queue.parent/'bilan.json',reprise.rapport(state))
+        if not distant:
+            return
         if checkpoint:
             checkpoint(cache)
         elif publier:
@@ -512,7 +514,9 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
             if reprise:
                 attempts[reprise.cle_travail_geny(horse)] = 1
             horse['collecte'] = 'EN_COURS'
-            save()  # Reprise sûre, même si le sous-processus est tué.
+            # Le dernier checkpoint distant suffit à reprendre une capture interrompue.
+            # En rattrapage, le créneau réservé doit être marqué à distance avant la requête.
+            save(distant=bool(reprise))
             out = Path('resultats/incremental')/key/str(time.time_ns())
             report = {}
             try:
