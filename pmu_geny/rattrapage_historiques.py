@@ -827,7 +827,16 @@ def main():
             # Réconciliation locale sous le verrou partagé, même si le budget
             # Geny est réservé aux engagements. Céder si le cycle PMU attend.
             if state.get('chevaux') and (cache/INVENTAIRE).exists() and not controle_pmu():
-                state = preparer(cache, datetime.now(inc.UTC))
+                now = datetime.now(inc.UTC)
+                state = preparer(cache, now)
+                # Une capture déjà persistée peut être publiée sans consulter Geny.
+                # Les échéances PMU et le verrou de production restent prioritaires.
+                if (reason in ('COOLDOWN_GENY_GLOBAL', 'PARTANT_PRIORITAIRE_DISPONIBLE',
+                               'REPRISE_PARTANT_PRIORITAIRE_IMMINENTE')
+                        and prochaine_tache(state, now, {})[1] == 'SYNC'):
+                    inc.run(cache, max_minutes=args.max_minutes, max_chevaux=0,
+                            publier=True, mode='rattrapage', stop_requested=controle_pmu)
+                    return
             differer(reason, state)
             return
         engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
