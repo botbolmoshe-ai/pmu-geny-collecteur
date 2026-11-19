@@ -6,14 +6,15 @@ from . import historiques_incrementaux as inc
 from .liaison_chevaux_v22 import nom_normalise
 
 
-def evaluer(cache, now, state=None):
+def evaluer(cache, now, state=None, *, nocturne=False):
     cache=Path(cache);state=state or inc.lire(cache/inc.QUEUE,{'chevaux':{}})
     today=now.astimezone(ZoneInfo('Europe/Paris')).date()
     journal=inc.lire(cache/'etat_persistant.json',{'chevaux':{}})['chevaux']
     ids={}
     for ident,h in journal.items():ids.setdefault(nom_normalise(h.get('nom')),set()).add(str(ident))
     engagements=[];issues=[]
-    for day in (today,today+timedelta(days=1)):
+    days = (today,) if nocturne else (today, today+timedelta(days=1))
+    for day in days:
         program=inc.lire(cache/'sources_pmu'/f'programme_{day}.json')
         stamp=inc.instant(program.get('date_controle_utc'))
         if not stamp or not timedelta(0)<=now-stamp<=timedelta(hours=6):
@@ -34,7 +35,7 @@ def evaluer(cache, now, state=None):
             pmu_ok=bool(captured and timedelta(0)<=now-captured<=timedelta(hours=6)
                         and (not c.get('nombre_declares') or len(horses)==int(c['nombre_declares'])))
             created=None
-            if day==today:
+            if day == today and not nocturne:
                 prediction=inc.lire(cache/'pronostics'/f'{code}_direct.json')
                 created=inc.instant(prediction.get('calcul_utc'))
                 if not created or not created<depart or len(prediction.get('top3',[]))!=3:
@@ -84,8 +85,8 @@ def evaluer(cache, now, state=None):
             'couverture_par_jour':by_day,'blocages':issues,'engagements':engagements}
 
 
-def appliquer(cache,state,now):
-    report=evaluer(cache,now,state)
+def appliquer(cache,state,now,*,nocturne=False):
+    report=evaluer(cache,now,state,nocturne=nocturne)
     for h in state['chevaux'].values():h['depart_a_venir_utc']=None
     for row in sorted(report['engagements'],key=lambda r:r['depart_utc']):
         h=state['chevaux'].get(row['cle_file'])
@@ -99,12 +100,12 @@ def appliquer(cache,state,now):
     return state
 
 
-def decision_fond(cache,now,*,reserve=False):
+def decision_fond(cache,now,*,reserve=False,nocturne=False):
     """Observer la même file que le worker, sans écrire ni lever un délai de réessai."""
     cache=Path(cache)
     state=inc.alimenter(cache,now,sauvegarder=False)
     state['passage_utc']=now.isoformat()
-    appliquer(cache,state,now)
+    appliquer(cache,state,now,nocturne=nocturne)
     report=state['preparation_prochaines_courses']
     result={'controle_utc':now.isoformat(),'autorise':False,'motif':None,
             'preparation_complete':report['pret'],
@@ -121,7 +122,7 @@ def decision_fond(cache,now,*,reserve=False):
     if pauses:
         result['prochain_acces_geny_utc']=max(pauses).isoformat()
         return refuser('COOLDOWN_GENY_GLOBAL')
-    # La préparation PMU, les prévisions et leurs publications restent obligatoires.
+    # Les contrôles PMU restent obligatoires. La nuit, le TOP3 n'est pas attendu.
     historical={'HISTORIQUE_ABSENT_OU_NON_DATE','PUBLICATION_GENY_EN_ATTENTE',
                 'NOUVELLE_COURSE_OFFICIELLE','FERRURES_HISTORIQUES_A_COMPLETER',
                 'VERIFICATION_PERIODIQUE'}
@@ -163,8 +164,8 @@ def decision_fond(cache,now,*,reserve=False):
     return result
 
 
-def autoriser_fond(cache,now,*,diagnostic=None,reserve=False):
-    report=decision_fond(cache,now,reserve=reserve)
+def autoriser_fond(cache,now,*,diagnostic=None,reserve=False,nocturne=False):
+    report=decision_fond(cache,now,reserve=reserve,nocturne=nocturne)
     if diagnostic:
         import json
         inc.ecrire(diagnostic,report)

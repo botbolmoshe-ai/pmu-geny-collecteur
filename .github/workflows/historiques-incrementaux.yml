@@ -1,7 +1,10 @@
 name: PMU - Historiques incrementaux par cheval
 on:
   schedule:
-    - cron: '5,20,35,50 * * * *'
+    - cron: '12 0-4 * * *'
+      timezone: Europe/Paris
+    - cron: '5,20,35,50 5-23 * * *'
+      timezone: Europe/Paris
   workflow_dispatch:
     inputs:
       max_minutes:
@@ -16,6 +19,8 @@ concurrency:
   group: pmu-donnees-production
   cancel-in-progress: false
   queue: max
+env:
+  COLLECTE_NOCTURNE: ${{ github.event_name == 'schedule' && github.event.schedule == '12 0-4 * * *' }}
 jobs:
   historiques:
     runs-on: ubuntu-latest
@@ -37,7 +42,21 @@ jobs:
           git archive origin/pmu-data | tar -x -C cache_pmu
       - name: Reserver les echeances et respecter la pause avant de charger le navigateur
         id: plan
-        run: python -m pmu_geny.echeances_production --cache cache_pmu --collecte
+        env:
+          EVENEMENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENEMENT" = 'schedule' ] && [ "$COLLECTE_NOCTURNE" != 'true' ]; then
+            case "$(TZ=Europe/Paris date +%H)" in
+              0[0-4])
+                echo 'executer=false' >> "$GITHUB_OUTPUT"
+                echo 'COLLECTE_DIURNE_DIFFEREE CRENEAU_NOCTURNE'
+                exit 0
+                ;;
+            esac
+          fi
+          mode=--collecte
+          if [ "$COLLECTE_NOCTURNE" = 'true' ]; then mode=--collecte-nocturne; fi
+          python -m pmu_geny.echeances_production --cache cache_pmu "$mode"
       - uses: actions/cache@v4
         if: steps.plan.outputs.executer == 'true'
         with:
@@ -60,7 +79,17 @@ jobs:
           import os
           assert 1 <= int(os.environ['MAX_MINUTES']) <= 20
           PY
-          python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier
+          if [ "$COLLECTE_NOCTURNE" = 'true' ]; then
+            SECONDS=0
+            python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier --nocturne
+            if [ "$SECONDS" -lt 540 ]; then
+              python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes 2 --max-chevaux 1 --publier --nocturne
+            else
+              echo 'RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE'
+            fi
+          else
+            python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier
+          fi
       - name: Archiver les diagnostics et le suivi
         if: always()
         uses: actions/upload-artifact@v4
@@ -69,6 +98,7 @@ jobs:
           path: |
             resultats/plan_production.json
             resultats/incremental/
+            resultats/rattrapage/
             resultats/synchronisation/
             cache_pmu/collecte_incrementale/etat.json
           retention-days: 14

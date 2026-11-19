@@ -79,12 +79,28 @@ def besoin_pmu(cache, now):
     return 'ECHEANCE_PMU_PRIORITAIRE' if planifier(cache, now)['executer'] else None
 
 
-def plan_collecte(cache, now):
+def motif_pause_collecte_nocturne(cache, now):
+    # Laisser finir un sous-processus (240 s) et sa sauvegarde avant 05 h.
+    marge = timedelta(minutes=7)
+    heure = now.astimezone(PARIS)
+    fin = heure.replace(hour=5, minute=0, second=0, microsecond=0)
+    if heure.hour >= 5 or now + marge >= fin:
+        return 'HORS_CRENEAU_NOCTURNE'
+    plan = planifier(cache, now)
+    prochain_besoin = instant(plan['prochain_besoin_utc'])
+    if plan['executer'] or (prochain_besoin and prochain_besoin <= now + marge):
+        return 'ECHEANCE_PMU_PRIORITAIRE'
+    return None
+
+
+def plan_collecte(cache, now, *, nocturne=False):
     """Contrôle léger avant installation du navigateur et des dépendances."""
     cache=Path(cache)
-    result={'plan_utc':now.isoformat(),'executer':True,'mode':'HISTORIQUES'}
-    if besoin_pmu(cache,now):
-        return {**result,'executer':False,'motif':'ECHEANCE_PMU_PRIORITAIRE'}
+    result = {'plan_utc': now.isoformat(), 'executer': True,
+              'mode': 'HISTORIQUES_NOCTURNES' if nocturne else 'HISTORIQUES'}
+    motif = (motif_pause_collecte_nocturne(cache, now) if nocturne else besoin_pmu(cache, now))
+    if motif:
+        return {**result,'executer':False,'motif':motif}
     prod=lire(cache/'collecte_incrementale/etat.json')
     back=lire(cache/'rattrapage_historiques/etat.json')
     journal=lire(cache/'etat_persistant.json')
@@ -259,6 +275,7 @@ def main():
     parser.add_argument('--certifier', action='store_true')
     parser.add_argument('--strict', action='store_true')
     parser.add_argument('--collecte', action='store_true')
+    parser.add_argument('--collecte-nocturne', action='store_true')
     parser.add_argument('--preuve-sheets')
     args = parser.parse_args()
     now = datetime.now(timezone.utc)
@@ -266,8 +283,12 @@ def main():
         result = enregistrer_publication(args.cache, now, lire(args.plan), os.getenv('PUBLICATION_REUSSIE')=='true',
                                             sheets=lire(args.preuve_sheets) if args.preuve_sheets else None)
     else:
-        result = plan_collecte(args.cache,now) if args.collecte else planifier(args.cache, now, force=os.getenv('FORCER_AUTO')=='true')
-        if not args.collecte and os.getenv('MODE_PRODUCTION','auto') != 'auto':
+        collecte = args.collecte or args.collecte_nocturne
+        if collecte:
+            result = plan_collecte(args.cache, now, nocturne=args.collecte_nocturne)
+        else:
+            result = planifier(args.cache, now, force=os.getenv('FORCER_AUTO')=='true')
+        if not collecte and os.getenv('MODE_PRODUCTION','auto') != 'auto':
             result.update(executer=True, mode='MANUEL')
         sauver(args.plan, result)
         if os.getenv('GITHUB_OUTPUT'):
