@@ -18,7 +18,7 @@ from .collecte_geny_v4 import diagnostic_acces, dismiss_consent
 def cliquer_nom(cell, nom):
     target = cell.get_by_text(nom, exact=True)
     if target.count() != 1:
-        raise ValueError('NOM_CLIQUABLE_AMBIGU')
+        raise LookupError('NOM_CLIQUABLE_AMBIGU')
     target.click(timeout=8000)
 
 
@@ -70,7 +70,12 @@ def rechercher(horse, page):
     if (not response or response.status != 200 or target.scheme != 'https'
             or target.hostname not in ('geny.com', 'www.geny.com') or target.path.rstrip('/') != '/recherche'):
         raise ValueError('RECHERCHE_GENY_INDISPONIBLE')
-    candidates = candidats_recherche(html, horse['nom'])
+    try:
+        candidates = candidats_recherche(html, horse['nom'])
+    except ValueError as exc:
+        if horse.get('course_url') and horse.get('numero') and str(exc) == 'RECHERCHE_GENY_NON_INTERPRETABLE':
+            return None
+        raise
     if len(candidates) == 1 and horse.get('rapprochement_geny') != 'NOM_AMBIGU':
         return {**next(iter(candidates.values())), 'preuve': 'RECHERCHE_GENY_NOM_EXACT'}
     year = horse.get('annee_naissance_pmu')
@@ -98,17 +103,30 @@ def resolve(horse, out, page=None):
                 return resolve(horse,out,ctx.new_page())
             finally:
                 browser.close()
-    ctx=page.context
-    candidate=horse.get('lien_candidat')
-    if candidate:
-        ident=str(horse.get('id',''))
-        if not re.fullmatch(r'\d{4,15}',ident) or candidate!='https://www.geny.com/cheval/'+ident:
-            raise ValueError('LIEN_CANDIDAT_NON_CONCORDANT')
-    if horse.get('recherche_geny_par_nom') and not candidate:
+    candidate = horse.get('lien_candidat')
+    search_first = horse.get('recherche_geny_par_nom') and not candidate
+    if search_first:
         found = rechercher(horse, page)
         if found:
             return found
         time.sleep(30)
+    try:
+        return ouvrir_source(horse, out, page)
+    except LookupError:
+        if candidate or search_first or horse.get('id'):
+            raise
+        time.sleep(30)
+        # La course a été consultée. Rechercher la fiche sans revenir sur la même page.
+        return rechercher({**horse, 'course_url': ''}, page)
+
+
+def ouvrir_source(horse, out, page):
+    ctx = page.context
+    candidate = horse.get('lien_candidat')
+    if candidate:
+        ident = str(horse.get('id', ''))
+        if not re.fullmatch(r'\d{4,15}', ident) or candidate != 'https://www.geny.com/cheval/'+ident:
+            raise ValueError('LIEN_CANDIDAT_NON_CONCORDANT')
     url = candidate or horse['course_url']
     parsed = urlparse(url)
     if parsed.scheme != 'https' or parsed.hostname not in ('geny.com', 'www.geny.com'):
@@ -127,7 +145,13 @@ def resolve(horse, out, page=None):
     expected = re.search(r'/course/(\d+)', url)
     actual = re.search(r'/course/(\d+)', page.url)
     if not response or response.status != 200 or not expected or not actual or expected[1] != actual[1]:
-        raise ValueError('COURSE_GENY_NON_CONFIRMEE')
+        raise LookupError('COURSE_GENY_NON_CONFIRMEE')
+    from .liens_geny_course import extraire
+    proof = extraire([], page.content(), horse.get('engagement'), url, datetime.now(timezone.utc).isoformat())
+    found = proof.get('chevaux', {}).get(str(horse['numero']))
+    if found and nom_normalise(found['nom']) == nom_normalise(horse['nom']):
+        (out/'liens_course.json').write_text(json.dumps(proof, ensure_ascii=False, indent=2), encoding='utf-8')
+        return {**found, 'preuve': 'COURSE_GENY_VERIFIEE', 'homonymes': horse.get('homonymes_geny', [])}
     dismiss_consent(page)
     deadline = time.monotonic() + 20
     matched = []
@@ -142,7 +166,7 @@ def resolve(horse, out, page=None):
         matched = [row for row in matched if str(row['numero']) == str(horse['numero'])]
     if len(matched) != 1 or str(matched[0]['numero']) != str(horse['numero']):
         (out/'diagnostic_resolution.html').write_text(page.content(), encoding='utf-8')
-        raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
+        raise LookupError('FICHE_EXACTE_NON_IDENTIFIEE')
     from .liens_geny_course import extraire
     proof=extraire(get_rows(page),page.content(),horse.get('engagement'),url,
                   datetime.now(timezone.utc).isoformat())
@@ -161,7 +185,7 @@ def resolve(horse, out, page=None):
             page.wait_for_timeout(250)
     match = re.search(r'/cheval/(\d+)', direct or '')
     if not match or urlparse(direct).hostname not in ('geny.com', 'www.geny.com'):
-        raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
+        raise LookupError('FICHE_EXACTE_NON_IDENTIFIEE')
     return {'id': match[1], 'nom': matched[0]['nom'], 'preuve': 'COURSE_GENY_VERIFIEE',
             'url_geny': direct.replace('https://geny.com/', 'https://www.geny.com/'),
             'homonymes': horse.get('homonymes_geny', [])}

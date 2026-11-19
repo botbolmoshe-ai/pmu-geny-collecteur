@@ -198,6 +198,10 @@ def alimenter(cache, now, *, sauvegarder=True):
                 previous = instant(horse.get('derniere_course_officielle_utc'))
                 if not previous or departure > previous:
                     horse['derniere_course_officielle_utc'] = departure.isoformat()
+            horse['rapprochement_geny'] = method
+            horse['annee_naissance_pmu'] = year
+            horse['recherche_geny_par_nom'] = bool(not horse.get('id') and not horse.get('geny')
+                                                     and not horse.get('course_url') and method != 'NOM_AMBIGU')
             horse['motif_actualisation'] = actualisation_requise(horse, now)
             if horse.get('collecte') == 'EN_COURS':
                 horse['collecte'] = 'A_REPRENDRE'
@@ -264,7 +268,7 @@ def prochaine_tache(state, now, attempts):
         retry = instant(h.get('prochain_essai_utc'))
         if attempts.get(('COLLECTE', key), 0) >= 1 or retry and now < retry:
             continue
-        if not h.get('geny') and not h.get('course_url'):
+        if not (h.get('geny') or h.get('course_url') or h.get('recherche_geny_par_nom')):
             h['collecte'] = 'LIEN_GENY_A_RESOUDRE'
             continue
         # La nuit, combler les carrières absentes avant les actualisations.

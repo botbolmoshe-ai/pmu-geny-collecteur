@@ -54,6 +54,11 @@ def correspondances():
     return entries
 
 
+@lru_cache(maxsize=1)
+def courses_verifiees():
+    return json.loads(REGISTRE.read_text(encoding='utf-8')).get('courses_verifiees', [])
+
+
 def qualifier_observation(record):
     """Conserver la provenance ; appliquer seulement une liaison déjà vérifiée."""
     record = dict(record)
@@ -147,13 +152,15 @@ class IndexGeny:
                     ident = str(horse.get('id', ''))
                     self.ajouter(horse.get('nom'), ident, horse.get('url_geny'),
                                  'MANIFESTE_GENY', path.stem, horse.get('numero'))
-        for path in (self.cache/'sources_geny/liens').glob('*.json'):
-            proof = load(path, {}) or {}
-            from .historiques_incrementaux import instant
+        from .historiques_incrementaux import instant
+        proofs = [(path.stem, load(path, {}) or {})
+                  for path in (self.cache/'sources_geny/liens').glob('*.json')]
+        proofs.extend((proof['engagement'], proof) for proof in courses_verifiees())
+        for engagement, proof in proofs:
             stamp = instant(proof.get('capture_utc'))
             source = urlparse(proof.get('source_url') or '')
             match = re.match(r'/course/(\d+)(?:\D|$)', source.path)
-            if (proof.get('engagement') != path.stem or proof.get('http') != 200 or not stamp
+            if (proof.get('engagement') != engagement or proof.get('http') != 200 or not stamp
                     or stamp > datetime.now(timezone.utc) or source.scheme != 'https'
                     or source.hostname not in ('geny.com', 'www.geny.com')
                     or not match or match[1] != str(proof.get('course_geny_id'))):
