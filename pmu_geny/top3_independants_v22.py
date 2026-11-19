@@ -8,6 +8,7 @@ from pathlib import Path
 from .ml_v19 import load, save
 from .auto_v18 import _list, _num
 from .cotes_v19 import calculer_cotes, collecter
+from .departs_trot import POIDS_FORME_MEME_DEPART
 from .profils_partants import (
     CRACK, HAUT_POTENTIEL, PRIORITE, VERSION_PROFILS,
     detecter_crack, detecter_haut_potentiel, sorties_verifiees,
@@ -175,7 +176,7 @@ def _calculer_direct(cache, course, raw, now, clock):
         def score_experimental(horse):
             base_score = horse['score_direct']
             shape = horse.get('forme_geny_meme_depart', base_score)
-            return base_score + 0.10 * (shape - base_score)
+            return base_score + POIDS_FORME_MEME_DEPART * (shape - base_score)
 
         candidate = sorted(ranking, key=lambda horse: (
             -score_experimental(horse),
@@ -183,7 +184,7 @@ def _calculer_direct(cache, course, raw, now, clock):
             horse['numero'],
         ))
         doc['candidat_depart'] = {
-            'poids': 0.10,
+            'poids': POIDS_FORME_MEME_DEPART,
             'top3': [horse['numero'] for horse in candidate[:3]],
             'partants_avec_forme_meme_depart': sum('forme_geny_meme_depart' in horse for horse in ranking),
         }
