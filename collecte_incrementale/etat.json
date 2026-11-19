@@ -53433,17 +53433,29 @@
       "recherche_geny_par_nom": false,
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-19T17:02:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "erreur": "PermissionError: ACCES_REFUSE_403",
+      "prochain_essai_utc": "2026-11-19T22:59:09.498593+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-19T16:59:09.498617+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [
+          "ACCES_REFUSE_403"
+        ],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2782453/1795107542917615576/resultat.json"
+      }
     }
   },
   "passage_utc": "2026-11-19T16:58:58.247733+00:00",
-  "maj_utc": "2026-11-19T16:58:59.123254+00:00",
+  "maj_utc": "2026-11-19T16:59:09.505689+00:00",
   "bilan": {
     "chevaux_suivis": 1881,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1683
   },
@@ -53455,7 +53467,7 @@
       "indicateurs_verifies": 128
     }
   },
-  "prochain_acces_geny_utc": "2026-11-18T09:15:32.694462+00:00",
+  "prochain_acces_geny_utc": "2026-11-19T17:29:09.498636+00:00",
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
