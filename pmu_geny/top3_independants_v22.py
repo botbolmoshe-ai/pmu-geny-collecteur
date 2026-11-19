@@ -65,13 +65,8 @@ def _calculer_direct(cache, course, raw, now, clock):
     from .partants_actuels_v21 import extraire_partants
     profils=extraire_partants(raw)
     # Les critères courants proviennent exclusivement du relevé PMU fourni.
-    identites=[]
-    for partant in participants:
-        if not isinstance(partant,dict):continue
-        num=_num(partant,'numPmu','num','numero','numeroPmu')
-        nom=next((str(partant.get(k,'')).strip() for k in ('nomCheval','nom','nomParticipant')
-                  if isinstance(partant.get(k),str) and partant.get(k).strip()),'')
-        if num is not None and nom:identites.append({'numero':num,'nom':nom})
+    identites=[{'numero':numero,'nom':profil['nom']}
+               for numero,profil in profils.items() if profil.get('nom')]
     # Un nom exact unique ou un identifiant Geny confirme est obligatoire.
     liens=etablir(cache,course,identites)
     base=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}"
@@ -99,8 +94,8 @@ def _calculer_direct(cache, course, raw, now, clock):
             known_np.discard(n)  # Nouvelle confirmation explicite PMU.
         if n in known_np:continue
         eligible.append(n)
-        label=next((str(item.get(k,'')) for k in ('nomCheval','nom','nomParticipant') if item.get(k)),'')
         profil = profils.get(n, {})
+        label = profil.get('nom', '')
         lien = liens.get(str(n), {})
         info=noter_partant(item,course,lien,profil)
         if label:

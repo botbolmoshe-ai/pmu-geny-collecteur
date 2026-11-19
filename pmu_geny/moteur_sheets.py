@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from urllib.parse import quote
 
-from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, afficher_instant, date_kind, depuis_nombre, meme_date_sheets, vers_nombre
+from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, afficher_instant, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
 
 from .controle_sync_sheets import HISTORY,lire_cles_independantes,verifier_avant,verifier_apres
 from .lectures_sheets import get_lecture
@@ -218,16 +218,19 @@ class SynchroniseurSheets:
                     'fields': 'pixelSize',
                 }},
             ])
-        staged = {(row, col): vers_nombre(effective_headers[col - 1], value)
+        encoder = vers_nombre if tab == HISTORY else vers_cellule_operationnelle
+        staged = {(row, col): encoder(effective_headers[col - 1], value)
                   for row, col, value in updates}
         if allow_structure:
             for row_number, raw in enumerate(values[1:], start=2):
                 for col, (field, value) in enumerate(zip(headers, raw), start=1):
-                    converted = vers_nombre(field, value)
+                    if tab != HISTORY and date_kind(field) == "DATE_TIME":
+                        continue  # La représentation d'un instant existant ne motive aucune réécriture.
+                    converted = encoder(field, value)
                     if converted != value:
                         staged.setdefault((row_number, col), converted)
         updates = [(row, col, value) for (row, col), value in staged.items()]
-        appends = [[vers_nombre(field, value) for field, value in zip(effective_headers, row)]
+        appends = [[encoder(field, value) for field, value in zip(effective_headers, row)]
                    for row in appends]
         if (any(date_kind(field) for field in extra)
                 or any(date_kind(effective_headers[col - 1]) for _, col, _ in updates)

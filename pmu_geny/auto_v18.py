@@ -418,7 +418,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 if pmu_participants is None:
                     raise ValueError(error or 'PARTICIPANTS_PMU_ABSENTS')
                 from .resultats_v18 import enregistrer_resultats
-                entry['statut_arrivee']=enregistrer_resultats(cache,c,pmu_participants)
+                entry['statut_arrivee']=enregistrer_resultats(cache,c,pmu_participants,observe=observed)
                 entry['etat']='ARRIVEE_PMU_SANS_GENY'
             except Exception as exc:
                 entry['statut_arrivee']='ARRIVEE_NON_VERIFIEE'
@@ -454,7 +454,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         if est_partie and raw is not None:
             try:
                 from .resultats_v18 import enregistrer_resultats
-                entry['statut_arrivee']=enregistrer_resultats(cache,c,raw)
+                entry['statut_arrivee']=enregistrer_resultats(cache,c,raw,observe=observed)
             except (NameError,ValueError,TypeError) as exc:
                 entry['statut_arrivee']='ARRIVEE_NON_VERIFIEE'
                 entry['erreur_arrivee']=str(exc)

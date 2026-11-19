@@ -51,7 +51,12 @@ class MatchingTests(unittest.TestCase):
                 str(n):{'nom':f'CHEVAL {n}','age_ans':4,'statut_np':'PARTANT'} for n in range(1,7)}})
             save(root/'arrivees'/f'{day}_{code}.json',self.arr)
             save(root/'pronostics'/f'{day}_{code}_direct.json',self.pred([2,4,1]))
-            save(root/'pronostics'/f'{day}_{code}_ml_latest.json',self.pred([4,5,6]))
+            ml = self.pred([4,5,6])
+            ml['top3'][0]['nom'] = 'NOM ENTRAINEUR'
+            frozen_file = root/'pronostics'/f'{day}_{code}_ml_latest.json'
+            save(frozen_file, ml)
+            frozen_before = frozen_file.read_bytes()
+            save(root/'pronostics'/f'{day}_{code}_cotes.json', self.pred([1,2,3]))
             output=source_rows(root)
             item=next(iter(output['Résultats & Analyse'].values()))
             runners={row['numero']:row for row in output['Courses & Prévisions'].values()}
@@ -73,6 +78,8 @@ class MatchingTests(unittest.TestCase):
             self.assertEqual(item['matching_direct_pct'],66.67)
             self.assertEqual(item['matching_ml_pct'],0)
             self.assertTrue(item['conclusion'].startswith('Meilleure méthode : Direct'))
+            self.assertEqual(item['score_cotes'], 3)
+            self.assertEqual(frozen_file.read_bytes(), frozen_before)
             save(root/'pronostics'/f'{day}_{code}_direct.json',self.pred([4,5,6]))
             item=next(iter(source_rows(root)['Résultats & Analyse'].values()))
             self.assertTrue(item['conclusion'].startswith('Échec commun'))

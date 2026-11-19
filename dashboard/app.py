@@ -34,7 +34,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.7 · Dates et heures")
+st.caption("Version interface : 2026.11.19.8 · Identités et horaires")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -67,7 +67,7 @@ except Exception:
     st.error("Registre inaccessible ou configuration incompatible. Aucune donnée simulée.")
     st.stop()
 now=datetime.now(timezone.utc)
-st.caption("Registre lu à "+afficher_instant(loaded)+" · fraîcheur des fiches distincte")
+st.caption("Registre lu à "+afficher_instant(loaded)+" (Paris) · fraîcheur des fiches distincte")
 page=st.radio("Navigation",["Accueil","Courses","Résultats","Performance","Qualité"],horizontal=True,label_visibility="collapsed")
 if page in ("Accueil","Courses","Résultats"):
     dates=sorted({str(r.get("Date")) for r in courses if r.get("Date")})
@@ -210,11 +210,20 @@ elif page=="Résultats":
             "ML":r.get("TOP3 ML · Chevaux"),"ML · Noms":r.get("TOP3 ML · Noms"),
             "Podium enregistré":r.get("Arrivée · N° officiels"),"Podium · Noms":r.get("Arrivée · Noms officiels"),
             "Direct (%)":result_matching(r,"direct",now),
-            "ML (%)":result_matching(r,"ml",now),"État":r.get("Évaluation · État"),"ML statut":r.get("ML · Statut")}
+            "ML (%)":result_matching(r,"ml",now),"État":r.get("Évaluation · État"),"ML statut":r.get("ML · Statut"),
+            "Départ prévu (Paris)":afficher_instant(r.get("Départ (Paris)")),
+            "Arrivée lue dans le flux PMU (Paris)":afficher_instant(r.get("Arrivée · Vérifiée UTC")),
+            "Conclusion Direct / ML":r.get("Évaluation · Conclusion")}
         for mode in ("direct", "ML"):
             for field in ("N°", "Nom", "Rang officiel", "Verdict"):
                 key = f"Gagnant potentiel {mode} · {field}"
                 row[key] = r.get(key) or None
+            key = f"Gagnant potentiel {mode} · Nom"
+            top3 = "TOP3 direct" if mode == "direct" else "TOP3 ML"
+            names = str(r.get(top3 + " · Noms") or "").split(" · ")
+            numbers = str(r.get(top3 + " · Chevaux") or "").split(",")
+            winner = number(r.get(f"Gagnant potentiel {mode} · N°"))
+            row[key] = names[0] if winner and winner == number(numbers[0]) and len(names) == 3 else None
         table.append(row)
     if not table: st.info("Aucun bilan enregistré.")
     else:
