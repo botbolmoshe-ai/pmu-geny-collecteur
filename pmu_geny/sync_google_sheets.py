@@ -910,10 +910,12 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, raw
         end=min(height,start+page_rows-1)
         name="'"+tab.replace("'","''")+"'!A"+str(start)+":"+colname(width)+str(end)
         pages.append((name,start,end))
-    # Trois pages par appel limitent le volume tout en réduisant le quota de
-    # requêtes. Les contrôles étroits de clés restent une lecture distincte.
-    for offset in range(0,len(pages),3):
-        group=pages[offset:offset+3]
+    # Les historiques sont étroits et contiennent souvent des pages vides.
+    # Regrouper davantage de pages dans ce cas en bornant le nombre de
+    # cellules demandé. Le contrôle indépendant des clés reste séparé.
+    pages_par_appel = max(1, min(10, 360_000 // (width * page_rows)))
+    for offset in range(0,len(pages),pages_par_appel):
+        group=pages[offset:offset+pages_par_appel]
         params = {'ranges': [p[0] for p in group], 'majorDimension': 'ROWS'}
         params['valueRenderOption'] = 'UNFORMATTED_VALUE'
         response=get_lecture(session,base+'/values:batchGet',params=params,timeout=60)

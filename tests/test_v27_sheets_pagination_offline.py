@@ -30,6 +30,29 @@ class PaginationTests(unittest.TestCase):
         _,updates,appends=plan_sheet(values[0],existing,{'x':{'cle_performance':'id|date|piste','cheval':'TEST','classement':'3'}},'Historique chevaux')
         self.assertEqual(updates,[]);self.assertEqual(appends,[])
 
+    def test_groupe_les_pages_et_conserve_les_trous_entre_appels(self):
+        class Session:
+            def __init__(self):
+                self.calls = []
+
+            def get(self, url, **kwargs):
+                ranges = kwargs['params']['ranges']
+                self.calls.append(ranges)
+                values = []
+                for name in ranges:
+                    cell = name.split('!')[1]
+                    rows = {'A1:J2000': [['cle_performance']],
+                            'A20001:J22000': [['carriere']]}.get(cell, [])
+                    values.append({'range': name, 'values': rows})
+                return Response(200, {'valueRanges': values})
+
+        session = Session()
+        values = lire_feuille_complete(session, 'base', 'Historique chevaux',
+                                      {'gridProperties': {'rowCount': 22000, 'columnCount': 10}})
+        self.assertEqual([len(ranges) for ranges in session.calls], [10, 1])
+        self.assertEqual(values[19999], [])
+        self.assertEqual(values[20000], ['carriere'])
+
     def test_page_incomplete_arrete_lecture(self):
         class Session:
             def get(self,url,**kwargs):return Response(403,[])
