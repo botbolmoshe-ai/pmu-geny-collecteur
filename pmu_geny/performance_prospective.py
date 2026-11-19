@@ -69,10 +69,15 @@ def mesurer(cache, now=None):
     for key in sorted(paired.keys() | direct.keys()):
         certificate = lire(paired[key]) if key in paired else {}
         direct_certificate = lire(direct[key]) if key in direct else certificate
-        departure = instant((certificate or direct_certificate).get('depart'))
+        paired_departure = instant(certificate.get('depart'))
+        direct_departure = instant(direct_certificate.get('depart'))
         arrival = lire(cache / 'arrivees' / f'{key}.json')
         checked = instant(arrival.get('verifie_utc'))
-        if not departure or not checked or not departure < checked <= now:
+        if not checked or checked > now:
+            continue
+        paired_ready = paired_departure is not None and paired_departure < checked
+        direct_ready = direct_departure is not None and direct_departure < checked
+        if not (paired_ready or direct_ready):
             continue
         if arrival.get('source') != 'PMU_API_PARTICIPANTS':
             rejected.append({'course': key, 'motif': 'SOURCE_ARRIVEE_NON_VERIFIEE'})
@@ -86,7 +91,7 @@ def mesurer(cache, now=None):
             rejected.append({'course': key, 'motif': str(exc) or 'ARRIVEE_INVALIDE'})
             continue
         try:
-            comparison = evaluer_depart(cache, key, direct_certificate, departure, podium)
+            comparison = evaluer_depart(cache, key, direct_certificate, direct_departure, podium) if direct_ready else None
             if comparison:
                 direct_evaluable += 1
                 base, alternate = comparison
@@ -94,16 +99,16 @@ def mesurer(cache, now=None):
                     depart_baseline[key], depart_candidate[key] = base, alternate
         except (AttributeError, KeyError, ValueError, TypeError) as exc:
             depart_rejected.append({'course': key, 'motif': str(exc) or 'VARIANTE_DEPART_INVALIDE'})
-        if not certificate:
+        if not paired_ready:
             continue
         try:
             scores, versions = {}, {}
             for kind in ('direct', 'ml'):
                 proof = certificate['versions'][kind]
-                _, numbers = prevision_publiee(cache, key, kind, proof, departure)
+                _, numbers = prevision_publiee(cache, key, kind, proof, paired_departure)
                 scores[kind] = len(numbers & podium)
                 versions[kind] = proof['sha256']
-            results.append({'course': key, 'depart': departure.isoformat(), 'arrivee_verifiee_utc': checked.isoformat(),
+            results.append({'course': key, 'depart': paired_departure.isoformat(), 'arrivee_verifiee_utc': checked.isoformat(),
                             'scores': scores, 'versions': versions,
                             'empreinte_modele': certificate['versions']['ml'].get('empreinte_modele')})
         except (AttributeError, KeyError, ValueError, TypeError) as exc:

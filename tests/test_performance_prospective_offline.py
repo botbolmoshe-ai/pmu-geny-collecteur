@@ -79,4 +79,38 @@ class ProspectiveTests(unittest.TestCase):
         self.assertEqual(p['ferrure_qualification'],'CONVENTION_PMU')
 
 
+    def test_report_de_depart_ne_melange_pas_les_horaires_des_attestations(self):
+        new_departure = self.depart + timedelta(minutes=30)
+        readback = new_departure - timedelta(minutes=5)
+        doc = lire(self.cache / self.certificate['versions']['direct']['fichier'])
+        doc.update(
+            depart=new_departure.isoformat(),
+            calcul_utc=(readback - timedelta(minutes=1)).isoformat(),
+            classement_complet=[{'numero': n} for n in (1, 2, 3, 4, 5)],
+            candidat_depart={'poids': 0.10, 'top3': [1, 2, 3], 'partants_avec_forme_meme_depart': 2},
+        )
+        path = self.cache / 'pronostics' / 'versions' / f'{self.key}_direct_report.json'
+        sauver(path, doc)
+        direct_proof = {
+            'fichier': str(path.relative_to(self.cache)),
+            'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+            'calcul_utc': doc['calcul_utc'],
+            'lecture_sheets_utc': readback.isoformat(),
+            'publication_utc': readback.isoformat(),
+        }
+        sauver(self.cache / 'publications' / 'direct' / f'{self.key}.json', {
+            'depart': new_departure.isoformat(), 'versions': {'direct': direct_proof},
+        })
+
+        report = mesurer(self.cache, self.now)
+        self.assertEqual(report['courses'], 1)
+        self.assertEqual(report['resultats'][0]['depart'], self.depart.isoformat())
+        self.assertEqual(report['candidat_depart']['courses'], 1)
+        self.assertEqual(report['candidat_depart']['moyenne'], 3)
+
+        arrival = self.cache / 'arrivees' / f'{self.key}.json'
+        sauver(arrival, {**lire(arrival), 'verifie_utc': new_departure.isoformat()})
+        self.assertEqual(mesurer(self.cache, self.now)['candidat_depart']['courses'], 0)
+
+
 if __name__=='__main__':unittest.main()
