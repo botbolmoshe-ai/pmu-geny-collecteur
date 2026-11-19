@@ -497,8 +497,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                 state.update(collecte_tentee_utc=stamp, sync_kpi='A_REPRENDRE')
                 if creneau_reserve and creneau_reserve():
                     state.update(dernier_creneau_reserve_utc=stamp, creneau_reserve=True)
-            if not horse.get('id'):
-                attempts[('NOM', nom_normalise(horse.get('nom')))] = 1
+            if reprise:
+                attempts[reprise.cle_travail_geny(horse)] = 1
             horse['collecte'] = 'EN_COURS'
             save()  # Reprise sûre, même si le sous-processus est tué.
             out = Path('resultats/incremental')/key/str(time.time_ns())
@@ -547,6 +547,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': '403' if '403' in str(exc) else '429'}
                     ecrire(cache/'etat_persistant.json', journal)
                 # Un échec réseau ne rend pas le lien déjà résolu périmé.
+            if reprise:
+                attempts[reprise.cle_travail_geny(horse)] = 1
             count += 1
             save()  # Publier les données AVANT toute écriture Sheets.
             if horse.get('sync') != 'A_FAIRE':

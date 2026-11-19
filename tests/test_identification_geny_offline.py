@@ -67,6 +67,22 @@ class IdentificationGenyTests(unittest.TestCase):
         self.assertEqual(link['1']['cheval_id'], '123456')
         self.assertEqual(link['1']['historique'], {})
 
+    def test_retry_is_shared_across_engagements_of_one_confirmed_id(self):
+        from datetime import timedelta
+
+        retry = self.now + timedelta(hours=6)
+        inc.ecrire(self.cache/back.INVENTAIRE, {'capture_utc': self.now.isoformat(), 'chevaux': []})
+        inc.ecrire(self.cache/back.QUEUE, {'version': 1, 'inventaire_id': 'fige', 'chevaux': {
+            'old': {**self.horse, 'engagement': '2020-01-01_R1C1', 'prochain_essai_utc': retry.isoformat()},
+            'new': {**self.horse, 'engagement': '2020-01-02_R1C2', 'numero': 2},
+        }})
+        state = back.preparer(self.cache, self.now)
+        self.assertEqual(state['chevaux']['new']['prochain_essai_utc'], retry.isoformat())
+        self.assertEqual(back.prochaine_tache(state, self.now, {}), (None, 'TERMINE_PASSAGE'))
+        self.assertEqual(back.prochaine_tache(state, retry, {})[1], 'COLLECTE')
+        self.assertEqual(back.prochaine_tache(state, retry, {('IDENTIFIANT', '123456'): 1}),
+                         (None, 'TERMINE_PASSAGE'))
+
     def test_geny_search_checks_exact_query_and_keeps_homonyms(self):
         names = [('123456', 'Étoile du Nord'), ('234567', 'Etoile du Nord'),
                  ('345678', 'Étoile du Nord II')]

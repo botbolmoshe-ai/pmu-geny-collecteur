@@ -8,6 +8,7 @@ import os
 import re
 from collections import Counter
 from datetime import datetime, timedelta
+from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -346,6 +347,12 @@ def preparer(cache,now):
         retry=inc.instant(h.get('prochain_essai_utc'))
         name=nom_normalise(h.get('nom'))
         if retry and name:retries[name]=max(retries.get(name,retry),retry)
+
+    @lru_cache(maxsize=None)
+    def capture(ident):
+        return inc.capture_valide(cache, ident) if ident else None
+
+    from .ferrures_geny import manquantes
     from .preparation_prochaines import evaluer
     future=evaluer(cache,now)['engagements']
     state['noms_partants_proteges']=sorted({nom_normalise(h['nom']) for h in future})
@@ -386,8 +393,7 @@ def preparer(cache,now):
             if len(numbers)==1:
                 h['numero']=next(iter(numbers));h['numero_reconcilie_depuis_snapshot']=True
         h.setdefault('sync','SANS_MODIFICATION')
-        from .ferrures_geny import manquantes
-        cached=inc.capture_valide(cache,h['id']) if h.get('id') else None
+        cached = capture(h.get('id'))
         h['ferrures_manquantes']=manquantes(cached) if cached else 0
         cached_stamp=inc.instant(cached.get('extrait_utc')) if cached else None
         trusted=bool(cached_stamp and cached_stamp<=now and h.get('nom') and not h.get('conflit_identite')
@@ -409,7 +415,9 @@ def preparer(cache,now):
                 h['annee_naissance_pmu'] = int(canonical[:4]) - int(runner['age_ans'])
         if not h.get('id') and not h.get('identifiant_externe_non_reconcilie') and not h.get('conflit_identite'):
             source = re.search(r'/course/(\d+)', str(h.get('course_url') or ''))
-            duplicate = len(observed_numbers.get((name, canonical), ())) > 1
+            pmu_numbers = [number for number, runner in pmu_partants.get(canonical, {}).items()
+                           if nom_normalise(runner.get('nom')) == name]
+            duplicate = len(set(pmu_numbers) | observed_numbers.get((name, canonical), set())) > 1
             link, method = index.resoudre(h.get('nom'), 'GENY-'+source[1] if source else None,
                                           h.get('numero'), nom_repris=duplicate, annee=h.get('annee_naissance_pmu'))
             if link:
@@ -430,7 +438,7 @@ def preparer(cache,now):
         h['recherche_geny_par_nom'] = not bool(h.get('id')) and bool(name)
         if h.get('geny') or url_course(h.get('course_url')) and h.get('numero'):
             h.pop('lien_candidat',None)
-        ident=h.get('id','');doc=inc.capture_valide(cache,ident) if ident else None
+        ident=h.get('id','');doc=capture(ident)
         h['ferrures_manquantes']=manquantes(doc) if doc else 0
         stamp=inc.instant(doc.get('extrait_utc')) if doc else None
         if h.get('conflit_identite') or h.get('identifiant_externe_non_reconcilie') or not h.get('nom'):
@@ -456,11 +464,18 @@ def preparer(cache,now):
                 if not h.get('lien_candidat'):h['collecte']='LIEN_GENY_A_RESOUDRE'
         if h['ferrures_manquantes']:
             h['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
+    deadlines = {}
     for h in state['chevaux'].values():
-        retry=retries.get(nom_normalise(h.get('nom')))
-        own=inc.instant(h.get('prochain_essai_utc'))
-        if h.get('motif_actualisation') and retry and retry>now and (not own or retry>own):
-            h['prochain_essai_utc']=retry.isoformat()
+        task = cle_travail_geny(h)
+        retry = inc.instant(h.get('prochain_essai_utc'))
+        if retry and retry > now:
+            deadlines[task] = max(deadlines.get(task, retry), retry)
+    for h in state['chevaux'].values():
+        applicable = (retries.get(nom_normalise(h.get('nom'))), deadlines.get(cle_travail_geny(h)))
+        retry = max((stamp for stamp in applicable if stamp), default=None)
+        own = inc.instant(h.get('prochain_essai_utc'))
+        if h.get('motif_actualisation') and retry and retry > now and (not own or retry > own):
+            h['prochain_essai_utc'] = retry.isoformat()
     groups={}
     for key,h in state['chevaux'].items():
         h.pop('cible_equivalente_a',None)
@@ -486,6 +501,17 @@ def preparer(cache,now):
     return state
 
 
+def cle_travail_geny(horse):
+    ident = horse.get('id')
+    if ident:
+        return ('IDENTIFIANT', ident)
+    name = nom_normalise(horse.get('nom'))
+    if horse.get('rapprochement_geny') == 'NOM_AMBIGU':
+        year = horse.get('annee_naissance_pmu')
+        return ('HOMONYME', name, year or contexte_verifiable(horse))
+    return ('NOM', name)
+
+
 def prochaine_tache(state,now,attempts):
     # Une publication en échec est reprise sans nouvelle consultation Geny.
     for key,h in state['chevaux'].items():
@@ -506,7 +532,7 @@ def prochaine_tache(state,now,attempts):
         if h.get('rapprochement_geny') == 'NOM_AMBIGU' and not (h.get('course_url') and h.get('numero')):continue
         retry=inc.instant(h.get('prochain_essai_utc'))
         if attempts.get(('COLLECTE',key),0) or retry and retry>now:continue
-        if not h.get('id') and attempts.get(('NOM', nom_normalise(h.get('nom')))):continue
+        if attempts.get(cle_travail_geny(h)):continue
         priority=0 if h.get('geny') else 1 if h.get('course_url') else 2
         night=inc.priorite_engagement(h,now,manquant=True) if inc.nuit_collecte(now) else 0
         # Une carrière absente/partielle passe avant une carrière déjà complète
