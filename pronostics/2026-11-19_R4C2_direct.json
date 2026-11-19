@@ -3,7 +3,7 @@
   "course": "R4C2",
   "depart": "2026-11-19T17:25:00+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-19T14:55:16.714177+01:00",
+  "donnees_observees_utc": "2026-11-19T15:57:48.868898+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [
     3
@@ -99,16 +99,18 @@
     {
       "numero": 9,
       "nom": "JIM CADE",
-      "score_direct": 1.2316,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
+      "score_direct": 1.2068,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
       "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
+      "historique_exploitable": 16,
+      "distance_proche": 10,
+      "comparabilite_moyenne": 0.3331,
+      "ferrures_historiques_comparees": 16,
       "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
+      "identifiant_historique": "2740077",
+      "forme_geny_meme_depart": 1.6132,
+      "sorties_geny_meme_depart": 3
     },
     {
       "numero": 10,
@@ -269,7 +271,10 @@
       "crack": null,
       "gains_carriere_euros": 101790.0,
       "haut_potentiel": null,
-      "sorties_verifiees": 0
+      "sorties_verifiees": 16,
+      "historique_extrait_utc": "2026-11-19T13:57:09.448643+00:00",
+      "source_historique": "https://www.geny.com/cheval/2740077-jim-cade/course/1699037",
+      "identifiant_historique": "2740077"
     },
     "10": {
       "nom": "KEEPSAKE MOSSA",
@@ -283,13 +288,22 @@
       "identifiant_historique": "2781545"
     }
   },
+  "candidat_depart": {
+    "poids": 0.1,
+    "top3": [
+      4,
+      1,
+      5
+    ],
+    "partants_avec_forme_meme_depart": 1
+  },
   "couverture_sources": {
     "pmu_musique": 9,
-    "geny_historique": 8,
-    "pmu_seul": 1,
+    "geny_historique": 9,
+    "pmu_seul": 0,
     "sans_score": 0,
     "effectif_declare_confirme": true
   },
-  "calcul_utc": "2026-11-19T14:55:23.484414+01:00",
+  "calcul_utc": "2026-11-19T15:57:56.306489+01:00",
   "premier_calcul_utc": "2026-11-19T00:12:50.140923+01:00"
 }
