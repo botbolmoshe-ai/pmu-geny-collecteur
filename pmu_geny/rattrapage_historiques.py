@@ -48,7 +48,7 @@ def url_course(url):
     return parsed.scheme=='https' and parsed.hostname in ('geny.com','www.geny.com') and bool(re.match(r'/course/\d+',parsed.path))
 
 
-def inventaire_local(cache,sheets):
+def inventaire_local(cache,sheets, *, index=None):
     """Toutes les dates, NP inclus ; un nom ambigu n'est pas un identifiant."""
     cache=Path(cache);records=[]
     journal=inc.lire(cache/'etat_persistant.json',{'chevaux':{}})['chevaux']
@@ -81,7 +81,8 @@ def inventaire_local(cache,sheets):
             records.append({'nom':h.get('nom',''),'numero':str(number),'engagement':file.stem,
                             'course_url':course_url,'origine':'PMU:'+file.stem})
     records.extend(sheets.get('chevaux',[]))
-    from .identites_chevaux import qualifier_observation
+    from .identites_chevaux import IndexGeny, qualifier_observation
+    index = index or IndexGeny(cache, observations=sheets.get('chevaux', []))
     by_id={};unknown=[]
     def merge(target,record):
         name=record.get('nom','')
@@ -112,19 +113,15 @@ def inventaire_local(cache,sheets):
         if re.fullmatch(r'\d{4,15}',ident):
             merge(by_id.setdefault(ident,{'id':ident,'nom':''}),record)
         elif record.get('nom'):unknown.append(record)
-    names={}
-    for ident,h in by_id.items():
-        if h.get('nom') and not h.get('conflit_identite'):
-            names.setdefault(nom_normalise(h['nom']),set()).add(ident)
     targets=dict(by_id)
     for record in unknown:
         if record.get('identifiant_externe_non_reconcilie'):
             source,ident=next(iter(record['identifiants_sources'].items()))
             merge(targets.setdefault(source+':'+ident,{'nom':record['nom']}),record)
             continue
-        ids=names.get(nom_normalise(record['nom']),set())
-        if len(ids)==1:
-            merge(targets[next(iter(ids))],record)
+        link, _ = index.resoudre(record['nom'])
+        if link and link['id'] in targets and not targets[link['id']].get('conflit_identite'):
+            merge(targets[link['id']], {**record, 'url_geny': link['url_geny']})
         else:
             # Les contextes non identifiés ne sont pas fusionnés sur le seul nom.
             key=cle_contexte(record)
@@ -287,7 +284,8 @@ def preparer_noms_passes(cache, state, now):
                 or any(len(numbers) > 1 for numbers in entry['courses'].values())):
             entry['etat'] = 'IDENTITE_A_VERIFIER'
             for _, horse in group:
-                horse['nom_passe_en_conflit'] = True
+                if not horse.get('geny') and not (horse.get('course_url') and horse.get('numero')):
+                    horse['nom_passe_en_conflit'] = True
             continue
         eligible = [(key, h) for key, h in group if not h.get('cible_equivalente_a')] or group
         key, primary = min(eligible, key=lambda item: (
@@ -321,8 +319,11 @@ def preparer(cache,now):
     state=inc.lire(cache/QUEUE)
     if state and (state.get('version')!=1 or not isinstance(state.get('chevaux'),dict)):
         raise ValueError('FILE_RATTRAPAGE_INCOMPATIBLE')
+    from .identites_chevaux import IndexGeny
+    index = IndexGeny(cache, observations=sheets['chevaux'])
+    local = inventaire_local(cache, sheets, index=index)
     if not state:
-        targets=inventaire_local(cache,sheets)
+        targets = {key: dict(horse) for key, horse in local.items()}
         ajouter_noms_pmu(cache, targets, now)
         if not targets:raise ValueError('INVENTAIRE_VIDE')
         state={'version':1,'mode':'RATTRAPAGE_GLOBAL','inventaire_utc':now.isoformat(),
@@ -333,12 +334,11 @@ def preparer(cache,now):
     local=inventaire_local(cache,sheets)
     state['dernier_controle_inventaire']={k:sheets.get(k) for k in ('capture_utc','lignes_historique','controle')}
     # Le dénominateur est figé. La production peut néanmoins avoir complété une cible.
-    journal=inc.lire(cache/'etat_persistant.json',{'chevaux':{}})['chevaux']
-    names={}
-    for ident,h in journal.items():names.setdefault(nom_normalise(h.get('nom')),set()).add(str(ident))
-    for h in local.values():
-        if h.get('id') and not h.get('conflit_identite'):
-            names.setdefault(nom_normalise(h.get('nom')),set()).add(h['id'])
+    corrections = {}
+    for entry in local.values():
+        for ident in entry.get('identifiants_sources', {}).values():
+            if entry.get('reconciliation_identite') or entry.get('identifiant_externe_non_reconcilie'):
+                corrections.setdefault((nom_normalise(entry.get('nom')), ident), []).append(entry)
     # Un autre contexte de course ne doit pas contourner le délai du même cheval.
     production=inc.lire(cache/inc.QUEUE,{'chevaux':{}})['chevaux']
     retries={}
@@ -354,10 +354,11 @@ def preparer(cache,now):
     for row in sheets['chevaux']:
         context=contexte_verifiable(row)
         if context:observed_numbers.setdefault(context[:2],set()).add(context[2])
+    pmu_partants = {}
     for key,h in state['chevaux'].items():
-        unresolved=[v for v in local.values() if v.get('identifiant_externe_non_reconcilie')
-                    and h.get('id') in v.get('identifiants_sources',{}).values()
-                    and nom_normalise(h.get('nom'))==nom_normalise(v.get('nom'))]
+        name = nom_normalise(h.get('nom'))
+        possible = corrections.get((name, h.get('id') or h.get('identifiant_historique_original')), [])
+        unresolved = [v for v in possible if v.get('identifiant_externe_non_reconcilie') and h.get('id')]
         if unresolved:
             h['identifiant_historique_original']=h.pop('id')
             h.update(identifiant_externe_non_reconcilie=True,
@@ -366,9 +367,7 @@ def preparer(cache,now):
                 h.pop(field,None)
         # Migration d'un ancien ID non qualifié : le snapshot conserve maintenant
         # son URL source et le registre exige une correspondance vérifiée.
-        matches=[v for v in local.values() if v.get('reconciliation_identite')
-                 and (h.get('id') or h.get('identifiant_historique_original')) in v.get('identifiants_sources',{}).values()
-                 and nom_normalise(h.get('nom'))==nom_normalise(v.get('nom'))]
+        matches = [v for v in possible if v.get('reconciliation_identite')]
         if len(matches)==1 and h.get('id')!=matches[0]['id'] and not h.get('conflit_identite'):
             fresh=matches[0]
             h.setdefault('identifiant_historique_original',h.get('id'))
@@ -402,16 +401,33 @@ def preparer(cache,now):
         if not trusted:
             h.pop('historique_complet_au_utc',None)
             h.pop('rattrapage_complet_au_utc',None)
-        if not h.get('id') and not h.get('identifiant_externe_non_reconcilie') and not h.get('nom_reference_pmu'):
-            ids=names.get(nom_normalise(h.get('nom')),set())
-            if len(ids)==1:h['id']=next(iter(ids))
-        fresh=local.get(h.get('id')) or local.get(key) or local.get(cle_contexte(h)) or {}
-        if (nom_normalise(fresh.get('nom'))==nom_normalise(h.get('nom'))
-                and (not h.get('nom_reference_pmu') or nom_reference(fresh.get('nom')) == nom_reference(h.get('nom')))):
-            for field in ('geny','course_url','numero','conflit_identite','identifiant_externe_non_reconcilie',
-                          'identifiants_sources','reconciliation_identite'):
-                if fresh.get(field):h[field]=fresh[field]
-            if fresh.get('engagement'):h['engagement_prioritaire']=fresh['engagement']
+        if not h.get('id') and contexte_verifiable(h):
+            if canonical not in pmu_partants:
+                pmu_partants[canonical] = inc.lire(cache/'partants_actuels'/f'{canonical}.json').get('chevaux', {})
+            runner = pmu_partants[canonical].get(str(h['numero']), {})
+            if nom_normalise(runner.get('nom')) == name and str(runner.get('age_ans', '')).isdigit():
+                h['annee_naissance_pmu'] = int(canonical[:4]) - int(runner['age_ans'])
+        if not h.get('id') and not h.get('identifiant_externe_non_reconcilie') and not h.get('conflit_identite'):
+            source = re.search(r'/course/(\d+)', str(h.get('course_url') or ''))
+            duplicate = len(observed_numbers.get((name, canonical), ())) > 1
+            link, method = index.resoudre(h.get('nom'), 'GENY-'+source[1] if source else None,
+                                          h.get('numero'), nom_repris=duplicate, annee=h.get('annee_naissance_pmu'))
+            if link:
+                h.update(id=link['id'], geny=link, preuve_identite=link['preuve'])
+            h['rapprochement_geny'] = method
+        # Les preuves de nom sont globales. Les coordonnées de course restent
+        # celles du contexte d'origine pour le comptage et les homonymes.
+        fresh = local.get(key) or local.get(cle_contexte(h)) or local.get(h.get('id')) or {}
+        if nom_normalise(fresh.get('nom')) == name:
+            for field in ('geny', 'conflit_identite', 'identifiant_externe_non_reconcilie',
+                          'identifiants_sources', 'reconciliation_identite'):
+                if fresh.get(field) and not h.get(field):
+                    h[field] = fresh[field]
+            if not h.get('course_url') and contexte_verifiable(h) == contexte_verifiable(fresh):
+                h['course_url'] = fresh.get('course_url', '')
+            if fresh.get('engagement'):
+                h['engagement_prioritaire'] = fresh['engagement']
+        h['recherche_geny_par_nom'] = not bool(h.get('id')) and bool(name)
         if h.get('geny') or url_course(h.get('course_url')) and h.get('numero'):
             h.pop('lien_candidat',None)
         ident=h.get('id','');doc=inc.capture_valide(cache,ident) if ident else None
@@ -461,7 +477,12 @@ def preparer(cache,now):
         if state['chevaux'][primary].get('rattrapage_complet_au_utc') and state['chevaux'][primary].get('sync')=='OK':
             propager_preuve(state,state['chevaux'][primary])
     preparer_noms_passes(cache, state, now)
-    bilan(state)
+    fields = ('contextes_distincts_sans_identifiant', 'noms_distincts_sans_identifiant',
+              'identifiants_sans_carriere_complete')
+    previous = tuple(state.get('bilan', {}).get(field) for field in fields)
+    counts = bilan(state)
+    if previous != tuple(counts[field] for field in fields):
+        state['sync_kpi'] = 'A_REPRENDRE'
     return state
 
 
@@ -480,9 +501,12 @@ def prochaine_tache(state,now,attempts):
         if h.get('cible_equivalente_a') or h.get('autre_contexte_meme_nom') or h.get('nom_passe_en_conflit'):continue
         if nom_normalise(h.get('nom')) in protected:continue
         if (h.get('rattrapage_complet_au_utc') and not h.get('ferrures_manquantes')) or not h.get('motif_actualisation'):continue
-        if h.get('collecte') in ('LIEN_GENY_A_RESOUDRE','IDENTITE_A_VERIFIER'):continue
+        if h.get('collecte') == 'IDENTITE_A_VERIFIER':continue
+        if h.get('collecte') == 'LIEN_GENY_A_RESOUDRE' and not h.get('recherche_geny_par_nom'):continue
+        if h.get('rapprochement_geny') == 'NOM_AMBIGU' and not (h.get('course_url') and h.get('numero')):continue
         retry=inc.instant(h.get('prochain_essai_utc'))
         if attempts.get(('COLLECTE',key),0) or retry and retry>now:continue
+        if not h.get('id') and attempts.get(('NOM', nom_normalise(h.get('nom')))):continue
         priority=0 if h.get('geny') else 1 if h.get('course_url') else 2
         night=inc.priorite_engagement(h,now,manquant=True) if inc.nuit_collecte(now) else 0
         # Une carrière absente/partielle passe avant une carrière déjà complète
@@ -507,7 +531,28 @@ def valider_sync(state,horse):
     propager_preuve(state,horse)
 
 
+def propager_identite(state, horse):
+    """Enregistrer la preuve sur tous les engagements compatibles du même nom."""
+    name = nom_normalise(horse.get('nom'))
+    ident = horse.get('id')
+    if not name or not ident:
+        return
+    year = horse.get('geny', {}).get('annee_naissance_pmu')
+    if horse.get('rapprochement_geny') == 'NOM_AMBIGU' and not year:
+        return
+    group = [h for h in state['chevaux'].values() if nom_normalise(h.get('nom')) == name
+             and (not year or h.get('annee_naissance_pmu') == year)]
+    if any((h.get('id') and h['id'] != ident) or h.get('conflit_identite')
+           or h.get('nom_passe_en_conflit') or (not year and h.get('rapprochement_geny') == 'NOM_AMBIGU') for h in group):
+        return
+    for other in group:
+        if not other.get('id') and not other.get('identifiant_externe_non_reconcilie'):
+            other.update(id=ident, geny=horse.get('geny', {}),
+                         preuve_identite=horse.get('preuve_identite', 'NOM_EXACT_UNIQUE'))
+
+
 def propager_preuve(state,horse):
+    propager_identite(state,horse)
     stamp=horse['rattrapage_complet_au_utc']
     # Les contextes répétés d'une identité désormais vérifiée partagent la preuve.
     for other in state['chevaux'].values():
@@ -604,6 +649,22 @@ def bilan(state):
     horses=list(state['chevaux'].values())
     distinct=[h for h in horses if not h.get('cible_equivalente_a')]
     missing=[h for h in distinct if not h.get('rattrapage_complet_au_utc')]
+    unresolved = [h for h in distinct if not h.get('id')]
+    named = {nom_normalise(h.get('nom')) for h in unresolved} - {''}
+    known = {h['id'] for h in horses if h.get('id')}
+    complete_ids = {h['id'] for h in horses if h.get('id') and h.get('historique_complet_au_utc')}
+    causes = Counter(
+        'SOURCE_EXTERNE_NON_RECONCILIEE' if h.get('identifiant_externe_non_reconcilie') else
+        'NOM_AMBIGU' if h.get('conflit_identite') or h.get('rapprochement_geny') == 'NOM_AMBIGU' else
+        'NOM_ABSENT' if not nom_normalise(h.get('nom')) else
+        'ACCES_LIMITE_429' if h.get('dernier_echec_collecte', {}).get('statut') == 'ACCES_LIMITE_429' else
+        'ACCES_REFUSE_403' if h.get('dernier_echec_collecte', {}).get('statut') == 'ACCES_REFUSE_403' else
+        'RECHERCHE_SANS_NOM_EXACT' if 'RECHERCHE_GENY_SANS_NOM_EXACT' in h.get('dernier_echec_collecte', {}).get('erreur', '') else
+        'AUCUNE_PREUVE_LOCALE_AVEC_COURSE' if h.get('course_url') else
+        'AUCUNE_PREUVE_LOCALE_SANS_COURSE'
+        for h in unresolved
+    )
+    state['causes_contextes_sans_geny'] = dict(sorted(causes.items()))
     complete=sum(bool(h.get('rattrapage_complet_au_utc')) and h.get('sync')=='OK' for h in horses)
     previous=state.get('bilan',{})
     state['bilan']={'cibles_inventoriees':len(horses),'cibles_completees':complete,
@@ -612,9 +673,10 @@ def bilan(state):
         'travaux_distincts_restants':sum(not h.get('cible_equivalente_a') and (not h.get('rattrapage_complet_au_utc') or bool(h.get('ferrures_manquantes'))) for h in horses),
         'historiques_ferrures_a_completer':sum(not h.get('cible_equivalente_a') and bool(h.get('ferrures_manquantes')) for h in horses),
         'carrieres_distinctes_a_completer':len(missing),
-        'identifiants_sans_carriere_complete':len({h['id'] for h in horses if h.get('id') and not h.get('historique_complet_au_utc')}),
-        'contextes_distincts_sans_identifiant':sum(not h.get('id') for h in distinct),
-        'identifiants_geny_distincts':len({h['id'] for h in horses if h.get('id')}),
+        'identifiants_sans_carriere_complete':len(known - complete_ids),
+        'contextes_distincts_sans_identifiant':len(unresolved),
+        'noms_distincts_sans_identifiant':len(named),
+        'identifiants_geny_distincts':len(known),
         'identites_non_resolues':sum(not h.get('id') for h in horses),
         'liens_a_resoudre':sum(h.get('collecte')=='LIEN_GENY_A_RESOUDRE' for h in horses),
         'identites_a_verifier':sum(h.get('collecte')=='IDENTITE_A_VERIFIER' for h in horses),
@@ -636,7 +698,7 @@ def bilan(state):
 
 def rapport(state):
     keys=('version','mode','inventaire_id','inventaire_utc','revision_inventaire','inventaire_actualise_utc',
-          'extensions_inventaire','phase_reprise','derniere_revalidation','passage_utc','maj_utc','statut','priorite_collecte',
+          'extensions_inventaire','causes_contextes_sans_geny','phase_reprise','derniere_revalidation','passage_utc','maj_utc','statut','priorite_collecte',
           'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
     report={k:state[k] for k in keys if k in state}
     report['cohortes'] = bornes_cohortes(state)
@@ -735,7 +797,12 @@ def main():
 
         reason = controle_pmu() if args.actualiser_inventaire else controle_fond()
         if reason and not (args.reconcilier_identites or args.archives_diagnostics):
-            differer(reason, inc.lire(cache / QUEUE))
+            state = inc.lire(cache / QUEUE)
+            # Réconciliation locale sous le verrou partagé, même si le budget
+            # Geny est réservé aux engagements. Céder si le cycle PMU attend.
+            if state.get('chevaux') and (cache/INVENTAIRE).exists() and not controle_pmu():
+                state = preparer(cache, datetime.now(inc.UTC))
+            differer(reason, state)
             return
         engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
         try:

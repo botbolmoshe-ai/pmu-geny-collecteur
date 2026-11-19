@@ -6,6 +6,7 @@ Les mises à jour n'écrivent aucun fichier de pronostic, résultat ou entraîne
 from __future__ import annotations
 
 import argparse
+import hashlib
 import csv
 import hashlib
 import json
@@ -120,12 +121,9 @@ def alimenter(cache, now, *, sauvegarder=True):
     state = lire(cache/QUEUE, {'version': 1, 'chevaux': {}})
     if state.get('version') != 1 or not isinstance(state.get('chevaux'), dict):
         raise ValueError('FILE_INCREMENTALE_INCOMPATIBLE')
-    journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
-    known = {}
-    for ident, meta in journal.get('chevaux', {}).items():
-        name = nom_normalise(meta.get('nom'))
-        if name:
-            known.setdefault(name, []).append(str(ident))
+    from collections import Counter
+    from .identites_chevaux import IndexGeny, source_identifiant
+    index = IndexGeny(cache)
     for path in sorted((cache/'partants_actuels').glob('????-??-??_R*C*.json')):
         code = path.stem
         day = datetime.fromisoformat(code[:10]).date()
@@ -134,6 +132,7 @@ def alimenter(cache, now, *, sauvegarder=True):
         if not today-timedelta(days=7) <= day <= today+timedelta(days=1):
             continue
         participants = lire(path).get('chevaux', {})
+        counts = Counter(nom_normalise(h.get('nom')) for h in participants.values())
         date, rncn = code.split('_')
         course = lire(cache/'orchestration'/f'{date}.json').get('courses', {}).get(rncn, {})
         cid = course_geny_connue(cache,code)
@@ -150,12 +149,23 @@ def alimenter(cache, now, *, sauvegarder=True):
             mapped = by_number.get(str(number), {})
             if nom_normalise(mapped.get('nom')) != nom_normalise(name):
                 mapped = {}
-            ids = known.get(nom_normalise(name), [])
-            ident = str(mapped.get('id') or (ids[0] if len(ids) == 1 else ''))
+            count = counts[nom_normalise(name)]
+            age = str(participant.get('age_ans', ''))
+            year = day.year - int(age) if age.isdigit() else None
+            link, method = index.resoudre(name, cid, number, nom_repris=count > 1, annee=year)
+            ident = link.get('id', '')
+            if not ident and method != 'NOM_AMBIGU' and count == 1:
+                # Les anciens manifestes de la course peuvent manquer d'URL.
+                ident = str(mapped.get('id') or '')
             key = ident or context_key
             horse = state['chevaux'].setdefault(key, {'nom': name, 'sync': 'SANS_MODIFICATION'})
             if ident and context_key in state['chevaux'] and key != context_key:
-                del state['chevaux'][context_key]
+                old = state['chevaux'].pop(context_key)
+                for field in ('prochain_essai_utc', 'prochaine_sync_utc'):
+                    deadline = instant(old.get(field))
+                    current = instant(horse.get(field))
+                    if deadline and (current is None or deadline > current):
+                        horse[field] = old[field]
             horse.update(nom=name, numero=number, engagement=code, vu_utc=now.isoformat())
             horse['verification_periodique'] = not bool(official.get('arrivee'))
             if re.fullmatch(r'GENY-\d+', str(cid)):
@@ -178,7 +188,9 @@ def alimenter(cache, now, *, sauvegarder=True):
                 else:
                     horse.pop('historique_complet_au_utc', None)
                     horse['collecte'] = 'A_REPRENDRE'
-                if mapped.get('url_geny'):
+                if link:
+                    horse['geny'] = link
+                elif source_identifiant(ident, mapped.get('url_geny')) == 'geny':
                     horse['geny'] = {'id': ident, 'nom': name, 'url_geny': mapped['url_geny']}
                 elif doc and doc.get('source_url'):
                     horse['geny'] = {'id': ident, 'nom': name, 'url_geny': doc['source_url']}
@@ -281,7 +293,7 @@ def memoriser_resolution(horse, report, out, *, cache=None):
     if cache is not None:
         from .liens_geny_course import memoriser
         memoriser(cache,horse,out)
-    from .identites_chevaux import source_identifiant
+    from .identites_chevaux import preuve_resolution_valide, source_identifiant
     proof=lire(out/'resolution_geny.json')
     geny=report.get('geny') or proof.get('geny') or {}
     ident=str(geny.get('id',''))
@@ -292,6 +304,17 @@ def memoriser_resolution(horse, report, out, *, cache=None):
     if not report.get('geny') and (proof.get('engagement')!=horse.get('engagement')
             or proof.get('numero')!=str(horse.get('numero',''))):return
     horse['geny']=geny
+    if (cache is not None and preuve_resolution_valide(proof) and proof.get('geny') == geny
+            and proof.get('engagement') == horse.get('engagement')
+            and proof.get('numero') == str(horse.get('numero', ''))):
+        digest = hashlib.sha256(nom_normalise(geny['nom']).encode()).hexdigest()[:16]
+        path = cache/'sources_geny/identites'/f'{ident}-{digest}.json'
+        stored = lire(path)
+        if not stored or len(geny.get('homonymes', [])) > len(stored['geny'].get('homonymes', [])):
+            ecrire(path, proof)
+        horse.update(id=ident, preuve_identite=proof['preuve'])
+        if geny.get('homonymes'):
+            horse['rapprochement_geny'] = 'NOM_AMBIGU'
 
 
 def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'):
@@ -383,7 +406,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
             ecrire(target/queue, lire(cache/queue))
             if queue!=QUEUE:
                 shutil.copytree(cache/queue.parent,target/queue.parent,dirs_exist_ok=True)
-            for name in ('historiques', 'historiques_partiels', 'historiques_versions', 'manifestes','sources_geny/liens'):
+            for name in ('historiques', 'historiques_partiels', 'historiques_versions', 'manifestes','sources_geny/liens','sources_geny/identites'):
                 if (cache/name).exists():
                     shutil.copytree(cache/name, target/name, dirs_exist_ok=True)
             shutil.copy2(cache/'etat_persistant.json', target/'etat_persistant.json')
@@ -394,8 +417,9 @@ def checkpoint_distant(cache, *, queue=QUEUE):
                 git('add', 'historiques_versions', cwd=target)
             if (target/'historiques_partiels').exists():
                 git('add', 'historiques_partiels', cwd=target)
-            if (target/'sources_geny/liens').exists():
-                git('add', 'sources_geny/liens', cwd=target)
+            for directory in ('sources_geny/liens', 'sources_geny/identites'):
+                if (target/directory).exists():
+                    git('add', directory, cwd=target)
             changed = subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=target).returncode
             if changed:
                 git('commit', '-m', 'PMU : checkpoint collecte incrementale', cwd=target)
@@ -436,7 +460,13 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         state['maj_utc'] = datetime.now(UTC).isoformat()
         state.setdefault('bilan',{}).update(tentatives_collecte=count,
             captures_validees=accepted,captures_partielles=partials,collectes_rejetees=count-accepted-partials)
-        if reprise:reprise.bilan(state)
+        if reprise:
+            previous = {field: state['bilan'].get(field) for field in (
+                'contextes_distincts_sans_identifiant', 'noms_distincts_sans_identifiant',
+                'identifiants_sans_carriere_complete')}
+            current = reprise.bilan(state)
+            if any(current[field] != value for field, value in previous.items()):
+                state['sync_kpi'] = 'A_REPRENDRE'
         else:materialiser_manifestes(cache, state)
         ecrire(cache/queue, state)
         if reprise:ecrire(cache/queue.parent/'bilan.json',reprise.rapport(state))
@@ -467,12 +497,17 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                 state.update(collecte_tentee_utc=stamp, sync_kpi='A_REPRENDRE')
                 if creneau_reserve and creneau_reserve():
                     state.update(dernier_creneau_reserve_utc=stamp, creneau_reserve=True)
+            if not horse.get('id'):
+                attempts[('NOM', nom_normalise(horse.get('nom')))] = 1
             horse['collecte'] = 'EN_COURS'
             save()  # Reprise sûre, même si le sous-processus est tué.
             out = Path('resultats/incremental')/key/str(time.time_ns())
             report = {}
             try:
                 report = collect(horse, out)
+                memoriser_resolution(horse,report,out,cache=cache)
+                if reprise and horse.get('preuve_identite'):
+                    reprise.propager_identite(state,horse)
                 if report.get('statut') in ('ACCES_REFUSE_403', 'ACCES_LIMITE_429'):
                     raise PermissionError(report['statut'])
                 if report.get('complet'):
@@ -512,7 +547,6 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': '403' if '403' in str(exc) else '429'}
                     ecrire(cache/'etat_persistant.json', journal)
                 # Un échec réseau ne rend pas le lien déjà résolu périmé.
-            memoriser_resolution(horse,report,out,cache=cache)
             count += 1
             save()  # Publier les données AVANT toute écriture Sheets.
             if horse.get('sync') != 'A_FAIRE':

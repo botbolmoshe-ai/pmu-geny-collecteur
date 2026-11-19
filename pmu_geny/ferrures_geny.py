@@ -35,8 +35,8 @@ def libelle_ferrure(value):
     return 'DA' if da else 'DP' if dp else 'PA' if pa else 'PP' if pp else ''
 
 
-def documents(html):
-    """Décoder les blocs Next.js observés, sans exécuter de JavaScript."""
+def flux_next(html):
+    """Assembler les fragments de données Next.js sans exécuter de JavaScript."""
     soup=BeautifulSoup(html,'html.parser');chunks=[];decoder=json.JSONDecoder()
     for script in soup.find_all('script'):
         raw=script.string or script.get_text()
@@ -44,7 +44,11 @@ def documents(html):
             try:payload,_=decoder.raw_decode(raw[match.end():].lstrip())
             except ValueError:continue
             if isinstance(payload,list) and len(payload)>1 and isinstance(payload[1],str):chunks.append(payload[1])
-    for line in ''.join(chunks).splitlines():
+    return ''.join(chunks)
+
+
+def documents(html):
+    for line in flux_next(html).splitlines():
         match=re.fullmatch(r'[0-9a-fA-F]+:(.*)',line,re.S)
         if not match:continue
         try:yield json.loads(match[1])

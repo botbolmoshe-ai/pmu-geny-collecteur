@@ -5,7 +5,8 @@ import re
 import time
 from pathlib import Path
 from datetime import datetime, timezone
-from urllib.parse import urlparse
+from urllib.parse import urlencode, urlparse
+from zoneinfo import ZoneInfo
 
 from .extraction_historique_par_cheval import extraire_cheval
 from .controle_historique import classifier
@@ -19,6 +20,72 @@ def cliquer_nom(cell, nom):
     if target.count() != 1:
         raise ValueError('NOM_CLIQUABLE_AMBIGU')
     target.click(timeout=8000)
+
+
+def candidats_recherche(html, nom):
+    from .ferrures_geny import flux_next
+
+    flux = flux_next(html)
+    decoder = json.JSONDecoder()
+    candidates = {}
+    established = False
+    for match in re.finditer(r'\{\s*"dehydratedAt"\s*:', flux):
+        try:
+            query, _ = decoder.raw_decode(flux, match.start())
+        except ValueError:
+            continue
+        key = query.get('queryKey')
+        if not isinstance(key, list) or len(key) != 2 or key[0] != 'recherche':
+            continue
+        if nom_normalise(key[1]) != nom_normalise(nom):
+            continue
+        state = query.get('state', {})
+        results = state.get('data')
+        if state.get('status') != 'success' or not isinstance(results, list):
+            continue
+        established = True
+        for item in results:
+            title = str(item.get('titre') or '')
+            link = re.fullmatch(r'cheval/(\d{4,15})', str(item.get('urlV2') or ''))
+            if item.get('type') == 'CHEVAL' and title.startswith('Fiche cheval - ') and link:
+                name = title.removeprefix('Fiche cheval - ').strip()
+                if nom_normalise(name) == nom_normalise(nom):
+                    age = re.search(r'\bâge\s*:\s*(\d+)\s+ans?\b', str(item.get('resume') or ''))
+                    candidates[link[1]] = {'id': link[1], 'nom': name, 'age_geny': int(age[1]) if age else None,
+                                           'url_geny': 'https://www.geny.com/cheval/'+link[1]}
+    if not established:
+        raise ValueError('RECHERCHE_GENY_NON_INTERPRETABLE')
+    return candidates
+
+
+def rechercher(horse, page):
+    url = 'https://www.geny.com/recherche?'+urlencode({'q': horse['nom']})
+    response = page.goto(url, wait_until='domcontentloaded', timeout=45000)
+    html = page.content()
+    verdict = diagnostic_acces(response.status if response else None, page.title(),
+                               page.locator('body').inner_text(), html)
+    if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
+        raise RuntimeError(verdict)
+    target = urlparse(page.url)
+    if (not response or response.status != 200 or target.scheme != 'https'
+            or target.hostname not in ('geny.com', 'www.geny.com') or target.path.rstrip('/') != '/recherche'):
+        raise ValueError('RECHERCHE_GENY_INDISPONIBLE')
+    candidates = candidats_recherche(html, horse['nom'])
+    if len(candidates) == 1 and horse.get('rapprochement_geny') != 'NOM_AMBIGU':
+        return {**next(iter(candidates.values())), 'preuve': 'RECHERCHE_GENY_NOM_EXACT'}
+    year = horse.get('annee_naissance_pmu')
+    if len(candidates) > 1 and year and all(h['age_geny'] is not None for h in candidates.values()):
+        current = datetime.now(ZoneInfo('Europe/Paris')).year
+        same_year = [h for h in candidates.values() if current - h['age_geny'] == year]
+        if len(same_year) == 1:
+            return {**same_year[0], 'preuve': 'RECHERCHE_GENY_NOM_EXACT',
+                    'homonymes': list(candidates.values()), 'annee_naissance_pmu': year}
+    if not horse.get('course_url') or not horse.get('numero'):
+        raise ValueError('RECHERCHE_GENY_NOM_AMBIGU' if candidates else 'RECHERCHE_GENY_SANS_NOM_EXACT')
+    # Le contexte sert de preuve si la recherche exacte ne permet pas de conclure.
+    if len(candidates) > 1:
+        horse['homonymes_geny'] = list(candidates.values())
+    return None
 
 
 def resolve(horse, out, page=None):
@@ -37,6 +104,11 @@ def resolve(horse, out, page=None):
         ident=str(horse.get('id',''))
         if not re.fullmatch(r'\d{4,15}',ident) or candidate!='https://www.geny.com/cheval/'+ident:
             raise ValueError('LIEN_CANDIDAT_NON_CONCORDANT')
+    if horse.get('recherche_geny_par_nom') and not candidate:
+        found = rechercher(horse, page)
+        if found:
+            return found
+        time.sleep(30)
     url = candidate or horse['course_url']
     parsed = urlparse(url)
     if parsed.scheme != 'https' or parsed.hostname not in ('geny.com', 'www.geny.com'):
@@ -47,8 +119,11 @@ def resolve(horse, out, page=None):
     if verdict in ('ACCES_LIMITE_429', 'ACCES_REFUSE_403'):
         raise RuntimeError(verdict)
     if candidate:
+        actual_name = nom_fiche(page.content(), ident)
+        if not actual_name or nom_normalise(actual_name) != nom_normalise(horse['nom']):
+            raise ValueError('NOM_FICHE_GENY_NON_CONCORDANT')
         return verifier_candidat(horse,page.url,response.status if response else None,
-                                page.locator('body').inner_text(),out)
+                                actual_name,out) | {'preuve': 'FICHE_GENY_VERIFIEE'}
     expected = re.search(r'/course/(\d+)', url)
     actual = re.search(r'/course/(\d+)', page.url)
     if not response or response.status != 200 or not expected or not actual or expected[1] != actual[1]:
@@ -63,6 +138,8 @@ def resolve(horse, out, page=None):
             break
         page.wait_for_timeout(500)
     # Le numéro confirme le contexte de course ; il n'identifie pas le cheval.
+    if len(matched) > 1:
+        matched = [row for row in matched if str(row['numero']) == str(horse['numero'])]
     if len(matched) != 1 or str(matched[0]['numero']) != str(horse['numero']):
         (out/'diagnostic_resolution.html').write_text(page.content(), encoding='utf-8')
         raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
@@ -85,8 +162,23 @@ def resolve(horse, out, page=None):
     match = re.search(r'/cheval/(\d+)', direct or '')
     if not match or urlparse(direct).hostname not in ('geny.com', 'www.geny.com'):
         raise ValueError('FICHE_EXACTE_NON_IDENTIFIEE')
-    return {'id': match[1], 'nom': horse['nom'],
-            'url_geny': direct.replace('https://geny.com/', 'https://www.geny.com/')}
+    return {'id': match[1], 'nom': matched[0]['nom'], 'preuve': 'COURSE_GENY_VERIFIEE',
+            'url_geny': direct.replace('https://geny.com/', 'https://www.geny.com/'),
+            'homonymes': horse.get('homonymes_geny', [])}
+
+
+def nom_fiche(html, ident):
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html, 'html.parser')
+    for script in soup.select('script[type="application/ld+json"]'):
+        try:
+            data = json.loads(script.get_text())
+        except ValueError:
+            continue
+        if isinstance(data, dict) and str(data.get('identifier')) == str(ident):
+            return data.get('name', '')
+    return ''
 
 
 def verifier_candidat(horse,url,status,text,out):
@@ -121,7 +213,7 @@ def collecter(horse, out):
                 report['geny']=geny
                 # Le lien résolu survit même à une interruption de l'extraction.
                 (out/'resolution_geny.json').write_text(json.dumps({'geny':geny,
-                    'nom_attendu':horse['nom'],'engagement':horse.get('engagement'),
+                    'preuve':geny.get('preuve'), 'nom_attendu':horse['nom'],'engagement':horse.get('engagement'),
                     'numero':str(horse.get('numero','')),
                     'resolution_utc':datetime.now(timezone.utc).isoformat()},ensure_ascii=False),encoding='utf-8')
                 loaded=next((candidate for candidate in ctx.pages if candidate.url==geny['url_geny']),None)
