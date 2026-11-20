@@ -3,7 +3,7 @@
   "course": "R1C3",
   "depart": "2026-11-20T19:33:00+01:00",
   "mode": "DIRECT",
-  "donnees_observees_utc": "2026-11-20T05:35:51.266549+01:00",
+  "donnees_observees_utc": "2026-11-20T06:41:12.771116+01:00",
   "version_moteur": "direct-v32-contextuel",
   "non_partants_confirmes": [],
   "statut": "COMPLET",
@@ -13,16 +13,18 @@
     {
       "numero": 2,
       "nom": "MAJOR DU BELVER",
-      "score_direct": 2.6947,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
+      "score_direct": 2.265,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
       "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
+      "historique_exploitable": 11,
+      "distance_proche": 2,
+      "comparabilite_moyenne": 0.2415,
+      "ferrures_historiques_comparees": 11,
       "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
+      "identifiant_historique": "2851058",
+      "forme_geny_meme_depart": 1.9951,
+      "sorties_geny_meme_depart": 2
     },
     {
       "numero": 7,
@@ -37,6 +39,22 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": "2836106"
+    },
+    {
+      "numero": 1,
+      "nom": "MAGIC D'AIMTE",
+      "score_direct": 1.0724,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 4,
+      "historique_exploitable": 9,
+      "distance_proche": 4,
+      "comparabilite_moyenne": 0.3529,
+      "ferrures_historiques_comparees": 9,
+      "source_ferrure_courante": "PMU",
+      "identifiant_historique": "2836087",
+      "forme_geny_meme_depart": 1.7478,
+      "sorties_geny_meme_depart": 2
     },
     {
       "numero": 5,
@@ -107,36 +125,24 @@
       "ferrures_historiques_comparees": 0,
       "source_ferrure_courante": "PMU",
       "identifiant_historique": null
-    },
-    {
-      "numero": 1,
-      "nom": "MAGIC D'AIMTE",
-      "score_direct": 0.0,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 4,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
-      "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
     }
   ],
   "top3": [
     {
       "numero": 2,
       "nom": "MAJOR DU BELVER",
-      "score_direct": 2.6947,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
+      "score_direct": 2.265,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
       "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
+      "historique_exploitable": 11,
+      "distance_proche": 2,
+      "comparabilite_moyenne": 0.2415,
+      "ferrures_historiques_comparees": 11,
       "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
+      "identifiant_historique": "2851058",
+      "forme_geny_meme_depart": 1.9951,
+      "sorties_geny_meme_depart": 2
     },
     {
       "numero": 7,
@@ -153,18 +159,20 @@
       "identifiant_historique": "2836106"
     },
     {
-      "numero": 5,
-      "nom": "MELIUS AVIS",
-      "score_direct": 0.9947,
-      "source_forme": "PMU_MUSIQUE_SEULE",
-      "qualite_score": "PMU_NON_CONTEXTUALISE",
-      "musique_exploitable": 5,
-      "historique_exploitable": 0,
-      "distance_proche": 0,
-      "comparabilite_moyenne": null,
-      "ferrures_historiques_comparees": 0,
+      "numero": 1,
+      "nom": "MAGIC D'AIMTE",
+      "score_direct": 1.0724,
+      "source_forme": "PMU+GENY_CONTEXTUEL",
+      "qualite_score": "CONTEXTE_DOCUMENTE",
+      "musique_exploitable": 4,
+      "historique_exploitable": 9,
+      "distance_proche": 4,
+      "comparabilite_moyenne": 0.3529,
+      "ferrures_historiques_comparees": 9,
       "source_ferrure_courante": "PMU",
-      "identifiant_historique": null
+      "identifiant_historique": "2836087",
+      "forme_geny_meme_depart": 1.7478,
+      "sorties_geny_meme_depart": 2
     }
   ],
   "note": "Direct heuristique: musique PMU et historiques Geny anterieurs ponderes par discipline, distance, hippodrome, ferrure documentee et anciennete. Scores non calibres; facteurs manquants explicites.",
@@ -176,7 +184,10 @@
       "crack": null,
       "gains_carriere_euros": 32055.0,
       "haut_potentiel": null,
-      "sorties_verifiees": 0
+      "sorties_verifiees": 9,
+      "historique_extrait_utc": "2026-11-20T05:09:01.651696+00:00",
+      "source_historique": "https://www.geny.com/cheval/2836087-magic-d-aimte/course/1699160",
+      "identifiant_historique": "2836087"
     },
     "2": {
       "nom": "MAJOR DU BELVER",
@@ -184,7 +195,10 @@
       "crack": null,
       "gains_carriere_euros": 40450.0,
       "haut_potentiel": null,
-      "sorties_verifiees": 0
+      "sorties_verifiees": 11,
+      "historique_extrait_utc": "2026-11-20T05:09:24.759013+00:00",
+      "source_historique": "https://www.geny.com/cheval/2851058-major-du-belver/course/1699160",
+      "identifiant_historique": "2851058"
     },
     "3": {
       "nom": "MILLIUM QUESNOT",
@@ -241,13 +255,22 @@
       "sorties_verifiees": 0
     }
   },
+  "candidat_depart": {
+    "poids": 0.1,
+    "top3": [
+      2,
+      7,
+      1
+    ],
+    "partants_avec_forme_meme_depart": 2
+  },
   "couverture_sources": {
     "pmu_musique": 8,
-    "geny_historique": 2,
-    "pmu_seul": 6,
+    "geny_historique": 4,
+    "pmu_seul": 4,
     "sans_score": 0,
     "effectif_declare_confirme": true
   },
-  "calcul_utc": "2026-11-20T05:35:56.174715+01:00",
+  "calcul_utc": "2026-11-20T06:41:17.367701+01:00",
   "premier_calcul_utc": "2026-11-20T00:22:29.958695+01:00"
 }
