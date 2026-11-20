@@ -283,12 +283,12 @@ def prochaine_tache(state, now, attempts):
     return None, 'TERMINE'
 
 
-def executer_enfant(horse, out):
+def executer_enfant(horse, out, *, timeout=240):
     out.mkdir(parents=True, exist_ok=True)
     task = out/'tache.json'
     ecrire(task, horse)
     subprocess.run([sys.executable, '-m', 'pmu_geny.historique_individuel',
-                    '--tache', str(task), '--sortie', str(out)], check=True, timeout=240)
+                    '--tache', str(task), '--sortie', str(out)], check=True, timeout=timeout)
     return lire(out/'resultat.json')
 
 
@@ -341,7 +341,7 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
         def indexed(d):
             result={}
             for row in d['performances']:
-                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source','depart_trot')}
+                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source','ferrure_qualification','depart_trot')}
                 clean['texte_source']=re.sub(r'\s*\|\s*\d{1,2}:\d{2}\s*\|\s*/\s*\|\s*\d{1,2}:\d{2}\s*$',
                                              '',str(clean.get('texte_source','')))
                 result.setdefault(json.dumps(clean, sort_keys=True, ensure_ascii=False),[]).append(row)
@@ -352,6 +352,8 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
         for key,rows in before.items():
             for old in rows:
                 ferrure=old.get('ferrure')
+                if len(rows) != 1 or len(after[key]) != 1:
+                    raise ValueError('CORRESPONDANCE_PERFORMANCE_AMBIGUE')
                 for new in after[key]:
                     if old.get('depart_trot') and not new.get('depart_trot'):
                         new['depart_trot'] = old['depart_trot']
@@ -360,6 +362,7 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
                         raise ValueError('REGRESSION_FERRURE_A_CONTROLER')
                     if not new.get('ferrure'):
                         new['ferrure']=ferrure
+                        if old.get('ferrure_qualification'):new['ferrure_qualification']=old['ferrure_qualification']
                         if old.get('ferrure_source'):new['ferrure_source']=old['ferrure_source']
         oldtime = instant(previous.get('extrait_utc'))
         if oldtime and instant(doc['extrait_utc']) < oldtime:
@@ -444,7 +447,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
 
 def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None,
-        prochains_depart=False, creneau_reserve=None, nocturne=False):
+        prochains_depart=False, creneau_reserve=None, nocturne=False, part_ferrures=25):
     cache = Path(cache)
     now = datetime.now(UTC)
     reprise=None
@@ -452,12 +455,18 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         from . import rattrapage_historiques as reprise
     elif mode!='production':
         raise ValueError('MODE_COLLECTE_INCONNU')
+    if reprise and not 0 <= part_ferrures <= 30:
+        raise ValueError('PART_FERRURES_HORS_BORNES')
     queue=reprise.QUEUE if reprise else QUEUE
     state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
     if prochains_depart and not reprise:
         from .preparation_prochaines import appliquer
         appliquer(cache,state,now,nocturne=nocturne)
     elif not reprise:state.pop('politique_collecte',None)
+    if reprise:
+        state['part_ferrures'] = part_ferrures
+        if not part_ferrures:
+            state['credit_ferrures'] = 0
     state['passage_utc'] = now.isoformat()
     state['priorite_collecte'] = ('STOCK_NOCTURNE' if reprise else 'DEPARTS_DU_JOUR_NOCTURNE') if nocturne else (
         'PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR')
@@ -482,7 +491,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         if reprise:
             previous = {field: state['bilan'].get(field) for field in (
                 'contextes_distincts_sans_identifiant', 'noms_distincts_sans_identifiant',
-                'identifiants_sans_carriere_complete')}
+                'identifiants_sans_carriere_complete', 'historiques_ferrures_a_completer',
+                'performances_ferrures_a_completer')}
             current = reprise.bilan(state)
             if any(current[field] != value for field, value in previous.items()):
                 state['sync_kpi'] = 'A_REPRENDRE'
@@ -502,8 +512,11 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         if reason:
             state['motif_fin_passage']=str(reason)
             break
-        choisir=reprise.prochaine_tache if reprise else prochaine_tache
-        key, action = choisir(state, datetime.now(UTC), attempts)
+        if reprise:
+            key, action = reprise.prochaine_tache(state, datetime.now(UTC), attempts,
+                                                 part_ferrures=part_ferrures)
+        else:
+            key, action = prochaine_tache(state, datetime.now(UTC), attempts)
         if key is None:
             state['motif_fin_passage']=action
             break
@@ -526,22 +539,47 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     state.update(dernier_creneau_reserve_utc=stamp, creneau_reserve=True)
             if reprise:
                 attempts[reprise.cle_travail_geny(horse)] = 1
+            previous_status = horse.get('collecte', '')
             horse['collecte'] = 'EN_COURS'
             # Le dernier checkpoint distant suffit à reprendre une capture interrompue.
             # En rattrapage, le créneau réservé doit être marqué à distance avant la requête.
             save(distant=bool(reprise))
             # Une clé de contexte peut contenir « : », interdit dans un artefact Actions.
             out = Path('resultats/incremental') / key.replace(':', '_') / str(time.time_ns())
+            if reprise and time.monotonic() >= deadline:
+                horse['collecte'] = previous_status
+                break
+            if reprise:
+                credit = state.get('credit_ferrures', 0)
+                if horse.get('motif_actualisation') == 'FERRURES_HISTORIQUES_A_COMPLETER':
+                    credit = max(0, credit - (100 - part_ferrures))
+                else:
+                    credit = min(99, credit + part_ferrures)
+                state['credit_ferrures'] = credit if part_ferrures else 0
             report = {}
             try:
-                report = collect(horse, out)
+                if reprise and collect is executer_enfant:
+                    report = collect(horse, out, timeout=min(240, max(0.01, deadline - time.monotonic())))
+                else:
+                    report = collect(horse, out)
                 if report.get('statut') in ('ACCES_REFUSE_403', 'ACCES_LIMITE_429'):
                     raise PermissionError(report['statut'])
                 memoriser_resolution(horse,report,out,cache=cache)
                 if reprise and horse.get('preuve_identite'):
                     reprise.propager_identite(state,horse)
                 if report.get('complet'):
-                    if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
+                    if reprise:
+                        before = capture_valide(cache, horse.get('id')) if horse.get('id') else None
+                        accepter(cache, horse, report, origine='RATTRAPAGE_GLOBAL')
+                        if before:
+                            from .ferrures_geny import manquantes
+                            after = capture_valide(cache, horse['id'])
+                            added = max(0, len(after['performances']) - manquantes(after)
+                                        - len(before['performances']) + manquantes(before))
+                            if added:
+                                horse['ferrures_sauvegardees'] = horse.get('ferrures_sauvegardees', 0) + added
+                                horse['ferrures_publication_attendue'] = horse.get('ferrures_publication_attendue', 0) + added
+                                horse['ferrures_sauvegarde_utc'] = datetime.now(UTC).isoformat()
                     else:accepter(cache, horse, report)
                     accepted+=1
                 else:
@@ -571,6 +609,8 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     'identite_verifiee':report.get('identite_verifiee'),
                     'diagnostic':str(out/'resultat.json')}
                 if isinstance(exc, PermissionError):
+                    if reprise and horse.get('motif_actualisation') == 'FERRURES_HISTORIQUES_A_COMPLETER':
+                        state['ferrures_refus_geny'] = state.get('ferrures_refus_geny', 0) + 1
                     suspendre_geny(cache, state, datetime.now(UTC), '403' if '403' in str(exc) else '429')
                 # Le sous-processus peut s'arrêter après la preuve et avant son bilan.
                 if not report or isinstance(exc, PermissionError):

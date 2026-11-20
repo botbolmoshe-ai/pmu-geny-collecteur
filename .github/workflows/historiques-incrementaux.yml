@@ -20,6 +20,7 @@ concurrency:
   cancel-in-progress: false
   queue: max
 env:
+  PART_FERRURES: ${{ vars.RATTRAPAGE_PART_FERRURES || '25' }}
   COLLECTE_NOCTURNE: ${{ github.event_name == 'schedule' && github.event.schedule == '12 0-4 * * *' }}
 jobs:
   historiques:
@@ -83,7 +84,7 @@ jobs:
             SECONDS=0
             python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier --nocturne
             if [ "$SECONDS" -lt 540 ]; then
-              python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes 2 --max-chevaux 1 --publier --nocturne
+              python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes 2 --max-chevaux 1 --part-ferrures "$PART_FERRURES" --publier --nocturne
             else
               echo 'RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE'
             fi

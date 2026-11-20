@@ -451,11 +451,20 @@ def preparer(cache,now):
                 and str(doc.get('identifiant_cheval',ident))==ident):
             h.update(collecte='COMPLET',nombre_performances=len(doc['performances']),
                      historique_complet_au_utc=stamp.isoformat(),motif_actualisation='')
-            if ident in covered or not doc['performances']:
+            verified_inventory = inc.instant(sheets.get('capture_utc'))
+            pending_write = inc.instant(h.get('ferrures_sauvegarde_utc'))
+            if (ident in covered and (not pending_write or verified_inventory >= pending_write)) or not doc['performances']:
+                h['ferrures_publiees'] = h.get('ferrures_publiees', 0) + h.pop('ferrures_publication_attendue', 0)
                 h.update(sync='OK',rattrapage_complet_au_utc=stamp.isoformat(),
                          preuve_sync='INVENTAIRE_SHEETS_CONTROLE',complete_depuis_sauvegarde=True)
                 h['erreur']=''
-            else:h['sync']='A_FAIRE'
+            else:
+                h['sync'] = 'A_FAIRE'
+                pending = sheets.get('ferrures_en_attente_par_id', {}).get(ident, 0)
+                if pending:
+                    h['ferrures_publication_attendue'] = max(
+                        pending, h.get('ferrures_publication_attendue', 0))
+
         else:
             h.update(collecte='A_REPRENDRE',motif_actualisation='HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE')
             if ident and not h.get('geny') and not h.get('course_url'):
@@ -493,7 +502,8 @@ def preparer(cache,now):
             propager_preuve(state,state['chevaux'][primary])
     preparer_noms_passes(cache, state, now)
     fields = ('contextes_distincts_sans_identifiant', 'noms_distincts_sans_identifiant',
-              'identifiants_sans_carriere_complete')
+              'identifiants_sans_carriere_complete', 'historiques_ferrures_a_completer',
+              'performances_ferrures_a_completer', 'ferrures_publiees')
     previous = tuple(state.get('bilan', {}).get(field) for field in fields)
     counts = bilan(state)
     if previous != tuple(counts[field] for field in fields):
@@ -512,7 +522,7 @@ def cle_travail_geny(horse):
     return ('NOM', name)
 
 
-def prochaine_tache(state,now,attempts):
+def prochaine_tache(state,now,attempts, *, part_ferrures=0):
     # Une publication en échec est reprise sans nouvelle consultation Geny.
     for key,h in state['chevaux'].items():
         if h.get('cible_equivalente_a') or h.get('autre_contexte_meme_nom') or h.get('nom_passe_en_conflit'):continue
@@ -522,6 +532,8 @@ def prochaine_tache(state,now,attempts):
     cooldown=inc.instant(state.get('prochain_acces_geny_utc'))
     if cooldown and cooldown>now:return None,'COOLDOWN'
     candidates=[]
+    credit = state.get('credit_ferrures', 0)
+    priorite_ferrures = part_ferrures > 0 and credit >= 100 - part_ferrures
     protected=set(state.get('noms_partants_proteges',[]))
     for key,h in state['chevaux'].items():
         if h.get('cible_equivalente_a') or h.get('autre_contexte_meme_nom') or h.get('nom_passe_en_conflit'):continue
@@ -548,7 +560,7 @@ def prochaine_tache(state,now,attempts):
         else:
             order = (enrichment, night, not h.get('partant_course_passee'), not corrected,
                      unidentified, priority, h.get('engagement',''), key)
-        candidates.append((order,key))
+        candidates.append(((not enrichment if priorite_ferrures else enrichment, *order[1:]), key))
     return (min(candidates)[1],'COLLECTE') if candidates else (None,'TERMINE_PASSAGE')
 
 
@@ -558,6 +570,7 @@ def valider_sync(state,horse):
     horse.update(rattrapage_complet_au_utc=stamp,motif_actualisation='')
     if horse.get('ferrures_manquantes'):
         horse['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
+    horse['ferrures_publiees'] = horse.get('ferrures_publiees', 0) + horse.pop('ferrures_publication_attendue', 0)
     horse['ajouts_confirmes']=horse.get('ajouts_confirmes',0)+horse.get('sync_details',{}).get('Historique chevaux',{}).get('lignes_ajoutees',0)
     propager_preuve(state,horse)
 
@@ -680,6 +693,11 @@ def bilan(state):
     horses=list(state['chevaux'].values())
     distinct=[h for h in horses if not h.get('cible_equivalente_a')]
     missing=[h for h in distinct if not h.get('rattrapage_complet_au_utc')]
+    ferrures_par_id = {}
+    for horse in distinct:
+        if horse.get('id') and horse.get('ferrures_manquantes'):
+            ident = horse['id']
+            ferrures_par_id[ident] = max(ferrures_par_id.get(ident, 0), horse['ferrures_manquantes'])
     unresolved = [h for h in distinct if not h.get('id')]
     named = {nom_normalise(h.get('nom')) for h in unresolved} - {''}
     known = {h['id'] for h in horses if h.get('id')}
@@ -698,11 +716,20 @@ def bilan(state):
     state['causes_contextes_sans_geny'] = dict(sorted(causes.items()))
     complete=sum(bool(h.get('rattrapage_complet_au_utc')) and h.get('sync')=='OK' for h in horses)
     previous=state.get('bilan',{})
-    state['bilan']={'cibles_inventoriees':len(horses),'cibles_completees':complete,
+    metrics = {
+        'ferrures_reparees_localement': state.get('ferrures_reparees_localement', 0),
+        'ferrures_conflits_archives': state.get('ferrures_conflits_archives', 0),
+        'ferrures_refus_geny': state.get('ferrures_refus_geny', 0),
+        'ferrures_sauvegardees': state.get('ferrures_reparees_localement', 0) + sum(
+            h.get('ferrures_sauvegardees', 0) for h in horses),
+        'ferrures_publiees': sum(h.get('ferrures_publiees', 0) for h in horses),
+    }
+    state['bilan']={**metrics, 'cibles_inventoriees':len(horses),'cibles_completees':complete,
         'cibles_restantes':len(horses)-complete,
         'cibles_equivalentes':sum(bool(h.get('cible_equivalente_a')) for h in horses),
         'travaux_distincts_restants':sum(not h.get('cible_equivalente_a') and (not h.get('rattrapage_complet_au_utc') or bool(h.get('ferrures_manquantes'))) for h in horses),
-        'historiques_ferrures_a_completer':sum(not h.get('cible_equivalente_a') and bool(h.get('ferrures_manquantes')) for h in horses),
+        'historiques_ferrures_a_completer':len(ferrures_par_id),
+        'performances_ferrures_a_completer':sum(ferrures_par_id.values()),
         'carrieres_distinctes_a_completer':len(missing),
         'identifiants_sans_carriere_complete':len(known - complete_ids),
         'contextes_distincts_sans_identifiant':len(unresolved),
@@ -737,7 +764,8 @@ def rapport(state):
     if lot:
         report['lot_96'] = lot
     for key in ('collecte_tentee_utc', 'controle_ordonnancement_utc', 'sync_kpi_utc',
-                'dernier_creneau_reserve_utc', 'creneau_reserve'):
+                'dernier_creneau_reserve_utc', 'creneau_reserve', 'part_ferrures', 'credit_ferrures',
+                'prochain_acces_geny_utc'):
         if key in state:
             report[key] = state[key]
     proofs=[]
@@ -789,6 +817,7 @@ def main():
     parser.add_argument('--cache',default='cache_pmu')
     parser.add_argument('--max-minutes',type=int,default=10)
     parser.add_argument('--max-chevaux',type=int,default=1000)
+    parser.add_argument('--part-ferrures',type=int,default=25,choices=range(31),metavar='0..30')
     parser.add_argument('--publier',action='store_true')
     parser.add_argument('--nocturne',action='store_true')
     parser.add_argument('--actualiser-inventaire',action='store_true')
@@ -833,13 +862,51 @@ def main():
                         engine.fermer()
             print('RATTRAPAGE_FOND_DIFFERE '+reason, flush=True)
 
-        reason = controle_pmu() if args.actualiser_inventaire else controle_fond()
+        local = {}
+        halt = controle_pmu()
+        if not halt and not args.actualiser_inventaire:
+            from time import monotonic
+            from .reparer_ferrures import reparer
+            deadline_local = monotonic() + min(15, args.max_minutes * 60 / 4)
+            state = inc.lire(cache / QUEUE)
+            cursor = state.get('reprise_apres_archive', '')
+            local = reparer(cache, apres_archive=cursor,
+                            stop_requested=lambda: monotonic() >= deadline_local
+                            or verifier_echeances(cache, datetime.now(inc.UTC)))
+            next_cursor = local['reprise_apres_archive']
+            if local['historiques_enrichis'] or local['archives_lues'] or cursor != next_cursor:
+                if state.get('chevaux'):
+                    state['reprise_apres_archive'] = next_cursor
+                    state['ferrures_reparees_localement'] = state.get('ferrures_reparees_localement', 0) + local['ferrures_ajoutees']
+                    state['ferrures_conflits_archives'] = local['conflits']
+                    repaired = dict(local['ferrures_ajoutees_par_id'])
+                    for horse in state['chevaux'].values():
+                        if horse.get('cible_equivalente_a') or horse.get('conflit_identite'):
+                            continue
+                        added = repaired.pop(horse.get('id'), 0)
+                        if added:
+                            horse['ferrures_publication_attendue'] = horse.get('ferrures_publication_attendue', 0) + added
+                            horse['ferrures_sauvegarde_utc'] = datetime.now(inc.UTC).isoformat()
+                            horse['sync'] = 'A_FAIRE'
+                    if local['ferrures_ajoutees'] or state.get('bilan', {}).get('ferrures_conflits_archives') != local['conflits']:
+                        state['sync_kpi'] = 'A_REPRENDRE'
+                    bilan(state)
+                    persister_etat(cache, state)
+                if state.get('chevaux') or local['historiques_enrichis']:
+                    inc.checkpoint_distant(cache, queue=QUEUE)
+        reason = halt or (controle_pmu() if args.actualiser_inventaire else controle_fond())
         if reason and not (args.reconcilier_identites or args.archives_diagnostics):
             state = inc.lire(cache / QUEUE)
             # Réconciliation locale sous le verrou partagé, même si le budget
             # Geny est réservé aux engagements. Céder si le cycle PMU attend.
             if state.get('chevaux') and (cache/INVENTAIRE).exists() and not controle_pmu():
                 now = datetime.now(inc.UTC)
+                if local.get('ferrures_ajoutees') or local.get('departs_ajoutes'):
+                    engine = SynchroniseurSheets(cache, os.environ['GOOGLE_SHEETS_ID'])
+                    try:
+                        inc.ecrire(cache/INVENTAIRE, engine.inventaire_rattrapage())
+                    finally:
+                        engine.fermer()
                 state = preparer(cache, now)
                 # Une capture déjà persistée peut être publiée sans consulter Geny.
                 # Les échéances PMU et le verrou de production restent prioritaires.
@@ -886,7 +953,7 @@ def main():
         max_chevaux = args.max_chevaux if args.nocturne else min(args.max_chevaux, 1)
         state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=max_chevaux,
                       publier=True,mode='rattrapage',nocturne=args.nocturne,
-                      stop_requested=controle_fond,
+                      stop_requested=controle_fond,part_ferrures=args.part_ferrures,
                       creneau_reserve=lambda: inc.lire(Path('resultats/rattrapage/ordonnancement_fond.json')).get('creneau_reserve'))
     else:
         state=(actualiser_inventaire if args.actualiser_inventaire else preparer)(cache,datetime.now(inc.UTC))

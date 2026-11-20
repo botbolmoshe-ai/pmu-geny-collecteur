@@ -29,6 +29,8 @@ concurrency:
   group: pmu-donnees-production
   cancel-in-progress: false
   queue: max
+env:
+  PART_FERRURES: ${{ vars.RATTRAPAGE_PART_FERRURES || '25' }}
 jobs:
   rattrapage:
     runs-on: ubuntu-latest
@@ -94,7 +96,7 @@ jobs:
           if [ "$ACTUALISER_INVENTAIRE" = 'true' ]; then args+=(--actualiser-inventaire); fi
           if [ -n "$ARCHIVES_DIAGNOSTICS" ]; then args+=(--archives-diagnostics "$ARCHIVES_DIAGNOSTICS"); fi
           if [ "$RECONCILIER_IDENTITES" = 'true' ]; then args+=(--reconcilier-identites); fi
-          python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${args[@]}"
+          python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$MAX_MINUTES" --part-ferrures "$PART_FERRURES" --publier "${args[@]}"
       - name: Archiver le bilan et les controles
         if: always()
         uses: actions/upload-artifact@v4

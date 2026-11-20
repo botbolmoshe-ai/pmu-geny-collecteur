@@ -262,6 +262,14 @@ class SynchroniseurSheets:
                 after_rows=[dict(zip(effective_headers,row)) for row in after[1:]]
             else:after_rows=existing
             result['controle']=verifier_apres(control,after_rows)
+            if 'ferrure' in effective_headers:
+                from .controle_sync_sheets import BlocageSynchronisation
+                read_back = {str(row.get('cle_performance', '')): row.get('ferrure') for row in after_rows}
+                missing = sum(bool(row.get('ferrure') and
+                                   read_back.get(str(key)) != row['ferrure'])
+                              for key, row in incoming.items())
+                if missing:
+                    raise BlocageSynchronisation(f'FERRURES_NON_CONFIRMEES_APRES_RELECTURE: {missing}')
         print(f'SYNC_GOOGLE_SHEETS onglet={tab} lignes_source={len(incoming)} '
               f'cellules_mises_a_jour={len(updates)} lignes_ajoutees={len(appends)}',flush=True)
         return result
@@ -405,7 +413,7 @@ class SynchroniseurSheets:
         from .sync_google_sheets import lire_feuille_complete,canonical_headers,reconcilier_cles_historiques
         from .identites_chevaux import source_identifiant
         with verrou_local(self.spreadsheet):
-            tables=self.metadata();horses=[];seen=set();keys=set();rows=[];control=None
+            tables=self.metadata();horses=[];seen=set();rows=[];control=None
             for tab in (HISTORY,'Courses & Prévisions'):
                 if tab not in tables:raise ErreurSynchronisation('Onglet absent : '+tab)
                 values=lire_feuille_complete(self.session,self.base,tab,tables[tab])
@@ -417,7 +425,6 @@ class SynchroniseurSheets:
                     independent=lire_cles_independantes(self.session,self.base,tab,tables[tab],headers)
                     control=verifier_apres(verifier_avant(headers,data,{},[],
                         full_source=False,observed_keys=independent),data)
-                    keys={str(row.get('cle_performance','')) for row in data}
                 for row in data:
                     if not row.get('cheval') and not row.get('identifiant_cheval'):continue
                     identity=(tab,str(row.get('identifiant_cheval','')),str(row.get('cheval','')),
@@ -430,11 +437,20 @@ class SynchroniseurSheets:
                         'source_url':row.get('source_url','') if tab==HISTORY else '',
                         'engagement':row.get('course_key',''), 'numero':str(row.get('numero','')),
                         'origine':'SHEETS:'+tab})
-            expected={}
-            for row in reconcilier_cles_historiques(rows,self.source()[HISTORY]).values():
-                expected.setdefault(str(row.get('identifiant_cheval','')),set()).add(row['cle_performance'])
+            published = {str(row.get('cle_performance', '')): row for row in rows}
+            expected = {}
+            pending_ferrures = {}
+            for row in reconcilier_cles_historiques(rows, self.source()[HISTORY]).values():
+                ident = str(row.get('identifiant_cheval', ''))
+                actual = published.get(row['cle_performance'])
+                ferrure_en_attente = bool(row.get('ferrure') and
+                                          (actual or {}).get('ferrure') != row['ferrure'])
+                if ferrure_en_attente:
+                    pending_ferrures[ident] = pending_ferrures.get(ident, 0) + 1
+                expected[ident] = expected.get(ident, True) and actual is not None and not ferrure_en_attente
             return {'capture_utc':datetime.now(timezone.utc).isoformat(),'chevaux':horses,
-                'ids_couverts':[ident for ident,wanted in expected.items() if wanted<=keys],
+                'ids_couverts':[ident for ident, covered in expected.items() if covered],
+                'ferrures_en_attente_par_id': pending_ferrures,
                 'lignes_historique':len(rows),'controle':control}
 
     def synchroniser_kpi(self):

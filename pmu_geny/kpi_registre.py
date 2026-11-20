@@ -196,7 +196,8 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
                             ('Dernière décision UTC', 'controle_ordonnancement_utc'),
                             ('Dernière mise à jour UTC', 'maj_utc'),
                             ('Motif de fin', 'motif_fin_passage'),
-                            ('Révision inventaire', 'revision_inventaire')]:
+                            ('Révision inventaire', 'revision_inventaire'),
+                            ('Ferrures · prochaine reprise Geny UTC', 'prochain_acces_geny_utc')]:
             operational.append(metric('Rattrapage · ' + name, backfill.get(field, ''),
                                       'État durable du lot de rattrapage.'))
         counts = backfill.get('bilan', {})
@@ -205,6 +206,20 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
              'Noms exacts normalisés distincts parmi les contextes sans identifiant Geny.'),
             ('Contextes sans identifiant Geny', 'contextes_distincts_sans_identifiant',
              'Contextes du lot sans identifiant Geny, après dédoublonnage des cibles équivalentes.'),
+            ('Historiques avec ferrures manquantes', 'historiques_ferrures_a_completer',
+             'Historiques distincts par identifiant Geny du lot avec au moins une ferrure inconnue ou en conflit.'),
+            ('Performances avec ferrure manquante', 'performances_ferrures_a_completer',
+             'Performances à ferrure inconnue ou en conflit dans les historiques distincts du lot.'),
+            ('Ferrures réparées depuis les archives', 'ferrures_reparees_localement',
+             'Valeurs ajoutées par la réparation locale lors des passages enregistrés du rattrapage.'),
+            ('Ferrures sauvegardées', 'ferrures_sauvegardees',
+             'Valeurs supplémentaires dans les historiques déjà présents, sauvegardées par le rattrapage.'),
+            ('Ferrures publiées et relues', 'ferrures_publiees',
+             'Valeurs suivies par le rattrapage puis vérifiées dans Historique chevaux.'),
+            ('Ferrures en conflit dans les archives', 'ferrures_conflits_archives',
+             'Conflits signalés par le dernier passage de réparation locale enregistré.'),
+            ('Refus Geny sur les reprises ferrures', 'ferrures_refus_geny',
+             'Tentatives ferrures arrêtées par un refus HTTP 403 ou 429 dans le lot.'),
             ('Chevaux identifiés sans carrière complète', 'identifiants_sans_carriere_complete',
              'Identifiants Geny distincts du lot sans capture complète validée.'),
         ):
