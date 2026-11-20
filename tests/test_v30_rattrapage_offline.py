@@ -118,6 +118,43 @@ class RepriseTests(unittest.TestCase):
                 self.assertEqual(back.prochaine_tache(state,self.now.replace(hour=hour),{}),('absent','COLLECTE'))
         self.assertEqual(back.prochaine_tache(state,self.now,{('COLLECTE','absent'):1}),('ferrures','COLLECTE'))
 
+    def test_credit_persiste_entre_passages_a_un_cheval(self):
+        state = {'chevaux': {
+            str(120000 + i): {'id': str(120000 + i), 'nom': f'Carrière {i}',
+                              'motif_actualisation': 'HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE'}
+            for i in range(4)
+        }}
+        state['chevaux']['999999'] = {
+            'id': '999999', 'nom': 'Ferrures', 'collecte': 'COMPLET',
+            'rattrapage_complet_au_utc': self.now.isoformat(), 'ferrures_manquantes': 3,
+            'motif_actualisation': 'FERRURES_HISTORIQUES_A_COMPLETER',
+        }
+        calls = []
+        def collect(horse, out):
+            calls.append(horse['id'])
+            return {}
+        def prepare(cache, now):
+            return inc.lire(cache / back.QUEUE, state)
+        with patch.object(back, 'preparer', side_effect=prepare):
+            for credit in (25, 50, 75, 0):
+                result = inc.run(self.cache, mode='rattrapage', max_chevaux=1, collect=collect)
+                self.assertEqual(inc.lire(self.cache / back.QUEUE)['credit_ferrures'], credit)
+                self.assertEqual(result['phase_reprise'], 'CARRIERES_MANQUANTES')
+        self.assertEqual(calls, ['120000', '120001', '120002', '999999'])
+
+    def test_credit_ne_devance_ni_partant_protege_ni_pause_geny(self):
+        state = {'credit_ferrures': 75, 'chevaux': {
+            'f': {'nom': 'Ferrures', 'motif_actualisation': 'FERRURES_HISTORIQUES_A_COMPLETER'},
+            'c': {'nom': 'Carrière', 'motif_actualisation': 'HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE'},
+        }}
+        self.assertEqual(back.prochaine_tache(state, self.now, {}, part_ferrures=25), ('f', 'COLLECTE'))
+        state['noms_partants_proteges'] = [back.nom_normalise('Ferrures')]
+        self.assertEqual(back.prochaine_tache(state, self.now, {}, part_ferrures=25), ('c', 'COLLECTE'))
+        state['prochain_acces_geny_utc'] = (self.now + timedelta(minutes=30)).isoformat()
+        self.assertEqual(back.prochaine_tache(state, self.now, {}, part_ferrures=25), (None, 'COOLDOWN'))
+        state['chevaux']['c']['sync'] = 'A_FAIRE'
+        self.assertEqual(back.prochaine_tache(state, self.now, {}, part_ferrures=25), ('c', 'SYNC'))
+
     def test_identifiant_connu_avant_contexte_a_resoudre_sans_sauter_la_validation(self):
         now=self.now.replace(hour=12)
         state={'chevaux':{
@@ -143,6 +180,7 @@ class RepriseTests(unittest.TestCase):
         self.assertEqual(report['carrieres_distinctes_a_completer'],2)
         self.assertEqual(report['contextes_distincts_sans_identifiant'],1)
         self.assertEqual(report['historiques_ferrures_a_completer'],1)
+        self.assertEqual(report['performances_ferrures_a_completer'],2)
         self.assertEqual(state['phase_reprise'],'CARRIERES_MANQUANTES')
         for key in ('a','alias','sans_id'):
             state['chevaux'][key].update(historique_complet_au_utc=stamp,rattrapage_complet_au_utc=stamp,sync='OK')

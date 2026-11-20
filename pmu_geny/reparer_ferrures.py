@@ -50,9 +50,18 @@ def reparer_partants(cache,fetch=None):
     return report
 
 
-def reparer(cache,*,partants=False,fetch=None):
-    cache=Path(cache);report={'archives_lues':0,'historiques_enrichis':0,'ferrures_ajoutees':0,'departs_ajoutes':0,'conflits':0}
+def reparer(cache, *, partants=False, fetch=None, stop_requested=None, apres_archive=''):
+    cache=Path(cache);report={'archives_lues':0,'historiques_enrichis':0,'ferrures_ajoutees':0,'departs_ajoutes':0,'conflits':0,
+            'ferrures_ajoutees_par_id':{},'reprise_apres_archive':''}
+    last = apres_archive
     for html in sorted((cache/'diagnostics').rglob('diagnostic_geny.html')):
+        relative = html.relative_to(cache).as_posix()
+        if relative <= apres_archive:
+            continue
+        if stop_requested and stop_requested():
+            report['reprise_apres_archive'] = last
+            break
+        last = relative
         ident=html.parent.name
         if not re.fullmatch(r'\d{4,15}',ident):continue
         target=cache/'historiques'/ident/'historique_geny.json'
@@ -61,6 +70,9 @@ def reparer(cache,*,partants=False,fetch=None):
         evidence=lire(html.parent/'historique_geny.json')
         url=evidence.get('source_url') or previous.get('source_url','')
         if not re.search(r'/cheval/'+re.escape(ident)+r'(?:\D|$)',url):continue
+        capture = instant(evidence.get('extrait_utc'))
+        if not capture or capture > datetime.now(timezone.utc):
+            continue
         doc=copy.deepcopy(previous)
         result=enrichir(doc,html.read_text(encoding='utf-8'),ident,url,evidence.get('extrait_utc'))
         report['archives_lues']+=1;report['conflits']+=result['conflits']
@@ -75,6 +87,9 @@ def reparer(cache,*,partants=False,fetch=None):
             writer.writeheader();writer.writerows(doc['performances'])
         report['historiques_enrichis']+=1;report['ferrures_ajoutees']+=result['ferrures_ajoutees']
         report['departs_ajoutes']+=result['departs_ajoutes']
+        if result['ferrures_ajoutees']:
+            added = report['ferrures_ajoutees_par_id']
+            added[ident] = added.get(ident, 0) + result['ferrures_ajoutees']
     if partants:report.update(reparer_partants(cache,fetch))
     return report
 

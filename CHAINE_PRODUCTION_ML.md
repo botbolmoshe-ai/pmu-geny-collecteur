@@ -159,3 +159,35 @@ et Streamlit affichent Crack. Plusieurs chevaux d'une même course peuvent
 être labellisés. À score direct identique, l'ordre est Crack, Haut potentiel,
 puis numéro du partant. Les écarts de score gardent la priorité. Le gain
 prédictif de ce départage reste à mesurer sur des courses prospectives.
+
+## Audit pré-départ du 20 novembre 2026
+
+Échantillon durable `pmu-data@bd13a88469fe32bb820beef4092f8a9354381cbb`.
+Le schéma courant `pmu-podium-v34` représente 22 instantanés et 282 lignes
+de partants. Les effectifs ci-dessous comptent les valeurs renseignées
+dans ces instantanés. La population qualifiante du rapport de maturité est
+plus restreinte et compte 15 courses et 195 observations.
+
+| Facteur | Couverture relevée et usage |
+| --- | --- |
+| Distance | 282 distances courantes, 51 écarts de distance, 40 formes Geny comparables. La baseline pondère l'écart de distance dans la même discipline. |
+| Ferrure | Indicateurs PMU de ferrure courante sur 282 lignes. Comparaison des ferrures historiques sur 41 lignes. Le calcul de forme compare la ferrure passée à la déclaration courante. Une transition entre deux départs successifs demanderait une observation sourcée supplémentaire. |
+| Autostart | 22 lignes avec mode, position relative et ligne de départ. 14 lignes avec forme Geny à départ comparable. |
+| Hippodrome, piste et corde | La baseline compare l'hippodrome. L'aptitude hippodrome n'est renseignée sur aucune ligne de cet échantillon ML. Piste et corde ne sont pas des variables distinctes du modèle courant. |
+| Réduction kilométrique | Le chrono apparaît dans les historiques. Le schéma courant ne porte pas de feature qui compare le chrono à parcours, discipline et départ équivalents. |
+| Affinités | 7 scores driver, aucun score entraîneur ni tandem dans ces instantanés. Le calcul du tandem utilise des participations antérieures et le lissage du taux de podium. |
+| Opposition | La baseline utilise l'allocation lorsqu'elle est documentée. Le modèle reçoit notamment le nombre de partants. La force du champ n'est pas documentée comme variable propre. |
+| Recul et gains | 54 reculs au départ et 282 gains. Les conditions d'éligibilité aux gains n'ont pas de variable propre dans ce schéma. |
+| Fraîcheur et charge | 51 jours de repos et 54 comptages de sorties sur 30, 60 et 120 jours. |
+
+Le rapport de maturité compte 114 courses et 1 517 lignes au total. Les
+15 courses et 195 observations qualifiantes restent en dessous des seuils
+de préproduction de 150 courses et 1 500 observations. Le statut est
+`INSUFFISANT`, la promotion est à `false`. Les champs du modèle, ses seuils,
+les scores et les instantanés restent ceux de la chaîne en service.
+Surveiller la couverture, l'identité et le gain prospectif apparié par
+cohorte avant tout déploiement d'un candidat. Pour retirer une future
+promotion, restaurer le pointeur et l'artefact actifs de la version
+précédente validée à partir de l'historique de `pmu-data`, sous le verrou de
+production, puis vérifier le SHA et la version au prochain score. Les
+prédictions déjà publiées restent figées.

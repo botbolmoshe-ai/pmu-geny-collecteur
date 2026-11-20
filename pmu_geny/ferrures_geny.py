@@ -183,7 +183,15 @@ def enrichir(doc,html,ident,source_url,capture_utc=None):
         # ferrures divergentes. Rang et chrono peuvent confirmer la bonne ligne.
         exact=[x for x in found if normaliser(x.get('classement'))==normaliser(row.get('classement'))
                and normaliser(x.get('chrono'))==normaliser(row.get('chrono'))]
-        if exact:found=exact
+        if exact:
+            found = exact
+        else:
+            # Le contexte seul ne suffit pas à identifier la course.
+            codes = {x['ferrure'] for x in found if x.get('ferrure')}
+            if len(codes) > 1:
+                conflicts += 1
+                row['ferrure_qualification'] = 'CONFLIT'
+            continue
         departures = [x for x in found if x.get('depart_trot') and x.get('course_id')
                       and capture and x.get('depart_course') and x['depart_course'] < capture]
         if (not row.get('depart_trot') and departures and len({x['course_id'] for x in departures}) == 1
@@ -197,17 +205,18 @@ def enrichir(doc,html,ident,source_url,capture_utc=None):
         if not found:
             continue
         codes={x['ferrure'] for x in found}
-        if len(codes)!=1:
+        courses = {str(x['course_id']) for x in found if x.get('course_id')}
+        if len(codes) != 1 or len(courses) > 1:
             conflicts+=1;row['ferrure_qualification']='CONFLIT';continue
         code=next(iter(codes))
         if row.get('ferrure'):
             if row['ferrure']!=code:
                 conflicts+=1;row['ferrure_qualification']='CONFLIT'
             continue
-        proof=next((x for x in found if x['source']=='GENY_ARIA_LABEL'),found[0])
+        proof = next((x for x in found if x.get('course_id')), found[0])
         row.update(ferrure=code,ferrure_qualification='SOURCEE',ferrure_source={'source':proof['source'],'url':source_url,
             'capture_utc':capture_utc,'code_brut':proof['code_brut'],'identifiant_cheval':str(ident),
-            'courses_ids':sorted({x['course_id'] for x in found if x.get('course_id')})})
+            'courses_ids':sorted(courses)})
         added+=1
     couverture(doc)
     return {'ferrures_ajoutees':added,'departs_ajoutes':departures_added,

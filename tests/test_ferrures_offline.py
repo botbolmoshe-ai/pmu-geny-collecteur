@@ -125,6 +125,15 @@ class FerruresTests(unittest.TestCase):
         result=fg.enrichir(ambiguous,html(records),'123456','source')
         self.assertEqual(result['ferrures_ajoutees'],0);self.assertEqual(result['conflits'],1)
 
+    def test_ferrure_refusee_si_une_autre_course_a_le_meme_code(self):
+        rows = [participation('FF', pid=1), participation('FF', pid=2)]
+        capture = self.now.isoformat()
+        for row, expected_conflicts in ((perf(), 1), (perf(rank='4'), 0)):
+            with self.subTest(rank=row['classement']):
+                result = fg.enrichir({'performances': [row]}, html(rows), '123456', 'source', capture)
+                self.assertNotIn('ferrure', row)
+                self.assertEqual(result['conflits'], expected_conflicts)
+
     def seed_capture(self,*,ferrure=None):
         row=perf()
         if ferrure:row['ferrure']=ferrure

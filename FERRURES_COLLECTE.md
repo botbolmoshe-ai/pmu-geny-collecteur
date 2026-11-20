@@ -70,3 +70,27 @@ Tests : tables propres aux sources, identité et courses multiples, absence
 de fausse imputation, conservation d'une ferrure connue, régression bloquée,
 reprise reproductible, respect du 429, mise à jour d'une cellule existante
 sans doublon et compilation du Python intégré aux workflows.
+
+## Reprise sous budget et contrôle de publication
+
+`RATTRAPAGE_PART_FERRURES` fixe la part cible des tentatives Geny de
+rattrapage sur les ferrures, de 0 à 30 %, avec 25 % par défaut. En présence
+des deux types de travail, à 25 %, trois tentatives de carrière financent
+une tentative ferrures. Le crédit est conservé sur `pmu-data` entre les
+passages, y compris lorsque le workflow autorise un seul cheval. Si une
+file est momentanément vide ou différée, l'autre utilise le créneau.
+La part se mesure en tentatives, dont les durées peuvent différer.
+
+Avant l'accès Geny, le passage réutilise les archives locales sous le même
+verrou de production, avec un budget de 15 secondes au plus et un point
+de reprise. Les échéances PMU et les partants protégés restent prioritaires.
+Un HTTP 403 ou 429 arrête les tentatives Geny et impose au moins 30 minutes
+de pause globale. La réparation locale et la publication des données déjà
+sauvegardées restent possibles pendant cette pause si PMU n'attend pas.
+La reprise ne modifie pas la phase d'inventaire tant qu'il reste des carrières
+manquantes.
+
+La couverture Sheets compare les valeurs de ferrure en plus des clés de
+performance. Le moteur relit les valeurs attendues après écriture ou si
+elles sont déjà présentes. Les KPI du rattrapage apparaissent dans le
+registre actuel de « Data Quality & KPI », dans Sheets et dans Streamlit.
