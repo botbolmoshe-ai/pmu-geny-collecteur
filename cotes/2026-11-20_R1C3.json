@@ -3,7 +3,7 @@
   "date": "2026-11-20",
   "course": "R1C3",
   "depart": "2026-11-20T19:33:00+01:00",
-  "controle_utc": "2026-11-20T02:26:39.837411+00:00",
+  "controle_utc": "2026-11-20T04:35:51.266549+00:00",
   "chevaux": [
     {
       "numero": 1,
@@ -20,12 +20,12 @@
       "numero": 2,
       "nom": "MAJOR DU BELVER",
       "statut_np": "PARTANT",
-      "cote": null,
-      "source": "",
-      "champ_pmu": "",
-      "heure_utc": "",
-      "date_rapport_utc": "",
-      "statut": "NON_DISPONIBLE"
+      "cote": 3.4,
+      "source": "PMU_API_PARTICIPANTS",
+      "champ_pmu": "dernierRapportDirect",
+      "heure_utc": "2026-11-20T04:35:51.266549+00:00",
+      "date_rapport_utc": "2026-11-20T04:30:54+00:00",
+      "statut": "RELEVE_HORODATE"
     },
     {
       "numero": 3,
@@ -75,23 +75,23 @@
       "numero": 7,
       "nom": "METAVERS ERA",
       "statut_np": "PARTANT",
-      "cote": null,
-      "source": "",
-      "champ_pmu": "",
-      "heure_utc": "",
-      "date_rapport_utc": "",
-      "statut": "NON_DISPONIBLE"
+      "cote": 2.5,
+      "source": "PMU_API_PARTICIPANTS",
+      "champ_pmu": "dernierRapportDirect",
+      "heure_utc": "2026-11-20T04:35:51.266549+00:00",
+      "date_rapport_utc": "2026-11-20T04:30:54+00:00",
+      "statut": "RELEVE_HORODATE"
     },
     {
       "numero": 8,
       "nom": "MANNINEN SEVEN",
       "statut_np": "PARTANT",
-      "cote": null,
-      "source": "",
-      "champ_pmu": "",
-      "heure_utc": "",
-      "date_rapport_utc": "",
-      "statut": "NON_DISPONIBLE"
+      "cote": 2.0,
+      "source": "PMU_API_PARTICIPANTS",
+      "champ_pmu": "dernierRapportDirect",
+      "heure_utc": "2026-11-20T04:35:51.266549+00:00",
+      "date_rapport_utc": "2026-11-20T04:30:54+00:00",
+      "statut": "RELEVE_HORODATE"
     }
   ],
   "releves": [
@@ -187,13 +187,51 @@
           "statut": "NON_DISPONIBLE"
         }
       ]
+    },
+    {
+      "heure_utc": "2026-11-20T04:35:51.266549+00:00",
+      "chevaux": [
+        {
+          "numero": 2,
+          "nom": "MAJOR DU BELVER",
+          "statut_np": "PARTANT",
+          "cote": 3.4,
+          "source": "PMU_API_PARTICIPANTS",
+          "champ_pmu": "dernierRapportDirect",
+          "heure_utc": "2026-11-20T04:35:51.266549+00:00",
+          "date_rapport_utc": "2026-11-20T04:30:54+00:00",
+          "statut": "RELEVE_HORODATE"
+        },
+        {
+          "numero": 7,
+          "nom": "METAVERS ERA",
+          "statut_np": "PARTANT",
+          "cote": 2.5,
+          "source": "PMU_API_PARTICIPANTS",
+          "champ_pmu": "dernierRapportDirect",
+          "heure_utc": "2026-11-20T04:35:51.266549+00:00",
+          "date_rapport_utc": "2026-11-20T04:30:54+00:00",
+          "statut": "RELEVE_HORODATE"
+        },
+        {
+          "numero": 8,
+          "nom": "MANNINEN SEVEN",
+          "statut_np": "PARTANT",
+          "cote": 2.0,
+          "source": "PMU_API_PARTICIPANTS",
+          "champ_pmu": "dernierRapportDirect",
+          "heure_utc": "2026-11-20T04:35:51.266549+00:00",
+          "date_rapport_utc": "2026-11-20T04:30:54+00:00",
+          "statut": "RELEVE_HORODATE"
+        }
+      ]
     }
   ],
   "liste_complete": true,
   "partants_eligibles": 8,
-  "cotes_extraites": 0,
-  "cotes_manquantes": 8,
-  "couverture": 0.0,
-  "statut": "COTES_NON_EXTRAITES",
-  "derniere_cote_utc": ""
+  "cotes_extraites": 3,
+  "cotes_manquantes": 5,
+  "couverture": 0.375,
+  "statut": "COTES_PARTIELLES",
+  "derniere_cote_utc": "2026-11-20T04:35:51.266549+00:00"
 }

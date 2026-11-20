@@ -3,7 +3,7 @@
   "date": "2026-11-20",
   "course": "R1C2",
   "depart": "2026-11-20T18:58:00+01:00",
-  "controle_utc": "2026-11-20T02:26:39.640492+00:00",
+  "controle_utc": "2026-11-20T04:35:50.816163+00:00",
   "chevaux": [
     {
       "numero": 1,
@@ -20,12 +20,12 @@
       "numero": 2,
       "nom": "L'AMOUR D'ETANG",
       "statut_np": "PARTANT",
-      "cote": null,
-      "source": "",
-      "champ_pmu": "",
-      "heure_utc": "",
-      "date_rapport_utc": "",
-      "statut": "NON_DISPONIBLE"
+      "cote": 3.8,
+      "source": "PMU_API_PARTICIPANTS",
+      "champ_pmu": "dernierRapportDirect",
+      "heure_utc": "2026-11-20T04:35:50.816163+00:00",
+      "date_rapport_utc": "2026-11-20T04:30:32+00:00",
+      "statut": "RELEVE_HORODATE"
     },
     {
       "numero": 3,
@@ -42,12 +42,12 @@
       "numero": 4,
       "nom": "LOUPIOT JACTA",
       "statut_np": "PARTANT",
-      "cote": null,
-      "source": "",
-      "champ_pmu": "",
-      "heure_utc": "",
-      "date_rapport_utc": "",
-      "statut": "NON_DISPONIBLE"
+      "cote": 2.5,
+      "source": "PMU_API_PARTICIPANTS",
+      "champ_pmu": "dernierRapportDirect",
+      "heure_utc": "2026-11-20T04:35:50.816163+00:00",
+      "date_rapport_utc": "2026-11-20T04:30:32+00:00",
+      "statut": "RELEVE_HORODATE"
     },
     {
       "numero": 5,
@@ -97,12 +97,12 @@
       "numero": 9,
       "nom": "LOUVIERS",
       "statut_np": "PARTANT",
-      "cote": null,
-      "source": "",
-      "champ_pmu": "",
-      "heure_utc": "",
-      "date_rapport_utc": "",
-      "statut": "NON_DISPONIBLE"
+      "cote": 1.9,
+      "source": "PMU_API_PARTICIPANTS",
+      "champ_pmu": "dernierRapportDirect",
+      "heure_utc": "2026-11-20T04:35:50.816163+00:00",
+      "date_rapport_utc": "2026-11-20T04:30:32+00:00",
+      "statut": "RELEVE_HORODATE"
     },
     {
       "numero": 10,
@@ -275,13 +275,51 @@
           "statut": "NON_DISPONIBLE"
         }
       ]
+    },
+    {
+      "heure_utc": "2026-11-20T04:35:50.816163+00:00",
+      "chevaux": [
+        {
+          "numero": 2,
+          "nom": "L'AMOUR D'ETANG",
+          "statut_np": "PARTANT",
+          "cote": 3.8,
+          "source": "PMU_API_PARTICIPANTS",
+          "champ_pmu": "dernierRapportDirect",
+          "heure_utc": "2026-11-20T04:35:50.816163+00:00",
+          "date_rapport_utc": "2026-11-20T04:30:32+00:00",
+          "statut": "RELEVE_HORODATE"
+        },
+        {
+          "numero": 4,
+          "nom": "LOUPIOT JACTA",
+          "statut_np": "PARTANT",
+          "cote": 2.5,
+          "source": "PMU_API_PARTICIPANTS",
+          "champ_pmu": "dernierRapportDirect",
+          "heure_utc": "2026-11-20T04:35:50.816163+00:00",
+          "date_rapport_utc": "2026-11-20T04:30:32+00:00",
+          "statut": "RELEVE_HORODATE"
+        },
+        {
+          "numero": 9,
+          "nom": "LOUVIERS",
+          "statut_np": "PARTANT",
+          "cote": 1.9,
+          "source": "PMU_API_PARTICIPANTS",
+          "champ_pmu": "dernierRapportDirect",
+          "heure_utc": "2026-11-20T04:35:50.816163+00:00",
+          "date_rapport_utc": "2026-11-20T04:30:32+00:00",
+          "statut": "RELEVE_HORODATE"
+        }
+      ]
     }
   ],
   "liste_complete": true,
   "partants_eligibles": 12,
-  "cotes_extraites": 0,
-  "cotes_manquantes": 12,
-  "couverture": 0.0,
-  "statut": "COTES_NON_EXTRAITES",
-  "derniere_cote_utc": ""
+  "cotes_extraites": 3,
+  "cotes_manquantes": 9,
+  "couverture": 0.25,
+  "statut": "COTES_PARTIELLES",
+  "derniere_cote_utc": "2026-11-20T04:35:50.816163+00:00"
 }
