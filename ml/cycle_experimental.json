@@ -1,30 +1,31 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "d136398407e5bcbe16cd29a956ff756e8b16bd0e944b1c4d8d31da55a9a790c8",
-  "execute_utc": "2026-11-20T18:45:34.973770+00:00",
+  "empreinte_donnees": "6deb61a613c78d745eadb2eaaf71685437e3d98b4ddb5d1f69721b6368e2ee80",
+  "execute_utc": "2026-11-20T19:49:57.464478+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 118,
-  "lignes_admissibles": 1560,
+  "courses_admissibles": 119,
+  "lignes_admissibles": 1575,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-d136398407e5bcbe16cd/rapport.json",
+  "rapport": "ml/experiences/automatique-6deb61a613c78d745ead/rapport.json",
   "validation_day": "2026-11-19",
   "test_day": "2026-11-20",
   "modele": "regression_logistique",
   "test_ml": {
-    "courses": 4,
-    "chevaux_retrouves": 4,
-    "moyenne": 1.0,
-    "au_moins_2_sur_3": 1,
+    "courses": 5,
+    "chevaux_retrouves": 6,
+    "moyenne": 1.2,
+    "au_moins_2_sur_3": 2,
     "exact_3_sur_3": 0,
     "distribution": {
       "0": 1,
       "1": 2,
-      "2": 1
+      "2": 2
     },
     "hits_par_course": {
       "2026-11-20_R1C1": 1,
       "2026-11-20_R1C2": 0,
       "2026-11-20_R1C3": 1,
+      "2026-11-20_R1C4": 2,
       "2026-11-20_R4C6": 2
     },
     "selections": {
@@ -43,6 +44,11 @@
         2,
         5
       ],
+      "2026-11-20_R1C4": [
+        4,
+        13,
+        5
+      ],
       "2026-11-20_R4C6": [
         4,
         8,
@@ -51,10 +57,10 @@
     }
   },
   "comparaison": {
-    "courses": 4,
-    "ecart_moyen": 0.5,
+    "courses": 5,
+    "ecart_moyen": 0.6,
     "ic95_bootstrap_par_course": [
-      0.0,
+      0.2,
       1.0
     ]
   },
@@ -72,10 +78,10 @@
       "dernier_depart": "2026-11-19T20:47:00+01:00"
     },
     "test": {
-      "courses": 4,
-      "lignes": 43,
+      "courses": 5,
+      "lignes": 58,
       "premier_depart": "2026-11-20T18:23:00+01:00",
-      "dernier_depart": "2026-11-20T19:33:00+01:00"
+      "dernier_depart": "2026-11-20T20:15:00+01:00"
     }
   }
 }
