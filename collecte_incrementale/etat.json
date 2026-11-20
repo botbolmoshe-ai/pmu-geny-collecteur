@@ -48428,7 +48428,7 @@
       "derniere_performance_date": "2026-11-01",
       "nombre_performances": 16,
       "ferrures_manquantes": 16,
-      "collecte": "COMPLET",
+      "collecte": "A_REPRENDRE",
       "geny": {
         "id": "2842092",
         "nom": "Miss Black Berry",
@@ -48441,7 +48441,17 @@
       "preparation_pmu_ok": true,
       "rapprochement_geny": "NOM_EXACT_UNIQUE",
       "annee_naissance_pmu": 2022,
-      "recherche_geny_par_nom": false
+      "recherche_geny_par_nom": false,
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "prochain_essai_utc": "2026-11-20T16:53:42.913561+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-20T10:53:42.913576+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2842092/1795172017483180755/resultat.json"
+      }
     },
     "2848495": {
       "nom": "MAMAMIA DES ARRIS",
@@ -61856,13 +61866,13 @@
     }
   },
   "passage_utc": "2026-11-20T10:46:56.623292+00:00",
-  "maj_utc": "2026-11-20T10:53:33.577877+00:00",
+  "maj_utc": "2026-11-20T10:53:42.913610+00:00",
   "bilan": {
     "chevaux_suivis": 2172,
-    "tentatives_collecte": 18,
+    "tentatives_collecte": 19,
     "captures_validees": 18,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1939
   },
