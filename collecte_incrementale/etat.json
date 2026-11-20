@@ -48502,7 +48502,7 @@
       "derniere_performance_date": "2026-10-20",
       "nombre_performances": 18,
       "ferrures_manquantes": 18,
-      "collecte": "COMPLET",
+      "collecte": "A_REPRENDRE",
       "geny": {
         "id": "2858889",
         "nom": "Moonstar Jyl",
@@ -48515,7 +48515,17 @@
       "preparation_pmu_ok": true,
       "rapprochement_geny": "NOM_EXACT_UNIQUE",
       "annee_naissance_pmu": 2022,
-      "recherche_geny_par_nom": false
+      "recherche_geny_par_nom": false,
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "prochain_essai_utc": "2026-11-20T16:54:03.018250+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-20T10:54:03.018266+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2858889/1795172037386846856/resultat.json"
+      }
     },
     "2847261": {
       "nom": "MA JOLIE BECO",
@@ -61876,13 +61886,13 @@
     }
   },
   "passage_utc": "2026-11-20T10:46:56.623292+00:00",
-  "maj_utc": "2026-11-20T10:53:52.852014+00:00",
+  "maj_utc": "2026-11-20T10:54:03.018300+00:00",
   "bilan": {
     "chevaux_suivis": 2172,
-    "tentatives_collecte": 20,
+    "tentatives_collecte": 21,
     "captures_validees": 18,
     "captures_partielles": 0,
-    "collectes_rejetees": 2,
+    "collectes_rejetees": 3,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1939
   },
