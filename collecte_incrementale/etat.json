@@ -609,7 +609,7 @@
       "verification_periodique": true,
       "course_url": "https://www.geny.com/course/1699160/partants-pronostics",
       "id": "2836106",
-      "collecte": "COMPLET",
+      "collecte": "A_REPRENDRE",
       "geny": {
         "id": "2836106",
         "nom": "Metavers Era",
@@ -626,7 +626,17 @@
       "preparation_pmu_ok": true,
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
       "annee_naissance_pmu": 2022,
-      "recherche_geny_par_nom": false
+      "recherche_geny_par_nom": false,
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "prochain_essai_utc": "2026-11-20T14:49:09.806456+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-20T08:49:09.806495+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2836106/1795164543472903333/resultat.json"
+      }
     },
     "2820926": {
       "nom": "MONOGAME",
@@ -60474,13 +60484,13 @@
     }
   },
   "passage_utc": "2026-11-20T08:47:16.777529+00:00",
-  "maj_utc": "2026-11-20T08:48:58.694405+00:00",
+  "maj_utc": "2026-11-20T08:49:09.806560+00:00",
   "bilan": {
     "chevaux_suivis": 2172,
-    "tentatives_collecte": 4,
+    "tentatives_collecte": 5,
     "captures_validees": 4,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1955
   },
