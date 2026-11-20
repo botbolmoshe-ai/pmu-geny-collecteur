@@ -48371,7 +48371,7 @@
       "derniere_performance_date": "2026-11-06",
       "nombre_performances": 23,
       "ferrures_manquantes": 0,
-      "collecte": "COMPLET",
+      "collecte": "A_REPRENDRE",
       "geny": {
         "id": "2813947",
         "nom": "Le Trésor Kraailo",
@@ -48384,7 +48384,17 @@
       "preparation_pmu_ok": true,
       "rapprochement_geny": "NOM_EXACT_UNIQUE",
       "annee_naissance_pmu": 2021,
-      "recherche_geny_par_nom": false
+      "recherche_geny_par_nom": false,
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "prochain_essai_utc": "2026-11-20T11:08:51.874577+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-20T05:08:51.874594+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2813947/1795151325787771076/resultat.json"
+      }
     },
     "2026-11-20_R1C3_1": {
       "nom": "MAGIC D'AIMTE",
@@ -60237,13 +60247,13 @@
     }
   },
   "passage_utc": "2026-11-20T05:02:39.364230+00:00",
-  "maj_utc": "2026-11-20T05:08:41.701227+00:00",
+  "maj_utc": "2026-11-20T05:08:51.874647+00:00",
   "bilan": {
     "chevaux_suivis": 2172,
-    "tentatives_collecte": 16,
+    "tentatives_collecte": 17,
     "captures_validees": 15,
     "captures_partielles": 0,
-    "collectes_rejetees": 1,
+    "collectes_rejetees": 2,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1972
   },
