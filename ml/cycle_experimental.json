@@ -1,147 +1,81 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "60ebdd8133c73c8daf60ce17901c70e56334b4e50dd6c42e421bae40e2f82aab",
-  "execute_utc": "2026-11-19T23:24:12.925102+00:00",
+  "empreinte_donnees": "d136398407e5bcbe16cd29a956ff756e8b16bd0e944b1c4d8d31da55a9a790c8",
+  "execute_utc": "2026-11-20T18:45:34.973770+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 114,
-  "lignes_admissibles": 1517,
+  "courses_admissibles": 118,
+  "lignes_admissibles": 1560,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-60ebdd8133c73c8daf60/rapport.json",
-  "validation_day": "2026-11-18",
-  "test_day": "2026-11-19",
+  "rapport": "ml/experiences/automatique-d136398407e5bcbe16cd/rapport.json",
+  "validation_day": "2026-11-19",
+  "test_day": "2026-11-20",
   "modele": "regression_logistique",
   "test_ml": {
-    "courses": 15,
-    "chevaux_retrouves": 16,
-    "moyenne": 1.0666666666666667,
-    "au_moins_2_sur_3": 5,
+    "courses": 4,
+    "chevaux_retrouves": 4,
+    "moyenne": 1.0,
+    "au_moins_2_sur_3": 1,
     "exact_3_sur_3": 0,
     "distribution": {
-      "0": 4,
-      "1": 6,
-      "2": 5
+      "0": 1,
+      "1": 2,
+      "2": 1
     },
     "hits_par_course": {
-      "2026-11-19_R3C1": 2,
-      "2026-11-19_R3C2": 1,
-      "2026-11-19_R3C3": 1,
-      "2026-11-19_R3C4": 0,
-      "2026-11-19_R3C5": 2,
-      "2026-11-19_R3C6": 1,
-      "2026-11-19_R3C8": 0,
-      "2026-11-19_R4C1": 1,
-      "2026-11-19_R4C2": 2,
-      "2026-11-19_R4C3": 0,
-      "2026-11-19_R4C4": 2,
-      "2026-11-19_R4C5": 2,
-      "2026-11-19_R4C6": 1,
-      "2026-11-19_R4C7": 1,
-      "2026-11-19_R4C8": 0
+      "2026-11-20_R1C1": 1,
+      "2026-11-20_R1C2": 0,
+      "2026-11-20_R1C3": 1,
+      "2026-11-20_R4C6": 2
     },
     "selections": {
-      "2026-11-19_R3C1": [
-        11,
-        8,
-        10
-      ],
-      "2026-11-19_R3C2": [
-        16,
-        15,
-        3
-      ],
-      "2026-11-19_R3C3": [
+      "2026-11-20_R1C1": [
         7,
-        8,
-        4
-      ],
-      "2026-11-19_R3C4": [
-        9,
-        13,
-        3
-      ],
-      "2026-11-19_R3C5": [
-        10,
-        3,
-        8
-      ],
-      "2026-11-19_R3C6": [
-        6,
-        9,
-        5
-      ],
-      "2026-11-19_R3C8": [
-        2,
-        4,
-        16
-      ],
-      "2026-11-19_R4C1": [
-        5,
-        13,
-        2
-      ],
-      "2026-11-19_R4C2": [
-        4,
         1,
-        5
-      ],
-      "2026-11-19_R4C3": [
-        10,
-        1,
-        4
-      ],
-      "2026-11-19_R4C4": [
-        6,
-        2,
-        4
-      ],
-      "2026-11-19_R4C5": [
-        3,
-        5,
-        8
-      ],
-      "2026-11-19_R4C6": [
-        4,
-        1,
-        12
-      ],
-      "2026-11-19_R4C7": [
-        12,
-        11,
         13
       ],
-      "2026-11-19_R4C8": [
-        12,
+      "2026-11-20_R1C2": [
+        5,
+        8,
+        12
+      ],
+      "2026-11-20_R1C3": [
         3,
-        8
+        2,
+        5
+      ],
+      "2026-11-20_R4C6": [
+        4,
+        8,
+        6
       ]
     }
   },
   "comparaison": {
-    "courses": 14,
-    "ecart_moyen": 0.0,
+    "courses": 4,
+    "ecart_moyen": 0.5,
     "ic95_bootstrap_par_course": [
-      -0.21428571428571427,
-      0.21428571428571427
+      0.0,
+      1.0
     ]
   },
   "decoupage": {
     "train": {
-      "courses": 86,
-      "lignes": 1155,
+      "courses": 99,
+      "lignes": 1322,
       "premier_depart": "2026-11-11T16:42:00+01:00",
-      "dernier_depart": "2026-11-17T18:17:00+01:00"
-    },
-    "validation": {
-      "courses": 13,
-      "lignes": 167,
-      "premier_depart": "2026-11-18T13:00:00+01:00",
       "dernier_depart": "2026-11-18T18:00:00+01:00"
     },
-    "test": {
+    "validation": {
       "courses": 15,
       "lignes": 195,
       "premier_depart": "2026-11-19T15:57:00+01:00",
       "dernier_depart": "2026-11-19T20:47:00+01:00"
+    },
+    "test": {
+      "courses": 4,
+      "lignes": 43,
+      "premier_depart": "2026-11-20T18:23:00+01:00",
+      "dernier_depart": "2026-11-20T19:33:00+01:00"
     }
   }
 }
