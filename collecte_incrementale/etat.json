@@ -62684,7 +62684,7 @@
     }
   },
   "passage_utc": "2026-11-20T18:59:56.823897+00:00",
-  "maj_utc": "2026-11-20T19:06:54.163359+00:00",
+  "maj_utc": "2026-11-20T19:07:01.281677+00:00",
   "bilan": {
     "chevaux_suivis": 2172,
     "tentatives_collecte": 21,
@@ -62692,10 +62692,10 @@
     "captures_partielles": 0,
     "collectes_rejetees": 4,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 1920
+    "actualisations_en_attente": 1950
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 12,
@@ -62706,7 +62706,7 @@
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-20T18:59:56.823897+00:00",
+    "controle_utc": "2026-11-20T19:06:58.087528+00:00",
     "pret": false,
     "partants_a_venir": 335,
     "couverture_par_jour": {
@@ -62718,9 +62718,9 @@
       },
       "2026-11-21": {
         "partants": 303,
-        "historiques_complets": 18,
-        "sans_historique_complet": 285,
-        "historiques_a_actualiser": 302
+        "historiques_complets": 35,
+        "sans_historique_complet": 268,
+        "historiques_a_actualiser": 285
       }
     },
     "blocages": [
@@ -62741,83 +62741,8 @@
       },
       {
         "course": "2026-11-21_R2C2",
-        "numero": "2",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "3",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "4",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "5",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "6",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "7",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "8",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "9",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
         "numero": "10",
         "motif": "PUBLICATION_GENY_EN_ATTENTE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "11",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C2",
-        "numero": "12",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C3",
-        "numero": "1",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C3",
-        "numero": "2",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C3",
-        "numero": "3",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C3",
-        "numero": "4",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C3",
-        "numero": "5",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       },
       {
         "course": "2026-11-21_R2C3",
@@ -62843,16 +62768,6 @@
         "course": "2026-11-21_R2C3",
         "numero": "10",
         "motif": "FERRURES_HISTORIQUES_A_COMPLETER"
-      },
-      {
-        "course": "2026-11-21_R2C3",
-        "numero": "11",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-21_R2C3",
-        "numero": "12",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       },
       {
         "course": "2026-11-21_R2C4",
@@ -64251,5 +64166,6 @@
       }
     ]
   },
-  "sync_kpi_utc": "2026-11-20T11:44:46.641498+00:00"
+  "sync_kpi_utc": "2026-11-20T19:07:01.279830+00:00",
+  "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
 }
