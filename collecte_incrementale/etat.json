@@ -2246,7 +2246,7 @@
       "verification_periodique": true,
       "course_url": "https://www.geny.com/course/1699166/partants-pronostics",
       "id": "2860340",
-      "collecte": "COMPLET",
+      "collecte": "A_REPRENDRE",
       "geny": {
         "id": "2860340",
         "nom": "Like a Julry",
@@ -2263,7 +2263,17 @@
       "preparation_pmu_ok": true,
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
       "annee_naissance_pmu": 2021,
-      "recherche_geny_par_nom": false
+      "recherche_geny_par_nom": false,
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "prochain_essai_utc": "2026-11-20T11:04:27.488622+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-20T05:04:27.488638+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2860340/1795151061753212286/resultat.json"
+      }
     },
     "2846267": {
       "nom": "LOLA DE CHENU",
@@ -59710,13 +59720,13 @@
     }
   },
   "passage_utc": "2026-11-20T05:02:39.364230+00:00",
-  "maj_utc": "2026-11-20T05:04:17.672267+00:00",
+  "maj_utc": "2026-11-20T05:04:27.488682+00:00",
   "bilan": {
     "chevaux_suivis": 2172,
-    "tentatives_collecte": 4,
+    "tentatives_collecte": 5,
     "captures_validees": 4,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 1972
   },
