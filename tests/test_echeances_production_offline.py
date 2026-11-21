@@ -37,16 +37,32 @@ class EcheancesTests(unittest.TestCase):
                 'statut':'ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE',
                 'dernier_label_entrainement_utc':(self.now-timedelta(days=1)).isoformat()})
 
+    def publish(self, now, plan=None, *, observation=None):
+        plan = plan or e.planifier(self.cache, now)
+        observation = observation or now
+        proof = {'lecture_utc': observation.isoformat(), 'courses': {}}
+        for path in (self.cache/'pronostics').glob('*.json'):
+            document = e.lire(path)
+            key = document['date'] + '_' + document['course']
+            method = 'ml' if path.stem.endswith('_ml_latest') else 'direct'
+            proof['courses'].setdefault(key, {})[method] = {
+                'calcul_utc': document['calcul_utc'],
+                'numeros': [h['numero'] for h in document['top3']]}
+        return e.enregistrer_publication(self.cache, now, plan, True, sheets=proof)
+
     def test_tick_leger_puis_cycle_global_horaire(self):
         self.assertEqual(e.planifier(self.cache,self.now)['mode'],'ATTENTE')
         self.assertEqual(e.planifier(self.cache,self.now,force=True)['mode'],'GLOBAL')
-        self.assertEqual(e.planifier(self.cache,self.now+timedelta(hours=1))['mode'],'GLOBAL')
+        self.assertEqual(e.planifier(self.cache,self.now+timedelta(hours=1))['mode'],'JALONS')
 
     def test_collecte_ne_charge_pas_navigateur_pendant_pause_sauf_publication_a_reprendre(self):
         e.sauver(self.cache/'etat_persistant.json',{'dernier_blocage_geny':{'utc':self.now.isoformat(),'code':'403'}})
         self.assertFalse(e.plan_collecte(self.cache,self.now)['executer'])
         e.sauver(self.cache/'collecte_incrementale/etat.json',{'chevaux':{'x':{'sync':'A_FAIRE'}}})
-        self.assertTrue(e.plan_collecte(self.cache,self.now)['executer'])
+        self.assertFalse(e.plan_collecte(self.cache,self.now)['executer'])
+        earlier = self.now - timedelta(minutes=40)
+        self.mark_global(earlier)
+        self.assertTrue(e.plan_collecte(self.cache,earlier)['executer'])
         later=self.now+timedelta(hours=1)
         self.assertEqual(e.plan_collecte(self.cache,later)['motif'],'ECHEANCE_PMU_PRIORITAIRE')
 
@@ -113,7 +129,7 @@ class EcheancesTests(unittest.TestCase):
         self.assertEqual(e.planifier(self.cache,opened)['jalons_dus'][0]['phase'],'H2')
         self.predictions(opened)
         late=opened+timedelta(minutes=31)
-        report=e.enregistrer_publication(self.cache,late,{'mode':'JALONS'},True)
+        report=self.publish(late, e.planifier(self.cache, opened))
         self.assertFalse(report['courses'][0]['top3_direct_et_ml'])
         self.assertEqual(e.lire(self.cache/'jalons'/f'{self.key}.json')['H2']['statut'],'INCOMPLET')
 
@@ -123,8 +139,9 @@ class EcheancesTests(unittest.TestCase):
         for day in ('2026-11-17','2026-11-18'):
             path=self.cache/'sources_pmu'/f'programme_{day}.json'
             doc=e.lire(path);doc['date_controle_utc']=now.isoformat();e.sauver(path,doc)
-        report=e.enregistrer_publication(self.cache,now,{'mode':'GLOBAL'},True)
-        self.assertEqual([x['motif'] for x in report['erreurs']],['JALON_PUBLIE_EN_RETARD'])
+        plan = {**e.planifier(self.cache,now), 'mode': 'GLOBAL'}
+        report = self.publish(now, plan)
+        self.assertIn('JALON_PUBLIE_EN_RETARD', [x['motif'] for x in report['erreurs']])
         self.assertEqual(e.lire(self.cache/'orchestration/production_etat.json')['dernier_global_publie_utc'],now.isoformat())
         self.assertEqual(e.planifier(self.cache,now)['mode'],'ATTENTE')
 
@@ -132,7 +149,7 @@ class EcheancesTests(unittest.TestCase):
         now=self.now+timedelta(minutes=40)
         self.predictions(now)
         plan=e.planifier(self.cache,now)
-        report=e.enregistrer_publication(self.cache,now,plan,True)
+        report=self.publish(now,plan)
         self.assertEqual(report['erreurs'],[])
         h2=e.lire(self.cache/'jalons'/f'{self.key}.json')['H2']
         self.assertEqual(h2['statut'],'PUBLIE_A_TEMPS')
@@ -142,7 +159,7 @@ class EcheancesTests(unittest.TestCase):
         self.assertFalse(e.planifier(self.cache,now)['executer'])
         later=self.now+timedelta(minutes=95)
         self.predictions(later)
-        e.enregistrer_publication(self.cache,later,{'mode':'JALONS'},True)
+        self.publish(later)
         self.assertEqual(path.read_bytes(),frozen)
         phases=e.lire(self.cache/'jalons'/f'{self.key}.json')
         self.assertEqual(phases['H1']['statut'],'PUBLIE_A_TEMPS')
@@ -158,18 +175,18 @@ class EcheancesTests(unittest.TestCase):
 
     def test_h2_incomplet_reessaie_sans_reecrire_les_copies(self):
         now=self.now+timedelta(minutes=35);self.predictions(now,ml=False)
-        e.enregistrer_publication(self.cache,now,{'mode':'JALONS'},True)
+        self.publish(now)
         self.assertEqual(e.lire(self.cache/'jalons'/f'{self.key}.json')['H2']['statut'],'INCOMPLET')
         copies={p:p.read_bytes() for p in (self.cache/'jalons'/self.key).glob('*.json')}
         later=now+timedelta(minutes=5);self.predictions(later)
-        e.enregistrer_publication(self.cache,later,{'mode':'JALONS'},True)
+        self.publish(later)
         self.assertEqual(e.lire(self.cache/'jalons'/f'{self.key}.json')['H2']['statut'],'PUBLIE_A_TEMPS')
         for p,data in copies.items():self.assertEqual(p.read_bytes(),data)
 
     def test_horodatage_calcul_avant_deadline_ne_masque_pas_publication_tardive(self):
         now=self.now+timedelta(minutes=59);self.predictions(now)
         published=self.now+timedelta(minutes=62)
-        e.enregistrer_publication(self.cache,published,{'mode':'JALONS'},True)
+        self.publish(published, e.planifier(self.cache, now))
         phase=e.lire(self.cache/'jalons'/f'{self.key}.json')['H2']
         self.assertEqual(phase['statut'],'PUBLIE_EN_RETARD')
         self.assertEqual(phase['retard_secondes'],120)
@@ -186,19 +203,19 @@ class EcheancesTests(unittest.TestCase):
         for field,value in [('course','R3C2'),('entrainement_utc',(now+timedelta(seconds=1)).isoformat())]:
             with self.subTest(field=field):
                 e.sauver(path,{**original,field:value})
-                report=e.enregistrer_publication(self.cache,now,{'mode':'JALONS'},True)
+                report=self.publish(now)
                 self.assertEqual(report['erreurs'][0]['mode'],'ml')
         e.sauver(path,original)
         profile=self.cache/'partants_actuels'/f'{self.key}.json';data=e.lire(profile)
         data['chevaux']['3']['statut_np']='NON_PARTANT';e.sauver(profile,data)
-        report=e.enregistrer_publication(self.cache,now,{'mode':'JALONS'},True)
+        report=self.publish(now)
         self.assertEqual({r['mode'] for r in report['erreurs'] if 'mode' in r},{'direct','ml'})
         self.assertIn('JALON_INCOMPLET',[r['motif'] for r in report['erreurs']])
 
     def test_cycle_global_non_valide_sur_programme_ancien(self):
         now=self.now+timedelta(minutes=40);self.predictions(now)
         before=(self.cache/'orchestration/production_etat.json').read_bytes()
-        e.enregistrer_publication(self.cache,now,{'mode':'GLOBAL'},True)
+        self.publish(now, {**e.planifier(self.cache,now), 'mode': 'GLOBAL'})
         self.assertEqual((self.cache/'orchestration/production_etat.json').read_bytes(),before)
 
     def test_cycle_cible_ne_recertifie_pas_les_courses_non_rafraichies(self):
@@ -206,9 +223,37 @@ class EcheancesTests(unittest.TestCase):
         path=self.cache/'sources_pmu/programme_2026-11-17.json';data=e.lire(path)
         data['programme'].append({'code':'R3C2','depart':(self.depart+timedelta(minutes=35)).isoformat()})
         e.sauver(path,data)
-        report=e.enregistrer_publication(self.cache,now,{'mode':'JALONS','selection':['R3C1']},True)
-        self.assertEqual(report['erreurs'],[])
-        self.assertEqual([r['course'] for r in report['courses']],[self.key])
+        plan = e.planifier(self.cache, now)
+        self.assertEqual(plan['selection'], ['R3C1', 'R3C2'])
+        report = self.publish(now, plan)
+        self.assertEqual(report['reunions'][0]['jalons']['H2']['statut'], 'INCOMPLET')
+        self.assertEqual([r['course'] for r in report['courses']], [self.key, '2026-11-17_R3C2'])
+
+    def test_reunion_complete_et_lecture_ponctuelle_avant_certification(self):
+        start = self.now + timedelta(minutes=50)
+        day = self.key.split('_')[0]
+        program_path = self.cache/'sources_pmu'/f'programme_{day}.json'
+        program = e.lire(program_path)
+        second = self.depart + timedelta(minutes=40)
+        program['programme'].append({'code': 'R3C2', 'depart': second.isoformat()})
+        e.sauver(program_path, program)
+        self.predictions(start)
+        key = f'{day}_R3C2'
+        e.sauver(self.cache/'partants_actuels'/f'{key}.json',
+                 e.lire(self.cache/'partants_actuels'/f'{self.key}.json'))
+        for suffix in ('direct', 'ml_latest'):
+            doc = e.lire(self.cache/'pronostics'/f'{self.key}_{suffix}.json')
+            e.sauver(self.cache/'pronostics'/f'{key}_{suffix}.json',
+                     {**doc, 'course': 'R3C2', 'depart': second.isoformat()})
+        deadline = self.depart - timedelta(hours=2)
+        plan = e.planifier(self.cache, start)
+        result = self.publish(deadline + timedelta(seconds=3), plan,
+                              observation=deadline - timedelta(seconds=1))
+        h2 = result['reunions'][0]['jalons']['H2']
+        self.assertEqual(h2['statut'], 'PUBLIE_A_TEMPS')
+        self.assertEqual(h2['courses_attendues'], ['R3C1', 'R3C2'])
+        self.assertEqual(h2['publication_utc'], (deadline - timedelta(seconds=1)).isoformat())
+        self.assertEqual(result['erreurs'], [])
 
     def test_trois_ecrivains_file_max_et_unique_verrou(self):
         import yaml

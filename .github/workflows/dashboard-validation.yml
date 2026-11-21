@@ -2,9 +2,9 @@ name: TROT Analytics - validation indépendante
 on:
   push:
     branches: [main]
-    paths: ['dashboard/**', '.github/workflows/dashboard-validation.yml', '.streamlit/config.toml', '.devcontainer/devcontainer.json']
+    paths: ['dashboard/**', 'pmu_geny/sync_google_sheets.py', 'pmu_geny/kpi_registre.py', '.github/workflows/dashboard-validation.yml', '.streamlit/config.toml', '.devcontainer/devcontainer.json']
   pull_request:
-    paths: ['dashboard/**', '.github/workflows/dashboard-validation.yml', '.streamlit/config.toml', '.devcontainer/devcontainer.json']
+    paths: ['dashboard/**', 'pmu_geny/sync_google_sheets.py', 'pmu_geny/kpi_registre.py', '.github/workflows/dashboard-validation.yml', '.streamlit/config.toml', '.devcontainer/devcontainer.json']
   workflow_dispatch:
 permissions:
   contents: read
