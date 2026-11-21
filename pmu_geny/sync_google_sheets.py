@@ -714,6 +714,33 @@ def source_rows(cache):
                               rapprochement_declenchement_utc=report['declenchement_utc'])
             for label, score in row['scores'].items():
                 report_row['score_' + label.lower()] = score['hits_top3']
+            # Les vues historiques conservent leur schéma. Pour une réunion
+            # rapprochée, afficher la dernière paire réellement attestée.
+            pairs = ((row['scores'].get(f'{phase}_direct'), row['scores'].get(f'{phase}_ml'))
+                     for phase in ('H1', 'H2'))
+            pair = next((pair for pair in pairs if all(pair)), None)
+            if pair:
+                scores = {}
+                for method, item in zip(('direct', 'ml'), pair):
+                    numbers = item['numeros']
+                    report_row[f'top3_{method}_numeros'] = ','.join(map(str, numbers))
+                    report_row[f'score_{method}'] = item['hits_top3']
+                    score = round(item['hits_top3'] * 100 / 3, 2)
+                    report_row[f'matching_{method}_pct'] = score
+                    scores[method.upper() if method == 'ml' else 'Direct'] = score
+                    names = [courses.get(f'{key}|{n}', {}).get('cheval', '') for n in numbers]
+                    report_row[f'top3_{method}_noms'] = ' · '.join(names) if all(names) else ''
+                    official = load_json(cache/'arrivees'/f'{date}_{code}.json')
+                    ranks = {horse['numero']: horse['rang'] for horse in official.get('arrivee', [])}
+                    report_row.update({
+                        f'gagnant_{method}_numero': numbers[0],
+                        f'gagnant_{method}_nom': names[0],
+                        f'gagnant_{method}_rang': ranks.get(numbers[0], ''),
+                        f'gagnant_{method}_verdict': 'Trouvé' if ranks.get(numbers[0]) == 1 else 'Non trouvé',
+                    })
+                report_row.update(etat_ml=pair[1]['statut_modele'],
+                                  top3_direct_calcule_utc=pair[0]['calcul_utc'],
+                                  statut_evaluation='EVALUE', conclusion=conclusion_methodes(scores))
     # V31: la provenance textuelle (URL ou descriptif) n'est PAS une
     # identite de course. Les memes performances sont presentes dans les
     # exports de course et les captures persistantes par cheval.

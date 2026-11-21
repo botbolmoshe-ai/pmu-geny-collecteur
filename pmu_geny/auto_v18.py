@@ -85,8 +85,9 @@ def programme_diagnostic(doc, date):
           'exclusions':{},'pays_observes':{},'exemples_reunions':[]}
     output=[]
     inventory=[]
+    courses_jalons=[]
     decision_courses=[]
-    from .selection_metier_v20_4 import niveau
+    from .selection_metier_v20_4 import discipline_course, niveau
     def exclusion(reason):
         diag['exclusions'][reason]=diag['exclusions'].get(reason,0)+1
     for r in reunions:
@@ -107,6 +108,8 @@ def programme_diagnostic(doc, date):
         numero_reunion=_num(r,'numOfficiel','numeroReunion','numReunion')
         hip=r.get('hippodrome') or {}
         hp=_str(hip,'libelleLong','libelleCourt','nom') if isinstance(hip,dict) else str(hip)
+        candidats_reunion = []
+        reunion_suivie = False
         for c in entries:
             if not isinstance(c,dict):exclusion('course_non_dict');continue
             no=_num(c,'numOrdre','numeroCourse','numCourse')
@@ -133,25 +136,51 @@ def programme_diagnostic(doc, date):
                 exclusion('heure_depart_absente');continue
             if instant.date().isoformat() != date:
                 exclusion('date_incoherente');continue
-            # Périmètre demandé : départs de 07h00 à 21h00 inclus (Europe/Paris).
-            if not (7 <= instant.hour < 21 or (instant.hour == 21 and instant.minute == 0 and instant.second == 0 and instant.microsecond == 0)):
-                exclusion('depart_hors_plage_07_21');continue
-            nb=_num(c,'nombreDeclaresPartants','nombrePartants','nbPartants')
-            if not nb or not 1<=nb<=30:exclusion('partants_absents_ou_invalides');continue
-            tier,motif,metadata=niveau(c,r,hp,nb)
-            decision_courses.append({'code':f'R{numero_reunion}C{no}', 'niveau':tier or 'EXCLU', 'motif':motif, **metadata})
-            if tier is None:exclusion('metier_'+motif.lower());continue
-            inventory[-1]['top3_attendu'] = True
-            output.append({'priorite_metier':tier,'motif_selection':motif,'allocation_eur':metadata['allocation_eur'], 'date':date,'code':f'R{numero_reunion}C{no}','hippodrome':hp,'nom':_str(c,'libelle','nomCourse'),
-                           'depart':instant.isoformat(),'nombre_declares':nb,'num_reunion':numero_reunion,'num_course':no,
-                           'distance_m':_num(c,'distance','distanceMetres','distanceCourse'),
-                           'discipline':metadata['discipline'], 'podium_definitif_pmu':podium_definitif,
-                           'parametres_pmu':{k:c[k] for k in ('distance','discipline','specialite','parcours','conditions','conditionAge','conditionSexe','categorieParticularite','montantPrix','typePiste','corde','typeDepart') if c.get(k) is not None}})
+            course_inventaire = inventory[-1]
+            in_scope = discipline_course(c, r).startswith('TROT_')
+            if in_scope:
+                candidats_reunion.append(course_inventaire)
+            plage = (7 <= instant.hour < 21 or
+                     (instant.hour == 21 and not (instant.minute or instant.second or instant.microsecond)))
+            nb = _num(c, 'nombreDeclaresPartants', 'nombrePartants', 'nbPartants')
+            if not nb or not 1 <= nb <= 30:
+                exclusion('partants_absents_ou_invalides')
+                continue
+            tier, motif, metadata = niveau(c, r, hp, nb)
+            if plage:
+                decision_courses.append({'code': course_inventaire['code'], 'niveau': tier or 'EXCLU',
+                                         'motif': motif, **metadata})
+            course = {'priorite_metier': tier, 'motif_selection': motif,
+                      'allocation_eur': metadata['allocation_eur'], 'date': date,
+                      'code': course_inventaire['code'], 'hippodrome': hp,
+                      'nom': _str(c, 'libelle', 'nomCourse'), 'depart': instant.isoformat(),
+                      'nombre_declares': nb, 'num_reunion': numero_reunion, 'num_course': no,
+                      'distance_m': _num(c, 'distance', 'distanceMetres', 'distanceCourse'),
+                      'discipline': metadata['discipline'], 'podium_definitif_pmu': podium_definitif,
+                      'parametres_pmu': {k: c[k] for k in (
+                          'distance', 'discipline', 'specialite', 'parcours', 'conditions',
+                          'conditionAge', 'conditionSexe', 'categorieParticularite', 'montantPrix',
+                          'typePiste', 'corde', 'typeDepart') if c.get(k) is not None}}
+            if in_scope:
+                course_inventaire.update(course)
+            if not plage:
+                exclusion('depart_hors_plage_07_21')
+            elif tier is None:
+                exclusion('metier_'+motif.lower())
+            else:
+                reunion_suivie = True
+                output.append(course)
+        if reunion_suivie:
+            for course in candidats_reunion:
+                course['top3_attendu'] = True
+                if course.get('nombre_declares'):
+                    courses_jalons.append(course)
     diag['courses_retenues']=len(output)
     diag['courses_p1']=sum(c['priorite_metier']=='P1' for c in output)
     diag['courses_p2']=sum(c['priorite_metier']=='P2' for c in output)
     diag['decisions_metier']=decision_courses
     diag['inventaire_reunions']=inventory
+    diag['courses_jalons']=courses_jalons
     return sorted(output,key=lambda x:x['depart']),diag
 
 
@@ -219,7 +248,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         else:
             controle['statut']='COURSES_DISPONIBLES'
         save(cache/'sources_pmu'/f'programme_{date}.json',
-             {'date_controle_utc':controle['horodatage_utc'],'programme':courses, 'inventaire_reunions':stats.get('inventaire_reunions', courses)})
+             {'date_controle_utc':controle['horodatage_utc'],'programme':courses, 'inventaire_reunions':stats.get('inventaire_reunions', courses),
+              'courses_jalons':stats.get('courses_jalons', courses)})
         state['source_programme']='PMU_API'
         state['dernier_controle_pmu']=controle['horodatage_utc']
     except Exception as exc:
@@ -235,6 +265,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         cible = actualiser_plan()
         if cible:
             selection, priorites, prioritaire = cible, cible, True
+    if prioritaire:
+        programme_cache = load(cache/'sources_pmu'/f'programme_{date}.json', {}) or {}
+        courses = programme_cache.get('courses_jalons', courses)
     # Une course déjà partie n'entre JAMAIS en prédiction/collecte.
     # Les courses récentes peuvent seulement passer par la phase arrivées/audit.
     # Le lendemain est prepare des publication du programme PMU, sans limitation a 18h.

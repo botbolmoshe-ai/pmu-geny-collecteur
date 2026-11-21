@@ -179,6 +179,17 @@ jobs:
                   run(root, tomorrow, [], 0, max_discoveries=0, now=now,
                       selection_complete=True, clock=clock, production=True)
           PYRUN
+      - name: Identifier le périmètre après actualisation du programme
+        if: steps.plan.outputs.executer == 'true'
+        id: perimetre
+        run: |
+          python - <<'PYMODE'
+          import json, os
+          from pathlib import Path
+          mode = json.loads(Path('resultats/plan_production.json').read_text())['mode']
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              print('mode=' + mode, file=output)
+          PYMODE
       - name: Experience ML manuelle avec jour de test exclu
         if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'experience_ml')
         env:
@@ -307,8 +318,16 @@ jobs:
       - name: Persister immédiatement les versions figées et les preuves
         if: always() && steps.plan.outputs.executer == 'true'
         run: python -m pmu_geny.persistance_production --cache cache_pmu
+      - name: Réparer les ferrures du cache après la publication globale
+        if: always() && steps.perimetre.outputs.mode == 'GLOBAL' && steps.publication.conclusion == 'success'
+        run: |
+          python - <<'PYFERRURES'
+          from pathlib import Path
+          from pmu_geny.reparer_ferrures import reparer
+          print(reparer(Path('cache_pmu'), partants=True))
+          PYFERRURES
       - name: Rafraichir les index Geny apres publication PMU
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.perimetre.outputs.mode == 'GLOBAL'
         continue-on-error: true
         shell: bash
         run: |
@@ -320,7 +339,7 @@ jobs:
             fi
           fi
       - name: Apprentissage ML unique apres les cycles de resultats
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT' || inputs.mode == 'entrainer_ml')
         env:
           ML_PREPRODUCTION_COURSES: ${{ vars.ML_PREPRODUCTION_COURSES }}
           ML_PREPRODUCTION_OBSERVATIONS: ${{ vars.ML_PREPRODUCTION_OBSERVATIONS }}

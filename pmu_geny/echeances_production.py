@@ -13,7 +13,9 @@ from dashboard.trot_analytics.dates import PARIS, instant_iso as instant
 
 PHASES = {'H2': timedelta(hours=2), 'H1': timedelta(hours=1)}
 MARGE = timedelta(minutes=30)  # fraîcheur des données, inchangée
-ANTICIPATION = timedelta(minutes=55)  # fenêtres H2/H1 non superposées
+# Quatre ticks au plus par heure. Conserver presque toute la fenêtre d'une
+# heure pour absorber plusieurs ticks manquants, avec un cycle observé à 3 min 30.
+ANTICIPATION = timedelta(minutes=55)
 
 
 def lire(path):
@@ -57,6 +59,7 @@ def reunions_du_jour(cache, day):
                     and len({c['code'] for c in courses}) == len(courses))
         yield {
             'reunion': f'{day}_{ident}', 'date': day, 'courses': courses,
+            'hippodrome': next((c['hippodrome'] for c in courses if c.get('hippodrome')), None),
             'attendues': attendues, 'coherente': coherent,
             'premier_depart': min(departs).astimezone(timezone.utc) if coherent else None,
             'dernier_depart': max(departs).astimezone(timezone.utc) if coherent else None,
@@ -358,6 +361,9 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                           for p in per_course.values()) else 'PUBLIE_EN_RETARD')
             records[phase] = {
                 'statut': status, 'reference_utc': first.isoformat(),
+                'hippodrome': reunion['hippodrome'],
+                'inventaire': [{'code': c['code'], 'statut_pmu': c.get('statut_pmu'),
+                                'top3_attendu': c.get('top3_attendu', True)} for c in reunion['courses']],
                 'echeance': (first-offset).isoformat(), 'courses_attendues': expected,
                 'demarrage_utc': min((p['demarrage_utc'] for p in per_course.values()),
                                      default=plan.get('plan_utc')),

@@ -82,3 +82,42 @@ class RapprochementReunionsTests(TestCase):
         self.assertEqual(final['statut'], 'COMPLET')
         self.assertEqual(final['declenchement_utc'], now.isoformat())
         self.assertEqual(final['arrivees_a_reprendre'], [])
+
+    def test_scores_figes_alimentent_les_onglets_et_kpi(self):
+        from pmu_geny.kpi_registre import calculer_kpi
+        from pmu_geny.sync_google_sheets import source_rows
+        import hashlib
+
+        now = self.last + timedelta(minutes=30)
+        course_key = f'{self.day}_R1C1'
+        plans = {}
+        for phase, remaining, numbers in [('H2', 130, [1, 2, 3]), ('H1', 70, [1, 4, 5])]:
+            stamp = (self.first - timedelta(minutes=remaining)).isoformat()
+            path = Path('jalons')/course_key/f'{phase}.json'
+            production.sauver(self.cache/path, {
+                'date': self.day, 'course': 'R1C1', 'depart': self.first.isoformat(),
+                'calcul_utc': stamp, 'statut': 'ML_ENTRAINE_NON_CALIBRE',
+                'top3': [{'numero': n} for n in numbers],
+            })
+            version = {'publication_utc': stamp, 'lecture_sheets_utc': stamp,
+                       'calcul_utc': stamp, 'fichier': str(path),
+                       'sha256': hashlib.sha256((self.cache/path).read_bytes()).hexdigest()}
+            plans[phase] = {'versions': {'direct': version, 'ml': version}}
+        result = {'source': 'PMU_API_PARTICIPANTS', 'verifie_utc': now.isoformat(),
+                  'podium_definitif_pmu': [1, 2, 3],
+                  'arrivee': [{'numero': n, 'rang': n} for n in (1, 2, 3)]}
+        production.sauver(self.cache/'arrivees'/f'{course_key}.json', result)
+        scores = rapprochement.comparer(self.cache, course_key, self.first, [1, 2, 3], plans)
+        production.sauver(self.cache/'rapprochements'/f'{self.day}_R1.json', {
+            'date': self.day, 'reunion': f'{self.day}_R1', 'statut': 'INCOMPLET',
+            'declenchement_utc': now.isoformat(), 'arrivees_a_reprendre': ['R1C2'],
+            'courses': {'R1C1': {'statut': 'ARRIVEE_OFFICIELLE', 'scores': scores}}})
+        source = source_rows(self.cache)
+        report, = source['Résultats & Analyse'].values()
+        self.assertEqual(report['score_h2_direct'], 3)
+        self.assertEqual(report['score_h1_ml'], 1)
+        self.assertEqual(report['top3_direct_numeros'], '1,4,5')
+        self.assertEqual(report['matching_ml_pct'], 33.33)
+        quality = calculer_kpi(self.cache, source, now)
+        self.assertEqual(quality['H+30 · Arrivées à reprendre'][0], 1)
+        self.assertEqual(quality['H+30 · 7 j · H2_direct · Moyenne sur 3'][0], 3)

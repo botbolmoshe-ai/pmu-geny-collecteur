@@ -63,11 +63,14 @@ def comparer(cache, key, depart, podium, certificat):
             if not read_at or read_at != instant(version.get('publication_utc')):
                 continue
             try:
-                _, numbers = prevision_publiee(cache, key, method, version, depart)
+                doc, numbers = prevision_publiee(cache, key, method, version, depart)
             except (KeyError, TypeError, ValueError, OSError):
                 continue
             scores[f'{phase}_{method}'] = {'hits_top3': len(numbers.intersection(podium)),
-                                          'sha256': version['sha256']}
+                                          'sha256': version['sha256'],
+                                          'numeros': [horse['numero'] for horse in doc['top3']],
+                                          'calcul_utc': version['calcul_utc'],
+                                          'statut_modele': doc.get('statut', '')}
     return scores
 
 
