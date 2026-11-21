@@ -148,6 +148,12 @@ def decision_fond(cache,now,*,reserve=False,nocturne=False):
         marker = inc.instant(back.get('dernier_creneau_reserve_utc'))
         prioritaire = state['chevaux'][key]
         depart = inc.instant(prioritaire.get('depart_a_venir_utc'))
+        premier_depart = inc.instant(prioritaire.get('premier_depart_reunion_utc')) or depart
+        # Le passage prioritaire a déjà reçu son budget. Préserver le prochain
+        # cycle complet de préparation si la réunion approche de H-2.
+        if nocturne and action == 'COLLECTE' and premier_depart and premier_depart - now > timedelta(hours=3):
+            result.update(autorise=True, motif='CRENEAU_NOCTURNE_APRES_PREPARATION')
+            return result
         plan = planifier(cache, now) if reserve else {}
         next_pmu = inc.instant(plan.get('prochain_besoin_utc'))
         if (reserve and action == 'COLLECTE' and depart and depart - now > timedelta(minutes=30)
