@@ -64679,7 +64679,30 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-22T11:05:00+00:00",
       "premier_depart_reunion_utc": "2026-11-22T11:05:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "collecte": "A_REPRENDRE",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-22T04:35:43.145818+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-21T22:35:43.145836+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [
+          "ACCES_LIMITE_429"
+        ],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2026-11-22_R13C1_10/1795300541427715915/resultat.json"
+      },
+      "geny": {
+        "id": "2880579",
+        "nom": "Nereide Sibey",
+        "age_geny": 3,
+        "nationalite_geny": null,
+        "url_geny": "https://www.geny.com/cheval/2880579",
+        "preuve": "RECHERCHE_GENY_NOM_EXACT"
+      },
+      "id": "2880579",
+      "preuve_identite": "RECHERCHE_GENY_NOM_EXACT"
     },
     "2026-11-22_R13C1_11": {
       "nom": "NACRE DE FIERVILLE",
@@ -70087,13 +70110,13 @@
     }
   },
   "passage_utc": "2026-11-21T22:35:25.726005+00:00",
-  "maj_utc": "2026-11-21T22:35:37.172286+00:00",
+  "maj_utc": "2026-11-21T22:35:43.152491+00:00",
   "bilan": {
     "chevaux_suivis": 2614,
-    "tentatives_collecte": 1,
+    "tentatives_collecte": 2,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 1,
+    "collectes_rejetees": 2,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2455
   },
@@ -70105,7 +70128,7 @@
       "indicateurs_verifies": 128
     }
   },
-  "prochain_acces_geny_utc": "2026-11-20T14:33:08.698384+00:00",
+  "prochain_acces_geny_utc": "2026-11-21T23:05:43.145854+00:00",
   "priorite_collecte": "DEPARTS_DU_JOUR_NOCTURNE",
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "preparation_prochaines_courses": {
@@ -72566,15 +72589,15 @@
   "sync_kpi_utc": "2026-11-20T19:07:01.279830+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-21T22:35:25.726005+00:00",
-    "controle_utc": "2026-11-21T22:35:37.172286+00:00",
+    "controle_utc": "2026-11-21T22:35:43.152491+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
     "refus_geny": {
       "403": 0,
-      "429": 0
+      "429": 1
     },
-    "prochain_acces_geny_utc": "2026-11-20T14:33:08.698384+00:00"
+    "prochain_acces_geny_utc": "2026-11-21T23:05:43.145854+00:00"
   }
 }
