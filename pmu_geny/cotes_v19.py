@@ -1,4 +1,5 @@
 """Relevés pré-départ du simple gagnant PMU et classement de marché."""
+from collections import Counter
 from datetime import datetime, timezone
 from hashlib import sha256
 import fcntl
@@ -28,30 +29,44 @@ def cote_valide(value):
     return cote if cote is not None and isfinite(cote) and cote > 0 else None
 
 
-def _rapport(participant, observed=None, depart=None):
+def _rapport(participant, observed=None, depart=None, *, diagnostic=None):
     for key in KEYS:
         value = participant.get(key)
+        if value is None:
+            continue
+        if diagnostic is not None:
+            diagnostic[f'champ_present:{key}'] += 1
         reported = None
         if isinstance(value, dict):
             if (value.get('indisponible') is True or
                     value.get('typePari') not in (None, 'SIMPLE_GAGNANT') or
                     value.get('typeRapport') not in (None, 'DIRECT')):
+                if diagnostic is not None:
+                    diagnostic['rapport_indisponible_ou_hors_simple_gagnant_direct'] += 1
                 continue
             number = value.get('numPmu1')
             if number is not None and str(number) != str(participant.get('numPmu', number)):
+                if diagnostic is not None:
+                    diagnostic['numero_rapport_incoherent'] += 1
                 continue
             timestamp = value.get('dateRapport')
             if timestamp is not None:
                 try:
                     reported = datetime.fromtimestamp(int(timestamp) / 1000, timezone.utc)
                 except (TypeError, ValueError, OverflowError, OSError):
+                    if diagnostic is not None:
+                        diagnostic['horodatage_invalide'] += 1
                     continue
                 if (observed is not None and reported > observed) or (depart is not None and reported >= depart):
+                    if diagnostic is not None:
+                        diagnostic['rapport_hors_fenetre'] += 1
                     continue
             value = value.get('rapport', value.get('valeur'))
         cote = cote_valide(value)
         if cote is not None:
             return cote, key, reported
+        if diagnostic is not None:
+            diagnostic['valeur_invalide'] += 1
     return None, None, None
 
 
@@ -82,7 +97,7 @@ def dernier_releve(cache, course):
     return {**doc, 'chevaux': list(latest.values())}
 
 
-def _nouveaux_partants(participants, observed, depart):
+def _nouveaux_partants(participants, observed, depart, diagnostic):
     from .auto_v18 import _list, _num
     from .partants_actuels_v21 import statut_participation
 
@@ -94,7 +109,12 @@ def _nouveaux_partants(participants, observed, depart):
         if not number or number < 0 or number in rows:
             return {}
         np = statut_participation(participant)
-        cote, champ, reported = _rapport(participant, observed, depart) if np != 'NON_PARTANT' else (None, None, None)
+        cote, champ, reported = None, None, None
+        if np != 'NON_PARTANT':
+            cote, champ, reported = _rapport(participant, observed, depart, diagnostic=diagnostic)
+            if not any(participant.get(key) is not None for key in KEYS):
+                diagnostic['chevaux_sans_champ_rapport'] += 1
+            diagnostic['chevaux_avec_cote_valide' if cote is not None else 'chevaux_sans_cote_valide'] += 1
         name = next((participant[key] for key in ('nomCheval', 'nom', 'nomParticipant')
                      if isinstance(participant.get(key), str) and participant[key].strip()), '')
         rows[number] = {
@@ -121,7 +141,8 @@ def collecter(cache, course, participants, now=None):
     now = now.astimezone(timezone.utc)
     if now >= depart:
         return 'APRES_DEPART_SANS_RELEVE'
-    incoming = _nouveaux_partants(participants, now, depart)
+    diagnostic = Counter()
+    incoming = _nouveaux_partants(participants, now, depart, diagnostic)
     path = Path(cache) / 'cotes' / f"{course['date']}_{course['code']}.json"
     with _chemin_verrou(cache, f'{path.stem}_cotes').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
@@ -132,10 +153,10 @@ def collecter(cache, course, participants, now=None):
         checked = instant(old.get('controle_utc'))
         if checked is not None and now <= checked:
             return old['statut']
-        return _actualiser(path, course, old, incoming, now)
+        return _actualiser(path, course, old, incoming, now, diagnostic)
 
 
-def _actualiser(path, course, old, incoming, now):
+def _actualiser(path, course, old, incoming, now, diagnostic):
     rows = {row['numero']: row for row in old.get('chevaux', [])}
     changes = []
     for n, observed in incoming.items():
@@ -176,6 +197,7 @@ def _actualiser(path, course, old, incoming, now):
     save(path, {
         'schema': 2, 'date': course['date'], 'course': course['code'], 'depart': course['depart'],
         'controle_utc': now.isoformat(), 'chevaux': list(rows.values()), 'releves': history,
+        'diagnostic_derniere_lecture': dict(diagnostic),
         'liste_complete': complete, 'partants_eligibles': eligible_count, 'cotes_extraites': count,
         'cotes_manquantes': missing, 'couverture': coverage, 'statut': status,
         'derniere_cote_utc': max((row['heure_utc'] for row in eligible if row.get('cote') is not None), default=''),
