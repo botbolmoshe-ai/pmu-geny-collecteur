@@ -1,16 +1,16 @@
 {
   "date": "2026-11-21",
   "course": "R4C7",
-  "calcul_utc": "2026-11-21T00:59:40.428480+00:00",
+  "calcul_utc": "2026-11-21T08:15:57.649206+00:00",
   "depart": "2026-11-21T19:41:00+01:00",
-  "donnees_observees_utc": "2026-11-21T00:58:48.368379+00:00",
+  "donnees_observees_utc": "2026-11-21T08:14:44.634516+00:00",
   "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-20T19:49:57.464478+00:00",
-  "dernier_label_entrainement_utc": "2026-11-20T19:48:17.455826+00:00",
-  "empreinte_modele": "6502f2117d25f720644e152331b5cad10e913acfc616a0771942af559036f519",
+  "entrainement_utc": "2026-11-21T01:02:28.754029+00:00",
+  "dernier_label_entrainement_utc": "2026-11-21T00:59:57.649305+00:00",
+  "empreinte_modele": "3c7d9f07184cd40b8b972c1f6c15780300aac861ec002f0f166e09ce4a2452f0",
   "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
@@ -109,7 +109,7 @@
         "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
-        "driver_score": null,
+        "driver_score": 0.2,
         "entraineur_score": null,
         "pmu_score_direct": 6.72,
         "age_ans": 3.0,
@@ -700,96 +700,96 @@
   ],
   "top3": [
     {
-      "numero": 4,
-      "nom": "NAMARIO BELLO",
-      "cheval_id": "",
-      "score_non_calibre": 0.76094
-    },
-    {
       "numero": 2,
       "nom": "NEGUEV",
       "cheval_id": "",
-      "score_non_calibre": 0.59604
+      "score_non_calibre": 0.64915
+    },
+    {
+      "numero": 4,
+      "nom": "NAMARIO BELLO",
+      "cheval_id": "",
+      "score_non_calibre": 0.60494
     },
     {
       "numero": 10,
       "nom": "NOBLE DE REVE D'OR",
       "cheval_id": "",
-      "score_non_calibre": 0.56107
+      "score_non_calibre": 0.53593
     }
   ],
   "classement_complet": [
     {
-      "numero": 4,
-      "nom": "NAMARIO BELLO",
-      "cheval_id": "",
-      "score_non_calibre": 0.76094
-    },
-    {
       "numero": 2,
       "nom": "NEGUEV",
       "cheval_id": "",
-      "score_non_calibre": 0.59604
+      "score_non_calibre": 0.64915
+    },
+    {
+      "numero": 4,
+      "nom": "NAMARIO BELLO",
+      "cheval_id": "",
+      "score_non_calibre": 0.60494
     },
     {
       "numero": 10,
       "nom": "NOBLE DE REVE D'OR",
       "cheval_id": "",
-      "score_non_calibre": 0.56107
+      "score_non_calibre": 0.53593
     },
     {
       "numero": 1,
       "nom": "NARCOS PIYA",
       "cheval_id": "",
-      "score_non_calibre": 0.53967
-    },
-    {
-      "numero": 5,
-      "nom": "NUMBER ONE FLIGNY",
-      "cheval_id": "",
-      "score_non_calibre": 0.5362
+      "score_non_calibre": 0.51715
     },
     {
       "numero": 8,
       "nom": "NOMEN NESCIO",
       "cheval_id": "",
-      "score_non_calibre": 0.52719
+      "score_non_calibre": 0.50391
     },
     {
       "numero": 12,
       "nom": "NUAGE DU RABUTIN",
       "cheval_id": "",
-      "score_non_calibre": 0.51521
+      "score_non_calibre": 0.49684
     },
     {
       "numero": 6,
       "nom": "NAUTIC FIX",
       "cheval_id": "",
-      "score_non_calibre": 0.49347
+      "score_non_calibre": 0.47727
     },
     {
       "numero": 11,
       "nom": "NABUCCO CENE",
       "cheval_id": "",
-      "score_non_calibre": 0.4911
+      "score_non_calibre": 0.4704
     },
     {
       "numero": 7,
       "nom": "NORLANDO",
       "cheval_id": "",
-      "score_non_calibre": 0.40675
+      "score_non_calibre": 0.39228
+    },
+    {
+      "numero": 5,
+      "nom": "NUMBER ONE FLIGNY",
+      "cheval_id": "",
+      "score_non_calibre": 0.36199
     },
     {
       "numero": 9,
       "nom": "NAPOLEON DE NIELES",
       "cheval_id": "2885617",
-      "score_non_calibre": 0.14534
+      "score_non_calibre": 0.33955
     },
     {
       "numero": 3,
       "nom": "NO EXPECTATIONS",
       "cheval_id": "2896116",
-      "score_non_calibre": 0.00445
+      "score_non_calibre": 0.00883
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."

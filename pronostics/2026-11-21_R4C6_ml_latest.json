@@ -1,16 +1,16 @@
 {
   "date": "2026-11-21",
   "course": "R4C6",
-  "calcul_utc": "2026-11-21T00:59:39.463474+00:00",
+  "calcul_utc": "2026-11-21T08:15:41.777494+00:00",
   "depart": "2026-11-21T19:09:00+01:00",
-  "donnees_observees_utc": "2026-11-21T00:58:48.219097+00:00",
+  "donnees_observees_utc": "2026-11-21T08:14:44.512968+00:00",
   "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-20T19:49:57.464478+00:00",
-  "dernier_label_entrainement_utc": "2026-11-20T19:48:17.455826+00:00",
-  "empreinte_modele": "6502f2117d25f720644e152331b5cad10e913acfc616a0771942af559036f519",
+  "entrainement_utc": "2026-11-21T01:02:28.754029+00:00",
+  "dernier_label_entrainement_utc": "2026-11-21T00:59:57.649305+00:00",
+  "empreinte_modele": "3c7d9f07184cd40b8b972c1f6c15780300aac861ec002f0f166e09ce4a2452f0",
   "features_schema": "pmu-podium-v34",
   "entrees_modele": [
     {
@@ -568,7 +568,7 @@
         "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
-        "driver_score": null,
+        "driver_score": 0.2,
         "entraineur_score": null,
         "pmu_score_direct": 4.08,
         "age_ans": 2.0,
@@ -592,19 +592,19 @@
       "numero": 9,
       "nom": "ONE MAN SHOW CENE",
       "cheval_id": "2905469",
-      "score_non_calibre": 0.99983
-    },
-    {
-      "numero": 6,
-      "nom": "OSCAR PIYA",
-      "cheval_id": "",
-      "score_non_calibre": 0.65867
+      "score_non_calibre": 0.99931
     },
     {
       "numero": 10,
       "nom": "ORMELLIA",
       "cheval_id": "",
-      "score_non_calibre": 0.52803
+      "score_non_calibre": 0.60115
+    },
+    {
+      "numero": 6,
+      "nom": "OSCAR PIYA",
+      "cheval_id": "",
+      "score_non_calibre": 0.50759
     }
   ],
   "classement_complet": [
@@ -612,61 +612,61 @@
       "numero": 9,
       "nom": "ONE MAN SHOW CENE",
       "cheval_id": "2905469",
-      "score_non_calibre": 0.99983
-    },
-    {
-      "numero": 6,
-      "nom": "OSCAR PIYA",
-      "cheval_id": "",
-      "score_non_calibre": 0.65867
+      "score_non_calibre": 0.99931
     },
     {
       "numero": 10,
       "nom": "ORMELLIA",
       "cheval_id": "",
-      "score_non_calibre": 0.52803
+      "score_non_calibre": 0.60115
     },
     {
-      "numero": 1,
-      "nom": "OPALE D'OURVILLE",
+      "numero": 6,
+      "nom": "OSCAR PIYA",
       "cheval_id": "",
-      "score_non_calibre": 0.51283
+      "score_non_calibre": 0.50759
     },
     {
       "numero": 8,
       "nom": "OKKAIDO FERFAY",
       "cheval_id": "",
-      "score_non_calibre": 0.47704
+      "score_non_calibre": 0.4768
     },
     {
       "numero": 7,
       "nom": "OLYMPE DU PRESSOIR",
       "cheval_id": "",
-      "score_non_calibre": 0.43352
+      "score_non_calibre": 0.42981
     },
     {
       "numero": 5,
       "nom": "ORIENT COBB",
       "cheval_id": "",
-      "score_non_calibre": 0.41026
+      "score_non_calibre": 0.41255
+    },
+    {
+      "numero": 1,
+      "nom": "OPALE D'OURVILLE",
+      "cheval_id": "",
+      "score_non_calibre": 0.29266
     },
     {
       "numero": 2,
       "nom": "OSCAR DE VILLODON",
       "cheval_id": "",
-      "score_non_calibre": 0.28272
+      "score_non_calibre": 0.25232
     },
     {
       "numero": 3,
       "nom": "OTSTEPPER",
       "cheval_id": "",
-      "score_non_calibre": 0.28272
+      "score_non_calibre": 0.25232
     },
     {
       "numero": 4,
       "nom": "OVERDOSE BOND",
       "cheval_id": "",
-      "score_non_calibre": 0.26597
+      "score_non_calibre": 0.23469
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."
