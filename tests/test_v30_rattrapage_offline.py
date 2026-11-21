@@ -412,6 +412,15 @@ class RepriseTests(unittest.TestCase):
             get.side_effect=RuntimeError('API indisponible')
             self.assertEqual(back.priorite_production(),'PRIORITE_PRODUCTION_NON_VERIFIABLE')
 
+    def test_priorite_detecte_un_cycle_pmu_queued(self):
+        pending, queued = Mock(), Mock()
+        pending.json.return_value = {'workflow_runs': []}
+        queued.json.return_value = {'workflow_runs': [{'path': '.github/workflows/pmu-v16.yml@main'}]}
+        with patch.dict(os.environ, {'GITHUB_ACTIONS': 'true', 'GITHUB_REPOSITORY': 'owner/repo',
+                                     'GH_TOKEN': 'factice'}), patch('requests.get', side_effect=[pending, queued]):
+            self.assertEqual(back.priorite_production({'.github/workflows/pmu-v16.yml'}),
+                             'PRIORITE_PRODUCTION_EN_ATTENTE')
+
     def test_courses_passees_regroupe_la_casse_et_recense_les_conflits(self):
         source = 'PMU_API_PARTICIPANTS'
         for index, name in enumerate(('Étoile du Nord', 'étoile du nord'), 1):

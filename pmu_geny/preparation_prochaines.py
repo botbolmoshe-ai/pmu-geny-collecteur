@@ -3,23 +3,30 @@ from datetime import timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from . import historiques_incrementaux as inc
+from .echeances_production import reunions_du_jour
 from .liaison_chevaux_v22 import nom_normalise
 
 
 def evaluer(cache, now, state=None, *, nocturne=False):
     cache=Path(cache);state=state or inc.lire(cache/inc.QUEUE,{'chevaux':{}})
-    today=now.astimezone(ZoneInfo('Europe/Paris')).date()
+    local = now.astimezone(ZoneInfo('Europe/Paris'))
+    today = local.date()
     journal=inc.lire(cache/'etat_persistant.json',{'chevaux':{}})['chevaux']
     ids={}
     for ident,h in journal.items():ids.setdefault(nom_normalise(h.get('nom')),set()).add(str(ident))
     engagements=[];issues=[]
-    days = (today,) if nocturne else (today, today+timedelta(days=1))
+    demain = today + timedelta(days=1)
+    days = (today,) if nocturne and local.hour < 21 else (today, demain)
     for day in days:
         program=inc.lire(cache/'sources_pmu'/f'programme_{day}.json')
         stamp=inc.instant(program.get('date_controle_utc'))
         if not stamp or not timedelta(0)<=now-stamp<=timedelta(hours=6):
-            issues.append({'course':str(day),'motif':'PROGRAMME_ABSENT_OU_ANCIEN'})
+            if not nocturne or day == today:
+                issues.append({'course':str(day),'motif':'PROGRAMME_ABSENT_OU_ANCIEN'})
             continue
+        premiers_departs = {course['code']: reunion['premier_depart']
+                            for reunion in reunions_du_jour(cache, str(day)) if reunion['coherente']
+                            for course in reunion['attendues']}
         for c in program.get('programme',[]):
             depart=inc.instant(c.get('depart'))
             if not depart or depart<=now:continue
@@ -70,7 +77,8 @@ def evaluer(cache, now, state=None, *, nocturne=False):
                 cid=inc.course_geny_connue(cache,code)
                 engagements.append({'cle_file':key,'engagement':code,'numero':str(number),'nom':h.get('nom'),
                     'preparation_pmu_ok':pmu_ok and bool(name),
-                    'depart_utc':depart.isoformat(),'motif_actualisation':reason,
+                    'depart_utc': depart.isoformat(), 'premier_depart_utc': premiers_departs.get(c['code'], depart).isoformat(),
+                    'motif_actualisation':reason,
                     'historique_complet':bool(doc),
                     'course_url':'https://www.geny.com/course/'+cid[5:]+'/partants-pronostics' if cid else ''})
     by_day={}
@@ -88,10 +96,11 @@ def evaluer(cache, now, state=None, *, nocturne=False):
 def appliquer(cache,state,now,*,nocturne=False):
     report=evaluer(cache,now,state,nocturne=nocturne)
     for h in state['chevaux'].values():h['depart_a_venir_utc']=None
-    for row in sorted(report['engagements'],key=lambda r:r['depart_utc']):
+    for row in sorted(report['engagements'], key=lambda r: (r['premier_depart_utc'], r['depart_utc'])):
         h=state['chevaux'].get(row['cle_file'])
         if h is None or h.get('depart_a_venir_utc'):continue
-        h.update(depart_a_venir_utc=row['depart_utc'],engagement=row['engagement'],numero=row['numero'],
+        h.update(depart_a_venir_utc=row['depart_utc'], premier_depart_reunion_utc=row['premier_depart_utc'],
+                 engagement=row['engagement'],numero=row['numero'],
                  preparation_pmu_ok=row['preparation_pmu_ok'],
                  motif_actualisation=row['motif_actualisation'])
         if row['course_url']:h['course_url']=row['course_url']

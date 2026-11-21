@@ -730,7 +730,7 @@ def bilan(state):
 def rapport(state):
     keys=('version','mode','inventaire_id','inventaire_utc','revision_inventaire','inventaire_actualise_utc',
           'extensions_inventaire','causes_contextes_sans_geny','phase_reprise','derniere_revalidation','passage_utc','maj_utc','statut','priorite_collecte',
-          'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
+          'termine_utc','sync_kpi','bilan','collecte_cycle','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
     report={k:state[k] for k in keys if k in state}
     report['cohortes'] = bornes_cohortes(state)
     lot = bilan_lot_96(state)
@@ -759,13 +759,19 @@ def priorite_production(paths=None):
         return 'PRIORITE_PRODUCTION_NON_VERIFIABLE'
     import requests
     try:
-        response=requests.get(f'https://api.github.com/repos/{repo}/actions/runs',
-            params={'status':'pending','per_page':100},
-            headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'},timeout=15)
-        response.raise_for_status()
-        if paths is None:paths={'.github/workflows/pmu-v16.yml','.github/workflows/historiques-incrementaux.yml'}
-        if any(run.get('path') in paths for run in response.json()['workflow_runs']):
-            return 'PRIORITE_PRODUCTION_EN_ATTENTE'
+        if paths is None:
+            paths = {'.github/workflows/pmu-v16.yml', '.github/workflows/historiques-incrementaux.yml'}
+        for status in ('pending', 'queued'):
+            response = requests.get(f'https://api.github.com/repos/{repo}/actions/runs',
+                params={'status': status, 'per_page': 100},
+                headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json'},
+                timeout=5)
+            response.raise_for_status()
+            runs = response.json()['workflow_runs']
+            if any(run.get('path', '').split('@', 1)[0] in paths for run in runs):
+                return 'PRIORITE_PRODUCTION_EN_ATTENTE'
+            if len(runs) == 100:
+                return 'PRIORITE_PRODUCTION_NON_VERIFIABLE'
     except Exception:
         return 'PRIORITE_PRODUCTION_NON_VERIFIABLE'
     return None
@@ -788,14 +794,14 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--cache',default='cache_pmu')
     parser.add_argument('--max-minutes',type=int,default=10)
-    parser.add_argument('--max-chevaux',type=int,default=1000)
+    parser.add_argument('--max-chevaux',type=int)
     parser.add_argument('--publier',action='store_true')
     parser.add_argument('--nocturne',action='store_true')
     parser.add_argument('--actualiser-inventaire',action='store_true')
     parser.add_argument('--archives-diagnostics',default='')
     parser.add_argument('--reconcilier-identites',action='store_true')
     args=parser.parse_args()
-    if not 1<=args.max_minutes<=15 or args.max_chevaux<1:parser.error('Bornes positives, duree maximale 15 minutes')
+    if not 1<=args.max_minutes<=15 or (args.max_chevaux is not None and args.max_chevaux < 1):parser.error('Bornes positives, duree maximale 15 minutes')
     cache=Path(args.cache)
     if args.publier:
         if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID','GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
@@ -883,7 +889,7 @@ def main():
 
                     if passage(cache, state, stop_requested=controle_fond, checkpoint=checkpoint_identites):
                         return
-        max_chevaux = args.max_chevaux if args.nocturne else min(args.max_chevaux, 1)
+        max_chevaux = args.max_chevaux if args.nocturne else 1
         state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=max_chevaux,
                       publier=True,mode='rattrapage',nocturne=args.nocturne,
                       stop_requested=controle_fond,
@@ -893,7 +899,7 @@ def main():
     print('BILAN_RATTRAPAGE '+json.dumps({'statut':state['statut'],'inventaire_id':state['inventaire_id'],
                                        'revision_inventaire':state.get('revision_inventaire',1),'courses_passees_par_nom':state.get('courses_passees_par_nom'),'phase_reprise':state['phase_reprise'],
                                        'motif_fin_passage':state.get('motif_fin_passage','BUDGET_OU_FILE_EPUISE'),
-                                       **state['bilan']},ensure_ascii=False),flush=True)
+                                       'collecte_cycle':state.get('collecte_cycle'), **state['bilan']},ensure_ascii=False),flush=True)
 
 
 if __name__=='__main__':main()

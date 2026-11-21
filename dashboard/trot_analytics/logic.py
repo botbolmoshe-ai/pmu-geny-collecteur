@@ -1,5 +1,5 @@
 """Read-only presentation helpers. No prediction or collection."""
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import math
 from .dates import depuis_nombre, instant_iso
 
@@ -68,3 +68,38 @@ def result_matching(row,method,now=None):
     published=number(row.get(prefix+' · Matching (%)'))
     if published is not None and abs(published-derived)>0.02: return None
     return derived
+
+def couverture_reunions(groups, now):
+    reunions = {}
+    for rows in groups.values():
+        if not rows:
+            continue
+        first = rows[0]
+        reunion, sep, _ = str(first.get('Course R/C', '')).partition('C')
+        depart = timestamp(first.get('Départ (Paris)'))
+        if not (sep and reunion.startswith('R') and reunion[1:].isdigit() and depart):
+            continue
+        key = (str(first.get('Hippodrome', '')), reunion)
+        entry = reunions.setdefault(key, {'depart': depart, 'partants': []})
+        entry['depart'] = min(entry['depart'], depart)
+        entry['partants'].extend(row for row in rows if row.get('Non-partant (NP)') == 'PARTANT')
+    result = []
+    for (hippodrome, reunion), entry in sorted(reunions.items(), key=lambda item: (item[1]['depart'], item[0])):
+        if entry['depart'] <= now:
+            continue
+        horses = entry['partants']
+        histories = sum(str(row.get('Historique · État', '')).startswith('HISTO_OK')
+                        and (number(row.get('Historique · Nb performances récupérées')) or 0) > 0
+                        for row in horses)
+        ferrures = sum(bool(row.get('Ferrure · Course du jour')) and row.get('PMU · État ferrure') in {
+            'CODE_RECONNU', 'CONVENTION_PMU', 'FERRURE_DISPONIBLE_SOURCEE', 'PMU_FERRURE_DISPONIBLE'}
+            for row in horses)
+        minutes = (entry['depart'] - timedelta(hours=2) - now).total_seconds() / 60
+        result.append({
+            'Réunion': reunion, 'Hippodrome': hippodrome, 'Partants confirmés': len(horses),
+            'Historiques exploitables': histories, 'Ferrures sourcées': ferrures,
+            'Historiques manquants': len(horses) - histories, 'Ferrures manquantes': len(horses) - ferrures,
+            'Couverture historique': f'{histories / len(horses):.0%}' if horses else '—',
+            'Temps avant H-2': f'{math.ceil(minutes)} min' if minutes > 0 else 'Échu',
+        })
+    return result

@@ -113,7 +113,7 @@ def planifier(cache, now, force=False):
     needs.sort(key=lambda item: (instant(item['echeance']) < now, instant(item['echeance']), item['course']))
     selection = list(dict.fromkeys(item['course'].split('_', 1)[1] for item in needs))
     from .rapprochement_reunions import planifier_rapprochements
-    results = planifier_rapprochements(cache, now)
+    results = planifier_rapprochements(cache, now, prochaines=upcoming)
     return {'plan_utc':now.isoformat(), 'date':day, 'erreurs': erreurs,
             'executer':bool(global_due or selection or results),
             'mode':'JALONS' if selection else 'RAPPROCHEMENT' if results else 'GLOBAL' if global_due else 'ATTENTE',
@@ -130,18 +130,37 @@ def besoin_pmu(cache, now):
     return None
 
 
-def motif_pause_collecte_nocturne(cache, now):
-    # Laisser finir un sous-processus (240 s) et sa sauvegarde avant 05 h.
-    marge = timedelta(minutes=7)
-    heure = now.astimezone(PARIS)
-    fin = heure.replace(hour=5, minute=0, second=0, microsecond=0)
-    if heure.hour >= 5 or now + marge >= fin:
-        return 'HORS_CRENEAU_NOCTURNE'
+# Un sous-processus peut prendre 240 s avant ses sauvegardes et la pause de cadence.
+MARGE_COLLECTE = timedelta(minutes=7)
+
+
+def limite_collecte_nocturne(cache, now):
+    local = now.astimezone(PARIS)
+    if 7 <= local.hour < 21:
+        return timedelta(), 'HORS_CRENEAU_NOCTURNE'
+    date_fin = local.date() + timedelta(days=int(local.hour >= 21))
+    fin = datetime.combine(date_fin, datetime.min.time(), PARIS).replace(hour=7)
+    restant = fin.astimezone(timezone.utc) - now - MARGE_COLLECTE
+    if restant <= timedelta():
+        return timedelta(), 'HORS_CRENEAU_NOCTURNE'
     plan = planifier(cache, now)
-    prochain_besoin = instant(plan['prochain_besoin_utc'])
-    if plan['executer'] or (prochain_besoin and prochain_besoin <= now + marge):
-        return 'ECHEANCE_PMU_PRIORITAIRE'
-    return None
+    if plan['executer']:
+        return timedelta(), 'ECHEANCE_PMU_PRIORITAIRE'
+    besoin = instant(plan['prochain_besoin_utc'])
+    if besoin:
+        restant = min(restant, besoin - now - MARGE_COLLECTE)
+    if restant <= timedelta():
+        return timedelta(), 'ECHEANCE_PMU_PRIORITAIRE'
+    return restant, None
+
+
+def motif_pause_collecte_nocturne(cache, now):
+    return limite_collecte_nocturne(cache, now)[1]
+
+
+def budget_collecte_nocturne(cache, now):
+    restant, _ = limite_collecte_nocturne(cache, now)
+    return min(15, restant // timedelta(minutes=1))
 
 
 def plan_collecte(cache, now, *, nocturne=False):
@@ -158,7 +177,8 @@ def plan_collecte(cache, now, *, nocturne=False):
     blocked=instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
     pauses=[instant(s.get('prochain_acces_geny_utc')) for s in (prod,back)]
     if blocked:pauses.append(blocked+timedelta(minutes=30))
-    pending=any(h.get('sync')=='A_FAIRE' for h in prod.get('chevaux',{}).values())
+    files = (prod, back) if nocturne else (prod,)
+    pending = any(h.get('sync') == 'A_FAIRE' for state in files for h in state.get('chevaux', {}).values())
     pauses=[p for p in pauses if p and p>now]
     if pauses and not pending:
         return {**result,'executer':False,'motif':'COOLDOWN_GENY_GLOBAL',

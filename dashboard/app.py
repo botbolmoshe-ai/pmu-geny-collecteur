@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from trot_analytics.dates import afficher_instant
-from trot_analytics.logic import records, selected, number, timestamp, result_matching
+from trot_analytics.logic import couverture_reunions, records, selected, number, timestamp, result_matching
 from trot_analytics.quality import render_quality
 from trot_analytics.performance import render_performance
 
@@ -93,6 +93,10 @@ if page=="Accueil":
     cols[1].metric("Historiques disponibles",f"{hist}/{total}")
     if total: st.progress(hist/total,text="Couverture des participations")
     if not groups: st.info("Aucune course dans le registre pour ce filtre.")
+    coverage = couverture_reunions(groups, now)
+    if coverage:
+        st.subheader("Couverture des prochaines réunions")
+        st.dataframe(pd.DataFrame(coverage), hide_index=True, use_container_width=True)
     st.subheader("Prochains départs")
     upcoming=[r[0] for r in groups.values() if timestamp(r[0].get("Départ (Paris)")) and timestamp(r[0]["Départ (Paris)"])>now]
     if upcoming:
