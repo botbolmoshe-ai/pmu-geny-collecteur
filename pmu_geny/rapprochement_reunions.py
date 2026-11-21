@@ -9,13 +9,19 @@ REPRISE = timedelta(minutes=30)
 DELAI = timedelta(minutes=30)
 
 
+def inventaire_confirme(record):
+    return record.get('inventaire_pmu_verifie') is True
+
+
 def planifier_rapprochements(cache, now):
     cache = Path(cache)
     day = now.astimezone(PARIS).date()
     dates = {day.isoformat(), (day - timedelta(days=1)).isoformat()}
     # Les reprises déjà engagées survivent à la rotation J/J-1.
     for path in (cache/'rapprochements').glob('????-??-??_R*.json'):
-        if (record := lire(path)) and (record.get('statut') == 'INCOMPLET' or not record.get('publication_sheets_utc')):
+        if (record := lire(path)) and (record.get('statut') == 'INCOMPLET'
+                                       or not record.get('publication_sheets_utc')
+                                       or not inventaire_confirme(record)):
             dates.add(path.stem.split('_')[0])
     due = []
     for date in sorted(dates):
@@ -25,7 +31,8 @@ def planifier_rapprochements(cache, now):
                 continue
             key = reunion['reunion']
             previous = lire(cache/'rapprochements'/f'{key}.json')
-            if previous.get('statut') == 'COMPLET' and previous.get('publication_sheets_utc'):
+            if (previous.get('statut') == 'COMPLET' and previous.get('publication_sheets_utc')
+                    and inventaire_confirme(previous)):
                 continue
             # Pas de lancement en masse sur les archives préexistantes.
             if not previous and now > last + timedelta(hours=36):
@@ -88,9 +95,27 @@ def rapprocher(cache, plan, clock=lambda: datetime.now(timezone.utc)):
             continue
         path = cache/'rapprochements'/f'{key}.json'
         old = lire(path)
-        if old and (not old.get('publication_sheets_utc') or old.get('statut') == 'COMPLET'):
+        if old and 'inventaire_pmu_verifie' in old and (
+                not old.get('publication_sheets_utc') or old.get('statut') == 'COMPLET'):
             continue
         url = BASE + datetime.fromisoformat(date).strftime('%d%m%Y')
+        programme_path = cache/'sources_pmu'/f'programme_{date}.json'
+        if date not in programmes:
+            try:
+                _, diagnostic = programme_diagnostic(get_json(url), date)
+                programmes[date] = diagnostic['inventaire_reunions']
+                cached = lire(programme_path)
+                sauver(programme_path, {**cached, 'inventaire_reunions': programmes[date]})
+            except (ValueError, OSError, TypeError, KeyError, RuntimeError):
+                programmes[date] = None
+        programme = programmes[date]
+        current = next((r for r in reunions_du_jour(cache, date, inventaire=programme)
+                        if r['reunion'] == key and r['coherente']), None) if programme is not None else None
+        verified_inventory = current is not None
+        if current:
+            reunion = current
+            if started < current['dernier_depart'] + DELAI:
+                continue
         rows = {}
         for course in reunion['courses']:
             code = course['code']
@@ -100,14 +125,11 @@ def rapprocher(cache, plan, clock=lambda: datetime.now(timezone.utc)):
             status = 'ARRIVEE_MANQUANTE'
             if not podium:
                 try:
-                    if date not in programmes:
-                        _, diagnostic = programme_diagnostic(get_json(url), date)
-                        programmes[date] = {c['code']: c for c in diagnostic['inventaire_reunions']}
-                    current = programmes[date].get(code, {})
-                    raw = get_json(url + '/' + code.replace('C', '/C', 1) + '/participants')
-                    status = 'ARRIVEE_NON_VERIFIEE'
-                    if current.get('podium_definitif_pmu'):
-                        enregistrer_resultats(cache, current, raw, observe=clock())
+                    if verified_inventory:
+                        raw = get_json(url + '/' + code.replace('C', '/C', 1) + '/participants')
+                        status = 'ARRIVEE_NON_VERIFIEE'
+                        if course.get('podium_definitif_pmu'):
+                            enregistrer_resultats(cache, course, raw, observe=clock())
                         podium = podium_officiel(cache, course_key, depart, clock())
                 except (ValueError, OSError, TypeError, KeyError, RuntimeError):
                     pass
@@ -117,14 +139,18 @@ def rapprocher(cache, plan, clock=lambda: datetime.now(timezone.utc)):
                           'scores': comparer(cache, course_key, depart, podium, certificate) if podium else {}}
         pending = sorted(code for code, row in rows.items() if not row['podium'])
         finished = clock()
-        sauver(path, {**item, 'reference_utc': reunion['dernier_depart'].isoformat(),
+        deadline = reunion['dernier_depart'] + DELAI
+        incomplete = bool(pending or not verified_inventory)
+        sauver(path, {**item, 'echeance': deadline.isoformat(),
+                      'reference_utc': reunion['dernier_depart'].isoformat(),
+                      'inventaire_pmu_verifie': verified_inventory,
                       'declenchement_utc': old.get('declenchement_utc', started.isoformat()),
                       'retard_declenchement_secondes': old.get('retard_declenchement_secondes',
                           (started - (reunion['dernier_depart'] + DELAI)).total_seconds()),
                       'dernier_demarrage_utc': started.isoformat(), 'fin_utc': finished.isoformat(),
-                      'statut': 'INCOMPLET' if pending else 'COMPLET',
+                      'statut': 'INCOMPLET' if incomplete else 'COMPLET',
                       'arrivees_a_reprendre': pending,
-                      'prochaine_reprise_utc': (finished + REPRISE).isoformat() if pending else None,
+                      'prochaine_reprise_utc': (finished + REPRISE).isoformat() if incomplete else None,
                       'courses': rows, 'performances': aggreger(rows.values())})
 
 

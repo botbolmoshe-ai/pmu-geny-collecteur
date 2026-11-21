@@ -121,3 +121,23 @@ class RapprochementReunionsTests(TestCase):
         quality = calculer_kpi(self.cache, source, now)
         self.assertEqual(quality['H+30 · Arrivées à reprendre'][0], 1)
         self.assertEqual(quality['H+30 · 7 j · H2_direct · Moyenne sur 3'][0], 3)
+
+    def test_un_bilan_issu_du_cache_filtre_est_rouvert(self):
+        self.write_programme(self.day, self.courses[1:2])
+        now = self.last + timedelta(minutes=31)
+        key = f'{self.day}_R1'
+        path = self.cache/'rapprochements'/f'{key}.json'
+        production.sauver(path, {'reunion': key, 'statut': 'COMPLET',
+                                'publication_sheets_utc': now.isoformat()})
+        plan = production.planifier(self.cache, now)
+        self.assertEqual(plan['mode'], 'RAPPROCHEMENT')
+        official = [{**course, 'podium_definitif_pmu': [1, 2, 3]} for course in self.courses[:2]]
+        participants = {'participants': [{'numPmu': n, 'ordreArrivee': n} for n in (1, 2, 3)]}
+        with patch('pmu_geny.auto_v18.programme_diagnostic', return_value=(
+                [], {'inventaire_reunions': official})), patch(
+                'pmu_geny.auto_v18.get_json', side_effect=[{}, participants, participants]):
+            rapprochement.rapprocher(self.cache, plan, lambda: now)
+        report = production.lire(path)
+        self.assertTrue(report['inventaire_pmu_verifie'])
+        self.assertEqual(report['statut'], 'COMPLET')
+        self.assertEqual(set(report['courses']), {'R1C1', 'R1C2'})
