@@ -77,6 +77,21 @@ def evaluate(rows, scores):
     return {**summary(hits), 'hits_par_course': hits, 'selections': selections}
 
 
+
+def evaluate_hybrid(rows, direct_scores, ml_scores):
+    """Combiner les deux rangs à poids égaux sur le même relevé."""
+    grouped = defaultdict(list)
+    for index, row in enumerate(rows):
+        grouped[row['course']].append(index)
+    combined = np.zeros(len(rows))
+    for indices in grouped.values():
+        for scores in (direct_scores, ml_scores):
+            ranked = sorted(indices, key=lambda index: (-scores[index], rows[index]['numero']))
+            for rank, index in enumerate(ranked):
+                combined[index] -= rank
+    return evaluate(rows, combined)
+
+
 def paired_interval(left, right):
     common = sorted(set(left) & set(right))
     if not common:
@@ -238,14 +253,27 @@ def run(cache, output, validation_day, test_day, now=None, *, select_research=Fa
     by_course = defaultdict(list)
     for row in test:
         by_course[row['course']].append(row)
-    comparable = [row for rows in by_course.values()
-                  if all(numeric(r['features'].get('pmu_score_direct')) is not None for r in rows)
-                  for row in rows]
-    if comparable:
-        report['test_forme_pmu_capture'] = evaluate(
-            comparable, [r['features']['pmu_score_direct'] for r in comparable])
-        report['ecart_ml_forme_capture'] = paired_interval(
-            report['test_ml']['hits_par_course'], report['test_forme_pmu_capture']['hits_par_course'])
+    comparable_ids = {course for course, rows in by_course.items()
+                      if all(numeric(r['features'].get('pmu_score_direct')) is not None for r in rows)}
+    if comparable_ids:
+        comparable = [(row, score) for row, score in zip(test, scores) if row['course'] in comparable_ids]
+        rows, ml_scores = zip(*comparable)
+        direct_scores = [numeric(r['features']['pmu_score_direct']) for r in rows]
+        direct = report['test_forme_pmu_capture'] = evaluate(rows, direct_scores)
+        hybrid = report['test_hybride_rangs_egaux'] = evaluate_hybrid(rows, direct_scores, ml_scores)
+        ml_hits = report['test_ml']['hits_par_course']
+        report['ecart_ml_forme_capture'] = paired_interval(ml_hits, direct['hits_par_course'])
+        report['ecart_hybride_forme_capture'] = paired_interval(hybrid['hits_par_course'], direct['hits_par_course'])
+        report['ecart_hybride_ml'] = paired_interval(hybrid['hits_par_course'], ml_hits)
+        report['test_comparable_par_discipline'] = {}
+        for label, discipline in (('attelé', 0), ('monté', 1)):
+            courses = {row['course'] for row in rows if row['features'].get('discipline_montee') == discipline}
+            if courses:
+                report['test_comparable_par_discipline'][label] = {
+                    name: summary({course: hits[course] for course in sorted(courses)})
+                    for name, hits in [('forme_capture', direct['hits_par_course']),
+                                       ('ml', ml_hits), ('hybride', hybrid['hits_par_course'])]
+                }
     from .echeances_production import instant, lire
     from .performance_prospective import retrouver
     published_hits = {}

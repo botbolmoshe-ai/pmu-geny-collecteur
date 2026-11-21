@@ -275,7 +275,8 @@ def prochaine_tache(state, now, attempts):
         priority=priorite_engagement(h,now,manquant=h.get('motif_actualisation')=='HISTORIQUE_ABSENT_OU_NON_DATE')
         enrichment=h.get('motif_actualisation')=='FERRURES_HISTORIQUES_A_COMPLETER'
         missing=h.get('motif_actualisation')=='HISTORIQUE_ABSENT_OU_NON_DATE'
-        order=((h['depart_a_venir_utc'],enrichment,not missing,key) if state.get('politique_collecte')=='PROCHAINS_DEPARTS_SEULEMENT'
+        order=((h.get('premier_depart_reunion_utc') or h['depart_a_venir_utc'],
+                enrichment, not missing, h['depart_a_venir_utc'], key) if state.get('politique_collecte')=='PROCHAINS_DEPARTS_SEULEMENT'
                else (enrichment,priority,h['engagement'],key))
         candidates.append((order,key))
     if candidates:
@@ -442,7 +443,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
             git('worktree', 'remove', '--force', str(target))
 
 
-def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
+def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None,
         prochains_depart=False, creneau_reserve=None, nocturne=False):
     cache = Path(cache)
@@ -474,9 +475,20 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         state['prochain_acces_geny_utc'] = max(pauses_actives).isoformat()
     attempts, count, accepted, partials = {}, 0, 0, 0
     sheets_engine=None
+    captures_completes = set()
+    sync_confirmees = set()
+    ajouts_sheets_confirmes = 0
+    refus_geny = {'403': 0, '429': 0}
     deadline = time.monotonic()+max_minutes*60
     def save(*, distant=True):
         state['maj_utc'] = datetime.now(UTC).isoformat()
+        state['collecte_cycle'] = {
+            'debut_utc': state['passage_utc'], 'controle_utc': state['maj_utc'], 'source': 'Geny',
+            'carrieres_completes_distinctes': len(captures_completes),
+            'chevaux_confirmes_sheets': len(sync_confirmees),
+            'performances_ajoutees_et_confirmees_sheets': ajouts_sheets_confirmes,
+            'refus_geny': refus_geny, 'prochain_acces_geny_utc': state.get('prochain_acces_geny_utc'),
+        }
         state.setdefault('bilan',{}).update(tentatives_collecte=count,
             captures_validees=accepted,captures_partielles=partials,collectes_rejetees=count-accepted-partials)
         if reprise:
@@ -507,7 +519,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
         if key is None:
             state['motif_fin_passage']=action
             break
-        if action == 'COLLECTE' and count >= max_chevaux:
+        if action == 'COLLECTE' and max_chevaux is not None and count >= max_chevaux:
             state['motif_fin_passage']='MAX_CHEVAUX_ATTEINT'
             break
         horse = state['chevaux'][key]
@@ -544,6 +556,7 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
                     else:accepter(cache, horse, report)
                     accepted+=1
+                    captures_completes.add(str(horse['id']))
                 else:
                     from .historiques_partiels import conserver
                     if not conserver(cache,horse,report):raise ValueError('HISTORIQUE_NON_VALIDE')
@@ -571,7 +584,9 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                     'identite_verifiee':report.get('identite_verifiee'),
                     'diagnostic':str(out/'resultat.json')}
                 if isinstance(exc, PermissionError):
-                    suspendre_geny(cache, state, datetime.now(UTC), '403' if '403' in str(exc) else '429')
+                    code = '403' if '403' in str(exc) else '429'
+                    refus_geny[code] += 1
+                    suspendre_geny(cache, state, datetime.now(UTC), code)
                 # Le sous-processus peut s'arrêter après la preuve et avant son bilan.
                 if not report or isinstance(exc, PermissionError):
                     memoriser_resolution(horse,report,out,cache=cache)
@@ -597,6 +612,10 @@ def run(cache, *, max_minutes=15, max_chevaux=1000, publier=False,
                 else:horse['sync_details']=sheets_engine.synchroniser_cheval(horse,include_kpi=False)
             else:
                 raise RuntimeError('SYNCHRONISATION_NON_CONFIGUREE')
+            historique = horse.get('sync_details', {}).get('Historique chevaux', {})
+            if historique.get('controle', {}).get('statut') == 'VALIDE':
+                sync_confirmees.add(str(horse.get('id') or key))
+                ajouts_sheets_confirmes += historique.get('lignes_ajoutees', 0)
             horse.update(sync='OK', sync_utc=datetime.now(UTC).isoformat(), erreur='')
             if reprise and horse.get('collecte')=='COMPLET':reprise.valider_sync(state,horse)
         except Exception as exc:
@@ -643,11 +662,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--cache', default='cache_pmu')
     parser.add_argument('--max-minutes', type=int, default=15)
-    parser.add_argument('--max-chevaux', type=int, default=1000)
+    parser.add_argument('--max-chevaux', type=int)
     parser.add_argument('--publier', action='store_true')
     parser.add_argument('--nocturne', action='store_true')
     args = parser.parse_args()
-    if args.max_minutes < 1 or args.max_chevaux < 1:
+    if args.max_minutes < 1 or (args.max_chevaux is not None and args.max_chevaux < 1):
         parser.error('Bornes positives requises')
     if not args.publier:
         state = alimenter(Path(args.cache), datetime.now(UTC))
@@ -665,7 +684,8 @@ def main():
                     or verifier_echeances(cache, datetime.now(UTC))))
     print('BILAN_INCREMENTAL '+json.dumps({**state['bilan'],
         'motif_fin_passage':state['motif_fin_passage'],
-        'couverture_par_jour':state['preparation_prochaines_courses']['couverture_par_jour']}))
+        'couverture_par_jour':state['preparation_prochaines_courses']['couverture_par_jour'],
+        'collecte_cycle': state['collecte_cycle']}))
 
 
 if __name__ == '__main__':
