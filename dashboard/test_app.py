@@ -27,7 +27,7 @@ class AppTests(unittest.TestCase):
         self.mock_build=self.build.start();self.addCleanup(self.build.stop)
         self.credentials.start();self.addCleanup(self.credentials.stop)
 
-    def source(self,history=True,odds=False,market_top3=False):
+    def source(self,history=True,odds=False,market_top3=False,dual_profile=False):
         from trot_analytics.quality_dates import VALUE,TOTAL
         day=self.today.isoformat();depart=datetime.combine(self.today,time(12),ZoneInfo('Europe/Paris'))
         courses=[{'Clé course (technique)':day+'|R1C1','Date':day,'Course R/C':'R1C1','Hippodrome':'VINCENNES',
@@ -44,6 +44,9 @@ class AppTests(unittest.TestCase):
             'Profil du cheval': {1:'Crack',2:'Haut potentiel'}.get(n,''),
             'Profil · Indices': {1:'2 podiums en Groupe I/II',2:'2 podiums sur 3'}.get(n,''),
             'Âge (ans)':5,'Sexe':'Hongre','Gains carrière (€)':0} for n in (1,2,3)]
+        if dual_profile:
+            courses[0].update({'Profil du cheval': 'Crack confirmé + Haut potentiel',
+                               'Profil · Indices': 'Geny : preuves des deux profils'})
         if odds:
             stamp = min(self.now, depart) - timedelta(minutes=5)
             courses[0].update({'Cotes · Valeur': 7.5, 'Cotes · Relevé UTC': stamp.isoformat()})
@@ -112,11 +115,29 @@ class AppTests(unittest.TestCase):
                       [item.value for item in self.app.markdown])
         self.assertIn('**Gagnant potentiel ML : 1 — Cheval test 1**',
                       [item.value for item in self.app.markdown])
-        self.assertEqual(list(tableau.value['Profil du cheval']), ['Crack', 'Haut potentiel', ''])
+        self.assertEqual(list(tableau.value['Profil du cheval']), ['Crack confirmé', 'Haut potentiel', 'Non évaluable'])
         css = getattr(tableau.proto, "arrow_data", tableau.proto).styler.styles
-        self.assertIn('background-color: #ffe375', css)
-        self.assertIn('background-color: #bae8c4', css)
+        self.assertIn('background-color: #4b2574', css)
+        self.assertIn('background-color: #123b72', css)
         self.assertIn('font-weight: bold', css)
+
+    def test_cumul_filtre_et_fiche_cheval(self):
+        self.source(dual_profile=True)
+        self.app.session_state.authenticated=True
+        self.app.run()
+        self.app.radio[0].set_value('Courses').run()
+        self.app.multiselect(key='profils_filtre').set_value(['Haut potentiel']).run()
+        self.assertFalse(self.app.exception)
+        self.assertEqual(list(self.app.dataframe[0].value['N°']), [1, 2])
+        fiche = next(widget for widget in self.app.selectbox if widget.label == 'Fiche cheval')
+        fiche.set_value(0).run()
+        self.assertFalse(self.app.exception)
+        self.assertTrue(any('Geny : preuves des deux profils' in x.value for x in self.app.text))
+        badge = self.app.get('html')[-1].proto.body
+        self.assertIn('★ Crack confirmé', badge)
+        self.assertIn('◆ Haut potentiel', badge)
+        self.assertIn('#ffdf75', badge)
+        self.assertIn('#75eee1', badge)
 
     def test_cote_horodatee_visible_sans_selection_de_marche(self):
         self.source(odds=True)

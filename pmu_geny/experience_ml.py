@@ -116,6 +116,111 @@ def modeles():
     }
 
 
+
+def tester_profils_ml(model, train, validation, test):
+    """Comparer les ajouts sur les mêmes partants, hors entraînement."""
+    from sklearn.base import clone
+    from .profils_partants import SIGNAUX_PROFILS
+
+    y_fit = [row['y'] for row in train + validation]
+    reference = clone(model).fit(matrix(train + validation), y_fit)
+    base = evaluate(test, reference.predict_proba(matrix(test))[:, 1])
+    couverture = {}
+    for nom, groupe in (('train', train), ('validation', validation), ('test', test)):
+        couverture[nom] = {}
+        for champ in SIGNAUX_PROFILS:
+            valeurs = [row['features'].get(champ) for row in groupe]
+            couverture[nom][champ] = {'positifs': valeurs.count(1), 'negatifs': valeurs.count(0),
+                                      'non_evalues': valeurs.count(None)}
+    variantes = {}
+    for champs in [(champ,) for champ in SIGNAUX_PROFILS] + [SIGNAUX_PROFILS]:
+        nom = '+'.join(champs)
+        if not all(couverture[periode][champ]['positifs'] and couverture[periode][champ]['negatifs']
+                   for periode in couverture for champ in champs):
+            variantes[nom] = {'statut': 'DONNEES_INSUFFISANTES'}
+            continue
+        fields = FEATURES + champs
+        trial = clone(model).fit(matrix(train + validation, fields), y_fit)
+        mesure = evaluate(test, trial.predict_proba(matrix(test, fields))[:, 1])
+        variantes[nom] = {'statut': 'EVALUE', 'avec': mesure,
+                          'ecart': paired_interval(mesure['hits_par_course'], base['hits_par_course'])}
+    return {'couverture': couverture, 'sans': base, 'variantes': variantes}
+
+
+def tester_profils_direct(cache, test):
+    """Isoler le départage sur les versions Direct certifiées et relues dans Sheets."""
+    from .echeances_production import instant, lire
+    from .liaison_chevaux_v22 import nom_normalise
+    from .performance_prospective import prevision_publiee
+    from .profils_partants import SIGNAUX_PROFILS
+
+    fields = {'sans': (), **{champ: (champ,) for champ in SIGNAUX_PROFILS},
+              'avec_les_deux': SIGNAUX_PROFILS}
+    hits = {nom: {} for nom in fields}
+    selections_modifiees = Counter()
+    couverture = Counter()
+    groupes = defaultdict(dict)
+    for row in test:
+        groupes[row['course']][row['numero']] = row
+    for course, partants in groupes.items():
+        depart = instant(next(iter(partants.values()))['depart'])
+        certificat = (lire(cache / 'publications/direct' / f'{course}.json')
+                      or lire(cache / 'publications' / f'{course}.json'))
+        preuve = certificat.get('versions', {}).get('direct', {})
+        lecture, publication = (instant(preuve.get(key))
+                                for key in ('lecture_sheets_utc', 'publication_utc'))
+        calcul = instant(preuve.get('calcul_utc'))
+        if not (depart and calcul and lecture and publication and calcul <= lecture <= publication < depart):
+            continue
+        try:
+            doc, top3_publie = prevision_publiee(cache, course, 'direct', preuve, depart)
+            observation = instant(doc.get('donnees_observees_utc'))
+            if (not observation or observation > calcul
+                    or doc.get('version_profils') not in ('trot-attele-v2', 'trot-attele-v3')):
+                continue
+            classement = doc['classement_complet']
+            podium = {n for n, row in partants.items() if row['y']}
+            signaux = doc['profils_partants']
+            if ({h['numero'] for h in classement} != partants.keys()
+                    or any(not h.get('nom') or nom_normalise(h['nom']) != nom_normalise(
+                        partants[h['numero']].get('nom')) for h in classement)):
+                continue
+            evaluations = {}
+            etiquettes = {}
+            for h in classement:
+                n = h['numero']
+                signal = signaux.get(str(n), {})
+                if signal and nom_normalise(signal.get('nom')) != nom_normalise(h['nom']):
+                    raise ValueError('Profil et partant incohérents')
+                etiquettes[n] = tuple(champ for champ in SIGNAUX_PROFILS
+                                      if signal.get(champ, bool(signal.get(champ.removeprefix('est_')))))
+            for nom, colonnes in fields.items():
+                def ordre(h):
+                    priorite = max((2 if champ == 'est_crack' else 1
+                                    for champ in colonnes if champ in etiquettes[h['numero']]), default=0)
+                    return -h['score_direct'], -priorite, h['numero']
+
+                evaluations[nom] = {h['numero'] for h in sorted(classement, key=ordre)[:3]}
+            if evaluations['avec_les_deux'] != top3_publie:
+                continue
+        except (KeyError, TypeError, ValueError):
+            continue
+        couverture.update(champ for valeurs in etiquettes.values() for champ in valeurs)
+        for nom, selection in evaluations.items():
+            hits[nom][course] = len(selection & podium)
+            selections_modifiees[nom] += selection != evaluations['sans']
+    resultats = {'courses': len(hits['sans']),
+                 'positifs': {champ: couverture[champ] for champ in SIGNAUX_PROFILS}}
+    if hits['sans']:
+        resultats['sans'] = summary(hits['sans'])
+        resultats['variantes'] = {
+            nom: {**summary(hits[nom]), 'selections_modifiees': selections_modifiees[nom],
+                  'ecart': paired_interval(hits[nom], hits['sans'])}
+            for nom in fields if nom != 'sans'}
+    resultats['statut'] = 'EVALUE' if any(couverture.values()) else 'DONNEES_INSUFFISANTES'
+    return resultats
+
+
 def run(cache, output, validation_day, test_day, now=None, *, select_research=False):
     cache, output = Path(cache), Path(output)
     # Le modele experimental ne peut pas ecraser le modele ou statut de production.
@@ -249,6 +354,10 @@ def run(cache, output, validation_day, test_day, now=None, *, select_research=Fa
     model.fit(matrix(fitted_rows, chosen_fields), [r['y'] for r in fitted_rows])
     scores = model.predict_proba(matrix(test, chosen_fields))[:, 1]
     report['test_ml'] = evaluate(test, scores)
+    report['profils_partants'] = {
+        'ml': tester_profils_ml(model, train, validation, test),
+        'direct': tester_profils_direct(cache, test),
+    }
     # Benchmark forme PMU au MEME instant de capture; limiter au sous-ensemble complet.
     by_course = defaultdict(list)
     for row in test:

@@ -10,6 +10,10 @@ from trot_analytics.dates import afficher_instant
 from trot_analytics.logic import couverture_reunions, records, selected, number, timestamp, result_matching
 from trot_analytics.quality import render_quality
 from trot_analytics.performance import render_performance
+from trot_analytics.profils import (
+    AUCUN_PROFIL, COLONNE_INDICES, COLONNE_PROFIL, NON_EVALUABLE, PALETTE,
+    SEPARATEUR_PROFILS, libelles_profils,
+)
 
 st.set_page_config(page_title="TROT Analytics",page_icon="📊",layout="wide")
 PARIS=ZoneInfo("Europe/Paris")
@@ -34,7 +38,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.19.8 · Identités et horaires")
+st.caption("Version interface : 2026.11.21 · Profils pré-départ")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -105,7 +109,27 @@ if page=="Accueil":
         st.dataframe(table,hide_index=True,use_container_width=True)
     else: st.caption("Aucun départ futur enregistré pour cette date.")
 elif page=="Courses":
-    if not groups: st.info("Aucune course pour ce filtre.")
+    def badges(libelles):
+        return " ".join(
+            f'<span style="background-color:{fond};color:{texte};padding:.15em .45em;'
+            f'border-radius:.25em;font-weight:bold">{icone} {libelle}</span>'
+            for libelle in libelles if libelle in PALETTE
+            for fond, texte, icone in (PALETTE[libelle],)
+        )
+
+    def profils_ligne(row):
+        if row.get("Non-partant (NP)") == "NON_PARTANT":
+            return ()
+        return libelles_profils(row.get(COLONNE_PROFIL)) or (NON_EVALUABLE,)
+
+    profil_filtre = st.multiselect("Filtrer les partants par profil",
+                                  [*PALETTE, NON_EVALUABLE, AUCUN_PROFIL], key="profils_filtre")
+    if groups:
+        st.html(badges(PALETTE))
+        st.caption("Le violet/or est prioritaire sur la ligne si les deux profils sont présents. "
+                   "Non évaluable indique que les preuves nécessaires ne sont pas disponibles.")
+    else:
+        st.info("Aucune course pour ce filtre.")
     for key,rows in groups.items():
         first=rows[0]; depart=timestamp(first.get("Départ (Paris)"))
         label=first.get("Course R/C","")+" · "+str(first.get("Hippodrome",""))+" · "+(afficher_instant(depart) if depart else "heure inconnue")
@@ -177,8 +201,12 @@ elif page=="Courses":
             if latest_odds:
                 st.caption("Dernier relevé PMU à " + afficher_instant(latest_odds)
                            + " (Paris)")
-            profile_column = "Profil du cheval"
-            columns = ["N°", "Cheval", "Cote PMU", "Âge (ans)", profile_column, "Profil · Indices", "Ferrure", "Musique PMU",
+            visibles = [not profil_filtre or bool(set(profil_filtre).intersection(profils_ligne(row)))
+                        for row in rows]
+            if not any(visibles):
+                st.caption("Aucun partant pour les profils sélectionnés.")
+                continue
+            columns = ["N°", "Cheval", "Cote PMU", "Âge (ans)", COLONNE_PROFIL, COLONNE_INDICES, "Ferrure", "Musique PMU",
                        "Non-partant (NP)", "Historique · Nb performances récupérées",
                        "Données actuelles · Mise à jour UTC"]
             partants = pd.DataFrame(rows)
@@ -196,15 +224,29 @@ elif page=="Courses":
             partants = partants.reindex(columns=columns)
             partants["Données actuelles · Mise à jour UTC"] = partants["Données actuelles · Mise à jour UTC"].map(
                 lambda value: afficher_instant(value, timezone.utc))
-            couleurs = {"Crack": "#ffe375", "Haut potentiel": "#bae8c4"}
-            if partants[profile_column].isin(couleurs).any():
-                styles = partants[profile_column].map({
-                    statut: f"background-color: {couleur}; color: #1f2630; font-weight: bold"
-                    for statut, couleur in couleurs.items()
-                }).fillna("")
-                partants = partants.style.apply(lambda _: styles, subset=["Cheval", profile_column])
+            partants[COLONNE_PROFIL] = [SEPARATEUR_PROFILS.join(profils_ligne(row)) for row in rows]
+            partants = partants.loc[visibles]
+            styles = partants[COLONNE_PROFIL].map(lambda valeur: libelles_profils(valeur)[:1]).map(
+                lambda profils: PALETTE.get(profils[0]) if profils else None)
+            if styles.notna().any():
+                styles = styles.map(lambda couleur: (
+                    f"background-color: {couleur[0]}; color: {couleur[1]}; font-weight: bold"
+                    if couleur else ""))
+                partants = partants.style.apply(lambda _: styles, subset=["Cheval", COLONNE_PROFIL])
             st.dataframe(partants, hide_index=True, use_container_width=True,
                          column_config={"Cote PMU": st.column_config.NumberColumn(format="localized", width="small")})
+            fiches = [row for row, visible in zip(rows, visibles) if visible]
+            fiche = st.selectbox("Fiche cheval", range(len(fiches)), index=None,
+                                 format_func=lambda i: f"{fiches[i]['N°']} · {fiches[i]['Cheval']}",
+                                 key=f"fiche_{key}")
+            if fiche is not None:
+                row = fiches[fiche]
+                libelles = profils_ligne(row)
+                if rendu := badges(libelles):
+                    st.html(rendu)
+                else:
+                    st.text(SEPARATEUR_PROFILS.join(libelles) or "Non-partant")
+                st.text(str(row.get(COLONNE_INDICES) or "Aucun indice archivé pour cette fiche."))
 elif page=="Résultats":
     st.caption("Matching en % · uniquement sur preuves disponibles. Absence ≠ 0 %. ML non évaluable sans preuve enregistrée.")
     table=[]
