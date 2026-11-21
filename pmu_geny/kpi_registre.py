@@ -41,6 +41,14 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
             if not departure<checked<=now:continue
             podium={int(h['numero']) for h in result['arrivee'] if h['rang'] in (1,2,3)}
             if len(podium)!=3:continue
+            if row.get('reunion_pmu'):
+                if row.get('rapprochement_arrivee_statut') != 'ARRIVEE_OFFICIELLE':
+                    continue
+                verified += 1
+                score = row.get('score_direct')
+                if row.get('statut_evaluation') == 'EVALUE' and score in (0, 1, 2, 3):
+                    scores.append(score)
+                continue
             verified+=1
             predicted=[int(h['numero']) for h in forecast.get('top3',[])]
             created=datetime.fromisoformat(forecast['calcul_utc'])

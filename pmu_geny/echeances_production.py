@@ -325,13 +325,21 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
             if all(s and timedelta(0)<=now-s<=MARGE for s in stamps):
                 sauver(cache/'orchestration/production_etat.json',
                        {'dernier_global_publie_utc':now.isoformat()})
-    if publie and observation and plan.get('mode') == 'RAPPROCHEMENT':
+    report['rapprochements'] = []
+    if plan.get('mode') == 'RAPPROCHEMENT':
         for item in plan.get('rapprochements_dus', []):
             path = cache/'rapprochements'/f"{item['reunion']}.json"
             record = lire(path)
-            if record and not record.get('publication_sheets_utc'):
+            if not record:
+                report['erreurs'].append({'reunion': item['reunion'], 'motif': 'RAPPROCHEMENT_NON_DEMARRE'})
+                continue
+            if publie and observation and not record.get('publication_sheets_utc'):
                 record['publication_sheets_utc'] = observation.isoformat()
                 sauver(path, record)
+            report['rapprochements'].append({
+                field: record.get(field) for field in ('reunion', 'echeance', 'declenchement_utc', 'statut',
+                                                       'arrivees_a_reprendre', 'publication_sheets_utc')
+            })
     report['reunions'] = []
     for reunion in reunions:
         key = reunion['reunion']

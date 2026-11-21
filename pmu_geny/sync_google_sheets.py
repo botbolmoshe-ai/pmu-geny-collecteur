@@ -719,7 +719,10 @@ def source_rows(cache):
             pairs = ((row['scores'].get(f'{phase}_direct'), row['scores'].get(f'{phase}_ml'))
                      for phase in ('H1', 'H2'))
             pair = next((pair for pair in pairs if all(pair)), None)
-            if pair:
+            if not pair:
+                report_row['statut_evaluation'] = ('ARRIVEE_SANS_TOP3_PUBLIE' if row['statut'] == 'ARRIVEE_OFFICIELLE'
+                                                   else 'ARRIVEE_NON_VERIFIEE')
+            else:
                 scores = {}
                 for method, item in zip(('direct', 'ml'), pair):
                     numbers = item['numeros']
@@ -1031,7 +1034,8 @@ def main():
                     scope = {key: row for key, row in source[tab].items() if row.get('reunion_pmu') in reunions}
                 engine.synchroniser_tables({tab: scope}, scope=mode, allow_structure=True)
                 if mode == 'RAPPROCHEMENT':
-                    values = lire_feuille_complete(engine.session, engine.base, tab, engine.metadata()[tab])
+                    values = lire_feuille_complete(engine.session, engine.base, tab, engine.metadata()[tab],
+                                                   raw_dates=True)
                     if not values:
                         raise ErreurSynchronisation('Relecture des rapprochements vide')
                     headers = canonical_headers(values[0])
@@ -1039,8 +1043,8 @@ def main():
                                (dict(zip(headers, values_row)) for values_row in values[1:])}
                     for key, expected in scope.items():
                         actual = visible.get(key, {})
-                        if any(str(expected[field]) != str(actual.get(field, ''))
-                               for field in RAPPROCHEMENT_COLUMNS if field in expected and not date_kind(field)):
+                        if any(not meme_date_sheets(field, expected[field], actual.get(field, ''))
+                               for field in RAPPROCHEMENT_COLUMNS if field in expected):
                             raise ErreurSynchronisation('Rapprochement non confirmé dans Sheets : ' + key)
             else:
                 engine.synchroniser_cycle(include_kpi=False)
