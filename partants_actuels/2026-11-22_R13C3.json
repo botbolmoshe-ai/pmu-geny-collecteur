@@ -1,0 +1,523 @@
+{
+  "date": "2026-11-22",
+  "course": "R13C3",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "ecurie",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "IDEAL DU RUEL",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8067000,
+        "gainsVictoires": 3645000,
+        "gainsPlace": 4422000,
+        "gainsAnneeEnCours": 701500,
+        "gainsAnneePrecedente": 858000
+      }
+    },
+    {
+      "nom": "JULIUS DU THEIL",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8273500,
+        "gainsVictoires": 6727500,
+        "gainsPlace": 1546000,
+        "gainsAnneeEnCours": 490000,
+        "gainsAnneePrecedente": 17000
+      }
+    },
+    {
+      "nom": "JAGUAR PIYA",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8955500,
+        "gainsVictoires": 6345000,
+        "gainsPlace": 2610500,
+        "gainsAnneeEnCours": 420000,
+        "gainsAnneePrecedente": 130000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:00:05.931954+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "Mlle THAIS PELTIER",
+      "entraineur": "A.G. MAILLARD",
+      "proprietaire": "Mme A. BAZIN",
+      "ferrure": "D4",
+      "musique_pmu": "3m5m8m9m8m0a2m3m5m1m",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 80670.0,
+      "nom": "IDEAL DU RUEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "L. OTT",
+      "entraineur": "R. LAGADEUC",
+      "proprietaire": "F. LANDEAU",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0mDmDm0m4m4mDa8mDm6m",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 82735.0,
+      "nom": "JULIUS DU THEIL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mlle M. JOLY",
+      "entraineur": "A. DE VAUGIRAUD",
+      "proprietaire": "Mme N. VIEL-PIERRE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "3m8mAmDm(25)5m9m0a9a(24)",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 89555.0,
+      "nom": "JAGUAR PIYA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Mme YONA HENRY",
+      "entraineur": "B. MARIE",
+      "proprietaire": "Ecurie D L",
+      "ferrure": "D4",
+      "musique_pmu": "8a7aDa1a5m8aDm5mDmDa",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 91805.0,
+      "nom": "JAYZI DU BOURG",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "Mlle CL. THUET",
+      "entraineur": "V. RAIMBAULT",
+      "proprietaire": "V. RAIMBAULT",
+      "ferrure": "D4",
+      "musique_pmu": "DmDm8mDa8mDm4m3m3m6m",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 93185.0,
+      "nom": "INTREPIDE NEMO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Mme L. PREEL",
+      "entraineur": "S. HARDY",
+      "proprietaire": "Ecurie Sébastien HARDY",
+      "musique_pmu": "0a1a0a6m6m3a4m7a4a8a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 93335.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "nom": "ILOWA D'OHARA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "Mlle C. JARY",
+      "entraineur": "S. LEMETAYER",
+      "proprietaire": "Ecurie S. et Ph. LEMETAYER",
+      "ferrure": "DP",
+      "musique_pmu": "Dm0aDaDa7m9m8m6m0a0a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 93410.0,
+      "nom": "INFLUENCE",
+      "statut_np": "NON_PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mlle A. POULAIN",
+      "entraineur": "K. AIT OUAKLI",
+      "proprietaire": "K. AIT OUAKLI",
+      "ferrure": "D4",
+      "musique_pmu": "4m3m0a9m6mDm3m0a9a0a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 94945.0,
+      "nom": "INSTANT DU BOIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "Mlle E. LACOMBLEZ",
+      "entraineur": "PH. BEILEARD",
+      "proprietaire": "PH. BEILEARD",
+      "ferrure": "DP/PA",
+      "musique_pmu": "7mDm0m0aDa(25)2m7a0a9m",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 95770.0,
+      "nom": "ICARE DU TRESOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "Mme C. BERNA",
+      "entraineur": "E. VARIN",
+      "proprietaire": "Ecurie LES FRERES DU TROT",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0mDmDmDm0a0a(25)0aDa0a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 98740.0,
+      "nom": "HORIZON DU TRIANON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "Mme A. OUANELLA",
+      "entraineur": "J.F. SENET",
+      "proprietaire": "Ecurie J-F. SENET",
+      "ferrure": "D4",
+      "musique_pmu": "5m2m3m0m8aDa6a9a0a7a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 100955.0,
+      "nom": "ISCO DE CORDAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "LOUIS FORTIN",
+      "entraineur": "A.G. MAILLARD",
+      "proprietaire": "Mme A. BAZIN",
+      "ferrure": "D4",
+      "musique_pmu": "0a8m0aDa2m2m7a1m1m4m",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 100975.0,
+      "nom": "JAKA DU RUEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "R. VILAULT",
+      "entraineur": "F. JOSEPH",
+      "proprietaire": "F. JOSEPH",
+      "ferrure": "PA",
+      "musique_pmu": "9mDa0a0a(25)3m4m1m4m3m",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 102490.0,
+      "nom": "JOYAU DE JANZE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "Mme M. RIVERAIN",
+      "entraineur": "CH.A. MARY",
+      "proprietaire": "Julien SCALA COA",
+      "ferrure": "P4",
+      "musique_pmu": "Da4m5m5m5m4m9mDaDm3m",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 102805.0,
+      "nom": "JEDEO DES VAUX",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "Mme L. THORAVAL",
+      "entraineur": "B. BLACHET",
+      "proprietaire": "A.M. CHANTEAU",
+      "ferrure": "D4",
+      "musique_pmu": "Da0m7m5m3m6m4mDm(25)6m",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 103565.0,
+      "nom": "IMTITI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "Mme C. BLAIZOT",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "G.M. NICOLAS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da0aDmDm1m6a(25)8m0a9a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 104570.0,
+      "nom": "ISIS DU LEARD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+        "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C3/participants",
+          "capture_utc": "2026-11-21T01:00:05.931954+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

@@ -1,0 +1,544 @@
+{
+  "date": "2026-11-22",
+  "course": "R1C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MAMOUNIA SEVEN",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4388000,
+        "gainsVictoires": 2250000,
+        "gainsPlace": 2138000,
+        "gainsAnneeEnCours": 782000,
+        "gainsAnneePrecedente": 3606000
+      }
+    },
+    {
+      "nom": "MISS DE LA FERME",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4572000,
+        "gainsVictoires": 810000,
+        "gainsPlace": 3762000,
+        "gainsAnneeEnCours": 2208000,
+        "gainsAnneePrecedente": 2189000
+      }
+    },
+    {
+      "nom": "MATA HARI",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 4282000,
+        "gainsVictoires": 2700000,
+        "gainsPlace": 1582000,
+        "gainsAnneeEnCours": 2248000,
+        "gainsAnneePrecedente": 2034000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:00:24.564356+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "N. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie Jean Michel BAZIRE",
+      "ferrure": "D4",
+      "musique_pmu": "Da0a0a9a7a4a4a(25)5a7a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 43880.0,
+      "nom": "MAMOUNIA SEVEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "Sté. Ent. Grégory THOREL",
+      "proprietaire": "Ecurie GLORIA DREAMS",
+      "ferrure": "P4",
+      "musique_pmu": "9a0aDa4a0aDa4aDa2a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 45720.0,
+      "nom": "MISS DE LA FERME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "A. LHERETE",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie des CHARMES",
+      "musique_pmu": "0a6m0a4m1mDa(25)DaDa3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 42820.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "nom": "MATA HARI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "J.M. BAUDOUIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "ferrure": "D4",
+      "musique_pmu": "0a0aDaDa5aDaDa(25)6a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 44865.0,
+      "nom": "MA AM CHENU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "CH. DE GROOTE",
+      "proprietaire": "BVBA Lieven DE GROOTE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0a8a3a4a4a5a3a1a2a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 42690.0,
+      "nom": "MA COPINE FLAC",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "P. BELLOCHE",
+      "entraineur": "P. BELLOCHE",
+      "proprietaire": "Ecurie B",
+      "ferrure": "D4",
+      "musique_pmu": "6aDaDmDa0aDaDa0a(25)Da",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 44170.0,
+      "nom": "MOANA MESLOISE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "TH. RAFFEGEAU",
+      "proprietaire": "Ecurie Thierry RAFFEGEAU",
+      "ferrure": "D4",
+      "musique_pmu": "0a0aDa0a3aDaDa(25)1a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 45760.0,
+      "nom": "MAYA D'AVRIL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "P.Edouard MARY",
+      "proprietaire": "Benoit NICOLAS",
+      "ferrure": "D4",
+      "musique_pmu": "4a4a7a5a4a1a6aDa(25)Da",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 42950.0,
+      "nom": "MANON DU CHENE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "CH. BIGEON",
+      "proprietaire": "Ecurie Christian BIGEON",
+      "ferrure": "D4",
+      "musique_pmu": "4a8a0a2a9a3a(25)1aDa6a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 44170.0,
+      "nom": "MY DARLING HAUFOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "TH. LAMARE",
+      "entraineur": "TH. LAMARE",
+      "proprietaire": "Ecurie de QUERVILLE",
+      "ferrure": "D4",
+      "musique_pmu": "3a1a4a0a3a3a6a5a1a3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 38030.0,
+      "nom": "MOSTRA DU TRIO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "PH. MASSCHAELE",
+      "entraineur": "Mme G. MASSCHAELE",
+      "proprietaire": "Ecurie ALFAM",
+      "ferrure": "D4",
+      "musique_pmu": "9a6a6m7a7a0a7a0a7a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 31980.0,
+      "nom": "MADRILENE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "D. BONNE",
+      "entraineur": "R. BRETON",
+      "proprietaire": "P. ROHRBACH",
+      "ferrure": "P4",
+      "musique_pmu": "5a0a7aDaDaDa1aDa2a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 30120.0,
+      "nom": "MI CASA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "A. DE VAUGIRAUD",
+      "proprietaire": "Mme N. VIEL-PIERRE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da5a2aDa1a2aDa(25)DaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 39030.0,
+      "nom": "MARVELOUS PIYA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "F. TERRY",
+      "proprietaire": "P.CL. BRAUD",
+      "ferrure": "P4",
+      "musique_pmu": "2a8m6a0a3a3a6aDa7a3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 42410.0,
+      "nom": "MULANE DU BOCAGE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+        "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C2/participants",
+          "capture_utc": "2026-11-21T01:00:24.564356+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

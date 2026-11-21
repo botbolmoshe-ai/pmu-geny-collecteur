@@ -1,0 +1,320 @@
+{
+  "date": "2026-11-22",
+  "course": "R11C1",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NALA LA MONNERIE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NEPTUNE DU BOIS",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NAVY PEARL",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 503000,
+        "gainsVictoires": 0,
+        "gainsPlace": 503000,
+        "gainsAnneeEnCours": 503000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:00:04.143906+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "E. AUDEBERT",
+      "proprietaire": "Loris AUDEBERT",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+          "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+        }
+      },
+      "nom": "NALA LA MONNERIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+        "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "Mme CH. SCHOTTER",
+      "entraineur": "H. BEAUMONT",
+      "proprietaire": "H. BEAUMONT",
+      "musique_pmu": "Da",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+          "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+        }
+      },
+      "nom": "NEPTUNE DU BOIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+        "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "CH. BOUTEILLER",
+      "entraineur": "CHARLES BOUVIER",
+      "proprietaire": "F. GIBERT",
+      "musique_pmu": "2aDaDaDaDa8aDa3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 5030.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+          "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+        }
+      },
+      "nom": "NAVY PEARL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+        "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Mme L. MAGNENAT",
+      "entraineur": "Sté. Ent. Bernard GRASSET",
+      "proprietaire": "Philippe BEINE",
+      "musique_pmu": "Da4aDaDaDaDa3a2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 11420.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+          "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+        }
+      },
+      "nom": "NOUNASSIMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+        "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "LOUIS LAHOUCINE",
+      "entraineur": "E. VARIN",
+      "proprietaire": "Ecurie Régis MAURICE",
+      "ferrure": "PP",
+      "musique_pmu": "6a9aDm7aDa5a2aDa6aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 11555.0,
+      "nom": "NINA CHARENTAISE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+        "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+          "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "M. TIJOU",
+      "entraineur": "J.PH. MONCLIN",
+      "proprietaire": "Ecurie ELAG",
+      "musique_pmu": "7a4m2mDmDmDa2a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 11595.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+          "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+        }
+      },
+      "nom": "NARCISSE TURGOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+        "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "Mlle M. COLLET",
+      "entraineur": "N. LANGLOIS",
+      "proprietaire": "Ecurie Noël LANGLOIS",
+      "musique_pmu": "7a3a2aAa2a3a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 12540.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+          "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+        }
+      },
+      "nom": "NICOS DE JANEIRO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+        "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "M. DURVILLE",
+      "entraineur": "Nathan BOISRAME",
+      "proprietaire": "Nathan BOISRAME",
+      "musique_pmu": "3m2m2m",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 12580.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+          "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+        }
+      },
+      "nom": "NECTAR DU LEARD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R11/C1/participants",
+        "capture_utc": "2026-11-21T01:00:04.143906+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

@@ -1,0 +1,501 @@
+{
+  "date": "2026-11-22",
+  "course": "R13C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LOLLIPOP D'UNEVIE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1650500,
+        "gainsVictoires": 652500,
+        "gainsPlace": 998000,
+        "gainsAnneeEnCours": 80000,
+        "gainsAnneePrecedente": 1117500
+      }
+    },
+    {
+      "nom": "LITTLE EXPRESS",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2431500,
+        "gainsVictoires": 562500,
+        "gainsPlace": 1869000,
+        "gainsAnneeEnCours": 416500,
+        "gainsAnneePrecedente": 1770000
+      }
+    },
+    {
+      "nom": "LOLITA DU MIREL",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 3159500,
+        "gainsVictoires": 1957500,
+        "gainsPlace": 1202000,
+        "gainsAnneeEnCours": 1003500,
+        "gainsAnneePrecedente": 927000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:00:23.986951+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "B. GALLON",
+      "entraineur": "B. GALLON",
+      "proprietaire": "B. GALLON",
+      "ferrure": "D4",
+      "musique_pmu": "0aAaDaAaDa0a5a(25)Da8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 16505.0,
+      "nom": "LOLLIPOP D'UNEVIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "L. BAUDOUIN",
+      "entraineur": "F. COMBOT",
+      "proprietaire": "F. COMBOT",
+      "ferrure": "D4",
+      "musique_pmu": "9a2aDa0a7a(25)2a4aDa9a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 24315.0,
+      "nom": "LITTLE EXPRESS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "G. DELACOUR",
+      "entraineur": "G. DELACOUR",
+      "proprietaire": "Ecurie G. DELACOUR",
+      "musique_pmu": "DmDaDa1mDmDa6a6m9a6m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 31595.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "nom": "LOLITA DU MIREL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "P. SORAIS",
+      "entraineur": "CH. BIGEON",
+      "proprietaire": "Ecurie Christian BIGEON",
+      "ferrure": "DP",
+      "musique_pmu": "4a3a7a6a6a3a(25)Da6a1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 31615.0,
+      "nom": "LUEUR D'HAUFOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "P.CH. JEAN",
+      "entraineur": "P.CH. JEAN",
+      "proprietaire": "P.CH. JEAN",
+      "ferrure": "DA",
+      "musique_pmu": "6a3a1a0aDaDa0a4aDa8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 34910.0,
+      "nom": "LADY DE BEYLEV",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "A. DABOUIS",
+      "entraineur": "A. DABOUIS",
+      "proprietaire": "A. DABOUIS",
+      "ferrure": "D4",
+      "musique_pmu": "2a6a4a1a4a0a1a5aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 35350.0,
+      "nom": "LOLLIPOP STAR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "E. DE JESUS",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "Mme Lola NICOLAYSEN",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0a8aDa6a9aDa7a5a0a9a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 35410.0,
+      "nom": "LEWISIA DE LATOM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "C. GODARD",
+      "proprietaire": "C. GODARD",
+      "ferrure": "DP/PA",
+      "musique_pmu": "8a1aDa0aDa1aDa4a5a2a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 35450.0,
+      "nom": "LOLA DE LA DOUCE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "A. LEFAUCHEUX",
+      "entraineur": "D. LEFAUCHEUX",
+      "proprietaire": "D. LEFAUCHEUX",
+      "ferrure": "D4",
+      "musique_pmu": "Da4a8a2a5a6aDa0aDa8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 37780.0,
+      "nom": "LAURIANE DU RIED",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "CH. DREUX",
+      "entraineur": "A. DREUX",
+      "proprietaire": "A. DREUX",
+      "ferrure": "DP",
+      "musique_pmu": "8a3a0a7aDa6a2a2a5aTa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 38095.0,
+      "nom": "LOVELY FOUTEAU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "J.B. LELIEVRE",
+      "entraineur": "E. VARIN",
+      "proprietaire": "Ecurie E. VARIN",
+      "ferrure": "D4",
+      "musique_pmu": "4a6a1a0a4a2a0a7a0a3a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 38125.0,
+      "nom": "LILI DU PRESSOIR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "S. ERNAULT",
+      "entraineur": "S. ERNAULT",
+      "proprietaire": "Ecurie DELSEE",
+      "ferrure": "D4",
+      "musique_pmu": "2a1aDa3a1a(25)1a1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 38775.0,
+      "nom": "LILI MARLEEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "Q. MICHEL",
+      "entraineur": "J. BORDAS",
+      "proprietaire": "Ecurie TURGOT",
+      "ferrure": "D4",
+      "musique_pmu": "6a0a1a4a2a1a7a8m(25)6m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 38840.0,
+      "nom": "LAURENTINA TURGOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "S. BAUDE",
+      "entraineur": "A.H. POST",
+      "proprietaire": "Haras du ARCTIC",
+      "ferrure": "PA",
+      "musique_pmu": "2a1a0a8a3a4a5a7a9a(25)",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 38995.0,
+      "nom": "LADY SLAVE TEK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "FLORENT PELTIER",
+      "entraineur": "E. PELTIER",
+      "proprietaire": "E. PELTIER",
+      "ferrure": "DA",
+      "musique_pmu": "7a1a1a0a7aDa8a7a7a9a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 39685.0,
+      "nom": "LITTLESNABE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+        "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C4/participants",
+          "capture_utc": "2026-11-21T01:00:23.986951+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

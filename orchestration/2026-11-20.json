@@ -128,18 +128,18 @@
       },
       "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE",
-      "statut_arrivee": "ARRIVEE_ENREGISTREE"
+      "statut_arrivee": "ARRIVEE_DEJA_ENREGISTREE"
     },
     "R1C5": {
       "identifiant_geny": null,
-      "etat": "GENY_NON_ASSOCIE",
+      "etat": "ARRIVEE_PMU_SANS_GENY",
       "depart": "2026-11-20T20:50:00+01:00",
       "nom": "PRIX KERONIS",
       "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
       "nombre_declares": 18,
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
-      "traitement": "PREPARATION_AVANT_DEPART",
+      "traitement": "RESULTATS_SEULEMENT",
       "statut_meteo": "METEO_CAPTUREE_4",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
@@ -152,15 +152,16 @@
         "cotes": "CALCULE_COMPLET"
       },
       "statut_snapshot_ml": "DEJA_CAPTURE",
-      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_arrivee": "ARRIVEE_ENREGISTREE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-20T19:48:14.357281+00:00",
+  "dernier_controle_pmu": "2026-11-21T00:59:56.651157+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-20",
-    "horodatage_utc": "2026-11-20T19:48:14.357281+00:00",
+    "horodatage_utc": "2026-11-21T00:59:56.651157+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 6,
@@ -201,7 +202,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
@@ -324,7 +324,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"

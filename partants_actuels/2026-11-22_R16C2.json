@@ -1,0 +1,562 @@
+{
+  "date": "2026-11-22",
+  "course": "R16C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NEW DEAL PEJI",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NINO DE SAINT JEAN",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NIAGARA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 12000,
+        "gainsVictoires": 0,
+        "gainsPlace": 12000,
+        "gainsAnneeEnCours": 12000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:00:05.054602+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "M. LEMERCIER",
+      "entraineur": "M. LEMERCIER",
+      "proprietaire": "M. LEMERCIER",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NEW DEAL PEJI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "D. HEON",
+      "entraineur": "F. HEON",
+      "proprietaire": "F. HEON",
+      "musique_pmu": "Da",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NINO DE SAINT JEAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "M. HERRAULT",
+      "entraineur": "J.L. BIGEON",
+      "proprietaire": "J. SECHE",
+      "musique_pmu": "7aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 120.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NIAGARA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "RENAUD JULIEN",
+      "entraineur": "A. LEBOURGEOIS",
+      "proprietaire": "A. LEBOURGEOIS",
+      "ferrure": "PA",
+      "musique_pmu": "6a9a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 260.0,
+      "nom": "NELINE DE VALFORG",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "H. MARIE",
+      "entraineur": "H. MARIE",
+      "proprietaire": "H. MARIE",
+      "musique_pmu": "5a7a9a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 720.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NOORA DE CHENU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "D. BLOND",
+      "entraineur": "D. BLOND",
+      "proprietaire": "D. BLOND",
+      "ferrure": "PA",
+      "musique_pmu": "5aDa8aDa8a6aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 1040.0,
+      "nom": "NISTRAL DU CHARME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "M. LEDUC",
+      "entraineur": "A. LEDUC",
+      "proprietaire": "Ecurie Arnaud LEDUC",
+      "musique_pmu": "Da3a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 1960.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NOUVEAU MAYENNAIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mme A.F. DONATI MARCILLAC",
+      "entraineur": "Mme A.F. DONATI MARCILLAC",
+      "proprietaire": "Christophe GONTIER",
+      "musique_pmu": "3aDaDaDaDa4aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2720.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NABAYA MAGO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "A. GUYARD",
+      "entraineur": "A. GUYARD",
+      "proprietaire": "Mlle A. BEAUCAMP",
+      "musique_pmu": "4aDa6a5a4a7a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 3050.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NINO NAKANO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "CH. CLIN",
+      "entraineur": "Sté. Ent. Christophe CLIN",
+      "proprietaire": "James LEVASSEUR",
+      "musique_pmu": "Da2a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 3375.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NIAOULI D'OMAHA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "P. PLOQUIN",
+      "entraineur": "P. PLOQUIN",
+      "proprietaire": "Ecurie des BLEUETS",
+      "musique_pmu": "8a7a4a2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 4610.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NOEMIE DAIRPET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "J. BLAVETTE",
+      "entraineur": "J. BLAVETTE",
+      "proprietaire": "Ecurie du BELVER",
+      "musique_pmu": "1aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 5400.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NALA DU BELVER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "P. LECELLIER",
+      "entraineur": "C. PILFERT",
+      "proprietaire": "C. PILFERT",
+      "musique_pmu": "1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 5625.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NANGAE DE GUEZ",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "V. POUPIOT",
+      "entraineur": "V. POUPIOT",
+      "proprietaire": "Ecurie Valentin POUPIOT",
+      "musique_pmu": "6a3a2aDa4a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 5940.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NIAGARA CAUVELIERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "S. DESMARRES",
+      "entraineur": "Aurélien DESMARRES",
+      "proprietaire": "A. DESMARRES",
+      "musique_pmu": "6a6a1aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 5990.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "nom": "NADO PRIOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "G. MARIN",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "Ecurie LA TOUR DE VANDEL",
+      "ferrure": "P4",
+      "musique_pmu": "1aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 6075.0,
+      "nom": "NYMPHE DE VANDEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+        "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R16/C2/participants",
+          "capture_utc": "2026-11-21T01:00:05.054602+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

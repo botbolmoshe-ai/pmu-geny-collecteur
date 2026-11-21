@@ -1,0 +1,547 @@
+{
+  "date": "2026-11-22",
+  "course": "R1C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "EDIBEAR",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 30266100,
+        "gainsVictoires": 109900,
+        "gainsPlace": 877500,
+        "gainsAnneeEnCours": 443400,
+        "gainsAnneePrecedente": 544000
+      }
+    },
+    {
+      "nom": "KELLE BEAUTE",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 31328000,
+        "gainsVictoires": 15480000,
+        "gainsPlace": 15848000,
+        "gainsAnneeEnCours": 8898000,
+        "gainsAnneePrecedente": 2004000
+      }
+    },
+    {
+      "nom": "JIPET DE CREPIN",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 31200000,
+        "gainsVictoires": 25065000,
+        "gainsPlace": 6135000,
+        "gainsAnneeEnCours": 15077000,
+        "gainsAnneePrecedente": 2886000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:01:15.161900+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "B. GOOP",
+      "entraineur": "S. PERSSON",
+      "proprietaire": "Travtranare STEFAN PERSSON AB (SWE)",
+      "ferrure": "DA",
+      "musique_pmu": "5a3a5a6a6a1a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 302661.0,
+      "nom": "EDIBEAR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "Ecurie AUGUSTIN-NORMAND",
+      "ferrure": "DP/PA",
+      "musique_pmu": "2a0a3a0a0a0aDa3a4a5a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 313280.0,
+      "nom": "KELLE BEAUTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "S. ERNAULT",
+      "proprietaire": "Mme Cl. LE PIMPEC",
+      "ferrure": "PA",
+      "musique_pmu": "1a7a0a2a1a7aGa4a1a1a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 312000.0,
+      "nom": "JIPET DE CREPIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "A. DE JESUS",
+      "proprietaire": "Ecurie F.C.",
+      "ferrure": "DP/PA",
+      "musique_pmu": "9a2aDa5aDa9aDa0a(25)Da",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 288490.0,
+      "nom": "INSHOT JOSSELYN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "D. CHERBONNEL",
+      "proprietaire": "Y. FAUCHEUX",
+      "ferrure": "D4",
+      "musique_pmu": "6a4a6a2a3a2a2a8a4a0a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 254475.0,
+      "nom": "IMAGE D'ATALANTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "M. BEZIER",
+      "entraineur": "M. BEZIER",
+      "proprietaire": "A.P. BEZIER",
+      "ferrure": "DP/PA",
+      "musique_pmu": "6a9a0a8a5a5a1a1aDa(25)",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 297300.0,
+      "nom": "JOJO TOONS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "R. BERGH",
+      "entraineur": "R. BERGH",
+      "proprietaire": "Roland WIKSTEN (SWE)",
+      "ferrure": "D4",
+      "musique_pmu": "0a7a2a6a8a2a",
+      "sexe": "Mâle",
+      "age_ans": 8,
+      "gains_euros": 256038.0,
+      "nom": "LAREDO BOKO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "J.PH. MONCLIN",
+      "proprietaire": "Scuderia TWISTER (ITY)",
+      "ferrure": "D4",
+      "musique_pmu": "7a4aDa4a3a1a6a5a(25)1a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 248295.0,
+      "nom": "KIKA JOSSELYN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "J.M. BAUDOUIN",
+      "proprietaire": "François NICOLLE",
+      "ferrure": "D4",
+      "musique_pmu": "0a5a8aGm2aDa2a2a3m6m",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 254120.0,
+      "nom": "KISS ME HONEY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie de BAFFE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "9a0a5a0aDa5a8a0a4a(25)",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 236080.0,
+      "nom": "ISIS D'HERFRAIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "R.CH. LARUE",
+      "proprietaire": "Ecurie de WINDCUT",
+      "ferrure": "D4",
+      "musique_pmu": "Da8a4a1aDaDaDa5a6a4a",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 219880.0,
+      "nom": "KNOCKONWOOD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "CH. MARTENS",
+      "entraineur": "Sté. Ent. Christophe MARTENS",
+      "proprietaire": "Luke CARUANA (MAL)",
+      "musique_pmu": "2a(25)0a1a7a7a3a",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 106106.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "nom": "KILGORE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "S. ROUSSELLE",
+      "proprietaire": "Tord OLSSON (SWE)",
+      "ferrure": "D4",
+      "musique_pmu": "2aDa5a1a1a6a3a(25)2a7a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 228729.0,
+      "nom": "PANTOCRATOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "CH. GALLIER",
+      "entraineur": "CH. GALLIER",
+      "proprietaire": "Ecurie Christophe GALLIER",
+      "musique_pmu": "2m0a0a0a(25)2m1m5a1m1m",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 226280.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+          "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+        }
+      },
+      "nom": "JOLLY CHIC",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C7/participants",
+        "capture_utc": "2026-11-21T01:01:15.161900+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

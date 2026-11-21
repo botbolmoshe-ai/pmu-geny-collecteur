@@ -1,0 +1,473 @@
+{
+  "date": "2026-11-22",
+  "course": "R13C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MIA DES MURAILLES",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 113500,
+        "gainsVictoires": 0,
+        "gainsPlace": 113500,
+        "gainsAnneeEnCours": 113500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MELISSE D'ELOGES",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1439500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1439500,
+        "gainsAnneeEnCours": 860000,
+        "gainsAnneePrecedente": 579500
+      }
+    },
+    {
+      "nom": "MADAME DE PLAY",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1505500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1505500,
+        "gainsAnneeEnCours": 923500,
+        "gainsAnneePrecedente": 582000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:00:51.753295+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "J.M. MARIE",
+      "entraineur": "J.M. MARIE",
+      "proprietaire": "Gilles CHATY",
+      "ferrure": "D4",
+      "musique_pmu": "Da6a8a6aDmDa8aDaDa6a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 1135.0,
+      "nom": "MIA DES MURAILLES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "CH. PETREMENT",
+      "entraineur": "CH. PETREMENT",
+      "proprietaire": "Guy ENGELS",
+      "ferrure": "D4",
+      "musique_pmu": "Da8a4a6a5a3a2aDa7aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 14395.0,
+      "nom": "MELISSE D'ELOGES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "FLORENT PELTIER",
+      "entraineur": "E. PELTIER",
+      "proprietaire": "E. PELTIER",
+      "ferrure": "DP",
+      "musique_pmu": "Da4a9aDa5a3a5a7a5aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 15055.0,
+      "nom": "MADAME DE PLAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "J.B. LELIEVRE",
+      "entraineur": "D. BAZIN",
+      "proprietaire": "D. BAZIN",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a9a3aDa6a2aDa7a6aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 16685.0,
+      "nom": "MONA DE MONTI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "S. BAUDE",
+      "entraineur": "Mlle M. LE BOURHIS",
+      "proprietaire": "Mlle M. LE BOURHIS",
+      "ferrure": "D4",
+      "musique_pmu": "7a3a1a6a7a7a4a9mDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 17610.0,
+      "nom": "MARQUISE DEHEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "TH. DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ecurie SAINT MARTIN",
+      "musique_pmu": "0a(25)1a2a1aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 17700.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "nom": "MANON DU GOUTIER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "ET. LEFRANC",
+      "entraineur": "ET. LEFRANC",
+      "proprietaire": "Ecurie Etienne LEFRANC",
+      "ferrure": "DA",
+      "musique_pmu": "5a3aDa4aDa9a4a3a1a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 17975.0,
+      "nom": "MAUVE DE FLEUR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "C. GODARD",
+      "proprietaire": "J. SEYDOUX",
+      "ferrure": "D4",
+      "musique_pmu": "Aa3a3a7aDaDa1aDaDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18170.0,
+      "nom": "MISSISSIPPI QUEEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "E. DE JESUS",
+      "entraineur": "JOEL HALLAIS",
+      "proprietaire": "Ecurie RIB",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1aDa6a0a6a5a9a6a4a7a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18320.0,
+      "nom": "MACUMBA DU RIB",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "M. LEGROS",
+      "entraineur": "B. MARIE",
+      "proprietaire": "Ecurie D L",
+      "ferrure": "D4",
+      "musique_pmu": "3a2aDa8a3a5a4a2a5a3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18460.0,
+      "nom": "MELODY DJALMATS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "TH. ROUSSELET",
+      "entraineur": "J.J. BAILLON",
+      "proprietaire": "J.J. BAILLON",
+      "ferrure": "D4",
+      "musique_pmu": "Da0a1a1a2a4a8aDa2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18595.0,
+      "nom": "MIRABELLE D'ABOMEY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "S. ERNAULT",
+      "entraineur": "S. ERNAULT",
+      "proprietaire": "Ecurie TOP TEN ETALONS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da2a4aDa8a1a(25)8a2a3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18610.0,
+      "nom": "MADE IN MARCEAUX",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "TH. BELLET",
+      "entraineur": "B. MARIE",
+      "proprietaire": "J. LAGACHE",
+      "ferrure": "D4",
+      "musique_pmu": "7a0a3a6a4a4a4a0aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18815.0,
+      "nom": "MAGNIFIK BOSDARROS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "S. POILANE",
+      "entraineur": "S. POILANE",
+      "proprietaire": "Ecurie Sébastien POILANE",
+      "ferrure": "DP",
+      "musique_pmu": "8a8a7a6a1aDa(25)1a2a5a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 18865.0,
+      "nom": "MAGIE DE BOUERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+        "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C7/participants",
+          "capture_utc": "2026-11-21T01:00:51.753295+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

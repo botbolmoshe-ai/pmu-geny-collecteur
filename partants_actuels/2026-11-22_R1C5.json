@@ -1,0 +1,556 @@
+{
+  "date": "2026-11-22",
+  "course": "R1C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "FAR WEST BI",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 25075400,
+        "gainsVictoires": 1980000,
+        "gainsPlace": 6304000,
+        "gainsAnneeEnCours": 6034000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "LAROZE DU GERS",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 23945500,
+        "gainsVictoires": 18607500,
+        "gainsPlace": 5338000,
+        "gainsAnneeEnCours": 14315000,
+        "gainsAnneePrecedente": 8032500
+      }
+    },
+    {
+      "nom": "GOLDEN GIO",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 23854000,
+        "gainsVictoires": 17099300,
+        "gainsPlace": 4970000,
+        "gainsAnneeEnCours": 5869300,
+        "gainsAnneePrecedente": 16200000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:01:10.443681+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "G. GELORMINI",
+      "entraineur": "H.E. BONDO",
+      "proprietaire": "Mme Lucia Sonia FERA (ITY)",
+      "ferrure": "DP",
+      "musique_pmu": "3aDa5a1a8a4a4a7a(24)2a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 250754.0,
+      "nom": "FAR WEST BI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "M. ABRIVARD",
+      "proprietaire": "Ecurie Jean-Pascal BRAGATO",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da1a1a6a3a4aDa1a3a2a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 239455.0,
+      "nom": "LAROZE DU GERS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "ZACON GIO SRL (ITY)",
+      "ferrure": "DP",
+      "musique_pmu": "Da4a2aDa2a1a1a1a1a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 238540.0,
+      "nom": "GOLDEN GIO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "P. PLOQUIN",
+      "proprietaire": "Ecurie LOUIS D'AUR",
+      "ferrure": "D4",
+      "musique_pmu": "4a2a1a4a7a8a4a2a9a1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 254290.0,
+      "nom": "LALUNA DES FORGES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "J.M. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Y. DESMET (BEL)",
+      "ferrure": "DA",
+      "musique_pmu": "1aDaAa8aDa2a1a2a1aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 283160.0,
+      "nom": "LORD DELO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "PH. ALLAIRE",
+      "proprietaire": "CH. TOULORGE",
+      "ferrure": "DP",
+      "musique_pmu": "7aDaDa1aDa5a3a6a3a(25)",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 282298.0,
+      "nom": "LITTLE BROWN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "A. BARRIER",
+      "entraineur": "CH.A. MARY",
+      "proprietaire": "PH. ALLAIRE",
+      "ferrure": "D4",
+      "musique_pmu": "5a2aDa4a4a7aDa5a5a5a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 228835.0,
+      "nom": "MONZON NORMAND",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "ferrure": "D4",
+      "musique_pmu": "8a3a7a6a0a5aDa3a0a9a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 242960.0,
+      "nom": "LEMON TREE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "CH. MARTENS",
+      "entraineur": "V. MARTENS",
+      "proprietaire": "Stal CAMPUS RPF (BEL)",
+      "musique_pmu": "8a4a9a(25)Da6a2a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 221986.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "nom": "L'AMOURPOURBLANCA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "B. GOOP",
+      "entraineur": "D. LOCQUENEUX",
+      "proprietaire": "STAL DE ROLLEMAN (HOL)",
+      "ferrure": "D4",
+      "musique_pmu": "1aDa2a6a9aDa4a9a6a2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 174623.0,
+      "nom": "OMERTA BOKO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "L.M. DAVID",
+      "entraineur": "L.M. DAVID",
+      "proprietaire": "Ecurie L.M. DAVID",
+      "musique_pmu": "4a1a8a6a2a6a1a8aDa1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 170515.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "nom": "LILY DE L'AUNAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "CL. DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ecurie MATCH",
+      "musique_pmu": "0a5a2a1a(25)1a9a1a2a1a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 188895.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "nom": "LEONARDO VICI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "ALAIN CHAVATTE",
+      "entraineur": "A. CHAVATTE",
+      "proprietaire": "Ec. Alain et Arnaud CHAVATTE",
+      "musique_pmu": "0a5a2a0a6a5a5a0a1a(25)",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 218285.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "nom": "LIZZANO D'ALOUETTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "S. ROGER",
+      "proprietaire": "N. LOLIC",
+      "musique_pmu": "6a2a3a8a6a3a6a2a5a4a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 185555.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+          "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+        }
+      },
+      "nom": "LUTIN VENESI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C5/participants",
+        "capture_utc": "2026-11-21T01:01:10.443681+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

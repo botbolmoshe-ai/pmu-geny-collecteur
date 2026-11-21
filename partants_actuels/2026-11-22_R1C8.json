@@ -1,0 +1,389 @@
+{
+  "date": "2026-11-22",
+  "course": "R1C8",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NAFI DE REVE D'OR",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8000000,
+        "gainsVictoires": 2970000,
+        "gainsPlace": 5030000,
+        "gainsAnneeEnCours": 6740000,
+        "gainsAnneePrecedente": 1260000
+      }
+    },
+    {
+      "nom": "NOIRE INTENSE",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8802000,
+        "gainsVictoires": 5760000,
+        "gainsPlace": 3042000,
+        "gainsAnneeEnCours": 6447000,
+        "gainsAnneePrecedente": 2355000
+      }
+    },
+    {
+      "nom": "NACRE DU MOUTHIEUX",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 10657500,
+        "gainsVictoires": 7807500,
+        "gainsPlace": 2850000,
+        "gainsAnneeEnCours": 6000000,
+        "gainsAnneePrecedente": 4657500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:01:31.640148+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "A. BARRIER",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Ecurie Gianni FASCELLA",
+      "ferrure": "P4",
+      "musique_pmu": "5a4a5a2a2a6aDaDa2a1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 80000.0,
+      "nom": "NAFI DE REVE D'OR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "W. BIGEON",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "ferrure": "P4",
+      "musique_pmu": "4a1a4aDaDaDa1a3a(25)3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 88020.0,
+      "nom": "NOIRE INTENSE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "THEO DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ec. W RACING TROT",
+      "ferrure": "P4",
+      "musique_pmu": "2a6a8aDaDaDa1aDa4a(25)",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 106575.0,
+      "nom": "NACRE DU MOUTHIEUX",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "J. ROBERT",
+      "proprietaire": "Mme S. ROBERT",
+      "ferrure": "P4",
+      "musique_pmu": "3a2a6m1a1a1a1a(25)6a5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 108550.0,
+      "nom": "NIKKI BEACH JISCE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "ferrure": "P4",
+      "musique_pmu": "3a4aDa3a3a3a3a5a2a0a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 111975.0,
+      "nom": "NIKITA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "J.G. VAN EECKHAUTE",
+      "proprietaire": "Mme Madeleine DECLERCQ LETELLIER",
+      "ferrure": "P4",
+      "musique_pmu": "2aDa0a2a3aDa2a4a1a5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 140235.0,
+      "nom": "NYASSA DAXEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "J.M. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie BERNARD",
+      "ferrure": "P4",
+      "musique_pmu": "Dm8a0aDa5a2a4a9a5aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 143160.0,
+      "nom": "NOELA JOSSELYN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "F. FACCI",
+      "entraineur": "H.E. BONDO",
+      "proprietaire": "Ecurie Jean-Pierre BARJON",
+      "musique_pmu": "1a2a1a2aDa5a1a7aDa1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 258596.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "nom": "ISCHIA JOY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "CL. DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ph. BEAUVISAGE",
+      "ferrure": "P4",
+      "musique_pmu": "1a1a1a1a1a4a1a3aDa7a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 319765.0,
+      "nom": "NAYA D'ERONVILLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "PH. ALLAIRE",
+      "proprietaire": "PH. ALLAIRE",
+      "ferrure": "PA",
+      "musique_pmu": "0aDmDa1a0a2a1a2a1a(25)",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 328700.0,
+      "nom": "NORMANDIE NIEMEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "N. BRIDAULT",
+      "proprietaire": "Ecurie Ch. BRIDAULT",
+      "ferrure": "P4",
+      "musique_pmu": "Da2a1aDa1a3a3a1a8a1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 509120.0,
+      "nom": "NOCIVE DU CHOQUEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+        "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C8/participants",
+          "capture_utc": "2026-11-21T01:01:31.640148+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

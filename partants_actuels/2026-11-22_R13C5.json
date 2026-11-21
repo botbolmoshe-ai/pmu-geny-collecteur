@@ -1,0 +1,478 @@
+{
+  "date": "2026-11-22",
+  "course": "R13C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MELISSIMO",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 26000,
+        "gainsVictoires": 0,
+        "gainsPlace": 26000,
+        "gainsAnneeEnCours": 26000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "ME VOILA SACRE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 322000,
+        "gainsVictoires": 0,
+        "gainsPlace": 322000,
+        "gainsAnneeEnCours": 322000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MAX DE COQUERIE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 672000,
+        "gainsVictoires": 607500,
+        "gainsPlace": 64500,
+        "gainsAnneeEnCours": 51000,
+        "gainsAnneePrecedente": 621000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:00:28.595160+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "A. RANDON",
+      "entraineur": "A. RANDON",
+      "proprietaire": "Ec. Arnaud RANDON",
+      "ferrure": "DP",
+      "musique_pmu": "DaDaDa6aDaDaDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 260.0,
+      "nom": "MELISSIMO",
+      "statut_np": "NON_PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "Mlle D. ARAMINI",
+      "entraineur": "Mlle D. ARAMINI",
+      "proprietaire": "Yassine NABLIA",
+      "musique_pmu": "Da0a3a5a0a8a7a6a6a7a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 3220.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "nom": "ME VOILA SACRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "E. LELIEVRE",
+      "entraineur": "E. LELIEVRE",
+      "proprietaire": "E. LELIEVRE",
+      "musique_pmu": "DaDaDaDaDa0aDaDaDaDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 6720.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "nom": "MAX DE COQUERIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "R. SEVESTRE",
+      "entraineur": "R. SEVESTRE",
+      "proprietaire": "M. RAULLINE",
+      "musique_pmu": "4a9aDaDa1a5aDaDa5a5a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 9435.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "nom": "MOJITO DE VAUVILLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "S. BAUDE",
+      "entraineur": "D. BAZIN",
+      "proprietaire": "D. BAZIN",
+      "ferrure": "D4",
+      "musique_pmu": "4aDa0a0a8aDa7a7a4aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 11920.0,
+      "nom": "MILORD DE MONTI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "G. BLANDIN",
+      "entraineur": "F. BLANDIN",
+      "proprietaire": "Ecurie Franck BLANDIN",
+      "ferrure": "PA",
+      "musique_pmu": "3aDa9a6aDaDaDaDa7a5a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 13335.0,
+      "nom": "MON ARTISTE EFBE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "FLORENT PELTIER",
+      "entraineur": "E. PELTIER",
+      "proprietaire": "E. PELTIER",
+      "musique_pmu": "Da2a2a0a6a6a4a0aDa(25)",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 16195.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "nom": "MONT SAINT ELOI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "P. SORAIS",
+      "entraineur": "J.M. GUILLOTTE",
+      "proprietaire": "Mme S. DOYERE",
+      "musique_pmu": "9aDa8aDa4a8a1a2a5aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16310.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "nom": "MARTIN MOUROTAIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "Ecurie Alexis GRIMAULT",
+      "ferrure": "D4",
+      "musique_pmu": "2a1aAa3a4a3a4a(25)9a8a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17345.0,
+      "nom": "MONFORT DE VIRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "E. DE JESUS",
+      "entraineur": "B. GOGLIN",
+      "proprietaire": "B. GOGLIN",
+      "ferrure": "D4",
+      "musique_pmu": "3aDa2aDa0a2a1aDa(25)8m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17535.0,
+      "nom": "MAILLON DU CHENE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "CH. PETREMENT",
+      "entraineur": "CH. PETREMENT",
+      "proprietaire": "Jérôme DEVILLE",
+      "ferrure": "DP",
+      "musique_pmu": "3a3a1a4a0a7a4a7a9a5a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17990.0,
+      "nom": "MAESTRO DAIRPET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "A. POPOT",
+      "entraineur": "J.F. POPOT",
+      "proprietaire": "Ecurie Jean François POPOT",
+      "ferrure": "D4",
+      "musique_pmu": "6a9aDa5a2a7aDa3a4a8a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 18200.0,
+      "nom": "MUDDY WATERS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "L. GUILLEMIN",
+      "entraineur": "L. GUILLEMIN",
+      "proprietaire": "Justin BRUNEAU",
+      "ferrure": "DP/PA",
+      "musique_pmu": "2a3a2aDaDa1a2aDaDa4a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 18390.0,
+      "nom": "MADE IN BEAUVAIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "S. ERNAULT",
+      "entraineur": "S. ERNAULT",
+      "proprietaire": "Ecurie DELSEE",
+      "ferrure": "DA",
+      "musique_pmu": "4a3aDa3a3aDa2a(25)Da1a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 18610.0,
+      "nom": "MAESTRO BREKKA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+        "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C5/participants",
+          "capture_utc": "2026-11-21T01:00:28.595160+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

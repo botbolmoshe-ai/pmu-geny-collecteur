@@ -5,6 +5,7 @@
     "age",
     "allure",
     "avisEntraineur",
+    "commentaireApresCourse",
     "dernierRapportDirect",
     "dernierRapportReference",
     "driver",
@@ -28,13 +29,16 @@
     "nombreVictoires",
     "numPmu",
     "oeilleres",
+    "ordreArrivee",
     "poidsConditionMonteChange",
     "proprietaire",
     "race",
+    "reductionKilometrique",
     "robe",
     "sexe",
     "statut",
     "supplement",
+    "tempsObtenu",
     "urlCasaque"
   ],
   "diagnostic_profils_pmu": [
@@ -73,7 +77,7 @@
     }
   ],
   "source": "PMU_API_PARTICIPANTS",
-  "capture_utc": "2026-11-20T19:48:15.608979+00:00",
+  "capture_utc": "2026-11-21T00:59:57.649343+00:00",
   "chevaux": {
     "1": {
       "driver_jockey": "J. BESCHER",
@@ -91,11 +95,12 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "nom": "MANDARINE TIVO",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -103,7 +108,6 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CONVENTION_PMU",
       "divergences_sources": []
     },
     "2": {
@@ -122,11 +126,12 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "nom": "MAJORELLE",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -134,7 +139,6 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CONVENTION_PMU",
       "divergences_sources": []
     },
     "3": {
@@ -153,11 +157,12 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "nom": "MAMZELLE D'HERIPRE",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -165,7 +170,6 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CONVENTION_PMU",
       "divergences_sources": []
     },
     "4": {
@@ -184,11 +188,12 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "nom": "MARISA DU CHATELET",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -196,7 +201,6 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CONVENTION_PMU",
       "divergences_sources": []
     },
     "5": {
@@ -210,6 +214,7 @@
       "gains_euros": 46690.0,
       "nom": "MISS BLACK BERRY",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -217,12 +222,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -243,11 +247,12 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "nom": "MERYTATON",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -255,7 +260,6 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CONVENTION_PMU",
       "divergences_sources": []
     },
     "7": {
@@ -269,6 +273,7 @@
       "gains_euros": 49805.0,
       "nom": "MAMAMIA DES ARRIS",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -276,12 +281,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -297,6 +301,7 @@
       "gains_euros": 50375.0,
       "nom": "MOON DU VIVIER",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -304,12 +309,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -325,6 +329,7 @@
       "gains_euros": 52035.0,
       "nom": "MOONSTAR JYL",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -332,12 +337,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -353,6 +357,7 @@
       "gains_euros": 52040.0,
       "nom": "MARIE CHARLOTTE",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -360,12 +365,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -381,6 +385,7 @@
       "gains_euros": 52570.0,
       "nom": "MAYA PONT VAUTIER",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -388,12 +393,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -409,6 +413,7 @@
       "gains_euros": 52870.0,
       "nom": "MY HAPPY STORY",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -416,12 +421,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -442,7 +446,7 @@
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -458,6 +462,7 @@
       "gains_euros": 53055.0,
       "nom": "METALLICA SMART",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -465,12 +470,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -486,6 +490,7 @@
       "gains_euros": 53370.0,
       "nom": "MAYA DE MAHEY",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -493,12 +498,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -514,6 +518,7 @@
       "gains_euros": 54250.0,
       "nom": "MUSE DE MONTCEAU",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -521,12 +526,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -542,6 +546,7 @@
       "gains_euros": 54330.0,
       "nom": "MEGAFLECHE",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -549,12 +554,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []
@@ -570,6 +574,7 @@
       "gains_euros": 54970.0,
       "nom": "MERRY",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -577,12 +582,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
         "capture_utc": "2026-11-20T19:48:15.608979+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/20112026/R1/C5/participants",
-          "capture_utc": "2026-11-20T19:48:15.608979+00:00"
+          "capture_utc": "2026-11-21T00:59:57.649343+00:00"
         }
       },
       "divergences_sources": []

@@ -1,0 +1,591 @@
+{
+  "date": "2026-11-22",
+  "course": "R1C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KUIPER",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 44060600,
+        "gainsVictoires": 16872000,
+        "gainsPlace": 5771600,
+        "gainsAnneeEnCours": 18923600,
+        "gainsAnneePrecedente": 3720000
+      }
+    },
+    {
+      "nom": "HORATIUS D'ELA",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 48965500,
+        "gainsVictoires": 25200000,
+        "gainsPlace": 23765500,
+        "gainsAnneeEnCours": 5025000,
+        "gainsAnneePrecedente": 15197000
+      }
+    },
+    {
+      "nom": "JEANNETTE PRIORY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 50329000,
+        "gainsVictoires": 30600000,
+        "gainsPlace": 19729000,
+        "gainsAnneeEnCours": 16550000,
+        "gainsAnneePrecedente": 18106000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-21T01:00:52.299839+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "B. GOOP",
+      "entraineur": "Daniel WAJERSTEN",
+      "proprietaire": "Stall COURANT AB (SWE)",
+      "ferrure": "D4",
+      "musique_pmu": "1a4a3a1a3a1a7a(24)6a",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 440606.0,
+      "nom": "KUIPER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "A. GENDROT",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "E. PIERRE",
+      "ferrure": "D4",
+      "musique_pmu": "Da6a0a0a8a8a2a7a5a0a",
+      "sexe": "Mâle",
+      "age_ans": 9,
+      "gains_euros": 489655.0,
+      "nom": "HORATIUS D'ELA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "T. LE BELLER",
+      "entraineur": "T. LE BELLER",
+      "proprietaire": "F. GIBERT",
+      "ferrure": "D4",
+      "musique_pmu": "3a4a1aDa2m1a2aDaDa4a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 503290.0,
+      "nom": "JEANNETTE PRIORY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "W. BIGEON",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "musique_pmu": "6aDa3aDa2a1a1a3a2a8a",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 568960.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "nom": "KING OPERA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie DUB'S",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1a1a5a4a1a1a3a0aDa(25)",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 586760.0,
+      "nom": "KANTO AVIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "D. BONNE",
+      "entraineur": "F. GIARD",
+      "proprietaire": "Ecurie du RABUTIN",
+      "ferrure": "D4",
+      "musique_pmu": "7a5a3a4a5a5a2aDa6a(25)",
+      "sexe": "Femelle",
+      "age_ans": 9,
+      "gains_euros": 616275.0,
+      "nom": "HARMONY DU RABUTIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie Marc SASSIER",
+      "ferrure": "D4",
+      "musique_pmu": "2aDa6a5a6a4a3a7a0a7a",
+      "sexe": "Femelle",
+      "age_ans": 9,
+      "gains_euros": 733127.0,
+      "nom": "HARLEY GEMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "J. DAVET (SWI)",
+      "ferrure": "D4",
+      "musique_pmu": "0a3a2a6a0a0a3a0a0a(25)",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 759250.0,
+      "nom": "KEEP GOING",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "N. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie de LORADOUR",
+      "musique_pmu": "0a4a2a9a1m7a0a9a3m2m",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 780700.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "nom": "LIONHEART",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. GUZZINATI",
+      "entraineur": "A. GOCCIADORO",
+      "proprietaire": "CHELSEA SRLS (ITY)",
+      "ferrure": "D4",
+      "musique_pmu": "1a0a2a1a1a2a6a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 837425.0,
+      "nom": "FREE TIME JEPSON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "A. BARRIER",
+      "entraineur": "J.PH. MONCLIN",
+      "proprietaire": "Roger WITTMANN SPORTMANAG. E.K. (SWE)",
+      "ferrure": "D4",
+      "musique_pmu": "0a4a2a2a7a7a2aDa(25)2a",
+      "sexe": "Mâle",
+      "age_ans": 8,
+      "gains_euros": 865291.0,
+      "nom": "IDEAL LIGNERIES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "J.L. DERSOIR",
+      "proprietaire": "Ecurie LUCK",
+      "ferrure": "DP/PA",
+      "musique_pmu": "2a0a5a6a7a5aDa1a6a2a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 918175.0,
+      "nom": "LOMBOK JIEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Ph. BARBE",
+      "ferrure": "D4",
+      "musique_pmu": "5a5a3a1a4a7aDa0a7a(25)",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 927187.0,
+      "nom": "KRACK TIME ATOUT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "LEO ABRIVARD",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "J. COTTEL",
+      "ferrure": "D4",
+      "musique_pmu": "1a5a6a4a8a4a8a7a4a6a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 1237277.0,
+      "nom": "INMAROSA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "D. WAJERSTEN",
+      "entraineur": "Daniel WAJERSTEN",
+      "proprietaire": "Stall DROAD AB (SWE)",
+      "ferrure": "D4",
+      "musique_pmu": "2a1a5a1a(25)8a5a",
+      "sexe": "Mâle",
+      "age_ans": 8,
+      "gains_euros": 1407977.0,
+      "nom": "BORUPS VICTORY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Scuderia BIVANS SRL (ITY)",
+      "ferrure": "DA",
+      "musique_pmu": "1a1a4a2a2a4a6a6a4a2a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 1454590.0,
+      "nom": "FRANK GIO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "17": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "J.L. DERSOIR",
+      "proprietaire": "Ecurie LUCK",
+      "ferrure": "DA",
+      "musique_pmu": "2a7aDaDa8a1a(25)4a6a6a",
+      "sexe": "Mâle",
+      "age_ans": 9,
+      "gains_euros": 1507720.0,
+      "nom": "HOKKAIDO JIEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "18": {
+      "driver_jockey": "A. LHERETE",
+      "entraineur": "Antoine LHERETE",
+      "proprietaire": "M. ALADENISE",
+      "musique_pmu": "3a3a6a6a6a6a5a5a9a6a",
+      "sexe": "Mâle",
+      "age_ans": 9,
+      "gains_euros": 1991499.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+          "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+        }
+      },
+      "nom": "HOOKER BERRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R1/C4/participants",
+        "capture_utc": "2026-11-21T01:00:52.299839+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}
