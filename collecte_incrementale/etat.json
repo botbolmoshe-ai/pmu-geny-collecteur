@@ -64523,7 +64523,30 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-22T11:05:00+00:00",
       "premier_depart_reunion_utc": "2026-11-22T11:05:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "collecte": "A_REPRENDRE",
+      "geny": {
+        "id": "2892366",
+        "nom": "Nikita Ellis",
+        "age_geny": 3,
+        "nationalite_geny": null,
+        "url_geny": "https://www.geny.com/cheval/2892366",
+        "preuve": "RECHERCHE_GENY_NOM_EXACT"
+      },
+      "id": "2892366",
+      "preuve_identite": "RECHERCHE_GENY_NOM_EXACT",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-11-22T04:35:37.172258+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-21T22:35:37.172270+00:00",
+        "statut": "PARTIEL_HISTORIQUE",
+        "motifs": [
+          "NB_COURSES_NON_VERIFIABLE"
+        ],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2026-11-22_R13C1_1/1795300531644933312/resultat.json"
+      }
     },
     "2026-11-22_R13C1_2": {
       "nom": "NOBLESSE DE MALAC",
@@ -70064,13 +70087,13 @@
     }
   },
   "passage_utc": "2026-11-21T22:35:25.726005+00:00",
-  "maj_utc": "2026-11-21T22:35:27.410213+00:00",
+  "maj_utc": "2026-11-21T22:35:37.172286+00:00",
   "bilan": {
     "chevaux_suivis": 2614,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2455
   },
@@ -72543,7 +72566,7 @@
   "sync_kpi_utc": "2026-11-20T19:07:01.279830+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-21T22:35:25.726005+00:00",
-    "controle_utc": "2026-11-21T22:35:27.410213+00:00",
+    "controle_utc": "2026-11-21T22:35:37.172286+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
