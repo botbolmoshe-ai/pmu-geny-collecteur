@@ -35,3 +35,24 @@ Rejeu en lecture seule des captures pré-départ du même checkpoint. Apprentiss
 python -m pmu_geny.experience_ml --cache /chemin/vers/pmu-data \
   --sortie /tmp/pmu-98-experience --validation 2026-11-20 --test 2026-11-21
 ```
+
+
+## Apport de Crack confirmé et Haut potentiel
+
+Rejeu en lecture seule sur `pmu-data@69d1ed053b6c6889e75c3d69116c82e339972eab`
+avec la même commande et le même découpage chronologique. Le rapport
+`profils_partants` distingue l'ajout de chaque signal et leur combinaison.
+
+- **Direct.** 17 courses avec version Direct horodatée, certifiée et relue
+  dans Sheets avant départ, et liste de partants concordante avec le jeu test.
+  Aucun signal positif. Les quatre variantes retrouvent 19 chevaux du podium
+  sur 51 places possibles et aucune sélection ne change.
+- **ML.** Les deux états sont absents des captures de cette période
+  sur 1 517 partants d'entraînement, 58 de validation et 303 de test.
+  La référence retrouve 20 chevaux du podium sur 69 places possibles.
+  Les trois variantes sont classées « données insuffisantes ».
+
+Les nouvelles captures enregistrent les états à l'observation pré-départ.
+Une comparaison concluante nécessite des exemples positifs et négatifs dans
+les différentes périodes. Les archives existantes servent d'entrée en
+lecture seule et aucune variante de profils n'est promue par ce rapport.

@@ -488,7 +488,7 @@ def source_rows(cache):
                          enumerate(document.get('classement_complet',[]),start=1)}
         from .echeances_production import instant
         from .liaison_chevaux_v22 import etablir, nom_normalise
-        from .profils_partants import PRIORITE, CRACK
+        from .profils_partants import afficher_profils
         calcul = instant(direct.get('calcul_utc'))
         depart = instant(info.get('depart'))
         leaders = {}
@@ -609,11 +609,8 @@ def source_rows(cache):
                 str(numero) == str(n) for numero in direct.get('non_partants_confirmes', []))
             if np or (signal and nom):
                 identite_confirmee = signal and nom == nom_normalise(signal.get('nom'))
-                statut = signal.get('statut') if identite_confirmee and not np else ''
-                current['profil_partant'] = statut if statut in PRIORITE else ''
-                current['profil_partant_indices'] = (
-                    signal.get('crack' if statut == CRACK else 'haut_potentiel') or ''
-                    if statut in PRIORITE else '')
+                current['profil_partant'], current['profil_partant_indices'] = (
+                    afficher_profils(signal) if identite_confirmee and not np else ('', ''))
                 authoritative.update(PROFILE_COLUMNS)
             if marche or cotes_source or statut_np == 'NON_PARTANT':
                 authoritative.update(('top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_utc'))
