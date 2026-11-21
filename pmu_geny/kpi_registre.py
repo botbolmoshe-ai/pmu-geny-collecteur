@@ -145,22 +145,41 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
             ('Courses avec au moins 2 sur 3', start.get('au_moins_2_sur_3'), 'Variante expérimentale, sur les courses appariées.'),
         ):
             operational.append(metric('Autostart prospectif · ' + label, '' if value is None else value, definition))
-    from .echeances_production import courses_du_jour, PHASES, ANTICIPATION, instant
-    day,courses=courses_du_jour(cache,now)
-    for phase,offset in PHASES.items():
-        expected=ontime=missed=0
-        for c in courses:
-            depart=instant(c.get('depart'))
-            if not depart or now<depart-offset-ANTICIPATION:continue
-            expected+=1
-            proof=_load(cache/'jalons'/f"{day}_{c['code']}.json").get(phase,{})
-            ok=proof.get('statut')=='PUBLIE_A_TEMPS'
-            ontime+=int(ok)
-            missed+=int(now>depart-offset and not ok)
+    from .echeances_production import PARIS, PHASES, ANTICIPATION, instant, reunions_du_jour
+    from .rapprochement_reunions import aggreger
+    day = now.astimezone(PARIS).date().isoformat()
+    reunions = list(reunions_du_jour(cache, day))
+    for phase, offset in PHASES.items():
+        expected = ontime = missed = 0
+        for reunion in reunions:
+            first = reunion['premier_depart']
+            if not first or now < first-offset-ANTICIPATION:
+                continue
+            expected += 1
+            proof = _load(cache/'jalons/reunions'/f"{reunion['reunion']}.json").get(phase, {})
+            ok = (proof.get('statut') == 'PUBLIE_A_TEMPS'
+                  and instant(proof.get('reference_utc')) == first
+                  and proof.get('courses_attendues') == sorted(c['code'] for c in reunion['attendues']))
+            ontime += int(ok)
+            missed += int(now > first-offset and not ok)
         operational.extend([
-            metric('Échéances · '+phase+' ouvertes',expected,'Fenêtres de préparation ouvertes aujourd’hui, courses passées incluses.'),
-            metric('Échéances · '+phase+' publiées à temps',ontime,'Deux TOP3 certifiés après publication Sheets dans les délais.'),
-            metric('Échéances · '+phase+' dépassées sans preuve à temps',missed,'Échéances déjà dépassées sans certificat à temps ; aucun rattrapage rétroactif.')])
+            metric('Échéances · '+phase+' ouvertes', expected, 'Réunions dont la fenêtre est ouverte aujourd’hui.'),
+            metric('Échéances · '+phase+' publiées à temps', ontime, 'Toutes les courses attendues certifiées à temps.'),
+            metric('Échéances · '+phase+' dépassées sans preuve à temps', missed, 'Réunions hors délai sans certificat ponctuel.')])
+    rapprochements = [_load(path) for path in (cache/'rapprochements').glob('????-??-??_R*.json')]
+    operational.append(metric('H+30 · Arrivées à reprendre',
+                              sum(len(r.get('arrivees_a_reprendre', [])) for r in rapprochements),
+                              'Arrivées manquantes ou non vérifiées des réunions déjà traitées.'))
+    for days in (1, 7, 30):
+        since = (now.astimezone(PARIS).date() - timedelta(days=days-1)).isoformat()
+        results = aggreger(row for r in rapprochements if since <= r.get('date', '') <= day
+                           for row in r.get('courses', {}).values())
+        for label, values in sorted(results.items()):
+            prefix = f'H+30 · {days} j · {label}'
+            operational.append(metric(prefix + ' · Moyenne sur 3', values['moyenne_sur_3'],
+                                      'Chevaux du podium retrouvés à partir des versions figées et relues.'))
+            operational.append(metric(prefix + ' · Courses', values['courses'],
+                                      'Courses avec version publiée et arrivée officielle.'))
     if sheets_courses is not None:
         from .echeances_production import PARIS
         today = now.astimezone(PARIS).date()

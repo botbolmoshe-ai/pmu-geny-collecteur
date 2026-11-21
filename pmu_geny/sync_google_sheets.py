@@ -51,13 +51,16 @@ WINNER_REPORT_COLUMNS = tuple(
 COTES_COLUMNS = ('top3_cotes_valeur', 'cote_releve_utc', 'cote_rapport_utc',
                  'top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_statut', 'top3_cotes_utc')
 COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS + DEPART_COLUMNS
+RAPPROCHEMENT_COLUMNS = ('reunion_pmu', 'rapprochement_statut', 'rapprochement_arrivee_statut',
+                         'rapprochement_declenchement_utc') + tuple(
+    f'score_{phase}_{kind}' for phase in ('h2', 'h1') for kind in ('direct', 'ml'))
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
                   'arrivee_officielle_numeros','arrivee_officielle_noms','arrivee_verifiee_utc',
-                  'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct') + WINNER_REPORT_COLUMNS
+                  'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct') + WINNER_REPORT_COLUMNS + RAPPROCHEMENT_COLUMNS
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
-                            'score_baseline','score_baseline_final'})
+                            'score_baseline','score_baseline_final', *RAPPROCHEMENT_COLUMNS[4:]})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
 CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
     *RETIRED_EXPERT_COLUMNS,  # Lecture/nettoyage des anciens formats uniquement.
@@ -223,6 +226,8 @@ def colname(n):
 def course_info(cache,code,date):
     data=load_json(cache/'sources_pmu'/f'programme_{date}.json')
     for x in data.get('programme',[]):
+        if x.get('code')==code:return x
+    for x in data.get('inventaire_reunions', []):
         if x.get('code')==code:return x
     return {}
 
@@ -684,6 +689,22 @@ def source_rows(cache):
                 prefix + 'rang': ranks[0] if len(ranks) == 1 else '',
                 prefix + 'verdict': 'Trouvé' if number == int(podium[0]['numero']) else 'Non trouvé',
             })
+    for file in sorted((cache/'rapprochements').glob('????-??-??_R*.json')):
+        report = load_json(file)
+        date = report.get('date', '')
+        for code, row in report.get('courses', {}).items():
+            info = course_info(cache, code, date)
+            if not info:
+                continue
+            key = course_key(date, info.get('hippodrome', ''), code)
+            report_row = reports.setdefault(key, {
+                'course_key': key, 'date_course': date, 'rncn': code,
+                'hippodrome': info.get('hippodrome', ''), 'heure_depart_paris': info.get('depart', '')})
+            report_row.update(reunion_pmu=report['reunion'], rapprochement_statut=report['statut'],
+                              rapprochement_arrivee_statut=row['statut'],
+                              rapprochement_declenchement_utc=report['declenchement_utc'])
+            for label, score in row['scores'].items():
+                report_row['score_' + label.lower()] = score['hits_top3']
     # V31: la provenance textuelle (URL ou descriptif) n'est PAS une
     # identite de course. Les memes performances sont presentes dans les
     # exports de course et les captures persistantes par cheval.
@@ -959,7 +980,34 @@ def main():
         engine=SynchroniseurSheets(cache,spreadsheet)
         if os.getenv('PMU_KPI_ONLY')=='true':engine.synchroniser_kpi()
         elif os.getenv('PMU_KPI_DIFFERE')=='true':
-            engine.synchroniser_cycle(include_kpi=False)
+            plan = load_json(Path(os.environ['PMU_PLAN'])) if os.getenv('PMU_PLAN') else {}
+            mode = plan.get('mode')
+            if mode in ('JALONS', 'RAPPROCHEMENT'):
+                source = engine.source()
+                if mode == 'JALONS':
+                    tab = 'Courses & Prévisions'
+                    codes = set(plan['selection'])
+                    scope = {key: row for key, row in source[tab].items()
+                             if row.get('date_course') == plan['date'] and row.get('rncn') in codes}
+                else:
+                    tab = 'Résultats & Analyse'
+                    reunions = {r['reunion'] for r in plan['rapprochements_dus']}
+                    scope = {key: row for key, row in source[tab].items() if row.get('reunion_pmu') in reunions}
+                engine.synchroniser_tables({tab: scope}, scope=mode, allow_structure=True)
+                if mode == 'RAPPROCHEMENT':
+                    values = lire_feuille_complete(engine.session, engine.base, tab, engine.metadata()[tab])
+                    if not values:
+                        raise ErreurSynchronisation('Relecture des rapprochements vide')
+                    headers = canonical_headers(values[0])
+                    visible = {row.get('course_key'): row for row in
+                               (dict(zip(headers, values_row)) for values_row in values[1:])}
+                    for key, expected in scope.items():
+                        actual = visible.get(key, {})
+                        if any(str(expected[field]) != str(actual.get(field, ''))
+                               for field in RAPPROCHEMENT_COLUMNS if field in expected and not date_kind(field)):
+                            raise ErreurSynchronisation('Rapprochement non confirmé dans Sheets : ' + key)
+            else:
+                engine.synchroniser_cycle(include_kpi=False)
             from .echeances_production import preuves_sheets, sauver
             if os.getenv('PMU_PREUVE_SHEETS'):
                 rows = engine.lire_courses(engine.metadata())

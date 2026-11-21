@@ -84,6 +84,7 @@ def programme_diagnostic(doc, date):
           'courses_recues':0,'courses_retenues':0,
           'exclusions':{},'pays_observes':{},'exemples_reunions':[]}
     output=[]
+    inventory=[]
     decision_courses=[]
     from .selection_metier_v20_4 import niveau
     def exclusion(reason):
@@ -114,14 +115,6 @@ def programme_diagnostic(doc, date):
             if not isinstance(depart,(int,float)):exclusion('heure_depart_absente');continue
             instant=datetime.fromtimestamp(depart/1000 if depart>10**11 else depart, tz=timezone.utc).astimezone(PARIS)
             if instant.date().isoformat()!=date:exclusion('date_incoherente');continue
-            # Périmètre demandé : départs de 07h00 à 21h00 inclus (Europe/Paris).
-            if not (7 <= instant.hour < 21 or (instant.hour == 21 and instant.minute == 0 and instant.second == 0 and instant.microsecond == 0)):
-                exclusion('depart_hors_plage_07_21');continue
-            nb=_num(c,'nombreDeclaresPartants','nombrePartants','nbPartants')
-            if not nb or not 1<=nb<=30:exclusion('partants_absents_ou_invalides');continue
-            tier,motif,metadata=niveau(c,r,hp,nb)
-            decision_courses.append({'code':f'R{numero_reunion}C{no}', 'niveau':tier or 'EXCLU', 'motif':motif, **metadata})
-            if tier is None:exclusion('metier_'+motif.lower());continue
             ordre = c.get('ordreArrivee')
             podium_definitif = []
             if (any(c.get(flag) is True for flag in ('arriveeDefinitive', 'isArriveeDefinitive'))
@@ -132,6 +125,19 @@ def programme_diagnostic(doc, date):
                 podium_definitif = [rang[0] for rang in ordre[:3]]
                 if len(set(podium_definitif)) != 3:
                     podium_definitif = []
+            inventory.append({'code': f'R{numero_reunion}C{no}', 'date': date,
+                              'hippodrome': hp, 'depart': instant.isoformat(),
+                              'statut_pmu': c.get('statut'), 'top3_attendu': False,
+                              'podium_definitif_pmu': podium_definitif})
+            # Périmètre demandé : départs de 07h00 à 21h00 inclus (Europe/Paris).
+            if not (7 <= instant.hour < 21 or (instant.hour == 21 and instant.minute == 0 and instant.second == 0 and instant.microsecond == 0)):
+                exclusion('depart_hors_plage_07_21');continue
+            nb=_num(c,'nombreDeclaresPartants','nombrePartants','nbPartants')
+            if not nb or not 1<=nb<=30:exclusion('partants_absents_ou_invalides');continue
+            tier,motif,metadata=niveau(c,r,hp,nb)
+            decision_courses.append({'code':f'R{numero_reunion}C{no}', 'niveau':tier or 'EXCLU', 'motif':motif, **metadata})
+            if tier is None:exclusion('metier_'+motif.lower());continue
+            inventory[-1]['top3_attendu'] = True
             output.append({'priorite_metier':tier,'motif_selection':motif,'allocation_eur':metadata['allocation_eur'], 'date':date,'code':f'R{numero_reunion}C{no}','hippodrome':hp,'nom':_str(c,'libelle','nomCourse'),
                            'depart':instant.isoformat(),'nombre_declares':nb,'num_reunion':numero_reunion,'num_course':no,
                            'distance_m':_num(c,'distance','distanceMetres','distanceCourse'),
@@ -141,6 +147,7 @@ def programme_diagnostic(doc, date):
     diag['courses_p1']=sum(c['priorite_metier']=='P1' for c in output)
     diag['courses_p2']=sum(c['priorite_metier']=='P2' for c in output)
     diag['decisions_metier']=decision_courses
+    diag['inventaire_reunions']=inventory
     return sorted(output,key=lambda x:x['depart']),diag
 
 
@@ -187,7 +194,7 @@ def update_np(cache, course, manifest, pmu_data):
                                        'nouveau':r['statut_participation']} for r in rows if old.get(r['numero'],{}).get('statut_participation')!=r['statut_participation']]}
     save(target,doc);return doc
 
-def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None, clock=None, priorites=()):
+def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None, clock=None, priorites=(), production=False, prioritaire=False, actualiser_plan=None):
     if clock is None:
         clock=(lambda:now) if now is not None else (lambda:datetime.now(PARIS))
     now=now or clock()
@@ -208,7 +215,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         else:
             controle['statut']='COURSES_DISPONIBLES'
         save(cache/'sources_pmu'/f'programme_{date}.json',
-             {'date_controle_utc':controle['horodatage_utc'],'programme':courses})
+             {'date_controle_utc':controle['horodatage_utc'],'programme':courses, 'inventaire_reunions':stats['inventaire_reunions']})
         state['source_programme']='PMU_API'
         state['dernier_controle_pmu']=controle['horodatage_utc']
     except Exception as exc:
@@ -220,12 +227,18 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     state['diagnostic_pmu']=controle
     save(cache/'sources_pmu'/f'diagnostic_{date}.json',controle)
     print('DIAGNOSTIC_PMU '+json.dumps(controle,ensure_ascii=False))
+    if actualiser_plan:
+        cible = actualiser_plan()
+        if cible:
+            selection, priorites, prioritaire = cible, cible, True
     # Une course déjà partie n'entre JAMAIS en prédiction/collecte.
     # Les courses récentes peuvent seulement passer par la phase arrivées/audit.
     # Le lendemain est prepare des publication du programme PMU, sans limitation a 18h.
     from .planification_v20_2 import selectionner_courses
     selected=selectionner_courses(courses, now, date, selection, True if selection_complete is None else selection_complete,
                                 state, max_courses=len(courses))
+    if production:
+        selected = [c for c in selected if datetime.fromisoformat(c['depart']) > now]
     order = {code: index for index, code in enumerate(priorites)}
     if order:
         selected.sort(key=lambda course: order.get(course['code'], len(order)))
@@ -329,7 +342,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         else:
             entry['traitement']='PREPARATION_AVANT_DEPART'
         # Météo sourcée indépendante de Geny et des statuts NP : même sans manifeste.
-        if not est_partie:
+        if not est_partie and not prioritaire:
             try:
                 from .contexte_meteo_v20 import collecter_meteo
                 entry['statut_meteo']=collecter_meteo(cache,c)
@@ -355,7 +368,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     entry['statut_partants_actuels'] = enregistrer(cache, c, pmu_participants)
                 except Exception as exc:
                     entry['erreur_partants_actuels'] = f'{type(exc).__name__}: {exc}'
-            if not est_partie and pmu_participants is not None:
+            if not prioritaire and not est_partie and pmu_participants is not None:
                 try:
                     from .sources_experts_v23 import collecter as collecter_avis
                     entry['statut_avis_experts'] = collecter_avis(cache, c, pmu_participants)
@@ -387,6 +400,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                         entry['erreur_ml_preproduction']=f'{type(exc).__name__}: {exc}'
         except Exception as exc:
             entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
+        if prioritaire or (production and est_partie):
+            continue
         # Pas de consultation Geny sur une course terminee.
         manifest=None; manifest_path=None
         for f in (cache/'manifestes').glob('GENY-*.json') if (cache/'manifestes').exists() else []:
