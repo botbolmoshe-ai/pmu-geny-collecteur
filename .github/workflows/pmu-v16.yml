@@ -318,6 +318,10 @@ jobs:
       - name: Persister immédiatement les versions figées et les preuves
         if: always() && steps.plan.outputs.executer == 'true'
         run: python -m pmu_geny.persistance_production --cache cache_pmu
+      - name: Relever les articles 24H au Trot avant les prochaines courses
+        if: always() && steps.publication.conclusion == 'success' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'JALONS' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT')
+        continue-on-error: true
+        run: timeout 45s python -m pmu_geny.avis_24h_trot --cache cache_pmu
       - name: Réparer les ferrures du cache après la publication globale
         if: always() && steps.perimetre.outputs.mode == 'GLOBAL' && steps.publication.conclusion == 'success'
         run: |
