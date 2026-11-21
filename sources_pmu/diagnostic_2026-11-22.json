@@ -1,22 +1,23 @@
 {
   "date": "2026-11-22",
-  "horodatage_utc": "2026-11-21T08:16:03.133702+00:00",
+  "horodatage_utc": "2026-11-21T16:15:00.216598+00:00",
   "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026",
   "statut": "COURSES_DISPONIBLES",
   "courses_retenues": 36,
-  "reunions_recues": 15,
+  "reunions_recues": 16,
   "reunions_francaises": 12,
   "reunions_pays_inconnu": 0,
-  "reunions_etrangeres": 3,
-  "courses_recues": 112,
+  "reunions_etrangeres": 4,
+  "courses_recues": 118,
   "exclusions": {
+    "pays_etranger": 4,
     "metier_hors_trot": 38,
-    "pays_etranger": 3,
     "metier_hippodrome_hors_selection": 19,
     "metier_allocation_inferieure_seuil_p2": 5
   },
   "pays_observes": {
     "FRA": 12,
+    "HKG": 1,
     "CHL": 1,
     "JPN": 1,
     "AUS": 1
@@ -24,6 +25,37 @@
   "exemples_reunions": [
     {
       "pays": "FRA",
+      "champs_reunion": [
+        "audience",
+        "cached",
+        "cagnottes",
+        "courses",
+        "dateReunion",
+        "derniereReunion",
+        "disciplinesMere",
+        "hippodrome",
+        "meteo",
+        "nature",
+        "numExterne",
+        "numOfficiel",
+        "numOfficielReunionPrecedente",
+        "numOfficielReunionSuivante",
+        "offresInternet",
+        "parisEvenement",
+        "pays",
+        "prochaineCourse",
+        "specialites",
+        "statut",
+        "timezoneOffset"
+      ],
+      "champs_hippodrome": [
+        "code",
+        "libelleCourt",
+        "libelleLong"
+      ]
+    },
+    {
+      "pays": "HKG",
       "champs_reunion": [
         "audience",
         "cached",
@@ -118,37 +150,6 @@
     },
     {
       "pays": "FRA",
-      "champs_reunion": [
-        "audience",
-        "cached",
-        "cagnottes",
-        "courses",
-        "dateReunion",
-        "derniereReunion",
-        "disciplinesMere",
-        "hippodrome",
-        "meteo",
-        "nature",
-        "numExterne",
-        "numOfficiel",
-        "numOfficielReunionPrecedente",
-        "numOfficielReunionSuivante",
-        "offresInternet",
-        "parisEvenement",
-        "pays",
-        "prochaineCourse",
-        "specialites",
-        "statut",
-        "timezoneOffset"
-      ],
-      "champs_hippodrome": [
-        "code",
-        "libelleCourt",
-        "libelleLong"
-      ]
-    },
-    {
-      "pays": "CHL",
       "champs_reunion": [
         "audience",
         "cached",

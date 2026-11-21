@@ -5,6 +5,7 @@
     "age",
     "allure",
     "avisEntraineur",
+    "dernierRapportDirect",
     "driver",
     "driverChange",
     "eleveur",
@@ -26,13 +27,16 @@
     "nombreVictoires",
     "numPmu",
     "oeilleres",
+    "ordreArrivee",
     "poidsConditionMonteChange",
     "proprietaire",
     "race",
+    "reductionKilometrique",
     "robe",
     "sexe",
     "statut",
     "supplement",
+    "tempsObtenu",
     "urlCasaque"
   ],
   "diagnostic_profils_pmu": [
@@ -71,7 +75,7 @@
     }
   ],
   "source": "PMU_API_PARTICIPANTS",
-  "capture_utc": "2026-11-21T08:14:50.794320+00:00",
+  "capture_utc": "2026-11-21T16:14:56.843600+00:00",
   "chevaux": {
     "1": {
       "driver_jockey": "Mlle K. POUPARD",
@@ -89,7 +93,7 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "nom": "LEON D'OAM",
@@ -113,7 +117,7 @@
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
@@ -134,7 +138,7 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "nom": "LUTTEUR DE LARRE",
@@ -158,7 +162,7 @@
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
@@ -173,13 +177,13 @@
       "age_ans": 5,
       "gains_euros": 24890.0,
       "nom": "LENZO",
-      "statut_np": "PARTANT",
+      "statut_np": "NON_PARTANT",
       "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
@@ -200,7 +204,7 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "nom": "L'IRLANDAIS",
@@ -224,7 +228,7 @@
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
@@ -245,7 +249,7 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "nom": "LOULOU DEL GREEN",
@@ -269,7 +273,7 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "nom": "LANCELOT PLATANES",
@@ -292,11 +296,12 @@
           "valeur_brute": null,
           "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "nom": "LOST IN FRANCE",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CONVENTION_PMU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -304,7 +309,6 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
         "capture_utc": "2026-11-21T08:14:50.794320+00:00"
       },
-      "ferrure_qualification": "CONVENTION_PMU",
       "divergences_sources": []
     },
     "11": {
@@ -318,6 +322,7 @@
       "gains_euros": 12270.0,
       "nom": "L'ONCLE JET",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -325,12 +330,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
         "capture_utc": "2026-11-21T08:14:50.794320+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
@@ -346,6 +350,7 @@
       "gains_euros": 19040.0,
       "nom": "LYNX D'OCCAGNES",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -353,12 +358,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
         "capture_utc": "2026-11-21T08:14:50.794320+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
@@ -374,6 +378,7 @@
       "gains_euros": 24565.0,
       "nom": "LE COQUIN",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -381,12 +386,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
         "capture_utc": "2026-11-21T08:14:50.794320+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
@@ -402,6 +406,7 @@
       "gains_euros": 28325.0,
       "nom": "LOULOU DU PRATEL",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -409,12 +414,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
         "capture_utc": "2026-11-21T08:14:50.794320+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
@@ -430,6 +434,7 @@
       "gains_euros": 30020.0,
       "nom": "LALBER",
       "statut_np": "PARTANT",
+      "ferrure_qualification": "CODE_RECONNU",
       "depart_trot": {
         "recul_m": 0,
         "champ_recul": "handicapDistance",
@@ -437,12 +442,11 @@
         "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
         "capture_utc": "2026-11-21T08:14:50.794320+00:00"
       },
-      "ferrure_qualification": "CODE_RECONNU",
       "provenance_champs": {
         "ferrure": {
           "source": "PMU_API_PARTICIPANTS",
           "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/21112026/R10/C1/participants",
-          "capture_utc": "2026-11-21T08:14:50.794320+00:00"
+          "capture_utc": "2026-11-21T16:14:56.843600+00:00"
         }
       },
       "divergences_sources": []
