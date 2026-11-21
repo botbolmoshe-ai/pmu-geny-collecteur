@@ -52,7 +52,8 @@ def reunions_du_jour(cache, day):
             continue
         departs = [instant(c.get('depart')) for c in courses]
         hippodromes = {c['hippodrome'].strip().casefold() for c in courses if c.get('hippodrome')}
-        coherent = (all(departs) and len(hippodromes) <= 1
+        coherent = (all(d and d.astimezone(PARIS).date().isoformat() == day for d in departs)
+                    and len(hippodromes) <= 1
                     and len({c['code'] for c in courses}) == len(courses))
         yield {
             'reunion': f'{day}_{ident}', 'date': day, 'courses': courses,

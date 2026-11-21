@@ -112,9 +112,9 @@ def programme_diagnostic(doc, date):
             no=_num(c,'numOrdre','numeroCourse','numCourse')
             if no is None or numero_reunion is None:exclusion('numero_manquant');continue
             depart=c.get('heureDepart') or c.get('heureDepartEstimee')
-            if not isinstance(depart,(int,float)):exclusion('heure_depart_absente');continue
-            instant=datetime.fromtimestamp(depart/1000 if depart>10**11 else depart, tz=timezone.utc).astimezone(PARIS)
-            if instant.date().isoformat()!=date:exclusion('date_incoherente');continue
+            instant = (datetime.fromtimestamp(depart/1000 if depart>10**11 else depart,
+                                              tz=timezone.utc).astimezone(PARIS)
+                       if isinstance(depart, (int, float)) else None)
             ordre = c.get('ordreArrivee')
             podium_definitif = []
             if (any(c.get(flag) is True for flag in ('arriveeDefinitive', 'isArriveeDefinitive'))
@@ -126,9 +126,13 @@ def programme_diagnostic(doc, date):
                 if len(set(podium_definitif)) != 3:
                     podium_definitif = []
             inventory.append({'code': f'R{numero_reunion}C{no}', 'date': date,
-                              'hippodrome': hp, 'depart': instant.isoformat(),
+                              'hippodrome': hp, 'depart': instant.isoformat() if instant else None,
                               'statut_pmu': c.get('statut'), 'top3_attendu': False,
                               'podium_definitif_pmu': podium_definitif})
+            if not instant:
+                exclusion('heure_depart_absente');continue
+            if instant.date().isoformat() != date:
+                exclusion('date_incoherente');continue
             # Périmètre demandé : départs de 07h00 à 21h00 inclus (Europe/Paris).
             if not (7 <= instant.hour < 21 or (instant.hour == 21 and instant.minute == 0 and instant.second == 0 and instant.microsecond == 0)):
                 exclusion('depart_hors_plage_07_21');continue
@@ -215,7 +219,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         else:
             controle['statut']='COURSES_DISPONIBLES'
         save(cache/'sources_pmu'/f'programme_{date}.json',
-             {'date_controle_utc':controle['horodatage_utc'],'programme':courses, 'inventaire_reunions':stats['inventaire_reunions']})
+             {'date_controle_utc':controle['horodatage_utc'],'programme':courses, 'inventaire_reunions':stats.get('inventaire_reunions', courses)})
         state['source_programme']='PMU_API'
         state['dernier_controle_pmu']=controle['horodatage_utc']
     except Exception as exc:

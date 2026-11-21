@@ -197,10 +197,19 @@ DISPLAY_NAMES = {
     'meteo_statut':'Météo · État',
     'extraction_utc':'Capture historique · UTC',
 }
+DISPLAY_NAMES.update({
+    'reunion_pmu': 'Réunion PMU',
+    'rapprochement_statut': 'État du rapprochement',
+    'rapprochement_arrivee_statut': 'État de l’arrivée PMU',
+    'rapprochement_declenchement_utc': 'Rapprochement · Déclenchement UTC',
+    **{f'score_{phase}_{kind}': f'Score H-{phase[1:]} · {kind.upper() if kind == "ml" else "Direct"}'
+       for phase in ('h2', 'h1') for kind in ('direct', 'ml')},
+})
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
 INVERSE_NAMES.update({'Ferrure':'ferrure', 'PMU · Complétude fiche':'actuel_statut',
                       'Experts · Disponibilité par source':'couverture_experts'})
+
 
 def canonical_headers(visible):
     return [INVERSE_NAMES.get(name,name) for name in visible]

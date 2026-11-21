@@ -229,6 +229,32 @@ class EcheancesTests(unittest.TestCase):
         self.assertEqual(report['reunions'][0]['jalons']['H2']['statut'], 'INCOMPLET')
         self.assertEqual([r['course'] for r in report['courses']], [self.key, '2026-11-17_R3C2'])
 
+    def test_reunion_complete_et_lecture_ponctuelle_avant_certification(self):
+        start = self.now + timedelta(minutes=50)
+        day = self.key.split('_')[0]
+        program_path = self.cache/'sources_pmu'/f'programme_{day}.json'
+        program = e.lire(program_path)
+        second = self.depart + timedelta(minutes=40)
+        program['programme'].append({'code': 'R3C2', 'depart': second.isoformat()})
+        e.sauver(program_path, program)
+        self.predictions(start)
+        key = f'{day}_R3C2'
+        e.sauver(self.cache/'partants_actuels'/f'{key}.json',
+                 e.lire(self.cache/'partants_actuels'/f'{self.key}.json'))
+        for suffix in ('direct', 'ml_latest'):
+            doc = e.lire(self.cache/'pronostics'/f'{self.key}_{suffix}.json')
+            e.sauver(self.cache/'pronostics'/f'{key}_{suffix}.json',
+                     {**doc, 'course': 'R3C2', 'depart': second.isoformat()})
+        deadline = self.depart - timedelta(hours=2)
+        plan = e.planifier(self.cache, start)
+        result = self.publish(deadline + timedelta(seconds=3), plan,
+                              observation=deadline - timedelta(seconds=1))
+        h2 = result['reunions'][0]['jalons']['H2']
+        self.assertEqual(h2['statut'], 'PUBLIE_A_TEMPS')
+        self.assertEqual(h2['courses_attendues'], ['R3C1', 'R3C2'])
+        self.assertEqual(h2['publication_utc'], (deadline - timedelta(seconds=1)).isoformat())
+        self.assertEqual(result['erreurs'], [])
+
     def test_trois_ecrivains_file_max_et_unique_verrou(self):
         import yaml
         root=Path(__file__).resolve().parents[1]/'.github/workflows'
