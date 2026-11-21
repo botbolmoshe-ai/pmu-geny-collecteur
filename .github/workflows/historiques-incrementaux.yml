@@ -12,6 +12,10 @@ on:
         type: number
         default: 7
         required: true
+      nocturne:
+        description: 'Rejouer un cycle nocturne pendant la plage 21 h–07 h (Paris)'
+        type: boolean
+        default: false
 permissions:
   contents: write
   actions: read
@@ -20,7 +24,7 @@ concurrency:
   cancel-in-progress: false
   queue: max
 env:
-  COLLECTE_NOCTURNE: ${{ github.event_name == 'schedule' && github.event.schedule == '12,42 0-6,21-23 * * *' }}
+  COLLECTE_NOCTURNE: ${{ (github.event_name == 'schedule' && github.event.schedule == '12,42 0-6,21-23 * * *') || (github.event_name == 'workflow_dispatch' && inputs.nocturne) }}
 jobs:
   historiques:
     runs-on: ubuntu-latest
