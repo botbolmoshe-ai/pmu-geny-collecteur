@@ -41,10 +41,12 @@ def courses_du_jour(cache, now):
 STATUTS_PUBLIES = {'PUBLIE_A_TEMPS', 'PUBLIE_EN_RETARD'}
 
 
-def reunions_du_jour(cache, day):
+def reunions_du_jour(cache, day, *, inventaire=None):
     programme = lire(Path(cache)/'sources_pmu'/f'programme_{day}.json')
+    if inventaire is None:
+        inventaire = programme.get('inventaire_reunions', programme.get('programme', []))
     groupes = defaultdict(list)
-    for course in programme.get('inventaire_reunions', programme.get('programme', [])):
+    for course in inventaire:
         ident = re.fullmatch(r'(R[1-9]\d*)C[1-9]\d*', course.get('code', ''))
         if ident:
             groupes[ident[1]].append(course)
