@@ -147,29 +147,49 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PYRUN'
-          from datetime import datetime,timedelta
-          from zoneinfo import ZoneInfo
+          from datetime import datetime, timedelta, timezone
           from pmu_geny.auto_v18 import run
+          from pmu_geny.echeances_production import lire, sauver, planifier, PARIS
+          from pmu_geny.rapprochement_reunions import rapprocher
           from pathlib import Path
-          from pmu_geny.reparer_ferrures import reparer
-          import json
-          now=datetime.now(ZoneInfo('Europe/Paris'))
-          # Collecte et préparation 24h/24 ; gate décision jour J dans auto_v18.
-          root=Path('cache_pmu')
-          print('REPARATION_FERRURES '+json.dumps(reparer(root,partants=True)),flush=True)
-          today=now.date().isoformat()
-          clock=lambda:datetime.now(ZoneInfo('Europe/Paris'))
-          plan=json.loads(Path('resultats/plan_production.json').read_text())
-          cible=plan.get('mode')=='JALONS'
-          run(root,today,plan['selection'] if cible else [],0,
-              max_discoveries=0,now=now,selection_complete=True,clock=clock,priorites=plan['selection'])
-          # Rattrapage des arrivées de J-1, sans nouvelle prévision post-départ.
-          yesterday=(now-timedelta(days=1)).date().isoformat()
-          if not cible:run(root,yesterday,[],0,max_discoveries=0,now=now,selection_complete=True,clock=clock)
-          tomorrow=(now+timedelta(days=1)).date().isoformat()
-          if not cible:run(root,tomorrow,[],0,max_discoveries=0,now=now,selection_complete=True,clock=clock)
-          print('Collecte historique confiée au worker incrémental indépendant')
+
+          root = Path('cache_pmu')
+          clock = lambda: datetime.now(timezone.utc)
+          now = clock()
+          plan_path = Path('resultats/plan_production.json')
+          plan = lire(plan_path)
+          mode = plan['mode']
+          if mode == 'RAPPROCHEMENT':
+              rapprocher(root, plan, clock)
+          else:
+              today = now.astimezone(PARIS).date()
+              def refresh_plan():
+                  fresh = planifier(root, clock())
+                  if fresh['mode'] == 'JALONS':
+                      fresh['plan_utc'] = plan['plan_utc']
+                      sauver(plan_path, fresh)
+                      return fresh['selection']
+                  return []
+              run(root, today.isoformat(), plan['selection'], 0,
+                  max_discoveries=0, now=now, selection_complete=True, clock=clock,
+                  priorites=plan['selection'], production=True,
+                  prioritaire=mode == 'JALONS', actualiser_plan=refresh_plan if mode == 'GLOBAL' else None)
+              if lire(plan_path)['mode'] == 'GLOBAL':
+                  tomorrow = (today + timedelta(days=1)).isoformat()
+                  run(root, tomorrow, [], 0, max_discoveries=0, now=now,
+                      selection_complete=True, clock=clock, production=True)
           PYRUN
+      - name: Identifier le périmètre après actualisation du programme
+        if: steps.plan.outputs.executer == 'true'
+        id: perimetre
+        run: |
+          python - <<'PYMODE'
+          import json, os
+          from pathlib import Path
+          mode = json.loads(Path('resultats/plan_production.json').read_text())['mode']
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              print('mode=' + mode, file=output)
+          PYMODE
       - name: Experience ML manuelle avec jour de test exclu
         if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'experience_ml')
         env:
@@ -270,35 +290,6 @@ jobs:
           python -m pmu_geny.export_v17 --manifest "$MANIFEST" --cache cache_pmu --sortie cache_pmu/exports
           mkdir -p "resultats/GENY-${CID}"
           cp -a "cache_pmu/exports/GENY-${CID}/." "resultats/GENY-${CID}/"
-      - name: Audit de completude des TOP3 et donnees courantes
-        if: steps.plan.outputs.executer == 'true' && (always())
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p resultats/qualite
-          python -m pmu_geny.qualite_registre_v21 --cache cache_pmu --debut 2026-11-12 --sortie resultats/qualite/couverture_registre.json
-      - name: Publier les diagnostics et les bilans
-        if: steps.plan.outputs.executer == 'true' && (always())
-        uses: actions/upload-artifact@v4
-        with:
-          name: pmu-v20-2-${{ github.run_id }}
-          path: |
-            resultats/
-            cache_pmu/manifestes/
-            cache_pmu/exports/
-            cache_pmu/participations/
-            cache_pmu/etat_persistant.json
-            cache_pmu/orchestration/
-            cache_pmu/pronostics/
-            cache_pmu/arrivees/
-            cache_pmu/evaluations/
-            cache_pmu/ml/
-            cache_pmu/cotes/
-            cache_pmu/contextes/
-            cache_pmu/avis_experts/
-            cache_pmu/partants_actuels/
-          retention-days: 30
-          if-no-files-found: warn
       - name: Conserver les donnees avant publication
         id: persistance
         if: always() && steps.plan.outputs.executer == 'true'
@@ -312,20 +303,11 @@ jobs:
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
           PMU_CACHE: cache_pmu
           PMU_KPI_DIFFERE: 'true'
+          PMU_PLAN: resultats/plan_production.json
           PMU_PREUVE_SHEETS: resultats/synchronisation/preuves_top3.json
         run: |
           python -m pip install -q google-auth==2.43.0 requests
           python -m pmu_geny.sync_google_sheets
-
-      - name: Conserver les controles de synchronisation Sheets
-        if: steps.plan.outputs.executer == 'true' && (always())
-        uses: actions/upload-artifact@v4
-        with:
-          name: controles-sheets-${{ github.run_id }}-${{ github.run_attempt }}
-          path: resultats/synchronisation/
-          retention-days: 30
-          if-no-files-found: warn
-
 
       - name: Certifier les publications et les echeances reelles
         if: always() && steps.plan.outputs.executer == 'true'
@@ -333,8 +315,19 @@ jobs:
           PUBLICATION_REUSSIE: ${{ steps.publication.conclusion == 'success' }}
         run: |
           python -m pmu_geny.echeances_production --cache cache_pmu --certifier --strict --preuve-sheets resultats/synchronisation/preuves_top3.json
+      - name: Persister immédiatement les versions figées et les preuves
+        if: always() && steps.plan.outputs.executer == 'true'
+        run: python -m pmu_geny.persistance_production --cache cache_pmu
+      - name: Réparer les ferrures du cache après la publication globale
+        if: always() && steps.perimetre.outputs.mode == 'GLOBAL' && steps.publication.conclusion == 'success'
+        run: |
+          python - <<'PYFERRURES'
+          from pathlib import Path
+          from pmu_geny.reparer_ferrures import reparer
+          print(reparer(Path('cache_pmu'), partants=True))
+          PYFERRURES
       - name: Rafraichir les index Geny apres publication PMU
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.perimetre.outputs.mode == 'GLOBAL'
         continue-on-error: true
         shell: bash
         run: |
@@ -346,7 +339,7 @@ jobs:
             fi
           fi
       - name: Apprentissage ML unique apres les cycles de resultats
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto' || inputs.mode == 'entrainer_ml')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT' || inputs.mode == 'entrainer_ml')
         env:
           ML_PREPRODUCTION_COURSES: ${{ vars.ML_PREPRODUCTION_COURSES }}
           ML_PREPRODUCTION_OBSERVATIONS: ${{ vars.ML_PREPRODUCTION_OBSERVATIONS }}
@@ -388,7 +381,47 @@ jobs:
             resultats/plan_production.json
             cache_pmu/qualite/dernier_controle_production.json
             cache_pmu/jalons/
+            cache_pmu/rapprochements/
             cache_pmu/publications/
             cache_pmu/ml/maturite.json
             cache_pmu/ml/preuve_promotion.json
           retention-days: 30
+      - name: Conserver les controles de synchronisation Sheets
+        if: steps.plan.outputs.executer == 'true' && (always())
+        uses: actions/upload-artifact@v4
+        with:
+          name: controles-sheets-${{ github.run_id }}-${{ github.run_attempt }}
+          path: resultats/synchronisation/
+          retention-days: 30
+          if-no-files-found: warn
+
+
+      - name: Audit de completude des TOP3 et donnees courantes
+        if: steps.plan.outputs.executer == 'true' && (always())
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p resultats/qualite
+          python -m pmu_geny.qualite_registre_v21 --cache cache_pmu --debut 2026-11-12 --sortie resultats/qualite/couverture_registre.json
+      - name: Publier les diagnostics et les bilans
+        if: steps.plan.outputs.executer == 'true' && (always())
+        uses: actions/upload-artifact@v4
+        with:
+          name: pmu-v20-2-${{ github.run_id }}
+          path: |
+            resultats/
+            cache_pmu/manifestes/
+            cache_pmu/exports/
+            cache_pmu/participations/
+            cache_pmu/etat_persistant.json
+            cache_pmu/orchestration/
+            cache_pmu/pronostics/
+            cache_pmu/arrivees/
+            cache_pmu/evaluations/
+            cache_pmu/ml/
+            cache_pmu/cotes/
+            cache_pmu/contextes/
+            cache_pmu/avis_experts/
+            cache_pmu/partants_actuels/
+          retention-days: 30
+          if-no-files-found: warn

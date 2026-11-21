@@ -171,6 +171,45 @@ def _historique_contextuel(historique, course, profil, *, ferrure_differente=.65
     }
 
 
+def chronos_comparables(historique, course):
+    """Médiane des réductions Geny sur le même hippodrome, discipline et distance proche."""
+    from statistics import median
+
+    departure = datetime.fromisoformat(course['depart']).date()
+    discipline = _discipline(course.get('discipline'))
+    piste = normaliser_hippodrome(course.get('hippodrome'))
+    if discipline is None or not piste:
+        return {}
+    relevés = {}
+    for row in historique.get('performances', []):
+        if (_discipline(row.get('discipline')) != discipline
+                or normaliser_hippodrome(row.get('hippodrome')) != piste
+                or not re.fullmatch(r'[1-9]\d*(?:e|er)?', str(row.get('classement') or '').strip().lower())):
+            continue
+        distance, documentee = _distance_factor(course.get('distance_m'), row.get('distance_m'))
+        if not documentee or distance < .85:
+            continue
+        try:
+            jour = datetime.fromisoformat(row['date']).date()
+        except (KeyError, TypeError, ValueError):
+            continue
+        if not 1 <= (departure - jour).days <= 365:
+            continue
+        chrono = re.fullmatch(r"""([1-2])['’](\d{2})(?:['’]{2}|")([0-9])""",
+                              str(row.get('chrono') or '').strip())
+        if not chrono or int(chrono[2]) >= 60:
+            continue
+        seconds = 60 * int(chrono[1]) + int(chrono[2]) + int(chrono[3]) / 10
+        if 60 <= seconds <= 110:
+            relevés.setdefault(jour, set()).add(seconds)
+    chronos = [next(iter(relevés[jour])) for jour in sorted(relevés, reverse=True)
+               if len(relevés[jour]) == 1][:5]
+    if len(chronos) < 2:
+        return {}
+    return {'chrono_comparable_mediane_sec_km': median(chronos),
+            'chrono_comparable_nb_sorties': len(chronos)}
+
+
 def forme_meme_depart(historique, course, profil, observation):
     from .departs_trot import mode_pmu
     from .echeances_production import instant

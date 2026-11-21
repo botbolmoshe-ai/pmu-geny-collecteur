@@ -221,7 +221,12 @@ class ProductionMLTests(unittest.TestCase):
         })
         enregistrer_publication(self.root, self.now, {'mode': 'GLOBAL'}, False)
         self.assertEqual(comparisons(self.root, candidate, checked), [])
-        enregistrer_publication(self.root, self.now, {'mode': 'GLOBAL'}, True)
+        direct = load(self.root/'pronostics'/f'{key}_direct.json')
+        enregistrer_publication(self.root, self.now, {'mode': 'GLOBAL'}, True, sheets={
+            'lecture_utc': self.now.isoformat(),
+            'courses': {key: {'direct': {'calcul_utc': direct['calcul_utc'],
+                                        'numeros': [horse['numero'] for horse in direct['top3']]}}},
+        })
         self.assertEqual(comparisons(self.root, candidate, checked)[0]['scores'], {'direct': 2, 'ml': 3})
         payload = load(target)
         payload['ml'] = [1, 2, 3]
