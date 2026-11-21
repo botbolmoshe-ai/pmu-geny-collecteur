@@ -417,9 +417,11 @@ class RepriseTests(unittest.TestCase):
         pending.json.return_value = {'workflow_runs': []}
         queued.json.return_value = {'workflow_runs': [{'path': '.github/workflows/pmu-v16.yml@main'}]}
         with patch.dict(os.environ, {'GITHUB_ACTIONS': 'true', 'GITHUB_REPOSITORY': 'owner/repo',
-                                     'GH_TOKEN': 'factice'}), patch('requests.get', side_effect=[pending, queued]):
+                                     'GH_TOKEN': 'factice'}), patch('requests.get', side_effect=[pending, queued]) as get:
             self.assertEqual(back.priorite_production({'.github/workflows/pmu-v16.yml'}),
                              'PRIORITE_PRODUCTION_EN_ATTENTE')
+        self.assertNotIn('created', get.call_args_list[0].kwargs['params'])
+        self.assertTrue(get.call_args_list[1].kwargs['params']['created'].startswith('>='))
 
     def test_courses_passees_regroupe_la_casse_et_recense_les_conflits(self):
         source = 'PMU_API_PARTICIPANTS'

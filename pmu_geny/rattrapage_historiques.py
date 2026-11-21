@@ -762,8 +762,14 @@ def priorite_production(paths=None):
         if paths is None:
             paths = {'.github/workflows/pmu-v16.yml', '.github/workflows/historiques-incrementaux.yml'}
         for status in ('pending', 'queued'):
+            params = {'status': status, 'per_page': 100}
+            if status == 'queued':
+                # Les entrées queued anciennes sans job peuvent survivre aux runs suivants.
+                # Les runs pending attendent le verrou et restent prioritaires quel que soit leur âge.
+                since = datetime.now(inc.UTC) - timedelta(days=1)
+                params['created'] = '>=' + since.isoformat(timespec='seconds')
             response = requests.get(f'https://api.github.com/repos/{repo}/actions/runs',
-                params={'status': status, 'per_page': 100},
+                params=params,
                 headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json'},
                 timeout=5)
             response.raise_for_status()
