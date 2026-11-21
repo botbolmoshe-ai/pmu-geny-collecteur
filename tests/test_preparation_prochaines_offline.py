@@ -58,6 +58,8 @@ class PreparationTests(unittest.TestCase):
         self.assertEqual(inc.prochaine_tache(state, self.now, attempts), (late_key, 'COLLECTE'))
         self.assertIsNone(state['chevaux'][next_key]['depart_a_venir_utc'])
         self.assertEqual(decision_fond(self.cache, self.now, nocturne=True)['motif'],
+                         'CRENEAU_NOCTURNE_APRES_PREPARATION')
+        self.assertEqual(decision_fond(self.cache, self.now.replace(hour=6), nocturne=True)['motif'],
                          'PARTANT_PRIORITAIRE_DISPONIBLE')
         for key in (early_key, late_key):
             state['chevaux'][key]['prochain_essai_utc'] = (self.now + timedelta(hours=1)).isoformat()
