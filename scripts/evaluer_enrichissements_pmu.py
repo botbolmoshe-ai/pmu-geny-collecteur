@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 
 from pmu_geny.experience_ml import evaluate, matrix, modeles
-from pmu_geny.ml_v19 import DEPART_RESEARCH, FEATURES, dataset, load, numeric
+from pmu_geny.ml_v19 import CHRONO_RESEARCH, DEPART_RESEARCH, FEATURES, dataset, load, numeric
 
 RELATIVE = ('forme_pmu_discipline', 'forme_geny_comparable', 'pmu_score_direct', 'gains_euros')
 STRUCTURE = tuple(field for fields in DEPART_RESEARCH.values() for field in fields)
@@ -58,8 +58,15 @@ def comparer(cache, first_test, as_of, published=None):
     variants = {'logistique_reference': FEATURES, 'logistique_relative': FEATURES + relative,
                 'logistique_depart': FEATURES + STRUCTURE,
                 'logistique_relative_depart': FEATURES + relative + STRUCTURE}
+    variants['logistique_chronos'] = FEATURES + CHRONO_RESEARCH
     resultats = {}
     for name, fields in variants.items():
+        additions = fields[len(FEATURES):]
+        covered = lambda cohort: sum(any(numeric(row['features'].get(field)) is not None
+                                         for field in additions) for row in cohort)
+        if additions and (not covered(train) or not covered(test)):
+            resultats[name] = {'statut': 'DONNEES_INSUFFISANTES'}
+            continue
         model = modeles()['regression_logistique'].fit(matrix(train, fields), [row['y'] for row in train])
         resultats[name] = evaluate(test, model.predict_proba(matrix(test, fields))[:, 1])
     observed = {row['course']: row['observation_utc'] for row in test}
@@ -74,9 +81,9 @@ def comparer(cache, first_test, as_of, published=None):
             'contrainte_etiquettes_avant_utc': first_observed.isoformat(),
             'train_courses': len({row['course'] for row in train}), 'test_courses': len(observed),
             'couverture_train': {field: sum(numeric(r['features'].get(field)) is not None for r in train)
-                                 for field in (*RELATIVE, *STRUCTURE)},
+                                 for field in (*RELATIVE, *STRUCTURE, *CHRONO_RESEARCH)},
             'couverture_test': {field: sum(numeric(r['features'].get(field)) is not None for r in test)
-                                for field in (*RELATIVE, *STRUCTURE)},
+                                for field in (*RELATIVE, *STRUCTURE, *CHRONO_RESEARCH)},
             'variantes': resultats, 'publications_exactement_appariees': common}
 
 

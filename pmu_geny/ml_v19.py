@@ -21,13 +21,15 @@ LEGACY_FEATURES = FEATURES
 FEATURES += ('discipline_montee', 'forme_pmu_discipline', 'forme_geny_comparable')
 MODEL_SCHEMA = 'pmu-podium-v34'
 FERRURE_RESEARCH = ('forme_ferrure_neutre', 'forme_ferrure_moderee', 'forme_ferrure_actuelle')
+CHRONO_RESEARCH = ('chrono_comparable_mediane_sec_km', 'chrono_comparable_nb_sorties')
 DEPART_RESEARCH = {
+    'Position absolue autostart': ('position_autostart_absolue',),
     'Mode de départ et distance': ('depart_autostart', 'distance_autostart'),
     'Position et ligne autostart': ('position_autostart_relative', 'ligne_autostart'),
     'Forme Geny par mode de départ': ('forme_geny_meme_depart', 'sorties_geny_meme_depart'),
     'Recul au départ': ('recul_depart_m',),
 }
-OPTIONAL_FEATURES = (*FERRURE_RESEARCH, 'tandem_podium_lisse', 'tandem_courses', 'avis_pmu_structure',
+OPTIONAL_FEATURES = (*FERRURE_RESEARCH, *CHRONO_RESEARCH, 'tandem_podium_lisse', 'tandem_courses', 'avis_pmu_structure',
                      *(field for fields in DEPART_RESEARCH.values() for field in fields))
 
 
@@ -161,7 +163,9 @@ def snapshot(cache,course,manifest,now=None):
 def pmu_rows(cache,course,raw,now,*,legacy=False):
     """Meme extraction PMU pour capture et inference; aucune requete reseau."""
     from .auto_v18 import _list, _num
-    from .formes_contextuelles_v32 import _discipline, _historique_contextuel, _musique_pmu, forme_meme_depart
+    from .formes_contextuelles_v32 import (
+        _discipline, _historique_contextuel, _musique_pmu, chronos_comparables, forme_meme_depart,
+    )
     from .echeances_production import instant
     from .partants_actuels_v21 import extraire_partants, ferrure_normalisee
     from .top3_independants_v22 import _form_score
@@ -240,12 +244,16 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                 distance = numeric(course.get('distance_m'))
                 if distance is not None:
                     research['distance_autostart'] = auto * distance
+            if depart_trot.get('mode') == 'Autostart' and depart_trot.get('position'):
+                research['position_autostart_absolue'] = depart_trot['position']
             if depart_trot.get('ligne'):
                 capacity = depart_trot['capacite']
                 research['ligne_autostart'] = depart_trot['ligne']
                 research['position_autostart_relative'] = ((depart_trot['position'] - 1) % capacity) / capacity
             if 'recul_m' in depart_trot:
                 research['recul_depart_m'] = depart_trot['recul_m']
+            if histo:
+                research.update(chronos_comparables(histo, course))
             same_mode = forme_meme_depart(histo, course, profil, now)
             if same_mode:
                 research.update(forme_geny_meme_depart=same_mode['score'],
