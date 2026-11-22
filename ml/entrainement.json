@@ -1,11 +1,11 @@
 {
-  "entrainement_utc": "2026-11-21T22:30:12.373025+00:00",
-  "courses": 143,
-  "lignes": 1896,
+  "entrainement_utc": "2026-11-22T20:43:26.846241+00:00",
+  "courses": 181,
+  "lignes": 2415,
   "minimum_courses": 150,
   "minimum_lignes": 1500,
-  "courses_qualifiantes": 44,
-  "observations_qualifiantes": 574,
+  "courses_qualifiantes": 82,
+  "observations_qualifiantes": 1093,
   "seuils": {
     "PREPRODUCTION": {
       "courses": 150,
@@ -21,251 +21,342 @@
     }
   },
   "couverture": {
-    "observations": 574,
-    "completes": 536,
-    "completude": 0.9337979094076655,
+    "observations": 1093,
+    "completes": 1037,
+    "completude": 0.9487648673376029,
     "criteres": {
-      "Forme PMU": 536,
-      "Historique comparable": 71,
-      "Distance": 574,
-      "Discipline": 574,
-      "Ferrure sourcée": 574,
-      "Âge": 574,
-      "Sexe": 574,
-      "Gains": 574,
-      "Driver": 20,
-      "Entraîneur": 0,
+      "Forme PMU": 1037,
+      "Historique comparable": 115,
+      "Distance": 1093,
+      "Discipline": 1093,
+      "Ferrure sourcée": 1093,
+      "Âge": 1093,
+      "Sexe": 1093,
+      "Gains": 1093,
+      "Driver": 92,
+      "Entraîneur": 37,
       "Tandem cheval-driver": 0,
-      "Comparaison ferrures historiques": 69,
+      "Comparaison ferrures historiques": 86,
       "Avis PMU structuré": 0
     }
   },
   "etat": "INSUFFISANT",
   "maturite": "EXPÉRIMENTAL",
   "promotion_production": false,
-  "jour_paris": "2026-11-21",
-  "empreinte_donnees": "5607afef260e870b4657ccfe8674a8c27cc8d4f8acb1dd46a69c6dcf668b5f48",
+  "jour_paris": "2026-11-22",
+  "empreinte_donnees": "9f8d0e570c0dbecf4ac2823493a017b80812c86f8ea95bce42a8d0202bf948c6",
   "experimental": {
     "version_cycle": 1,
-    "empreinte_donnees": "5607afef260e870b4657ccfe8674a8c27cc8d4f8acb1dd46a69c6dcf668b5f48",
-    "execute_utc": "2026-11-21T22:30:12.373025+00:00",
+    "empreinte_donnees": "9f8d0e570c0dbecf4ac2823493a017b80812c86f8ea95bce42a8d0202bf948c6",
+    "execute_utc": "2026-11-22T20:43:26.846241+00:00",
     "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-    "courses_admissibles": 143,
-    "lignes_admissibles": 1896,
+    "courses_admissibles": 181,
+    "lignes_admissibles": 2415,
     "promotion_production": false,
-    "rapport": "ml/experiences/automatique-5607afef260e870b4657/rapport.json",
-    "validation_day": "2026-11-19",
-    "test_day": "2026-11-21",
+    "rapport": "ml/experiences/automatique-9f8d0e570c0dbecf4ac2/rapport.json",
+    "validation_day": "2026-11-20",
+    "test_day": "2026-11-22",
     "modele": "regression_logistique",
     "test_ml": {
-      "courses": 23,
-      "chevaux_retrouves": 21,
-      "moyenne": 0.9130434782608695,
-      "au_moins_2_sur_3": 6,
-      "exact_3_sur_3": 0,
+      "courses": 38,
+      "chevaux_retrouves": 38,
+      "moyenne": 1.0,
+      "au_moins_2_sur_3": 11,
+      "exact_3_sur_3": 1,
       "distribution": {
-        "0": 8,
-        "1": 9,
-        "2": 6
+        "0": 12,
+        "1": 15,
+        "2": 10,
+        "3": 1
       },
       "hits_par_course": {
-        "2026-11-21_R10C1": 0,
-        "2026-11-21_R10C2": 2,
-        "2026-11-21_R10C3": 1,
-        "2026-11-21_R10C4": 2,
-        "2026-11-21_R10C5": 1,
-        "2026-11-21_R10C6": 1,
-        "2026-11-21_R10C7": 2,
-        "2026-11-21_R10C8": 0,
-        "2026-11-21_R2C2": 0,
-        "2026-11-21_R2C3": 0,
-        "2026-11-21_R2C4": 0,
-        "2026-11-21_R2C5": 1,
-        "2026-11-21_R2C6": 2,
-        "2026-11-21_R2C7": 0,
-        "2026-11-21_R2C8": 1,
-        "2026-11-21_R4C1": 1,
-        "2026-11-21_R4C2": 1,
-        "2026-11-21_R4C3": 1,
-        "2026-11-21_R4C4": 0,
-        "2026-11-21_R4C5": 0,
-        "2026-11-21_R4C6": 2,
-        "2026-11-21_R4C7": 2,
-        "2026-11-21_R4C8": 1
+        "2026-11-22_R11C1": 2,
+        "2026-11-22_R11C2": 2,
+        "2026-11-22_R11C3": 2,
+        "2026-11-22_R11C4": 0,
+        "2026-11-22_R11C5": 0,
+        "2026-11-22_R11C6": 1,
+        "2026-11-22_R11C7": 1,
+        "2026-11-22_R13C1": 2,
+        "2026-11-22_R13C10": 1,
+        "2026-11-22_R13C2": 1,
+        "2026-11-22_R13C3": 1,
+        "2026-11-22_R13C4": 0,
+        "2026-11-22_R13C5": 1,
+        "2026-11-22_R13C6": 1,
+        "2026-11-22_R13C7": 1,
+        "2026-11-22_R13C8": 1,
+        "2026-11-22_R13C9": 1,
+        "2026-11-22_R14C1": 0,
+        "2026-11-22_R14C2": 0,
+        "2026-11-22_R14C3": 2,
+        "2026-11-22_R14C4": 2,
+        "2026-11-22_R14C5": 0,
+        "2026-11-22_R14C6": 3,
+        "2026-11-22_R14C8": 0,
+        "2026-11-22_R16C2": 0,
+        "2026-11-22_R16C4": 1,
+        "2026-11-22_R16C6": 2,
+        "2026-11-22_R16C8": 0,
+        "2026-11-22_R16C9": 2,
+        "2026-11-22_R1C1": 0,
+        "2026-11-22_R1C2": 0,
+        "2026-11-22_R1C3": 1,
+        "2026-11-22_R1C4": 1,
+        "2026-11-22_R1C5": 2,
+        "2026-11-22_R1C6": 2,
+        "2026-11-22_R1C7": 1,
+        "2026-11-22_R1C8": 1,
+        "2026-11-22_R1C9": 0
       },
       "selections": {
-        "2026-11-21_R10C1": [
-          7,
-          2,
-          15
-        ],
-        "2026-11-21_R10C2": [
-          9,
-          2,
-          11
-        ],
-        "2026-11-21_R10C3": [
-          10,
-          2,
-          14
-        ],
-        "2026-11-21_R10C4": [
-          5,
-          10,
-          6
-        ],
-        "2026-11-21_R10C5": [
-          5,
+        "2026-11-22_R11C1": [
+          8,
           6,
-          10
-        ],
-        "2026-11-21_R10C6": [
-          15,
-          7,
-          13
-        ],
-        "2026-11-21_R10C7": [
-          10,
-          8,
-          12
-        ],
-        "2026-11-21_R10C8": [
-          7,
-          3,
-          11
-        ],
-        "2026-11-21_R2C2": [
-          5,
-          7,
-          10
-        ],
-        "2026-11-21_R2C3": [
-          8,
-          9,
-          6
-        ],
-        "2026-11-21_R2C4": [
-          8,
-          9,
-          5
-        ],
-        "2026-11-21_R2C5": [
-          15,
-          12,
-          10
-        ],
-        "2026-11-21_R2C6": [
-          6,
-          1,
-          12
-        ],
-        "2026-11-21_R2C7": [
-          2,
-          5,
-          3
-        ],
-        "2026-11-21_R2C8": [
-          11,
-          1,
-          14
-        ],
-        "2026-11-21_R4C1": [
-          2,
-          12,
-          3
-        ],
-        "2026-11-21_R4C2": [
-          13,
-          9,
           7
         ],
-        "2026-11-21_R4C3": [
-          6,
+        "2026-11-22_R11C2": [
+          8,
           3,
           5
         ],
-        "2026-11-21_R4C4": [
-          12,
+        "2026-11-22_R11C3": [
+          7,
+          5,
+          11
+        ],
+        "2026-11-22_R11C4": [
+          4,
+          2,
+          1
+        ],
+        "2026-11-22_R11C5": [
+          5,
+          2,
+          7
+        ],
+        "2026-11-22_R11C6": [
+          11,
+          10,
+          13
+        ],
+        "2026-11-22_R11C7": [
+          3,
+          7,
+          11
+        ],
+        "2026-11-22_R13C1": [
+          6,
+          5,
+          9
+        ],
+        "2026-11-22_R13C10": [
+          4,
+          15,
+          9
+        ],
+        "2026-11-22_R13C2": [
+          11,
+          4,
+          12
+        ],
+        "2026-11-22_R13C3": [
+          11,
           4,
           8
         ],
-        "2026-11-21_R4C5": [
+        "2026-11-22_R13C4": [
+          12,
           6,
-          4,
-          3
-        ],
-        "2026-11-21_R4C6": [
-          10,
-          8,
-          7
-        ],
-        "2026-11-21_R4C7": [
-          2,
-          10,
           4
         ],
-        "2026-11-21_R4C8": [
+        "2026-11-22_R13C5": [
+          11,
+          9,
+          10
+        ],
+        "2026-11-22_R13C6": [
+          5,
+          6,
+          12
+        ],
+        "2026-11-22_R13C7": [
+          11,
+          5,
+          8
+        ],
+        "2026-11-22_R13C8": [
+          7,
+          3,
+          6
+        ],
+        "2026-11-22_R13C9": [
+          12,
+          3,
+          9
+        ],
+        "2026-11-22_R14C1": [
+          12,
+          8,
+          1
+        ],
+        "2026-11-22_R14C2": [
+          5,
+          7,
+          1
+        ],
+        "2026-11-22_R14C3": [
+          4,
+          7,
+          10
+        ],
+        "2026-11-22_R14C4": [
+          3,
+          14,
+          12
+        ],
+        "2026-11-22_R14C5": [
+          3,
+          12,
+          11
+        ],
+        "2026-11-22_R14C6": [
+          13,
+          10,
+          12
+        ],
+        "2026-11-22_R14C8": [
+          12,
+          11,
+          8
+        ],
+        "2026-11-22_R16C2": [
+          13,
+          14,
+          12
+        ],
+        "2026-11-22_R16C4": [
+          11,
+          13,
+          10
+        ],
+        "2026-11-22_R16C6": [
+          8,
+          10,
+          3
+        ],
+        "2026-11-22_R16C8": [
+          8,
+          11,
+          6
+        ],
+        "2026-11-22_R16C9": [
+          11,
+          3,
+          5
+        ],
+        "2026-11-22_R1C1": [
+          11,
+          12,
+          10
+        ],
+        "2026-11-22_R1C2": [
           10,
           8,
           9
+        ],
+        "2026-11-22_R1C3": [
+          5,
+          4,
+          2
+        ],
+        "2026-11-22_R1C4": [
+          10,
+          15,
+          2
+        ],
+        "2026-11-22_R1C5": [
+          5,
+          3,
+          4
+        ],
+        "2026-11-22_R1C6": [
+          11,
+          12,
+          9
+        ],
+        "2026-11-22_R1C7": [
+          13,
+          8,
+          2
+        ],
+        "2026-11-22_R1C8": [
+          8,
+          9,
+          4
+        ],
+        "2026-11-22_R1C9": [
+          9,
+          12,
+          3
         ]
       }
     },
     "comparaison": {
-      "courses": 21,
-      "ecart_moyen": 0.047619047619047616,
+      "courses": 31,
+      "ecart_moyen": 0.0967741935483871,
       "ic95_bootstrap_par_course": [
-        -0.23809523809523808,
-        0.38095238095238093
+        -0.1935483870967742,
+        0.3548387096774194
       ]
     },
     "decoupage": {
       "train": {
-        "courses": 99,
-        "lignes": 1322,
+        "courses": 114,
+        "lignes": 1517,
         "premier_depart": "2026-11-11T16:42:00+01:00",
-        "dernier_depart": "2026-11-18T18:00:00+01:00"
-      },
-      "validation": {
-        "courses": 15,
-        "lignes": 195,
-        "premier_depart": "2026-11-19T15:57:00+01:00",
         "dernier_depart": "2026-11-19T20:47:00+01:00"
       },
+      "validation": {
+        "courses": 6,
+        "lignes": 76,
+        "premier_depart": "2026-11-20T18:23:00+01:00",
+        "dernier_depart": "2026-11-20T20:50:00+01:00"
+      },
       "test": {
-        "courses": 23,
-        "lignes": 303,
-        "premier_depart": "2026-11-21T11:55:00+01:00",
-        "dernier_depart": "2026-11-21T20:13:00+01:00"
+        "courses": 38,
+        "lignes": 519,
+        "premier_depart": "2026-11-22T12:05:00+01:00",
+        "dernier_depart": "2026-11-22T18:10:00+01:00"
       }
     }
   },
   "experimental_actif": {
     "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
-    "verification_utc": "2026-11-21T22:30:12.373025+00:00",
-    "empreinte_entrainement": "dd2940af61b953c621246d4f202c5a95adf95a252e84c36d52814106fc134b6f",
-    "courses": 143,
-    "lignes": 1896,
+    "verification_utc": "2026-11-22T20:43:26.846241+00:00",
+    "empreinte_entrainement": "750a729a91664f028ada0c5fd7a0a6bd25b77f5682d325d2051d6a030ab62acc",
+    "courses": 181,
+    "lignes": 2415,
     "modele": "regression_logistique",
     "promotion_production": false,
     "schema": "pmu-podium-v34",
     "nature": "CANDIDAT_EXPERIMENTAL_NON_CALIBRE",
     "evaluation": "A_MESURER_SUR_LES_PREVISIONS_FUTURES_ENREGISTREES",
-    "entrainement_utc": "2026-11-21T21:44:16.912929+00:00",
-    "dernier_label_entrainement_utc": "2026-11-21T21:43:57.667879+00:00",
-    "fichier_modele": "ml/modeles_experimentaux/dd2940af61b953c621246d4f202c5a95adf95a252e84c36d52814106fc134b6f/modele.joblib",
-    "sha256_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548",
-    "execution": "DONNEES_INCHANGEES"
+    "entrainement_utc": "2026-11-22T20:43:26.846241+00:00",
+    "dernier_label_entrainement_utc": "2026-11-22T20:42:54.810071+00:00",
+    "fichier_modele": "ml/modeles_experimentaux/750a729a91664f028ada0c5fd7a0a6bd25b77f5682d325d2051d6a030ab62acc/modele.joblib",
+    "sha256_modele": "51a6a33888b974be5bc35afea997899fd309d8ba73f73f437857e71440f66736",
+    "execution": "ENTRAINE"
   },
   "performance_prospective": {
     "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-    "controle_utc": "2026-11-21T22:30:12.373025+00:00",
-    "courses": 60,
-    "moyenne_ml": 1.0,
-    "moyenne_direct": 1.05,
-    "ecart_ml_direct": -0.05,
+    "controle_utc": "2026-11-22T20:43:26.846241+00:00",
+    "courses": 98,
+    "moyenne_ml": 1.0408163265306123,
+    "moyenne_direct": 1.0204081632653061,
+    "ecart_ml_direct": 0.02040816326530612,
     "exact_3_sur_3_ml": 0,
-    "au_moins_2_sur_3_ml": 16,
+    "au_moins_2_sur_3_ml": 29,
     "resultats": [
       {
         "course": "2026-11-17_R3C6",
@@ -1106,13 +1197,545 @@
           "ml": "e0c135da764cb24909dba4b89cc6322f1dd546df9441d6b567e50b6f8492a901"
         },
         "empreinte_modele": "3c7d9f07184cd40b8b972c1f6c15780300aac861ec002f0f166e09ce4a2452f0"
+      },
+      {
+        "course": "2026-11-22_R11C1",
+        "depart": "2026-11-22T13:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:38.962743+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "41ea23b0563a00d413d57ec1a8601898c41e31ab3c4a6179d49fa4448193a182",
+          "ml": "d331a13346b2b6856a61e819e3a977990fca0412bce752e2eab1920b13b888db"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R11C2",
+        "depart": "2026-11-22T13:30:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:39.159995+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "da8db2f42db932f2c0f932e7a7900697448fa52eb24e6163d8b3874272165701",
+          "ml": "6c3c92010313351afbe8457e57eda8097d0c4a0a20125d88a2d4b273b0ef2bf1"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R11C3",
+        "depart": "2026-11-22T14:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:39.471594+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "7cd5197befb59bb9e0112ccda779b0e702d80961e042d9da743662f38cc2eaa9",
+          "ml": "ef71e5566e054120dbf0787deafc3bc9fadff46e4983e12e047355968f75ebae"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R11C4",
+        "depart": "2026-11-22T14:30:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:39.671901+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "984dbacb39872314b022a5a289cb2732e0d6655c92d6b12e9ce61fc1f0a22c55",
+          "ml": "9fc857f39c2073dba39256ed65587137b9918b0d4040c2a3119a8ed764b5918b"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R11C5",
+        "depart": "2026-11-22T15:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:40.244301+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "90b8434ca5bc25232b212ae9ec752bf05c136048eefed9fc8048fae18ca00c32",
+          "ml": "5bbc9adb8a11ade4e185d3620ae635c116fbe819d4d016832ed167123c1e0e02"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R11C6",
+        "depart": "2026-11-22T15:30:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:40.468031+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "cfb85c1785ed9f78ce8d58202e42795fbd4e1cbd2d9ea55541ee39d171dfbe37",
+          "ml": "6d56c1735a5841dae9bc8cde1ba1c02ca8fa5a7d69cda1c663af00a4cf47d6c0"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R11C7",
+        "depart": "2026-11-22T16:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:40.742395+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "8116633c05834845a71996e7580614f680d2137f343ab257db41006a1438f8d7",
+          "ml": "5ca9e81a021030ee2eb6b7d2c89493b62acacd85a12f889cbd2671af4aa0a6d4"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C1",
+        "depart": "2026-11-22T12:05:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:41.178861+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "fea8284470c690649dfd3f446843996c03ff9e2a983b275246927172da1f6254",
+          "ml": "92ff42debf3bb2fb2096aa2ce2a57cb460881f28decb574499042e304bf2344d"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C10",
+        "depart": "2026-11-22T16:35:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:42.853919+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "795ce72a3c31df8a91d6c0610f3951e427742af8d3c094d1d4a2c78f522df561",
+          "ml": "6c9336ae092e8e342995269288480e02c77dc6a1947baa0b4244206bd6c0e175"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C2",
+        "depart": "2026-11-22T12:35:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:41.330704+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "5e5a16cef4baa7cfc799de348822e413c60f5baaf2c088ba0c28fe2bd922e5f7",
+          "ml": "a8038e2550ad4f9923cba94560fb58b7db54e2d182dac359a9ec882cfd54e201"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C3",
+        "depart": "2026-11-22T13:05:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:41.488900+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "6984e628b07a446bd540888ac42ed29e2286f3b00a9465b1a180ef70abfadb28",
+          "ml": "24fc25afa3653ff099dcea3f1a2a267545fa7dab9c5529358fa1b4cf506e49f8"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C4",
+        "depart": "2026-11-22T13:35:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:41.684292+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "3264a71796617e4b3a393bb58e27cbd02a28d0713d91423557b7de6783deac68",
+          "ml": "128bc8a224d026f9d288ccb27b5b917334818afb8c9b8ec7782203850b1eba52"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C5",
+        "depart": "2026-11-22T14:05:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:41.946801+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "58c30f53b5b27f5afe7e0e31d468e46911765b195819ee9ddcfb2d3df703327e",
+          "ml": "c03f0d18a8dd5f63977b47cbcde5c3f5f8d19ca2bb999804230b928997471d76"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C6",
+        "depart": "2026-11-22T14:35:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:42.147975+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "749f43dfa34ca7461a51ce01a8a63c878db49be64a755a6d8e44a084b45b2e57",
+          "ml": "b10ac5118044df74afb3ca5dbc76ede4fcf3c2d1bbe5c704459e03180b867c52"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C7",
+        "depart": "2026-11-22T15:05:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:42.352315+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "f93ea33bfff925c636b0b5b9ce964592f6e4bd411babfc1dc2aae3970627dee8",
+          "ml": "2307c37ded0c8cd9e650e6630d9e5f636a18d7de679d2224cf2ef9b4190598eb"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C8",
+        "depart": "2026-11-22T15:35:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:42.508585+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "2fffb3fd373ce02174170af0b5016a0932c163db276f1d7fb4ba5b8c39a8e97c",
+          "ml": "310efd4f3e6bcb1a4b69a842e62e4c97bda69c065d50db8c2bf793c617bd8ec5"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R13C9",
+        "depart": "2026-11-22T16:05:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:42.700740+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "a6a1bc59f2d74cc0d6a62b492ec0fd7317b70916991f17e6af47570d0ed02f43",
+          "ml": "5b9c6ba5fed37d7f70155b385c707132316accf6856fc5fe19d088d34688a788"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R14C1",
+        "depart": "2026-11-22T13:30:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:53.228352+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "79b20d3e4ebfae6bc26e4d8a5d4c0716e781d8dbfa6cd0aaec82a9aaa7eac996",
+          "ml": "bfcaaad4314b78bc08065f1ef4f727f851815a37f5c61a820e998a28c623b9c1"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R14C2",
+        "depart": "2026-11-22T14:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:53.366380+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "18b04ef998d9d7e9f50b18f4610deff11f40d360746f68f0ec02a2574bcb863c",
+          "ml": "a4cf2415212bae748dbb197a55d53e48d1c2ddb72f89e7c40562a81c10f114d7"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R14C3",
+        "depart": "2026-11-22T14:30:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:53.648076+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "446df3d59a0eb2fcaa7f135def69b8363892b2e2bed8b95a3f2b91a64a015b2b",
+          "ml": "b1010a1782e1cc01ef39ddddb0f63dfb45c5d0b1d9baf9092db9875c026f1053"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R14C4",
+        "depart": "2026-11-22T15:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:53.990150+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "d5fd9b69098881b7bc69be639f14a526762a5d5a6afc55a36f230faae261af47",
+          "ml": "248b06f7d509b7a60a3211a85ba5f2e4634c6b89b12acfd26c6953c810bc5259"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R14C5",
+        "depart": "2026-11-22T15:30:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:54.224889+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "9551e2ae4cf190161c3226b85eb63095b32ce799ac7819b40907a8f0cbc49b01",
+          "ml": "b3b5c6208c8a094bc97bd379178e1c8915f3c9586114b7c18dcb8a82ff6ad567"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R14C6",
+        "depart": "2026-11-22T16:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:54.415726+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "809944e06a47b87cd5bb978042a6882dc33fe58a36d3c419ef6d0bd5ed23edaf",
+          "ml": "b9e80176bf8d3931473567cee8dc16f31e5b5966c86a6d49d1be47068bc79f47"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R14C8",
+        "depart": "2026-11-22T17:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:54.810071+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "cefbad9207397e3029fe696a06221d78bd8967d47f40505936fa8aae6b7ad0f7",
+          "ml": "a0505dd53342dc6be0d20b064f0141a41ab7f91cfca3804c03c5f76fb3fbccd0"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R16C2",
+        "depart": "2026-11-22T13:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:43.230549+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "8b816116a5248dbfdffbc329062c1f2e60b0d9f9f3d6ed0e1363f4b36eff3bd6",
+          "ml": "db6e83c283cc8433a2930eb40a04e38034c0346fd93eaa41da89eaf45df813de"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R16C4",
+        "depart": "2026-11-22T14:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:43.779303+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "7c48a8c6b348adbfc0fbffb90ee9cc54de5440b1d18361c00c1457d06c12888d",
+          "ml": "a8508294f2f5c7c5d8584552db8ef4c45bcc0d26a1fde2215957ffba14c09fcf"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R16C6",
+        "depart": "2026-11-22T15:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:44.271688+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "0e96397188490f52074d51047fdeec2be6838fd510bde0d5a7c6f0914afb045e",
+          "ml": "6a3b4da3fdfb7610cd9136a0a4a3d70fa0b990f8c92f601e213122ffbe1e163d"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R16C8",
+        "depart": "2026-11-22T16:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:44.718974+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "85a0bd2beea1a71aa2bab8a18246c83fe4ef8157e7e04978c8f57e32961e0a9e",
+          "ml": "7c10eee3ba846e2a62c5ed625373ac3c817a824da0add34871c5a23df4e4d5f7"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R16C9",
+        "depart": "2026-11-22T16:30:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T17:04:44.932010+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "e343df14f9e51999971261e6441081529231dc3852bd9864b60f81e74f00714c",
+          "ml": "089ab8f27aa231eeded0e00defacd99db541c888462b03be477434b47a5ff59b"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C1",
+        "depart": "2026-11-22T13:23:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:51.463848+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "65dd642e60d8798d7ea18627b0c9c78d3fc63a13adff456bbc1e25b7b68718d2",
+          "ml": "1b44ff4ed246112e467b01487cea525f12f940b87b31fc7c0037bd91050b6ed1"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C2",
+        "depart": "2026-11-22T13:58:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:51.636224+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "e7337949b363bc03dc2bc5f36853d429a048fee6d4b6b5469e4895a7ec381caf",
+          "ml": "61fdc159d0aa7e5a55111aca73409f2865afb25908941cdcde80dd1fbaa7f8a3"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C3",
+        "depart": "2026-11-22T14:33:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:51.802049+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "a56a64a89dd5101f5c9afe13bd580387dc7238fae67d2bd93c36e9bda036dd8e",
+          "ml": "3a40d9ad8124d7d296e68903a5a61229ae372534b24ac36752baff3fd34c3c7b"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C4",
+        "depart": "2026-11-22T15:15:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:52.033289+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "2ed196a8f01d28f8ac8aed0d64201e011c82bb687bdf954357f36bac53a5167b",
+          "ml": "575c9216c1a07c025ea4ba973abf2a42729de5addc209b33030176108214b5eb"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C5",
+        "depart": "2026-11-22T15:50:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:52.199013+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "a95c644d220cf1d6ce973620971e4dda5bf7f464c7af646da188d5394d94e622",
+          "ml": "d61f5c75c46c850071c0feaa1c896b51eecd8de143f8660e9eec74e331d11e24"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C6",
+        "depart": "2026-11-22T16:25:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:52.410456+00:00",
+        "scores": {
+          "direct": 2,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "d45466dd94ada80d8c13063b6c7e2f18140a5f05889306039fd89e417a9408ea",
+          "ml": "47ef15583bc4033d58cb585141d013d773016e882d8c4c8457657a3313b3e0e1"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C7",
+        "depart": "2026-11-22T17:00:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:52.549709+00:00",
+        "scores": {
+          "direct": 0,
+          "ml": 0
+        },
+        "versions": {
+          "direct": "327ab83b8ba1583de2969b16b6cc74709be2d4df8220d5d0e1c511e82e6e5e8f",
+          "ml": "028057a630ef7139ada7bd5c0ff7379c658b3cb46a496fb452cb8ebb59f4268d"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C8",
+        "depart": "2026-11-22T17:35:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:52.821652+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 2
+        },
+        "versions": {
+          "direct": "d678732269079a7cbd4a200e643994c77f8c510ae585c03c78e60a6999e41a20",
+          "ml": "01f27bd18bb7998111b51874046113a30e53b8af5be2453925e81467139029e0"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
+      },
+      {
+        "course": "2026-11-22_R1C9",
+        "depart": "2026-11-22T18:10:00+01:00",
+        "arrivee_verifiee_utc": "2026-11-22T20:42:53.013858+00:00",
+        "scores": {
+          "direct": 1,
+          "ml": 1
+        },
+        "versions": {
+          "direct": "9ab0497e9f1b5cbe48259875134fce06b6859f2164a3639ef03830d81344166d",
+          "ml": "dd6fbd0015e1d7d45f2f65546d2a41fa72bab39425222e64515e3b5c2f705c98"
+        },
+        "empreinte_modele": "9e13dd2bda1172c9f31d7ba01849f992413daeb699ce7e2728977ee5382a0548"
       }
     ],
     "rejets": [],
     "regle_ajustement": "Réentraînement sur nouveaux labels admissibles ; choix sur validation temporelle, sans promotion sur ces seuls scores.",
     "candidat_depart": {
       "courses": 4,
-      "direct_evaluable": 44,
+      "direct_evaluable": 82,
       "rejets": [],
       "statut": "EXPERIMENTAL",
       "moyenne": 0.75,
