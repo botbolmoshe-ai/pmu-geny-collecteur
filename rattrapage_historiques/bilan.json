@@ -52,7 +52,7 @@
     "captures_ignorees": 8
   },
   "passage_utc": "2026-11-19T20:07:14.721211+00:00",
-  "maj_utc": "2026-11-21T22:35:58.955550+00:00",
+  "maj_utc": "2026-11-22T22:28:26.367914+00:00",
   "statut": "PARTIEL_REPRENABLE",
   "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
   "sync_kpi": "OK",
@@ -100,18 +100,18 @@
     }
   },
   "courses_passees_par_nom": {
-    "courses_avec_arrivee": 181,
-    "courses_sans_liste_partants": 11,
+    "courses_avec_arrivee": 226,
+    "courses_sans_liste_partants": 18,
     "participations_a_confirmer": 0,
     "bilan": {
-      "ABSENT_DE_LA_FILE": 328,
-      "A_REPRENDRE": 869,
+      "ABSENT_DE_LA_FILE": 774,
+      "A_REPRENDRE": 872,
       "COMPLET": 432,
       "FERRURES_A_COMPLETER": 458,
       "LIEN_GENY_A_RESOUDRE": 57
     },
-    "noms_distincts": 2144,
-    "controle_utc": "2026-11-21T22:35:54.453097+00:00"
+    "noms_distincts": 2593,
+    "controle_utc": "2026-11-22T22:28:19.589237+00:00"
   },
   "cohortes": {
     "initiale": {
@@ -139,10 +139,35 @@
     "sans_correspondance": 0
   },
   "collecte_tentee_utc": "2026-11-19T20:07:22.244110+00:00",
-  "controle_ordonnancement_utc": "2026-11-21T22:35:58.955550+00:00",
+  "controle_ordonnancement_utc": "2026-11-22T22:28:26.367923+00:00",
+  "motif_ordonnancement": "COOLDOWN_GENY_GLOBAL",
   "sync_kpi_utc": "2026-11-19T20:07:40.535698+00:00",
   "dernier_creneau_reserve_utc": "2026-11-19T20:07:22.244110+00:00",
   "creneau_reserve": true,
+  "dernier_controle_nocturne": {
+    "utc": "2026-11-22T22:28:17.331831+00:00",
+    "creneau": 997436,
+    "nuit": "2026-11-22",
+    "motif": "COOLDOWN_GENY_GLOBAL",
+    "prochain_acces_geny_utc": "2026-11-22T22:47:12.344799+00:00",
+    "progression": false,
+    "creneau_eligible": false,
+    "consecutifs_sans_progression": 0,
+    "dernier_creneau_compte": null,
+    "alerte_emise": false,
+    "nouvelle_alerte": false
+  },
+  "cooldown_geny": {
+    "controle_utc": "2026-11-22T22:28:26.440643+00:00",
+    "dernier_incident": {
+      "utc": "2026-11-22T22:17:12.344799+00:00",
+      "code": "429"
+    },
+    "echeance_utc": "2026-11-22T22:47:12.344799+00:00",
+    "actif": true,
+    "etat": "ACTIF"
+  },
+  "derniere_acquisition_validee_utc": "2026-11-19T07:19:48.177012+00:00",
   "derniere_ecriture_controlee": {
     "sync_utc": "2026-11-19T17:10:04.894398+00:00",
     "statut": "VALIDE",
