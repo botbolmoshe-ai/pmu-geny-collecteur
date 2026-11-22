@@ -58,7 +58,7 @@ on:
 
 permissions:
   contents: write
-  actions: read
+  actions: write
 
 concurrency:
   group: pmu-donnees-production
@@ -429,3 +429,11 @@ jobs:
             cache_pmu/partants_actuels/
           retention-days: 30
           if-no-files-found: warn
+      - name: Donner le relais au collecteur nocturne après le checkpoint PMU
+        if: always() && github.ref == 'refs/heads/main' && steps.publication.conclusion == 'success' && steps.persistance_finale.conclusion == 'success' && steps.perimetre.outputs.mode == 'GLOBAL'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if python -m pmu_geny.echeances_production --cache cache_pmu --relais-nocturne; then
+            gh workflow run historiques-incrementaux.yml --ref main -f nocturne=true -f max_minutes=7
+          fi

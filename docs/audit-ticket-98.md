@@ -56,3 +56,39 @@ Les nouvelles captures enregistrent les états à l'observation pré-départ.
 Une comparaison concluante nécessite des exemples positifs et négatifs dans
 les différentes périodes. Les archives existantes servent d'entrée en
 lecture seule et aucune variante de profils n'est promue par ce rapport.
+
+## Incident de reprise du 20 au 22 novembre
+
+Les 26 exécutions pertinentes visibles, dont 25 incrémentales et un
+rattrapage manuel, ont toutes conclu avec succès. L'étape de collecte
+incrémentale n'a été exécutée que neuf fois. Les journaux de ces passages
+comptent 69 captures complètes validées le 20, puis aucune dans les deux
+recettes nocturnes du 21. Ce compteur inclut les captures validées par le
+moteur et se lit indépendamment des ajouts Sheets.
+
+- Le rattrapage manuel du 20 a cédé la priorité au PMU. Le premier
+  passage nocturne du 21, à 22 h 31 UTC, a hérité d'une entrée Actions
+  périmée. La PR #100 a corrigé ce premier blocage.
+- Le passage suivant a reçu un refus Geny 429 à 22 h 35 UTC. La pause
+  était applicable jusqu'à 23 h 05 min 43 s UTC. Le rattrapage a enregistré
+  cette décision d'ordonnancement sans acquérir de carrière.
+- Le 22 à 02 h 40 UTC, le rejeu de la décision sur le checkpoint
+  `cc5e4f23` retrouve une publication globale à 01 h 45 min 11 s et son
+  prochain rafraîchissement horaire à 02 h 45 min 11 s. L'écart de cinq
+  minutes ne laissait pas la marge PMU de sept minutes. Le premier
+  jalon de réunion s'ouvrait à 08 h 10 UTC. Le motif de pause du bilan
+  de rattrapage appartenait donc à un passage précédent.
+
+Le cycle PMU nocturne peut désormais donner le relais au workflow
+incrémental après un checkpoint global confirmé. Le workflow relit les
+données durables et recalcule les gardes en entrant sous le verrou partagé.
+Lors d'une pause commune, la réconciliation locale et les publications
+en attente peuvent progresser dans un créneau admissible. Le suivi du
+rattrapage date la décision et la reprise possible indépendamment du
+dernier passage d'acquisition.
+
+[Passage du 20](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/44763420602)
+· [Premier passage du 21](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/44957065733)
+· [Refus 429](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/44957498708)
+· [Contrôle du 22](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/44977123949)
+· [Checkpoint PMU](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/commit/cc5e4f23)
