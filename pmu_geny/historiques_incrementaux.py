@@ -401,7 +401,10 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
 
 
 def suspendre_geny(cache, state, stamp, code):
-    state['prochain_acces_geny_utc'] = (stamp + timedelta(minutes=30)).isoformat()
+    from .echeances_production import pause_geny_active
+    deadline = stamp + timedelta(minutes=30)
+    current = pause_geny_active(cache, stamp)
+    state['prochain_acces_geny_utc'] = max(deadline, current or deadline).isoformat()
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': code}
     ecrire(cache/'etat_persistant.json', journal)
@@ -467,9 +470,10 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
     from .echeances_production import pause_geny_active
     states = {'back' if reprise else 'prod': state}
     pause = pause_geny_active(cache, now, **states)
-    state.pop('prochain_acces_geny_utc', None)
     if pause:
         state['prochain_acces_geny_utc'] = pause.isoformat()
+    else:
+        state.pop('prochain_acces_geny_utc', None)
     attempts, count, accepted, partials = {}, 0, 0, 0
     sheets_engine=None
     captures_completes = set()
@@ -497,7 +501,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 state['sync_kpi'] = 'A_REPRENDRE'
         else:materialiser_manifestes(cache, state)
         ecrire(cache/queue, state)
-        if reprise:ecrire(cache/queue.parent/'bilan.json',reprise.rapport(state))
+        if reprise:ecrire(cache/queue.parent/'bilan.json',reprise.rapport(state, cache=cache))
         if not distant:
             return
         if checkpoint:
@@ -542,15 +546,22 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             # Une clé de contexte peut contenir « : », interdit dans un artefact Actions.
             out = Path('resultats/incremental') / key.replace(':', '_') / str(time.time_ns())
             report = {}
+            refus = None
             try:
                 report = collect(horse, out)
-                if report.get('statut') in ('ACCES_REFUSE_403', 'ACCES_LIMITE_429'):
+                refus = {'ACCES_REFUSE_403': '403', 'ACCES_LIMITE_429': '429'}.get(report.get('statut'))
+                if refus:
                     raise PermissionError(report['statut'])
                 memoriser_resolution(horse,report,out,cache=cache)
                 if reprise and horse.get('preuve_identite'):
                     reprise.propager_identite(state,horse)
                 if report.get('complet'):
-                    if reprise:accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
+                    if reprise:
+                        last = reprise.derniere_acquisition_validee(cache, state)
+                        accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
+                        stamp = horse['historique_complet_au_utc']
+                        state['derniere_acquisition_validee_utc'] = max(
+                            (value for value in (last, stamp) if value), key=instant)
                     else:accepter(cache, horse, report)
                     accepted+=1
                     captures_completes.add(str(horse['id']))
@@ -580,12 +591,11 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                     'motifs':report.get('motifs',[]),'erreur':str(exc),
                     'identite_verifiee':report.get('identite_verifiee'),
                     'diagnostic':str(out/'resultat.json')}
-                if isinstance(exc, PermissionError):
-                    code = '403' if '403' in str(exc) else '429'
-                    refus_geny[code] += 1
-                    suspendre_geny(cache, state, datetime.now(UTC), code)
+                if refus:
+                    refus_geny[refus] += 1
+                    suspendre_geny(cache, state, datetime.now(UTC), refus)
                 # Le sous-processus peut s'arrêter après la preuve et avant son bilan.
-                if not report or isinstance(exc, PermissionError):
+                if not report or refus:
                     memoriser_resolution(horse,report,out,cache=cache)
                     if reprise and horse.get('preuve_identite'):
                         reprise.propager_identite(state,horse)
@@ -637,6 +647,8 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
     state['statut'] = ('PARTIEL_REPRENABLE' if state['bilan']['actualisations_en_attente'] or
                        state['bilan']['synchronisations_en_attente'] else 'A_JOUR')
     if reprise:
+        state.update(controle_ordonnancement_utc=datetime.now(UTC).isoformat(),
+                     motif_ordonnancement=state['motif_fin_passage'])
         reprise.preparer_noms_passes(cache, state, datetime.now(UTC))
         reprise.bilan(state)
         reprise.persister_etat(cache, state)

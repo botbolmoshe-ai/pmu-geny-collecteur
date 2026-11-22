@@ -325,10 +325,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     remaining_discoveries=max_discoveries
     correspondences_path=cache/'orchestration'/'correspondances_geny.json'
     correspondences=load(correspondences_path,{}) or {}
-    geny_state=load(cache/'etat_persistant.json',{}) or {}
-    last=(geny_state.get('dernier_blocage_geny') or {}).get('utc')
-    try: cooldown=bool(last and datetime.now(timezone.utc)<datetime.fromisoformat(last)+timedelta(minutes=30))
-    except (ValueError,TypeError): cooldown=False
+    from .echeances_production import pause_geny_active
+    cooldown = bool(pause_geny_active(cache, datetime.now(timezone.utc)))
     geny_index=None
     if remaining_discoveries>0 and not cooldown and any(datetime.fromisoformat(c['depart'])>now for c in selected):
         try:

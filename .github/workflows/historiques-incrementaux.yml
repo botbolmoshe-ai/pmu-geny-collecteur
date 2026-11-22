@@ -48,8 +48,6 @@ jobs:
         id: plan
         run: |
           mode=--collecte
-          options=()
-          if [ "$GENY_AUTORISE" != 'true' ]; then options+=(--local); fi
           if [ "$COLLECTE_NOCTURNE" = 'true' ]; then mode=--collecte-nocturne; fi
           python -m pmu_geny.echeances_production --cache cache_pmu "$mode"
       - uses: actions/cache@v4
@@ -73,6 +71,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GENY_AUTORISE: ${{ steps.plan.outputs.geny }}
         run: |
+          options=()
+          if [ "$GENY_AUTORISE" != 'true' ]; then options+=(--local); fi
           python - <<'PY'
           import os
           assert 1 <= int(os.environ['MAX_MINUTES']) <= 20
