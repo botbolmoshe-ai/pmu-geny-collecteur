@@ -48,7 +48,7 @@ def result_matching(row,method,now=None):
     depart=timestamp(row.get('Départ (Paris)'))
     arrival=timestamp(row.get('Arrivée · Vérifiée UTC'))
     actual=podium(row.get('Arrivée · N° officiels'))
-    if row.get('Évaluation · État')!='EVALUE' or not depart or not arrival or not depart<arrival<=now or not actual: return None
+    if not depart or not arrival or not depart<arrival<=now or not actual: return None
     prefix='TOP3 direct' if method=='direct' else 'TOP3 ML'
     chosen=podium(row.get(prefix+' · Chevaux'))
     if not chosen: return None
