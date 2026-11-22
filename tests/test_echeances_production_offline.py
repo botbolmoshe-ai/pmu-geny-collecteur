@@ -66,6 +66,38 @@ class EcheancesTests(unittest.TestCase):
         later=self.now+timedelta(hours=1)
         self.assertEqual(e.plan_collecte(self.cache,later)['motif'],'ECHEANCE_PMU_PRIORITAIRE')
 
+    def test_pause_commune_active_et_expiree_sur_un_creneau_nocturne(self):
+        now = datetime(2026, 11, 22, 2, 40, tzinfo=timezone.utc)
+        self.mark_global(now)
+        for code in ('403', '429'):
+            with self.subTest(code=code):
+                e.sauver(self.cache / 'rattrapage_historiques/etat.json', {
+                    'prochain_acces_geny_utc': (now - timedelta(days=2)).isoformat()})
+                e.sauver(self.cache / 'etat_persistant.json', {'dernier_blocage_geny': {
+                    'utc': now.isoformat(), 'code': code}})
+                active = e.plan_collecte(self.cache, now, nocturne=True)
+                self.assertTrue(active['executer'])
+                self.assertFalse(active['geny'])
+                self.assertEqual(active['prochain_acces_geny_utc'],
+                                 (now + timedelta(minutes=30)).isoformat())
+                expired = e.plan_collecte(self.cache, now + timedelta(minutes=30), nocturne=True)
+                self.assertTrue(expired['executer'])
+                self.assertTrue(expired['geny'])
+                self.assertNotIn('prochain_acces_geny_utc', expired)
+
+    def test_relais_apres_checkpoint_global_sans_relacher_garde_pmu(self):
+        now = datetime(2026, 11, 22, 2, 40, tzinfo=timezone.utc)
+        self.mark_global(now - timedelta(minutes=55))
+        run = {'mode': 'GLOBAL', 'plan_utc': (now - timedelta(minutes=4)).isoformat()}
+        self.assertFalse(e.plan_collecte(self.cache, now, nocturne=True)['executer'])
+        self.assertFalse(e.relais_nocturne(self.cache, now, run))
+        self.mark_global(now)
+        self.assertTrue(e.relais_nocturne(self.cache, now, run))
+        self.assertFalse(e.relais_nocturne(self.cache, now, {**run, 'mode': 'JALONS'}))
+        e.sauver(self.cache / 'sources_pmu/programme_2026-11-22.json', {'programme': [
+            {'code': 'R1C1', 'depart': (now + timedelta(hours=3)).isoformat()}]})
+        self.assertFalse(e.relais_nocturne(self.cache, now, run))
+
     def test_creneau_nocturne_suit_paris_ete_hiver_et_garde_la_marge(self):
         for month, hour_utc in ((1, 5), (7, 4)):
             with self.subTest(month=month):

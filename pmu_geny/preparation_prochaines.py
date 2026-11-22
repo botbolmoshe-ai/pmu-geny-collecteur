@@ -3,7 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from . import historiques_incrementaux as inc
-from .echeances_production import reunions_du_jour
+from .echeances_production import pause_geny_active, reunions_du_jour
 from .liaison_chevaux_v22 import nom_normalise
 
 
@@ -122,14 +122,10 @@ def decision_fond(cache,now,*,reserve=False,nocturne=False):
     def refuser(reason):
         result['motif']=reason
         return result
-    journal=inc.lire(cache/'etat_persistant.json')
-    blocked=inc.instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
     back=inc.lire(cache/'rattrapage_historiques/etat.json')
-    pauses=[inc.instant(s.get('prochain_acces_geny_utc')) for s in (state,back)]
-    if blocked:pauses.append(blocked+timedelta(minutes=30))
-    pauses=[p for p in pauses if p and p>now]
-    if pauses:
-        result['prochain_acces_geny_utc']=max(pauses).isoformat()
+    pause = pause_geny_active(cache, now, prod=state, back=back)
+    if pause:
+        result['prochain_acces_geny_utc'] = pause.isoformat()
         return refuser('COOLDOWN_GENY_GLOBAL')
     # Les contrôles PMU restent obligatoires. La nuit, le TOP3 n'est pas attendu.
     historical={'HISTORIQUE_ABSENT_OU_NON_DATE','PUBLICATION_GENY_EN_ATTENTE',

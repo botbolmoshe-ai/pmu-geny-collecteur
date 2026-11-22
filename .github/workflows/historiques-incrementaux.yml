@@ -48,10 +48,12 @@ jobs:
         id: plan
         run: |
           mode=--collecte
+          options=()
+          if [ "$GENY_AUTORISE" != 'true' ]; then options+=(--local); fi
           if [ "$COLLECTE_NOCTURNE" = 'true' ]; then mode=--collecte-nocturne; fi
           python -m pmu_geny.echeances_production --cache cache_pmu "$mode"
       - uses: actions/cache@v4
-        if: steps.plan.outputs.executer == 'true'
+        if: steps.plan.outputs.geny == 'true'
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
@@ -59,7 +61,9 @@ jobs:
         if: steps.plan.outputs.executer == 'true'
         run: |
           python -m pip install -q -r requirements.txt google-auth==2.43.0 requests
-          python -m playwright install chromium
+          if [ "${{ steps.plan.outputs.geny }}" = 'true' ]; then
+            python -m playwright install chromium
+          fi
       - name: Collecter, sauvegarder et synchroniser un cheval puis le suivant
         if: steps.plan.outputs.executer == 'true'
         env:
@@ -67,6 +71,7 @@ jobs:
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
           MAX_MINUTES: ${{ inputs.max_minutes || 7 }}
           GH_TOKEN: ${{ github.token }}
+          GENY_AUTORISE: ${{ steps.plan.outputs.geny }}
         run: |
           python - <<'PY'
           import os
@@ -80,18 +85,18 @@ jobs:
             budget=$(budget_nocturne)
             prioritaire=$(( budget < MAX_MINUTES ? budget : MAX_MINUTES ))
             if [ "$prioritaire" -gt 0 ]; then
-              python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$prioritaire" --publier --nocturne
+              python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$prioritaire" --publier --nocturne "${options[@]}"
             fi
             budget=$(budget_nocturne)
             restant=$(( 15 - (SECONDS + 59) / 60 ))
             fond=$(( budget < restant ? budget : restant ))
             if [ "$fond" -gt 0 ]; then
-              python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$fond" --publier --nocturne
+              python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$fond" --publier --nocturne "${options[@]}"
             else
               echo 'RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE'
             fi
           else
-            python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier
+            python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${options[@]}"
           fi
       - name: Archiver les diagnostics et le suivi
         if: always()
@@ -104,4 +109,5 @@ jobs:
             resultats/rattrapage/
             resultats/synchronisation/
             cache_pmu/collecte_incrementale/etat.json
+            cache_pmu/rattrapage_historiques/bilan.json
           retention-days: 14

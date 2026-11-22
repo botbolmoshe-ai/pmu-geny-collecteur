@@ -464,15 +464,12 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         'PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR')
     state.pop('motif_fin_passage',None)
     state.pop('creneau_reserve', None)
-    journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
-    blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
-    autre_file = QUEUE if reprise else Path('rattrapage_historiques/etat.json')
-    pauses = (instant(state.get('prochain_acces_geny_utc')),
-              instant(lire(cache / autre_file).get('prochain_acces_geny_utc')),
-              blocked + timedelta(minutes=30) if blocked else None)
-    pauses_actives = [pause for pause in pauses if pause and pause > now]
-    if pauses_actives:
-        state['prochain_acces_geny_utc'] = max(pauses_actives).isoformat()
+    from .echeances_production import pause_geny_active
+    states = {'back' if reprise else 'prod': state}
+    pause = pause_geny_active(cache, now, **states)
+    state.pop('prochain_acces_geny_utc', None)
+    if pause:
+        state['prochain_acces_geny_utc'] = pause.isoformat()
     attempts, count, accepted, partials = {}, 0, 0, 0
     sheets_engine=None
     captures_completes = set()
@@ -665,6 +662,7 @@ def main():
     parser.add_argument('--max-chevaux', type=int)
     parser.add_argument('--publier', action='store_true')
     parser.add_argument('--nocturne', action='store_true')
+    parser.add_argument('--local', action='store_true', help='Publications sans requête Geny')
     args = parser.parse_args()
     if args.max_minutes < 1 or (args.max_chevaux is not None and args.max_chevaux < 1):
         parser.error('Bornes positives requises')
@@ -678,7 +676,7 @@ def main():
     from .echeances_production import besoin_pmu, motif_pause_collecte_nocturne
     cache = Path(args.cache)
     verifier_echeances = motif_pause_collecte_nocturne if args.nocturne else besoin_pmu
-    state = run(cache, max_minutes=args.max_minutes, max_chevaux=args.max_chevaux, publier=True,
+    state = run(cache, max_minutes=args.max_minutes, max_chevaux=0 if args.local else args.max_chevaux, publier=True,
                 prochains_depart=True, nocturne=args.nocturne,
                 stop_requested=lambda:(priorite_production({'.github/workflows/pmu-v16.yml'})
                     or verifier_echeances(cache, datetime.now(UTC))))

@@ -233,9 +233,29 @@ class PreparationTests(unittest.TestCase):
              patch.object(back, 'preparer', return_value=state), \
              patch('pmu_geny.echeances_production.besoin_pmu', return_value=None), \
              patch('pmu_geny.preparation_prochaines.autoriser_fond', return_value='COOLDOWN_GENY_GLOBAL'), \
-             patch.object(inc, 'run') as run:
+             patch.object(inc, 'checkpoint_distant'), \
+             patch.object(inc, 'run', return_value=state) as run:
             back.main()
         run.assert_called_once()
         self.assertEqual(run.call_args.kwargs['max_chevaux'], 0)
         self.assertTrue(run.call_args.kwargs['publier'])
         self.assertIn('stop_requested', run.call_args.kwargs)
+
+
+    def test_alerte_consecutive_ignore_priorite_pmu_pause_et_double_creneau(self):
+        from datetime import timedelta
+        from pmu_geny.rattrapage_historiques import suivre_creneau_nocturne
+
+        def observe(previous, minutes, *, reason='BUDGET_TEMPS_ATTEINT', pause=None, progress=False):
+            return suivre_creneau_nocturne(previous, self.now + timedelta(minutes=minutes),
+                                           reason=reason, pause=pause, progress=progress)
+
+        first = observe({}, 0)
+        self.assertEqual(observe(first, 1)['consecutifs_sans_progression'], 1)
+        second = observe(first, 30)
+        self.assertEqual(observe(second, 60)['consecutifs_sans_progression'], 3)
+        self.assertEqual(observe(second, 60, reason='ECHEANCE_PMU_PRIORITAIRE')['consecutifs_sans_progression'], 0)
+        self.assertEqual(observe(second, 60, pause=self.now + timedelta(hours=2))['consecutifs_sans_progression'], 0)
+        self.assertEqual(observe(second, 90)['consecutifs_sans_progression'], 1)
+        progress = observe(second, 60, progress=True)
+        self.assertEqual(observe(progress, 61)['consecutifs_sans_progression'], 0)

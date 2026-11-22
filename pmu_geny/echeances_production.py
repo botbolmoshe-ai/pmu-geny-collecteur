@@ -163,27 +163,53 @@ def budget_collecte_nocturne(cache, now):
     return min(15, restant // timedelta(minutes=1))
 
 
+def pause_geny_active(cache, now, *, prod=None, back=None):
+    """Retourner l'échéance commune la plus tardive, si elle est encore active."""
+    cache = Path(cache)
+    if prod is None:
+        prod = lire(cache / 'collecte_incrementale/etat.json')
+    if back is None:
+        back = lire(cache / 'rattrapage_historiques/etat.json')
+    journal = lire(cache / 'etat_persistant.json')
+    blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
+    pauses = [instant(state.get('prochain_acces_geny_utc')) for state in (prod, back)]
+    if blocked:
+        pauses.append(blocked + timedelta(minutes=30))
+    return max((pause for pause in pauses if pause and pause > now), default=None)
+
+
 def plan_collecte(cache, now, *, nocturne=False):
     """Contrôle léger avant installation du navigateur et des dépendances."""
-    cache=Path(cache)
-    result = {'plan_utc': now.isoformat(), 'executer': True,
+    cache = Path(cache)
+    result = {'plan_utc': now.isoformat(), 'executer': True, 'geny': True,
               'mode': 'HISTORIQUES_NOCTURNES' if nocturne else 'HISTORIQUES'}
-    motif = (motif_pause_collecte_nocturne(cache, now) if nocturne else besoin_pmu(cache, now))
+    pause = pause_geny_active(cache, now)
+    if pause:
+        result.update(geny=False, prochain_acces_geny_utc=pause.isoformat())
+    motif = motif_pause_collecte_nocturne(cache, now) if nocturne else besoin_pmu(cache, now)
     if motif:
-        return {**result,'executer':False,'motif':motif}
-    prod=lire(cache/'collecte_incrementale/etat.json')
-    back=lire(cache/'rattrapage_historiques/etat.json')
-    journal=lire(cache/'etat_persistant.json')
-    blocked=instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
-    pauses=[instant(s.get('prochain_acces_geny_utc')) for s in (prod,back)]
-    if blocked:pauses.append(blocked+timedelta(minutes=30))
-    files = (prod, back) if nocturne else (prod,)
-    pending = any(h.get('sync') == 'A_FAIRE' for state in files for h in state.get('chevaux', {}).values())
-    pauses=[p for p in pauses if p and p>now]
-    if pauses and not pending:
-        return {**result,'executer':False,'motif':'COOLDOWN_GENY_GLOBAL',
-                'prochain_acces_geny_utc':max(pauses).isoformat()}
+        return {**result, 'executer': False, 'motif': motif, 'geny': False}
+    if pause:
+        prod = lire(cache / 'collecte_incrementale/etat.json')
+        pending = prod.get('sync_kpi') == 'A_REPRENDRE' or any(
+            h.get('sync') == 'A_FAIRE'
+            and (not (retry := instant(h.get('prochaine_sync_utc'))) or retry <= now)
+            for h in prod.get('chevaux', {}).values())
+        return {**result, 'executer': nocturne or pending, 'motif': 'COOLDOWN_GENY_GLOBAL'}
     return result
+
+
+def relais_nocturne(cache, now, plan):
+    """Un cycle global durable peut transmettre le verrou à la collecte existante."""
+    if plan.get('mode') != 'GLOBAL':
+        return False
+    cache = Path(cache)
+    last = instant(lire(cache / 'orchestration/production_etat.json').get(
+        'dernier_global_publie_utc'))
+    start = instant(plan.get('plan_utc'))
+    return bool(start and last and start <= last <= now
+                and budget_collecte_nocturne(cache, now) >= 2
+                and plan_collecte(cache, now, nocturne=True)['executer'])
 
 
 def prevision_valide(doc, depart, now, ml=False, key=None):
@@ -421,8 +447,11 @@ def main():
     parser.add_argument('--collecte', action='store_true')
     parser.add_argument('--collecte-nocturne', action='store_true')
     parser.add_argument('--preuve-sheets')
+    parser.add_argument('--relais-nocturne', action='store_true')
     args = parser.parse_args()
     now = datetime.now(timezone.utc)
+    if args.relais_nocturne:
+        raise SystemExit(0 if relais_nocturne(args.cache, now, lire(args.plan)) else 1)
     if args.certifier:
         result = enregistrer_publication(args.cache, now, lire(args.plan), os.getenv('PUBLICATION_REUSSIE')=='true',
                                             sheets=lire(args.preuve_sheets) if args.preuve_sheets else None)
@@ -438,6 +467,8 @@ def main():
         if os.getenv('GITHUB_OUTPUT'):
             with open(os.environ['GITHUB_OUTPUT'],'a') as f:
                 f.write('executer='+str(result['executer']).lower()+'\n')
+                if collecte:
+                    f.write('geny='+str(result['geny']).lower()+'\n')
     print(json.dumps(result, ensure_ascii=False))
     if args.certifier and args.strict and (not result['publication_reussie'] or result['erreurs']):
         raise SystemExit(2)
