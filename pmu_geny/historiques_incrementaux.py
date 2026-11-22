@@ -471,6 +471,11 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         chemin_suivi, suivi = recensement.ouvrir(cache, *perimetre)
         engagements = {f"{suivi['date_courses']}_{course}" for course in suivi['courses']}
         state = alimenter(cache, now, engagements=engagements, associations=associations)
+        for contexte, ligne in suivi['chevaux'].items():
+            ident = ligne.get('id_geny')
+            cheval = state['chevaux'].get(ident)
+            if cheval and nom_normalise(cheval.get('nom')) == nom_normalise(ligne['nom']):
+                associations[contexte] = ident
     else:
         state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
     if prochains_depart and not reprise:
@@ -685,7 +690,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                     ligne.update(statut='PUBLICATION_A_REPRENDRE', motif=type(exc).__name__)
             from .controle_sync_sheets import BlocageSynchronisation
             from .moteur_sheets import SynchronisationOccupee
-            if isinstance(exc,(BlocageSynchronisation,SynchronisationOccupee)):
+            if not perimetre and isinstance(exc,(BlocageSynchronisation,SynchronisationOccupee)):
                 save()
                 if sheets_engine:sheets_engine.fermer()
                 raise  # Incident visible en échec Actions ; ne pas continuer silencieusement.
@@ -749,12 +754,22 @@ def main():
     if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID', 'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
         raise SystemExit('Secrets Sheets absents : aucune collecte lancée')
     if args.date_courses:
-        suivi = run(Path(args.cache), max_minutes=None, publier=True,
+        # GitHub termine un job hébergé à six heures. Transmettre le lot avant
+        # cette limite, en conservant le bilan et le prochain cheval à traiter.
+        sortie_actions = os.getenv('GITHUB_OUTPUT')
+        relais = time.monotonic() + 5 * 3600
+
+        def limite_runner():
+            return 'RELAIS_RUNNER' if sortie_actions and time.monotonic() >= relais else None
+
+        suivi = run(Path(args.cache), max_minutes=None, publier=True, stop_requested=limite_runner,
                     perimetre=(args.date_courses, args.hippodrome))
         print('BILAN_RECENSEMENT ' + json.dumps(suivi['bilan'], ensure_ascii=False))
-        if suivi['motif_fin_passage'] == 'COOLDOWN' and os.getenv('GITHUB_OUTPUT'):
-            with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
-                output.write(f"reprise_utc={suivi['prochain_acces_geny_utc']}\n")
+        motif = suivi['motif_fin_passage']
+        if sortie_actions and motif in ('COOLDOWN', 'RELAIS_RUNNER'):
+            reprise = suivi['prochain_acces_geny_utc'] if motif == 'COOLDOWN' else datetime.now(UTC).isoformat()
+            with open(sortie_actions, 'a') as output:
+                output.write(f'reprise_utc={reprise}\n')
         return
     from .rattrapage_historiques import priorite_production
     from .echeances_production import besoin_pmu, motif_pause_collecte_nocturne

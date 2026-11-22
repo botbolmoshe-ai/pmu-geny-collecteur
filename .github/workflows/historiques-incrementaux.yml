@@ -182,7 +182,7 @@ jobs:
     permissions:
       actions: write
     steps:
-      - name: Attendre la fin de la pause Geny hors du verrou de production
+      - name: Reprendre le lot hors du verrou de production
         env:
           REPRISE_UTC: ${{ needs.recensement.outputs.reprise_utc }}
           GH_TOKEN: ${{ github.token }}
@@ -191,7 +191,9 @@ jobs:
         run: |
           reprise=$(date -u -d "$REPRISE_UTC" +%s)
           restant=$(( reprise - $(date -u +%s) + 1 ))
-          echo "Collecte suspendue par Geny jusqu’à $REPRISE_UTC"
-          if [ "$restant" -gt 0 ]; then sleep "$restant"; fi
+          if [ "$restant" -gt 0 ]; then
+            echo "Prochain passage du lot à partir de $REPRISE_UTC"
+            sleep "$restant"
+          fi
           gh workflow run historiques-incrementaux.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME" \
             -f date_courses="$DATE_COURSES" -f hippodrome="$HIPPODROME"
