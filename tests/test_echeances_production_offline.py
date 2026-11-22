@@ -331,3 +331,26 @@ class EcheancesTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+    def test_depart_pmu_reporte_ne_fait_pas_echouer_certification(self):
+        now = self.now
+        day = now.date().isoformat()
+        self.mark_global(now)
+        old = {'code': 'R7C1', 'date': day, 'hippodrome': 'Vincennes',
+               'depart': (now - timedelta(minutes=40)).isoformat()}
+        e.sauver(self.cache/'sources_pmu'/f'programme_{day}.json', {
+            'programme': [old], 'inventaire_reunions': [old]})
+        plan = e.planifier(self.cache, now)
+        self.assertEqual(plan['mode'], 'RAPPROCHEMENT')
+        self.assertEqual(len(plan['rapprochements_dus']), 1)
+        postponed = {**old, 'depart': (now + timedelta(minutes=10)).isoformat()}
+        e.sauver(self.cache/'sources_pmu'/f'programme_{day}.json', {
+            'programme': [postponed], 'inventaire_reunions': [postponed]})
+        report = e.enregistrer_publication(
+            self.cache, now, plan, True, sheets={'lecture_utc': now.isoformat()})
+        self.assertFalse(any(x.get('motif') == 'RAPPROCHEMENT_NON_DEMARRE'
+                             for x in report['erreurs']))
+        self.assertEqual(report['rapprochements'][0]['statut'], 'DIFFERE_DEPART_REPORTE')
+        later = now + timedelta(minutes=41)
+        self.assertEqual(e.planifier(self.cache, later)['mode'], 'RAPPROCHEMENT')
