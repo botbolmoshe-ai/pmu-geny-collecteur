@@ -80,10 +80,23 @@ class EcheancesTests(unittest.TestCase):
                 self.assertFalse(active['geny'])
                 self.assertEqual(active['prochain_acces_geny_utc'],
                                  (now + timedelta(minutes=30)).isoformat())
+                self.assertEqual(active['cooldown_geny']['etat'], 'ACTIF')
                 expired = e.plan_collecte(self.cache, now + timedelta(minutes=30), nocturne=True)
                 self.assertTrue(expired['executer'])
                 self.assertTrue(expired['geny'])
                 self.assertNotIn('prochain_acces_geny_utc', expired)
+                self.assertEqual(expired['cooldown_geny']['etat'], 'EXPIRE')
+                self.assertEqual(expired['cooldown_geny']['echeance_utc'], active['prochain_acces_geny_utc'])
+                self.assertEqual(expired['cooldown_geny']['dernier_incident']['code'], code)
+
+    def test_echeance_commune_la_plus_tardive_reste_active(self):
+        now = self.now
+        e.sauver(self.cache / 'etat_persistant.json', {'dernier_blocage_geny': {
+            'utc': (now - timedelta(hours=1)).isoformat(), 'code': '429'}})
+        deadline = now + timedelta(minutes=5)
+        e.sauver(self.cache / 'collecte_incrementale/etat.json', {'prochain_acces_geny_utc': deadline.isoformat()})
+        self.assertEqual(e.pause_geny_active(self.cache, now), deadline)
+        self.assertIsNone(e.pause_geny_active(self.cache, deadline))
 
     def test_relais_apres_checkpoint_global_sans_relacher_garde_pmu(self):
         now = datetime(2026, 11, 22, 2, 40, tzinfo=timezone.utc)

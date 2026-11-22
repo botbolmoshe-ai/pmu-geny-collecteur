@@ -163,19 +163,33 @@ def budget_collecte_nocturne(cache, now):
     return min(15, restant // timedelta(minutes=1))
 
 
-def pause_geny_active(cache, now, *, prod=None, back=None):
-    """Retourner l'échéance commune la plus tardive, si elle est encore active."""
+def etat_cooldown_geny(cache, now, *, prod=None, back=None):
+    """Dater l'observation et conserver l'échéance, même après expiration."""
     cache = Path(cache)
     if prod is None:
         prod = lire(cache / 'collecte_incrementale/etat.json')
     if back is None:
         back = lire(cache / 'rattrapage_historiques/etat.json')
     journal = lire(cache / 'etat_persistant.json')
-    blocked = instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
+    incident = journal.get('dernier_blocage_geny') or {}
+    blocked = instant(incident.get('utc'))
     pauses = [instant(state.get('prochain_acces_geny_utc')) for state in (prod, back)]
     if blocked:
         pauses.append(blocked + timedelta(minutes=30))
-    return max((pause for pause in pauses if pause and pause > now), default=None)
+    deadline = max((pause for pause in pauses if pause), default=None)
+    active = bool(deadline and deadline > now)
+    return {
+        'controle_utc': now.isoformat(),
+        'dernier_incident': incident if blocked else None,
+        'echeance_utc': deadline.isoformat() if deadline else None,
+        'actif': active,
+        'etat': 'ACTIF' if active else 'EXPIRE' if deadline else 'ABSENT',
+    }
+
+
+def pause_geny_active(cache, now, *, prod=None, back=None):
+    state = etat_cooldown_geny(cache, now, prod=prod, back=back)
+    return instant(state['echeance_utc']) if state['actif'] else None
 
 
 def plan_collecte(cache, now, *, nocturne=False):
@@ -183,13 +197,14 @@ def plan_collecte(cache, now, *, nocturne=False):
     cache = Path(cache)
     result = {'plan_utc': now.isoformat(), 'executer': True, 'geny': True,
               'mode': 'HISTORIQUES_NOCTURNES' if nocturne else 'HISTORIQUES'}
-    pause = pause_geny_active(cache, now)
-    if pause:
-        result.update(geny=False, prochain_acces_geny_utc=pause.isoformat())
+    cooldown = etat_cooldown_geny(cache, now)
+    result['cooldown_geny'] = cooldown
+    if cooldown['actif']:
+        result.update(geny=False, prochain_acces_geny_utc=cooldown['echeance_utc'])
     motif = motif_pause_collecte_nocturne(cache, now) if nocturne else besoin_pmu(cache, now)
     if motif:
         return {**result, 'executer': False, 'motif': motif, 'geny': False}
-    if pause:
+    if cooldown['actif']:
         prod = lire(cache / 'collecte_incrementale/etat.json')
         pending = prod.get('sync_kpi') == 'A_REPRENDRE' or any(
             h.get('sync') == 'A_FAIRE'

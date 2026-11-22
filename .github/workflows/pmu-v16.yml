@@ -224,15 +224,10 @@ jobs:
           else
             # Ne pas redemander une page des partants pendant le cooldown partage.
             python - <<'PYCOOLDOWN'
-          import json
-          from pathlib import Path
-          from datetime import datetime, timezone, timedelta
-          statefile=Path('cache_pmu/etat_persistant.json')
-          if statefile.exists():
-              state=json.loads(statefile.read_text(encoding='utf-8'))
-              t=(state.get('dernier_blocage_geny') or {}).get('utc')
-              if t and datetime.now(timezone.utc) < datetime.fromisoformat(t)+timedelta(minutes=30):
-                  raise SystemExit('COOLDOWN GENY : decouverte differee sans nouvelle requete.')
+          from datetime import datetime, timezone
+          from pmu_geny.echeances_production import pause_geny_active
+          if pause_geny_active('cache_pmu', datetime.now(timezone.utc)):
+              raise SystemExit('COOLDOWN GENY : decouverte differee sans nouvelle requete.')
           PYCOOLDOWN
             python -m pmu_geny.decouverte_partants \
               --course-url "$COURSE_URL" \

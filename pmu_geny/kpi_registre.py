@@ -219,13 +219,35 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
                                for label, value in counts.items())
     backfill = _load(cache/'rattrapage_historiques/bilan.json')
     if backfill:
+        from .echeances_production import etat_cooldown_geny
+        from .rattrapage_historiques import (
+            actualiser_cohortes, bilan_lot_96, bornes_cohortes, derniere_acquisition_validee,
+        )
+        cooldown = etat_cooldown_geny(cache, now)
+        incident = cooldown['dernier_incident'] or {}
+        for label, value, definition in (
+            ('Dernier incident Geny UTC', incident.get('utc'), 'Dernier refus Geny commun aux collecteurs.'),
+            ('Dernier code Geny', incident.get('code'), 'Code du dernier refus commun.'),
+            ('Cooldown Geny actif', 'OUI' if cooldown['actif'] else 'NON', 'État à la lecture des KPI.'),
+            ('Échéance du cooldown Geny UTC', cooldown['echeance_utc'], 'Dernière échéance commune, y compris expirée.'),
+            ('Dernière acquisition validée UTC', derniere_acquisition_validee(cache, backfill),
+             'Date de capture de la dernière carrière complète validée par le rattrapage.'),
+        ):
+            operational.append(metric('Rattrapage · ' + label, value or '', definition))
         for name, field in [('Dernière tentative Geny UTC', 'collecte_tentee_utc'),
                             ('Dernière décision UTC', 'controle_ordonnancement_utc'),
                             ('Dernière mise à jour UTC', 'maj_utc'),
-                            ('Motif de fin', 'motif_fin_passage'),
                             ('Révision inventaire', 'revision_inventaire')]:
             operational.append(metric('Rattrapage · ' + name, backfill.get(field, ''),
                                       'État durable du lot de rattrapage.'))
+        last_reason = backfill.get('motif_fin_passage', '')
+        operational.append(metric('Rattrapage · Motif de fin', last_reason,
+                                  'Motif historique inscrit au bilan du rattrapage.'))
+        decision = backfill.get('motif_ordonnancement')
+        if decision is None and backfill.get('controle_ordonnancement_utc'):
+            decision = last_reason
+        operational.append(metric('Rattrapage · Dernier motif d’ordonnancement', decision or '',
+                                  'Décision à la date du dernier contrôle d’ordonnancement.'))
         counts = backfill.get('bilan', {})
         for label, field, definition in (
             ('Chevaux non identifiés (noms distincts)', 'noms_distincts_sans_identifiant',
@@ -236,7 +258,6 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
              'Identifiants Geny distincts du lot sans capture complète validée.'),
         ):
             operational.append(metric('Rattrapage · '+label, counts.get(field, ''), definition))
-        from .rattrapage_historiques import actualiser_cohortes, bilan_lot_96, bornes_cohortes
         back_state = _load(cache / 'rattrapage_historiques/etat.json')
         cohorts = backfill.get('cohortes', {})
         if back_state.get('chevaux'):

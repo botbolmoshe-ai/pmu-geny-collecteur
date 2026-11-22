@@ -161,7 +161,7 @@ def actualiser_inventaire(cache,now):
         state=preparer(cache,now)
     else:state.setdefault('revision_inventaire',1)
     inc.ecrire(cache/QUEUE,state)
-    inc.ecrire(cache/QUEUE.parent/'bilan.json',rapport(state))
+    inc.ecrire(cache/QUEUE.parent/'bilan.json',rapport(state, cache=cache))
     return state
 
 
@@ -674,7 +674,7 @@ def bilan_lot_96(state):
 
 def persister_etat(cache, state):
     inc.ecrire(cache / QUEUE, state)
-    inc.ecrire(cache / QUEUE.parent / 'bilan.json', rapport(state))
+    inc.ecrire(cache / QUEUE.parent / 'bilan.json', rapport(state, cache=cache))
 
 
 def bilan(state):
@@ -728,7 +728,19 @@ def bilan(state):
     return state['bilan']
 
 
-def rapport(state):
+def derniere_acquisition_validee(cache, state):
+    stamp = state.get('derniere_acquisition_validee_utc')
+    if stamp:
+        return stamp
+    journal = inc.lire(Path(cache) / 'etat_persistant.json')
+    stamps = (inc.instant(h.get('historique_complet_au_utc'))
+              for h in journal.get('chevaux', {}).values()
+              if h.get('origine') == 'RATTRAPAGE_GLOBAL' and h.get('statut') == 'COMPLET')
+    last = max((stamp for stamp in stamps if stamp), default=None)
+    return last.isoformat() if last else None
+
+
+def rapport(state, *, cache=None):
     keys=('version','mode','inventaire_id','inventaire_utc','revision_inventaire','inventaire_actualise_utc',
           'extensions_inventaire','causes_contextes_sans_geny','phase_reprise','derniere_revalidation','passage_utc','maj_utc','statut','priorite_collecte',
           'termine_utc','sync_kpi','bilan','collecte_cycle','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
@@ -737,10 +749,15 @@ def rapport(state):
     lot = bilan_lot_96(state)
     if lot:
         report['lot_96'] = lot
-    for key in ('collecte_tentee_utc', 'controle_ordonnancement_utc', 'sync_kpi_utc',
+    for key in ('collecte_tentee_utc', 'derniere_acquisition_validee_utc',
+                'controle_ordonnancement_utc', 'motif_ordonnancement', 'sync_kpi_utc',
                 'dernier_creneau_reserve_utc', 'creneau_reserve', 'dernier_controle_nocturne'):
         if key in state:
             report[key] = state[key]
+    if cache is not None:
+        from .echeances_production import etat_cooldown_geny
+        report['cooldown_geny'] = etat_cooldown_geny(cache, datetime.now(inc.UTC), back=state)
+        report['derniere_acquisition_validee_utc'] = derniere_acquisition_validee(cache, state)
     proofs=[]
     for horse in state['chevaux'].values():
         control=horse.get('sync_details',{}).get('Historique chevaux',{}).get('controle',{})
@@ -799,25 +816,41 @@ def synchroniser_kpi(engine, state, cache):
 
 def suivre_creneau_nocturne(previous, now, *, reason, pause, progress):
     # Les demi-heures UTC restent distinctes même au changement d'heure.
+    from .echeances_production import PARIS
+
     slot = int(now.timestamp()) // 1800
+    local = now.astimezone(PARIS)
+    night = (local.date() - timedelta(days=int(local.hour < 7))).isoformat()
     eligible = not (pause or reason in {
+        'COOLDOWN', 'COOLDOWN_GENY_GLOBAL', 'PASSAGE_LOCAL_SANS_GENY', 'MAX_CHEVAUX_ATTEINT',
         'PRIORITE_PRODUCTION_EN_ATTENTE', 'PRIORITE_PRODUCTION_NON_VERIFIABLE',
         'ECHEANCE_PMU_PRIORITAIRE', 'HORS_CRENEAU_NOCTURNE',
         'PARTANT_PRIORITAIRE_DISPONIBLE', 'REPRISE_PARTANT_PRIORITAIRE_IMMINENTE',
+        'PREPARATION_PROCHAINES_COURSES_INCOMPLETE', 'PUBLICATION_HISTORIQUE_EN_ATTENTE',
     })
+    same_slot = previous.get('creneau') == slot
+    progress = progress or (same_slot and previous.get('progression', False))
     count = 0
-    if eligible and not progress:
-        previous_slot = previous.get('creneau')
-        if previous_slot == slot:
-            count = previous.get('consecutifs_sans_progression', 0) or int(not previous.get('progression'))
-        elif previous_slot == slot - 1:
-            count = previous.get('consecutifs_sans_progression', 0) + 1
-        else:
-            count = 1
-    return {'utc': now.isoformat(), 'creneau': slot, 'motif': reason,
+    counted_slot = None
+    if not progress:
+        if previous.get('nuit') == night:
+            count = previous.get('consecutifs_sans_progression', 0)
+            counted_slot = previous.get('dernier_creneau_compte')
+        if eligible and counted_slot != slot:
+            count += 1
+            counted_slot = slot
+    already_alerted = previous.get('alerte_emise', previous.get('consecutifs_sans_progression', 0) >= 3)
+    alert = count >= 3 and not already_alerted
+    return {'utc': now.isoformat(), 'creneau': slot, 'nuit': night, 'motif': reason,
             'prochain_acces_geny_utc': pause.isoformat() if pause else None,
-            'progression': progress or (previous.get('creneau') == slot and previous.get('progression', False)),
-            'consecutifs_sans_progression': count}
+            'progression': progress, 'creneau_eligible': eligible, 'consecutifs_sans_progression': count,
+            'dernier_creneau_compte': counted_slot,
+            'alerte_emise': (already_alerted or alert) and not progress, 'nouvelle_alerte': alert}
+
+
+def signaler_alerte_nocturne(state):
+    if state.get('dernier_controle_nocturne', {}).get('nouvelle_alerte'):
+        print('::warning::Trois créneaux nocturnes consécutifs sans progression du rattrapage', flush=True)
 
 
 def main():
@@ -865,9 +898,9 @@ def main():
                     counts.get('identites_non_resolues', 0))
 
         avant = progression_locale(initial)
-        pages_avant = inc.lire(cache / PILOTE).get('pages_lues', 0)
-
         def suivre(state, reason):
+            now = datetime.now(inc.UTC)
+            state.update(controle_ordonnancement_utc=now.isoformat(), motif_ordonnancement=reason)
             if not args.nocturne or not state.get('chevaux'):
                 return
             cycle = state.get('collecte_cycle') or {}
@@ -878,17 +911,13 @@ def main():
                             or fresh.get('chevaux_confirmes_sheets')
                             or state.get('bilan', {}).get('captures_partielles') and fresh
                             or after[0] > avant[0] or after[1] > avant[1]
-                            or after[2] < avant[2] or after[3] < avant[3]
-                            or inc.lire(cache / PILOTE).get('pages_lues', 0) > pages_avant)
-            now = datetime.now(inc.UTC)
+                            or after[2] < avant[2] or after[3] < avant[3])
             previous = initial.get('dernier_controle_nocturne', {})
             record = suivre_creneau_nocturne(
                 previous, debut, reason=reason,
                 pause=pause_geny_active(cache, now, back=state), progress=progress)
             state['dernier_controle_nocturne'] = record
             print('CONTROLE_RATTRAPAGE ' + json.dumps(record, ensure_ascii=False), flush=True)
-            if record['consecutifs_sans_progression'] == 3 and previous.get('consecutifs_sans_progression', 0) < 3:
-                print('::warning::Trois créneaux nocturnes consécutifs sans progression du rattrapage', flush=True)
 
         reason = controle_pmu() if args.actualiser_inventaire else controle_fond()
         pause = pause_geny_active(cache, datetime.now(inc.UTC), back=initial)
@@ -899,11 +928,12 @@ def main():
             if state.get('chevaux'):
                 now = datetime.now(inc.UTC)
                 actualiser_cohortes(cache, state)
-                state.update(motif_fin_passage=reason, maj_utc=now.isoformat(),
-                             controle_ordonnancement_utc=now.isoformat())
+                state['maj_utc'] = now.isoformat()
                 suivre(state, reason)
                 persister_etat(cache, state)
                 inc.checkpoint_distant(cache, queue=QUEUE)
+                if args.nocturne:
+                    signaler_alerte_nocturne(state)
                 if state.get('sync_kpi') == 'A_REPRENDRE' and not controle_pmu():
                     engine = SynchroniseurSheets(cache, os.environ['GOOGLE_SHEETS_ID'])
                     try:
@@ -981,6 +1011,7 @@ def main():
             suivre(state, state['motif_fin_passage'])
             persister_etat(cache, state)
             inc.checkpoint_distant(cache, queue=QUEUE)
+            signaler_alerte_nocturne(state)
     else:
         state=(actualiser_inventaire if args.actualiser_inventaire else preparer)(cache,datetime.now(inc.UTC))
     print('BILAN_RATTRAPAGE '+json.dumps({'statut':state['statut'],'inventaire_id':state['inventaire_id'],

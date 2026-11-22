@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from .echeances_production import lire, instant
+from .echeances_production import lire, instant, pause_geny_active
 
 PARIS = ZoneInfo("Europe/Paris")
 
@@ -13,14 +13,7 @@ def dates_a_traiter(cache, plan, now):
     cache = Path(cache)
     if plan.get("mode") != "GLOBAL":
         return []
-    journal = lire(cache / "etat_persistant.json")
-    blocked = instant((journal.get("dernier_blocage_geny") or {}).get("utc"))
-    pauses = [blocked + timedelta(minutes=30)] if blocked else []
-    for path in ("collecte_incrementale/etat.json", "rattrapage_historiques/etat.json"):
-        pause = instant(lire(cache / path).get("prochain_acces_geny_utc"))
-        if pause:
-            pauses.append(pause)
-    if any(p > now for p in pauses):
+    if pause_geny_active(cache, now):
         return []
     today = now.astimezone(PARIS).date()
     dates = []

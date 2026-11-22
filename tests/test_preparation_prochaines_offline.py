@@ -217,7 +217,9 @@ class PreparationTests(unittest.TestCase):
              patch.object(inc,'checkpoint_distant') as checkpoint:
             back.main()
         engine.assert_not_called();checkpoint.assert_called_once()
-        self.assertEqual(inc.lire(self.cache/back.QUEUE)['motif_fin_passage'],'PREPARATION_INCOMPLETE')
+        deferred = inc.lire(self.cache/back.QUEUE)
+        self.assertEqual(deferred['motif_ordonnancement'], 'PREPARATION_INCOMPLETE')
+        self.assertNotIn('motif_fin_passage', deferred)
 
     def test_publication_locale_autorisee_quand_geny_est_en_pause(self):
         from unittest.mock import patch
@@ -253,9 +255,24 @@ class PreparationTests(unittest.TestCase):
         first = observe({}, 0)
         self.assertEqual(observe(first, 1)['consecutifs_sans_progression'], 1)
         second = observe(first, 30)
-        self.assertEqual(observe(second, 60)['consecutifs_sans_progression'], 3)
-        self.assertEqual(observe(second, 60, reason='ECHEANCE_PMU_PRIORITAIRE')['consecutifs_sans_progression'], 0)
-        self.assertEqual(observe(second, 60, pause=self.now + timedelta(hours=2))['consecutifs_sans_progression'], 0)
-        self.assertEqual(observe(second, 90)['consecutifs_sans_progression'], 1)
+        warned = observe(second, 60)
+        self.assertEqual(warned['consecutifs_sans_progression'], 3)
+        self.assertTrue(warned['nouvelle_alerte'])
+        self.assertFalse(observe(warned, 61)['nouvelle_alerte'])
+        self.assertEqual(observe(second, 60, reason='ECHEANCE_PMU_PRIORITAIRE')['consecutifs_sans_progression'], 2)
+        self.assertEqual(observe(second, 60, pause=self.now + timedelta(hours=2))['consecutifs_sans_progression'], 2)
+        self.assertEqual(observe(second, 90)['consecutifs_sans_progression'], 3)
+        self.assertEqual(observe(second, 1440)['consecutifs_sans_progression'], 1)
         progress = observe(second, 60, progress=True)
         self.assertEqual(observe(progress, 61)['consecutifs_sans_progression'], 0)
+        blocked = observe(warned, 90, reason='COOLDOWN_GENY_GLOBAL')
+        self.assertEqual(blocked['consecutifs_sans_progression'], 3)
+        for minute in (120, 150, 180):
+            blocked = observe(blocked, minute)
+        self.assertEqual(blocked['consecutifs_sans_progression'], 6)
+        self.assertFalse(blocked['nouvelle_alerte'])
+        recovered = observe(blocked, 181, progress=True)
+        self.assertFalse(recovered['alerte_emise'])
+        for minute in (210, 240, 270):
+            recovered = observe(recovered, minute)
+        self.assertTrue(recovered['nouvelle_alerte'])
