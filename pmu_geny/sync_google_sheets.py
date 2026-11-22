@@ -723,10 +723,21 @@ def source_rows(cache):
                      for phase in ('H1', 'H2'))
             pair = next((pair for pair in pairs if all(pair)), None)
             if not pair:
-                report_row['statut_evaluation'] = ('ARRIVEE_SANS_TOP3_PUBLIE' if row['statut'] == 'ARRIVEE_OFFICIELLE'
-                                                   else 'ARRIVEE_NON_VERIFIEE')
+                official = row['statut'] == 'ARRIVEE_OFFICIELLE'
+                direct_score = report_row.get('matching_direct_pct', '') if official else ''
+                status = 'ARRIVEE_NON_VERIFIEE'
+                if official:
+                    status = 'EVALUE_DIRECT' if direct_score != '' else 'ARRIVEE_SANS_TOP3_PUBLIE'
+                report_row.update(statut_evaluation=status, matching_direct_pct=direct_score,
+                                  matching_ml_pct='', conclusion=conclusion_methodes({'Direct': direct_score}))
+                for method in ('direct', 'ml'):
+                    if method == 'ml' or direct_score == '':
+                        report_row.update({f'gagnant_{method}_{field}': ''
+                                           for field in ('numero', 'nom', 'rang', 'verdict')})
             else:
                 scores = {}
+                official = load_json(cache/'arrivees'/f'{date}_{code}.json')
+                ranks = {horse['numero']: horse['rang'] for horse in official.get('arrivee', [])}
                 for method, item in zip(('direct', 'ml'), pair):
                     numbers = item['numeros']
                     report_row[f'top3_{method}_numeros'] = ','.join(map(str, numbers))
@@ -736,8 +747,6 @@ def source_rows(cache):
                     scores[method.upper() if method == 'ml' else 'Direct'] = score
                     names = [courses.get(f'{key}|{n}', {}).get('cheval', '') for n in numbers]
                     report_row[f'top3_{method}_noms'] = ' · '.join(names) if all(names) else ''
-                    official = load_json(cache/'arrivees'/f'{date}_{code}.json')
-                    ranks = {horse['numero']: horse['rang'] for horse in official.get('arrivee', [])}
                     report_row.update({
                         f'gagnant_{method}_numero': numbers[0],
                         f'gagnant_{method}_nom': names[0],
@@ -852,7 +861,10 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
           'Résultats & Analyse':('course_key',)}[tab]
     additions=COMPARE_COLUMNS if tab=='Courses & Prévisions' else REPORT_COLUMNS if tab=='Résultats & Analyse' else ()
     headers=ensure_headers(existing_headers,tuple(additions))
-    if not all(x in headers for x in keys):raise ValueError(f'Colonnes cle manquantes pour {tab}: {keys}')
+    columns = {}
+    for index, name in enumerate(headers, 1):
+        columns.setdefault(name, index)
+    if not all(x in columns for x in keys):raise ValueError(f'Colonnes cle manquantes pour {tab}: {keys}')
     def rowkey(row):return '|'.join(str(row.get(x,'')).strip() for x in keys)
     present={rowkey(r):idx+2 for idx,r in enumerate(existing_rows) if all(str(r.get(k,'')).strip() for k in keys)}
     # Plusieurs variantes conservées pour une même performance ne doivent pas
@@ -870,10 +882,15 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
         k=rowkey(item)
         if k in present:
             if k in ambiguous:continue
+            row_number = present[k]
+            old = existing_rows[row_number - 2]
             # writes only values actually present/nonempty; leaves other cells untouched.
             for name,val in item.items():
+                column = columns.get(name)
+                if column is None:
+                    continue
                 value=sheet_value(name,val)
-                before=existing_rows[present[k]-2].get(name,'')
+                before=old.get(name,'')
                 differs=((before!=value or (isinstance(value,int) and
                            (not isinstance(before,(int,float)) or isinstance(before,bool))))
                          if name in NUMERIC_SCORES or name == 'top3_cotes_valeur' else (before!=value or (isinstance(before,bool) and not isinstance(value,bool)) if name in MATCHING_COLUMNS else str(before)!=str(value)))
@@ -889,15 +906,14 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                 # DA du nom Da Costa. Une vraie ferrure sourcée reste prioritaire.
                 if tab=='Historique chevaux' and name=='ferrure' and val=='':
                     from .partants_actuels_v21 import faux_code_ferrure_historique
-                    old=existing_rows[present[k]-2]
                     if (str(old.get('source_url',''))==str(item.get('source_url',''))
                             and faux_code_ferrure_historique(item.get('source_url'),before)):
-                        changes.append((present[k],headers.index(name)+1,''))
+                        changes.append((row_number,column,''))
                         continue
-                if (name in headers and val is not None and (str(val)!='' or name in CLEARABLE_COLUMNS
+                if (val is not None and (str(val)!='' or name in CLEARABLE_COLUMNS
                         or tab=='Courses & Prévisions' and name in PARTANT_PMU_COLUMNS)
                         and differs):
-                    changes.append((present[k],headers.index(name)+1,value))
+                    changes.append((row_number,column,value))
         else:
             append.append([sheet_value(h,item.get(h,'')) for h in headers]);present[k]=-1
     return headers,changes,append

@@ -265,7 +265,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         cible = actualiser_plan()
         if cible:
             selection, priorites, prioritaire = cible, cible, True
-    if prioritaire:
+    codes_metier = {c['code'] for c in courses}
+    if prioritaire or (production and date == now.astimezone(PARIS).date().isoformat()):
+        # La certification du jour couvre toutes les courses attendues de la réunion.
         programme_cache = load(cache/'sources_pmu'/f'programme_{date}.json', {}) or {}
         courses = programme_cache.get('courses_jalons', courses)
     # Une course déjà partie n'entre JAMAIS en prédiction/collecte.
@@ -377,7 +379,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         else:
             entry['traitement']='PREPARATION_AVANT_DEPART'
         # Météo sourcée indépendante de Geny et des statuts NP : même sans manifeste.
-        if not est_partie and not prioritaire:
+        cycle_leger = prioritaire or key not in codes_metier
+        if not est_partie and not cycle_leger:
             try:
                 from .contexte_meteo_v20 import collecter_meteo
                 entry['statut_meteo']=collecter_meteo(cache,c)
@@ -403,7 +406,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                     entry['statut_partants_actuels'] = enregistrer(cache, c, pmu_participants)
                 except Exception as exc:
                     entry['erreur_partants_actuels'] = f'{type(exc).__name__}: {exc}'
-            if not prioritaire and not est_partie and pmu_participants is not None:
+            if not cycle_leger and not est_partie and pmu_participants is not None:
                 try:
                     from .sources_experts_v23 import collecter as collecter_avis
                     entry['statut_avis_experts'] = collecter_avis(cache, c, pmu_participants)
@@ -435,7 +438,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                         entry['erreur_ml_preproduction']=f'{type(exc).__name__}: {exc}'
         except Exception as exc:
             entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
-        if prioritaire or (production and est_partie):
+        if cycle_leger or (production and est_partie):
             continue
         # Pas de consultation Geny sur une course terminee.
         manifest=None; manifest_path=None
