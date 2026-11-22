@@ -44,6 +44,7 @@ class RecensementTests(unittest.TestCase):
             with patch.object(inc, 'accepter', accepter):
                 premier = inc.run(cache, **options)
                 self.assertEqual(premier['motif_fin_passage'], 'COOLDOWN')
+                self.assertEqual(premier['chevaux'][f'{jour}_R1C1_1']['motif'], 'ACCES_LIMITE_429')
                 self.assertEqual(premier['bilan']['statuts'],
                                  {'REFUS_GENY': 1, 'A_EXAMINER': 1, 'NON_PARTANT': 1})
                 etat = inc.lire(cache/inc.QUEUE)

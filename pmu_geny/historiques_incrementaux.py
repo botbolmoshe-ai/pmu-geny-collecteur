@@ -645,8 +645,9 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 ligne['tentative_utc'] = debut_tentative
                 ligne['id_geny'] = horse.get('id')
                 if refus or horse.get('collecte') == 'A_REPRENDRE':
+                    echec = horse['dernier_echec_collecte']
                     ligne.update(statut='REFUS_GENY' if refus else 'ECHEC_COLLECTE',
-                                 motif=horse['dernier_echec_collecte']['statut'])
+                                 motif=echec['erreur'], statut_extraction=echec['statut'])
                 elif horse.get('sync') == 'A_FAIRE':
                     ligne.update(statut='A_PUBLIER', capture=horse.get('collecte'))
                 else:
