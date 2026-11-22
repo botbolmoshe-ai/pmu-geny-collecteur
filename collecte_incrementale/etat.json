@@ -69682,7 +69682,31 @@
       "depart_a_venir_utc": null,
       "premier_depart_reunion_utc": "2026-11-22T12:23:00+00:00",
       "preparation_pmu_ok": true,
-      "derniere_course_officielle_utc": "2026-11-22T14:15:00+00:00"
+      "derniere_course_officielle_utc": "2026-11-22T14:15:00+00:00",
+      "collecte": "A_REPRENDRE",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-23T05:02:08.683278+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-22T23:02:08.683298+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [
+          "ACCES_LIMITE_429"
+        ],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2026-11-22_R1C4_1/1795388525705016487/resultat.json"
+      },
+      "geny": {
+        "id": "2775313",
+        "nom": "Kuiper",
+        "url_geny": "https://www.geny.com/cheval/2775313-kuiper/course/1699522",
+        "nationalite_geny": "SE",
+        "source_lien": "GENY_QUERY_PARTANTS",
+        "preuve": "COURSE_GENY_VERIFIEE",
+        "homonymes": []
+      },
+      "id": "2775313",
+      "preuve_identite": "COURSE_GENY_VERIFIEE"
     },
     "2026-11-22_R1C4_3": {
       "nom": "JEANNETTE PRIORY",
@@ -74377,13 +74401,13 @@
     }
   },
   "passage_utc": "2026-11-22T22:50:03.140251+00:00",
-  "maj_utc": "2026-11-22T23:02:01.594042+00:00",
+  "maj_utc": "2026-11-22T23:02:08.731002+00:00",
   "bilan": {
     "chevaux_suivis": 2745,
-    "tentatives_collecte": 28,
+    "tentatives_collecte": 29,
     "captures_validees": 28,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2573
   },
@@ -74934,15 +74958,16 @@
   "sync_kpi_utc": "2026-11-22T22:49:26.206866+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-22T22:50:03.140251+00:00",
-    "controle_utc": "2026-11-22T23:02:01.594042+00:00",
+    "controle_utc": "2026-11-22T23:02:08.731002+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 28,
     "chevaux_confirmes_sheets": 28,
     "performances_ajoutees_et_confirmees_sheets": 639,
     "refus_geny": {
       "403": 0,
-      "429": 0
+      "429": 1
     },
-    "prochain_acces_geny_utc": null
-  }
+    "prochain_acces_geny_utc": "2026-11-22T23:32:08.683333+00:00"
+  },
+  "prochain_acces_geny_utc": "2026-11-22T23:32:08.683333+00:00"
 }
