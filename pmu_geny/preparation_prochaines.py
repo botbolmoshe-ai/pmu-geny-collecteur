@@ -146,7 +146,7 @@ def decision_fond(cache,now,*,reserve=False,nocturne=False):
         depart = inc.instant(prioritaire.get('depart_a_venir_utc'))
         premier_depart = inc.instant(prioritaire.get('premier_depart_reunion_utc')) or depart
         # Le passage prioritaire a déjà reçu son budget. Préserver le prochain
-        # cycle complet de préparation si la réunion approche de H-2.
+        # cycle complet de préparation si la réunion approche du premier jalon.
         if nocturne and action == 'COLLECTE' and premier_depart and premier_depart - now > timedelta(hours=3):
             result.update(autorise=True, motif='CRENEAU_NOCTURNE_APRES_PREPARATION')
             return result

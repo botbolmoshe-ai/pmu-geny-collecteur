@@ -860,6 +860,8 @@ def main():
     parser.add_argument('--max-chevaux',type=int)
     parser.add_argument('--publier',action='store_true')
     parser.add_argument('--nocturne',action='store_true')
+    parser.add_argument('--dedie', action='store_true',
+                        help='Préserver aussi la priorité de la collecte incrémentale en attente')
     parser.add_argument('--local',action='store_true', help='Réconciliation et publication sans requête Geny')
     parser.add_argument('--actualiser-inventaire',action='store_true')
     parser.add_argument('--archives-diagnostics',default='')
@@ -873,13 +875,15 @@ def main():
         from .preparation_prochaines import autoriser_fond
         from .echeances_production import besoin_pmu, motif_pause_collecte_nocturne, pause_geny_active
         from .moteur_sheets import SynchroniseurSheets
-        if args.nocturne and inc.lire(cache / QUEUE).get('statut') == 'TERMINE':
+        maintenance = args.actualiser_inventaire or args.archives_diagnostics or args.reconcilier_identites
+        if args.nocturne and not maintenance and inc.lire(cache / QUEUE).get('statut') == 'TERMINE':
             print('RATTRAPAGE_DEJA_TERMINE', flush=True)
             return
         verifier_echeances = motif_pause_collecte_nocturne if args.nocturne else besoin_pmu
+        # Seul le passage intégré a déjà consacré un budget à la file incrémentale.
+        workflows = {'.github/workflows/pmu-v16.yml'} if args.nocturne and not args.dedie else None
+
         def controle_pmu():
-            # Le workflow courant traite déjà la collecte incrémentale avant ce passage.
-            workflows = {'.github/workflows/pmu-v16.yml'} if args.nocturne else None
             return priorite_production(workflows) or verifier_echeances(cache, datetime.now(inc.UTC))
 
         def controle_fond():

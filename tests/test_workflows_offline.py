@@ -62,3 +62,26 @@ class WorkflowSyntaxTests(unittest.TestCase):
                 else:
                     self.assertNotIn('rattrapage_historiques', output)
                     self.assertIn('RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE', output)
+
+    def test_rattrapage_dedie_valide_budget_et_selectionne_le_mode_selon_paris(self):
+        path = Path(__file__).resolve().parents[1] / '.github/workflows/rattrapage-historiques.yml'
+        steps = yaml.safe_load(path.read_text())['jobs']['rattrapage']['steps']
+        check = steps[0]['run']
+        for value, expected in (('1', 0), ('15', 0), ('0', 2), ('20', 2), ('2.5', 2)):
+            with self.subTest(budget=value):
+                result = subprocess.run(['bash', '-e', '-c', check], text=True, capture_output=True,
+                                        env={**os.environ, 'MAX_MINUTES': value})
+                self.assertEqual(result.returncode, expected)
+        script = next(step['run'] for step in steps if step.get('name', '').startswith('Inventorier'))
+        mock = 'date() { echo "$HEURE_PARIS"; }\npython() { echo "$*"; }\n'
+        for heure, nocturne in (('06', True), ('07', False), ('20', False), ('21', True)):
+            with self.subTest(heure=heure):
+                output = subprocess.check_output(
+                    ['bash', '-e', '-c', mock + script], text=True,
+                    env={**os.environ, 'HEURE_PARIS': heure, 'MAX_MINUTES': '15',
+                         'ACTUALISER_INVENTAIRE': 'false', 'RECONCILIER_IDENTITES': 'false',
+                         'ARCHIVES_DIAGNOSTICS': ''})
+                command = next(line for line in output.splitlines() if line.startswith('-m '))
+                self.assertIn('--dedie', command.split())
+                self.assertIn('--max-minutes 15', command)
+                self.assertEqual('--nocturne' in command.split(), nocturne)
