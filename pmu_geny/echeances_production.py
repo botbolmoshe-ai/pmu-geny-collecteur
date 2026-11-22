@@ -394,6 +394,17 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
             path = cache/'rapprochements'/f"{item['reunion']}.json"
             record = lire(path)
             if not record:
+                # Le programme PMU peut repousser le dernier départ après la
+                # planification initiale. Le rapprochement est alors différé
+                # légitimement : ne pas faire échouer la certification.
+                current = next((r for r in reunions_du_jour(cache, item['date'])
+                                if r['reunion'] == item['reunion']), None)
+                from .rapprochement_reunions import DELAI
+                if current and current['dernier_depart'] and now < current['dernier_depart'] + DELAI:
+                    report['rapprochements'].append({
+                        'reunion': item['reunion'], 'statut': 'DIFFERE_DEPART_REPORTE',
+                        'prochaine_echeance_utc': (current['dernier_depart'] + DELAI).isoformat()})
+                    continue
                 report['erreurs'].append({'reunion': item['reunion'], 'motif': 'RAPPROCHEMENT_NON_DEMARRE'})
                 continue
             if publie and observation and not record.get('publication_sheets_utc'):
