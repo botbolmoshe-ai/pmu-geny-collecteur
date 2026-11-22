@@ -56,6 +56,7 @@ def result_matching(row,method,now=None):
         created=timestamp(row.get('TOP3 direct · Heure calcul UTC'))
         if not created or not created<depart: return None
     else:
+        if row.get('Évaluation · État') != 'EVALUE': return None
         state=str(row.get('ML · Statut',''))
         if 'ENTRAINE_NON_CALIBRE' not in state and state not in ('ML_ENTRAINE','ML_CALCULE','ML_PRODUCTION_ENTRAINE','ML_ENTRAINE_CALIBRE'): return None
         # Current sheet has no independent ML calculation timestamp.

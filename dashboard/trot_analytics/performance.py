@@ -8,7 +8,7 @@ METHODS = ("direct", "ml")
 
 
 def performance_rows(results, now):
-    """One row per unambiguous course; require published matching for both methods."""
+    """One row per unambiguous course with a published, verified score."""
     keys = Counter(str(r.get("Clé course (technique)") or "").strip() for r in results)
     rows = []
     for r in results:
@@ -19,13 +19,13 @@ def performance_rows(results, now):
             day = date.fromisoformat(str(r.get("Date")))
         except (TypeError, ValueError):
             continue
-        # A stored evaluation label must not hide independently verifiable evidence.
-        # result_matching checks pre-start Direct timing and score consistency.
         scores = {}
         for method, label in (("direct", "TOP3 direct"), ("ml", "TOP3 ML")):
             published = number(r.get(label + " · Matching (%)"))
             score = result_matching(r, method, now)
             scores[method] = score if published is not None and score is not None and abs(published-score) <= 0.02 else None
+        if all(score is None for score in scores.values()):
+            continue
         rows.append({"key":key,"date":day,"hippodrome":str(r.get("Hippodrome") or ""),**scores})
     return sorted(rows, key=lambda r:(r["date"],r["key"]))
 

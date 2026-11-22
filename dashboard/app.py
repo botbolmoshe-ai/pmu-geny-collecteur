@@ -251,14 +251,19 @@ elif page=="Résultats":
     st.caption("Matching en % · uniquement sur preuves disponibles. Absence ≠ 0 %. ML non évaluable sans preuve enregistrée.")
     table=[]
     for r in day_results:
+        direct_score = result_matching(r, "direct", now)
+        recorded_state = r.get("Évaluation · État")
+        display_state = recorded_state
+        if direct_score is not None and recorded_state != "EVALUE":
+            display_state = "EVALUE_DIRECT"
         row = {"Course":r.get("Course R/C"),
             "Direct":r.get("TOP3 direct · Chevaux"),"Direct · Noms":r.get("TOP3 direct · Noms"),
             "ML":r.get("TOP3 ML · Chevaux"),"ML · Noms":r.get("TOP3 ML · Noms"),
             "Podium enregistré":r.get("Arrivée · N° officiels"),"Podium · Noms":r.get("Arrivée · Noms officiels"),
-            "Direct (%)":result_matching(r,"direct",now),
+            "Direct (%)":direct_score,
             "ML (%)":result_matching(r,"ml",now),
-            "État":("EVALUE_DIRECT" if result_matching(r,"direct",now) is not None else r.get("Évaluation · État")),
-            "État enregistré":r.get("Évaluation · État"),"ML statut":r.get("ML · Statut"),
+            "État":display_state,
+            "État enregistré":recorded_state,"ML statut":r.get("ML · Statut"),
             "Départ prévu (Paris)":afficher_instant(r.get("Départ (Paris)")),
             "Arrivée lue dans le flux PMU (Paris)":afficher_instant(r.get("Arrivée · Vérifiée UTC")),
             "Conclusion Direct / ML":r.get("Évaluation · Conclusion")}
