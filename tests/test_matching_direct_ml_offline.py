@@ -39,6 +39,32 @@ class MatchingTests(unittest.TestCase):
         self.assertFalse(append)
         self.assertEqual({headers[c-1]:v for _,c,v in changes},{'matching_direct_pct':0,'matching_ml_pct':''})
 
+    def test_rapprochement_sans_paire_conserve_le_direct_verifie(self):
+        with TemporaryDirectory() as folder:
+            root = Path(folder)
+            day, code = '2026-11-12', 'R3C1'
+            save(root/'sources_pmu'/f'programme_{day}.json', {'programme': [{
+                'date': day, 'code': code, 'depart': self.depart, 'hippodrome': 'VINCENNES'}]})
+            save(root/'arrivees'/f'{day}_{code}.json', self.arr)
+            direct = root/'pronostics'/f'{day}_{code}_direct.json'
+            save(direct, self.pred([4, 5, 6]))
+            save(root/'pronostics'/f'{day}_{code}_ml_latest.json', self.pred([1, 2, 3]))
+            save(root/'rapprochements'/f'{day}_R3.json', {
+                'date': day, 'reunion': f'{day}_R3', 'statut': 'COMPLET',
+                'declenchement_utc': self.now.isoformat(),
+                'courses': {code: {'statut': 'ARRIVEE_OFFICIELLE', 'scores': {}}},
+            })
+            report, = source_rows(root)['Résultats & Analyse'].values()
+            self.assertEqual(report['statut_evaluation'], 'EVALUE_DIRECT')
+            self.assertEqual(report['matching_direct_pct'], 0)
+            self.assertEqual(report['matching_ml_pct'], '')
+            self.assertEqual(report['gagnant_ml_verdict'], '')
+            self.assertEqual(report['conclusion'], 'Direct : 0/3 ; aucune autre méthode évaluable')
+            save(direct, {**self.pred([1, 2, 3]), 'calcul_utc': self.depart})
+            report, = source_rows(root)['Résultats & Analyse'].values()
+            self.assertEqual(report['statut_evaluation'], 'ARRIVEE_SANS_TOP3_PUBLIE')
+            self.assertEqual(report['matching_direct_pct'], '')
+
     def test_source_publie_matching_distinct_sur_une_arrivee_verifiee(self):
         with TemporaryDirectory() as folder:
             root=Path(folder); day='2026-11-12'; code='R3C1'

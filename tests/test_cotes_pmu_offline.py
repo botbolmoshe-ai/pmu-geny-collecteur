@@ -37,6 +37,25 @@ class CotesPMUTests(TestCase):
     def relever(self, rows, now=None):
         return collecter(self.cache, self.course, {'participants': rows}, now or self.now)
 
+    def test_cycle_global_prepare_toutes_les_courses_attendues_de_la_reunion(self):
+        extra = {**self.course, 'code': 'R3C2', 'depart': (self.depart + timedelta(minutes=30)).isoformat()}
+        participants = {'participants': [{**self.participant(n), 'musique': '1a2a3a'} for n in range(1, 6)]}
+        with (
+            patch('pmu_geny.auto_v18.programme_diagnostic', return_value=(
+                [self.course], {'courses_jalons': [self.course, extra]})),
+            patch('pmu_geny.auto_v18.get_json', side_effect=[{}, participants, participants]) as fetch,
+            patch('pmu_geny.contexte_meteo_v20.collecter_meteo', return_value='TEST') as meteo,
+            patch('pmu_geny.sources_experts_v23.collecter', return_value='TEST') as experts,
+            patch('pmu_geny.historiques_incrementaux.alimenter'),
+            patch('builtins.print'),
+        ):
+            run(self.cache, self.course['date'], [], 0, max_discoveries=0, now=self.now, production=True)
+        self.assertEqual(fetch.call_count, 3)
+        self.assertEqual(meteo.call_count, 1)
+        self.assertEqual(experts.call_count, 1)
+        for code in (self.course['code'], extra['code']):
+            self.assertTrue((self.cache/'pronostics'/f"{self.course['date']}_{code}_direct.json").exists())
+
     def test_cache_partiel_conserve_les_cotes_et_leurs_dates(self):
         first = [self.participant(i, i + 1) for i in range(1, 6)]
         self.assertEqual(self.relever(first), 'COTES_RELEVEES')
