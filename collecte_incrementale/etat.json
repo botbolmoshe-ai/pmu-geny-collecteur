@@ -4511,7 +4511,7 @@
       "historique_complet_au_utc": "2026-11-13T00:20:20.779479+00:00",
       "derniere_performance_date": "2026-11-12",
       "nombre_performances": 58,
-      "collecte": "COMPLET",
+      "collecte": "A_REPRENDRE",
       "geny": {
         "id": "2749087",
         "nom": "KRONOS D'ERPION",
@@ -4527,7 +4527,17 @@
       "recherche_geny_par_nom": false,
       "course_url": "https://www.geny.com/course/1699525/partants-pronostics",
       "premier_depart_reunion_utc": "2026-11-22T12:23:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "prochain_essai_utc": "2026-11-23T04:15:54.802977+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-22T22:15:54.802993+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2749087/1795385747012686997/resultat.json"
+      }
     },
     "2693751": {
       "nom": "IMAGINE GIRL",
@@ -71936,13 +71946,13 @@
     }
   },
   "passage_utc": "2026-11-22T22:14:08.012262+00:00",
-  "maj_utc": "2026-11-22T22:15:42.529443+00:00",
+  "maj_utc": "2026-11-22T22:15:54.803065+00:00",
   "bilan": {
     "chevaux_suivis": 2614,
-    "tentatives_collecte": 7,
+    "tentatives_collecte": 8,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 7,
+    "collectes_rejetees": 8,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2455
   },
@@ -74413,7 +74423,7 @@
   "sync_kpi_utc": "2026-11-20T19:07:01.279830+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-22T22:14:08.012262+00:00",
-    "controle_utc": "2026-11-22T22:15:42.529443+00:00",
+    "controle_utc": "2026-11-22T22:15:54.803065+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
