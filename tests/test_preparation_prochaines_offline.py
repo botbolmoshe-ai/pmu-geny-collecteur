@@ -58,6 +58,8 @@ class PreparationTests(unittest.TestCase):
         self.assertEqual(inc.prochaine_tache(state, self.now, attempts), (late_key, 'COLLECTE'))
         self.assertIsNone(state['chevaux'][next_key]['depart_a_venir_utc'])
         self.assertEqual(decision_fond(self.cache, self.now, nocturne=True)['motif'],
+                         'CRENEAU_NOCTURNE_APRES_PREPARATION')
+        self.assertEqual(decision_fond(self.cache, self.now.replace(hour=6), nocturne=True)['motif'],
                          'PARTANT_PRIORITAIRE_DISPONIBLE')
         for key in (early_key, late_key):
             state['chevaux'][key]['prochain_essai_utc'] = (self.now + timedelta(hours=1)).isoformat()
@@ -215,7 +217,9 @@ class PreparationTests(unittest.TestCase):
              patch.object(inc,'checkpoint_distant') as checkpoint:
             back.main()
         engine.assert_not_called();checkpoint.assert_called_once()
-        self.assertEqual(inc.lire(self.cache/back.QUEUE)['motif_fin_passage'],'PREPARATION_INCOMPLETE')
+        deferred = inc.lire(self.cache/back.QUEUE)
+        self.assertEqual(deferred['motif_ordonnancement'], 'PREPARATION_INCOMPLETE')
+        self.assertNotIn('motif_fin_passage', deferred)
 
     def test_publication_locale_autorisee_quand_geny_est_en_pause(self):
         from unittest.mock import patch
@@ -231,9 +235,44 @@ class PreparationTests(unittest.TestCase):
              patch.object(back, 'preparer', return_value=state), \
              patch('pmu_geny.echeances_production.besoin_pmu', return_value=None), \
              patch('pmu_geny.preparation_prochaines.autoriser_fond', return_value='COOLDOWN_GENY_GLOBAL'), \
-             patch.object(inc, 'run') as run:
+             patch.object(inc, 'checkpoint_distant'), \
+             patch.object(inc, 'run', return_value=state) as run:
             back.main()
         run.assert_called_once()
         self.assertEqual(run.call_args.kwargs['max_chevaux'], 0)
         self.assertTrue(run.call_args.kwargs['publier'])
         self.assertIn('stop_requested', run.call_args.kwargs)
+
+
+    def test_alerte_consecutive_ignore_priorite_pmu_pause_et_double_creneau(self):
+        from datetime import timedelta
+        from pmu_geny.rattrapage_historiques import suivre_creneau_nocturne
+
+        def observe(previous, minutes, *, reason='BUDGET_TEMPS_ATTEINT', pause=None, progress=False):
+            return suivre_creneau_nocturne(previous, self.now + timedelta(minutes=minutes),
+                                           reason=reason, pause=pause, progress=progress)
+
+        first = observe({}, 0)
+        self.assertEqual(observe(first, 1)['consecutifs_sans_progression'], 1)
+        second = observe(first, 30)
+        warned = observe(second, 60)
+        self.assertEqual(warned['consecutifs_sans_progression'], 3)
+        self.assertTrue(warned['nouvelle_alerte'])
+        self.assertFalse(observe(warned, 61)['nouvelle_alerte'])
+        self.assertEqual(observe(second, 60, reason='ECHEANCE_PMU_PRIORITAIRE')['consecutifs_sans_progression'], 2)
+        self.assertEqual(observe(second, 60, pause=self.now + timedelta(hours=2))['consecutifs_sans_progression'], 2)
+        self.assertEqual(observe(second, 90)['consecutifs_sans_progression'], 3)
+        self.assertEqual(observe(second, 1440)['consecutifs_sans_progression'], 1)
+        progress = observe(second, 60, progress=True)
+        self.assertEqual(observe(progress, 61)['consecutifs_sans_progression'], 0)
+        blocked = observe(warned, 90, reason='COOLDOWN_GENY_GLOBAL')
+        self.assertEqual(blocked['consecutifs_sans_progression'], 3)
+        for minute in (120, 150, 180):
+            blocked = observe(blocked, minute)
+        self.assertEqual(blocked['consecutifs_sans_progression'], 6)
+        self.assertFalse(blocked['nouvelle_alerte'])
+        recovered = observe(blocked, 181, progress=True)
+        self.assertFalse(recovered['alerte_emise'])
+        for minute in (210, 240, 270):
+            recovered = observe(recovered, minute)
+        self.assertTrue(recovered['nouvelle_alerte'])

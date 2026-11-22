@@ -279,6 +279,61 @@ class RepriseTests(unittest.TestCase):
         inc.run(self.cache,mode='rattrapage',collect=collect)
         self.assertEqual(collect.call_count,1)
 
+    def test_reprise_apres_expiration_et_nouveau_refus_403_429(self):
+        from pmu_geny.echeances_production import etat_cooldown_geny
+
+        self.seed()
+        incident = self.now - timedelta(minutes=30)
+        previous = {'utc': incident.isoformat(), 'code': '429'}
+        journal_path = self.cache / 'etat_persistant.json'
+        journal = inc.lire(journal_path)
+        journal['dernier_blocage_geny'] = previous
+        inc.ecrire(journal_path, journal)
+        inc.ecrire(self.cache / inc.QUEUE, {'chevaux': {}, 'prochain_acces_geny_utc': self.now.isoformat()})
+        collect = Mock(side_effect=[
+            self.collect({}, None), {'statut': 'ACCES_REFUSE_403'}, {'statut': 'ACCES_LIMITE_429'},
+        ])
+        with patch.object(inc, 'datetime', wraps=datetime) as clock:
+            clock.now.return_value = self.now - timedelta(seconds=1)
+            frozen = inc.run(self.cache, mode='rattrapage', collect=collect)
+            self.assertEqual(frozen['motif_fin_passage'], 'COOLDOWN')
+            collect.assert_not_called()
+            self.assertEqual(inc.lire(journal_path)['dernier_blocage_geny'], previous)
+
+            clock.now.return_value = self.now
+            # La capture doit précéder la validation, même avec l'horloge simulée.
+            dest = self.cache / 'extraction/123456/historique_geny.json'
+            inc.ecrire(dest, doc(self.now))
+            sync = Mock(return_value={'Historique chevaux': {
+                'lignes_ajoutees': 1, 'controle': {'statut': 'VALIDE', 'doublons_valeurs_apres': 0}}})
+            success = inc.run(self.cache, mode='rattrapage', collect=collect, sync=sync)
+            stamp = success['derniere_acquisition_validee_utc']
+            self.assertEqual(stamp, self.now.isoformat())
+            self.assertEqual(success['bilan']['ajouts_confirmes'], 1)
+            self.assertEqual(inc.lire(journal_path)['dernier_blocage_geny'], previous)
+            self.assertFalse(etat_cooldown_geny(self.cache, self.now)['actif'])
+            inc.run(self.cache, mode='rattrapage', collect=collect, sync=sync)
+            sync.assert_called_once()
+            self.assertEqual(collect.call_count, 1)
+
+            # Un enrichissement distinct reste admissible après le premier délai.
+            horse = success['chevaux']['123456']
+            horse.update(motif_actualisation='FERRURES_HISTORIQUES_A_COMPLETER', ferrures_manquantes=1)
+            inc.ecrire(self.cache / back.QUEUE, success)
+            with patch.object(back, 'preparer', return_value=success):
+                for days, code in ((1, '403'), (2, '429')):
+                    at = self.now + timedelta(days=days)
+                    clock.now.return_value = at
+                    refouled = inc.run(self.cache, mode='rattrapage', collect=collect)
+                    pause = etat_cooldown_geny(self.cache, at)
+                    self.assertTrue(pause['actif'])
+                    self.assertEqual(pause['dernier_incident']['code'], code)
+                    self.assertEqual(pause['echeance_utc'], (at + timedelta(minutes=30)).isoformat())
+                    self.assertEqual(refouled['collecte_tentee_utc'], at.isoformat())
+                    self.assertEqual(refouled['derniere_acquisition_validee_utc'], stamp)
+                    inc.run(self.cache, mode='rattrapage', collect=collect)
+                    self.assertEqual(collect.call_count, days + 1)
+
     def test_noms_ambigus_ne_fusionnent_pas_les_identifiants(self):
         inc.ecrire(self.cache/'etat_persistant.json',{'chevaux':{
             '111111':{'nom':'Homonyme'},'222222':{'nom':'Homonyme'}}})
@@ -449,6 +504,17 @@ class RepriseTests(unittest.TestCase):
             self.assertEqual(back.priorite_production(),'PRIORITE_PRODUCTION_EN_ATTENTE')
             get.side_effect=RuntimeError('API indisponible')
             self.assertEqual(back.priorite_production(),'PRIORITE_PRODUCTION_NON_VERIFIABLE')
+
+    def test_priorite_detecte_un_cycle_pmu_queued(self):
+        pending, queued = Mock(), Mock()
+        pending.json.return_value = {'workflow_runs': []}
+        queued.json.return_value = {'workflow_runs': [{'path': '.github/workflows/pmu-v16.yml@main'}]}
+        with patch.dict(os.environ, {'GITHUB_ACTIONS': 'true', 'GITHUB_REPOSITORY': 'owner/repo',
+                                     'GH_TOKEN': 'factice'}), patch('requests.get', side_effect=[pending, queued]) as get:
+            self.assertEqual(back.priorite_production({'.github/workflows/pmu-v16.yml'}),
+                             'PRIORITE_PRODUCTION_EN_ATTENTE')
+        self.assertNotIn('created', get.call_args_list[0].kwargs['params'])
+        self.assertTrue(get.call_args_list[1].kwargs['params']['created'].startswith('>='))
 
     def test_courses_passees_regroupe_la_casse_et_recense_les_conflits(self):
         source = 'PMU_API_PARTICIPANTS'

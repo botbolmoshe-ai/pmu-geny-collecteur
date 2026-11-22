@@ -13,7 +13,7 @@ def inventaire_confirme(record):
     return record.get('inventaire_pmu_verifie') is True
 
 
-def planifier_rapprochements(cache, now):
+def planifier_rapprochements(cache, now, *, prochaines=None):
     cache = Path(cache)
     day = now.astimezone(PARIS).date()
     dates = {day.isoformat(), (day - timedelta(days=1)).isoformat()}
@@ -27,7 +27,7 @@ def planifier_rapprochements(cache, now):
     for date in sorted(dates):
         for reunion in reunions_du_jour(cache, date):
             last = reunion['dernier_depart']
-            if not last or now < last + DELAI:
+            if not last:
                 continue
             key = reunion['reunion']
             previous = lire(cache/'rapprochements'/f'{key}.json')
@@ -37,10 +37,14 @@ def planifier_rapprochements(cache, now):
             # Pas de lancement en masse sur les archives préexistantes.
             if not previous and now > last + timedelta(hours=36):
                 continue
+            echeance = last + DELAI
             retry = instant(previous.get('prochaine_reprise_utc'))
-            if retry and now < retry and previous.get('publication_sheets_utc'):
+            disponible = max(echeance, retry) if retry and previous.get('publication_sheets_utc') else echeance
+            if now < disponible:
+                if prochaines is not None:
+                    prochaines.append(disponible)
                 continue
-            due.append({'reunion': key, 'date': date, 'echeance': (last + DELAI).isoformat()})
+            due.append({'reunion': key, 'date': date, 'echeance': echeance.isoformat()})
     return due
 
 

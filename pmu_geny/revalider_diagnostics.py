@@ -85,7 +85,7 @@ def revalider(cache,archive):
             report['captures_revalidees']+=1;report['performances_revalidees']+=len(parsed['performances'])
     state['derniere_revalidation']={'utc':now.isoformat(),'archive_sha256':digest,**report}
     back.bilan(state);inc.ecrire(cache/back.QUEUE,state)
-    inc.ecrire(cache/back.QUEUE.parent/'bilan.json',back.rapport(state))
+    inc.ecrire(cache/back.QUEUE.parent/'bilan.json',back.rapport(state, cache=cache))
     return report
 
 

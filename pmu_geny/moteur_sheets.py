@@ -118,7 +118,9 @@ class SynchroniseurSheets:
                      for key,row in rows.items()} for tab,rows in raw.items()}
 
     def _formater_profils(self, properties, headers):
-        from .profils_partants import CRACK, HAUT_POTENTIEL
+        from dashboard.trot_analytics.profils import (
+            CRACK_CONFIRME, HAUT_POTENTIEL, PALETTE, SEPARATEUR_PROFILS,
+        )
         from .sync_google_sheets import colname
 
         colonnes = [headers.index(nom) for nom in ('cheval', 'profil_partant')]
@@ -128,21 +130,47 @@ class SynchroniseurSheets:
         anciennes = properties['conditionalFormats']
         prochain_index = len(anciennes)
         requetes = []
-        for statut, couleur in ((CRACK, (1, .89, .46)), (HAUT_POTENTIEL, (.73, .91, .77))):
-            formule = f'=${colname(colonnes[1] + 1)}2="{statut}"'
+        ref = f'${colname(colonnes[1] + 1)}2'
+
+        def rgb(couleur):
+            return {canal: round(int(couleur[i:i+2], 16) / 255, 6)
+                    for canal, i in zip(('red', 'green', 'blue'), (1, 3, 5))}
+
+        def meme_format(actuel, attendu):
+            # Sheets renvoie parfois les composantes RGB en simple précision.
+            return actuel.get('textFormat', {}).get('bold') is True and all(
+                abs(obtenu.get(canal, 0) - valeur) < 1e-6
+                for obtenu, cible in (
+                    (actuel.get('backgroundColorStyle', {}).get('rgbColor', {}),
+                     attendu['backgroundColorStyle']['rgbColor']),
+                    (actuel.get('textFormat', {}).get('foregroundColorStyle', {}).get('rgbColor', {}),
+                     attendu['textFormat']['foregroundColorStyle']['rgbColor']),
+                ) for canal, valeur in cible.items())
+
+        for statut, (fond, texte, _) in PALETTE.items():
+            if statut == CRACK_CONFIRME:
+                cumul = SEPARATEUR_PROFILS + HAUT_POTENTIEL
+                valeurs = (CRACK_CONFIRME, CRACK_CONFIRME + cumul, 'Crack', 'Crack' + cumul)
+                formule = '=' + '+'.join(f'({ref}="{valeur}")' for valeur in valeurs) + '>0'
+                ancienne_formule = f'={ref}="Crack"'
+            else:
+                formule = ancienne_formule = f'={ref}="{statut}"'
             condition = {'type': 'CUSTOM_FORMULA', 'values': [{'userEnteredValue': formule}]}
             format_cellule = {
-                'backgroundColorStyle': {'rgbColor': dict(zip(('red', 'green', 'blue'), couleur))},
-                'textFormat': {'bold': True, 'foregroundColorStyle': {
-                    'rgbColor': {'red': .12, 'green': .15, 'blue': .19}}}
+                'backgroundColorStyle': {'rgbColor': rgb(fond)},
+                'textFormat': {'bold': True, 'foregroundColorStyle': {'rgbColor': rgb(texte)}},
             }
             regle = {'ranges': plages, 'booleanRule': {'condition': condition, 'format': format_cellule}}
             index = next((i for i, ancienne in enumerate(anciennes)
-                          if ancienne.get('booleanRule', {}).get('condition') == condition), None)
+                          if ancienne.get('booleanRule', {}).get('condition', {}).get('values')
+                          in ([{'userEnteredValue': formule}], [{'userEnteredValue': ancienne_formule}])
+                          and ancienne['booleanRule']['condition'].get('type') == 'CUSTOM_FORMULA'), None)
             if index is None:
                 requetes.append({'addConditionalFormatRule': {'index': prochain_index, 'rule': regle}})
                 prochain_index += 1
-            elif anciennes[index].get('ranges') != plages:
+            elif (anciennes[index].get('ranges') != plages
+                  or anciennes[index]['booleanRule']['condition'] != condition
+                  or not meme_format(anciennes[index]['booleanRule'].get('format', {}), format_cellule)):
                 requetes.append({'updateConditionalFormatRule': {
                     'sheetId': properties['sheetId'], 'index': index, 'rule': regle}})
         if requetes:

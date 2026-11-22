@@ -113,7 +113,7 @@ def planifier(cache, now, force=False):
     needs.sort(key=lambda item: (instant(item['echeance']) < now, instant(item['echeance']), item['course']))
     selection = list(dict.fromkeys(item['course'].split('_', 1)[1] for item in needs))
     from .rapprochement_reunions import planifier_rapprochements
-    results = planifier_rapprochements(cache, now)
+    results = planifier_rapprochements(cache, now, prochaines=upcoming)
     return {'plan_utc':now.isoformat(), 'date':day, 'erreurs': erreurs,
             'executer':bool(global_due or selection or results),
             'mode':'JALONS' if selection else 'RAPPROCHEMENT' if results else 'GLOBAL' if global_due else 'ATTENTE',
@@ -130,40 +130,101 @@ def besoin_pmu(cache, now):
     return None
 
 
-def motif_pause_collecte_nocturne(cache, now):
-    # Laisser finir un sous-processus (240 s) et sa sauvegarde avant 05 h.
-    marge = timedelta(minutes=7)
-    heure = now.astimezone(PARIS)
-    fin = heure.replace(hour=5, minute=0, second=0, microsecond=0)
-    if heure.hour >= 5 or now + marge >= fin:
-        return 'HORS_CRENEAU_NOCTURNE'
+# Un sous-processus peut prendre 240 s avant ses sauvegardes et la pause de cadence.
+MARGE_COLLECTE = timedelta(minutes=7)
+
+
+def limite_collecte_nocturne(cache, now):
+    local = now.astimezone(PARIS)
+    if 7 <= local.hour < 21:
+        return timedelta(), 'HORS_CRENEAU_NOCTURNE'
+    date_fin = local.date() + timedelta(days=int(local.hour >= 21))
+    fin = datetime.combine(date_fin, datetime.min.time(), PARIS).replace(hour=7)
+    restant = fin.astimezone(timezone.utc) - now - MARGE_COLLECTE
+    if restant <= timedelta():
+        return timedelta(), 'HORS_CRENEAU_NOCTURNE'
     plan = planifier(cache, now)
-    prochain_besoin = instant(plan['prochain_besoin_utc'])
-    if plan['executer'] or (prochain_besoin and prochain_besoin <= now + marge):
-        return 'ECHEANCE_PMU_PRIORITAIRE'
-    return None
+    if plan['executer']:
+        return timedelta(), 'ECHEANCE_PMU_PRIORITAIRE'
+    besoin = instant(plan['prochain_besoin_utc'])
+    if besoin:
+        restant = min(restant, besoin - now - MARGE_COLLECTE)
+    if restant <= timedelta():
+        return timedelta(), 'ECHEANCE_PMU_PRIORITAIRE'
+    return restant, None
+
+
+def motif_pause_collecte_nocturne(cache, now):
+    return limite_collecte_nocturne(cache, now)[1]
+
+
+def budget_collecte_nocturne(cache, now):
+    restant, _ = limite_collecte_nocturne(cache, now)
+    return min(15, restant // timedelta(minutes=1))
+
+
+def etat_cooldown_geny(cache, now, *, prod=None, back=None):
+    """Dater l'observation et conserver l'échéance, même après expiration."""
+    cache = Path(cache)
+    if prod is None:
+        prod = lire(cache / 'collecte_incrementale/etat.json')
+    if back is None:
+        back = lire(cache / 'rattrapage_historiques/etat.json')
+    journal = lire(cache / 'etat_persistant.json')
+    incident = journal.get('dernier_blocage_geny') or {}
+    blocked = instant(incident.get('utc'))
+    pauses = [instant(state.get('prochain_acces_geny_utc')) for state in (prod, back)]
+    if blocked:
+        pauses.append(blocked + timedelta(minutes=30))
+    deadline = max((pause for pause in pauses if pause), default=None)
+    active = bool(deadline and deadline > now)
+    return {
+        'controle_utc': now.isoformat(),
+        'dernier_incident': incident if blocked else None,
+        'echeance_utc': deadline.isoformat() if deadline else None,
+        'actif': active,
+        'etat': 'ACTIF' if active else 'EXPIRE' if deadline else 'ABSENT',
+    }
+
+
+def pause_geny_active(cache, now, *, prod=None, back=None):
+    state = etat_cooldown_geny(cache, now, prod=prod, back=back)
+    return instant(state['echeance_utc']) if state['actif'] else None
 
 
 def plan_collecte(cache, now, *, nocturne=False):
     """Contrôle léger avant installation du navigateur et des dépendances."""
-    cache=Path(cache)
-    result = {'plan_utc': now.isoformat(), 'executer': True,
+    cache = Path(cache)
+    result = {'plan_utc': now.isoformat(), 'executer': True, 'geny': True,
               'mode': 'HISTORIQUES_NOCTURNES' if nocturne else 'HISTORIQUES'}
-    motif = (motif_pause_collecte_nocturne(cache, now) if nocturne else besoin_pmu(cache, now))
+    cooldown = etat_cooldown_geny(cache, now)
+    result['cooldown_geny'] = cooldown
+    if cooldown['actif']:
+        result.update(geny=False, prochain_acces_geny_utc=cooldown['echeance_utc'])
+    motif = motif_pause_collecte_nocturne(cache, now) if nocturne else besoin_pmu(cache, now)
     if motif:
-        return {**result,'executer':False,'motif':motif}
-    prod=lire(cache/'collecte_incrementale/etat.json')
-    back=lire(cache/'rattrapage_historiques/etat.json')
-    journal=lire(cache/'etat_persistant.json')
-    blocked=instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
-    pauses=[instant(s.get('prochain_acces_geny_utc')) for s in (prod,back)]
-    if blocked:pauses.append(blocked+timedelta(minutes=30))
-    pending=any(h.get('sync')=='A_FAIRE' for h in prod.get('chevaux',{}).values())
-    pauses=[p for p in pauses if p and p>now]
-    if pauses and not pending:
-        return {**result,'executer':False,'motif':'COOLDOWN_GENY_GLOBAL',
-                'prochain_acces_geny_utc':max(pauses).isoformat()}
+        return {**result, 'executer': False, 'motif': motif, 'geny': False}
+    if cooldown['actif']:
+        prod = lire(cache / 'collecte_incrementale/etat.json')
+        pending = prod.get('sync_kpi') == 'A_REPRENDRE' or any(
+            h.get('sync') == 'A_FAIRE'
+            and (not (retry := instant(h.get('prochaine_sync_utc'))) or retry <= now)
+            for h in prod.get('chevaux', {}).values())
+        return {**result, 'executer': nocturne or pending, 'motif': 'COOLDOWN_GENY_GLOBAL'}
     return result
+
+
+def relais_nocturne(cache, now, plan):
+    """Un cycle global durable peut transmettre le verrou à la collecte existante."""
+    if plan.get('mode') != 'GLOBAL':
+        return False
+    cache = Path(cache)
+    last = instant(lire(cache / 'orchestration/production_etat.json').get(
+        'dernier_global_publie_utc'))
+    start = instant(plan.get('plan_utc'))
+    return bool(start and last and start <= last <= now
+                and budget_collecte_nocturne(cache, now) >= 2
+                and plan_collecte(cache, now, nocturne=True)['executer'])
 
 
 def prevision_valide(doc, depart, now, ml=False, key=None):
@@ -401,8 +462,11 @@ def main():
     parser.add_argument('--collecte', action='store_true')
     parser.add_argument('--collecte-nocturne', action='store_true')
     parser.add_argument('--preuve-sheets')
+    parser.add_argument('--relais-nocturne', action='store_true')
     args = parser.parse_args()
     now = datetime.now(timezone.utc)
+    if args.relais_nocturne:
+        raise SystemExit(0 if relais_nocturne(args.cache, now, lire(args.plan)) else 1)
     if args.certifier:
         result = enregistrer_publication(args.cache, now, lire(args.plan), os.getenv('PUBLICATION_REUSSIE')=='true',
                                             sheets=lire(args.preuve_sheets) if args.preuve_sheets else None)
@@ -418,6 +482,8 @@ def main():
         if os.getenv('GITHUB_OUTPUT'):
             with open(os.environ['GITHUB_OUTPUT'],'a') as f:
                 f.write('executer='+str(result['executer']).lower()+'\n')
+                if collecte:
+                    f.write('geny='+str(result['geny']).lower()+'\n')
     print(json.dumps(result, ensure_ascii=False))
     if args.certifier and args.strict and (not result['publication_reussie'] or result['erreurs']):
         raise SystemExit(2)

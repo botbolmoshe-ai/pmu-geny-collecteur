@@ -3,23 +3,30 @@ from datetime import timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from . import historiques_incrementaux as inc
+from .echeances_production import pause_geny_active, reunions_du_jour
 from .liaison_chevaux_v22 import nom_normalise
 
 
 def evaluer(cache, now, state=None, *, nocturne=False):
     cache=Path(cache);state=state or inc.lire(cache/inc.QUEUE,{'chevaux':{}})
-    today=now.astimezone(ZoneInfo('Europe/Paris')).date()
+    local = now.astimezone(ZoneInfo('Europe/Paris'))
+    today = local.date()
     journal=inc.lire(cache/'etat_persistant.json',{'chevaux':{}})['chevaux']
     ids={}
     for ident,h in journal.items():ids.setdefault(nom_normalise(h.get('nom')),set()).add(str(ident))
     engagements=[];issues=[]
-    days = (today,) if nocturne else (today, today+timedelta(days=1))
+    demain = today + timedelta(days=1)
+    days = (today,) if nocturne and local.hour < 21 else (today, demain)
     for day in days:
         program=inc.lire(cache/'sources_pmu'/f'programme_{day}.json')
         stamp=inc.instant(program.get('date_controle_utc'))
         if not stamp or not timedelta(0)<=now-stamp<=timedelta(hours=6):
-            issues.append({'course':str(day),'motif':'PROGRAMME_ABSENT_OU_ANCIEN'})
+            if not nocturne or day == today:
+                issues.append({'course':str(day),'motif':'PROGRAMME_ABSENT_OU_ANCIEN'})
             continue
+        premiers_departs = {course['code']: reunion['premier_depart']
+                            for reunion in reunions_du_jour(cache, str(day)) if reunion['coherente']
+                            for course in reunion['attendues']}
         for c in program.get('programme',[]):
             depart=inc.instant(c.get('depart'))
             if not depart or depart<=now:continue
@@ -70,7 +77,8 @@ def evaluer(cache, now, state=None, *, nocturne=False):
                 cid=inc.course_geny_connue(cache,code)
                 engagements.append({'cle_file':key,'engagement':code,'numero':str(number),'nom':h.get('nom'),
                     'preparation_pmu_ok':pmu_ok and bool(name),
-                    'depart_utc':depart.isoformat(),'motif_actualisation':reason,
+                    'depart_utc': depart.isoformat(), 'premier_depart_utc': premiers_departs.get(c['code'], depart).isoformat(),
+                    'motif_actualisation':reason,
                     'historique_complet':bool(doc),
                     'course_url':'https://www.geny.com/course/'+cid[5:]+'/partants-pronostics' if cid else ''})
     by_day={}
@@ -88,10 +96,11 @@ def evaluer(cache, now, state=None, *, nocturne=False):
 def appliquer(cache,state,now,*,nocturne=False):
     report=evaluer(cache,now,state,nocturne=nocturne)
     for h in state['chevaux'].values():h['depart_a_venir_utc']=None
-    for row in sorted(report['engagements'],key=lambda r:r['depart_utc']):
+    for row in sorted(report['engagements'], key=lambda r: (r['premier_depart_utc'], r['depart_utc'])):
         h=state['chevaux'].get(row['cle_file'])
         if h is None or h.get('depart_a_venir_utc'):continue
-        h.update(depart_a_venir_utc=row['depart_utc'],engagement=row['engagement'],numero=row['numero'],
+        h.update(depart_a_venir_utc=row['depart_utc'], premier_depart_reunion_utc=row['premier_depart_utc'],
+                 engagement=row['engagement'],numero=row['numero'],
                  preparation_pmu_ok=row['preparation_pmu_ok'],
                  motif_actualisation=row['motif_actualisation'])
         if row['course_url']:h['course_url']=row['course_url']
@@ -113,14 +122,10 @@ def decision_fond(cache,now,*,reserve=False,nocturne=False):
     def refuser(reason):
         result['motif']=reason
         return result
-    journal=inc.lire(cache/'etat_persistant.json')
-    blocked=inc.instant((journal.get('dernier_blocage_geny') or {}).get('utc'))
     back=inc.lire(cache/'rattrapage_historiques/etat.json')
-    pauses=[inc.instant(s.get('prochain_acces_geny_utc')) for s in (state,back)]
-    if blocked:pauses.append(blocked+timedelta(minutes=30))
-    pauses=[p for p in pauses if p and p>now]
-    if pauses:
-        result['prochain_acces_geny_utc']=max(pauses).isoformat()
+    pause = pause_geny_active(cache, now, prod=state, back=back)
+    if pause:
+        result['prochain_acces_geny_utc'] = pause.isoformat()
         return refuser('COOLDOWN_GENY_GLOBAL')
     # Les contrôles PMU restent obligatoires. La nuit, le TOP3 n'est pas attendu.
     historical={'HISTORIQUE_ABSENT_OU_NON_DATE','PUBLICATION_GENY_EN_ATTENTE',
@@ -139,6 +144,12 @@ def decision_fond(cache,now,*,reserve=False,nocturne=False):
         marker = inc.instant(back.get('dernier_creneau_reserve_utc'))
         prioritaire = state['chevaux'][key]
         depart = inc.instant(prioritaire.get('depart_a_venir_utc'))
+        premier_depart = inc.instant(prioritaire.get('premier_depart_reunion_utc')) or depart
+        # Le passage prioritaire a déjà reçu son budget. Préserver le prochain
+        # cycle complet de préparation si la réunion approche de H-2.
+        if nocturne and action == 'COLLECTE' and premier_depart and premier_depart - now > timedelta(hours=3):
+            result.update(autorise=True, motif='CRENEAU_NOCTURNE_APRES_PREPARATION')
+            return result
         plan = planifier(cache, now) if reserve else {}
         next_pmu = inc.instant(plan.get('prochain_besoin_utc'))
         if (reserve and action == 'COLLECTE' and depart and depart - now > timedelta(minutes=30)

@@ -9,10 +9,7 @@ from .ml_v19 import load, save
 from .auto_v18 import _list, _num
 from .cotes_v19 import calculer_cotes, collecter
 from .departs_trot import POIDS_FORME_MEME_DEPART
-from .profils_partants import (
-    CRACK, HAUT_POTENTIEL, PRIORITE, VERSION_PROFILS,
-    detecter_crack, detecter_haut_potentiel, sorties_verifiees,
-)
+from .profils_partants import PRIORITE, VERSION_PROFILS, evaluer_profils
 
 VERSION_MOTEUR = 'direct-v32-contextuel'
 
@@ -99,24 +96,7 @@ def _calculer_direct(cache, course, raw, now, clock):
         lien = liens.get(str(n), {})
         info=noter_partant(item,course,lien,profil)
         if label:
-            sorties = sorties_verifiees(course, lien, now) if profil.get('statut_np') == 'PARTANT' else []
-            gains = profil.get('gains_euros')
-            crack = detecter_crack(sorties, gains)
-            potentiel = detecter_haut_potentiel(sorties, profil.get('age_ans'))
-            signaux[str(n)] = {
-                'nom': label,
-                'statut': CRACK if crack else HAUT_POTENTIEL if potentiel else '',
-                'crack': crack,
-                'gains_carriere_euros': gains,
-                'haut_potentiel': potentiel,
-                'sorties_verifiees': sum(sortie.points is not None for sortie in sorties),
-            }
-            if sorties:
-                signaux[str(n)].update(
-                    historique_extrait_utc=lien['historique']['extrait_utc'],
-                    source_historique=lien['historique']['source_url'],
-                    identifiant_historique=lien['cheval_id'],
-                )
+            signaux[str(n)] = evaluer_profils(course, lien, profil, now)
         if info['score'] is not None and label:
             direct.append({'numero':n,'nom':label,'score_direct':info['score'],
                            'source_forme':info['source_forme'],
@@ -196,6 +176,9 @@ def _calculer_direct(cache, course, raw, now, clock):
     if captured >= depart:
         return 'APRES_DEPART'
     doc['calcul_utc'] = captured.isoformat()
+    if not reuse_previous:
+        for signal in signaux.values():
+            signal['calcul_utc'] = doc['calcul_utc']
     doc['premier_calcul_utc'] = old.get('premier_calcul_utc', doc['calcul_utc'])
     if old:
         version = datetime.fromisoformat(old['calcul_utc']).astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')

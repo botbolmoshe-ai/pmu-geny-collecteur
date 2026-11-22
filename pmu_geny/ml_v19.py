@@ -169,6 +169,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
     from .echeances_production import instant
     from .partants_actuels_v21 import extraire_partants, ferrure_normalisee
     from .top3_independants_v22 import _form_score
+    from .profils_partants import SIGNAUX_PROFILS, evaluer_profils
     cache=Path(cache)
     participants=_list(raw,'participants','partants')
     if len(participants)<3:return 'PARTANTS_INSUFFISANTS',[],{}
@@ -237,6 +238,10 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                 c[indicator]=1 if ferrure_code in code.split('/') else 0
         research = {}
         if not legacy:
+            profils_course = evaluer_profils(course, {**link, 'historique': histo}, profil, now)
+            # Colonnes de recherche seulement. FEATURES reste le contrat du modèle actif.
+            research.update({key: int(profils_course[key]) for key in SIGNAUX_PROFILS
+                             if profils_course[key] is not None})
             depart_trot = profil.get('depart_trot', {})
             if depart_trot.get('mode'):
                 auto = int(depart_trot['mode'] == 'Autostart')

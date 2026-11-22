@@ -1,9 +1,9 @@
 name: PMU - Historiques incrementaux par cheval
 on:
   schedule:
-    - cron: '12 0-4 * * *'
+    - cron: '12,42 0-6,21-23 * * *'
       timezone: Europe/Paris
-    - cron: '5,20,35,50 5-23 * * *'
+    - cron: '5,20,35,50 7-20 * * *'
       timezone: Europe/Paris
   workflow_dispatch:
     inputs:
@@ -12,6 +12,10 @@ on:
         type: number
         default: 7
         required: true
+      nocturne:
+        description: 'Rejouer un cycle nocturne pendant la plage 21 h–07 h (Paris)'
+        type: boolean
+        default: false
 permissions:
   contents: write
   actions: read
@@ -21,7 +25,7 @@ concurrency:
   queue: max
 env:
   PART_FERRURES: ${{ vars.RATTRAPAGE_PART_FERRURES || '25' }}
-  COLLECTE_NOCTURNE: ${{ github.event_name == 'schedule' && github.event.schedule == '12 0-4 * * *' }}
+  COLLECTE_NOCTURNE: ${{ (github.event_name == 'schedule' && github.event.schedule == '12,42 0-6,21-23 * * *') || (github.event_name == 'workflow_dispatch' && inputs.nocturne) }}
 jobs:
   historiques:
     runs-on: ubuntu-latest
@@ -43,23 +47,12 @@ jobs:
           git archive origin/pmu-data | tar -x -C cache_pmu
       - name: Reserver les echeances et respecter la pause avant de charger le navigateur
         id: plan
-        env:
-          EVENEMENT: ${{ github.event_name }}
         run: |
-          if [ "$EVENEMENT" = 'schedule' ] && [ "$COLLECTE_NOCTURNE" != 'true' ]; then
-            case "$(TZ=Europe/Paris date +%H)" in
-              0[0-4])
-                echo 'executer=false' >> "$GITHUB_OUTPUT"
-                echo 'COLLECTE_DIURNE_DIFFEREE CRENEAU_NOCTURNE'
-                exit 0
-                ;;
-            esac
-          fi
           mode=--collecte
           if [ "$COLLECTE_NOCTURNE" = 'true' ]; then mode=--collecte-nocturne; fi
           python -m pmu_geny.echeances_production --cache cache_pmu "$mode"
       - uses: actions/cache@v4
-        if: steps.plan.outputs.executer == 'true'
+        if: steps.plan.outputs.geny == 'true'
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
@@ -67,7 +60,9 @@ jobs:
         if: steps.plan.outputs.executer == 'true'
         run: |
           python -m pip install -q -r requirements.txt google-auth==2.43.0 requests
-          python -m playwright install chromium
+          if [ "${{ steps.plan.outputs.geny }}" = 'true' ]; then
+            python -m playwright install chromium
+          fi
       - name: Collecter, sauvegarder et synchroniser un cheval puis le suivant
         if: steps.plan.outputs.executer == 'true'
         env:
@@ -75,21 +70,34 @@ jobs:
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
           MAX_MINUTES: ${{ inputs.max_minutes || 7 }}
           GH_TOKEN: ${{ github.token }}
+          GENY_AUTORISE: ${{ steps.plan.outputs.geny }}
         run: |
+          options=()
+          if [ "$GENY_AUTORISE" != 'true' ]; then options+=(--local); fi
           python - <<'PY'
           import os
           assert 1 <= int(os.environ['MAX_MINUTES']) <= 20
           PY
           if [ "$COLLECTE_NOCTURNE" = 'true' ]; then
+            budget_nocturne() {
+              python -c 'from datetime import datetime, timezone; from pmu_geny.echeances_production import budget_collecte_nocturne; print(budget_collecte_nocturne("cache_pmu", datetime.now(timezone.utc)))'
+            }
             SECONDS=0
-            python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier --nocturne
-            if [ "$SECONDS" -lt 540 ]; then
-              python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes 2 --max-chevaux 1 --part-ferrures "$PART_FERRURES" --publier --nocturne
+            budget=$(budget_nocturne)
+            prioritaire=$(( budget < MAX_MINUTES ? budget : MAX_MINUTES ))
+            if [ "$prioritaire" -gt 0 ]; then
+              python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$prioritaire" --publier --nocturne "${options[@]}"
+            fi
+            budget=$(budget_nocturne)
+            restant=$(( 15 - (SECONDS + 59) / 60 ))
+            fond=$(( budget < restant ? budget : restant ))
+            if [ "$fond" -gt 0 ]; then
+              python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$fond" --part-ferrures "$PART_FERRURES" --publier --nocturne "${options[@]}"
             else
               echo 'RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE'
             fi
           else
-            python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier
+            python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${options[@]}"
           fi
       - name: Archiver les diagnostics et le suivi
         if: always()
@@ -102,4 +110,5 @@ jobs:
             resultats/rattrapage/
             resultats/synchronisation/
             cache_pmu/collecte_incrementale/etat.json
+            cache_pmu/rattrapage_historiques/bilan.json
           retention-days: 14

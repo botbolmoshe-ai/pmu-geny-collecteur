@@ -5,9 +5,12 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+from dashboard.trot_analytics.profils import CRACK_CONFIRME, HAUT_POTENTIEL, NON_EVALUABLE, PALETTE
 from pmu_geny.echeances_production import lire, sauver
 from pmu_geny.moteur_sheets import SynchroniseurSheets
-from pmu_geny.profils_partants import detecter_crack, detecter_haut_potentiel, sorties_verifiees
+from pmu_geny.profils_partants import (
+    detecter_crack, detecter_haut_potentiel, evaluer_profils, sorties_verifiees,
+)
 from pmu_geny.sync_google_sheets import source_rows
 from pmu_geny.top3_independants_v22 import calculer
 from test_v26_chaine_offline import Response, SheetsSession
@@ -117,6 +120,21 @@ class TestProfils(unittest.TestCase):
         self.assertIsNone(detecter_crack(sorties, 250_000))
         self.assertIsNone(detecter_haut_potentiel(sorties, 5))
 
+    def test_etats_independants_et_historique_non_evaluable(self):
+        profil = {'nom': 'Cheval', 'statut_np': 'PARTANT', 'age_ans': 6}
+        signal = evaluer_profils(COURSE, liaison(historique(True)), profil, NOW)
+        self.assertIsNone(signal['est_crack'])
+        self.assertIs(signal['est_haut_potentiel'], False)
+        self.assertEqual(signal['motif_crack'], 'Gains PMU indisponibles')
+        self.assertEqual(signal['calcule_sur_releve_utc'], NOW.isoformat())
+        self.assertEqual(signal['sorties_verifiees'], 6)
+        signal = evaluer_profils(COURSE, liaison(historique(True)),
+                                {**profil, 'gains_euros': 250_000, 'age_ans': 5},
+                                NOW + timedelta(hours=2))
+        self.assertIsNone(signal['est_crack'])
+        self.assertIsNone(signal['est_haut_potentiel'])
+        self.assertEqual(signal['sorties_verifiees'], 0)
+
     def test_prevision_source_sheets_et_retrait(self):
         with tempfile.TemporaryDirectory() as tmp:
             cache = Path(tmp)
@@ -138,15 +156,20 @@ class TestProfils(unittest.TestCase):
                 calculer(cache, COURSE, {'participants': chevaux}, NOW)
                 doc = lire(fichier_direct)
                 self.assertEqual([h['numero'] for h in doc['top3']], [4, 3, 1])
-                self.assertEqual(doc['version_profils'], 'trot-attele-v2')
+                self.assertEqual(doc['version_profils'], 'trot-attele-v3')
                 self.assertEqual(doc['profils_partants']['4']['gains_carriere_euros'], 250_000)
-                self.assertIsNotNone(doc['profils_partants']['4']['haut_potentiel'])
+                signal = doc['profils_partants']['4']
+                self.assertIs(signal['est_crack'], True)
+                self.assertIs(signal['est_haut_potentiel'], True)
+                self.assertEqual(signal['calcul_utc'], doc['calcul_utc'])
                 lignes = {row['numero']: row for row in source_rows(cache)['Courses & Prévisions'].values()}
-                self.assertEqual(lignes['4']['profil_partant'], 'Crack')
+                self.assertEqual(lignes['4']['profil_partant'], 'Crack confirmé + Haut potentiel')
                 self.assertEqual(lignes['3']['profil_partant'], 'Haut potentiel')
                 self.assertIn('250 000 €', lignes['4']['profil_partant_indices'])
+                self.assertIn('Haut potentiel : 2 podiums', lignes['4']['profil_partant_indices'])
+                self.assertIn('https://www.geny.com/test', lignes['4']['profil_partant_indices'])
                 self.assertIn('Groupe I–III', lignes['3']['profil_partant_indices'])
-                self.assertEqual(lignes['1']['profil_partant'], '')
+                self.assertEqual(lignes['1']['profil_partant'], NON_EVALUABLE)
                 # Un statut NP reçu entre deux calculs efface aussi le format.
                 publication = lire(fichier_partants)
                 publication['chevaux']['4']['statut_np'] = 'NON_PARTANT'
@@ -197,7 +220,13 @@ class TestMiseEnForme(unittest.TestCase):
 
         tab = 'Courses & Prévisions'
         session = Session()
-        session.tables[tab] = [['course_key', 'numero', 'Cheval'], ['k', '1', 'Étoile']]
+        session.tables[tab] = [['course_key', 'numero', 'Cheval', 'Profil du cheval'],
+                               ['k', '1', 'Étoile', 'Crack']]
+        for ancien in ('Crack', HAUT_POTENTIEL):
+            session.rules.append({'ranges': [], 'booleanRule': {
+                'condition': {'type': 'CUSTOM_FORMULA', 'values': [{'userEnteredValue': f'=$D2="{ancien}"'}]},
+                'format': {'backgroundColorStyle': {'rgbColor': {'green': 1}}},
+            }})
         source = {tab: {'k|1': {'course_key': 'k', 'numero': '1', 'profil_partant': 'Crack'}}}
         with tempfile.TemporaryDirectory() as tmp:
             engine = SynchroniseurSheets(Path(tmp), 'test', session=session)
@@ -213,9 +242,19 @@ class TestMiseEnForme(unittest.TestCase):
             self.assertEqual(session.ecritures_formats, 4)
         self.assertEqual(len(session.rules), 2)
         self.assertEqual(session.tables[tab][1][3], 'Crack')
-        for rule, statut in zip(session.rules, ('Crack', 'Haut potentiel')):
+        for rule, (statut, (fond, texte, _)) in zip(session.rules, PALETTE.items()):
             self.assertEqual([r['startColumnIndex'] for r in rule['ranges']], [2, 3])
             self.assertEqual([r['endRowIndex'] for r in rule['ranges']], [101, 101])
             condition = rule['booleanRule']['condition']
-            self.assertEqual(condition['values'][0]['userEnteredValue'], f'=$D2="{statut}"')
-            self.assertTrue(rule['booleanRule']['format']['textFormat']['bold'])
+            formule = condition['values'][0]['userEnteredValue']
+            if statut == CRACK_CONFIRME:
+                self.assertIn('Crack confirmé + Haut potentiel', formule)
+                self.assertIn('=$D2="Crack"'.removeprefix('='), formule)
+            else:
+                self.assertEqual(formule, f'=$D2="{statut}"')
+            styles = rule['booleanRule']['format']
+            for rgb, hexa in ((styles['backgroundColorStyle']['rgbColor'], fond),
+                              (styles['textFormat']['foregroundColorStyle']['rgbColor'], texte)):
+                self.assertEqual('#' + ''.join(f'{round(rgb[c] * 255):02x}'
+                                             for c in ('red', 'green', 'blue')), hexa)
+            self.assertTrue(styles['textFormat']['bold'])

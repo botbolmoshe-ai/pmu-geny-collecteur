@@ -66,8 +66,53 @@ class EcheancesTests(unittest.TestCase):
         later=self.now+timedelta(hours=1)
         self.assertEqual(e.plan_collecte(self.cache,later)['motif'],'ECHEANCE_PMU_PRIORITAIRE')
 
+    def test_pause_commune_active_et_expiree_sur_un_creneau_nocturne(self):
+        now = datetime(2026, 11, 22, 2, 40, tzinfo=timezone.utc)
+        self.mark_global(now)
+        for code in ('403', '429'):
+            with self.subTest(code=code):
+                e.sauver(self.cache / 'rattrapage_historiques/etat.json', {
+                    'prochain_acces_geny_utc': (now - timedelta(days=2)).isoformat()})
+                e.sauver(self.cache / 'etat_persistant.json', {'dernier_blocage_geny': {
+                    'utc': now.isoformat(), 'code': code}})
+                active = e.plan_collecte(self.cache, now, nocturne=True)
+                self.assertTrue(active['executer'])
+                self.assertFalse(active['geny'])
+                self.assertEqual(active['prochain_acces_geny_utc'],
+                                 (now + timedelta(minutes=30)).isoformat())
+                self.assertEqual(active['cooldown_geny']['etat'], 'ACTIF')
+                expired = e.plan_collecte(self.cache, now + timedelta(minutes=30), nocturne=True)
+                self.assertTrue(expired['executer'])
+                self.assertTrue(expired['geny'])
+                self.assertNotIn('prochain_acces_geny_utc', expired)
+                self.assertEqual(expired['cooldown_geny']['etat'], 'EXPIRE')
+                self.assertEqual(expired['cooldown_geny']['echeance_utc'], active['prochain_acces_geny_utc'])
+                self.assertEqual(expired['cooldown_geny']['dernier_incident']['code'], code)
+
+    def test_echeance_commune_la_plus_tardive_reste_active(self):
+        now = self.now
+        e.sauver(self.cache / 'etat_persistant.json', {'dernier_blocage_geny': {
+            'utc': (now - timedelta(hours=1)).isoformat(), 'code': '429'}})
+        deadline = now + timedelta(minutes=5)
+        e.sauver(self.cache / 'collecte_incrementale/etat.json', {'prochain_acces_geny_utc': deadline.isoformat()})
+        self.assertEqual(e.pause_geny_active(self.cache, now), deadline)
+        self.assertIsNone(e.pause_geny_active(self.cache, deadline))
+
+    def test_relais_apres_checkpoint_global_sans_relacher_garde_pmu(self):
+        now = datetime(2026, 11, 22, 2, 40, tzinfo=timezone.utc)
+        self.mark_global(now - timedelta(minutes=55))
+        run = {'mode': 'GLOBAL', 'plan_utc': (now - timedelta(minutes=4)).isoformat()}
+        self.assertFalse(e.plan_collecte(self.cache, now, nocturne=True)['executer'])
+        self.assertFalse(e.relais_nocturne(self.cache, now, run))
+        self.mark_global(now)
+        self.assertTrue(e.relais_nocturne(self.cache, now, run))
+        self.assertFalse(e.relais_nocturne(self.cache, now, {**run, 'mode': 'JALONS'}))
+        e.sauver(self.cache / 'sources_pmu/programme_2026-11-22.json', {'programme': [
+            {'code': 'R1C1', 'depart': (now + timedelta(hours=3)).isoformat()}]})
+        self.assertFalse(e.relais_nocturne(self.cache, now, run))
+
     def test_creneau_nocturne_suit_paris_ete_hiver_et_garde_la_marge(self):
-        for month, hour_utc in ((1, 3), (7, 2)):
+        for month, hour_utc in ((1, 5), (7, 4)):
             with self.subTest(month=month):
                 now = datetime(2026, month, 17, hour_utc, 12, tzinfo=timezone.utc)
                 self.mark_global(now)
@@ -79,6 +124,18 @@ class EcheancesTests(unittest.TestCase):
                 after = now.replace(hour=hour_utc + 1, minute=0)
                 self.assertEqual(e.plan_collecte(self.cache, after, nocturne=True)['motif'],
                                  'HORS_CRENEAU_NOCTURNE')
+
+    def test_budget_nocturne_franchit_minuit_et_reserve_les_arrivees(self):
+        now = datetime(2026, 11, 17, 22, 55, tzinfo=timezone.utc)
+        self.mark_global(now)
+        e.sauver(self.cache / 'sources_pmu/programme_2026-11-17.json', {'programme': []})
+        self.assertEqual(e.budget_collecte_nocturne(self.cache, now), 15)
+        e.sauver(self.cache / 'sources_pmu/programme_2026-11-17.json', {'programme': [{
+            'code': 'R1C1', 'depart': (now - timedelta(minutes=18)).isoformat(),
+        }]})
+        self.assertEqual(e.budget_collecte_nocturne(self.cache, now), 5)
+        self.assertEqual(e.motif_pause_collecte_nocturne(self.cache, now + timedelta(minutes=5)),
+                         'ECHEANCE_PMU_PRIORITAIRE')
 
     def test_collecte_nocturne_cede_avant_un_besoin_pmu(self):
         now = datetime(2026, 11, 17, 1, 12, tzinfo=timezone.utc)

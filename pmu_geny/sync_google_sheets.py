@@ -33,6 +33,7 @@ SHEET_HEADER_LABELS = {
         'couverture_experts':'PMU · Disponibilité avis/pronostic'},
     'Historique chevaux':{'extraction_utc':'Capture historique · UTC'},
 }
+EDITORIAL_COLUMNS = ('avis_24h_trot', 'source_24h_trot')
 EXPERT_COLUMNS = ('avis_pmu','prono_pmu','source_pmu','couverture_experts',
                   'conditions_course','age_ans','sexe','gains_euros')
 PROFILE_COLUMNS = ('profil_partant', 'profil_partant_indices')
@@ -50,7 +51,7 @@ WINNER_REPORT_COLUMNS = tuple(
 )
 COTES_COLUMNS = ('top3_cotes_valeur', 'cote_releve_utc', 'cote_rapport_utc',
                  'top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_statut', 'top3_cotes_utc')
-COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS + DEPART_COLUMNS
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + EDITORIAL_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS + DEPART_COLUMNS
 RAPPROCHEMENT_COLUMNS = ('reunion_pmu', 'rapprochement_statut', 'rapprochement_arrivee_statut',
                          'rapprochement_declenchement_utc') + tuple(
     f'score_{phase}_{kind}' for phase in ('h2', 'h1') for kind in ('direct', 'ml'))
@@ -155,6 +156,8 @@ DISPLAY_NAMES = {
     'actuel_statut':'PMU · État ferrure',
     'actuel_maj_utc':'Données actuelles · Mise à jour UTC',
     'statut_prevision':'Prévisions · État',
+    'avis_24h_trot':'24H au Trot · Article avant course',
+    'source_24h_trot':'24H au Trot · Source et lecture UTC',
     'avis_pmu':'Avis expert PMU',
     'avis_equidia':'Avis expert Equidia',
     'avis_zeturf':'Avis expert ZEturf',
@@ -342,6 +345,7 @@ def source_rows(cache):
         return 'ML_NON_ENTRAINE'
     import unicodedata
     from .sources_experts_v23 import champs_sheet
+    from .avis_24h_trot import champs_sheet as champs_24h
     def normalize_horse_name(value):
         s=unicodedata.normalize('NFKD',str(value or '').casefold())
         return ''.join(c for c in s if c.isalnum() and not unicodedata.combining(c))
@@ -459,6 +463,7 @@ def source_rows(cache):
             'DONNEES_INSUFFISANTES' if marche or cotes_source else 'PAS_DE_RELEVE')
         ml=load_json(cache/'pronostics'/f'{date}_{code}_ml_latest.json')
         avis_experts=load_json(cache/'avis_experts'/f'{date}_{code}.json')
+        avis_24h = load_json(cache/'avis_editoriaux'/f'{date}_{code}.json')
         contexte=load_json(cache/'contextes'/f'{date}_{code}.json')
         observations={x.get('champ'):x.get('valeur') for x in contexte.get('observations',[])
                       if isinstance(x,dict) and x.get('champ','').startswith('meteo_')}
@@ -483,7 +488,7 @@ def source_rows(cache):
                          enumerate(document.get('classement_complet',[]),start=1)}
         from .echeances_production import instant
         from .liaison_chevaux_v22 import etablir, nom_normalise
-        from .profils_partants import PRIORITE, CRACK
+        from .profils_partants import afficher_profils
         calcul = instant(direct.get('calcul_utc'))
         depart = instant(info.get('depart'))
         leaders = {}
@@ -531,6 +536,7 @@ def source_rows(cache):
                 else 'HISTO_NON_COLLECTE')
             current={
                 **champs_sheet(avis_experts,n,act.get('nom','')),
+                **(champs_24h(avis_24h, n, act.get('nom', ''), depart, now) if statut_np == 'PARTANT' else {}),
                 **criteres,
                 'meteo_resume':meteo_resume,
                 'meteo_statut':meteo_statut,
@@ -603,11 +609,8 @@ def source_rows(cache):
                 str(numero) == str(n) for numero in direct.get('non_partants_confirmes', []))
             if np or (signal and nom):
                 identite_confirmee = signal and nom == nom_normalise(signal.get('nom'))
-                statut = signal.get('statut') if identite_confirmee and not np else ''
-                current['profil_partant'] = statut if statut in PRIORITE else ''
-                current['profil_partant_indices'] = (
-                    signal.get('crack' if statut == CRACK else 'haut_potentiel') or ''
-                    if statut in PRIORITE else '')
+                current['profil_partant'], current['profil_partant_indices'] = (
+                    afficher_profils(signal) if identite_confirmee and not np else ('', ''))
                 authoritative.update(PROFILE_COLUMNS)
             if marche or cotes_source or statut_np == 'NON_PARTANT':
                 authoritative.update(('top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_utc'))

@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import re
+import time
 from collections import Counter
 from datetime import datetime, timedelta
 from functools import lru_cache
@@ -160,7 +161,7 @@ def actualiser_inventaire(cache,now):
         state=preparer(cache,now)
     else:state.setdefault('revision_inventaire',1)
     inc.ecrire(cache/QUEUE,state)
-    inc.ecrire(cache/QUEUE.parent/'bilan.json',rapport(state))
+    inc.ecrire(cache/QUEUE.parent/'bilan.json',rapport(state, cache=cache))
     return state
 
 
@@ -686,7 +687,7 @@ def bilan_lot_96(state):
 
 def persister_etat(cache, state):
     inc.ecrire(cache / QUEUE, state)
-    inc.ecrire(cache / QUEUE.parent / 'bilan.json', rapport(state))
+    inc.ecrire(cache / QUEUE.parent / 'bilan.json', rapport(state, cache=cache))
 
 
 def bilan(state):
@@ -754,20 +755,37 @@ def bilan(state):
     return state['bilan']
 
 
-def rapport(state):
+def derniere_acquisition_validee(cache, state):
+    stamp = state.get('derniere_acquisition_validee_utc')
+    if stamp:
+        return stamp
+    journal = inc.lire(Path(cache) / 'etat_persistant.json')
+    stamps = (inc.instant(h.get('historique_complet_au_utc'))
+              for h in journal.get('chevaux', {}).values()
+              if h.get('origine') == 'RATTRAPAGE_GLOBAL' and h.get('statut') == 'COMPLET')
+    last = max((stamp for stamp in stamps if stamp), default=None)
+    return last.isoformat() if last else None
+
+
+def rapport(state, *, cache=None):
     keys=('version','mode','inventaire_id','inventaire_utc','revision_inventaire','inventaire_actualise_utc',
           'extensions_inventaire','causes_contextes_sans_geny','phase_reprise','derniere_revalidation','passage_utc','maj_utc','statut','priorite_collecte',
-          'termine_utc','sync_kpi','bilan','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
+          'termine_utc','sync_kpi','bilan','collecte_cycle','motif_fin_passage','lignes_historique_initiales','dernier_controle_inventaire','courses_passees_par_nom')
     report={k:state[k] for k in keys if k in state}
     report['cohortes'] = bornes_cohortes(state)
     lot = bilan_lot_96(state)
     if lot:
         report['lot_96'] = lot
-    for key in ('collecte_tentee_utc', 'controle_ordonnancement_utc', 'sync_kpi_utc',
-                'dernier_creneau_reserve_utc', 'creneau_reserve', 'part_ferrures', 'credit_ferrures',
-                'prochain_acces_geny_utc'):
+    for key in ('collecte_tentee_utc', 'derniere_acquisition_validee_utc',
+                'controle_ordonnancement_utc', 'motif_ordonnancement', 'sync_kpi_utc',
+                'dernier_creneau_reserve_utc', 'creneau_reserve', 'dernier_controle_nocturne',
+                'part_ferrures', 'credit_ferrures', 'prochain_acces_geny_utc'):
         if key in state:
             report[key] = state[key]
+    if cache is not None:
+        from .echeances_production import etat_cooldown_geny
+        report['cooldown_geny'] = etat_cooldown_geny(cache, datetime.now(inc.UTC), back=state)
+        report['derniere_acquisition_validee_utc'] = derniere_acquisition_validee(cache, state)
     proofs=[]
     for horse in state['chevaux'].values():
         control=horse.get('sync_details',{}).get('Historique chevaux',{}).get('controle',{})
@@ -787,13 +805,25 @@ def priorite_production(paths=None):
         return 'PRIORITE_PRODUCTION_NON_VERIFIABLE'
     import requests
     try:
-        response=requests.get(f'https://api.github.com/repos/{repo}/actions/runs',
-            params={'status':'pending','per_page':100},
-            headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'},timeout=15)
-        response.raise_for_status()
-        if paths is None:paths={'.github/workflows/pmu-v16.yml','.github/workflows/historiques-incrementaux.yml'}
-        if any(run.get('path') in paths for run in response.json()['workflow_runs']):
-            return 'PRIORITE_PRODUCTION_EN_ATTENTE'
+        if paths is None:
+            paths = {'.github/workflows/pmu-v16.yml', '.github/workflows/historiques-incrementaux.yml'}
+        for status in ('pending', 'queued'):
+            params = {'status': status, 'per_page': 100}
+            if status == 'queued':
+                # Les entrées queued anciennes sans job peuvent survivre aux runs suivants.
+                # Les runs pending attendent le verrou et restent prioritaires quel que soit leur âge.
+                since = datetime.now(inc.UTC) - timedelta(days=1)
+                params['created'] = '>=' + since.isoformat(timespec='seconds')
+            response = requests.get(f'https://api.github.com/repos/{repo}/actions/runs',
+                params=params,
+                headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json'},
+                timeout=5)
+            response.raise_for_status()
+            runs = response.json()['workflow_runs']
+            if any(run.get('path', '').split('@', 1)[0] in paths for run in runs):
+                return 'PRIORITE_PRODUCTION_EN_ATTENTE'
+            if len(runs) == 100:
+                return 'PRIORITE_PRODUCTION_NON_VERIFIABLE'
     except Exception:
         return 'PRIORITE_PRODUCTION_NON_VERIFIABLE'
     return None
@@ -812,25 +842,65 @@ def synchroniser_kpi(engine, state, cache):
     inc.checkpoint_distant(cache, queue=QUEUE)
 
 
+def suivre_creneau_nocturne(previous, now, *, reason, pause, progress):
+    # Les demi-heures UTC restent distinctes même au changement d'heure.
+    from .echeances_production import PARIS
+
+    slot = int(now.timestamp()) // 1800
+    local = now.astimezone(PARIS)
+    night = (local.date() - timedelta(days=int(local.hour < 7))).isoformat()
+    eligible = not (pause or reason in {
+        'COOLDOWN', 'COOLDOWN_GENY_GLOBAL', 'PASSAGE_LOCAL_SANS_GENY', 'MAX_CHEVAUX_ATTEINT',
+        'PRIORITE_PRODUCTION_EN_ATTENTE', 'PRIORITE_PRODUCTION_NON_VERIFIABLE',
+        'ECHEANCE_PMU_PRIORITAIRE', 'HORS_CRENEAU_NOCTURNE',
+        'PARTANT_PRIORITAIRE_DISPONIBLE', 'REPRISE_PARTANT_PRIORITAIRE_IMMINENTE',
+        'PREPARATION_PROCHAINES_COURSES_INCOMPLETE', 'PUBLICATION_HISTORIQUE_EN_ATTENTE',
+    })
+    same_slot = previous.get('creneau') == slot
+    progress = progress or (same_slot and previous.get('progression', False))
+    count = 0
+    counted_slot = None
+    if not progress:
+        if previous.get('nuit') == night:
+            count = previous.get('consecutifs_sans_progression', 0)
+            counted_slot = previous.get('dernier_creneau_compte')
+        if eligible and counted_slot != slot:
+            count += 1
+            counted_slot = slot
+    already_alerted = previous.get('alerte_emise', previous.get('consecutifs_sans_progression', 0) >= 3)
+    alert = count >= 3 and not already_alerted
+    return {'utc': now.isoformat(), 'creneau': slot, 'nuit': night, 'motif': reason,
+            'prochain_acces_geny_utc': pause.isoformat() if pause else None,
+            'progression': progress, 'creneau_eligible': eligible, 'consecutifs_sans_progression': count,
+            'dernier_creneau_compte': counted_slot,
+            'alerte_emise': (already_alerted or alert) and not progress, 'nouvelle_alerte': alert}
+
+
+def signaler_alerte_nocturne(state):
+    if state.get('dernier_controle_nocturne', {}).get('nouvelle_alerte'):
+        print('::warning::Trois créneaux nocturnes consécutifs sans progression du rattrapage', flush=True)
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--cache',default='cache_pmu')
     parser.add_argument('--max-minutes',type=int,default=10)
-    parser.add_argument('--max-chevaux',type=int,default=1000)
+    parser.add_argument('--max-chevaux',type=int)
     parser.add_argument('--part-ferrures',type=int,default=25,choices=range(31),metavar='0..30')
     parser.add_argument('--publier',action='store_true')
     parser.add_argument('--nocturne',action='store_true')
+    parser.add_argument('--local',action='store_true', help='Réconciliation et publication sans requête Geny')
     parser.add_argument('--actualiser-inventaire',action='store_true')
     parser.add_argument('--archives-diagnostics',default='')
     parser.add_argument('--reconcilier-identites',action='store_true')
     args=parser.parse_args()
-    if not 1<=args.max_minutes<=15 or args.max_chevaux<1:parser.error('Bornes positives, duree maximale 15 minutes')
+    if not 1<=args.max_minutes<=15 or (args.max_chevaux is not None and args.max_chevaux < 1):parser.error('Bornes positives, duree maximale 15 minutes')
     cache=Path(args.cache)
     if args.publier:
         if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID','GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
             raise SystemExit('Secrets Sheets absents : aucune collecte lancee')
         from .preparation_prochaines import autoriser_fond
-        from .echeances_production import besoin_pmu, motif_pause_collecte_nocturne
+        from .echeances_production import besoin_pmu, motif_pause_collecte_nocturne, pause_geny_active
         from .moteur_sheets import SynchroniseurSheets
         if args.nocturne and inc.lire(cache / QUEUE).get('statut') == 'TERMINE':
             print('RATTRAPAGE_DEJA_TERMINE', flush=True)
@@ -845,33 +915,70 @@ def main():
             return controle_pmu() or autoriser_fond(cache,datetime.now(inc.UTC), reserve=not args.nocturne,
                 nocturne=args.nocturne, diagnostic=Path('resultats/rattrapage/ordonnancement_fond.json'))
 
+        debut = datetime.now(inc.UTC)
+        limite = time.monotonic() + args.max_minutes * 60
+        initial = inc.lire(cache / QUEUE)
+        from .resolution_identites_courses import PILOTE
+
+        def progression_locale(state):
+            counts = state.get('bilan', {})
+            return (counts.get('cibles_completees', 0), counts.get('ajouts_confirmes', 0),
+                    counts.get('historiques_ferrures_a_completer', 0),
+                    counts.get('identites_non_resolues', 0))
+
+        avant = progression_locale(initial)
+        def suivre(state, reason):
+            now = datetime.now(inc.UTC)
+            state.update(controle_ordonnancement_utc=now.isoformat(), motif_ordonnancement=reason)
+            if not args.nocturne or not state.get('chevaux'):
+                return
+            cycle = state.get('collecte_cycle') or {}
+            debut_cycle = inc.instant(cycle.get('debut_utc'))
+            fresh = cycle if debut_cycle and debut_cycle >= debut else {}
+            after = progression_locale(state)
+            progress = bool(fresh.get('carrieres_completes_distinctes')
+                            or fresh.get('chevaux_confirmes_sheets')
+                            or state.get('bilan', {}).get('captures_partielles') and fresh
+                            or after[0] > avant[0] or after[1] > avant[1]
+                            or after[2] < avant[2] or after[3] < avant[3])
+            previous = initial.get('dernier_controle_nocturne', {})
+            record = suivre_creneau_nocturne(
+                previous, debut, reason=reason,
+                pause=pause_geny_active(cache, now, back=state), progress=progress)
+            state['dernier_controle_nocturne'] = record
+            print('CONTROLE_RATTRAPAGE ' + json.dumps(record, ensure_ascii=False), flush=True)
+
+        reason = controle_pmu() if args.actualiser_inventaire else controle_fond()
+        pause = pause_geny_active(cache, datetime.now(inc.UTC), back=initial)
+        if not reason and (args.local or pause):
+            reason = 'COOLDOWN_GENY_GLOBAL' if pause else 'PASSAGE_LOCAL_SANS_GENY'
+
         def differer(reason, state):
             if state.get('chevaux'):
                 now = datetime.now(inc.UTC)
                 actualiser_cohortes(cache, state)
-                state.update(motif_fin_passage=reason, maj_utc=now.isoformat(),
-                             controle_ordonnancement_utc=now.isoformat())
+                state['maj_utc'] = now.isoformat()
+                suivre(state, reason)
                 persister_etat(cache, state)
                 inc.checkpoint_distant(cache, queue=QUEUE)
-                # Le statut Geny ne doit pas empêcher la reprise d'une publication KPI.
+                if args.nocturne:
+                    signaler_alerte_nocturne(state)
                 if state.get('sync_kpi') == 'A_REPRENDRE' and not controle_pmu():
                     engine = SynchroniseurSheets(cache, os.environ['GOOGLE_SHEETS_ID'])
                     try:
                         synchroniser_kpi(engine, state, cache)
                     finally:
                         engine.fermer()
-            print('RATTRAPAGE_FOND_DIFFERE '+reason, flush=True)
+            print('RATTRAPAGE_FOND_DIFFERE ' + reason, flush=True)
 
         local = {}
-        halt = controle_pmu()
-        if not halt and not args.actualiser_inventaire:
-            from time import monotonic
+        if not controle_pmu() and not args.actualiser_inventaire:
             from .reparer_ferrures import reparer
-            deadline_local = monotonic() + min(15, args.max_minutes * 60 / 4)
+            deadline_local = time.monotonic() + min(15, args.max_minutes * 60 / 4)
             state = inc.lire(cache / QUEUE)
             cursor = state.get('reprise_apres_archive', '')
             local = reparer(cache, apres_archive=cursor,
-                            stop_requested=lambda: monotonic() >= deadline_local
+                            stop_requested=lambda: time.monotonic() >= deadline_local
                             or verifier_echeances(cache, datetime.now(inc.UTC)))
             next_cursor = local['reprise_apres_archive']
             if local['historiques_enrichis'] or local['archives_lues'] or cursor != next_cursor:
@@ -894,28 +1001,34 @@ def main():
                     persister_etat(cache, state)
                 if state.get('chevaux') or local['historiques_enrichis']:
                     inc.checkpoint_distant(cache, queue=QUEUE)
-        reason = halt or (controle_pmu() if args.actualiser_inventaire else controle_fond())
-        if reason and not (args.reconcilier_identites or args.archives_diagnostics):
+        reason = reason or controle_pmu()
+        if reason:
             state = inc.lire(cache / QUEUE)
-            # Réconciliation locale sous le verrou partagé, même si le budget
-            # Geny est réservé aux engagements. Céder si le cycle PMU attend.
-            if state.get('chevaux') and (cache/INVENTAIRE).exists() and not controle_pmu():
-                now = datetime.now(inc.UTC)
-                if local.get('ferrures_ajoutees') or local.get('departs_ajoutes'):
+            if not controle_pmu():
+                if args.archives_diagnostics:
+                    from .revalider_diagnostics import revalider_artifacts
+                    revalider_artifacts(cache, args.archives_diagnostics)
+                if args.reconcilier_identites:
+                    from .reconcilier_identites_sheets import reparer
                     engine = SynchroniseurSheets(cache, os.environ['GOOGLE_SHEETS_ID'])
                     try:
-                        inc.ecrire(cache/INVENTAIRE, engine.inventaire_rattrapage())
+                        reparer(engine)
                     finally:
                         engine.fermer()
-                state = preparer(cache, now)
-                # Une capture déjà persistée peut être publiée sans consulter Geny.
-                # Les échéances PMU et le verrou de production restent prioritaires.
-                if (reason in ('COOLDOWN_GENY_GLOBAL', 'PARTANT_PRIORITAIRE_DISPONIBLE',
-                               'REPRISE_PARTANT_PRIORITAIRE_IMMINENTE')
-                        and prochaine_tache(state, now, {})[1] == 'SYNC'):
-                    inc.run(cache, max_minutes=args.max_minutes, max_chevaux=0,
-                            publier=True, mode='rattrapage', stop_requested=controle_pmu)
-                    return
+                if (cache / INVENTAIRE).exists():
+                    if local.get('ferrures_ajoutees') or local.get('departs_ajoutes'):
+                        engine = SynchroniseurSheets(cache, os.environ['GOOGLE_SHEETS_ID'])
+                        try:
+                            inc.ecrire(cache / INVENTAIRE, engine.inventaire_rattrapage())
+                        finally:
+                            engine.fermer()
+                    now = datetime.now(inc.UTC)
+                    state = preparer(cache, now)
+                    restant = (limite - time.monotonic()) / 60
+                    if restant > 0 and prochaine_tache(state, now, {})[1] == 'SYNC':
+                        state = inc.run(cache, max_minutes=restant, max_chevaux=0,
+                                        publier=True, mode='rattrapage', nocturne=args.nocturne,
+                                        stop_requested=controle_pmu, part_ferrures=args.part_ferrures)
             differer(reason, state)
             return
         engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
@@ -938,7 +1051,7 @@ def main():
             from .revalider_diagnostics import revalider_artifacts
             revalider_artifacts(cache,args.archives_diagnostics)
         if args.nocturne:
-            from .resolution_identites_courses import PILOTE, passage
+            from .resolution_identites_courses import passage
 
             if inc.lire(cache/PILOTE).get('statut') != 'TERMINE':
                 now = datetime.now(inc.UTC)
@@ -948,19 +1061,30 @@ def main():
                         persister_etat(cache, state)
                         inc.checkpoint_distant(cache, queue=QUEUE)
 
-                    if passage(cache, state, stop_requested=controle_fond, checkpoint=checkpoint_identites):
+                    passage(cache, state, stop_requested=controle_fond, checkpoint=checkpoint_identites)
+                    if reason := controle_fond():
+                        differer(reason, state)
                         return
-        max_chevaux = args.max_chevaux if args.nocturne else min(args.max_chevaux, 1)
-        state=inc.run(cache,max_minutes=args.max_minutes,max_chevaux=max_chevaux,
+        restant = (limite - time.monotonic()) / 60
+        if restant <= 0:
+            differer('BUDGET_TEMPS_ATTEINT', inc.lire(cache / QUEUE))
+            return
+        max_chevaux = args.max_chevaux if args.nocturne else 1
+        state=inc.run(cache,max_minutes=restant,max_chevaux=max_chevaux,
                       publier=True,mode='rattrapage',nocturne=args.nocturne,
                       stop_requested=controle_fond,part_ferrures=args.part_ferrures,
                       creneau_reserve=lambda: inc.lire(Path('resultats/rattrapage/ordonnancement_fond.json')).get('creneau_reserve'))
+        if args.nocturne:
+            suivre(state, state['motif_fin_passage'])
+            persister_etat(cache, state)
+            inc.checkpoint_distant(cache, queue=QUEUE)
+            signaler_alerte_nocturne(state)
     else:
         state=(actualiser_inventaire if args.actualiser_inventaire else preparer)(cache,datetime.now(inc.UTC))
     print('BILAN_RATTRAPAGE '+json.dumps({'statut':state['statut'],'inventaire_id':state['inventaire_id'],
                                        'revision_inventaire':state.get('revision_inventaire',1),'courses_passees_par_nom':state.get('courses_passees_par_nom'),'phase_reprise':state['phase_reprise'],
                                        'motif_fin_passage':state.get('motif_fin_passage','BUDGET_OU_FILE_EPUISE'),
-                                       **state['bilan']},ensure_ascii=False),flush=True)
+                                       'collecte_cycle':state.get('collecte_cycle'), **state['bilan']},ensure_ascii=False),flush=True)
 
 
 if __name__=='__main__':main()

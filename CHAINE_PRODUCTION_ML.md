@@ -132,7 +132,7 @@ python -m unittest discover -s tests -p 'test_*.py' -q
 
 Le TOP3 direct évalue les deux fonctions de `pmu_geny/profils_partants.py` sur
 les historiques Geny reliés au partant, sourcés et capturés avant la décision.
-La version `trot-attele-v2` exige un partant confirmé par le PMU. Elle mesure
+La version `trot-attele-v3` exige un partant confirmé par le PMU. Elle mesure
 la fiabilité sur les dix sorties attelées les plus récentes de l'année, ou
 toutes si le cheval en a entre six et neuf. Chaque résultat de cette fenêtre
 doit permettre de distinguer une disqualification. Les absences, abandons
@@ -140,11 +140,11 @@ et résultats ambigus suivent les codes de la source, sans assimiler un
 abandon à une disqualification. Les gains de carrière sont ceux du relevé
 PMU pré-départ, exprimés en euros.
 
-- **Crack** en jaune et gras. Au moins 250 000 € de gains en carrière et
+- **Crack confirmé** en violet/or. Au moins 250 000 € de gains en carrière et
   au plus 20 % de disqualifications sur la fenêtre de fiabilité. Sur 365 jours,
   deux podiums en Groupe I ou II dont une victoire, avec au moins un de ces
   podiums dans les 120 derniers jours.
-- **Haut potentiel** en vert et gras. De 2 à 5 ans, six sorties documentées
+- **Haut potentiel** en bleu/turquoise. De 2 à 5 ans, six sorties documentées
   dans l'année dont les trois plus récentes sur 120 jours. Parmi ces trois,
   au moins deux podiums dont une victoire et un podium à ±250 m de la
   distance cible. La moyenne des trois dernières doit dépasser celle des
@@ -153,12 +153,28 @@ PMU pré-départ, exprimés en euros.
   deux sorties en Groupe I, II ou III sur 365 jours, espacées de 30 jours ou
   plus, dont une dans les 120 derniers jours.
 
-Le fichier de prévision conserve les deux résultats, leurs indices et la
-version des règles. Si un partant satisfait les deux fonctions, le registre
-et Streamlit affichent Crack. Plusieurs chevaux d'une même course peuvent
-être labellisés. À score direct identique, l'ordre est Crack, Haut potentiel,
-puis numéro du partant. Les écarts de score gardent la priorité. Le gain
-prédictif de ce départage reste à mesurer sur des courses prospectives.
+Le fichier de prévision conserve deux états indépendants, `est_crack` et
+`est_haut_potentiel`. `true` indique que la règle est satisfaite, `false` que
+les preuves sont suffisantes et les critères non atteints, et `null` que la
+règle est non évaluable. Les états accompagnent les indices, l'identité et
+la source Geny lorsqu'elles sont disponibles, la couverture, la version des
+règles et les dates de relevé et de calcul.
+
+Dans les deux colonnes existantes du registre, « Profil du cheval » contient
+les deux libellés en cas de cumul et « Profil · Indices » contient leurs preuves
+ou les motifs d'indisponibilité. Le violet/or est prioritaire pour le nom et
+la cellule de profil en cas de cumul. Streamlit utilise la même palette et
+affiche les deux badges dans la fiche du cheval. Le filtre « Haut potentiel »
+inclut les profils cumulés.
+
+À score direct identique, le départage historique s'applique dans l'ordre
+Crack confirmé, Haut potentiel puis numéro du partant. L'expérience ML évalue
+chaque signal et leur combinaison sur des captures chronologiques disjointes.
+Le comparateur Direct rejoue ce départage sur les versions publiées avant
+départ et relues dans Sheets, avec arrivées admissibles. Les captures ML
+enregistrent ces états pour la recherche. Les signaux absents ou non
+évaluables restent manquants. La commande de rejeu et les effectifs sont
+documentés dans [l'audit du ticket 98](docs/audit-ticket-98.md).
 
 ## Audit pré-départ du 20 novembre 2026
 
