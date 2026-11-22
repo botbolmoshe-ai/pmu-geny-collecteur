@@ -4270,7 +4270,7 @@
       "historique_complet_au_utc": "2026-11-13T09:04:29.746556+00:00",
       "derniere_performance_date": "2026-11-12",
       "nombre_performances": 87,
-      "collecte": "COMPLET",
+      "collecte": "A_REPRENDRE",
       "geny": {
         "id": "2673401",
         "nom": "IDUNN",
@@ -4286,7 +4286,17 @@
       "recherche_geny_par_nom": false,
       "course_url": "https://www.geny.com/course/1699525/partants-pronostics",
       "premier_depart_reunion_utc": "2026-11-22T12:23:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "erreur": "ValueError: REGRESSION_HISTORIQUE_A_CONTROLER",
+      "prochain_essai_utc": "2026-11-23T04:14:36.383072+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-22T22:14:36.383088+00:00",
+        "statut": "COMPLET",
+        "motifs": [],
+        "erreur": "REGRESSION_HISTORIQUE_A_CONTROLER",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2673401/1795385667437766576/resultat.json"
+      }
     },
     "2746623": {
       "nom": "JUTLAND",
@@ -71876,13 +71886,13 @@
     }
   },
   "passage_utc": "2026-11-22T22:14:08.012262+00:00",
-  "maj_utc": "2026-11-22T22:14:23.175260+00:00",
+  "maj_utc": "2026-11-22T22:14:36.383179+00:00",
   "bilan": {
     "chevaux_suivis": 2614,
-    "tentatives_collecte": 1,
+    "tentatives_collecte": 2,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 1,
+    "collectes_rejetees": 2,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2455
   },
@@ -74353,7 +74363,7 @@
   "sync_kpi_utc": "2026-11-20T19:07:01.279830+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-22T22:14:08.012262+00:00",
-    "controle_utc": "2026-11-22T22:14:23.175260+00:00",
+    "controle_utc": "2026-11-22T22:14:36.383179+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
