@@ -330,9 +330,6 @@ class EcheancesTests(unittest.TestCase):
         self.assertFalse(e.lire(self.cache/'qualite/dernier_controle_production.json')['publication_reussie'])
 
 
-if __name__=='__main__':unittest.main()
-
-
     def test_depart_pmu_reporte_ne_fait_pas_echouer_certification(self):
         now = self.now
         day = now.date().isoformat()
@@ -354,3 +351,6 @@ if __name__=='__main__':unittest.main()
         self.assertEqual(report['rapprochements'][0]['statut'], 'DIFFERE_DEPART_REPORTE')
         later = now + timedelta(minutes=41)
         self.assertEqual(e.planifier(self.cache, later)['mode'], 'RAPPROCHEMENT')
+
+
+if __name__=='__main__':unittest.main()
