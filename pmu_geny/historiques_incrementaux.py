@@ -115,7 +115,7 @@ def course_geny_connue(cache,engagement):
     return cid if re.fullmatch(r'GENY-\d+',str(cid)) else ''
 
 
-def alimenter(cache, now, *, sauvegarder=True):
+def alimenter(cache, now, *, sauvegarder=True, engagements=None, associations=None):
     """PMU est la liste de référence ; les manifests ne servent qu'à l'identité Geny."""
     cache = Path(cache)
     state = lire(cache/QUEUE, {'version': 1, 'chevaux': {}})
@@ -129,7 +129,10 @@ def alimenter(cache, now, *, sauvegarder=True):
         day = datetime.fromisoformat(code[:10]).date()
         # Reprise du passé récent + engagements du jour et du lendemain.
         today = now.astimezone(ZoneInfo('Europe/Paris')).date()
-        if not today-timedelta(days=7) <= day <= today+timedelta(days=1):
+        if engagements is not None:
+            if code not in engagements:
+                continue
+        elif not today-timedelta(days=7) <= day <= today+timedelta(days=1):
             continue
         participants = lire(path).get('chevaux', {})
         counts = Counter(nom_normalise(h.get('nom')) for h in participants.values())
@@ -158,6 +161,8 @@ def alimenter(cache, now, *, sauvegarder=True):
                 # Les anciens manifestes de la course peuvent manquer d'URL.
                 ident = str(mapped.get('id') or '')
             key = ident or context_key
+            if associations is not None:
+                associations[context_key] = key
             horse = state['chevaux'].setdefault(key, {'nom': name, 'sync': 'SANS_MODIFICATION'})
             if ident and context_key in state['chevaux'] and key != context_key:
                 old = state['chevaux'].pop(context_key)
@@ -423,6 +428,9 @@ def checkpoint_distant(cache, *, queue=QUEUE):
             ecrire(target/queue, lire(cache/queue))
             if queue!=QUEUE:
                 shutil.copytree(cache/queue.parent,target/queue.parent,dirs_exist_ok=True)
+            recensements = QUEUE.parent/'recensements'
+            if queue == QUEUE and (cache/recensements).is_dir():
+                shutil.copytree(cache/recensements, target/recensements, dirs_exist_ok=True)
             for name in ('historiques', 'historiques_partiels', 'historiques_versions', 'manifestes','sources_geny/liens','sources_geny/identites'):
                 if (cache/name).exists():
                     shutil.copytree(cache/name, target/name, dirs_exist_ok=True)
@@ -448,7 +456,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
 
 def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None,
-        prochains_depart=False, creneau_reserve=None, nocturne=False):
+        prochains_depart=False, creneau_reserve=None, nocturne=False, perimetre=None):
     cache = Path(cache)
     now = datetime.now(UTC)
     reprise=None
@@ -457,7 +465,14 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
     elif mode!='production':
         raise ValueError('MODE_COLLECTE_INCONNU')
     queue=reprise.QUEUE if reprise else QUEUE
-    state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
+    associations = {}
+    if perimetre:
+        from . import recensement_historiques as recensement
+        chemin_suivi, suivi = recensement.ouvrir(cache, *perimetre)
+        engagements = {f"{suivi['date_courses']}_{course}" for course in suivi['courses']}
+        state = alimenter(cache, now, engagements=engagements, associations=associations)
+    else:
+        state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
     if prochains_depart and not reprise:
         from .preparation_prochaines import appliquer
         appliquer(cache,state,now,nocturne=nocturne)
@@ -480,7 +495,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
     sync_confirmees = set()
     ajouts_sheets_confirmes = 0
     refus_geny = {'403': 0, '429': 0}
-    deadline = time.monotonic()+max_minutes*60
+    deadline = None if max_minutes is None else time.monotonic()+max_minutes*60
     def save(*, distant=True):
         state['maj_utc'] = datetime.now(UTC).isoformat()
         state['collecte_cycle'] = {
@@ -501,6 +516,12 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 state['sync_kpi'] = 'A_REPRENDRE'
         else:materialiser_manifestes(cache, state)
         ecrire(cache/queue, state)
+        if perimetre:
+            suivi['controle_utc'] = state['maj_utc']
+            suivi['bilan'] = recensement.bilan(suivi)
+            suivi['motif_fin_passage'] = state.get('motif_fin_passage')
+            suivi['prochain_acces_geny_utc'] = state.get('prochain_acces_geny_utc')
+            ecrire(cache/chemin_suivi, suivi)
         if reprise:ecrire(cache/queue.parent/'bilan.json',reprise.rapport(state, cache=cache))
         if not distant:
             return
@@ -510,13 +531,20 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             if reprise:checkpoint_distant(cache,queue=queue)
             else:checkpoint_distant(cache)
     save()
-    while time.monotonic() < deadline:
+    syncs = set()
+    while deadline is None or time.monotonic() < deadline:
         reason=stop_requested() if stop_requested else None
         if reason:
             state['motif_fin_passage']=str(reason)
             break
         choisir=reprise.prochaine_tache if reprise else prochaine_tache
-        key, action = choisir(state, datetime.now(UTC), attempts)
+        if perimetre:
+            pause = pause_geny_active(cache, datetime.now(UTC))
+            key, action = recensement.tache(suivi, state, associations, pause, syncs)
+            if pause:
+                state['prochain_acces_geny_utc'] = pause.isoformat()
+        else:
+            key, action = choisir(state, datetime.now(UTC), attempts)
         if key is None:
             state['motif_fin_passage']=action
             break
@@ -526,6 +554,8 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         horse = state['chevaux'][key]
         attempts[(action, key)] = attempts.get((action, key), 0)+1
         if action == 'COLLECTE':
+            lignes = recensement.lignes_associees(suivi, associations, key, 'A_EXAMINER') if perimetre else ()
+            debut_tentative = datetime.now(UTC).isoformat()
             if not horse.get('geny') and horse.get('course_url'):
                 from .liens_geny_course import pour_cheval
                 link = pour_cheval(cache, horse.get('engagement'), horse.get('numero'),
@@ -573,6 +603,10 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 if not reprise and key != ident:
                     state['chevaux'][ident] = horse
                     del state['chevaux'][key]
+                    if perimetre:
+                        for contexte, assoc in associations.items():
+                            if assoc == key:
+                                associations[contexte] = ident
                     key = ident
                     attempts[('COLLECTE',key)]=1
                 # Date de vérification != couverture : Geny peut publier la nouvelle course plus tard.
@@ -602,9 +636,21 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             if reprise:
                 attempts[reprise.cle_travail_geny(horse)] = 1
             count += 1
+            for ligne in lignes:
+                ligne['tentative_utc'] = debut_tentative
+                ligne['id_geny'] = horse.get('id')
+                if refus or horse.get('collecte') == 'A_REPRENDRE':
+                    ligne.update(statut='REFUS_GENY' if refus else 'ECHEC_COLLECTE',
+                                 motif=horse['dernier_echec_collecte']['statut'])
+                elif horse.get('sync') == 'A_FAIRE':
+                    ligne.update(statut='A_PUBLIER', capture=horse.get('collecte'))
+                else:
+                    ligne.update(statut='DEJA_PUBLIE', capture=horse.get('collecte'))
             save()  # Publier les données AVANT toute écriture Sheets.
             if horse.get('sync') != 'A_FAIRE':
                 continue
+        if perimetre:
+            syncs.add(key)
         try:
             if sync:
                 horse['sync_details'] = sync(horse)
@@ -625,9 +671,18 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 ajouts_sheets_confirmes += historique.get('lignes_ajoutees', 0)
             horse.update(sync='OK', sync_utc=datetime.now(UTC).isoformat(), erreur='')
             if reprise and horse.get('collecte')=='COMPLET':reprise.valider_sync(state,horse)
+            if perimetre:
+                for ligne in recensement.lignes_associees(suivi, associations, key, 'A_PUBLIER'):
+                    preuve = historique.get('controle', {}).get('statut') == 'VALIDE'
+                    ligne.update(statut='PUBLIE' if preuve else 'PUBLICATION_NON_PROUVEE',
+                                 publication_utc=horse['sync_utc'] if preuve else None,
+                                 performances_ajoutees=historique.get('lignes_ajoutees', 0) if preuve else 0)
         except Exception as exc:
             horse.update(sync='A_FAIRE', erreur=f'{type(exc).__name__}: {exc}',
                          prochaine_sync_utc=(datetime.now(UTC)+timedelta(minutes=10)).isoformat())
+            if perimetre:
+                for ligne in recensement.lignes_associees(suivi, associations, key, 'A_PUBLIER'):
+                    ligne.update(statut='PUBLICATION_A_REPRENDRE', motif=type(exc).__name__)
             from .controle_sync_sheets import BlocageSynchronisation
             from .moteur_sheets import SynchronisationOccupee
             if isinstance(exc,(BlocageSynchronisation,SynchronisationOccupee)):
@@ -664,7 +719,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             raise
         finally:sheets_engine.fermer()
     save()
-    return state
+    return suivi if perimetre else state
 
 
 def main():
@@ -675,15 +730,32 @@ def main():
     parser.add_argument('--publier', action='store_true')
     parser.add_argument('--nocturne', action='store_true')
     parser.add_argument('--local', action='store_true', help='Publications sans requête Geny')
+    parser.add_argument('--date-courses')
+    parser.add_argument('--hippodrome')
     args = parser.parse_args()
+    if bool(args.date_courses) != bool(args.hippodrome):
+        parser.error('--date-courses et --hippodrome doivent être fournis ensemble')
     if args.max_minutes < 1 or (args.max_chevaux is not None and args.max_chevaux < 1):
         parser.error('Bornes positives requises')
+    if args.date_courses and not args.publier:
+        from .recensement_historiques import bilan, ouvrir
+        _, suivi = ouvrir(Path(args.cache), args.date_courses, args.hippodrome)
+        print(json.dumps(bilan(suivi), ensure_ascii=False))
+        return
     if not args.publier:
         state = alimenter(Path(args.cache), datetime.now(UTC))
         print(json.dumps({'mode': 'INVENTAIRE_SANS_RESEAU', 'chevaux': len(state['chevaux'])}))
         return
     if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID', 'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
         raise SystemExit('Secrets Sheets absents : aucune collecte lancée')
+    if args.date_courses:
+        suivi = run(Path(args.cache), max_minutes=None, publier=True,
+                    perimetre=(args.date_courses, args.hippodrome))
+        print('BILAN_RECENSEMENT ' + json.dumps(suivi['bilan'], ensure_ascii=False))
+        if suivi['motif_fin_passage'] == 'COOLDOWN' and os.getenv('GITHUB_OUTPUT'):
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+                output.write(f"reprise_utc={suivi['prochain_acces_geny_utc']}\n")
+        return
     from .rattrapage_historiques import priorite_production
     from .echeances_production import besoin_pmu, motif_pause_collecte_nocturne
     cache = Path(args.cache)

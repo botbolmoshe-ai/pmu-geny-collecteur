@@ -317,8 +317,14 @@ class EcheancesTests(unittest.TestCase):
         root=Path(__file__).resolve().parents[1]/'.github/workflows'
         for name in ('pmu-v16.yml','historiques-incrementaux.yml','rattrapage-historiques.yml'):
             config=yaml.load((root/name).read_text(),Loader=yaml.BaseLoader)
-            self.assertEqual(config['concurrency'],{'group':'pmu-donnees-production',
-                'cancel-in-progress':'false','queue':'max'})
+            expected = {'group':'pmu-donnees-production', 'cancel-in-progress':'false','queue':'max'}
+            if name == 'historiques-incrementaux.yml':
+                self.assertEqual(config['jobs']['recensement']['concurrency'], expected)
+                self.assertNotIn('concurrency', config['jobs']['reprendre_recensement'])
+                conditional = config['concurrency']['group']
+                self.assertTrue(conditional.endswith("|| 'pmu-donnees-production' }}"))
+                config['concurrency']['group'] = expected['group']
+            self.assertEqual(config['concurrency'], expected)
 
     def test_cli_fait_echouer_un_controle_fonctionnel_non_publie(self):
         from unittest.mock import patch

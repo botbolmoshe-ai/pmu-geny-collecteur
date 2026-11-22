@@ -16,17 +16,26 @@ on:
         description: 'Rejouer un cycle nocturne pendant la plage 21 h–07 h (Paris)'
         type: boolean
         default: false
+      date_courses:
+        description: 'Date PMU (AAAA-MM-JJ) pour examiner tous les chevaux de cet hippodrome'
+        type: string
+        required: false
+      hippodrome:
+        description: 'Nom de l’hippodrome pour le passage exhaustif'
+        type: string
+        required: false
 permissions:
   contents: write
   actions: read
 concurrency:
-  group: pmu-donnees-production
+  group: ${{ (inputs.date_courses != '' || inputs.hippodrome != '') && format('recensement-{0}', github.run_id) || 'pmu-donnees-production' }}
   cancel-in-progress: false
   queue: max
 env:
   COLLECTE_NOCTURNE: ${{ (github.event_name == 'schedule' && github.event.schedule == '12,42 0-6,21-23 * * *') || (github.event_name == 'workflow_dispatch' && inputs.nocturne) }}
 jobs:
   historiques:
+    if: inputs.date_courses == '' && inputs.hippodrome == ''
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -111,3 +120,78 @@ jobs:
             cache_pmu/collecte_incrementale/etat.json
             cache_pmu/rattrapage_historiques/bilan.json
           retention-days: 14
+
+  recensement:
+    if: github.event_name == 'workflow_dispatch' && (inputs.date_courses != '' || inputs.hippodrome != '')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pmu-donnees-production
+      cancel-in-progress: false
+      queue: max
+    outputs:
+      reprise_utc: ${{ steps.collecte.outputs.reprise_utc }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Restaurer les données et vérifier le périmètre
+        env:
+          DATE_COURSES: ${{ inputs.date_courses }}
+          HIPPODROME: ${{ inputs.hippodrome }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin pmu-data
+          mkdir -p cache_pmu
+          git archive origin/pmu-data | tar -x -C cache_pmu
+          python -m pmu_geny.historiques_incrementaux --date-courses "$DATE_COURSES" --hippodrome "$HIPPODROME"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+      - name: Installer le collecteur de production
+        run: |
+          python -m pip install -q -r requirements.txt google-auth==2.43.0 requests
+          python -m playwright install chromium
+      - name: Examiner chaque cheval et sauvegarder les preuves
+        id: collecte
+        env:
+          DATE_COURSES: ${{ inputs.date_courses }}
+          HIPPODROME: ${{ inputs.hippodrome }}
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+        run: |
+          python -m pmu_geny.historiques_incrementaux --publier --date-courses "$DATE_COURSES" --hippodrome "$HIPPODROME"
+      - name: Archiver le bilan et les diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recensement-historiques-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            cache_pmu/collecte_incrementale/recensements/
+            resultats/incremental/
+          retention-days: 14
+  reprendre_recensement:
+    needs: recensement
+    if: needs.recensement.outputs.reprise_utc != ''
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Attendre la fin de la pause Geny hors du verrou de production
+        env:
+          REPRISE_UTC: ${{ needs.recensement.outputs.reprise_utc }}
+          GH_TOKEN: ${{ github.token }}
+          DATE_COURSES: ${{ inputs.date_courses }}
+          HIPPODROME: ${{ inputs.hippodrome }}
+        run: |
+          reprise=$(date -u -d "$REPRISE_UTC" +%s)
+          restant=$(( reprise - $(date -u +%s) + 1 ))
+          echo "Collecte suspendue par Geny jusqu’à $REPRISE_UTC"
+          if [ "$restant" -gt 0 ]; then sleep "$restant"; fi
+          gh workflow run historiques-incrementaux.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME" \
+            -f date_courses="$DATE_COURSES" -f hippodrome="$HIPPODROME"
