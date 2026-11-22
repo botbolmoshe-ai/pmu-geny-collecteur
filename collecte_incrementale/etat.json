@@ -69477,7 +69477,7 @@
     },
     "2830267": {
       "nom": "MISS DE LA FERME",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "2",
       "engagement": "2026-11-22_R1C2",
       "vu_utc": "2026-11-22T22:50:03.140251+00:00",
@@ -69505,7 +69505,35 @@
       "derniere_course_officielle_utc": "2026-11-22T12:58:00+00:00",
       "derniere_verification_utc": "2026-11-22T22:50:15.900476+00:00",
       "prochaine_verification_utc": "2026-11-23T22:50:15.900476+00:00",
-      "erreur": ""
+      "erreur": "",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 2,
+          "cellules_actualisees": 54,
+          "lignes_source": 29,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 2,
+            "lignes_avant": 26595,
+            "cles_avant": 26595,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 2660,
+            "import_initial_explicite": false,
+            "lignes_attendues": 26597,
+            "lignes_apres": 26597,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 2,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-22T22:50:34.457695+00:00"
     },
     "2026-11-22_R1C2_3": {
       "nom": "MATA HARI",
@@ -73143,7 +73171,7 @@
     }
   },
   "passage_utc": "2026-11-22T22:50:03.140251+00:00",
-  "maj_utc": "2026-11-22T22:50:16.709358+00:00",
+  "maj_utc": "2026-11-22T22:50:34.457761+00:00",
   "bilan": {
     "chevaux_suivis": 2745,
     "tentatives_collecte": 1,
@@ -73154,7 +73182,7 @@
     "actualisations_en_attente": 2573
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 7,
@@ -73700,11 +73728,11 @@
   "sync_kpi_utc": "2026-11-22T22:49:26.206866+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-22T22:50:03.140251+00:00",
-    "controle_utc": "2026-11-22T22:50:16.709358+00:00",
+    "controle_utc": "2026-11-22T22:50:34.457761+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 2,
     "refus_geny": {
       "403": 0,
       "429": 0
