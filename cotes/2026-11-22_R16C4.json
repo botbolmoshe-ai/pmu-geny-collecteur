@@ -3,7 +3,7 @@
   "date": "2026-11-22",
   "course": "R16C4",
   "depart": "2026-11-22T14:00:00+01:00",
-  "controle_utc": "2026-11-22T07:45:11.091460+00:00",
+  "controle_utc": "2026-11-22T08:54:59.160108+00:00",
   "chevaux": [
     {
       "numero": 1,
@@ -52,13 +52,13 @@
     {
       "numero": 5,
       "nom": "NINO JACK",
-      "statut_np": "PARTANT",
+      "statut_np": "NON_PARTANT",
       "cote": null,
       "source": "",
       "champ_pmu": "",
       "heure_utc": "",
       "date_rapport_utc": "",
-      "statut": "NON_DISPONIBLE"
+      "statut": "NON_PARTANT"
     },
     {
       "numero": 6,
@@ -341,16 +341,32 @@
           "statut": "NON_DISPONIBLE"
         }
       ]
+    },
+    {
+      "heure_utc": "2026-11-22T08:54:59.160108+00:00",
+      "chevaux": [
+        {
+          "numero": 5,
+          "nom": "NINO JACK",
+          "statut_np": "NON_PARTANT",
+          "cote": null,
+          "source": "",
+          "champ_pmu": "",
+          "heure_utc": "",
+          "date_rapport_utc": "",
+          "statut": "NON_PARTANT"
+        }
+      ]
     }
   ],
   "diagnostic_derniere_lecture": {
-    "chevaux_sans_champ_rapport": 15,
-    "chevaux_sans_cote_valide": 15
+    "chevaux_sans_champ_rapport": 14,
+    "chevaux_sans_cote_valide": 14
   },
   "liste_complete": true,
-  "partants_eligibles": 15,
+  "partants_eligibles": 14,
   "cotes_extraites": 0,
-  "cotes_manquantes": 15,
+  "cotes_manquantes": 14,
   "couverture": 0.0,
   "statut": "COTES_NON_EXTRAITES",
   "derniere_cote_utc": ""

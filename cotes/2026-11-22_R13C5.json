@@ -3,7 +3,7 @@
   "date": "2026-11-22",
   "course": "R13C5",
   "depart": "2026-11-22T14:05:00+01:00",
-  "controle_utc": "2026-11-22T07:45:11.193897+00:00",
+  "controle_utc": "2026-11-22T08:54:57.405888+00:00",
   "chevaux": [
     {
       "numero": 1,
@@ -41,13 +41,13 @@
     {
       "numero": 4,
       "nom": "MOJITO DE VAUVILLE",
-      "statut_np": "PARTANT",
+      "statut_np": "NON_PARTANT",
       "cote": null,
       "source": "",
       "champ_pmu": "",
       "heure_utc": "",
       "date_rapport_utc": "",
-      "statut": "NON_DISPONIBLE"
+      "statut": "NON_PARTANT"
     },
     {
       "numero": 5,
@@ -319,16 +319,32 @@
           "statut": "NON_DISPONIBLE"
         }
       ]
+    },
+    {
+      "heure_utc": "2026-11-22T08:54:57.405888+00:00",
+      "chevaux": [
+        {
+          "numero": 4,
+          "nom": "MOJITO DE VAUVILLE",
+          "statut_np": "NON_PARTANT",
+          "cote": null,
+          "source": "",
+          "champ_pmu": "",
+          "heure_utc": "",
+          "date_rapport_utc": "",
+          "statut": "NON_PARTANT"
+        }
+      ]
     }
   ],
   "diagnostic_derniere_lecture": {
-    "chevaux_sans_champ_rapport": 13,
-    "chevaux_sans_cote_valide": 13
+    "chevaux_sans_champ_rapport": 12,
+    "chevaux_sans_cote_valide": 12
   },
   "liste_complete": true,
-  "partants_eligibles": 13,
+  "partants_eligibles": 12,
   "cotes_extraites": 0,
-  "cotes_manquantes": 13,
+  "cotes_manquantes": 12,
   "couverture": 0.0,
   "statut": "COTES_NON_EXTRAITES",
   "derniere_cote_utc": ""

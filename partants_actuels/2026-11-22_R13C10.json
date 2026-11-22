@@ -1,0 +1,507 @@
+{
+  "date": "2026-11-22",
+  "course": "R13C10",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "IVANHOE DE NORON",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3874000,
+        "gainsVictoires": 1890000,
+        "gainsPlace": 1984000,
+        "gainsAnneeEnCours": 153500,
+        "gainsAnneePrecedente": 434500
+      }
+    },
+    {
+      "nom": "IDOLE HORSE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 4014000,
+        "gainsVictoires": 765000,
+        "gainsPlace": 3249000,
+        "gainsAnneeEnCours": 522500,
+        "gainsAnneePrecedente": 152500
+      }
+    },
+    {
+      "nom": "KAVALE DE BOLERO",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4178500,
+        "gainsVictoires": 675000,
+        "gainsPlace": 3503500,
+        "gainsAnneeEnCours": 979000,
+        "gainsAnneePrecedente": 690000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-22T08:55:01.667519+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "Y. DELAMAIRE",
+      "entraineur": "Y. DELAMAIRE",
+      "proprietaire": "Y. DELAMAIRE",
+      "ferrure": "D4",
+      "musique_pmu": "6a0aDa8a7a9aDa2a0a0a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 38740.0,
+      "nom": "IVANHOE DE NORON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "M. BOUREE",
+      "entraineur": "P. FRERET",
+      "proprietaire": "Mme L. FRERET",
+      "musique_pmu": "5a5a5a0a3a2a1aDa0a5a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 40140.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "nom": "IDOLE HORSE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "G. GUERIN",
+      "entraineur": "Nicolas DEVIGNE",
+      "proprietaire": "G. GUERIN",
+      "ferrure": "D4",
+      "musique_pmu": "6aDaDa9a3aDa4a5a4a4a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 41785.0,
+      "nom": "KAVALE DE BOLERO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Mme AXELLE JEANNE HALLAIS",
+      "entraineur": "J.W. HALLAIS",
+      "proprietaire": "Ecurie J.CL. HALLAIS",
+      "ferrure": "D4",
+      "musique_pmu": "2a7a3a6a7a7a2a3a3a3a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 41935.0,
+      "nom": "KING CLUB",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "L. HEUZE",
+      "entraineur": "St. PROVOOST",
+      "proprietaire": "Ecurie DANOVER",
+      "ferrure": "DA",
+      "musique_pmu": "3aDa5a3a4aDa4a7a9a(25)",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 42115.0,
+      "nom": "KERAMIDA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "M. GUESNEY",
+      "entraineur": "F. HEON",
+      "proprietaire": "Mme Brigitte GUESNEY",
+      "musique_pmu": "DaDaDaDaDa0a0a2a3a2a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 42340.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "nom": "KOALA MIQUELLERIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "F. CHAPDELAINE",
+      "entraineur": "J.F. POPOT",
+      "proprietaire": "Ecurie Jean François POPOT",
+      "ferrure": "DP/PA",
+      "musique_pmu": "9aDaDaDaDaDa7a4a5a5a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 42420.0,
+      "nom": "KAHAL DES RUETTES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mme E. SOURICE",
+      "entraineur": "A. SOURICE",
+      "proprietaire": "TH. LEROY",
+      "ferrure": "D4",
+      "musique_pmu": "6mDa9a5aDm6m0a4a5aDa",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 42435.0,
+      "nom": "KERCADIA BARTH",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "R. PELLIER",
+      "entraineur": "S. POILANE",
+      "proprietaire": "Ecurie Sébastien POILANE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "3a6a3a7a8a5a4a3a2a9a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 42935.0,
+      "nom": "KIFF DE BOUERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "MAXIME HAMELIN",
+      "entraineur": "Nicolas DEVIGNE",
+      "proprietaire": "Marc PIERLOT",
+      "ferrure": "D4",
+      "musique_pmu": "0a6aDaDa0a6a0a0a(25)Da",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 78565.0,
+      "nom": "JAVA DES BERTHES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "B. MESLIN",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "ferrure": "DA",
+      "musique_pmu": "1a0a0a1a7a7a6a8a0m5a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 81750.0,
+      "nom": "KELLY D'ERABLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "Mme E. LAPEYRE",
+      "entraineur": "G. CARDINE",
+      "proprietaire": "Ecurie LES FRERES DU TROT",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a6a7aDa5aDa1aDa0a5a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 82015.0,
+      "nom": "KERMES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "Mme J. STRANG",
+      "entraineur": "Mme J. STRANG",
+      "proprietaire": "Mme J. STRANG",
+      "musique_pmu": "0a7a0a3a0a1a9a8a8a7a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 84115.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "nom": "INSTAR JOKE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "A. LAIR",
+      "entraineur": "J.F. POPOT",
+      "proprietaire": "V. LANGENAIS",
+      "ferrure": "PP",
+      "musique_pmu": "Da2a5a5a8a0m8a8aDa8a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 85035.0,
+      "nom": "JUSTICIER DAIRPET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "T. PERRIER",
+      "entraineur": "L.M. DAVID",
+      "proprietaire": "Ecurie L.M. DAVID",
+      "ferrure": "D4",
+      "musique_pmu": "0a0a3a0a1a3aDa1a2a2a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 85500.0,
+      "nom": "HADDOCK D'ECOUVES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+        "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/22112026/R13/C10/participants",
+          "capture_utc": "2026-11-22T08:55:01.667519+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
