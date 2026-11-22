@@ -347,7 +347,7 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
         def indexed(d):
             result={}
             for row in d['performances']:
-                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source','depart_trot')}
+                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source','ferrure_qualification','depart_trot')}
                 clean['texte_source']=re.sub(r'\s*\|\s*\d{1,2}:\d{2}\s*\|\s*/\s*\|\s*\d{1,2}:\d{2}\s*$',
                                              '',str(clean.get('texte_source','')))
                 result.setdefault(json.dumps(clean, sort_keys=True, ensure_ascii=False),[]).append(row)
@@ -362,11 +362,15 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
                     if old.get('depart_trot') and not new.get('depart_trot'):
                         new['depart_trot'] = old['depart_trot']
                     if not ferrure:continue
-                    if new.get('ferrure') and new['ferrure']!=ferrure:
+                    if ((new.get('ferrure') and new['ferrure']!=ferrure)
+                            or (new.get('ferrure_qualification') == 'CONFLIT'
+                                and old.get('ferrure_qualification') != 'CONFLIT')):
                         raise ValueError('REGRESSION_FERRURE_A_CONTROLER')
                     if not new.get('ferrure'):
                         new['ferrure']=ferrure
-                        if old.get('ferrure_source'):new['ferrure_source']=old['ferrure_source']
+                        for champ in ('ferrure_source', 'ferrure_qualification'):
+                            if old.get(champ):
+                                new[champ] = old[champ]
         oldtime = instant(previous.get('extrait_utc'))
         if oldtime and instant(doc['extrait_utc']) < oldtime:
             raise ValueError('CAPTURE_PLUS_ANCIENNE')
