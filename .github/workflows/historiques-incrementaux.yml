@@ -84,12 +84,19 @@ jobs:
             SECONDS=0
             budget=$(budget_nocturne)
             prioritaire=$(( budget < MAX_MINUTES ? budget : MAX_MINUTES ))
+            # Sur un créneau exploitable pour les deux files, garder deux minutes
+            # pour le fond et une minute pour le relais. La garde PMU reste prioritaire.
+            if [ "$budget" -ge 5 ] && [ "$prioritaire" -gt "$(( budget - 3 ))" ]; then
+              prioritaire=$(( budget - 3 ))
+            fi
+            echo "BUDGET_NOCTURNE initial=${budget}m prioritaire=${prioritaire}m geny=$GENY_AUTORISE"
             if [ "$prioritaire" -gt 0 ]; then
               python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$prioritaire" --publier --nocturne "${options[@]}"
             fi
             budget=$(budget_nocturne)
             restant=$(( 15 - (SECONDS + 59) / 60 ))
             fond=$(( budget < restant ? budget : restant ))
+            echo "BUDGET_NOCTURNE apres_prioritaire=${budget}m restant_cycle=${restant}m fond=${fond}m"
             if [ "$fond" -gt 0 ]; then
               python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$fond" --publier --nocturne "${options[@]}"
             else

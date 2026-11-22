@@ -37,3 +37,28 @@ class WorkflowSyntaxTests(unittest.TestCase):
                     commands = [line for line in output.splitlines() if line.startswith('-m pmu_geny.')]
                     self.assertEqual(len(commands), 2 if nocturne == 'true' else 1)
                     self.assertTrue(all(('--local' in cmd.split()) == (geny == 'false') for cmd in commands))
+
+    def test_budget_nocturne_court_garde_du_temps_pour_le_fond(self):
+        path = Path(__file__).resolve().parents[1] / '.github/workflows/historiques-incrementaux.yml'
+        steps = yaml.safe_load(path.read_text())['jobs']['historiques']['steps']
+        script = next(step['run'] for step in steps if 'GENY_AUTORISE' in step.get('env', {}))
+        python_mock = """python() {
+          case "$1 $2" in
+            '-c '*) echo "$SIMULATED_BUDGET";;
+            '-m pmu_geny.historiques_incrementaux') echo "$*"; SIMULATED_BUDGET="$PMU_BUDGET_AFTER";;
+            *) echo "$*";;
+          esac
+        }
+        """
+        for after in ('3', '0'):
+            with self.subTest(budget_recalcule=after):
+                output = subprocess.check_output(
+                    ['bash', '-e', '-c', python_mock + script], text=True,
+                    env={**os.environ, 'COLLECTE_NOCTURNE': 'true', 'GENY_AUTORISE': 'true',
+                         'MAX_MINUTES': '7', 'SIMULATED_BUDGET': '5', 'PMU_BUDGET_AFTER': after})
+                self.assertIn('historiques_incrementaux --cache cache_pmu --max-minutes 2', output)
+                if after == '3':
+                    self.assertIn('rattrapage_historiques --cache cache_pmu --max-minutes 3', output)
+                else:
+                    self.assertNotIn('rattrapage_historiques', output)
+                    self.assertIn('RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE', output)

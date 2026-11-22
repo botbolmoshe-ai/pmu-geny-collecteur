@@ -7,7 +7,7 @@ on:
     paths:
       - 'pilotage/declencher-production-v21.txt'
   schedule:
-    # Tick léger ; cycle horaire ou rafraîchissement ciblé H-2/H-1 selon le plan.
+    # Tick léger ; cycle horaire ou rafraîchissement ciblé H-3/H-2 selon le plan.
     - cron: '7,22,37,52 * * * *'  # évite les pointes aux quarts d’heure, sans multiplier les cycles
   workflow_dispatch:
     inputs:
@@ -109,7 +109,7 @@ jobs:
           else
             echo 'DONNEES PERSISTANTES : branche pmu-data absente, initialisation'
           fi
-      - name: Planifier le cycle horaire et les echeances H-2 H-1
+      - name: Planifier le cycle horaire et les echeances H-3 H-2
         id: plan
         env:
           FORCER_AUTO: ${{ github.event_name != 'schedule' }}

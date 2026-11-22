@@ -91,7 +91,7 @@ class RapprochementReunionsTests(TestCase):
         now = self.last + timedelta(minutes=30)
         course_key = f'{self.day}_R1C1'
         plans = {}
-        for phase, remaining, numbers in [('H2', 130, [1, 2, 3]), ('H1', 70, [1, 4, 5])]:
+        for phase, remaining, numbers in [('H3', 190, [1, 4, 5]), ('H2', 130, [1, 2, 3]), ('H1', 70, [1, 4, 5])]:
             stamp = (self.first - timedelta(minutes=remaining)).isoformat()
             path = Path('jalons')/course_key/f'{phase}.json'
             production.sauver(self.cache/path, {
@@ -111,16 +111,35 @@ class RapprochementReunionsTests(TestCase):
         production.sauver(self.cache/'rapprochements'/f'{self.day}_R1.json', {
             'date': self.day, 'reunion': f'{self.day}_R1', 'statut': 'INCOMPLET',
             'declenchement_utc': now.isoformat(), 'arrivees_a_reprendre': ['R1C2'],
-            'courses': {'R1C1': {'statut': 'ARRIVEE_OFFICIELLE', 'scores': scores}}})
+            'courses': {'R1C1': {'statut': 'ARRIVEE_OFFICIELLE',
+                                'scores': {k: v for k, v in scores.items() if not k.startswith('H3_')}}}})
         source = source_rows(self.cache)
         report, = source['Résultats & Analyse'].values()
         self.assertEqual(report['score_h2_direct'], 3)
         self.assertEqual(report['score_h1_ml'], 1)
         self.assertEqual(report['top3_direct_numeros'], '1,4,5')
         self.assertEqual(report['matching_ml_pct'], 33.33)
+        self.assertEqual(report['jalon_compare'], 'H-1')
+        report_path = self.cache/'rapprochements'/f'{self.day}_R1.json'
+        record = production.lire(report_path)
+        record['courses']['R1C1']['scores'] = {
+            key: value for key, value in scores.items() if not key.startswith('H1_')}
+        production.sauver(report_path, record)
+        production.sauver(self.cache/'jalons'/f'{course_key}.json', {
+            'H3': {'statut': 'PUBLIE_A_TEMPS', 'echeance': (self.first-timedelta(hours=3)).isoformat(),
+                   'publication_utc': (self.first-timedelta(minutes=185)).isoformat()}})
+        source = source_rows(self.cache)
+        current, = source['Résultats & Analyse'].values()
+        self.assertEqual(current['score_h3_ml'], 1)
+        self.assertEqual(current['score_h2_direct'], 3)
+        self.assertEqual(current['jalon_compare'], 'H-2')
+        self.assertEqual(current['top3_direct_numeros'], '1,2,3')
+        self.assertEqual(current['jalon_h3_statut'], 'PUBLIE_A_TEMPS')
+        self.assertEqual(current['jalon_h3_publication_utc'], (self.first-timedelta(minutes=185)).isoformat())
         quality = calculer_kpi(self.cache, source, now)
         self.assertEqual(quality['H+30 · Arrivées à reprendre'][0], 1)
         self.assertEqual(quality['H+30 · 7 j · H2_direct · Moyenne sur 3'][0], 3)
+        self.assertEqual(quality['H+30 · 7 j · H3_ml · Moyenne sur 3'][0], 1)
 
     def test_un_bilan_issu_du_cache_filtre_est_rouvert(self):
         self.write_programme(self.day, self.courses[1:2])
