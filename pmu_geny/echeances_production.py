@@ -297,8 +297,10 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
     phases_dues = {(item['course'], item['phase']) for item in plan.get('jalons_dus', [])}
     observation = instant(sheets.get('lecture_utc')) if sheets else None
     sheets_confirme = bool(publie and observation and observation <= now)
-    if plan.get('mode') in ('GLOBAL', 'JALONS', 'RAPPROCHEMENT') and not sheets_confirme:
-        report['erreurs'].append({'motif': 'PUBLICATION_SHEETS_NON_PROUVEE'})
+    if plan.get('mode') in ('GLOBAL', 'JALONS', 'RAPPROCHEMENT'):
+        report['publication_reussie'] = sheets_confirme
+        if not sheets_confirme:
+            report['erreurs'].append({'motif': 'PUBLICATION_SHEETS_NON_PROUVEE'})
     if sheets_confirme and plan.get('mode') in ('GLOBAL', 'JALONS'):
         courses = [c for r in reunions if r['coherente'] for c in r['attendues']]
         for c in courses:
@@ -336,7 +338,7 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                 proofs[kind] = {'calcul_utc':doc['calcul_utc'], 'publication_utc':observation.isoformat(),
                     'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
                     'fichier':str(path.relative_to(cache)), 'empreinte_modele':doc.get('empreinte_modele'),
-                    'lecture_sheets_utc':observation.isoformat()}
+                    'lecture_sheets_utc':observation.isoformat(), 'capture_partants_utc':captured.isoformat()}
             if 'direct' in proofs:
                 from .maturite_ml import certify_shadow
                 certify_shadow(cache, key, proofs['direct'], observation)

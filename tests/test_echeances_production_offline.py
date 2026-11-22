@@ -170,6 +170,7 @@ class EcheancesTests(unittest.TestCase):
         self.assertEqual(report['erreurs'], [])
         certificate = e.lire(self.cache/'publications'/f'{self.key}.json')
         self.assertEqual(certificate['versions']['ml']['lecture_sheets_utc'], now.isoformat())
+        self.assertEqual(certificate['versions']['ml']['capture_partants_utc'], now.isoformat())
 
     def test_h3_reserve_trente_minutes_et_reste_du_si_non_publie(self):
         now=self.now+timedelta(minutes=30)
@@ -294,6 +295,14 @@ class EcheancesTests(unittest.TestCase):
         phase=e.lire(self.cache/'jalons'/f'{self.key}.json')['H3']
         self.assertEqual(phase['statut'],'PUBLIE_EN_RETARD')
         self.assertEqual(phase['retard_secondes'],120)
+
+    def test_relecture_future_ne_certifie_pas_une_publication(self):
+        now = self.now + timedelta(minutes=40)
+        self.predictions(now)
+        report = self.publish(now, observation=now + timedelta(seconds=1))
+        self.assertFalse(report['publication_reussie'])
+        self.assertIn('PUBLICATION_SHEETS_NON_PROUVEE', [row['motif'] for row in report['erreurs']])
+        self.assertFalse((self.cache/'publications'/f'{self.key}.json').exists())
 
     def test_pas_de_certificat_predepart_retroactif(self):
         self.predictions(self.depart-timedelta(minutes=1))
