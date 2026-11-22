@@ -68703,7 +68703,18 @@
       "depart_a_venir_utc": "2026-11-22T12:58:00+00:00",
       "premier_depart_reunion_utc": "2026-11-22T12:23:00+00:00",
       "preparation_pmu_ok": true,
-      "derniere_course_officielle_utc": "2026-11-22T12:58:00+00:00"
+      "derniere_course_officielle_utc": "2026-11-22T12:58:00+00:00",
+      "collecte": "A_REPRENDRE",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-23T04:17:12.344729+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-22T22:17:12.344756+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-22_R1C2_1/1795385830976570540/resultat.json"
+      }
     },
     "2830267": {
       "nom": "MISS DE LA FERME",
@@ -72006,13 +72017,13 @@
     }
   },
   "passage_utc": "2026-11-22T22:14:08.012262+00:00",
-  "maj_utc": "2026-11-22T22:17:06.813573+00:00",
+  "maj_utc": "2026-11-22T22:17:12.405124+00:00",
   "bilan": {
     "chevaux_suivis": 2614,
-    "tentatives_collecte": 14,
+    "tentatives_collecte": 15,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 14,
+    "collectes_rejetees": 15,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2455
   },
@@ -74483,15 +74494,16 @@
   "sync_kpi_utc": "2026-11-20T19:07:01.279830+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-22T22:14:08.012262+00:00",
-    "controle_utc": "2026-11-22T22:17:06.813573+00:00",
+    "controle_utc": "2026-11-22T22:17:12.405124+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
     "refus_geny": {
       "403": 0,
-      "429": 0
+      "429": 1
     },
-    "prochain_acces_geny_utc": null
-  }
+    "prochain_acces_geny_utc": "2026-11-22T22:47:12.344799+00:00"
+  },
+  "prochain_acces_geny_utc": "2026-11-22T22:47:12.344799+00:00"
 }

@@ -140,10 +140,13 @@
       "motif": "COMPLET"
     },
     "2026-11-22_R1C2_1": {
-      "statut": "A_EXAMINER",
+      "statut": "REFUS_GENY",
       "nom": "MAMOUNIA SEVEN",
       "course": "R1C2",
-      "numero": "1"
+      "numero": "1",
+      "tentative_utc": "2026-11-22T22:17:10.882840+00:00",
+      "id_geny": null,
+      "motif": "ACCES_LIMITE_429"
     },
     "2026-11-22_R1C2_2": {
       "statut": "A_EXAMINER",
@@ -806,17 +809,18 @@
       "numero": "13"
     }
   },
-  "controle_utc": "2026-11-22T22:17:06.813573+00:00",
+  "controle_utc": "2026-11-22T22:17:12.405124+00:00",
   "bilan": {
     "courses": 9,
     "chevaux": 125,
-    "examines": 14,
-    "tentatives": 14,
+    "examines": 15,
+    "tentatives": 15,
     "statuts": {
       "ECHEC_COLLECTE": 14,
-      "A_EXAMINER": 111
+      "REFUS_GENY": 1,
+      "A_EXAMINER": 110
     }
   },
   "motif_fin_passage": null,
-  "prochain_acces_geny_utc": null
+  "prochain_acces_geny_utc": "2026-11-22T22:47:12.344799+00:00"
 }
