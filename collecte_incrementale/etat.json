@@ -4352,7 +4352,7 @@
     },
     "2673401": {
       "nom": "IDUNN",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "2",
       "engagement": "2026-11-22_R1C1",
       "vu_utc": "2026-11-22T22:45:04.139084+00:00",
@@ -4388,7 +4388,35 @@
         "diagnostic": "resultats/incremental/2673401/1795385667437766576/resultat.json"
       },
       "derniere_verification_utc": "2026-11-22T22:14:34.809083+00:00",
-      "prochaine_verification_utc": "2026-11-23T22:14:34.809083+00:00"
+      "prochaine_verification_utc": "2026-11-23T22:14:34.809083+00:00",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 1,
+          "cellules_actualisees": 174,
+          "lignes_source": 88,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 1,
+            "lignes_avant": 26582,
+            "cles_avant": 26582,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 2659,
+            "import_initial_explicite": false,
+            "lignes_attendues": 26583,
+            "lignes_apres": 26583,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 2
+        }
+      },
+      "sync_utc": "2026-11-22T22:45:46.019904+00:00"
     },
     "2746623": {
       "nom": "JUTLAND",
@@ -72764,7 +72792,7 @@
     }
   },
   "passage_utc": "2026-11-22T22:45:04.139084+00:00",
-  "maj_utc": "2026-11-22T22:45:31.274720+00:00",
+  "maj_utc": "2026-11-22T22:45:46.019973+00:00",
   "bilan": {
     "chevaux_suivis": 2745,
     "tentatives_collecte": 2,
@@ -73321,11 +73349,11 @@
   "sync_kpi_utc": "2026-11-20T19:07:01.279830+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-22T22:45:04.139084+00:00",
-    "controle_utc": "2026-11-22T22:45:31.274720+00:00",
+    "controle_utc": "2026-11-22T22:45:46.019973+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 2,
-    "chevaux_confirmes_sheets": 1,
-    "performances_ajoutees_et_confirmees_sheets": 1,
+    "chevaux_confirmes_sheets": 2,
+    "performances_ajoutees_et_confirmees_sheets": 2,
     "refus_geny": {
       "403": 0,
       "429": 0
