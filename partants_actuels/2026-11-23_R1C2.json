@@ -1,0 +1,359 @@
+{
+  "date": "2026-11-23",
+  "course": "R1C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LUNE DE L'EMION",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5727000,
+        "gainsVictoires": 630000,
+        "gainsPlace": 5097000,
+        "gainsAnneeEnCours": 1290000,
+        "gainsAnneePrecedente": 1592000
+      }
+    },
+    {
+      "nom": "LIBERTY CASH",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5852500,
+        "gainsVictoires": 2430000,
+        "gainsPlace": 3422500,
+        "gainsAnneeEnCours": 2239000,
+        "gainsAnneePrecedente": 3541000
+      }
+    },
+    {
+      "nom": "LIBERTY HEROLD",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5919500,
+        "gainsVictoires": 3555000,
+        "gainsPlace": 2364500,
+        "gainsAnneeEnCours": 1702000,
+        "gainsAnneePrecedente": 3804500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-22T01:44:43.761311+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "Y. DOCQUIN",
+      "proprietaire": "Y. DOCQUIN",
+      "ferrure": "DA",
+      "musique_pmu": "9a0a7a8a2a6aDa4a8a(25)",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 57270.0,
+      "nom": "LUNE DE L'EMION",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "Mme T. MATHIAS-MAISONNETTE",
+      "entraineur": "TH. RAFFEGEAU",
+      "proprietaire": "Ecurie Thierry RAFFEGEAU",
+      "ferrure": "PA",
+      "musique_pmu": "6m6m6m9mAm6m1m5m6m4m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 58525.0,
+      "nom": "LIBERTY CASH",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "M. CHAMPENOIS",
+      "entraineur": "G. HOUEL",
+      "proprietaire": "B. POTTIER",
+      "ferrure": "D4",
+      "musique_pmu": "2aDa4aDa0a8a5a1a8a(25)",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 59195.0,
+      "nom": "LIBERTY HEROLD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "S. MARMION",
+      "proprietaire": "Mme E. MARMION",
+      "ferrure": "D4",
+      "musique_pmu": "Dm2m0a0aDaDm6m0mDm1m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 60455.0,
+      "nom": "LILA D'OCTAV",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "Mme C. LEVESQUE",
+      "entraineur": "TH. LEVESQUE",
+      "proprietaire": "Ecurie de BLARY",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Dm0a4aDmDa3mDaDm2mDm",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 61060.0,
+      "nom": "LEELY DE BLARY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "J.PH. DUBOIS",
+      "proprietaire": "Ecurie VICTORIA DREAMS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a1aDaDa6aDa1aDa1aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 62165.0,
+      "nom": "LADY AURELIA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "ARNAUD DESMOTTES",
+      "proprietaire": "Erwan BIHEL",
+      "ferrure": "D4",
+      "musique_pmu": "Dm3m7m2m2m7a5m2m7a(25)",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 64755.0,
+      "nom": "LADY DE GREZ",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "P. PELLEROT",
+      "proprietaire": "Ecurie Pierre PELLEROT",
+      "ferrure": "DA",
+      "musique_pmu": "Da1a5a5a2a3aDmDa8a4a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 65460.0,
+      "nom": "LOLA DE CHENU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "F. TERRY",
+      "proprietaire": "Ecurie WATCH BUY WIN",
+      "ferrure": "DP",
+      "musique_pmu": "8a3aDa8a8aDa4aDa0a0a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 65890.0,
+      "nom": "LUNA DOMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "Antonin ANDRE",
+      "proprietaire": "Antonin ANDRE",
+      "ferrure": "D4",
+      "musique_pmu": "0a7m2m2m2m0m4m1m3m1m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 69895.0,
+      "nom": "LEDORIKA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+        "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/23112026/R1/C2/participants",
+          "capture_utc": "2026-11-22T01:44:43.761311+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
