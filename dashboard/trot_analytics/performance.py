@@ -19,8 +19,8 @@ def performance_rows(results, now):
             day = date.fromisoformat(str(r.get("Date")))
         except (TypeError, ValueError):
             continue
-        if r.get("Évaluation · État") != "EVALUE":
-            continue
+        # A stored evaluation label must not hide independently verifiable evidence.
+        # result_matching checks pre-start Direct timing and score consistency.
         scores = {}
         for method, label in (("direct", "TOP3 direct"), ("ml", "TOP3 ML")):
             published = number(r.get(label + " · Matching (%)"))
