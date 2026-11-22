@@ -14,13 +14,15 @@
   ],
   "chevaux": {
     "2026-11-22_R1C1_1": {
-      "statut": "ECHEC_COLLECTE",
+      "statut": "A_PUBLIER",
       "nom": "KARINA JOSSELYN",
       "course": "R1C1",
       "numero": "1",
       "tentative_utc": "2026-11-22T22:14:13.740232+00:00",
       "id_geny": "2781809",
-      "motif": "COMPLET"
+      "motif": "COMPLET",
+      "revalidation_utc": "2026-11-22T22:45:09.678822+00:00",
+      "capture": "COMPLET"
     },
     "2026-11-22_R1C1_2": {
       "statut": "ECHEC_COLLECTE",
@@ -809,14 +811,15 @@
       "numero": "13"
     }
   },
-  "controle_utc": "2026-11-22T22:45:04.584969+00:00",
+  "controle_utc": "2026-11-22T22:45:09.755344+00:00",
   "bilan": {
     "courses": 9,
     "chevaux": 125,
     "examines": 15,
     "tentatives": 15,
     "statuts": {
-      "ECHEC_COLLECTE": 14,
+      "A_PUBLIER": 1,
+      "ECHEC_COLLECTE": 13,
       "REFUS_GENY": 1,
       "A_EXAMINER": 110
     }
