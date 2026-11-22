@@ -460,7 +460,7 @@ def checkpoint_distant(cache, *, queue=QUEUE):
 
 def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None,
-        prochains_depart=False, creneau_reserve=None, nocturne=False, perimetre=None):
+        prochains_depart=False, creneau_reserve=None, nocturne=False, perimetre=None, archive_recensement=None):
     cache = Path(cache)
     now = datetime.now(UTC)
     reprise=None
@@ -470,6 +470,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         raise ValueError('MODE_COLLECTE_INCONNU')
     queue=reprise.QUEUE if reprise else QUEUE
     associations = {}
+    rejeu = {}
     if perimetre:
         from . import recensement_historiques as recensement
         chemin_suivi, suivi = recensement.ouvrir(cache, *perimetre)
@@ -480,6 +481,8 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             cheval = state['chevaux'].get(ident)
             if cheval and nom_normalise(cheval.get('nom')) == nom_normalise(ligne['nom']):
                 associations[contexte] = ident
+        if archive_recensement:
+            rejeu = recensement.captures_a_rejouer(archive_recensement, chemin_suivi, suivi, state, associations)
     else:
         state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
     if prochains_depart and not reprise:
@@ -547,7 +550,15 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             state['motif_fin_passage']=str(reason)
             break
         choisir=reprise.prochaine_tache if reprise else prochaine_tache
-        if perimetre:
+        capture_archivee = None
+        if rejeu:
+            key = next(iter(rejeu))
+            capture_archivee = rejeu.pop(key)
+            action = 'COLLECTE'
+        elif archive_recensement:
+            state['motif_fin_passage'] = 'REVALIDATION_ARCHIVES_TERMINEE'
+            break
+        elif perimetre:
             pause = pause_geny_active(cache, datetime.now(UTC))
             key, action = recensement.tache(suivi, state, associations, pause, syncs)
             if pause:
@@ -563,7 +574,8 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         horse = state['chevaux'][key]
         attempts[(action, key)] = attempts.get((action, key), 0)+1
         if action == 'COLLECTE':
-            lignes = recensement.lignes_associees(suivi, associations, key, 'A_EXAMINER') if perimetre else ()
+            statut_initial = 'ECHEC_COLLECTE' if capture_archivee else 'A_EXAMINER'
+            lignes = recensement.lignes_associees(suivi, associations, key, statut_initial) if perimetre else ()
             debut_tentative = datetime.now(UTC).isoformat()
             if not horse.get('geny') and horse.get('course_url'):
                 from .liens_geny_course import pour_cheval
@@ -587,7 +599,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             report = {}
             refus = None
             try:
-                report = collect(horse, out)
+                report = capture_archivee or collect(horse, out)
                 refus = {'ACCES_REFUSE_403': '403', 'ACCES_LIMITE_429': '429'}.get(report.get('statut'))
                 if refus:
                     raise PermissionError(report['statut'])
@@ -646,7 +658,10 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 attempts[reprise.cle_travail_geny(horse)] = 1
             count += 1
             for ligne in lignes:
-                ligne['tentative_utc'] = debut_tentative
+                if capture_archivee:
+                    ligne['revalidation_utc'] = debut_tentative
+                else:
+                    ligne['tentative_utc'] = debut_tentative
                 ligne['id_geny'] = horse.get('id')
                 if refus or horse.get('collecte') == 'A_REPRENDRE':
                     echec = horse['dernier_echec_collecte']
@@ -742,7 +757,10 @@ def main():
     parser.add_argument('--local', action='store_true', help='Publications sans requête Geny')
     parser.add_argument('--date-courses')
     parser.add_argument('--hippodrome')
+    parser.add_argument('--archive-recensement', type=Path)
     args = parser.parse_args()
+    if args.archive_recensement and not args.date_courses:
+        parser.error('--archive-recensement exige le périmètre du recensement')
     if bool(args.date_courses) != bool(args.hippodrome):
         parser.error('--date-courses et --hippodrome doivent être fournis ensemble')
     if args.max_minutes < 1 or (args.max_chevaux is not None and args.max_chevaux < 1):
@@ -768,7 +786,7 @@ def main():
             return 'RELAIS_RUNNER' if sortie_actions and time.monotonic() >= relais else None
 
         suivi = run(Path(args.cache), max_minutes=None, publier=True, stop_requested=limite_runner,
-                    perimetre=(args.date_courses, args.hippodrome))
+                    perimetre=(args.date_courses, args.hippodrome), archive_recensement=args.archive_recensement)
         print('BILAN_RECENSEMENT ' + json.dumps(suivi['bilan'], ensure_ascii=False))
         motif = suivi['motif_fin_passage']
         if sortie_actions and motif in ('COOLDOWN', 'RELAIS_RUNNER'):

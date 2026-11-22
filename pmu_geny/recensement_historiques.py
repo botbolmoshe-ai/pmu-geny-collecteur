@@ -81,3 +81,46 @@ def bilan(suivi):
             'examines': len(chevaux) - statuts.get('A_EXAMINER', 0),
             'tentatives': sum('tentative_utc' in ligne for ligne in chevaux),
             'statuts': statuts}
+
+
+def captures_a_rejouer(archive, chemin_suivi, suivi, state, associations):
+    """Relire uniquement les captures complètes archivées du même passage."""
+    from .historiques_incrementaux import instant, lire
+    from .liaison_chevaux_v22 import nom_geny_concordant
+    from .rattrapage_historiques import url_cheval
+
+    precedent = lire(archive/'cache_pmu'/chemin_suivi)
+    controle = instant(precedent.get('controle_utc'))
+    if not controle:
+        raise ValueError('ARCHIVE_RECENSEMENT_NON_CONCORDANTE')
+    par_id = {}
+    for path in sorted((archive/'resultats/incremental').glob('*/*/resultat.json')):
+        rapport = lire(path)
+        geny = rapport.get('geny') or {}
+        ident = str(geny.get('id') or '')
+        if (rapport.get('complet') and rapport.get('identite_verifiee')
+                and re.fullmatch(r'\d{4,15}', ident) and url_cheval(geny.get('url_geny'), ident)):
+            dossier = path.parent/ident
+            stamp = instant(lire(dossier/'historique_geny.json').get('extrait_utc'))
+            if stamp and stamp <= controle:
+                par_id.setdefault(ident, []).append((stamp, {**rapport, 'dossier': str(dossier)}))
+    resultats = {}
+    for contexte, ligne in suivi['chevaux'].items():
+        cle = associations.get(contexte)
+        ref = precedent.get('chevaux', {}).get(contexte, {})
+        ident = ligne.get('id_geny')
+        debut = instant(ligne.get('tentative_utc'))
+        confirmation = (ligne['statut'] == ref.get('statut') == 'ECHEC_COLLECTE'
+                        and not ligne.get('revalidation_utc') and cle in state['chevaux']
+                        and ident == state['chevaux'][cle].get('id') == ref.get('id_geny')
+                        and debut and ligne.get('tentative_utc') == ref.get('tentative_utc'))
+        if not confirmation:
+            continue
+        anciens = state['chevaux'][cle].get('dernier_echec_collecte') or {}
+        if anciens.get('erreur') != 'REGRESSION_HISTORIQUE_A_CONTROLER':
+            continue
+        valide = [rapport for stamp, rapport in par_id.get(ident, []) if debut <= stamp
+                  and nom_geny_concordant(ligne['nom'], rapport['geny'])]
+        if len(valide) == 1:
+            resultats[cle] = valide[0]
+    return resultats
