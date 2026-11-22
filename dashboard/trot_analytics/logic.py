@@ -48,7 +48,7 @@ def result_matching(row,method,now=None):
     depart=timestamp(row.get('Départ (Paris)'))
     arrival=timestamp(row.get('Arrivée · Vérifiée UTC'))
     actual=podium(row.get('Arrivée · N° officiels'))
-    if row.get('Évaluation · État')!='EVALUE' or not depart or not arrival or not depart<arrival<=now or not actual: return None
+    if not depart or not arrival or not depart<arrival<=now or not actual: return None
     prefix='TOP3 direct' if method=='direct' else 'TOP3 ML'
     chosen=podium(row.get(prefix+' · Chevaux'))
     if not chosen: return None
@@ -56,6 +56,7 @@ def result_matching(row,method,now=None):
         created=timestamp(row.get('TOP3 direct · Heure calcul UTC'))
         if not created or not created<depart: return None
     else:
+        if row.get('Évaluation · État') != 'EVALUE': return None
         state=str(row.get('ML · Statut',''))
         if 'ENTRAINE_NON_CALIBRE' not in state and state not in ('ML_ENTRAINE','ML_CALCULE','ML_PRODUCTION_ENTRAINE','ML_ENTRAINE_CALIBRE'): return None
         # Current sheet has no independent ML calculation timestamp.

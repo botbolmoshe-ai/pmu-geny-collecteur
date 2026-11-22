@@ -36,6 +36,14 @@ class PerformanceTests(unittest.TestCase):
     def test_bad_published_matching(self):
         self.assertEqual(summarize(performance_rows([self.row(direct=33.33)],self.now))["courses"],0)
 
+    def test_stale_status_allows_direct_but_keeps_ml_gate(self):
+        row = self.row()
+        row["Évaluation · État"] = "ARRIVEE_SANS_TOP3_PUBLIE"
+        stats = summarize(performance_rows([row], self.now))
+        self.assertEqual((stats["evaluated"], stats["direct_available"], stats["ml_available"]), (1, 1, 0))
+        row["TOP3 direct · Heure calcul UTC"] = row["Départ (Paris)"]
+        self.assertEqual(performance_rows([row], self.now), [])
+
     def test_cumulative_is_weighted_by_courses(self):
         rows=[{"date":date(2026,11,16),"direct":100,"ml":0},
               {"date":date(2026,11,17),"direct":0,"ml":100},
