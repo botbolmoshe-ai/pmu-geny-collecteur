@@ -81883,7 +81883,19 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-24T11:52:00+00:00",
       "premier_depart_reunion_utc": "2026-11-24T11:17:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "erreur": "PermissionError: ACCES_REFUSE_403",
+      "prochain_essai_utc": "2026-11-24T03:22:29.680480+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-23T21:22:29.680499+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [
+          "ACCES_REFUSE_403"
+        ],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2783473/1795468944351915921/resultat.json"
+      }
     },
     "2797924": {
       "nom": "LORENZO BERRY",
@@ -81935,13 +81947,13 @@
     }
   },
   "passage_utc": "2026-11-23T21:22:18.815490+00:00",
-  "maj_utc": "2026-11-23T21:22:19.794033+00:00",
+  "maj_utc": "2026-11-23T21:22:29.724430+00:00",
   "bilan": {
     "chevaux_suivis": 2917,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2616
   },
@@ -82822,16 +82834,17 @@
   "sync_kpi_utc": "2026-11-23T21:03:25.116580+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-23T21:22:18.815490+00:00",
-    "controle_utc": "2026-11-23T21:22:19.794033+00:00",
+    "controle_utc": "2026-11-23T21:22:29.724430+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
     "refus_geny": {
-      "403": 0,
+      "403": 1,
       "429": 0
     },
-    "prochain_acces_geny_utc": null
+    "prochain_acces_geny_utc": "2026-11-23T21:52:29.680523+00:00"
   },
-  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT"
+  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
+  "prochain_acces_geny_utc": "2026-11-23T21:52:29.680523+00:00"
 }
