@@ -27771,7 +27771,7 @@
       "course_url": "https://www.geny.com/course/1698232/partants-pronostics",
       "numero": "7",
       "engagement": "2026-11-14_R8C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C1",
@@ -27795,7 +27795,32 @@
       "prochaine_verification_utc": "2026-11-24T03:21:59.329220+00:00",
       "nombre_performances": 10,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 10,
+          "cellules_actualisees": 0,
+          "lignes_source": 10,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 10,
+            "lignes_avant": 30766,
+            "cles_avant": 30766,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3077,
+            "import_initial_explicite": false,
+            "lignes_attendues": 30776,
+            "lignes_apres": 30776,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T03:22:15.192286+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T03:21:59.329220+00:00",
+      "ajouts_confirmes": 10
     },
     "contexte:5d3b35aa1bb147d6e899b9d7": {
       "nom": "MILORD DE COQUERIE",
@@ -40361,9 +40386,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C1",
       "numero": "7",
       "numero_reconcilie_depuis_snapshot": true,
@@ -40385,7 +40410,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:49182d848f6ee02b838dcc32",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:49182d848f6ee02b838dcc32"
+      "autre_contexte_meme_nom": "contexte:49182d848f6ee02b838dcc32",
+      "rattrapage_complet_au_utc": "2026-11-23T03:21:59.329220+00:00",
+      "historique_complet_au_utc": "2026-11-23T03:21:59.329220+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:ac518d2543f2a936fcde518d": {
       "nom": "MILORD DE COQUERIE",
@@ -72053,12 +72082,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1193,
-    "cibles_restantes": 1391,
+    "cibles_completees": 1195,
+    "cibles_restantes": 1389,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1420,
+    "travaux_distincts_restants": 1419,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 973,
+    "carrieres_distinctes_a_completer": 972,
     "identifiants_sans_carriere_complete": 60,
     "contextes_distincts_sans_identifiant": 912,
     "noms_distincts_sans_identifiant": 907,
@@ -72066,8 +72095,8 @@
     "identites_non_resolues": 1320,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 3818,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 3828,
     "tentatives_collecte": 11,
     "captures_validees": 11,
     "captures_partielles": 0,
@@ -72075,7 +72104,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T03:16:54.192035+00:00",
-  "maj_utc": "2026-11-23T03:21:59.770159+00:00",
+  "maj_utc": "2026-11-23T03:22:15.214068+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 10,
@@ -74268,11 +74297,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:16:54.192035+00:00",
-    "controle_utc": "2026-11-23T03:21:59.770159+00:00",
+    "controle_utc": "2026-11-23T03:22:15.214068+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 11,
-    "chevaux_confirmes_sheets": 10,
-    "performances_ajoutees_et_confirmees_sheets": 259,
+    "chevaux_confirmes_sheets": 11,
+    "performances_ajoutees_et_confirmees_sheets": 269,
     "refus_geny": {
       "403": 0,
       "429": 0
