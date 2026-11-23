@@ -28,11 +28,12 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
+      "statut_meteo": "METEO_NON_VERIFIEE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
     },
     "R3C3": {
       "identifiant_geny": null,
@@ -44,11 +45,12 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
+      "statut_meteo": "METEO_NON_VERIFIEE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
     },
     "R3C4": {
       "identifiant_geny": null,
@@ -60,11 +62,12 @@
       "priorite_metier": "P1",
       "motif_selection": "VINCENNES",
       "traitement": "PREPARATION_AVANT_DEPART",
-      "statut_meteo": "METEO_CAPTUREE_4",
+      "statut_meteo": "METEO_NON_VERIFIEE",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
     },
     "R3C5": {
       "identifiant_geny": null,
@@ -245,26 +248,27 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-23T03:06:22.541993+00:00",
+  "dernier_controle_pmu": "2026-11-23T15:04:53.848862+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-24",
-    "horodatage_utc": "2026-11-23T03:06:22.541993+00:00",
+    "horodatage_utc": "2026-11-23T15:04:53.848862+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 15,
-    "reunions_recues": 5,
+    "reunions_recues": 6,
     "reunions_francaises": 3,
     "reunions_pays_inconnu": 0,
-    "reunions_etrangeres": 2,
-    "courses_recues": 35,
+    "reunions_etrangeres": 3,
+    "courses_recues": 44,
     "exclusions": {
       "metier_hors_trot": 8,
-      "pays_etranger": 2,
+      "pays_etranger": 3,
       "metier_allocation_inferieure_seuil_p2": 1
     },
     "pays_observes": {
       "FRA": 3,
       "CHE": 1,
+      "GBR": 1,
       "CHL": 1
     },
     "exemples_reunions": [
@@ -394,7 +398,7 @@
         ]
       },
       {
-        "pays": "CHL",
+        "pays": "GBR",
         "champs_reunion": [
           "audience",
           "cached",
