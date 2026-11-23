@@ -28019,7 +28019,7 @@
       "course_url": "https://www.geny.com/course/1698232/partants-pronostics",
       "numero": "14",
       "engagement": "2026-11-14_R8C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C1",
@@ -28043,7 +28043,32 @@
       "prochaine_verification_utc": "2026-11-24T03:20:34.720668+00:00",
       "nombre_performances": 25,
       "erreur": "",
-      "derniere_performance_date": "2026-11-22"
+      "derniere_performance_date": "2026-11-22",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 25,
+          "cellules_actualisees": 0,
+          "lignes_source": 25,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 25,
+            "lignes_avant": 30712,
+            "cles_avant": 30712,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3072,
+            "import_initial_explicite": false,
+            "lignes_attendues": 30737,
+            "lignes_apres": 30737,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T03:20:48.136045+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T03:20:34.720668+00:00",
+      "ajouts_confirmes": 25
     },
     "contexte:ca5cfca5dc8aa69c6452f7dd": {
       "nom": "MAGALIE DU DOLLAR",
@@ -40552,9 +40577,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C1",
       "numero": "14",
       "numero_reconcilie_depuis_snapshot": true,
@@ -40576,7 +40601,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:208b938e30cb9917292f5ad7",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:208b938e30cb9917292f5ad7"
+      "autre_contexte_meme_nom": "contexte:208b938e30cb9917292f5ad7",
+      "rattrapage_complet_au_utc": "2026-11-23T03:20:34.720668+00:00",
+      "historique_complet_au_utc": "2026-11-23T03:20:34.720668+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:9044f64fa188fb49d4bc0444": {
       "nom": "MAGALIE DU DOLLAR",
@@ -71948,12 +71977,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1187,
-    "cibles_restantes": 1397,
+    "cibles_completees": 1189,
+    "cibles_restantes": 1395,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1423,
+    "travaux_distincts_restants": 1422,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 976,
+    "carrieres_distinctes_a_completer": 975,
     "identifiants_sans_carriere_complete": 63,
     "contextes_distincts_sans_identifiant": 912,
     "noms_distincts_sans_identifiant": 907,
@@ -71961,8 +71990,8 @@
     "identites_non_resolues": 1320,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 3764,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 3789,
     "tentatives_collecte": 8,
     "captures_validees": 8,
     "captures_partielles": 0,
@@ -71970,7 +71999,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T03:16:54.192035+00:00",
-  "maj_utc": "2026-11-23T03:20:35.253605+00:00",
+  "maj_utc": "2026-11-23T03:20:48.158877+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 10,
@@ -74163,11 +74192,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:16:54.192035+00:00",
-    "controle_utc": "2026-11-23T03:20:35.253605+00:00",
+    "controle_utc": "2026-11-23T03:20:48.158877+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 8,
-    "chevaux_confirmes_sheets": 7,
-    "performances_ajoutees_et_confirmees_sheets": 205,
+    "chevaux_confirmes_sheets": 8,
+    "performances_ajoutees_et_confirmees_sheets": 230,
     "refus_geny": {
       "403": 0,
       "429": 0
