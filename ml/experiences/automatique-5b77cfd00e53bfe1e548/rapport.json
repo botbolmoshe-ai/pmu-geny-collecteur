@@ -1,0 +1,1761 @@
+{
+  "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
+  "execute_utc": "2026-11-23T20:55:31.240657+00:00",
+  "nature_evaluation": "REJEU_RETROSPECTIF_HORS_ECHANTILLON",
+  "regle_selection": "moyenne TOP3 validation decroissante, puis Brier croissant",
+  "validation_day": "2026-11-22",
+  "test_day": "2026-11-23",
+  "courses_admissibles": 189,
+  "dernier_label_entrainement_avant_test": "2026-11-22T20:42:54.810071+00:00",
+  "premiere_capture_test": "2026-11-23T03:04:13.921548+00:00",
+  "lignes_admissibles": 2519,
+  "rejets": {
+    "2026-11-13_R1C2": "CAPTURE_OU_ARRIVEE_NON_ADMISSIBLE",
+    "2026-11-19_R3C7": "CAPTURE_OU_ARRIVEE_NON_ADMISSIBLE"
+  },
+  "decoupage": {
+    "train": {
+      "courses": 143,
+      "lignes": 1896,
+      "premier_depart": "2026-11-11T16:42:00+01:00",
+      "dernier_depart": "2026-11-21T20:13:00+01:00"
+    },
+    "validation": {
+      "courses": 38,
+      "lignes": 519,
+      "premier_depart": "2026-11-22T12:05:00+01:00",
+      "dernier_depart": "2026-11-22T18:10:00+01:00"
+    },
+    "test": {
+      "courses": 8,
+      "lignes": 104,
+      "premier_depart": "2026-11-23T13:55:00+01:00",
+      "dernier_depart": "2026-11-23T18:00:00+01:00"
+    }
+  },
+  "couverture_features": {
+    "courses_30j": 142,
+    "courses_60j": 142,
+    "courses_120j": 142,
+    "podiums_30j": 111,
+    "podiums_120j": 136,
+    "victoires_120j": 142,
+    "disqualifications_120j": 142,
+    "score_forme": 136,
+    "forme_30j": 111,
+    "forme_ancien": 121,
+    "jours_repos": 139,
+    "distance_m": 2519,
+    "distance_ecart_m": 139,
+    "aptitude_hippodrome": 0,
+    "taux_podium_distance": 136,
+    "nb_partants": 1197,
+    "meteo_pluie_mm": 201,
+    "meteo_vent_kmh": 201,
+    "meteo_temperature_c": 201,
+    "meteo_humidite_pct": 201,
+    "avis_experts_score": 0,
+    "info_ecurie_score": 0,
+    "driver_score": 130,
+    "entraineur_score": 66,
+    "pmu_score_direct": 2441,
+    "age_ans": 2265,
+    "gains_euros": 2265,
+    "sexe_male": 2265,
+    "sexe_femelle": 2265,
+    "sexe_hongre": 2265,
+    "ferrure_d4": 1197,
+    "ferrure_dp": 1197,
+    "ferrure_da": 1197,
+    "ferrure_p4": 1197,
+    "ferrure_pa": 1197,
+    "ferrure_pp": 1197,
+    "discipline_montee": 1197,
+    "forme_pmu_discipline": 1133,
+    "forme_geny_comparable": 118
+  },
+  "limites": [
+    "Schémas historiques hétérogènes : variables non conservées laissées manquantes.",
+    "Scores non calibres: aucune probabilite de podium publiee.",
+    "Finalite officielle des arrivees non tracee par le collecteur actuel.",
+    "Le test est retrospectif et ne constitue pas une prediction live.",
+    "Le TOP3 direct publié est comparé uniquement si le même relevé et sa relecture Sheets sont prouvés."
+  ],
+  "sources_sha256": {
+    "ml/instantanes/2026-11-11_R13C7.json": "e55ddd16de262e9b9b20df42425789a32bd8951cdbbe73418536037eb742e082",
+    "ml/instantanes/2026-11-11_R4C2.json": "753191068255f4d956129b3a5018b146def52f612e4af8bfd724fb4858590f6a",
+    "ml/instantanes/2026-11-11_R4C3.json": "a5f3dcd936e6ebdb1c6edde03ae1df153f6d046d2702cf82ef25dab0575d1ec1",
+    "ml/instantanes/2026-11-11_R4C4.json": "925d9a61cd74e6c4948ebd22bfe2bf1c925aec9606f84b83c85957135b2634f0",
+    "ml/instantanes/2026-11-11_R4C5.json": "9b55fd5bddc6c04dbbbd1e40e40908e4faa542bd0e5bca81a22133fc710ba750",
+    "ml/instantanes/2026-11-12_R1C1.json": "4d2815b0e1b0e81b9bfa7357be94005c3f6bb957e009cc6fe734f3cfed624d13",
+    "ml/instantanes/2026-11-12_R1C2.json": "86e429154ac72f338145bfb09d5de487d626439b457f45bf8fc638416f727130",
+    "ml/instantanes/2026-11-12_R1C3.json": "9ba66d3de4de2cc54a9219832285f53c7d65b9498bb9138b9a2cef89d0d67566",
+    "ml/instantanes/2026-11-12_R1C4.json": "430bd6a28880928c8ecf9ec7f6437fccdab7b3c4d859fa742ce113d7b5b219bb",
+    "ml/instantanes/2026-11-12_R1C5.json": "2fd66a7cd8265a25e3809da84ab95ca6cd680b63b7ff8ab63c85a6c6279dbbf4",
+    "ml/instantanes/2026-11-12_R1C6.json": "cf775333f60b12d921ba1f8a5ee1b48e235741667f5421b743b493b86d74e5bf",
+    "ml/instantanes/2026-11-12_R1C7.json": "d6b99338238a0a727225e43eb5e25eeb71e1cf395108bb8e63715d26cadb48b6",
+    "ml/instantanes/2026-11-12_R1C8.json": "4ce6767df38242d3935a20e34934c0269af253514a9c3848acb3c07206ecb680",
+    "ml/instantanes/2026-11-12_R1C9.json": "cccd89c4190853ab7264a0d6476a01a1b68c710e358c9d34c229d6e3a76cfce6",
+    "ml/instantanes/2026-11-12_R4C1.json": "2822c233cd262d57323e47d0a42b2252bd690a32917fe79ab0c0df146aeca39f",
+    "ml/instantanes/2026-11-12_R4C2.json": "df019d0b1746b323c72517fe3bad455bdde178d21bfc5146fc223c51cccff1ce",
+    "ml/instantanes/2026-11-12_R4C3.json": "c92ab54b39adee1a633f3b2497eeda505a3579c57d5db98d98511adb1bf64cfe",
+    "ml/instantanes/2026-11-12_R4C4.json": "9a6b1634d0535327f920e35fbc0e385b14f257fb29cfbae0a8d5fb250857b8e1",
+    "ml/instantanes/2026-11-13_R1C1.json": "7594c59790192e78046314c27de30290d3b7adb4fc58d11178d8568ef8124334",
+    "ml/instantanes/2026-11-13_R1C2.json": "dc9fd24dc938823ad6284a837e5038d128edf0528e594c4ba18c91432eb2d0b5",
+    "ml/instantanes/2026-11-13_R3C1.json": "c27f31ab294c48463ec2fb071ddcc02806f713b74b014934f60b04b60e45621e",
+    "ml/instantanes/2026-11-13_R3C2.json": "2687f2dff2e95c79e73f3417346a7babccc94556fb45ee6f1f761089e5ba3ea3",
+    "ml/instantanes/2026-11-13_R3C3.json": "f246b8bd383ad297cd5d1d18af9c402a294c404397018d8983acd44793c9d5f3",
+    "ml/instantanes/2026-11-13_R3C4.json": "dad4a011529e35399671cce02c41a15235b114327bd7345cb9b5238a3627c688",
+    "ml/instantanes/2026-11-13_R3C5.json": "8269d233c58b7d445976292a0b21a31e41ee3151bbc20646bf636b58ab43bdbb",
+    "ml/instantanes/2026-11-13_R3C6.json": "05ef1101f58c2ebb239e4ea618fd434302669cd9f3cf4c99fb24d8a257acfc76",
+    "ml/instantanes/2026-11-13_R3C7.json": "aa0e7de1f7e0619727e364b8c80688ae1ce6a81aa7a2ac04d2f465129a17df83",
+    "ml/instantanes/2026-11-13_R3C8.json": "c76b60bf468ebdb0dc7953916e81e79ffa4cd0b38a32d5506adf9f08d8291fb8",
+    "ml/instantanes/2026-11-14_R1C1.json": "b128af63aa8234443c2c706f1112eaeed638c54bc3fa54e660fb55a0800b5baf",
+    "ml/instantanes/2026-11-14_R1C2.json": "222e5dcee7d1c2ae05902799e396b5f6d80dc9479a277d826887511bab7e08f0",
+    "ml/instantanes/2026-11-14_R1C3.json": "6ef0ed146e7d6c38d6446e84bef240b6613f9a357545f7df6f45acdb57699a68",
+    "ml/instantanes/2026-11-14_R1C4.json": "8a4dc7f77c1bd5ae4ccf1c2f4e746e9f744cc6b5fc3b495d180cbc902f278881",
+    "ml/instantanes/2026-11-14_R1C5.json": "dfd984781a15e1c5cb347a4f239254ed4527567c220c4ca292a592303374a95b",
+    "ml/instantanes/2026-11-14_R1C6.json": "e193be95aa5d98df2c45d17c8f01db19a0fd93a279de3f2e982fc74659c1fbe4",
+    "ml/instantanes/2026-11-14_R1C7.json": "55136be1392a15ad90c484334e94460ce302a79b81935f6f0eb7735e679ae5e4",
+    "ml/instantanes/2026-11-14_R1C8.json": "fc453fbfc2ecebdf1541d8e80896d636ba500c7ab156d0a898a7a4f6d11a2427",
+    "ml/instantanes/2026-11-14_R1C9.json": "83b3c5fd69519c54c3571d2009d99e7315cf5f7de7aac011ac0d1f366f6d217e",
+    "ml/instantanes/2026-11-14_R3C1.json": "7961c5f346cf5eb7045894da6a375fe39ed79912fd154385c1ce5d24841d7a99",
+    "ml/instantanes/2026-11-14_R3C2.json": "15d234cdd7859d87fc9fdfdf04487626bb0bcf8f8deab214956e08a641ebe912",
+    "ml/instantanes/2026-11-14_R3C3.json": "f93f612551e63acce69097891569e00605adf412a3e7d67366b68041ea9965b8",
+    "ml/instantanes/2026-11-14_R3C4.json": "6e6cd1236d521466fba791f51978db26281ed121930fc459148f1b528c5113b4",
+    "ml/instantanes/2026-11-14_R3C5.json": "a6319c12018b1eb12ddcad614ee0eb2d89eb0c78219dc4eeb214f01ef963e6c7",
+    "ml/instantanes/2026-11-14_R3C6.json": "99a6d451bc1a601055116a896c37c69a6332927d79b04bbdb38a579847c75c1c",
+    "ml/instantanes/2026-11-14_R3C7.json": "f8108f13dd25d81c687f6d2084bfad6c8c93b92039975d07e2ef7719856cffa7",
+    "ml/instantanes/2026-11-14_R3C8.json": "b67cbc790d78d18aab0c92011180c43b0c40c2249438282ca599fa837e54ba43",
+    "ml/instantanes/2026-11-14_R8C1.json": "8050d83c411674241ad9228b96d5f0be1e079e456c3382c0d7c7de5fdff89c81",
+    "ml/instantanes/2026-11-14_R8C2.json": "5edd96e6359a7ccd57fa16eb6ecc8fb84cabc10faf51f9b540d57a7de06c012e",
+    "ml/instantanes/2026-11-14_R8C3.json": "23a32000b3599cdbde74961144ae80cacc8286f26b900015e185482e56ab86a4",
+    "ml/instantanes/2026-11-14_R8C4.json": "45114d48692b8c23a3262fa5ccb43eb03bf4a71a5b6b754ad4c449eaf84be5cf",
+    "ml/instantanes/2026-11-14_R8C5.json": "a0ab2333767927e3ca11a31d28e400a1c8454ec35c1da32258d7e55b7ed9e0b0",
+    "ml/instantanes/2026-11-14_R8C6.json": "4d30a6eeca45d1ae8f03d7e8a3f153f356304ec51ebed12ecc3b37b426b33773",
+    "ml/instantanes/2026-11-14_R8C7.json": "2a8c0fc86a625a781a671ec9debda85f9f307e715bef3f45d3b08d067668b4ef",
+    "ml/instantanes/2026-11-14_R8C8.json": "b4de4f569994a294b9f65c55a2fee1b5732ac6696b746800528baaffa3660a77",
+    "ml/instantanes/2026-11-14_R8C9.json": "7b62059b98625f9d134e328f3c9c5cbaa9518c231643cbc8656480142034db0b",
+    "ml/instantanes/2026-11-15_R11C1.json": "3c3101a7d0042c8f91a82d227348d3ad2a3d369a43f8c8c313c0ad988c77564e",
+    "ml/instantanes/2026-11-15_R11C2.json": "5524040a213aee06de85b986f5485cbcf7dd15f22e7bd9a1072ff955ec6f3dba",
+    "ml/instantanes/2026-11-15_R11C3.json": "cafa7e031a11bb678a8d805bd9f971b02004eeee3db3ff013f8e127b64a47cfe",
+    "ml/instantanes/2026-11-15_R11C4.json": "cd5c663930d4cd055ad9e433615daad08b204fd70f5c198e6c1da95667163aa5",
+    "ml/instantanes/2026-11-15_R11C5.json": "73e22255a129b3bd3322d54561ac6014fe1ddf758f60dca5c7c94a877fa9fa40",
+    "ml/instantanes/2026-11-15_R11C6.json": "f195f76869b1291c2fee54336990d683d27f604601339c712219bf7a1fca5617",
+    "ml/instantanes/2026-11-15_R11C7.json": "e4ced5a4e4a8564523a813c27445968ec9a7962d38425fe7acbc70bfdae79a3b",
+    "ml/instantanes/2026-11-15_R11C8.json": "386b79e305f87bc63b059a1c1f005a02c73d9c5cbec3a4ebe1663cd0d610e196",
+    "ml/instantanes/2026-11-15_R3C1.json": "bd0039f099b075c91412d24535460c68a16dc03a734a509d7560bdd8e165cd5b",
+    "ml/instantanes/2026-11-15_R3C2.json": "13bffdf98d99ee67f0bbdd4a161d0f0dcf26e91dff9b20f1361fd5fe06ebc4e4",
+    "ml/instantanes/2026-11-15_R3C3.json": "475a2fb8c650d0a4d74240295f66315c85ddca816ce0500500d41ed2b92d207b",
+    "ml/instantanes/2026-11-15_R3C4.json": "fc204fb65dcc37f5574107312a8fd7975f6754ff9d7863223ed3fa03f43f91b1",
+    "ml/instantanes/2026-11-15_R3C5.json": "f3fbce541c25c865617f391a6a416517179a5ef68f62355de3eeef1601323892",
+    "ml/instantanes/2026-11-15_R3C6.json": "f31ff8c5a2e573efa3b4392dc318dd7c176b063f8496d1d489b2a825965864f0",
+    "ml/instantanes/2026-11-15_R3C7.json": "e89931475eec09440bedeb4610101136fe5b52628441f442bff565d110fac967",
+    "ml/instantanes/2026-11-15_R4C1.json": "6cf1ff7bf63225807450c285d8a49c575b8c1153c69d3097a6df9696c21d37ac",
+    "ml/instantanes/2026-11-15_R4C2.json": "104b11a54a52426cb5e0416fcece43e96ac4733e6f8ae667bd02fc97a93aea4a",
+    "ml/instantanes/2026-11-15_R4C3.json": "053bea0651800c3861e551d2fee58470d2514fc2d9f388fb41718c1e176dd45a",
+    "ml/instantanes/2026-11-15_R4C4.json": "d57fc6cf5ad20c3e3df8c27aa81cf40f7a7a7f63b156dbefefe8f88b7b4e890c",
+    "ml/instantanes/2026-11-15_R4C5.json": "bad1e8e6769774ce1f2b47f98a8b72912a05a6fb3566a859454145ca0d21aa7d",
+    "ml/instantanes/2026-11-15_R4C6.json": "3d4adc148f2e2b2a5354d1e99be35a2f9a09ed6dafdf4acecf08a9d06416a431",
+    "ml/instantanes/2026-11-15_R4C7.json": "d3ecea5879c3f1ae989a93044244a53de52524a79ce122230778da23a64cdab7",
+    "ml/instantanes/2026-11-15_R4C8.json": "08b403743e5a89df065152a979734e75e279321991127852800771d5ff17ac37",
+    "ml/instantanes/2026-11-16_R1C7.json": "5a2571877b197d7a03302a149d315e08de1d49f0f3252babc80a971876208bbb",
+    "ml/instantanes/2026-11-16_R1C8.json": "8039f5a1310888621dd18fac1423c418a59239015edeb0cc2a59541f455bf198",
+    "ml/instantanes/2026-11-17_R3C1.json": "28573a62d1e234ae7eb5cfbea3174ab81861eb2b2985fc6c789d5385f9da6841",
+    "ml/instantanes/2026-11-17_R3C2.json": "d1e29c66e238e4d49ab05f4ea761f0fc21fbb9a12d135f709b3fb01c5a96f711",
+    "ml/instantanes/2026-11-17_R3C3.json": "3bdc35ce49a4065caa386338d9427f96ef59691c435ae8e8d2d4083a3d3ed595",
+    "ml/instantanes/2026-11-17_R3C4.json": "acb35b1b5da00357d29539c76cb6a57cd8df2295218803685c791256c925ea50",
+    "ml/instantanes/2026-11-17_R3C5.json": "857995cc463e8aff589768039e592f62125eb7a2f40969005c348bfb6b0f8efb",
+    "ml/instantanes/2026-11-17_R3C6.json": "ab6d3b5623edd8013c6d2711b37c93bd7ff659c30c2af8473556971540933baf",
+    "ml/instantanes/2026-11-17_R3C7.json": "9c3ebbf015cf3dc51e2665b8fc89cedf50d488c0456b6be40a864bc864b6c3e4",
+    "ml/instantanes/2026-11-17_R3C8.json": "abc3a9d30048fdef38f54536f47fb72346b52f070e36392be9ae8e3e50d7f4be",
+    "ml/instantanes/2026-11-18_R1C1.json": "329b9524f7374812383b67a2a0caa8d0a2e263f02820ad07bc0c04d9e9b1e3c9",
+    "ml/instantanes/2026-11-18_R1C4.json": "a3b70881ca50a75a9d4e7acd1ebc2f2d3d9baf7b8382c46cfe23190f14fce2e9",
+    "ml/instantanes/2026-11-18_R1C5.json": "01ebde311298e7dd72c899cc2e36f67507f61e1a997727ed4c471696adf0d8f2",
+    "ml/instantanes/2026-11-18_R1C6.json": "989b4e7ab1772d58ee5cbac4b51629ac7630e461eee955dc0d901ea07e125108",
+    "ml/instantanes/2026-11-18_R1C7.json": "f89a40cefbbfc68e8388bcb44ce64833f56f35168126bbc2f06942b66f901439",
+    "ml/instantanes/2026-11-18_R1C8.json": "b23bf8d3a1fe819d702a354d474ee97efbb5c039717b5d9d9d01b4c12c9047ff",
+    "ml/instantanes/2026-11-18_R6C1.json": "6a68391c20c029c6ff50472fb0f9b487a7a460a4da94a780f461ae0f883c0fa6",
+    "ml/instantanes/2026-11-18_R6C2.json": "9bd893efa350b9d9d6646613edfe385b6b8777e05385ef03e39f6d15d3eb4672",
+    "ml/instantanes/2026-11-18_R6C3.json": "72788b4e9fe9cb438e808492cb5b9d2321d422000608579352b5e1355214212d",
+    "ml/instantanes/2026-11-18_R6C4.json": "a7f86373f965e64891cacf5a6ec922550aeb8c37b67acadcda4aef2a42e5a134",
+    "ml/instantanes/2026-11-18_R6C5.json": "fd57e4c65f6c3531f068f3c01506f31e89ff7a0cdf5c294901e4f90babd59560",
+    "ml/instantanes/2026-11-18_R6C6.json": "b2e4cead63b1a17b18137954288798b95c447a3b167b0d7bfc487bc862df3541",
+    "ml/instantanes/2026-11-18_R6C7.json": "21b78ed0ec93d34c2b54e64d0133db8330ec51ecee1ea30cb6d481e81ced5a1c",
+    "ml/instantanes/2026-11-19_R3C1.json": "409f2e9ba042941e45385e49e18dce0540687ac51c0d741f9ff00e3cb4286c11",
+    "ml/instantanes/2026-11-19_R3C2.json": "67b07d24766e6aebcf647336d17f9dab1a5999ef6c563a3222e0d25b5fc49571",
+    "ml/instantanes/2026-11-19_R3C3.json": "bcd1993c3d649714da64535f0ff34866806313385a75c701f4382be05b5f2f03",
+    "ml/instantanes/2026-11-19_R3C4.json": "31697ac66ca29b3f04fad6184bf80ee326f7b98b0bd8d780908b3ff7ddc7c605",
+    "ml/instantanes/2026-11-19_R3C5.json": "816feea86e1dc6d27b20c257f1d6fbb2f08bf6e802f739d8ac7ea91b09f6d649",
+    "ml/instantanes/2026-11-19_R3C6.json": "69d0f9c2d05efef6a909dc1d79f5d464486f2e4003e748de87a5f7ea258c3bf4",
+    "ml/instantanes/2026-11-19_R3C7.json": "54f1269dc26abefd5ac0e3527852df14563301e9d2e3a451119a9fc00da7680c",
+    "ml/instantanes/2026-11-19_R3C8.json": "ee3344a60a0134122b58901cf4566493547173c623d93806214d18bd59f29c63",
+    "ml/instantanes/2026-11-19_R4C1.json": "dc0f93977fe99feb3cdb3f7ad743592ee3c32b07ac93799cd370f6c1aa16a0b6",
+    "ml/instantanes/2026-11-19_R4C2.json": "b1ab3e4fda33f60ee5320c8a46438b8ae55ae0969b1bef58b1641789061e12b9",
+    "ml/instantanes/2026-11-19_R4C3.json": "bf001e4de26540ebadafa3d4c796b084f33edd761b1b27eb727b7d5c6be98fde",
+    "ml/instantanes/2026-11-19_R4C4.json": "fe9be199dab1f20ba50d6f797227dbf5e4d29bb2f60429ebd62e9786f6c630f8",
+    "ml/instantanes/2026-11-19_R4C5.json": "3e6226f0e2cbfc3bcf0b26270ad9c47664735faecf96bbf91a7c0d48996c31fb",
+    "ml/instantanes/2026-11-19_R4C6.json": "300ec658f126bb96f7c73d6dc5a543da9a31985a170d5ad63c7608968eb81a17",
+    "ml/instantanes/2026-11-19_R4C7.json": "0562c25173b60065489391a9a14b779267b3e92a47c46b031078218ad0dc6f76",
+    "ml/instantanes/2026-11-19_R4C8.json": "df610cfa2eee76ff01851df5584e57defb6c7d121e590d2beba6ccc9cc42f346",
+    "ml/instantanes/2026-11-20_R1C1.json": "7f104029654db2f2373cd28c9171913814c2e91fd978b0235eb852624a14a364",
+    "ml/instantanes/2026-11-20_R1C2.json": "81b18a986356ac9846e8ce7633d9b18ab50f494489f78d06abffcadd38a3eadb",
+    "ml/instantanes/2026-11-20_R1C3.json": "1d1fe9732ea33a2192e153666bab1b88027054a8890226fb55a3379491de174e",
+    "ml/instantanes/2026-11-20_R1C4.json": "5d9ff588bd6dd826a2e1759340997fba1c3f6334a2ff6bf603d1353704576443",
+    "ml/instantanes/2026-11-20_R1C5.json": "88f5193dcf504bd35c71efef649ca3e45be1cea1c62460eb4fa0114efb2aa7c9",
+    "ml/instantanes/2026-11-20_R4C6.json": "bfad7dada69b10da0a5f4fb9a86cf538340fe19228661dd7bc6fc916bed849ee",
+    "ml/instantanes/2026-11-21_R10C1.json": "68c78688129af2a2dae637bf39ddb3221e3a3a2069f8e0f87afc02743c65706b",
+    "ml/instantanes/2026-11-21_R10C2.json": "00fe715b9df9aca93646aeae74918e290fabc8b97c0208994fd2cfd39742195f",
+    "ml/instantanes/2026-11-21_R10C3.json": "56a5890c81b46341a3b5ea3362b19c7b98dbec0b355dd0a381ade3fc72fcfc77",
+    "ml/instantanes/2026-11-21_R10C4.json": "ed1aebf7fee1dd1bb192f36c723557f90989d908d8a5331928d68be8112121c8",
+    "ml/instantanes/2026-11-21_R10C5.json": "4cb1bd841c28675ac75b980f6af662c95f478fac9aee2289255bcd03f710a80d",
+    "ml/instantanes/2026-11-21_R10C6.json": "cb4e4e4da3f4049d5dd3e61a2c396481f550911168738a324c9ba15b97da5001",
+    "ml/instantanes/2026-11-21_R10C7.json": "f275cff9ededc78f6412fd3ed4d29cae117e6c4a6729a032c1f8fbd80f9f16fe",
+    "ml/instantanes/2026-11-21_R10C8.json": "ab24346c48d14370763361de2a8ef367a778dc8a4bc5cff7fbb43f73d9599c4e",
+    "ml/instantanes/2026-11-21_R2C2.json": "b6e41ea0d539474c9975329d165a93fae99096ed493ba842c978c53fe92c3d53",
+    "ml/instantanes/2026-11-21_R2C3.json": "469536961b3070606edf75f489ad3d173d1ba493f8bdee6d31fac5668788dd2f",
+    "ml/instantanes/2026-11-21_R2C4.json": "998a51502ba74daad86f3d0101d7a8aff49e9feee87059e0001b087cca8677d2",
+    "ml/instantanes/2026-11-21_R2C5.json": "6544188ec280f2225bced1d2a0c3f514ed6a421bb171da20098da3193c29bed0",
+    "ml/instantanes/2026-11-21_R2C6.json": "277198f3e3aa829548ca5d98b71390043dd165fbb9d71ddef3ffea2299ad365a",
+    "ml/instantanes/2026-11-21_R2C7.json": "72d90eb90bdfaae1c3d8b05c7609aaa507370c3011209d9890fe7055e095594f",
+    "ml/instantanes/2026-11-21_R2C8.json": "f4e90fa16c4ae407a85a5edcf5692fa7fbb09fb5ed765a8709869d31822385e5",
+    "ml/instantanes/2026-11-21_R4C1.json": "3498b335db688064101b1685f8fb010a7f04b8632e89e5d1369773aede60095b",
+    "ml/instantanes/2026-11-21_R4C2.json": "11a496dc8a629719bc92b530a9e527bb8ea2ff6eeed40de1b816d3a563372221",
+    "ml/instantanes/2026-11-21_R4C3.json": "784ca542b62b7eb986a76ce979b2d2799c49198553cddfbae5416577963f992b",
+    "ml/instantanes/2026-11-21_R4C4.json": "8b1fff74bcd527fe258b88bfafea1c095b4174a9d6a9c07c2c3aa22692996d01",
+    "ml/instantanes/2026-11-21_R4C5.json": "50a6a789ac8962b2723c8e7c434773248713f8f2e1dba8e8cb96e2fe551a2f35",
+    "ml/instantanes/2026-11-21_R4C6.json": "d52314e32bd3d33e88463abe72b57eaaecd59fab95f88426f1d6a20f41447753",
+    "ml/instantanes/2026-11-21_R4C7.json": "6cf7694e6e5946d82f0bc2e1e8905bcfe9874ec661d3d8296ff6f9373936d1eb",
+    "ml/instantanes/2026-11-21_R4C8.json": "9321c73d1667d4e002998b3aa81bf7b3ae145b09fe96148b2bcb899e06c60e27",
+    "ml/instantanes/2026-11-22_R11C1.json": "462e3129d83f30fc00c779c4ecaf4f2a8527cb351d00729f7229b8a40185fdf5",
+    "ml/instantanes/2026-11-22_R11C2.json": "7b6b9750010228a86684925144e78449596e6bce1328311e5961d0e26dabd761",
+    "ml/instantanes/2026-11-22_R11C3.json": "2e9f803d6b06ed21c1b318e79e60b9e24cf214e89154dffc8686450dd272787b",
+    "ml/instantanes/2026-11-22_R11C4.json": "51031f3f2ff71d3d281ac04cc96f44e63190ba64ad927dd205a38d5790d56a73",
+    "ml/instantanes/2026-11-22_R11C5.json": "93f93bd1d317c28adde8698b5f3009048755ff8bc4cff12b759bd34c5e04933b",
+    "ml/instantanes/2026-11-22_R11C6.json": "948f28e0f58c2db2bfb0cb3a7f0725b03c4e05e81eabff20a70cd513ee2b69c3",
+    "ml/instantanes/2026-11-22_R11C7.json": "bb9dd43fee2d32f64d730936a3eca43a50140241ca1e2014bc7152ba10ebd26a",
+    "ml/instantanes/2026-11-22_R13C1.json": "cf657b1afed38f13dc0e3285bcb197f2cd6c95aed525888cc11791d572bb402f",
+    "ml/instantanes/2026-11-22_R13C10.json": "87c05cc83b52ad6b08722ec9c0146eb15883116b379922497e60b55c87f4ee43",
+    "ml/instantanes/2026-11-22_R13C2.json": "080ca003baaba63a41c7a30c3577b39e35df41999db5be3219015f1d262366ff",
+    "ml/instantanes/2026-11-22_R13C3.json": "fed5ee9a96b5eedf8cda80d8843e03fd3f2d74fd412a0a81116fff9491915fa7",
+    "ml/instantanes/2026-11-22_R13C4.json": "9ac1940c0e16eecd91ed32129963117363cbc326cd91c99ebeb559238a5909e1",
+    "ml/instantanes/2026-11-22_R13C5.json": "824bfea125c2a85a4f619a15710ef899003a2c6d165067fc2fdcdf205218d0b3",
+    "ml/instantanes/2026-11-22_R13C6.json": "0ea1282e646fcb3bb9db9f0e76f88afae39c72620ffc8799ec7e689872fed168",
+    "ml/instantanes/2026-11-22_R13C7.json": "feaa0d9611cf8d7d230b21e443208e8a938ea5bee78f4c8d930ff88663315433",
+    "ml/instantanes/2026-11-22_R13C8.json": "104f18ae2ceee6471db8e0156c92174bf9340b7083211aa3e43dbe16498e3b19",
+    "ml/instantanes/2026-11-22_R13C9.json": "8469fea7b0038bf1b3fb13474357df8ba7d468e3d366aaa8ac369e9b2f947540",
+    "ml/instantanes/2026-11-22_R14C1.json": "cad5e3d01a461cb801eea4a22d845e5338aa574ff263bdb6dc408b4f9ad41ea8",
+    "ml/instantanes/2026-11-22_R14C2.json": "1c0329142c04ab45fa10a853666356bc144b2b156ee0bc3bed0c92d1972fae2e",
+    "ml/instantanes/2026-11-22_R14C3.json": "1f38e29c052e6906c676609697d4a737bc77eae95eccb09751a4d85179d7e21d",
+    "ml/instantanes/2026-11-22_R14C4.json": "77c7696022263a4350dc09bb3c3323c4974494021819c3130825174bc138edaa",
+    "ml/instantanes/2026-11-22_R14C5.json": "97912cc17e1d68ab84fb3547fe01031cdaf16593bb29ca8368e232fc28629d02",
+    "ml/instantanes/2026-11-22_R14C6.json": "2789f8e4b2283c437fdd73b5767f997796abc2624dd71bb64778d99187dd97af",
+    "ml/instantanes/2026-11-22_R14C8.json": "0cc9b8c112e8b3710f9108b1694b5188afb47944984343ecb16f24f472d477b1",
+    "ml/instantanes/2026-11-22_R16C2.json": "1c998ee219aebd07f026c5dd1f9e1049a455828384ad40a6fc446129304f749b",
+    "ml/instantanes/2026-11-22_R16C4.json": "b94a7479d910e5917b21c98ec7edaef5ac004cc38ca85276b1dfe1017c9c7c7c",
+    "ml/instantanes/2026-11-22_R16C6.json": "616d8b2bf931781b9aeda7a692087d8ac75bd049d9fc7328bb4251f44a052f3f",
+    "ml/instantanes/2026-11-22_R16C8.json": "7d5c2a559cb8a11e87472defb46996257fbf656c6245f0453f58ba4a9d582e04",
+    "ml/instantanes/2026-11-22_R16C9.json": "d2b820d485e0a1861a57c0c689cdd23f6b68d02bfe08a4db6e9d81d68d87d730",
+    "ml/instantanes/2026-11-22_R1C1.json": "e2c4b1985ca3bb3917d83a1d9f0c2b8078ae5eaf9f5155069d5313458ae9b40d",
+    "ml/instantanes/2026-11-22_R1C2.json": "eea5bbefe202afd2d18a3d9ab8a941eab8b26c44399a9e37ea579ecf05b3d9a5",
+    "ml/instantanes/2026-11-22_R1C3.json": "074b52447b59f32f46339fff333f675ed4763a627fae99642b8e4de87923532b",
+    "ml/instantanes/2026-11-22_R1C4.json": "12cb4ba6457dea7c99cec8151bd5103f406c5a26d75fca9774fb5f6991405217",
+    "ml/instantanes/2026-11-22_R1C5.json": "ff73d6d19639facf684c9495db6726b59eb2758a43ff304e50c0aa275fb51043",
+    "ml/instantanes/2026-11-22_R1C6.json": "20aa3ea826633967ec8c1164f091f16d4c2e7ab05eda8d91866a0bd92ef518eb",
+    "ml/instantanes/2026-11-22_R1C7.json": "f3686ac44f7c4d59f958410cbd057f846ffb9b03d23fc3791296238b9a8f8d01",
+    "ml/instantanes/2026-11-22_R1C8.json": "05d9d6c0515ce8a274fab06a7144b93074fdc8aeb7cb802e78b677709419927b",
+    "ml/instantanes/2026-11-22_R1C9.json": "95307f3eed829e880630f2af999788471ec2715044578a3f7265a682d3f95ae9",
+    "ml/instantanes/2026-11-23_R1C1.json": "0f35e6b11bd757022bd87db5db6b0a16f8dfce56eeeeafc0b9b0ae25715c5205",
+    "ml/instantanes/2026-11-23_R1C2.json": "ceb9f039c6e9ffa2319e46539d780c6c53fe3e689a455c6f2d8e5bebc6256b75",
+    "ml/instantanes/2026-11-23_R1C3.json": "6135c77beed43486b73263d343f1abbe8ef70abd6cd2385d9da352f29fef50d6",
+    "ml/instantanes/2026-11-23_R1C4.json": "4a9248b42529f24319aaad3dc3421f90ccf721dbe6ff8af6ba512e4a94fb0551",
+    "ml/instantanes/2026-11-23_R1C5.json": "b5218b305ec49dd1f71b66eb92c30d71777d7a429a7be62dd45dd7d620220d19",
+    "ml/instantanes/2026-11-23_R1C6.json": "280113fb17e53ce4fb07507ed4263fee0c63dbb9bc822e0cfbfb75faf7bf9a13",
+    "ml/instantanes/2026-11-23_R1C7.json": "35fd8c32c84fbf9341b7cc04794f1186791df26625090bbba1420c5dd0b190dc",
+    "ml/instantanes/2026-11-23_R1C8.json": "a7fac671696a8b49c538e8456d1f245def337af87bf5590d8d1086e46db40158",
+    "arrivees/2026-11-10_R2C8.json": "6fb64d7f8dfccef78f89f3486370bb9b0904865775f88df53726e61675634c66",
+    "arrivees/2026-11-10_R3C6.json": "0ef416c1b32d862fb95b74cc87e80029d6a92497d82e65e9a7a2d4549fca27c8",
+    "arrivees/2026-11-11_R10C1.json": "cd8c0507a15ce5922424198b0cc12dd8270c6e3862a3e1fe3338147c58a9f553",
+    "arrivees/2026-11-11_R10C2.json": "eaef6cae765011e3a14539d2f8e031fdfd47905db687ff956d2f8875d3abb172",
+    "arrivees/2026-11-11_R10C3.json": "8adeb1422aae059b0dca9a7b31f22db7adb7839d1adbb97dd877f8e8512b5ddf",
+    "arrivees/2026-11-11_R10C4.json": "801ca273fd55819822abdfe9772f085238cac923a7f37fad7d097e8cd2cebf19",
+    "arrivees/2026-11-11_R10C5.json": "e5c28fa8aa4703a6e18939e45ffb91f6bb20dcc3a32a1d5dc5a93163ced98110",
+    "arrivees/2026-11-11_R10C6.json": "b1c06570fa4d1e1d400554b7081d00d653d24d5bfd3c16f0ae9e546d3bb16589",
+    "arrivees/2026-11-11_R13C1.json": "04363050030f38d1f067a19cf5f616eb2ba3201a84dd371845fd1b3a95e26135",
+    "arrivees/2026-11-11_R13C2.json": "9a6d455e6e32bdc1b13f32250feabc49746cc54d528e601841e85690d54978ae",
+    "arrivees/2026-11-11_R13C3.json": "46aeedf8f96cb5d645a3d54551750cb535580fadc5e7284ea04b4b2c51e1033f",
+    "arrivees/2026-11-11_R13C4.json": "47dd977f0defdae7a6c6ea123df88426fe1df76aa0cafb72f1deea7cf3f6f489",
+    "arrivees/2026-11-11_R13C5.json": "1af4247c163755cc19a6d38e57345082d039163dd04164f2750c28673e3f00a9",
+    "arrivees/2026-11-11_R13C7.json": "1cd7bdc0aacbc4a0d522e45d78645cedf8b9efcfdc5032788de4033a5a6c6a80",
+    "arrivees/2026-11-11_R4C1.json": "441eceb4c1a37797f1b88b7ffcce5b788c17f22e25c4892e20b3535430eb0d68",
+    "arrivees/2026-11-11_R4C2.json": "c00892a85e74f2ec4a3a4c3d463e4bb30e2fad09e4e79279242a2986fe921acc",
+    "arrivees/2026-11-11_R4C3.json": "cc065e27b107c8644353bdcc20a8372e17ddd364d0ffed7eb021ba0f3aa3c067",
+    "arrivees/2026-11-11_R4C4.json": "c52c98c15f290cc5a084481f105b3bfb43b5acfa4c34cd294a551831fd7547f6",
+    "arrivees/2026-11-11_R4C5.json": "818d12c030e924cf58d020ed1eb44059048b3753f72f0a14b8e680db17f568ab",
+    "arrivees/2026-11-12_R1C1.json": "b8eeca80b762f2cb06ee2b705a6ff21ab9bc0e1518f4a33668664e7f1f85c7f9",
+    "arrivees/2026-11-12_R1C2.json": "c6b7f4d56b4a81a0c6f9d502204cf7005dfe6d1309207bc5c8f6b88f6e74e212",
+    "arrivees/2026-11-12_R1C3.json": "2171596e4fcd8a343827d8bf59b0b2b5411e9251a874f46d36d7760bb64f44f6",
+    "arrivees/2026-11-12_R1C4.json": "cbf6a20f37ec4c66c839b42a37c779587ba40ddd1ebbc37cb41350e8df3b3a3c",
+    "arrivees/2026-11-12_R1C5.json": "3804d622a8caa426331d5904542e2d52ce45081d58aa4ff9bb51568d5def97c8",
+    "arrivees/2026-11-12_R1C6.json": "b3867ef9283c81dc304c90f1822e47fb932b057824ea66292641d828a2cd845d",
+    "arrivees/2026-11-12_R1C7.json": "ad6ed1fea29adc940ed02f0fcfdf1d5183a497e095d03917a1ca2356ac2144c4",
+    "arrivees/2026-11-12_R1C8.json": "c6dc1d0d4518ac1ec625c053a967e210d3bcc912353daa6fdced6d5d120e368d",
+    "arrivees/2026-11-12_R1C9.json": "eb7e3f184e0fad38332fd8e7200a53640bc257631206b4ab308de303a935fa8f",
+    "arrivees/2026-11-12_R4C1.json": "fb8cbdb6992c506ca54e6e21020091a178bcc80c5a551e47a2e88acd86ace861",
+    "arrivees/2026-11-12_R4C2.json": "c22f6dd4521a99b34e9eea59e4cf2ad6086dfa24ee4a4650a5d45b521e688f18",
+    "arrivees/2026-11-12_R4C3.json": "fe0d907a9f5d2fca04a3cfaa72b1571917db259852d0135bce0b6e7f39bb07d3",
+    "arrivees/2026-11-12_R4C4.json": "5fba7c04b4d764516288be71cd249d2a2de4a92a087fce1a845c72a3cac1eb91",
+    "arrivees/2026-11-13_R1C1.json": "d78c58b6253987c47e490baefb216b3f0bf71c375ba68d99cc34a77d1eb641c9",
+    "arrivees/2026-11-13_R3C1.json": "a7e5c6603b6ca9185f6d688453f2cd76b11c81c3f9a6e92348fa8e8e338cfc21",
+    "arrivees/2026-11-13_R3C2.json": "4636a6d60025214b20599af4d782419107ec33884ddfc9af90c923b63d56f44c",
+    "arrivees/2026-11-13_R3C3.json": "601210c9e488d1e3e533a0eab6ca6e4b357980e4cd1198dd0341f08e6165b309",
+    "arrivees/2026-11-13_R3C4.json": "bb8b0f2cc8f0dfc20e0ef9ee6be4a3c9d8528b72bcf35151b2cebcd9706a309f",
+    "arrivees/2026-11-13_R3C5.json": "a32a8304377ab0baa0b6a691198921c8ab0b5c972242a496be7b02204538669d",
+    "arrivees/2026-11-13_R3C6.json": "8b4a5a54004be938d45d5993a67a9eb5ec39ff4533f570aead4385d925909a65",
+    "arrivees/2026-11-13_R3C7.json": "350de0da24a3acf58ef03ac7574cf41b4facdabc238c90edc4622c43c0d344d5",
+    "arrivees/2026-11-13_R3C8.json": "a0f2a277f596e84d746ac199171522535aec8904f8984cd9b377a44fadcd3838",
+    "arrivees/2026-11-14_R1C1.json": "028819df7c2b6d11d50095e45e6091c29e97ca0e9c78f885ecb40c7f111aaffc",
+    "arrivees/2026-11-14_R1C2.json": "4d966221fa9aa433dbc04416f65d92178e0966b722e4dd5673729565a2e05cf1",
+    "arrivees/2026-11-14_R1C3.json": "af2630290587d830709d78e7f06e4536e8db2afbf2cfd3c94189f301c0f970ba",
+    "arrivees/2026-11-14_R1C4.json": "23c2d8b403224795fbabe46f661c61ae11ebb8cb50ab691d7d0585503c7c2b7e",
+    "arrivees/2026-11-14_R1C5.json": "33a0057f9e4f5d55aa35aa2ff15f0b7836f56a69f8ffe9ef7b6750fbd1dc7b46",
+    "arrivees/2026-11-14_R1C6.json": "a3d8b6392ef556712d63d21f643454deb8b077719d2bee3bc6b336929d74d392",
+    "arrivees/2026-11-14_R1C7.json": "bdbc72704ae4675c251af24b2618f27004532e236244c272a2e208f72e93f124",
+    "arrivees/2026-11-14_R1C8.json": "4a290c54f5b7b9d1391df210dc365130ef8df97424353ed0b943c203697f9417",
+    "arrivees/2026-11-14_R1C9.json": "7a704a30244c4c6f62f02f5a5231573d74bf01f5b84832d292e6f9a3be5f7cf3",
+    "arrivees/2026-11-14_R3C1.json": "33f655cd66d12b14e2afa3e9554a85a9988819def432b2e5e884ae50ce1ed0ce",
+    "arrivees/2026-11-14_R3C2.json": "b58ed473f74667a4b8423238d4cbb1c98dbfae0d013c15a1c71ff6fb95f2c9d2",
+    "arrivees/2026-11-14_R3C3.json": "a0feee6b8ba8f5a602df377fac99761c71a7878c46ede7d629c23cae193e1f47",
+    "arrivees/2026-11-14_R3C4.json": "bc223ed86a381bab7f2a1fe6080cd9cd87ac3052b2058066df504c6f5a30a0de",
+    "arrivees/2026-11-14_R3C5.json": "4015060ad61d0c51f359f330e42ec5665bbe09e50cba33e2357efcfa629fc4fe",
+    "arrivees/2026-11-14_R3C6.json": "0262e77ef69fb5fbc57af1322f94d5bccb9fa24f3b3babc219e77604464ee8fc",
+    "arrivees/2026-11-14_R3C7.json": "22d918e8b14fe4cf77f3531ec849169aaa2e7126a372dd1dad865fa8d3cb2fee",
+    "arrivees/2026-11-14_R3C8.json": "19f172e94902e8c28d1f1681f792c114b9d88dbc10723e58316865f1cdef9218",
+    "arrivees/2026-11-14_R8C1.json": "5350a561df25c784cc9f719c8ce584aff78472ff5267bb645b0d50b08fb3e133",
+    "arrivees/2026-11-14_R8C2.json": "0e33ab14a4c92978dfcc4c17822cc5e82cc0dbb8849fbadab89dfe476a400e61",
+    "arrivees/2026-11-14_R8C3.json": "4249052593fcf7d620df6d3b1db19edd9cdc214b454bdb4be759bd1393841117",
+    "arrivees/2026-11-14_R8C4.json": "231f1891fceaacef89e582fe2d93d5d609af388850973a5b9dd56f861cb17da4",
+    "arrivees/2026-11-14_R8C5.json": "37fe43969488ab5528599a21c650d8e1c3825e8bfe2b29b2b65ba11a1b363739",
+    "arrivees/2026-11-14_R8C6.json": "6b626bb7da945a73ccbb0cf0deef90d6742903ffda5224ccb433299a0e60894b",
+    "arrivees/2026-11-14_R8C7.json": "e88071d25caf172ff4ae8c62fe216b3ac5d1ac5fc8bb904941a7814014136a49",
+    "arrivees/2026-11-14_R8C8.json": "d1ae7ccc09da958fa0d65307726a3bbcb8d328410e88a1b43804b1691a968c17",
+    "arrivees/2026-11-14_R8C9.json": "a0a01ba39a15b4e37e4a459fac05e0b867761b80004e7530d1094d97d54908dd",
+    "arrivees/2026-11-15_R11C1.json": "242c093ceb47125547433873c522e563f83935b5e407b08deb73b7fdcfe789d1",
+    "arrivees/2026-11-15_R11C2.json": "10f2b76a1a49a04cc65a930891bdfaeee1c558496746b6be334d61753df0f53a",
+    "arrivees/2026-11-15_R11C3.json": "a675768d610cf7e2c02a92f101ddb6135e5a5fa3b38c0700e44a7f092e0071d4",
+    "arrivees/2026-11-15_R11C4.json": "b7d51303c5943a73fae9f3746510588e65298f4d5318ab83dcc53e8566c9fdc0",
+    "arrivees/2026-11-15_R11C5.json": "1f95f2a02b10765eb9812b7a88743e4bafd255fa97c2b8b813fba3e3ca0db929",
+    "arrivees/2026-11-15_R11C6.json": "29ff644796e98aa70ff40b8a8754a5a71fc04e9ebcd1eb321c5bb795d73a42d8",
+    "arrivees/2026-11-15_R11C7.json": "be1f87c2fdda14929759cb8877a263363a39a368527242cfcb0bb47ce9c63380",
+    "arrivees/2026-11-15_R11C8.json": "9d85fb8772841baeb26d4228f22b5015e17254837d900d8b5212348188ee02ec",
+    "arrivees/2026-11-15_R3C1.json": "a600ce278946032c72cde3a84078d23ade84b1fd573bd7589c5e12a9d2d01fbc",
+    "arrivees/2026-11-15_R3C2.json": "500c618cd902fe30bb15558d51471ad3f83e9aaf90287bc180adddf1ce79ecd5",
+    "arrivees/2026-11-15_R3C3.json": "0ae282a693ad029bd9aa45abe4e275f7dd1aa2201fc086ad9e773aee30d8a9c1",
+    "arrivees/2026-11-15_R3C4.json": "b74c07e1e3369b425bd2f055d89595d00765171437465101d127b1fb0a19f9bb",
+    "arrivees/2026-11-15_R3C5.json": "f0a6d84aea69aeaea6c60756cbf72977bfe32582414760a79b0ffc3379aebb23",
+    "arrivees/2026-11-15_R3C6.json": "937cefaef2f70e831f90e39e082ade23b3e18f9e802b52128be3e7e9257eb49c",
+    "arrivees/2026-11-15_R3C7.json": "2a233d2b5a90ff56a043a28c56d610945bf7f36d5025966347ddc8b4c12fa576",
+    "arrivees/2026-11-15_R4C1.json": "e27b77f273d77e86a1b95cef968a3dcc60204cbd4365c309062c79b4cd8a9fb5",
+    "arrivees/2026-11-15_R4C2.json": "e41fddb6877f50a6164492e3a5f18099da4a50ddd1a2d549bd07f2a992483c06",
+    "arrivees/2026-11-15_R4C3.json": "b8f5eaa2e4212dde3e5964a16291f9f6527b263853649d2eb87972e3d603c051",
+    "arrivees/2026-11-15_R4C4.json": "31baf1c44521cdcb606481ed78d7e13085f2b10e4d6e6c6bbb7c49ce087fa5ce",
+    "arrivees/2026-11-15_R4C5.json": "d0500796e8fcbba0c3521d838b3bb911c404df416c86a06d3f8b0946e2b0467c",
+    "arrivees/2026-11-15_R4C6.json": "0d2cd6bf8d9476d7eea0c86aa3def2e2ef32f4f508fee70a07d2b7c0da5b159a",
+    "arrivees/2026-11-15_R4C7.json": "455455baa0dd4877746f301a0df66ca741d4ddd457e44b16c673be917df55f72",
+    "arrivees/2026-11-15_R4C8.json": "c1e8f95bf35045c80c40e59f11913e2003f7ee54c80f44d51493fedefaf407a0",
+    "arrivees/2026-11-16_R1C1.json": "6beaed7bbf98c0c7f74604361880ec1e41adf867a8ce5b209a64008111b62d4f",
+    "arrivees/2026-11-16_R1C2.json": "9ad4aaded0320858b55950e4410142a233c8f52501d8b17dd27abcceb70bbd7e",
+    "arrivees/2026-11-16_R1C3.json": "8235f161d626410f975435ec55a33cad9f4df1db51e7b08348fe0d8c367d35b9",
+    "arrivees/2026-11-16_R1C4.json": "1c9c3d2e3dd533025c04d64178d2a10aa28c2d26da1cab3a56550138007f4e79",
+    "arrivees/2026-11-16_R1C5.json": "71bc569b03573c25c33935652e7786e0c4f60d89b3db668b4c490075268bb48e",
+    "arrivees/2026-11-16_R1C6.json": "411e272f3411c55b0f97ce580ec8c4757e7ed0e3d8adbe2bf12770773d4ecc11",
+    "arrivees/2026-11-16_R1C7.json": "47e08f4c14dec60b38c7b2f0aba424305f7c3d7cc47fd0d33db7c161d70ccbfa",
+    "arrivees/2026-11-16_R1C8.json": "2a727970a16a5987f08277ade3d9a25761d4d31c1fb6c701f63ccc9e8e48b74c",
+    "arrivees/2026-11-16_R6C1.json": "4348ce631bc11d823d079ba1119d6fbb98a0379c779ee2bee2ac8b3f1a7decfc",
+    "arrivees/2026-11-16_R6C2.json": "880138aa8f2b09cea2105ae1edbb5bb823cc681d8beb000d0e0340af4b0b848a",
+    "arrivees/2026-11-16_R6C3.json": "e2ae6797cd75a93c98a11e89aa21e9effc8eccf3162369971ef0f7a5ecf0d15b",
+    "arrivees/2026-11-16_R6C4.json": "58cc082af558fe9f86b7f79bb923cdfaa0f151c03f69bae8c74f31d94bbc95af",
+    "arrivees/2026-11-16_R6C5.json": "3e341f7b2c04e883cddffe6f0e2ff4b4bef525e38d789c9cf297c507eb123153",
+    "arrivees/2026-11-16_R6C6.json": "875de257f84b7f4394175e4b0fce445c00eda495bd929687db9d6f1e363d8d7f",
+    "arrivees/2026-11-16_R6C7.json": "510c2a3cae521cbacad2e2fc04bbfae794f3fc34f5137c95ff97bdbc5fdf48a1",
+    "arrivees/2026-11-17_R3C1.json": "d3a76c16673b3e0cc74647943d07239cb2ff16546d52ceaadae6d47051c09840",
+    "arrivees/2026-11-17_R3C2.json": "c99c61777017ab9ff668943644687d588093e10796a01ee1c16b72f28189b3bd",
+    "arrivees/2026-11-17_R3C3.json": "660a2eefffb4efb870cdd9476f6665b4cddedbc96bcd0dfb78e9d49010c7db72",
+    "arrivees/2026-11-17_R3C4.json": "8e809487d8a98bc8a5c94a74d8ecf01cebc36f473282a252d632d212c144fe70",
+    "arrivees/2026-11-17_R3C5.json": "5474ab8c2a7273bf21002c25efb3916ea2e66f088dd4871ace70c78f2bd3c951",
+    "arrivees/2026-11-17_R3C6.json": "a531b662f37db15226e61aabd9043cb6a1ec222d8e070d4374f418185ffa4036",
+    "arrivees/2026-11-17_R3C7.json": "f839380771e75e2bb56b6a6fbdd21bee89a56548373fe4369599420687d94523",
+    "arrivees/2026-11-17_R3C8.json": "eb2c42fc7d67629859746834dc52ae8c15853a1d793f63e384546bd86b844fd6",
+    "arrivees/2026-11-18_R1C1.json": "134dc0792f3b7cab30afccf07846c41508a83073d77d963afa96496f571463bf",
+    "arrivees/2026-11-18_R1C4.json": "2e9b215b524bc8671fa0f4d2af6b097faa5078cad6608b0879b6d55cac0aef80",
+    "arrivees/2026-11-18_R1C5.json": "b6df26e78ff4798f876579db0375632d0ce0a4151ff99077eb9c82cc46788516",
+    "arrivees/2026-11-18_R1C6.json": "4752ca44fa958401ab982adffe3cb3b9d04bda4fba9ab5ab86d64ef37c84f1b4",
+    "arrivees/2026-11-18_R1C7.json": "b57de1d004771191482740181701b3b73f53321c35ef95c355f2c28bcef7f3d2",
+    "arrivees/2026-11-18_R1C8.json": "a551b8287e2b89ea23ad21aab709949e5d117fe7ee21b0f93f2d15cee48165c3",
+    "arrivees/2026-11-18_R6C1.json": "932fe90527731a82d62bcd46ecca80ea38757e4c6b6bcbcbfd5beb9ea4138e1e",
+    "arrivees/2026-11-18_R6C2.json": "39e923fcf509dff150c4224ec2cef2e44d44bce5792131644c7079cc904aebce",
+    "arrivees/2026-11-18_R6C3.json": "2b71b689343a277d9b327d1ee574c9a52f2951d0057f982cec97c8fd7d879abb",
+    "arrivees/2026-11-18_R6C4.json": "be2b37d7e00f69097d48c65bf68d68e862da8c1ffa71071fb648947bd5d7c5dd",
+    "arrivees/2026-11-18_R6C5.json": "ef3656f9c6a4a8ce8636195912ced486ffb7dad9327f90d6b9e583b12b0d64e6",
+    "arrivees/2026-11-18_R6C6.json": "a7c029971ba76c20e2ffc255c90161486f08421a72c215173ca2e9bf9e11fd3c",
+    "arrivees/2026-11-18_R6C7.json": "e63cd759416776066c4ed097a947223dbcfff0dbe7feae7ba0d3d756f8ccf086",
+    "arrivees/2026-11-19_R3C1.json": "3cde9474f42e5c2afec3ba0074759c497691c0c8deebe08169a76483e77eff28",
+    "arrivees/2026-11-19_R3C2.json": "12edc88496398c5553119424e11e22ba830d455e83617be597a9ff51eb3ebc48",
+    "arrivees/2026-11-19_R3C3.json": "c7d0d4f1abb1fdb2536d72407a92173cc0c1a153057c969d2a15a04fd1fa4e70",
+    "arrivees/2026-11-19_R3C4.json": "26cf1ba736a72d6a8760ccd4335ea8bf4637200a7dd559cce26e5c59e8919ccb",
+    "arrivees/2026-11-19_R3C5.json": "d700bb5859fc2e505dab39c36f0c5f6e5d23f520bae96a242e9f3dc8ad891d38",
+    "arrivees/2026-11-19_R3C6.json": "d4ef4637709218c766f939a83f0b85b6604f117aebb492e32308340aafcb2247",
+    "arrivees/2026-11-19_R3C8.json": "7d3eb9f5d84af1485d07699c552ec3e5a892ec332e8a428f5f325b8b9fb9e75e",
+    "arrivees/2026-11-19_R4C1.json": "14ce143bd125c943d03ab06d3fbc5f7807cb392dfd6f81837ce06a6993d6479f",
+    "arrivees/2026-11-19_R4C2.json": "cf4ab3b089717b483b900202186b3d03de4f1158ff8d0ad928bf680856a538d9",
+    "arrivees/2026-11-19_R4C3.json": "2701cba63b779bf38661f0a8e874ef1aa0bafb1d4f9fcaf8bf958c91269a3de5",
+    "arrivees/2026-11-19_R4C4.json": "97022f067084b8b9f3a4e3df47db13ddca0514d5bf896aa397a1ffe122c10902",
+    "arrivees/2026-11-19_R4C5.json": "07a021f81976b460fce8941667acfc2165acaa91860b7dcccbea890d4b345f9f",
+    "arrivees/2026-11-19_R4C6.json": "7edb5fe291a9ff96bd0214d2b3f96e89c31ffc5f78a96b9596233a4c90799ae4",
+    "arrivees/2026-11-19_R4C7.json": "a052bce8adc08d1c3dab8faec419690979548cbb6386c981ce7ff6da149aaf82",
+    "arrivees/2026-11-19_R4C8.json": "56c95e401cf88cd19f11a8a23ecf653c3431988c637e49f624a062e650a52ee7",
+    "arrivees/2026-11-20_R1C1.json": "d95c798b9db4751f351c9e059a5a100e4b024a779b1a7431370e1dde92411c1a",
+    "arrivees/2026-11-20_R1C2.json": "ccc05bde46a9fe26df0d3f9a07b0ef5ac13c7d9d3532e35f33d87ad84a331076",
+    "arrivees/2026-11-20_R1C3.json": "376193fa9b4bbb5659c9cde5d80c5213ce6a189f9ac32001434b2cd1b3835db9",
+    "arrivees/2026-11-20_R1C4.json": "604f78494a46dd0147d7ed8bde86b8f8edd7e0718f4858f306fe31d50625932f",
+    "arrivees/2026-11-20_R1C5.json": "e1175d5d2c50baaa9cf2a5ed92b3e5e9ecfc72d639f33d27c6fba3f88bd9bc2d",
+    "arrivees/2026-11-20_R1C6.json": "f1aa5f6d1115e523fe6663ab920ff6137dbf0788580aed39d908aa4fe54988be",
+    "arrivees/2026-11-20_R1C7.json": "6c6855949338a36438250ddc01cb66c75d01cfa05ba74ec33e593d9bf2341146",
+    "arrivees/2026-11-20_R1C8.json": "09da28480caffbf33972e653bd29775e617dc2324e5b5b40f9b9636f235bfba6",
+    "arrivees/2026-11-20_R4C1.json": "69144d06f6b8b722736f071709e966e85cb4087a4f6f4f9628f33945e7f7a72d",
+    "arrivees/2026-11-20_R4C2.json": "91cd6e85461ee1262a6e6b40a1344b35683f9032d93de342afe0c5171b3c5338",
+    "arrivees/2026-11-20_R4C3.json": "4d049e9478517fe9839153320656ca0ad06487a3543786acd288ac982f3e5da4",
+    "arrivees/2026-11-20_R4C4.json": "e776152273ba8298a2f3a5c1092a563392f5407b62f74cdef5dc9183ccccaca1",
+    "arrivees/2026-11-20_R4C5.json": "3f6e2573a97cbd5ebe10fb057a1e19cf13f9e9608dfead9eb1b978878223aba4",
+    "arrivees/2026-11-20_R4C6.json": "7fcdf9a146cc374ddac33d16ed5bbb32632f00943b27a17e653b31070f9453bf",
+    "arrivees/2026-11-20_R4C7.json": "5c186a87ad8c9568e40165838114b735a75016a5b4c51241386620b27a9ec843",
+    "arrivees/2026-11-20_R4C8.json": "3fe3abec814bd4568185f69da72c0e72b964c6dcb19f6011b612467a7d6a3cbf",
+    "arrivees/2026-11-21_R10C1.json": "197bc1bd6ac39256d5709e4814f7bcc98fb4f588da9971dca69d8fc5f7c2ba02",
+    "arrivees/2026-11-21_R10C2.json": "0a611605950b9eceaa48d7f2227bcbecc0bad0d3f3d9418c7913744cddeaf76e",
+    "arrivees/2026-11-21_R10C3.json": "60a7c2a5824bb10703492a443bceb995c80e600d45a45e419cb3d9313df75bf8",
+    "arrivees/2026-11-21_R10C4.json": "70c3887aa5084db9d034627c68efc129e86678a931e608b4cfd0791081444bcb",
+    "arrivees/2026-11-21_R10C5.json": "782378dfa550a10f501ed8acd7346b3bd7ca7bf792888220db14302e8fcc44ff",
+    "arrivees/2026-11-21_R10C6.json": "9cdb177ee82cea095d78231398a50db1f53e0e80d6d6dc4223623d0d036c3d1a",
+    "arrivees/2026-11-21_R10C7.json": "fda9155ddccb957a9d069e3e0741887a60317aa9093505191ec09534f9d5b006",
+    "arrivees/2026-11-21_R10C8.json": "6681b3cd29ff83fd5e183a85799755c871ce58cf00a4f49806d7b69de54910e9",
+    "arrivees/2026-11-21_R2C1.json": "011e2b4bf590255bd0f9166a1b28503c469943c7646a690022dae9fc8bc0b233",
+    "arrivees/2026-11-21_R2C2.json": "437a9f2bde524b327fc6952e60fc08be15d15554193dfa57625eb7b18d477958",
+    "arrivees/2026-11-21_R2C3.json": "0fefd5638faa412988c1ecafb63109c63e68755b487db0dec0aa361743dca6e2",
+    "arrivees/2026-11-21_R2C4.json": "be89550d5251a78a8c7b398a6e74786ed4f7a6e77ba614ecc00fbd07877a88ed",
+    "arrivees/2026-11-21_R2C5.json": "0a325982454fdd9ce320bb7192fd52232290b2e7e3f7f57a5cd62e0806283ac2",
+    "arrivees/2026-11-21_R2C6.json": "e169bf81a508d2258678bfb968fe66600f7f373c871b727b08de3e85741211fc",
+    "arrivees/2026-11-21_R2C7.json": "26b837ffbcfc6b4743d05933a981020b8bda7138d692c175e711d8d33009ea44",
+    "arrivees/2026-11-21_R2C8.json": "f8f9924e3064391a94d6e8b47685ccdf13ededfdf5ab61d1ca63b55177cd95f0",
+    "arrivees/2026-11-21_R4C1.json": "b29f829b5cb9439a0370a1d7df809b33e15aa8e815ac5283fe84d68cb64d7c85",
+    "arrivees/2026-11-21_R4C2.json": "32cb6f2b2621d66e5670ed9c02ff28fe5165c4e3a985accf963ee67a7afe9712",
+    "arrivees/2026-11-21_R4C3.json": "ef409f61579ef77436c81f853f6d9364083dde5caff2218da424f72c8e23a276",
+    "arrivees/2026-11-21_R4C4.json": "ad69f647b5bfc6895c5f8f805eaafa386fdc0b44e7790ac756d64b2f486c6cda",
+    "arrivees/2026-11-21_R4C5.json": "763d8d6c2e807c7ec336478311b12da992d410338fb6ed044d48678f14446b43",
+    "arrivees/2026-11-21_R4C6.json": "98bfed8ad182c72604c5da3aca86e895ea71d1070743debffe9b5447d5a5587b",
+    "arrivees/2026-11-21_R4C7.json": "ddcb7a8d3d6717c9510e3e056c0ac3d678313a9824973503e2a6de0ca0758bad",
+    "arrivees/2026-11-21_R4C8.json": "d812899a72c3d7de37e92eaf379c1a9eddcb77cb51c8c2466fe20451e31c1f38",
+    "arrivees/2026-11-22_R11C1.json": "c8f053e5bfac2f3d43625eb9f5cb37026d6d300d553f2dc2a893b94a1377f74e",
+    "arrivees/2026-11-22_R11C2.json": "c6830c760b4691bf520034357f3abd37095d41ca67066980de4919b8d0024073",
+    "arrivees/2026-11-22_R11C3.json": "39e00611ac750b5651415151aa31c8b84331a779225be743357f377cb3e76f87",
+    "arrivees/2026-11-22_R11C4.json": "547d96f7c0465d4856561aec122f0a5b1b67634c4423a0dfa37dc890856859f3",
+    "arrivees/2026-11-22_R11C5.json": "f0a847feedfa16a2ef1b84310c52ffaf7d4f20f95486dafcc1c1f3880c0f6afa",
+    "arrivees/2026-11-22_R11C6.json": "2c4a99e0a347518fe67f5ffd30db8ead0bc56db67d52acaf68d7b6c04598852d",
+    "arrivees/2026-11-22_R11C7.json": "f766310b329342023ef0ebb3e896167e2e5def4dec5d02d32ec32fcfa551a512",
+    "arrivees/2026-11-22_R11C8.json": "bef8e57479dc1bfd6f2350da0a38d014ba5483d24677d0d082e5b4bce4923483",
+    "arrivees/2026-11-22_R13C1.json": "23725c42b8fa497bd609476102d7b51c28397e01bd986189ad94ae0cef5dcc57",
+    "arrivees/2026-11-22_R13C10.json": "5fcfda7c27f17384b74f2d6b1bcf6049f26693366a9e524982697a18df50ddf5",
+    "arrivees/2026-11-22_R13C2.json": "a78b4ad928f383bb0038288b7c332af359dfcbfa88158b05ad555ec5cd42e935",
+    "arrivees/2026-11-22_R13C3.json": "5598f549b26c5007b36e9792c7f4079566ac12568917044df4eadf780e3df92e",
+    "arrivees/2026-11-22_R13C4.json": "5211ec8af9319bc105bd63aec985c13ae795c3a99ee289cefe6f6cee168c47ae",
+    "arrivees/2026-11-22_R13C5.json": "509e084e5a900fec328404f7c2151ab5962dd45ae5a15ab1ed8ef6ea00ebc6f8",
+    "arrivees/2026-11-22_R13C6.json": "3795a4b4e4c040f327cb284927dc15b8a9888e694455aee31776b3e467171cc9",
+    "arrivees/2026-11-22_R13C7.json": "f01e311fa885a25e95c953b0610c2e84b0a309294c6be1bd471128c1213e1b0e",
+    "arrivees/2026-11-22_R13C8.json": "1f8cabdd418b4e248eb2e99bfc456e4b109a80009ee70ecc84ab3e2968b218da",
+    "arrivees/2026-11-22_R13C9.json": "a9bf9b1f438896c4be614f9f5520f6c8212b3ee6091c1ceccc799cb56e92931c",
+    "arrivees/2026-11-22_R14C1.json": "62da582e5cd644c2296a200d3773b05794550d7ed876dc25bce16f26f9ca9437",
+    "arrivees/2026-11-22_R14C2.json": "f2337c74593d6f62d317d489cd5a2a61e0b4944b783222fab57e4a1871855187",
+    "arrivees/2026-11-22_R14C3.json": "535fd2d1b2d1c62e713264148eabf7248a6e5c412063907991627b49b4e43710",
+    "arrivees/2026-11-22_R14C4.json": "c12f91ede4346c7a879c4e4b4516bc33621626e1ee22761c8c68e13ffb1e8325",
+    "arrivees/2026-11-22_R14C5.json": "dc31c13306860397017075d3c3bbed018de35503e9b8e3e14467d858845508f1",
+    "arrivees/2026-11-22_R14C6.json": "d90d61e869eaddf6f060a8d46d12e5dc098ea31b7b3a8208f6c14c6b10a8df19",
+    "arrivees/2026-11-22_R14C7.json": "6ee0ea320923c22da410cccf2a29dc34e0eeba1339caa55b4a6084d34859d4ef",
+    "arrivees/2026-11-22_R14C8.json": "19940b83aa0b1279d173354f24175eb98d6545de9b2ca5cbbcfe16f28a170b76",
+    "arrivees/2026-11-22_R14C9.json": "34ba9a108747c0adb7968257b33d5c36c5b9f9e9a38cc4662fee439ea1f006dd",
+    "arrivees/2026-11-22_R16C1.json": "42ca9f1f02281b3910dc9accfb737c225ff3482b7898799ee661278bc071f39a",
+    "arrivees/2026-11-22_R16C2.json": "9ffd85e89a5f2a05dd4a01e0c5b733589c6783eac4b2b348fd78ac9082140b80",
+    "arrivees/2026-11-22_R16C3.json": "7e7885e9ddc766be253a9ef06fb6b6ec2bd9648fa5704f2245f2de601a9d0c90",
+    "arrivees/2026-11-22_R16C4.json": "da7d58effdd3dc4fe84be65e62ce8e065f9bed4c1c7ac471c7731ef71ee22dca",
+    "arrivees/2026-11-22_R16C5.json": "da864549d6f926f39898a2c72f7e64c033a5afba23579ebc1bdacb9689e5b238",
+    "arrivees/2026-11-22_R16C6.json": "a08ba1578bf25188269c5f926cffc36e3967ac6ed9941e7a0ec3a3b902d3c362",
+    "arrivees/2026-11-22_R16C7.json": "fad6d81b9bf9945f8e268026e6dfb659cf8a07ebb7e1f3def07b6c457a667a1a",
+    "arrivees/2026-11-22_R16C8.json": "5e8512ac6b629725f4ac6a8bcef947c1cde81c2ec8e28763b9e06ad2e448eebb",
+    "arrivees/2026-11-22_R16C9.json": "ea47993d90037c8f05ec1efbf3d0e6d948838a6e49f763ca1c057e58c6e70416",
+    "arrivees/2026-11-22_R1C1.json": "3300bef9a126c32a31fdbff3bc0a4e22239ab33d9affe9d4df89eb3daec44e61",
+    "arrivees/2026-11-22_R1C2.json": "37e55bc8da30837a691ebfa95d03ba4827b0df3f73a1b3af9ec55df39b81777f",
+    "arrivees/2026-11-22_R1C3.json": "2f2cb84f8c8290fff685ed5adb6d4c585ca1766e644cc400ebcb2b5d25a7af7a",
+    "arrivees/2026-11-22_R1C4.json": "c3359e3d16c92e2e9c1bec4d0f04867dd45130f547514eac7ea84d04033da1d4",
+    "arrivees/2026-11-22_R1C5.json": "1701ad31ee18e83a12efbca7d45c89895fa7fa89dafc9f04b00f269407d860c8",
+    "arrivees/2026-11-22_R1C6.json": "76c962b16aa2a395348b034622e418b7dfd777a12f78fdcdf710970fd9789095",
+    "arrivees/2026-11-22_R1C7.json": "db70a0fa8807121fc39a2698b932d6cfaa971a4c90acf4c5457c84a6155867a9",
+    "arrivees/2026-11-22_R1C8.json": "fbcc17517ed7d1e69f613d9e8237615c105a088c2e2e2e7ef39c88bb8d37b7eb",
+    "arrivees/2026-11-22_R1C9.json": "73220ff9e9053d2fb1dc2fc691e682d7dfcd1e90b9787eebce23d777b6637a4a",
+    "arrivees/2026-11-23_R1C1.json": "199db9a1ef29fde744a87dc631e7ec34b75d4e3752c6f7c21964fd42071bd2a3",
+    "arrivees/2026-11-23_R1C2.json": "0e7b0607565fafbf2e83b34115f03b37a156bbbb0f8f338cd98e2e6c27875cdb",
+    "arrivees/2026-11-23_R1C3.json": "fb87b5beee93e84a3906311a64a10ed0c55ea597e2b8302dccdef6d1110b7f45",
+    "arrivees/2026-11-23_R1C4.json": "afc69a13e81e4ac5c2ca4a8c00cda3481b8fea42e81fb207c7e087e2e64f0796",
+    "arrivees/2026-11-23_R1C5.json": "ac67d0c354579716b2455123e1a244e1ccc26368d911391b932f64ca430d9acd",
+    "arrivees/2026-11-23_R1C6.json": "cfd7f6689a7a3debce95778a1d1930630716da34c03572efe4c25498f20ce9b6",
+    "arrivees/2026-11-23_R1C7.json": "eac9264ffd1778e6f97fc2f203989a46d18b01e85e75e11866fb4cc2bcbe98c2",
+    "arrivees/2026-11-23_R1C8.json": "a6d06c2a5c3bff9d04d7cb06a65be6168685de2a77f9a7a424e36468e2b0623a"
+  },
+  "validation": {
+    "regression_logistique": {
+      "courses": 38,
+      "chevaux_retrouves": 42,
+      "moyenne": 1.105263157894737,
+      "au_moins_2_sur_3": 13,
+      "exact_3_sur_3": 0,
+      "distribution": {
+        "0": 9,
+        "1": 16,
+        "2": 13
+      },
+      "hits_par_course": {
+        "2026-11-22_R11C1": 2,
+        "2026-11-22_R11C2": 2,
+        "2026-11-22_R11C3": 2,
+        "2026-11-22_R11C4": 0,
+        "2026-11-22_R11C5": 1,
+        "2026-11-22_R11C6": 1,
+        "2026-11-22_R11C7": 0,
+        "2026-11-22_R13C1": 1,
+        "2026-11-22_R13C10": 2,
+        "2026-11-22_R13C2": 1,
+        "2026-11-22_R13C3": 0,
+        "2026-11-22_R13C4": 0,
+        "2026-11-22_R13C5": 1,
+        "2026-11-22_R13C6": 0,
+        "2026-11-22_R13C7": 2,
+        "2026-11-22_R13C8": 1,
+        "2026-11-22_R13C9": 1,
+        "2026-11-22_R14C1": 1,
+        "2026-11-22_R14C2": 0,
+        "2026-11-22_R14C3": 2,
+        "2026-11-22_R14C4": 2,
+        "2026-11-22_R14C5": 1,
+        "2026-11-22_R14C6": 2,
+        "2026-11-22_R14C8": 2,
+        "2026-11-22_R16C2": 1,
+        "2026-11-22_R16C4": 1,
+        "2026-11-22_R16C6": 2,
+        "2026-11-22_R16C8": 0,
+        "2026-11-22_R16C9": 2,
+        "2026-11-22_R1C1": 1,
+        "2026-11-22_R1C2": 1,
+        "2026-11-22_R1C3": 0,
+        "2026-11-22_R1C4": 1,
+        "2026-11-22_R1C5": 2,
+        "2026-11-22_R1C6": 1,
+        "2026-11-22_R1C7": 0,
+        "2026-11-22_R1C8": 2,
+        "2026-11-22_R1C9": 1
+      },
+      "selections": {
+        "2026-11-22_R11C1": [
+          8,
+          7,
+          6
+        ],
+        "2026-11-22_R11C2": [
+          3,
+          8,
+          5
+        ],
+        "2026-11-22_R11C3": [
+          7,
+          5,
+          11
+        ],
+        "2026-11-22_R11C4": [
+          4,
+          2,
+          1
+        ],
+        "2026-11-22_R11C5": [
+          5,
+          2,
+          11
+        ],
+        "2026-11-22_R11C6": [
+          10,
+          13,
+          11
+        ],
+        "2026-11-22_R11C7": [
+          3,
+          8,
+          7
+        ],
+        "2026-11-22_R13C1": [
+          9,
+          8,
+          10
+        ],
+        "2026-11-22_R13C10": [
+          4,
+          9,
+          12
+        ],
+        "2026-11-22_R13C2": [
+          4,
+          11,
+          12
+        ],
+        "2026-11-22_R13C3": [
+          11,
+          4,
+          3
+        ],
+        "2026-11-22_R13C4": [
+          12,
+          8,
+          6
+        ],
+        "2026-11-22_R13C5": [
+          9,
+          11,
+          13
+        ],
+        "2026-11-22_R13C6": [
+          11,
+          5,
+          6
+        ],
+        "2026-11-22_R13C7": [
+          8,
+          11,
+          10
+        ],
+        "2026-11-22_R13C8": [
+          3,
+          6,
+          7
+        ],
+        "2026-11-22_R13C9": [
+          12,
+          9,
+          3
+        ],
+        "2026-11-22_R14C1": [
+          10,
+          8,
+          1
+        ],
+        "2026-11-22_R14C2": [
+          2,
+          8,
+          5
+        ],
+        "2026-11-22_R14C3": [
+          1,
+          11,
+          7
+        ],
+        "2026-11-22_R14C4": [
+          3,
+          12,
+          14
+        ],
+        "2026-11-22_R14C5": [
+          3,
+          11,
+          6
+        ],
+        "2026-11-22_R14C6": [
+          13,
+          8,
+          10
+        ],
+        "2026-11-22_R14C8": [
+          5,
+          7,
+          8
+        ],
+        "2026-11-22_R16C2": [
+          13,
+          16,
+          12
+        ],
+        "2026-11-22_R16C4": [
+          11,
+          13,
+          10
+        ],
+        "2026-11-22_R16C6": [
+          8,
+          10,
+          3
+        ],
+        "2026-11-22_R16C8": [
+          8,
+          6,
+          1
+        ],
+        "2026-11-22_R16C9": [
+          5,
+          11,
+          14
+        ],
+        "2026-11-22_R1C1": [
+          10,
+          9,
+          12
+        ],
+        "2026-11-22_R1C2": [
+          8,
+          4,
+          13
+        ],
+        "2026-11-22_R1C3": [
+          12,
+          5,
+          2
+        ],
+        "2026-11-22_R1C4": [
+          12,
+          16,
+          10
+        ],
+        "2026-11-22_R1C5": [
+          3,
+          5,
+          4
+        ],
+        "2026-11-22_R1C6": [
+          12,
+          11,
+          8
+        ],
+        "2026-11-22_R1C7": [
+          13,
+          2,
+          3
+        ],
+        "2026-11-22_R1C8": [
+          4,
+          11,
+          9
+        ],
+        "2026-11-22_R1C9": [
+          11,
+          3,
+          8
+        ]
+      },
+      "brier_score_brut": 0.23194774126417952,
+      "log_loss_score_brut": 0.6685445247263788
+    },
+    "gradient_boosting": {
+      "courses": 38,
+      "chevaux_retrouves": 36,
+      "moyenne": 0.9473684210526315,
+      "au_moins_2_sur_3": 8,
+      "exact_3_sur_3": 1,
+      "distribution": {
+        "0": 11,
+        "1": 19,
+        "2": 7,
+        "3": 1
+      },
+      "hits_par_course": {
+        "2026-11-22_R11C1": 3,
+        "2026-11-22_R11C2": 1,
+        "2026-11-22_R11C3": 1,
+        "2026-11-22_R11C4": 1,
+        "2026-11-22_R11C5": 0,
+        "2026-11-22_R11C6": 1,
+        "2026-11-22_R11C7": 1,
+        "2026-11-22_R13C1": 2,
+        "2026-11-22_R13C10": 2,
+        "2026-11-22_R13C2": 2,
+        "2026-11-22_R13C3": 0,
+        "2026-11-22_R13C4": 0,
+        "2026-11-22_R13C5": 1,
+        "2026-11-22_R13C6": 0,
+        "2026-11-22_R13C7": 0,
+        "2026-11-22_R13C8": 1,
+        "2026-11-22_R13C9": 1,
+        "2026-11-22_R14C1": 1,
+        "2026-11-22_R14C2": 1,
+        "2026-11-22_R14C3": 0,
+        "2026-11-22_R14C4": 0,
+        "2026-11-22_R14C5": 1,
+        "2026-11-22_R14C6": 2,
+        "2026-11-22_R14C8": 0,
+        "2026-11-22_R16C2": 0,
+        "2026-11-22_R16C4": 1,
+        "2026-11-22_R16C6": 2,
+        "2026-11-22_R16C8": 0,
+        "2026-11-22_R16C9": 2,
+        "2026-11-22_R1C1": 1,
+        "2026-11-22_R1C2": 0,
+        "2026-11-22_R1C3": 1,
+        "2026-11-22_R1C4": 1,
+        "2026-11-22_R1C5": 1,
+        "2026-11-22_R1C6": 1,
+        "2026-11-22_R1C7": 1,
+        "2026-11-22_R1C8": 2,
+        "2026-11-22_R1C9": 1
+      },
+      "selections": {
+        "2026-11-22_R11C1": [
+          8,
+          3,
+          7
+        ],
+        "2026-11-22_R11C2": [
+          8,
+          7,
+          5
+        ],
+        "2026-11-22_R11C3": [
+          5,
+          7,
+          9
+        ],
+        "2026-11-22_R11C4": [
+          8,
+          4,
+          5
+        ],
+        "2026-11-22_R11C5": [
+          5,
+          4,
+          8
+        ],
+        "2026-11-22_R11C6": [
+          13,
+          10,
+          9
+        ],
+        "2026-11-22_R11C7": [
+          3,
+          7,
+          11
+        ],
+        "2026-11-22_R13C1": [
+          9,
+          8,
+          12
+        ],
+        "2026-11-22_R13C10": [
+          12,
+          9,
+          4
+        ],
+        "2026-11-22_R13C2": [
+          11,
+          10,
+          4
+        ],
+        "2026-11-22_R13C3": [
+          3,
+          4,
+          1
+        ],
+        "2026-11-22_R13C4": [
+          12,
+          8,
+          9
+        ],
+        "2026-11-22_R13C5": [
+          11,
+          4,
+          9
+        ],
+        "2026-11-22_R13C6": [
+          6,
+          5,
+          1
+        ],
+        "2026-11-22_R13C7": [
+          14,
+          12,
+          3
+        ],
+        "2026-11-22_R13C8": [
+          11,
+          5,
+          3
+        ],
+        "2026-11-22_R13C9": [
+          11,
+          4,
+          12
+        ],
+        "2026-11-22_R14C1": [
+          1,
+          8,
+          10
+        ],
+        "2026-11-22_R14C2": [
+          2,
+          5,
+          3
+        ],
+        "2026-11-22_R14C3": [
+          11,
+          6,
+          3
+        ],
+        "2026-11-22_R14C4": [
+          14,
+          16,
+          4
+        ],
+        "2026-11-22_R14C5": [
+          11,
+          6,
+          12
+        ],
+        "2026-11-22_R14C6": [
+          3,
+          12,
+          13
+        ],
+        "2026-11-22_R14C8": [
+          10,
+          8,
+          11
+        ],
+        "2026-11-22_R16C2": [
+          13,
+          9,
+          11
+        ],
+        "2026-11-22_R16C4": [
+          10,
+          14,
+          15
+        ],
+        "2026-11-22_R16C6": [
+          10,
+          8,
+          3
+        ],
+        "2026-11-22_R16C8": [
+          8,
+          5,
+          1
+        ],
+        "2026-11-22_R16C9": [
+          5,
+          11,
+          3
+        ],
+        "2026-11-22_R1C1": [
+          14,
+          12,
+          9
+        ],
+        "2026-11-22_R1C2": [
+          8,
+          9,
+          10
+        ],
+        "2026-11-22_R1C3": [
+          12,
+          13,
+          3
+        ],
+        "2026-11-22_R1C4": [
+          5,
+          12,
+          10
+        ],
+        "2026-11-22_R1C5": [
+          4,
+          1,
+          6
+        ],
+        "2026-11-22_R1C6": [
+          12,
+          9,
+          10
+        ],
+        "2026-11-22_R1C7": [
+          4,
+          7,
+          2
+        ],
+        "2026-11-22_R1C8": [
+          8,
+          9,
+          11
+        ],
+        "2026-11-22_R1C9": [
+          8,
+          2,
+          7
+        ]
+      },
+      "brier_score_brut": 0.17951377410553035,
+      "log_loss_score_brut": 0.5451071252296852
+    }
+  },
+  "ablation_validation": {
+    "Forme PMU": {
+      "moyenne_sans_critere": 0.8421052631578947,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.2631578947368421,
+        "ic95_bootstrap_par_course": [
+          0.02631578947368421,
+          0.5
+        ]
+      }
+    },
+    "Historique comparable": {
+      "moyenne_sans_critere": 1.0263157894736843,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.07894736842105263,
+        "ic95_bootstrap_par_course": [
+          -0.13157894736842105,
+          0.2631578947368421
+        ]
+      }
+    },
+    "Distance": {
+      "moyenne_sans_critere": 0.9736842105263158,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.13157894736842105,
+        "ic95_bootstrap_par_course": [
+          0.02631578947368421,
+          0.23684210526315788
+        ]
+      }
+    },
+    "Discipline": {
+      "moyenne_sans_critere": 1.0789473684210527,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.02631578947368421,
+        "ic95_bootstrap_par_course": [
+          -0.05263157894736842,
+          0.13157894736842105
+        ]
+      }
+    },
+    "Ferrure sourcée": {
+      "moyenne_sans_critere": 1.0263157894736843,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.07894736842105263,
+        "ic95_bootstrap_par_course": [
+          -0.13157894736842105,
+          0.2631578947368421
+        ]
+      }
+    },
+    "Âge": {
+      "moyenne_sans_critere": 1.105263157894737,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.0,
+        "ic95_bootstrap_par_course": [
+          -0.13157894736842105,
+          0.13157894736842105
+        ]
+      }
+    },
+    "Sexe": {
+      "moyenne_sans_critere": 1.0526315789473684,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.05263157894736842,
+        "ic95_bootstrap_par_course": [
+          -0.07894736842105263,
+          0.18421052631578946
+        ]
+      }
+    },
+    "Gains": {
+      "moyenne_sans_critere": 1.0789473684210527,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.02631578947368421,
+        "ic95_bootstrap_par_course": [
+          -0.07894736842105263,
+          0.13157894736842105
+        ]
+      }
+    },
+    "Driver": {
+      "moyenne_sans_critere": 1.0263157894736843,
+      "ecart_avec_modele_complet": {
+        "courses": 38,
+        "ecart_moyen": 0.07894736842105263,
+        "ic95_bootstrap_par_course": [
+          -0.07894736842105263,
+          0.23684210526315788
+        ]
+      }
+    },
+    "Entraîneur": {
+      "etat": "DONNEES_INSUFFISANTES"
+    }
+  },
+  "variantes_validation": {
+    "Ferrure · même poids": {
+      "observations_train": 69,
+      "observations_validation": 17,
+      "etat": "EVALUE",
+      "moyenne": 1.0789473684210527,
+      "ecart_avec_reference": {
+        "courses": 38,
+        "ecart_moyen": -0.02631578947368421,
+        "ic95_bootstrap_par_course": [
+          -0.10526315789473684,
+          0.05263157894736842
+        ]
+      },
+      "couverture_par_discipline": {
+        "attelé": 16,
+        "monté": 1
+      }
+    },
+    "Ferrure · écart modéré": {
+      "observations_train": 69,
+      "observations_validation": 17,
+      "etat": "EVALUE",
+      "moyenne": 1.0789473684210527,
+      "ecart_avec_reference": {
+        "courses": 38,
+        "ecart_moyen": -0.02631578947368421,
+        "ic95_bootstrap_par_course": [
+          -0.10526315789473684,
+          0.05263157894736842
+        ]
+      },
+      "couverture_par_discipline": {
+        "attelé": 16,
+        "monté": 1
+      }
+    },
+    "Ferrure · coefficients actuels": {
+      "observations_train": 69,
+      "observations_validation": 17,
+      "etat": "EVALUE",
+      "moyenne": 1.0789473684210527,
+      "ecart_avec_reference": {
+        "courses": 38,
+        "ecart_moyen": -0.02631578947368421,
+        "ic95_bootstrap_par_course": [
+          -0.10526315789473684,
+          0.05263157894736842
+        ]
+      },
+      "couverture_par_discipline": {
+        "attelé": 16,
+        "monté": 1
+      }
+    },
+    "Tandem cheval-driver": {
+      "observations_train": 0,
+      "observations_validation": 0,
+      "etat": "DONNEES_INSUFFISANTES"
+    },
+    "Avis PMU structuré": {
+      "observations_train": 0,
+      "observations_validation": 0,
+      "etat": "DONNEES_INSUFFISANTES"
+    },
+    "Position absolue autostart": {
+      "observations_train": 0,
+      "observations_validation": 167,
+      "etat": "DONNEES_INSUFFISANTES"
+    },
+    "Mode de départ et distance": {
+      "observations_train": 97,
+      "observations_validation": 167,
+      "etat": "EVALUE",
+      "moyenne": 1.105263157894737,
+      "ecart_avec_reference": {
+        "courses": 38,
+        "ecart_moyen": 0.0,
+        "ic95_bootstrap_par_course": [
+          0.0,
+          0.0
+        ]
+      },
+      "couverture_par_discipline": {
+        "attelé": 167,
+        "monté": 0
+      }
+    },
+    "Position et ligne autostart": {
+      "observations_train": 22,
+      "observations_validation": 57,
+      "etat": "EVALUE",
+      "moyenne": 1.0789473684210527,
+      "ecart_avec_reference": {
+        "courses": 38,
+        "ecart_moyen": -0.02631578947368421,
+        "ic95_bootstrap_par_course": [
+          -0.15789473684210525,
+          0.07894736842105263
+        ]
+      },
+      "couverture_par_discipline": {
+        "attelé": 57,
+        "monté": 0
+      }
+    },
+    "Forme Geny par mode de départ": {
+      "observations_train": 14,
+      "observations_validation": 0,
+      "etat": "DONNEES_INSUFFISANTES"
+    },
+    "Recul au départ": {
+      "observations_train": 256,
+      "observations_validation": 342,
+      "etat": "EVALUE",
+      "moyenne": 0.9736842105263158,
+      "ecart_avec_reference": {
+        "courses": 38,
+        "ecart_moyen": -0.13157894736842105,
+        "ic95_bootstrap_par_course": [
+          -0.2631578947368421,
+          0.0
+        ]
+      },
+      "couverture_par_discipline": {
+        "attelé": 308,
+        "monté": 34
+      }
+    }
+  },
+  "modele_choisi_avant_test": "regression_logistique",
+  "apprentissage_final": {
+    "observations": 1093,
+    "completes": 1037,
+    "completude": 0.9487648673376029,
+    "criteres": {
+      "Forme PMU": 1037,
+      "Historique comparable": 115,
+      "Distance": 1093,
+      "Discipline": 1093,
+      "Ferrure sourcée": 1093,
+      "Âge": 1093,
+      "Sexe": 1093,
+      "Gains": 1093,
+      "Driver": 92,
+      "Entraîneur": 37,
+      "Tandem cheval-driver": 0,
+      "Comparaison ferrures historiques": 86,
+      "Avis PMU structuré": 0
+    },
+    "courses": 82,
+    "observations_totales": 2415
+  },
+  "test_ml": {
+    "courses": 8,
+    "chevaux_retrouves": 8,
+    "moyenne": 1.0,
+    "au_moins_2_sur_3": 2,
+    "exact_3_sur_3": 1,
+    "distribution": {
+      "0": 3,
+      "1": 3,
+      "2": 1,
+      "3": 1
+    },
+    "hits_par_course": {
+      "2026-11-23_R1C1": 2,
+      "2026-11-23_R1C2": 1,
+      "2026-11-23_R1C3": 0,
+      "2026-11-23_R1C4": 1,
+      "2026-11-23_R1C5": 3,
+      "2026-11-23_R1C6": 1,
+      "2026-11-23_R1C7": 0,
+      "2026-11-23_R1C8": 0
+    },
+    "selections": {
+      "2026-11-23_R1C1": [
+        3,
+        13,
+        2
+      ],
+      "2026-11-23_R1C2": [
+        10,
+        7,
+        6
+      ],
+      "2026-11-23_R1C3": [
+        2,
+        4,
+        11
+      ],
+      "2026-11-23_R1C4": [
+        9,
+        4,
+        11
+      ],
+      "2026-11-23_R1C5": [
+        10,
+        3,
+        7
+      ],
+      "2026-11-23_R1C6": [
+        1,
+        8,
+        9
+      ],
+      "2026-11-23_R1C7": [
+        13,
+        16,
+        10
+      ],
+      "2026-11-23_R1C8": [
+        10,
+        4,
+        14
+      ]
+    }
+  },
+  "profils_partants": {
+    "ml": {
+      "couverture": {
+        "train": {
+          "est_crack": {
+            "positifs": 0,
+            "negatifs": 0,
+            "non_evalues": 1896
+          },
+          "est_haut_potentiel": {
+            "positifs": 0,
+            "negatifs": 0,
+            "non_evalues": 1896
+          }
+        },
+        "validation": {
+          "est_crack": {
+            "positifs": 0,
+            "negatifs": 42,
+            "non_evalues": 477
+          },
+          "est_haut_potentiel": {
+            "positifs": 0,
+            "negatifs": 42,
+            "non_evalues": 477
+          }
+        },
+        "test": {
+          "est_crack": {
+            "positifs": 0,
+            "negatifs": 3,
+            "non_evalues": 101
+          },
+          "est_haut_potentiel": {
+            "positifs": 0,
+            "negatifs": 3,
+            "non_evalues": 101
+          }
+        }
+      },
+      "sans": {
+        "courses": 8,
+        "chevaux_retrouves": 8,
+        "moyenne": 1.0,
+        "au_moins_2_sur_3": 2,
+        "exact_3_sur_3": 1,
+        "distribution": {
+          "0": 3,
+          "1": 3,
+          "2": 1,
+          "3": 1
+        },
+        "hits_par_course": {
+          "2026-11-23_R1C1": 2,
+          "2026-11-23_R1C2": 1,
+          "2026-11-23_R1C3": 0,
+          "2026-11-23_R1C4": 1,
+          "2026-11-23_R1C5": 3,
+          "2026-11-23_R1C6": 1,
+          "2026-11-23_R1C7": 0,
+          "2026-11-23_R1C8": 0
+        },
+        "selections": {
+          "2026-11-23_R1C1": [
+            3,
+            13,
+            2
+          ],
+          "2026-11-23_R1C2": [
+            10,
+            7,
+            6
+          ],
+          "2026-11-23_R1C3": [
+            2,
+            4,
+            11
+          ],
+          "2026-11-23_R1C4": [
+            9,
+            4,
+            11
+          ],
+          "2026-11-23_R1C5": [
+            10,
+            3,
+            7
+          ],
+          "2026-11-23_R1C6": [
+            1,
+            8,
+            9
+          ],
+          "2026-11-23_R1C7": [
+            13,
+            16,
+            10
+          ],
+          "2026-11-23_R1C8": [
+            10,
+            4,
+            14
+          ]
+        }
+      },
+      "variantes": {
+        "est_crack": {
+          "statut": "DONNEES_INSUFFISANTES"
+        },
+        "est_haut_potentiel": {
+          "statut": "DONNEES_INSUFFISANTES"
+        },
+        "est_crack+est_haut_potentiel": {
+          "statut": "DONNEES_INSUFFISANTES"
+        }
+      }
+    },
+    "direct": {
+      "courses": 4,
+      "positifs": {
+        "est_crack": 0,
+        "est_haut_potentiel": 0
+      },
+      "sans": {
+        "courses": 4,
+        "chevaux_retrouves": 3,
+        "moyenne": 0.75,
+        "au_moins_2_sur_3": 1,
+        "exact_3_sur_3": 0,
+        "distribution": {
+          "0": 2,
+          "1": 1,
+          "2": 1
+        }
+      },
+      "variantes": {
+        "est_crack": {
+          "courses": 4,
+          "chevaux_retrouves": 3,
+          "moyenne": 0.75,
+          "au_moins_2_sur_3": 1,
+          "exact_3_sur_3": 0,
+          "distribution": {
+            "0": 2,
+            "1": 1,
+            "2": 1
+          },
+          "selections_modifiees": 0,
+          "ecart": {
+            "courses": 4,
+            "ecart_moyen": 0.0,
+            "ic95_bootstrap_par_course": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "est_haut_potentiel": {
+          "courses": 4,
+          "chevaux_retrouves": 3,
+          "moyenne": 0.75,
+          "au_moins_2_sur_3": 1,
+          "exact_3_sur_3": 0,
+          "distribution": {
+            "0": 2,
+            "1": 1,
+            "2": 1
+          },
+          "selections_modifiees": 0,
+          "ecart": {
+            "courses": 4,
+            "ecart_moyen": 0.0,
+            "ic95_bootstrap_par_course": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "avec_les_deux": {
+          "courses": 4,
+          "chevaux_retrouves": 3,
+          "moyenne": 0.75,
+          "au_moins_2_sur_3": 1,
+          "exact_3_sur_3": 0,
+          "distribution": {
+            "0": 2,
+            "1": 1,
+            "2": 1
+          },
+          "selections_modifiees": 0,
+          "ecart": {
+            "courses": 4,
+            "ecart_moyen": 0.0,
+            "ic95_bootstrap_par_course": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "statut": "DONNEES_INSUFFISANTES"
+    }
+  },
+  "test_forme_pmu_capture": {
+    "courses": 8,
+    "chevaux_retrouves": 9,
+    "moyenne": 1.125,
+    "au_moins_2_sur_3": 2,
+    "exact_3_sur_3": 1,
+    "distribution": {
+      "0": 2,
+      "1": 4,
+      "2": 1,
+      "3": 1
+    },
+    "hits_par_course": {
+      "2026-11-23_R1C1": 1,
+      "2026-11-23_R1C2": 2,
+      "2026-11-23_R1C3": 1,
+      "2026-11-23_R1C4": 1,
+      "2026-11-23_R1C5": 3,
+      "2026-11-23_R1C6": 1,
+      "2026-11-23_R1C7": 0,
+      "2026-11-23_R1C8": 0
+    },
+    "selections": {
+      "2026-11-23_R1C1": [
+        11,
+        1,
+        13
+      ],
+      "2026-11-23_R1C2": [
+        8,
+        10,
+        7
+      ],
+      "2026-11-23_R1C3": [
+        10,
+        2,
+        11
+      ],
+      "2026-11-23_R1C4": [
+        9,
+        8,
+        7
+      ],
+      "2026-11-23_R1C5": [
+        10,
+        3,
+        7
+      ],
+      "2026-11-23_R1C6": [
+        1,
+        8,
+        6
+      ],
+      "2026-11-23_R1C7": [
+        13,
+        3,
+        2
+      ],
+      "2026-11-23_R1C8": [
+        4,
+        10,
+        13
+      ]
+    }
+  },
+  "test_hybride_rangs_egaux": {
+    "courses": 8,
+    "chevaux_retrouves": 10,
+    "moyenne": 1.25,
+    "au_moins_2_sur_3": 3,
+    "exact_3_sur_3": 1,
+    "distribution": {
+      "0": 2,
+      "1": 3,
+      "2": 2,
+      "3": 1
+    },
+    "hits_par_course": {
+      "2026-11-23_R1C1": 2,
+      "2026-11-23_R1C2": 1,
+      "2026-11-23_R1C3": 1,
+      "2026-11-23_R1C4": 1,
+      "2026-11-23_R1C5": 3,
+      "2026-11-23_R1C6": 2,
+      "2026-11-23_R1C7": 0,
+      "2026-11-23_R1C8": 0
+    },
+    "selections": {
+      "2026-11-23_R1C1": [
+        3,
+        13,
+        2
+      ],
+      "2026-11-23_R1C2": [
+        10,
+        7,
+        6
+      ],
+      "2026-11-23_R1C3": [
+        2,
+        10,
+        4
+      ],
+      "2026-11-23_R1C4": [
+        9,
+        8,
+        11
+      ],
+      "2026-11-23_R1C5": [
+        10,
+        3,
+        7
+      ],
+      "2026-11-23_R1C6": [
+        1,
+        8,
+        11
+      ],
+      "2026-11-23_R1C7": [
+        13,
+        16,
+        10
+      ],
+      "2026-11-23_R1C8": [
+        4,
+        10,
+        3
+      ]
+    }
+  },
+  "ecart_ml_forme_capture": {
+    "courses": 8,
+    "ecart_moyen": -0.125,
+    "ic95_bootstrap_par_course": [
+      -0.5,
+      0.25
+    ]
+  },
+  "ecart_hybride_forme_capture": {
+    "courses": 8,
+    "ecart_moyen": 0.125,
+    "ic95_bootstrap_par_course": [
+      -0.25,
+      0.5
+    ]
+  },
+  "ecart_hybride_ml": {
+    "courses": 8,
+    "ecart_moyen": 0.25,
+    "ic95_bootstrap_par_course": [
+      0.0,
+      0.625
+    ]
+  },
+  "test_comparable_par_discipline": {
+    "attelé": {
+      "forme_capture": {
+        "courses": 5,
+        "chevaux_retrouves": 5,
+        "moyenne": 1.0,
+        "au_moins_2_sur_3": 1,
+        "exact_3_sur_3": 1,
+        "distribution": {
+          "0": 2,
+          "1": 2,
+          "3": 1
+        }
+      },
+      "ml": {
+        "courses": 5,
+        "chevaux_retrouves": 5,
+        "moyenne": 1.0,
+        "au_moins_2_sur_3": 2,
+        "exact_3_sur_3": 1,
+        "distribution": {
+          "0": 3,
+          "2": 1,
+          "3": 1
+        }
+      },
+      "hybride": {
+        "courses": 5,
+        "chevaux_retrouves": 6,
+        "moyenne": 1.2,
+        "au_moins_2_sur_3": 2,
+        "exact_3_sur_3": 1,
+        "distribution": {
+          "0": 2,
+          "1": 1,
+          "2": 1,
+          "3": 1
+        }
+      }
+    },
+    "monté": {
+      "forme_capture": {
+        "courses": 3,
+        "chevaux_retrouves": 4,
+        "moyenne": 1.3333333333333333,
+        "au_moins_2_sur_3": 1,
+        "exact_3_sur_3": 0,
+        "distribution": {
+          "1": 2,
+          "2": 1
+        }
+      },
+      "ml": {
+        "courses": 3,
+        "chevaux_retrouves": 3,
+        "moyenne": 1.0,
+        "au_moins_2_sur_3": 0,
+        "exact_3_sur_3": 0,
+        "distribution": {
+          "1": 3
+        }
+      },
+      "hybride": {
+        "courses": 3,
+        "chevaux_retrouves": 4,
+        "moyenne": 1.3333333333333333,
+        "au_moins_2_sur_3": 1,
+        "exact_3_sur_3": 0,
+        "distribution": {
+          "1": 2,
+          "2": 1
+        }
+      }
+    }
+  },
+  "promotion_production": false
+}
