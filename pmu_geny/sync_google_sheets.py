@@ -13,6 +13,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 from dashboard.trot_analytics.dates import date_kind, depuis_nombre, instant_iso, meme_date_sheets
+from dashboard.trot_analytics.usages import IPR
 
 SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analyse')
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
@@ -76,9 +77,12 @@ CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUM
     *REPORT_NAME_COLUMNS.values(), *WINNER_SELECTION_COLUMNS, *WINNER_REPORT_COLUMNS,
     'jalon_compare', *ETAT_JALON_COLUMNS})
 PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','ferrure','musique_pmu'})
+IPR_NUMERIC = frozenset({'ipr_score', 'ipr_rang_shadow', 'ipr_n_historiques_comparables', 'ipr_couverture'})
 
 def sheet_value(field, value):
     if value is None:return ''
+    if field in IPR_NUMERIC:
+        return value if type(value) in (int, float) else ''
     if field == 'top3_cotes_valeur':
         from .cotes_v19 import cote_valide
         return cote_valide(value) or ''
@@ -217,6 +221,7 @@ DISPLAY_NAMES.update({
        for phase in ('h3', 'h2') for field, label in (
            ('statut', 'État'), ('echeance_utc', 'Échéance UTC'), ('publication_utc', 'Publication UTC'))},
 })
+DISPLAY_NAMES.update(IPR.libelles)
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
 INVERSE_NAMES.update({'Ferrure':'ferrure', 'PMU · Complétude fiche':'actuel_statut',
@@ -339,6 +344,8 @@ def source_rows(cache):
     from .partants_actuels_v21 import profil_pmu_exclusif
     from .cotes_v19 import cote_valide, dernier_releve
     from .identites_chevaux import IndexGeny
+    from .ipr import actif as ipr_actif
+    publier_ipr = ipr_actif()
     identites_geny = IndexGeny(cache)
     courses, history, reports = {}, {}, {}
     now = datetime.now(timezone.utc)
@@ -501,6 +508,11 @@ def source_rows(cache):
         calcul = instant(direct.get('calcul_utc'))
         depart = instant(info.get('depart'))
         leaders = {}
+        ipr = load_json(cache/'ipr'/filename) if publier_ipr else {}
+        stamp_ipr = instant(ipr.get('calcul_utc'))
+        ipr_eligible = (stamp_ipr and depart and stamp_ipr < depart and stamp_ipr <= now
+                        and (ipr.get('date'), ipr.get('course')) == (date, code)
+                        and instant(ipr.get('depart')) == depart and ipr.get('usage') == IPR.usage)
         for mode, document in (('direct', direct), ('ml', ml)):
             selection = selection_predepart(document, info.get('depart', ''), now)
             if selection:
@@ -629,6 +641,14 @@ def source_rows(cache):
                 authoritative.update(DEPART_COLUMNS)
             if ml:
                 authoritative.update(('ml_rang','ml_top3','ml_score_non_calibre'))
+            ipr_row = ipr.get('chevaux', {}).get(str(n), {}) if ipr_eligible else {}
+            if ipr_row and nom and nom == nom_normalise(ipr_row.get('nom')):
+                current.update({field: ipr_row[field] if ipr_row.get(field) is not None else ''
+                                for field in IPR.libelles})
+                if statut_np != ipr_row.get('statut_np'):
+                    current.update(ipr_rang_shadow='', ipr_score='', ipr_confiance='NON ÉVALUABLE',
+                                   ipr_motifs='Participation non confirmée au dernier relevé PMU')
+                authoritative.update(IPR.libelles)
             courses[krow]={**existing,**{key:value for key,value in current.items()
                                          if value is not None and (value!='' or key in authoritative)}}
     # Les arrivees PMU officielles peuvent exister sans manifeste Geny.
@@ -881,6 +901,10 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
           'Historique chevaux':('cle_performance',),
           'Résultats & Analyse':('course_key',)}[tab]
     additions=COMPARE_COLUMNS if tab=='Courses & Prévisions' else REPORT_COLUMNS if tab=='Résultats & Analyse' else ()
+    if tab == SHEET_TABS[0]:
+        from .ipr import actif
+        if actif():
+            additions += tuple(IPR.libelles)
     headers=ensure_headers(existing_headers,tuple(additions))
     columns = {}
     for index, name in enumerate(headers, 1):
@@ -891,7 +915,7 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
     # Plusieurs variantes conservées pour une même performance ne doivent pas
     # être arbitrées en écrasant silencieusement la dernière ligne rencontrée.
     ambiguous=set()
-    if tab=='Historique chevaux':
+    if tab in ('Historique chevaux', SHEET_TABS[0]):
         seen=set()
         for row in existing_rows:
             if not all(str(row.get(k,'')).strip() for k in keys):continue
@@ -902,11 +926,13 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
     for item in new_items.values():
         k=rowkey(item)
         if k in present:
-            if k in ambiguous:continue
+            if k in ambiguous and tab=='Historique chevaux':continue
             row_number = present[k]
             old = existing_rows[row_number - 2]
             # writes only values actually present/nonempty; leaves other cells untouched.
             for name,val in item.items():
+                if k in ambiguous and name in IPR.libelles:
+                    continue
                 column = columns.get(name)
                 if column is None:
                     continue
@@ -923,6 +949,8 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                     differs = ''.join(str(before).split()) != str(value)
                     if not value:
                         continue
+                if name in IPR_NUMERIC:
+                    differs = before != value or type(before) is bool
                 # Nettoyage ciblé de l'ancien scan texte : PP de petite piste,
                 # DA du nom Da Costa. Une vraie ferrure sourcée reste prioritaire.
                 if tab=='Historique chevaux' and name=='ferrure' and val=='':
@@ -931,7 +959,7 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                             and faux_code_ferrure_historique(item.get('source_url'),before)):
                         changes.append((row_number,column,''))
                         continue
-                if (val is not None and (str(val)!='' or name in CLEARABLE_COLUMNS
+                if (val is not None and (str(val)!='' or name in CLEARABLE_COLUMNS or name in IPR.libelles
                         or tab=='Courses & Prévisions' and name in PARTANT_PMU_COLUMNS)
                         and differs):
                     changes.append((row_number,column,value))
