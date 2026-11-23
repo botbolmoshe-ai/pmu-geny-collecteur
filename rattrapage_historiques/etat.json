@@ -27806,9 +27806,9 @@
       "course_url": "https://www.geny.com/course/1698232/partants-pronostics",
       "numero": "6",
       "engagement": "2026-11-14_R8C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C1",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2022,
@@ -27826,7 +27826,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:5feb3f3f8e5e44a7e53883df",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:5feb3f3f8e5e44a7e53883df"
+      "autre_contexte_meme_nom": "contexte:5feb3f3f8e5e44a7e53883df",
+      "rattrapage_complet_au_utc": "2026-11-23T21:05:24.063868+00:00",
+      "historique_complet_au_utc": "2026-11-23T21:05:24.063868+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:49182d848f6ee02b838dcc32": {
       "nom": "MONDIAL",
@@ -40689,7 +40693,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C1",
@@ -40717,7 +40721,32 @@
       "prochaine_verification_utc": "2026-11-24T21:05:24.063868+00:00",
       "nombre_performances": 32,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 32,
+          "cellules_actualisees": 0,
+          "lignes_source": 32,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 32,
+            "lignes_avant": 31521,
+            "cles_avant": 31521,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3153,
+            "import_initial_explicite": false,
+            "lignes_attendues": 31553,
+            "lignes_apres": 31553,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T21:05:34.440437+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T21:05:24.063868+00:00",
+      "ajouts_confirmes": 32
     },
     "contexte:ef2d78ad9347820246535d6b": {
       "nom": "MONDIAL",
@@ -72680,12 +72709,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1208,
-    "cibles_restantes": 1376,
+    "cibles_completees": 1210,
+    "cibles_restantes": 1374,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1412,
+    "travaux_distincts_restants": 1411,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 965,
+    "carrieres_distinctes_a_completer": 964,
     "identifiants_sans_carriere_complete": 71,
     "contextes_distincts_sans_identifiant": 893,
     "noms_distincts_sans_identifiant": 888,
@@ -72693,8 +72722,8 @@
     "identites_non_resolues": 1282,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 3962,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 3994,
     "tentatives_collecte": 4,
     "captures_validees": 4,
     "captures_partielles": 0,
@@ -72702,7 +72731,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T21:03:50.419892+00:00",
-  "maj_utc": "2026-11-23T21:05:24.573595+00:00",
+  "maj_utc": "2026-11-23T21:05:34.460407+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -74791,11 +74820,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T21:03:50.419892+00:00",
-    "controle_utc": "2026-11-23T21:05:24.573595+00:00",
+    "controle_utc": "2026-11-23T21:05:34.460407+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 4,
-    "chevaux_confirmes_sheets": 3,
-    "performances_ajoutees_et_confirmees_sheets": 73,
+    "chevaux_confirmes_sheets": 4,
+    "performances_ajoutees_et_confirmees_sheets": 105,
     "refus_geny": {
       "403": 0,
       "429": 0
