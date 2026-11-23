@@ -1,4 +1,4 @@
-"""TOP3 expérimental V18, non probabiliste; figement H-1, recalcul si NP confirmé.
+"""TOP3 expérimental V18, non probabiliste; référence à H-2, recalcul si NP confirmé.
 
 Baseline de secours distincte de l'agent avancé PMU existant, NON validée
 statistiquement. Ne jamais utiliser de résultat postérieur à la course.
@@ -6,6 +6,8 @@ statistiquement. Ne jamais utiliser de résultat postérieur à la course.
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import json
+
+from .echeances_production import PHASES
 
 def read(file):
     try:return json.loads(Path(file).read_text(encoding='utf-8'))
@@ -35,12 +37,11 @@ def preparer_top3(cache, course, manifest, now=None):
     now=now or datetime.now(timezone.utc)
     depart=datetime.fromisoformat(course['depart'])
     if depart.tzinfo is None: raise ValueError('Heure de départ sans fuseau')
-    # Premiere prevision au plus tot H-1:15; rattrapage autorise jusqu'au depart.
-    # Un rattrapage apres H-1 est horodate et ne se fait jamais a posteriori.
-    debut=depart-timedelta(minutes=75); fin=depart
+    echeance = depart - PHASES['H2']
+    debut = echeance - timedelta(minutes=15)
     file=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_top3.json"
     if file.exists():return 'DEJA_FIGE'
-    if not debut<=now.astimezone(depart.tzinfo)<fin:return 'HORS_FENETRE_AVANT_DEPART'
+    if not debut<=now<depart:return 'HORS_FENETRE_AVANT_DEPART'
     cid=manifest['courses'][0]['course_id']
     np=read(Path(cache)/'participations'/f'{cid}.json')
     expected={int(p['numero']) for p in manifest['courses'][0]['partants']}
@@ -76,7 +77,8 @@ def preparer_top3(cache, course, manifest, now=None):
     result={'date_course':course['date'],'course':course['code'],'course_id_geny':cid,
        'created_utc':now.isoformat(),'frozen_at':now.isoformat(),'depart':depart.isoformat(),
        'mode':'BASELINE_EXPERIMENTALE_NON_VALIDEE','note':'Scores non probabilistes; aucune garantie de gain',
-       'qualite_horaire':'H1' if now<=depart-timedelta(minutes=60) else 'RATTRAPAGE_AVANT_DEPART',
+       'jalon_reference':'H2',
+       'qualite_horaire':'H2' if now<=echeance else 'RATTRAPAGE_AVANT_DEPART',
        'statut_np':'VERIFIE' if np_recent else 'NP_NON_VERIFIE',
        'non_partants_confirmes':sorted(n for n,s in np_by_number.items() if s=='NON_PARTANT'),
        'source_np':'PMU_API' if np_recent else 'NON_VERIFIE',
@@ -87,14 +89,14 @@ def preparer_top3(cache, course, manifest, now=None):
 
 
 def actualiser_top3_np(cache, course, manifest, now=None):
-    """Mise à jour avant départ après nouveau retrait; référence H-1 jamais écrasée."""
+    """Mise à jour avant départ après nouveau retrait; la référence initiale reste immuable."""
     from .auto_v18 import save
     now=now or datetime.now(timezone.utc)
     depart=datetime.fromisoformat(course['depart'])
     if now>=depart:return 'APRES_DEPART'
     orig=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_top3.json"
     initial=read(orig)
-    if not initial:return 'H1_NON_FIGE'
+    if not initial:return 'BASELINE_NON_FIGEE'
     cid=manifest['courses'][0]['course_id']
     data=read(Path(cache)/'participations'/f'{cid}.json')
     latest=Path(cache)/'pronostics'/f"{course['date']}_{course['code']}_baseline_latest.json"
@@ -117,7 +119,7 @@ def actualiser_top3_np(cache, course, manifest, now=None):
         return 'INCHANGE'
     stamp={'date_course':course['date'],'course':course['code'],'depart':course['depart'],
       'created_utc':now.isoformat(),'mode':'BASELINE_RECALCULEE_APRES_NP',
-      'origine_h1':initial['created_utc'],'source_np':'PMU_API',
+      'origine_baseline_utc':initial['created_utc'],'jalon_reference':initial.get('jalon_reference', 'H1'),'source_np':'PMU_API',
       'statut_np':'VERIFIE' if recent else 'CONTROLE_ANCIEN_RETRAITS_CONSERVES',
       'non_partants_confirmes':sorted(withdrawn),
       'np_verifie_utc':data['date_controle_utc'],'top3':remaining[:3] if sufficient else [],

@@ -30,6 +30,19 @@ class HistoryTests(unittest.TestCase):
         updates,last=planifier(self.source,rows,next_day)
         self.assertEqual(last,5);self.assertTrue(updates[0]['range'].endswith('A4:H4'))
 
+    def test_ancienne_echeance_reste_dans_son_releve_et_ne_reapparait_pas(self):
+        import json
+
+        old_label = 'Échéances · H2 ouvertes'
+        current_label = 'Échéances · H-2 ouvertes'
+        old_day = self.now.date().isoformat()
+        old = [json.dumps([old_day, old_label]), old_day, self.now.isoformat(),
+               'ML', old_label, 5, 'Ancien jalon', 5]
+        source = [SOURCE_HEADERS, old[3:], ['ML', current_label, 2, 'Jalon actuel', 2]]
+        for observed in (self.now + timedelta(hours=1), self.now + timedelta(days=1)):
+            updates, _ = planifier(source, [HEADERS, old], observed)
+            self.assertEqual([row[4] for row in self.materialiser(updates)], [current_label])
+
     def test_date_observation_paris_et_non_date_utc(self):
         now=datetime(2026,11,17,23,30,tzinfo=timezone.utc)
         rows=self.materialiser(planifier(self.source,[],now)[0])

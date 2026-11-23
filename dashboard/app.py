@@ -277,6 +277,14 @@ elif page=="Résultats":
             numbers = str(r.get(top3 + " · Chevaux") or "").split(",")
             winner = number(r.get(f"Gagnant potentiel {mode} · N°"))
             row[key] = names[0] if winner and winner == number(numbers[0]) and len(names) == 3 else None
+        row["Jalon comparé"] = r.get("Jalon comparé") or None
+        for phase in ("H-3", "H-2"):
+            row[f"{phase} · État"] = r.get(f"{phase} · État") or None
+            for field in ("Échéance", "Publication"):
+                row[f"{phase} · {field} (Paris)"] = afficher_instant(r.get(f"{phase} · {field} UTC"))
+            for method in ("Direct", "ML"):
+                label = f"Score {phase} · {method}"
+                row[label] = number(r.get(label))
         table.append(row)
     if not table: st.info("Aucun bilan enregistré.")
     else:

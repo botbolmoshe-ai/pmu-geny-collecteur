@@ -52,16 +52,20 @@ WINNER_REPORT_COLUMNS = tuple(
 COTES_COLUMNS = ('top3_cotes_valeur', 'cote_releve_utc', 'cote_rapport_utc',
                  'top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_statut', 'top3_cotes_utc')
 COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + EDITORIAL_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS + DEPART_COLUMNS
+SCORE_JALON_COLUMNS = tuple(
+    f'score_{phase}_{kind}' for phase in ('h3', 'h2', 'h1') for kind in ('direct', 'ml'))
+ETAT_JALON_COLUMNS = tuple(
+    f'jalon_{phase}_{field}' for phase in ('h3', 'h2')
+    for field in ('statut', 'echeance_utc', 'publication_utc'))
 RAPPROCHEMENT_COLUMNS = ('reunion_pmu', 'rapprochement_statut', 'rapprochement_arrivee_statut',
-                         'rapprochement_declenchement_utc') + tuple(
-    f'score_{phase}_{kind}' for phase in ('h2', 'h1') for kind in ('direct', 'ml'))
+                         'rapprochement_declenchement_utc') + SCORE_JALON_COLUMNS + ETAT_JALON_COLUMNS + ('jalon_compare',)
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
                   'arrivee_officielle_numeros','arrivee_officielle_noms','arrivee_verifiee_utc',
                   'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct') + WINNER_REPORT_COLUMNS + RAPPROCHEMENT_COLUMNS
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
-                            'score_baseline','score_baseline_final', *RAPPROCHEMENT_COLUMNS[4:]})
+                            'score_baseline','score_baseline_final', *SCORE_JALON_COLUMNS})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
 CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUMNS | frozenset(EXPERT_COLUMNS) | frozenset({
     *RETIRED_EXPERT_COLUMNS,  # Lecture/nettoyage des anciens formats uniquement.
@@ -69,7 +73,8 @@ CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUM
     *COTES_COLUMNS,'ml_rang','ml_top3',
     'ml_proba_podium','ml_score_non_calibre',
     'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites',
-    *REPORT_NAME_COLUMNS.values(), *WINNER_SELECTION_COLUMNS, *WINNER_REPORT_COLUMNS})
+    *REPORT_NAME_COLUMNS.values(), *WINNER_SELECTION_COLUMNS, *WINNER_REPORT_COLUMNS,
+    'jalon_compare', *ETAT_JALON_COLUMNS})
 PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','ferrure','musique_pmu'})
 
 def sheet_value(field, value):
@@ -205,8 +210,12 @@ DISPLAY_NAMES.update({
     'rapprochement_statut': 'État du rapprochement',
     'rapprochement_arrivee_statut': 'État de l’arrivée PMU',
     'rapprochement_declenchement_utc': 'Rapprochement · Déclenchement UTC',
+    'jalon_compare': 'Jalon comparé',
     **{f'score_{phase}_{kind}': f'Score H-{phase[1:]} · {kind.upper() if kind == "ml" else "Direct"}'
-       for phase in ('h2', 'h1') for kind in ('direct', 'ml')},
+       for phase in ('h3', 'h2', 'h1') for kind in ('direct', 'ml')},
+    **{f'jalon_{phase}_{field}': f'H-{phase[1:]} · {label}'
+       for phase in ('h3', 'h2') for field, label in (
+           ('statut', 'État'), ('echeance_utc', 'Échéance UTC'), ('publication_utc', 'Publication UTC'))},
 })
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
@@ -717,11 +726,12 @@ def source_rows(cache):
                               rapprochement_declenchement_utc=report['declenchement_utc'])
             for label, score in row['scores'].items():
                 report_row['score_' + label.lower()] = score['hits_top3']
-            # Les vues historiques conservent leur schéma. Pour une réunion
-            # rapprochée, afficher la dernière paire réellement attestée.
-            pairs = ((row['scores'].get(f'{phase}_direct'), row['scores'].get(f'{phase}_ml'))
-                     for phase in ('H1', 'H2'))
-            pair = next((pair for pair in pairs if all(pair)), None)
+            # L'ordre inverse garde la dernière paire attestée, y compris pour les anciens bilans.
+            from .echeances_production import PHASES_LECTURE
+            pairs = ((phase, (row['scores'].get(f'{phase}_direct'), row['scores'].get(f'{phase}_ml')))
+                     for phase in reversed(PHASES_LECTURE))
+            phase, pair = next(((phase, pair) for phase, pair in pairs if all(pair)), (None, None))
+            report_row['jalon_compare'] = f'H-{phase[1:]}' if phase else ''
             if not pair:
                 official = row['statut'] == 'ARRIVEE_OFFICIELLE'
                 direct_score = report_row.get('matching_direct_pct', '') if official else ''
@@ -756,6 +766,17 @@ def source_rows(cache):
                 report_row.update(etat_ml=pair[1]['statut_modele'],
                                   top3_direct_calcule_utc=pair[0]['calcul_utc'],
                                   statut_evaluation='EVALUE', conclusion=conclusion_methodes(scores))
+    from .echeances_production import PHASES
+    for report_row in reports.values():
+        key = f"{report_row['date_course']}_{report_row['rncn']}"
+        certificate = load_json(cache/'jalons'/f'{key}.json')
+        for phase in PHASES:
+            if proof := certificate.get(phase):
+                prefix = f'jalon_{phase.lower()}_'
+                report_row.update({prefix + 'statut': proof.get('statut', ''),
+                                   prefix + 'echeance_utc': proof.get('echeance', ''),
+                                   prefix + 'publication_utc': proof.get('publication_utc', '')
+                                   if proof.get('statut') in ('PUBLIE_A_TEMPS', 'PUBLIE_EN_RETARD') else ''})
     # V31: la provenance textuelle (URL ou descriptif) n'est PAS une
     # identite de course. Les memes performances sont presentes dans les
     # exports de course et les captures persistantes par cheval.

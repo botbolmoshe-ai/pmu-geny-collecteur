@@ -56,7 +56,8 @@ Copier **le contenu** de ce dossier dans la racine du dépôt GitHub existant (`
 
 ## Ce qui est opérationnel dans le code
 - Ancien collecteur Geny et stockage V16–V18 préservés.
-- Baseline de référence à H-1 (fenêtre de capture H-1h15 à H-1h00); à la déclaration ultérieure d'un NP : nouvelle baseline sans le cheval retiré, **la référence initiale n'est pas réécrite**.
+- Pour les réunions de trot P1/P2, les jalons Direct et ML H-3 puis H-2 sont calculés depuis le premier départ de la réunion. La ponctualité est attestée par la relecture de Sheets. Les anciens certificats et relevés KPI conservent leur heure et leur libellé.
+- Baseline expérimentale de référence à H-2 (fenêtre de capture H-2h15 à H-2h00); à la déclaration ultérieure d'un NP : nouvelle baseline sans le cheval retiré, **la référence initiale n'est pas réécrite**.
 - Génération automatique de `exports/GENY-ID/comparatif_predictions.csv` : un enregistrement par cheval, classements baseline initial/final, classement ML si entraîné, cotes horodatées, résultats et nombres de bonnes sélections, statut NP.
 - Instantanés de **variables pré-départ uniquement**, sans cotes, cotes séparées sous `cotes/`, audit des horodatages.
 - Modèles scikit-learn (régression logistique, histogram gradient boosting) entraînés sur des courses distinctes ordonnées chronologiquement ; sélection à partir de la validation temporelle et réentraînement journalier à 20 h (heure France), si données disponibles.
@@ -69,7 +70,7 @@ Le jeu d'entraînement ne peut être constitué qu'après enregistrement d'**ins
 - Cotes : relevé de la cote à la dernière vérification PMU **avant** le départ (si le champ JSON peut être interprété). Ce n'est **pas nécessairement** la cote définitive exacte « au départ ». Pas de valeur imputée si indisponible.
 - Météo, état de piste, driver, entraîneur, rapports des écuries, avis des experts : **champs prévus dans les caractéristiques ML**, mais **aucun collecteur automatique de ces sources n'est encore opérationnel**. Des observations sourcées peuvent être intégrées par fichier JSON ; sans observation vérifiée, le champ reste `None`.
 - La découverte automatique de toutes les courses PMU et l'accès aux arrivées / non-partants reposent sur une API PMU non documentée : non encore validés en exécution réelle GitHub. Geny peut refuser l'accès.
-- En cas de départ d'une course pendant le retard d'un cron GitHub, la capture H-1 peut être manquée. Ne jamais reconstruire a posteriori les features.
+- En cas de départ d'une course pendant le retard d'un cron GitHub, un jalon pré-départ peut être manqué. Ne jamais reconstruire a posteriori les features.
 - Le baseline ne modélise pas encore les effets tactiques suite aux NP ; il élimine les NP et reclasse les partants selon leurs scores de forme. La prédiction ML recalcule les features avec NP mais doit bénéficier de données de contexte pour apprendre l'effet tactique.
 - Le cron V19 conserve quatre déclenchements par heure. Sur GitHub privé, les minutes facturables peuvent être supérieures au quota gratuit : surveiller l'onglet **Billing** et réduire la fréquence si nécessaire.
 
@@ -95,7 +96,7 @@ python -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
 ## Organisation du stockage
-`ml/instantanes/DATE_RxCy.json` : features figées avant départ ; `ml/entrainement.json` : statut et validation ; `ml/modele.joblib` : modèle seulement si seuil atteint ; `pronostics/DATE_RxCy_top3.json` : baseline de référence H-1 ; `pronostics/DATE_RxCy_baseline_latest.json` : ajustement après NP ; `pronostics/DATE_RxCy_ml_latest.json` : dernière prédiction ML ; `cotes/DATE_RxCy.json` : horodatage et historique des relevés; `arrivees/` : résultats vérifiés ; `exports/GENY-ID/comparatif_predictions.csv` : tableau comparatif.
+`ml/instantanes/DATE_RxCy.json` : features figées avant départ ; `ml/entrainement.json` : statut et validation ; `ml/modele.joblib` : modèle seulement si seuil atteint ; `pronostics/DATE_RxCy_top3.json` : baseline de référence H-2 (H-1 dans les archives) ; `pronostics/DATE_RxCy_baseline_latest.json` : ajustement après NP ; `pronostics/DATE_RxCy_ml_latest.json` : dernière prédiction ML ; `cotes/DATE_RxCy.json` : horodatage et historique des relevés; `arrivees/` : résultats vérifiés ; `exports/GENY-ID/comparatif_predictions.csv` : tableau comparatif.
 
 ## Important pour interpréter un CSV
 Les cotes restent **purement informatives et totalement exclues** des variables du modèle (vérifié par test). Une cellule ML vide signifie : **pas de modèle entraîné ou pas de prédiction vérifiable**, pas un pronostic égal à zéro. Les absences de sources météo / écuries ne sont jamais remplacées par des appréciations inventées.
@@ -103,7 +104,7 @@ Les cotes restent **purement informatives et totalement exclues** des variables 
 ## V20.1 — Audit prédictif et apprentissage des erreurs
 
 Doctrine pérenne : voir `REGLES_AUDIT_PREDICTIF.md`.
-Après arrivée officielle enregistrée, le cycle `auto` génère `audits/AAAA-MM-JJ_RxCy.json` et actualise `audits/bilan_comparatif.csv` avec les scores baseline H-1, baseline après NP, ML, et marché indicatif (rang des cotes). Les cotes ne sont **jamais** utilisées par le ML. L'audit ne modifie pas automatiquement le modèle ; ses constats doivent être validés sur plusieurs courses et hors échantillon avant toute modification des pondérations. Les données et conclusions restent explicitement absentes lorsqu'elles sont invérifiables.
+Après arrivée officielle enregistrée, le cycle `auto` génère `audits/AAAA-MM-JJ_RxCy.json` et actualise `audits/bilan_comparatif.csv` avec les scores baseline H-2, baseline après NP, ML, et marché indicatif (rang des cotes). Les cotes ne sont **jamais** utilisées par le ML. L'audit ne modifie pas automatiquement le modèle ; ses constats doivent être validés sur plusieurs courses et hors échantillon avant toute modification des pondérations. Les données et conclusions restent explicitement absentes lorsqu'elles sont invérifiables.
 
 
 ## V20.2 — Ordonnancement J-1 / Jour J
@@ -112,7 +113,7 @@ Après arrivée officielle enregistrée, le cycle `auto` génère `audits/AAAA-M
 - **Jour J, 7 h–21 h 59** : cycle horaire de préparation et cycles de contrôle rapprochés toutes les 15 minutes. Les horaires sont filtrés en heure locale Europe/Paris pour la gestion été/hiver.
 - **Priorités** : départs dans les 2 h, puis 2–6 h, puis autres courses du jour, puis J-1, et seulement ensuite collecte des arrivées récentes; le tout dans un nombre limité de courses par cycle.
 - **Après l'heure prévue du départ** : aucune nouvelle prévision, collecte Geny ou météo. Seules l'arrivée officielle, la consolidation et l'audit peuvent être traités dans une fenêtre de 4 h. Une course archivée sort du cycle.
-- **Non-partants** : contrôle PMU dans les 6 h du départ (plus rapproché à H-1); chaque nouveau retrait confirmé est pris en compte dans la prévision actualisée. Pas de NP inventé en cas d'indisponibilité.
+- **Non-partants** : contrôle PMU dans les 6 h du départ (lors des rafraîchissements pré-départ); chaque nouveau retrait confirmé est pris en compte dans la prévision actualisée. Pas de NP inventé en cas d'indisponibilité.
 - **Cotes** : conservées à titre informatif, jamais comme variables ML.
 - **Limites** : l'association de courses PMU/Geny et la disponibilité du flux PMU nécessitent toujours une validation en conditions réelles. Le nombre de nouvelles fiches Geny reste plafonné à trois par cycle complet, le quota de demain ne force aucune consultation supplémentaire dans l'implémentation actuelle. Les déclenchements GitHub Actions peuvent être retardés.
 

@@ -5,6 +5,7 @@ from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
 from dashboard.trot_analytics.dates import afficher_instant, depuis_nombre, vers_nombre
+from .kpi_registre import PREFIXES_ANCIENNES_ECHEANCES
 
 TAB='Historique qualité'
 SOURCE_HEADERS=['Dimension','Indicateur','Valeur (automatique)','Définition / réserve','Total de référence (automatique)']
@@ -34,6 +35,9 @@ def planifier(source,existing,now):
     for row in source[1:]:
         if len(row)<2 or not str(row[1] or '').strip():continue
         label=str(row[1])
+        # Les anciennes lignes restent visibles dans le registre, figées à leur dernier relevé.
+        if label.startswith(PREFIXES_ANCIENNES_ECHEANCES):
+            continue
         if label in labels:raise ValueError('INDICATEUR_KPI_EN_DOUBLE')
         labels.add(label)
         key=json.dumps([day,label],ensure_ascii=False,separators=(',',':'))

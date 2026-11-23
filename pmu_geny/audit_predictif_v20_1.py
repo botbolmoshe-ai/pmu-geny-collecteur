@@ -65,10 +65,11 @@ def analyser_course(cache, course, manifest):
     if model['hits_top3'] is not None and market['hits_top3'] is not None and complete_market:
         flags['comparaison_ml_marche']='ML_MIEUX' if model['hits_top3']>market['hits_top3'] else ('MARCHE_MIEUX' if model['hits_top3']<market['hits_top3'] else 'EGALITE')
     else:flags['comparaison_ml_marche']='NON_COMPARABLE'
+    baseline_label = 'baseline_h2' if base.get('jalon_reference') == 'H2' else 'baseline_h1'
     doc={'course':key,'course_id':manifest['courses'][0].get('course_id'),
          'audit_utc':datetime.now(timezone.utc).isoformat(),
          'arrivee_source':arrival.get('source',''),
-         'comparaison':{'baseline_h1':reference,'baseline_finale':final,'ml':model,'marche_indicatif':market},
+         'comparaison':{baseline_label:reference,'baseline_finale':final,'ml':model,'marche_indicatif':market},
          'diagnostic':flags,'chevaux':rows,
          'garde_fous':['Aucune cote parmi les features ML','Ne pas changer les poids apres une course isolee',
                       'Verifier que les predictions precedaient le depart','Aucune conclusion causale sans preuve',
@@ -86,6 +87,7 @@ def bilan_global(cache):
         d=load(file,{}) or {};comparison=d.get('comparaison',{})
         all_rows.append({'course':d.get('course',file.stem),
             'baseline_h1':comparison.get('baseline_h1',{}).get('hits_top3'),
+            'baseline_h2':comparison.get('baseline_h2',{}).get('hits_top3'),
             'baseline_finale':comparison.get('baseline_finale',{}).get('hits_top3'),
             'ml':comparison.get('ml',{}).get('hits_top3'),
             'marche_indicatif':comparison.get('marche_indicatif',{}).get('hits_top3'),
