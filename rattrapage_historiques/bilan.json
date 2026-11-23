@@ -55,16 +55,16 @@
   "maj_utc": "2026-11-22T22:28:26.367914+00:00",
   "statut": "PARTIEL_REPRENABLE",
   "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1174,
-    "cibles_restantes": 1410,
+    "cibles_completees": 1175,
+    "cibles_restantes": 1409,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1463,
-    "historiques_ferrures_a_completer": 479,
-    "carrieres_distinctes_a_completer": 984,
-    "identifiants_sans_carriere_complete": 54,
+    "travaux_distincts_restants": 1430,
+    "historiques_ferrures_a_completer": 447,
+    "carrieres_distinctes_a_completer": 983,
+    "identifiants_sans_carriere_complete": 53,
     "contextes_distincts_sans_identifiant": 930,
     "noms_distincts_sans_identifiant": 925,
     "identifiants_geny_distincts": 980,
@@ -81,20 +81,20 @@
   "motif_fin_passage": "COOLDOWN_GENY_GLOBAL",
   "lignes_historique_initiales": 15484,
   "dernier_controle_inventaire": {
-    "capture_utc": "2026-11-19T20:07:14.697875+00:00",
-    "lignes_historique": 24616,
+    "capture_utc": "2026-11-23T03:16:38.152702+00:00",
+    "lignes_historique": 30507,
     "controle": {
       "statut": "VALIDE",
       "phase": "APRES",
       "ajouts_prevus": 0,
-      "lignes_avant": 24616,
-      "cles_avant": 24616,
+      "lignes_avant": 30507,
+      "cles_avant": 30507,
       "doublons_valeurs_avant": 0,
       "cles_avec_variantes": 0,
-      "seuil_ajouts": 2462,
+      "seuil_ajouts": 3051,
       "import_initial_explicite": false,
-      "lignes_attendues": 24616,
-      "lignes_apres": 24616,
+      "lignes_attendues": 30507,
+      "lignes_apres": 30507,
       "doublons_valeurs_apres": 0,
       "motif": "COMPTAGES_ET_CLES_CONFORMES"
     }
@@ -105,21 +105,21 @@
     "participations_a_confirmer": 0,
     "bilan": {
       "ABSENT_DE_LA_FILE": 774,
-      "A_REPRENDRE": 872,
-      "COMPLET": 432,
-      "FERRURES_A_COMPLETER": 458,
+      "A_REPRENDRE": 871,
+      "COMPLET": 465,
+      "FERRURES_A_COMPLETER": 426,
       "LIEN_GENY_A_RESOUDRE": 57
     },
     "noms_distincts": 2593,
-    "controle_utc": "2026-11-22T22:28:19.589237+00:00"
+    "controle_utc": "2026-11-23T03:16:38.194660+00:00"
   },
   "cohortes": {
     "initiale": {
       "cibles": 1787,
       "identifiees": 813,
       "partielles": 0,
-      "completes": 789,
-      "publiees": 789
+      "completes": 790,
+      "publiees": 790
     },
     "extensions": {
       "cibles": 797,
@@ -132,10 +132,10 @@
   "lot_96": {
     "checkpoint": "c0c9471457a8bb8e261e5b01434d85ce77268252",
     "cibles": 96,
-    "completes": 72,
+    "completes": 73,
     "partielles": 0,
-    "publiees": 72,
-    "restantes": 24,
+    "publiees": 73,
+    "restantes": 23,
     "sans_correspondance": 0
   },
   "collecte_tentee_utc": "2026-11-19T20:07:22.244110+00:00",
@@ -158,14 +158,14 @@
     "nouvelle_alerte": false
   },
   "cooldown_geny": {
-    "controle_utc": "2026-11-22T22:28:26.440643+00:00",
+    "controle_utc": "2026-11-23T03:16:48.455891+00:00",
     "dernier_incident": {
-      "utc": "2026-11-22T22:17:12.344799+00:00",
+      "utc": "2026-11-22T23:02:08.683333+00:00",
       "code": "429"
     },
-    "echeance_utc": "2026-11-22T22:47:12.344799+00:00",
-    "actif": true,
-    "etat": "ACTIF"
+    "echeance_utc": "2026-11-22T23:32:08.683333+00:00",
+    "actif": false,
+    "etat": "EXPIRE"
   },
   "derniere_acquisition_validee_utc": "2026-11-19T07:19:48.177012+00:00",
   "derniere_ecriture_controlee": {
