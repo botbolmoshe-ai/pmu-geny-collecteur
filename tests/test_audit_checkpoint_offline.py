@@ -38,6 +38,7 @@ class AuditCheckpointTests(unittest.TestCase):
 
     def test_fin_avec_compteurs_concordants(self):
         self.bilan["statut"] = "TERMINE"
+        self.bilan["derniere_acquisition_validee_utc"] = "2026-11-21T11:00:00+00:00"
         self.bilan["bilan"].update(cibles_completees=2584, cibles_restantes=0, historiques_ferrures_a_completer=0)
         self.assertTrue(self.audit()["fin_globale_prouvee_par_compteurs"])
 
@@ -58,6 +59,24 @@ class AuditCheckpointTests(unittest.TestCase):
     def test_bilan_perime(self):
         self.bilan["maj_utc"] = "2026-11-22T00:00:00+00:00"
         self.assertIn("BILAN_ANCIEN", self.audit()["alertes"])
+
+    def test_bilan_frais_mais_acquisition_ancienne(self):
+        self.bilan["derniere_acquisition_validee_utc"] = "2026-11-23T03:00:00+00:00"
+        resultat = self.audit()
+        self.assertEqual(resultat["age_heures"], 1)
+        self.assertEqual(resultat["age_acquisition_heures"], 9)
+        self.assertEqual(resultat["alertes"], ["ACQUISITION_ANCIENNE"])
+
+    def test_horodatage_acquisition_absent_invalide_ou_futur(self):
+        cas = (
+            (None, "AUCUNE_ACQUISITION_VALIDEE"),
+            ("2026-11-23T11:00:00", "HORODATAGE_ACQUISITION_INVALIDE"),
+            ("2026-11-23T13:00:00Z", "HORODATAGE_ACQUISITION_FUTUR"),
+        )
+        for horodatage, alerte in cas:
+            with self.subTest(horodatage=horodatage):
+                self.bilan["derniere_acquisition_validee_utc"] = horodatage
+                self.assertEqual(self.audit()["alertes"], [alerte])
 
     def test_compteur_booleen_refuse(self):
         self.bilan["bilan"]["cibles_completees"] = True
