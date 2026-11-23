@@ -70153,7 +70153,18 @@
       "course_url": "https://www.geny.com/course/1699548/partants-pronostics",
       "depart_a_venir_utc": "2026-11-23T12:55:00+00:00",
       "premier_depart_reunion_utc": "2026-11-23T12:55:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "collecte": "A_REPRENDRE",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-11-23T09:13:19.526090+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-23T03:13:19.526122+00:00",
+        "statut": "RECHERCHE_GENY_SANS_NOM_EXACT",
+        "motifs": [],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-23_R1C1_2/1795403554625932749/resultat.json"
+      }
     },
     "2026-11-23_R1C1_3": {
       "nom": "CHITCHAT",
@@ -80262,13 +80273,13 @@
     }
   },
   "passage_utc": "2026-11-23T03:09:00.717993+00:00",
-  "maj_utc": "2026-11-23T03:12:30.251116+00:00",
+  "maj_utc": "2026-11-23T03:13:19.526148+00:00",
   "bilan": {
     "chevaux_suivis": 2745,
-    "tentatives_collecte": 8,
+    "tentatives_collecte": 9,
     "captures_validees": 8,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2464
   },
@@ -80819,7 +80830,7 @@
   "sync_kpi_utc": "2026-11-23T00:04:15.024827+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:09:00.717993+00:00",
-    "controle_utc": "2026-11-23T03:12:30.251116+00:00",
+    "controle_utc": "2026-11-23T03:13:19.526148+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 8,
     "chevaux_confirmes_sheets": 8,
