@@ -27,7 +27,7 @@ class AppTests(unittest.TestCase):
         self.mock_build=self.build.start();self.addCleanup(self.build.stop)
         self.credentials.start();self.addCleanup(self.credentials.stop)
 
-    def source(self,history=True,odds=False,market_top3=False,dual_profile=False):
+    def source(self,history=True,odds=False,market_top3=False,dual_profile=False,ipr=False):
         from trot_analytics.quality_dates import VALUE,TOTAL
         day=self.today.isoformat();depart=datetime.combine(self.today,time(12),ZoneInfo('Europe/Paris'))
         courses=[{'Clé course (technique)':day+'|R1C1','Date':day,'Course R/C':'R1C1','Hippodrome':'VINCENNES',
@@ -44,6 +44,21 @@ class AppTests(unittest.TestCase):
             'Profil du cheval': {1:'Crack',2:'Haut potentiel'}.get(n,''),
             'Profil · Indices': {1:'2 podiums en Groupe I/II',2:'2 podiums sur 3'}.get(n,''),
             'Âge (ans)':5,'Sexe':'Hongre','Gains carrière (€)':0} for n in (1,2,3)]
+        if ipr:
+            from trot_analytics.usages import IPR
+            for index, row in enumerate(courses):
+                values = {
+                    'ipr_score': 0 if index == 0 else None,
+                    'ipr_rang_shadow': 1 if index == 0 else None,
+                    'ipr_confiance': 'FAIBLE' if index == 0 else 'NON ÉVALUABLE',
+                    'ipr_n_historiques_comparables': 3 if index == 0 else 0,
+                    'ipr_couverture': 16.7 if index == 0 else None,
+                    'ipr_version': 'ipr-v1',
+                    'ipr_calcul_utc': self.now.isoformat(),
+                    'ipr_statut': IPR.usage,
+                    'ipr_motifs': 'Une sortie <ambiguë>',
+                }
+                row.update({IPR.libelles[k]: value for k, value in values.items()})
         if dual_profile:
             courses[0].update({'Profil du cheval': 'Crack confirmé + Haut potentiel',
                                'Profil · Indices': 'Geny : preuves des deux profils'})
@@ -120,6 +135,31 @@ class AppTests(unittest.TestCase):
         self.assertIn('background-color: #4b2574', css)
         self.assertIn('background-color: #123b72', css)
         self.assertIn('font-weight: bold', css)
+
+    def test_ipr_est_lu_du_registre_et_affiche_en_italique(self):
+        self.source(ipr=True)
+        self.app.session_state.authenticated=True
+        self.app.run()
+        self.app.radio[0].set_value('Courses').run()
+        self.assertFalse(self.app.exception)
+        html = next(item.proto.body for item in self.app.get('html') if 'Indice de performance relative' in item.proto.body)
+        self.assertIn('<em>IPR · Score (/100)</em>', html)
+        self.assertIn('<em>EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS</em>', html)
+        self.assertIn('<em>0</em>', html)
+        self.assertIn('<em>—</em>', html)
+        self.assertIn('&lt;ambiguë&gt;', html)
+        self.assertIn('**Gagnant potentiel direct : 1 — Cheval test 1**',
+                      [item.value for item in self.app.markdown])
+
+    def test_ipr_affiche_en_police_normale_apres_promotion(self):
+        from trot_analytics.observations import tableau_observations
+        from trot_analytics.usages import IPR, PRODUCTION
+
+        labels = IPR.libelles
+        html = tableau_observations([{'N°': 1, 'Cheval': 'Test', labels['ipr_version']: 'v2',
+                                    labels['ipr_score']: 75, labels['ipr_statut']: PRODUCTION}], IPR)
+        self.assertIn('<td>75</td>', html)
+        self.assertNotIn('<em>', html)
 
     def test_cumul_filtre_et_fiche_cheval(self):
         self.source(dual_profile=True)
