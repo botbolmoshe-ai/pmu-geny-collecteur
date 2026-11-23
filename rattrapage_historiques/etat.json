@@ -28219,9 +28219,9 @@
       "course_url": "https://www.geny.com/course/1698232/partants-pronostics",
       "numero": "15",
       "engagement": "2026-11-14_R8C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C1",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2022,
@@ -28239,7 +28239,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:9044f64fa188fb49d4bc0444",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:9044f64fa188fb49d4bc0444"
+      "autre_contexte_meme_nom": "contexte:9044f64fa188fb49d4bc0444",
+      "rattrapage_complet_au_utc": "2026-11-23T21:06:12.939207+00:00",
+      "historique_complet_au_utc": "2026-11-23T21:06:12.939207+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:39e99b9aa66753cf4ebe4e3a": {
       "nom": "MAMA DE L'ORMERIE",
@@ -41148,7 +41152,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C1",
@@ -41176,7 +41180,32 @@
       "prochaine_verification_utc": "2026-11-24T21:06:12.939207+00:00",
       "nombre_performances": 10,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 10,
+          "cellules_actualisees": 0,
+          "lignes_source": 10,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 10,
+            "lignes_avant": 31569,
+            "cles_avant": 31569,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3157,
+            "import_initial_explicite": false,
+            "lignes_attendues": 31579,
+            "lignes_apres": 31579,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T21:06:24.240375+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T21:06:12.939207+00:00",
+      "ajouts_confirmes": 10
     },
     "contexte:63c385806e3283594390c4e7": {
       "nom": "MAMA DE L'ORMERIE",
@@ -72750,12 +72779,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1212,
-    "cibles_restantes": 1372,
+    "cibles_completees": 1214,
+    "cibles_restantes": 1370,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1410,
+    "travaux_distincts_restants": 1409,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 963,
+    "carrieres_distinctes_a_completer": 962,
     "identifiants_sans_carriere_complete": 69,
     "contextes_distincts_sans_identifiant": 893,
     "noms_distincts_sans_identifiant": 888,
@@ -72763,8 +72792,8 @@
     "identites_non_resolues": 1282,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4010,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4020,
     "tentatives_collecte": 6,
     "captures_validees": 6,
     "captures_partielles": 0,
@@ -72772,7 +72801,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T21:03:50.419892+00:00",
-  "maj_utc": "2026-11-23T21:06:13.354781+00:00",
+  "maj_utc": "2026-11-23T21:06:24.259515+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -74861,11 +74890,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T21:03:50.419892+00:00",
-    "controle_utc": "2026-11-23T21:06:13.354781+00:00",
+    "controle_utc": "2026-11-23T21:06:24.259515+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 6,
-    "chevaux_confirmes_sheets": 5,
-    "performances_ajoutees_et_confirmees_sheets": 121,
+    "chevaux_confirmes_sheets": 6,
+    "performances_ajoutees_et_confirmees_sheets": 131,
     "refus_geny": {
       "403": 0,
       "429": 0
