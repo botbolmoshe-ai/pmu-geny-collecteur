@@ -27,13 +27,15 @@ def analyser(bilan, maintenant=None, seuil_heures=6):
     attente = entier("synchronisations_en_attente")
     if None not in (total, faites, restantes) and faites + restantes != total:
         alertes.append("INCOHERENCE_INVENTAIRE")
-    lot = bilan.get("lot_96") or {}
-    if lot:
-        if lot.get("cibles") != 96:
+    lot = bilan.get("lot_96", {})
+    if "lot_96" in bilan:
+        if not isinstance(lot, dict):
+            raise ValueError("lot_96 doit être un objet JSON")
+        if type(lot.get("cibles")) is not int or lot["cibles"] != 96:
             alertes.append("DENOMINATEUR_LOT_96_MODIFIE")
-        if not all(isinstance(lot.get(k), int) and not isinstance(lot.get(k), bool) for k in ("completes", "restantes", "publiees")):
+        if not all(type(lot.get(k)) is int and 0 <= lot[k] <= 96 for k in ("completes", "restantes", "publiees")):
             alertes.append("LOT_96_COMPTEURS_INVALIDES")
-        elif lot["completes"] + lot["restantes"] != 96 or lot["publiees"] > lot["completes"]:
+        elif lot["publiees"] + lot["restantes"] != 96 or lot["publiees"] > lot["completes"]:
             alertes.append("LOT_96_INCOHERENT")
     statut = bilan.get("statut")
     termine = (statut == "TERMINE")
@@ -76,7 +78,10 @@ def main():
     if args.seuil_heures <= 0:
         parser.error("--seuil-heures doit etre strictement positif")
     try:
-        resultat = analyser(json.loads(args.checkpoint.read_text(encoding="utf-8")), seuil_heures=args.seuil_heures)
+        bilan = json.loads(args.checkpoint.read_text(encoding="utf-8"))
+        if not isinstance(bilan, dict) or not isinstance(bilan.get("bilan", {}), dict):
+            raise ValueError("le checkpoint et son bilan doivent être des objets JSON")
+        resultat = analyser(bilan, seuil_heures=args.seuil_heures)
     except (OSError, ValueError, TypeError) as exc:
         parser.exit(2, f"CHECKPOINT_ILLISIBLE: {exc}\n")
     print(json.dumps(resultat, ensure_ascii=False, indent=2))

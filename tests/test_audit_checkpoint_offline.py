@@ -45,6 +45,16 @@ class AuditCheckpointTests(unittest.TestCase):
         self.bilan["lot_96"]["cibles"] = 95
         self.assertIn("DENOMINATEUR_LOT_96_MODIFIE", self.audit()["alertes"])
 
+    def test_lot_96_restantes_calculees_sur_les_publications(self):
+        self.bilan["lot_96"].update(completes=78, publiees=75, restantes=21)
+        self.assertEqual(self.audit()["alertes"], [])
+        self.bilan["lot_96"]["restantes"] = 18
+        self.assertIn("LOT_96_INCOHERENT", self.audit()["alertes"])
+
+    def test_lot_96_compteur_negatif_refuse(self):
+        self.bilan["lot_96"]["publiees"] = -1
+        self.assertIn("LOT_96_COMPTEURS_INVALIDES", self.audit()["alertes"])
+
     def test_bilan_perime(self):
         self.bilan["maj_utc"] = "2026-11-22T00:00:00+00:00"
         self.assertIn("BILAN_ANCIEN", self.audit()["alertes"])
