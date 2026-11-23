@@ -27887,9 +27887,9 @@
       "course_url": "https://www.geny.com/course/1698232/partants-pronostics",
       "numero": "13",
       "engagement": "2026-11-14_R8C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C1",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2022,
@@ -27907,7 +27907,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:08413001a2d865d2e994259e",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:08413001a2d865d2e994259e"
+      "autre_contexte_meme_nom": "contexte:08413001a2d865d2e994259e",
+      "rattrapage_complet_au_utc": "2026-11-23T03:18:13.855558+00:00",
+      "historique_complet_au_utc": "2026-11-23T03:18:13.855558+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:208b938e30cb9917292f5ad7": {
       "nom": "MADISON HUB",
@@ -40341,7 +40345,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C1",
@@ -40369,7 +40373,32 @@
       "prochaine_verification_utc": "2026-11-24T03:18:13.855558+00:00",
       "nombre_performances": 17,
       "erreur": "",
-      "derniere_performance_date": "2026-11-22"
+      "derniere_performance_date": "2026-11-22",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 17,
+          "cellules_actualisees": 0,
+          "lignes_source": 17,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 17,
+            "lignes_avant": 30614,
+            "cles_avant": 30614,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3062,
+            "import_initial_explicite": false,
+            "lignes_attendues": 30631,
+            "lignes_apres": 30631,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T03:18:26.863951+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T03:18:13.855558+00:00",
+      "ajouts_confirmes": 17
     },
     "contexte:c04955c6bb7a562794bf85ce": {
       "nom": "MADISON HUB",
@@ -71773,12 +71802,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1177,
-    "cibles_restantes": 1407,
+    "cibles_completees": 1179,
+    "cibles_restantes": 1405,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1428,
+    "travaux_distincts_restants": 1427,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 981,
+    "carrieres_distinctes_a_completer": 980,
     "identifiants_sans_carriere_complete": 68,
     "contextes_distincts_sans_identifiant": 912,
     "noms_distincts_sans_identifiant": 907,
@@ -71786,8 +71815,8 @@
     "identites_non_resolues": 1320,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 3666,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 3683,
     "tentatives_collecte": 3,
     "captures_validees": 3,
     "captures_partielles": 0,
@@ -71795,7 +71824,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T03:16:54.192035+00:00",
-  "maj_utc": "2026-11-23T03:18:14.320846+00:00",
+  "maj_utc": "2026-11-23T03:18:26.886895+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 10,
@@ -73988,11 +74017,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:16:54.192035+00:00",
-    "controle_utc": "2026-11-23T03:18:14.320846+00:00",
+    "controle_utc": "2026-11-23T03:18:26.886895+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 3,
-    "chevaux_confirmes_sheets": 2,
-    "performances_ajoutees_et_confirmees_sheets": 107,
+    "chevaux_confirmes_sheets": 3,
+    "performances_ajoutees_et_confirmees_sheets": 124,
     "refus_geny": {
       "403": 0,
       "429": 0
