@@ -1119,7 +1119,9 @@ def main():
             from .echeances_production import preuves_sheets, sauver
             if os.getenv('PMU_PREUVE_SHEETS'):
                 rows = engine.lire_courses(engine.metadata())
-                sauver(os.environ['PMU_PREUVE_SHEETS'], preuves_sheets(rows, datetime.now(timezone.utc)))
+                preuves = preuves_sheets(rows, datetime.now(timezone.utc),
+                                        observations_verifiees=engine.observations_verifiees)
+                sauver(os.environ['PMU_PREUVE_SHEETS'], preuves)
         else:engine.synchroniser_cycle()
         return 0
     except ErreurSynchronisation as exc:

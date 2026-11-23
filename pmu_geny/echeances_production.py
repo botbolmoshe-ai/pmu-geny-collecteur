@@ -255,7 +255,7 @@ def prevision_valide(doc, depart, now, ml=False, key=None):
     return True
 
 
-def preuves_sheets(rows, now):
+def preuves_sheets(rows, now, *, observations_verifiees=False):
     """Reconstituer les sélections effectivement lisibles dans le registre."""
     from dashboard.trot_analytics.dates import meme_date_sheets
 
@@ -284,7 +284,7 @@ def preuves_sheets(rows, now):
                                                      'calcul_utc': first_version}
     result = {'lecture_utc': now.isoformat(), 'courses': proofs}
     from .ipr import actif
-    if actif():
+    if observations_verifiees and actif():
         from .ipr_prospectif import donnees_sheets
         day = now.astimezone(PARIS).date().isoformat()
         result['ipr'] = donnees_sheets(row for row in rows if row.get('date_course', '') >= day)

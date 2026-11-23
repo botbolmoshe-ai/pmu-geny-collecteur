@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from dashboard.trot_analytics.usages import IPR
-from pmu_geny.echeances_production import lire, sauver
+from pmu_geny.echeances_production import preuves_sheets, sauver
 from pmu_geny.ipr import VERSION, calculer, enregistrer, evaluer_cheval
 from pmu_geny.ipr_prospectif import certifier, donnees_sheets, mesurer
 from pmu_geny.moteur_sheets import SynchroniseurSheets
@@ -135,6 +135,9 @@ class FormatsSession(SheetsSession):
                     if sheet['properties']['title'] == TAB:
                         sheet['properties']['gridProperties']['columnCount'] = self.width
             return response
+        fields = query['fields']
+        if fields.count('(') != fields.count(')'):
+            return type('BadRequest', (), {'status_code': 400})()
         blocks = []
         for a1 in query['ranges']:
             letters = re.search(r'!([A-Z]+)1:', a1)[1]
@@ -182,6 +185,7 @@ class IprSheetsTests(unittest.TestCase):
                                                   full_source=False, allow_structure=True)
             with patch.object(engine, '_formater_profils'):
                 sync(row)
+                self.assertTrue(engine.observations_verifiees)
                 self.assertEqual(canonical_headers(session.tables[TAB][0]), [*raw_headers, *IPR.libelles])
                 first_index = len(raw_headers)
                 self.assertEqual(session.tables[TAB][1][first_index], 0)
@@ -194,5 +198,10 @@ class IprSheetsTests(unittest.TestCase):
                 self.assertEqual(len(session.writes), count)
                 sync({**row, 'ipr_score': ''})
                 self.assertEqual(session.tables[TAB][1][first_index], '')
+                with patch.object(engine, '_formater_observations', side_effect=RuntimeError):
+                    sync(row)
+                self.assertFalse(engine.observations_verifiees)
+                self.assertNotIn('ipr', preuves_sheets([row], STAMP,
+                                                     observations_verifiees=engine.observations_verifiees))
         with patch.dict(os.environ, {'IPR_SHADOW_ENABLED': 'false'}):
             self.assertEqual(plan_sheet(raw_headers, [], {}, TAB)[0], raw_headers)
