@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 import joblib
 from pmu_geny.cycle_ml_actif import entrainer,modele_disponible,POINTEUR,STATUT
-from pmu_geny.ml_v19 import load,save,predict_pmu,snapshot_pmu
+from pmu_geny.ml_v19 import ACTIVE_FEATURES,ACTIVE_MODEL_SCHEMA,MODEL_SCHEMA,load,save,predict_pmu,snapshot_pmu
 from pmu_geny.kpi_registre import calculer_kpi,plan_kpi
 
 
@@ -40,8 +40,27 @@ class ActifTests(unittest.TestCase):
         self.assertEqual(len(result['top3']),3);self.assertTrue(result['experimental'])
         self.assertEqual(result['statut'],STATUT);self.assertFalse(result['promotion_production'])
         self.assertIn('score_non_calibre',result['top3'][0])
+        self.assertEqual(result['features_schema'],ACTIVE_MODEL_SCHEMA)
+        self.assertEqual(result['variables_modele'],list(ACTIVE_FEATURES))
+        self.assertEqual(result['couverture_variables']['position_autostart_absolue'],0)
         self.assertNotIn('proba_podium_estimee',result['top3'][0])
         self.assertEqual(snap.read_bytes(),frozen)
+
+    def test_enrichissement_apprend_une_valeur_documentee_et_signale_les_absences(self):
+        snap=self.exemple();data=load(snap)
+        data.update(features_schema=MODEL_SCHEMA,source='PMU_API_PARTICIPANTS')
+        data['chevaux'][0]['features'].update(depart_autostart=0,recul_depart_m=0)
+        data['chevaux'][1]['features'].update(depart_autostart=1,position_autostart_absolue=2)
+        save(snap,data);original=snap.read_bytes()
+        fit=entrainer(self.cache,self.now)
+        packed=joblib.load(modele_disponible(self.cache))
+        self.assertEqual(packed['features'],ACTIVE_FEATURES)
+        self.assertEqual(fit['couverture_variables']['depart_autostart'],2)
+        self.assertEqual(fit['couverture_variables']['recul_depart_m'],1)
+        self.assertEqual(fit['couverture_variables']['tandem_courses'],0)
+        imputer=packed['model'].named_steps['simpleimputer']
+        self.assertIn(ACTIVE_FEATURES.index('depart_autostart'),imputer.indicator_.features_)
+        self.assertEqual(snap.read_bytes(),original)
 
     def test_pas_de_reentrainement_pour_des_captures_non_encore_etiquetees(self):
         self.exemple();a=entrainer(self.cache,self.now);path=modele_disponible(self.cache)

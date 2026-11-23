@@ -10,6 +10,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from collections import defaultdict
 
+from .profils_partants import SIGNAUX_PROFILS
+
 FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_120j',
             'victoires_120j','disqualifications_120j','score_forme','forme_30j','forme_ancien',
             'jours_repos','distance_m','distance_ecart_m','aptitude_hippodrome',
@@ -20,6 +22,7 @@ FEATURES = ('courses_30j','courses_60j','courses_120j','podiums_30j','podiums_12
 LEGACY_FEATURES = FEATURES
 FEATURES += ('discipline_montee', 'forme_pmu_discipline', 'forme_geny_comparable')
 MODEL_SCHEMA = 'pmu-podium-v34'
+ACTIVE_MODEL_SCHEMA = 'pmu-podium-actif-v1'
 FERRURE_RESEARCH = ('forme_ferrure_neutre', 'forme_ferrure_moderee', 'forme_ferrure_actuelle')
 CHRONO_RESEARCH = ('chrono_comparable_mediane_sec_km', 'chrono_comparable_nb_sorties')
 DEPART_RESEARCH = {
@@ -31,6 +34,8 @@ DEPART_RESEARCH = {
 }
 OPTIONAL_FEATURES = (*FERRURE_RESEARCH, *CHRONO_RESEARCH, 'tandem_podium_lisse', 'tandem_courses', 'avis_pmu_structure',
                      *(field for fields in DEPART_RESEARCH.values() for field in fields))
+ACTIVE_FEATURES = (*FEATURES, *OPTIONAL_FEATURES, *SIGNAUX_PROFILS,
+                   'sorties_geny_comparables_120j', 'ferrures_historiques_comparees')
 
 
 def load(path, default=None):
@@ -105,6 +110,8 @@ def features(horse, history, course, context=None, *, legacy=False):
     if not legacy and not history:
         for key in ('courses_30j','courses_60j','courses_120j','victoires_120j','disqualifications_120j'):
             out[key] = None
+    if not legacy and history and target_dist is not None:
+        out['sorties_geny_comparables_120j'] = sum(r[0] <= 120 for r in comparable)
     for key in FEATURES:
         if key not in out:out[key]=numeric(context.get(key))
     return out
@@ -169,7 +176,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
     from .echeances_production import instant
     from .partants_actuels_v21 import extraire_partants, ferrure_normalisee
     from .top3_independants_v22 import _form_score
-    from .profils_partants import SIGNAUX_PROFILS, evaluer_profils
+    from .profils_partants import evaluer_profils
     cache=Path(cache)
     participants=_list(raw,'participants','partants')
     if len(participants)<3:return 'PARTANTS_INSUFFISANTS',[],{}
@@ -239,7 +246,6 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
         research = {}
         if not legacy:
             profils_course = evaluer_profils(course, {**link, 'historique': histo}, profil, now)
-            # Colonnes de recherche seulement. FEATURES reste le contrat du modèle actif.
             research.update({key: int(profils_course[key]) for key in SIGNAUX_PROFILS
                              if profils_course[key] is not None})
             depart_trot = profil.get('depart_trot', {})
@@ -273,6 +279,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                                                   ferrure_differente=different, ferrure_inconnue=unknown)
                     if shape and shape['ferrures_comparees']:
                         research[key] = shape['score']
+                        research['ferrures_historiques_comparees'] = shape['ferrures_comparees']
             opinion = item.get('avisEntraineur')
             if isinstance(opinion, dict):
                 label = str(opinion.get('type') or opinion.get('libelle') or '').strip().casefold()
@@ -558,7 +565,8 @@ def predict_pmu(cache,course,raw,now=None,clock=None,*,prepared=None):
     added = fields[len(FEATURES):]
     supported = (schema == MODEL_SCHEMA and fields[:len(FEATURES)] == FEATURES
                  and len(set(added)) == len(added) and set(added) <= set(OPTIONAL_FEATURES)) or (
-        signature == ('pmu-podium-v33', LEGACY_FEATURES))
+        signature == ('pmu-podium-v33', LEGACY_FEATURES)) or (
+        experimental and signature == (ACTIVE_MODEL_SCHEMA, ACTIVE_FEATURES))
     if not supported:
         return 'MODELE_SCHEMA_OBSOLETE_REENTRAINEMENT_REQUIS'
     if experimental:
@@ -596,7 +604,10 @@ def predict_pmu(cache,course,raw,now=None,clock=None,*,prepared=None):
                'entrainement_utc':packed.get('entrainement_utc'),
                'dernier_label_entrainement_utc':packed.get('dernier_label_entrainement_utc'),
                'empreinte_modele':hashlib.sha256(path.read_bytes()).hexdigest(),
-               'features_schema':packed['schema'],'entrees_modele':rows,
+               'features_schema':packed['schema'],'variables_modele':list(fields),
+               'couverture_variables':{field: sum(numeric(row['features'].get(field)) is not None
+                                                   for row in rows) for field in fields},
+               'entrees_modele':rows,
                'top3':ranking[:3],'classement_complet':ranking,
                'note':'Score non calibre; cotes exclues des variables.'})
     return 'ML_EXPERIMENTAL_CALCULE' if experimental else 'ML_CALCULE'
