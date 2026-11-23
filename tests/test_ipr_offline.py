@@ -135,6 +135,9 @@ class FormatsSession(SheetsSession):
                     if sheet['properties']['title'] == TAB:
                         sheet['properties']['gridProperties']['columnCount'] = self.width
             return response
+        fields = query['fields']
+        if fields.count('(') != fields.count(')'):
+            return type('BadRequest', (), {'status_code': 400})()
         blocks = []
         for a1 in query['ranges']:
             letters = re.search(r'!([A-Z]+)1:', a1)[1]

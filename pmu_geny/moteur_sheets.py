@@ -122,7 +122,9 @@ class SynchroniseurSheets:
 
         positions = {headers.index(name): label for name, label in groupe.libelles.items()}
         ranges = [f"'{tab}'!{colname(i+1)}1:{colname(i+1)}2" for i in positions]
-        champs = {'ranges': ranges, 'fields': 'sheets(data(startColumn,rowData(values(note,userEnteredValue,userEnteredFormat(textFormat(italic)))))'}
+        champs = {'ranges': ranges, 'fields': (
+            'sheets(data(startColumn,rowData(values(note,userEnteredValue,userEnteredFormat(textFormat(italic))))))'
+        )}
         def relire():
             doc = self.check(get_lecture(self.session, self.base, params=champs, timeout=30))
             return {block['startColumn'] if 'startColumn' in block else 0:
