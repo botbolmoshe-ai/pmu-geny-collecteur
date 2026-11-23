@@ -27829,7 +27829,7 @@
       "course_url": "https://www.geny.com/course/1698232/partants-pronostics",
       "numero": "9",
       "engagement": "2026-11-14_R8C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C1",
@@ -27853,7 +27853,32 @@
       "prochaine_verification_utc": "2026-11-24T03:19:37.948557+00:00",
       "nombre_performances": 29,
       "erreur": "",
-      "derniere_performance_date": "2026-11-22"
+      "derniere_performance_date": "2026-11-22",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 29,
+          "cellules_actualisees": 0,
+          "lignes_source": 29,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 29,
+            "lignes_avant": 30670,
+            "cles_avant": 30670,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3067,
+            "import_initial_explicite": false,
+            "lignes_attendues": 30699,
+            "lignes_apres": 30699,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T03:19:50.990174+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T03:19:37.948557+00:00",
+      "ajouts_confirmes": 29
     },
     "contexte:a93a2b5a53123b1b4a0617d8": {
       "nom": "MA BELLE ASSCHADEL",
@@ -40297,9 +40322,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C1",
       "numero": "9",
       "numero_reconcilie_depuis_snapshot": true,
@@ -40321,7 +40346,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:1001c34bbdb7dd59a612944a",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:1001c34bbdb7dd59a612944a"
+      "autre_contexte_meme_nom": "contexte:1001c34bbdb7dd59a612944a",
+      "rattrapage_complet_au_utc": "2026-11-23T03:19:37.948557+00:00",
+      "historique_complet_au_utc": "2026-11-23T03:19:37.948557+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:e6391e9d2714e26ea5f2cd6d": {
       "nom": "MA BELLE ASSCHADEL",
@@ -71878,12 +71907,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1183,
-    "cibles_restantes": 1401,
+    "cibles_completees": 1185,
+    "cibles_restantes": 1399,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1425,
+    "travaux_distincts_restants": 1424,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 978,
+    "carrieres_distinctes_a_completer": 977,
     "identifiants_sans_carriere_complete": 65,
     "contextes_distincts_sans_identifiant": 912,
     "noms_distincts_sans_identifiant": 907,
@@ -71891,8 +71920,8 @@
     "identites_non_resolues": 1320,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 3722,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 3751,
     "tentatives_collecte": 6,
     "captures_validees": 6,
     "captures_partielles": 0,
@@ -71900,7 +71929,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T03:16:54.192035+00:00",
-  "maj_utc": "2026-11-23T03:19:38.522068+00:00",
+  "maj_utc": "2026-11-23T03:19:51.014596+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 10,
@@ -74093,11 +74122,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:16:54.192035+00:00",
-    "controle_utc": "2026-11-23T03:19:38.522068+00:00",
+    "controle_utc": "2026-11-23T03:19:51.014596+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 6,
-    "chevaux_confirmes_sheets": 5,
-    "performances_ajoutees_et_confirmees_sheets": 163,
+    "chevaux_confirmes_sheets": 6,
+    "performances_ajoutees_et_confirmees_sheets": 192,
     "refus_geny": {
       "403": 0,
       "429": 0
