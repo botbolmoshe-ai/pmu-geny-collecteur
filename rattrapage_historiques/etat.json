@@ -30358,9 +30358,9 @@
       "course_url": "https://www.geny.com/course/1698226/partants-pronostics",
       "numero": "10",
       "engagement": "2026-11-14_R8C8",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C8",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2021,
@@ -30378,7 +30378,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:116dd4280aeeeb59a8e79051",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:116dd4280aeeeb59a8e79051"
+      "autre_contexte_meme_nom": "contexte:116dd4280aeeeb59a8e79051",
+      "rattrapage_complet_au_utc": "2026-11-23T21:07:26.907454+00:00",
+      "historique_complet_au_utc": "2026-11-23T21:07:26.907454+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:7690c0caafdb53f52c0c8a13": {
       "nom": "LITTLEKING FOXGLEN",
@@ -43414,7 +43418,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C8",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C8",
@@ -43442,7 +43446,32 @@
       "prochaine_verification_utc": "2026-11-24T21:07:26.907454+00:00",
       "nombre_performances": 13,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 13,
+          "cellules_actualisees": 0,
+          "lignes_source": 13,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 13,
+            "lignes_avant": 31640,
+            "cles_avant": 31640,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3164,
+            "import_initial_explicite": false,
+            "lignes_attendues": 31653,
+            "lignes_apres": 31653,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T21:07:38.451297+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T21:07:26.907454+00:00",
+      "ajouts_confirmes": 13
     },
     "contexte:b4a0fed0422e0e42054b09a5": {
       "nom": "LITTLEKING FOXGLEN",
@@ -72855,12 +72884,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1218,
-    "cibles_restantes": 1366,
+    "cibles_completees": 1220,
+    "cibles_restantes": 1364,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1407,
+    "travaux_distincts_restants": 1406,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 960,
+    "carrieres_distinctes_a_completer": 959,
     "identifiants_sans_carriere_complete": 66,
     "contextes_distincts_sans_identifiant": 893,
     "noms_distincts_sans_identifiant": 888,
@@ -72868,8 +72897,8 @@
     "identites_non_resolues": 1282,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4081,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4094,
     "tentatives_collecte": 9,
     "captures_validees": 9,
     "captures_partielles": 0,
@@ -72877,7 +72906,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T21:03:50.419892+00:00",
-  "maj_utc": "2026-11-23T21:07:27.303707+00:00",
+  "maj_utc": "2026-11-23T21:07:38.469390+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -74966,11 +74995,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T21:03:50.419892+00:00",
-    "controle_utc": "2026-11-23T21:07:27.303707+00:00",
+    "controle_utc": "2026-11-23T21:07:38.469390+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 9,
-    "chevaux_confirmes_sheets": 8,
-    "performances_ajoutees_et_confirmees_sheets": 192,
+    "chevaux_confirmes_sheets": 9,
+    "performances_ajoutees_et_confirmees_sheets": 205,
     "refus_geny": {
       "403": 0,
       "429": 0
