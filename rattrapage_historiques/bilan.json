@@ -52,7 +52,7 @@
     "captures_ignorees": 8
   },
   "passage_utc": "2026-11-23T21:03:50.419892+00:00",
-  "maj_utc": "2026-11-23T21:10:40.166727+00:00",
+  "maj_utc": "2026-11-23T21:22:44.906875+00:00",
   "statut": "PARTIEL_REPRENABLE",
   "priorite_collecte": "STOCK_NOCTURNE",
   "sync_kpi": "OK",
@@ -124,7 +124,7 @@
       "LIEN_GENY_A_RESOUDRE": 56
     },
     "noms_distincts": 2687,
-    "controle_utc": "2026-11-23T21:10:36.833883+00:00"
+    "controle_utc": "2026-11-23T21:22:39.756614+00:00"
   },
   "cohortes": {
     "initiale": {
@@ -153,32 +153,32 @@
   },
   "collecte_tentee_utc": "2026-11-23T21:10:12.827322+00:00",
   "derniere_acquisition_validee_utc": "2026-11-23T21:10:22.015942+00:00",
-  "controle_ordonnancement_utc": "2026-11-23T21:10:44.109371+00:00",
-  "motif_ordonnancement": "BUDGET_TEMPS_ATTEINT",
+  "controle_ordonnancement_utc": "2026-11-23T21:22:44.906885+00:00",
+  "motif_ordonnancement": "COOLDOWN_GENY_GLOBAL",
   "sync_kpi_utc": "2026-11-23T21:10:40.165082+00:00",
   "dernier_creneau_reserve_utc": "2026-11-19T20:07:22.244110+00:00",
   "dernier_controle_nocturne": {
-    "utc": "2026-11-23T21:03:29.092806+00:00",
+    "utc": "2026-11-23T21:22:37.306486+00:00",
     "creneau": 997482,
     "nuit": "2026-11-23",
-    "motif": "BUDGET_TEMPS_ATTEINT",
-    "prochain_acces_geny_utc": null,
+    "motif": "COOLDOWN_GENY_GLOBAL",
+    "prochain_acces_geny_utc": "2026-11-23T21:52:29.680523+00:00",
     "progression": true,
-    "creneau_eligible": true,
+    "creneau_eligible": false,
     "consecutifs_sans_progression": 0,
     "dernier_creneau_compte": null,
     "alerte_emise": false,
     "nouvelle_alerte": false
   },
   "cooldown_geny": {
-    "controle_utc": "2026-11-23T21:10:44.167707+00:00",
+    "controle_utc": "2026-11-23T21:22:44.960883+00:00",
     "dernier_incident": {
-      "utc": "2026-11-22T23:02:08.683333+00:00",
-      "code": "429"
+      "utc": "2026-11-23T21:22:29.680523+00:00",
+      "code": "403"
     },
-    "echeance_utc": "2026-11-22T23:32:08.683333+00:00",
-    "actif": false,
-    "etat": "EXPIRE"
+    "echeance_utc": "2026-11-23T21:52:29.680523+00:00",
+    "actif": true,
+    "etat": "ACTIF"
   },
   "derniere_ecriture_controlee": {
     "sync_utc": "2026-11-23T21:10:33.131658+00:00",
