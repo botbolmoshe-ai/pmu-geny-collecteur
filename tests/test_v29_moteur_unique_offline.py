@@ -164,7 +164,8 @@ class MoteurTests(unittest.TestCase):
             config=yaml.load((root/'.github/workflows'/file).read_text(),Loader=yaml.BaseLoader)
             groups.append(config['concurrency']['group'])
             self.assertEqual(config['concurrency']['cancel-in-progress'],'false')
-        self.assertEqual(groups,['pmu-donnees-production']*2)
+        self.assertEqual(groups[0], 'pmu-donnees-production')
+        self.assertTrue(groups[1].endswith("|| 'pmu-donnees-production' }}"))
 
     def test_reprise_kpi_seule_sans_recollecter_ni_republier_les_chevaux(self):
         from datetime import datetime,timedelta,timezone
