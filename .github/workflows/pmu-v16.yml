@@ -115,6 +115,23 @@ jobs:
           FORCER_AUTO: ${{ github.event_name != 'schedule' }}
           MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
         run: python -m pmu_geny.echeances_production --cache cache_pmu
+      - name: Auditer le checkpoint du rattrapage historique
+        if: steps.plan.outputs.executer == 'true'
+        shell: bash
+        run: |
+          rapport=resultats/audit_checkpoint_rattrapage.json
+          if python -m pmu_geny.audit_checkpoint cache_pmu/rattrapage_historiques/bilan.json --seuil-heures 6 > "$rapport"; then
+            cat "$rapport"
+          else
+            code=$?
+            if [ "$code" -eq 1 ]; then
+              cat "$rapport"
+              echo "::warning::Le checkpoint de rattrapage contient des alertes. Voir le rapport d'audit."
+            else
+              rm -f "$rapport"
+              echo "::warning::L'audit du checkpoint de rattrapage n'a pas produit de rapport (code $code)."
+            fi
+          fi
       - name: Restaurer le cache du navigateur Playwright
         if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'decouvrir' || inputs.mode == 'collecter')
         uses: actions/cache@v4
@@ -378,6 +395,7 @@ jobs:
           name: pilotage-production-${{ github.run_id }}
           path: |
             resultats/plan_production.json
+            resultats/audit_checkpoint_rattrapage.json
             cache_pmu/qualite/dernier_controle_production.json
             cache_pmu/jalons/
             cache_pmu/rapprochements/

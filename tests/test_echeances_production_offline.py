@@ -373,8 +373,14 @@ class EcheancesTests(unittest.TestCase):
         root=Path(__file__).resolve().parents[1]/'.github/workflows'
         for name in ('pmu-v16.yml','historiques-incrementaux.yml','rattrapage-historiques.yml'):
             config=yaml.load((root/name).read_text(),Loader=yaml.BaseLoader)
-            self.assertEqual(config['concurrency'],{'group':'pmu-donnees-production',
-                'cancel-in-progress':'false','queue':'max'})
+            expected = {'group':'pmu-donnees-production', 'cancel-in-progress':'false','queue':'max'}
+            if name == 'historiques-incrementaux.yml':
+                self.assertEqual(config['jobs']['recensement']['concurrency'], expected)
+                self.assertNotIn('concurrency', config['jobs']['reprendre_recensement'])
+                conditional = config['concurrency']['group']
+                self.assertTrue(conditional.endswith("|| 'pmu-donnees-production' }}"))
+                config['concurrency']['group'] = expected['group']
+            self.assertEqual(config['concurrency'], expected)
 
     def test_cli_fait_echouer_un_controle_fonctionnel_non_publie(self):
         from unittest.mock import patch
@@ -384,6 +390,29 @@ class EcheancesTests(unittest.TestCase):
             with self.assertRaises(SystemExit) as exc:e.main()
         self.assertEqual(exc.exception.code,2)
         self.assertFalse(e.lire(self.cache/'qualite/dernier_controle_production.json')['publication_reussie'])
+
+
+    def test_depart_pmu_reporte_ne_fait_pas_echouer_certification(self):
+        now = self.now
+        day = now.date().isoformat()
+        self.mark_global(now)
+        old = {'code': 'R7C1', 'date': day, 'hippodrome': 'Vincennes',
+               'depart': (now - timedelta(minutes=40)).isoformat()}
+        e.sauver(self.cache/'sources_pmu'/f'programme_{day}.json', {
+            'programme': [old], 'inventaire_reunions': [old]})
+        plan = e.planifier(self.cache, now)
+        self.assertEqual(plan['mode'], 'RAPPROCHEMENT')
+        self.assertEqual(len(plan['rapprochements_dus']), 1)
+        postponed = {**old, 'depart': (now + timedelta(minutes=10)).isoformat()}
+        e.sauver(self.cache/'sources_pmu'/f'programme_{day}.json', {
+            'programme': [postponed], 'inventaire_reunions': [postponed]})
+        report = e.enregistrer_publication(
+            self.cache, now, plan, True, sheets={'lecture_utc': now.isoformat()})
+        self.assertFalse(any(x.get('motif') == 'RAPPROCHEMENT_NON_DEMARRE'
+                             for x in report['erreurs']))
+        self.assertEqual(report['rapprochements'][0]['statut'], 'DIFFERE_DEPART_REPORTE')
+        later = now + timedelta(minutes=41)
+        self.assertEqual(e.planifier(self.cache, later)['mode'], 'RAPPROCHEMENT')
 
 
 if __name__=='__main__':unittest.main()
