@@ -93,6 +93,7 @@ class SynchroniseurSheets:
         self.cache=Path(cache);self.spreadsheet=spreadsheet
         self.base=f'https://sheets.googleapis.com/v4/spreadsheets/{spreadsheet}'
         self.session=SessionMesuree(session if session is not None else ouvrir_session())
+        self.observations_verifiees = False
 
     def fermer(self):
         close=getattr(self.session.raw,'close',None)
@@ -330,7 +331,12 @@ class SynchroniseurSheets:
             from .ipr import actif
             from dashboard.trot_analytics.usages import IPR
             if actif():
-                self._formater_observations(tab, sheet_id, effective_headers, IPR, appends=bool(appends))
+                self.observations_verifiees = False
+                try:
+                    self._formater_observations(tab, sheet_id, effective_headers, IPR, appends=bool(appends))
+                    self.observations_verifiees = True
+                except Exception as exc:
+                    print(f'::warning::Format IPR non certifié ({type(exc).__name__})', flush=True)
         result={'lignes_ajoutees':len(appends),'cellules_actualisees':len(updates),'lignes_source':len(incoming)}
         if control:
             if cells or appends:
