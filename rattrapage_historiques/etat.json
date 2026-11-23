@@ -22590,7 +22590,7 @@
       "origines": [
         "SHEETS:Historique chevaux"
       ],
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "ferrures_manquantes": 0,
@@ -22611,7 +22611,32 @@
       "prochaine_verification_utc": "2026-11-24T03:17:14.895733+00:00",
       "nombre_performances": 68,
       "erreur": "",
-      "derniere_performance_date": "2026-11-22"
+      "derniere_performance_date": "2026-11-22",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 60,
+          "cellules_actualisees": 44,
+          "lignes_source": 68,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 60,
+            "lignes_avant": 30507,
+            "cles_avant": 30507,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3051,
+            "import_initial_explicite": false,
+            "lignes_attendues": 30567,
+            "lignes_apres": 30567,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T03:17:29.788273+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T03:17:14.895733+00:00",
+      "ajouts_confirmes": 60
     },
     "2770169": {
       "id": "2770169",
@@ -71711,12 +71736,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1175,
-    "cibles_restantes": 1409,
+    "cibles_completees": 1176,
+    "cibles_restantes": 1408,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1430,
+    "travaux_distincts_restants": 1429,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 983,
+    "carrieres_distinctes_a_completer": 982,
     "identifiants_sans_carriere_complete": 70,
     "contextes_distincts_sans_identifiant": 912,
     "noms_distincts_sans_identifiant": 907,
@@ -71724,8 +71749,8 @@
     "identites_non_resolues": 1320,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 3559,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 3619,
     "tentatives_collecte": 1,
     "captures_validees": 1,
     "captures_partielles": 0,
@@ -71733,7 +71758,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T03:16:54.192035+00:00",
-  "maj_utc": "2026-11-23T03:17:15.788047+00:00",
+  "maj_utc": "2026-11-23T03:17:29.794794+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 10,
@@ -73926,11 +73951,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:16:54.192035+00:00",
-    "controle_utc": "2026-11-23T03:17:15.788047+00:00",
+    "controle_utc": "2026-11-23T03:17:29.794794+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 60,
     "refus_geny": {
       "403": 0,
       "429": 0
