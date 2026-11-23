@@ -10,6 +10,8 @@ from trot_analytics.dates import afficher_instant
 from trot_analytics.logic import couverture_reunions, records, selected, number, timestamp, result_matching
 from trot_analytics.quality import render_quality
 from trot_analytics.performance import render_performance
+from trot_analytics.observations import tableau_observations
+from trot_analytics.usages import IPR
 from trot_analytics.profils import (
     AUCUN_PROFIL, COLONNE_INDICES, COLONNE_PROFIL, NON_EVALUABLE, PALETTE,
     SEPARATEUR_PROFILS, libelles_profils,
@@ -38,7 +40,7 @@ def read_registry():
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.21 · Profils pré-départ")
+st.caption("Version interface : 2026.11.23 · Observations IPR")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -236,6 +238,9 @@ elif page=="Courses":
             st.dataframe(partants, hide_index=True, use_container_width=True,
                          column_config={"Cote PMU": st.column_config.NumberColumn(format="localized", width="small")})
             fiches = [row for row, visible in zip(rows, visibles) if visible]
+            if observations := tableau_observations(fiches, IPR):
+                st.markdown("#### Indice de performance relative")
+                st.html(observations)
             fiche = st.selectbox("Fiche cheval", range(len(fiches)), index=None,
                                  format_func=lambda i: f"{fiches[i]['N°']} · {fiches[i]['Cheval']}",
                                  key=f"fiche_{key}")
