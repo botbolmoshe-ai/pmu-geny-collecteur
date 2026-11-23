@@ -40,7 +40,7 @@
     }
   ],
   "causes_contextes_sans_geny": {
-    "AUCUNE_PREUVE_LOCALE_AVEC_COURSE": 873,
+    "AUCUNE_PREUVE_LOCALE_AVEC_COURSE": 855,
     "AUCUNE_PREUVE_LOCALE_SANS_COURSE": 57
   },
   "phase_reprise": "CARRIERES_MANQUANTES",
@@ -51,10 +51,10 @@
     "performances_revalidees": 3,
     "captures_ignorees": 8
   },
-  "passage_utc": "2026-11-19T20:07:14.721211+00:00",
-  "maj_utc": "2026-11-22T22:28:26.367914+00:00",
+  "passage_utc": "2026-11-23T03:16:54.192035+00:00",
+  "maj_utc": "2026-11-23T03:16:59.838137+00:00",
   "statut": "PARTIEL_REPRENABLE",
-  "priorite_collecte": "PARTANTS_SANS_HISTORIQUE_NUIT",
+  "priorite_collecte": "STOCK_NOCTURNE",
   "sync_kpi": "A_REPRENDRE",
   "bilan": {
     "cibles_inventoriees": 2584,
@@ -64,21 +64,33 @@
     "travaux_distincts_restants": 1430,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 983,
-    "identifiants_sans_carriere_complete": 53,
-    "contextes_distincts_sans_identifiant": 930,
-    "noms_distincts_sans_identifiant": 925,
-    "identifiants_geny_distincts": 980,
-    "identites_non_resolues": 1356,
+    "identifiants_sans_carriere_complete": 71,
+    "contextes_distincts_sans_identifiant": 912,
+    "noms_distincts_sans_identifiant": 907,
+    "identifiants_geny_distincts": 998,
+    "identites_non_resolues": 1320,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
     "synchronisations_en_attente": 0,
     "ajouts_confirmes": 3559,
-    "tentatives_collecte": 1,
+    "tentatives_collecte": 0,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 1
+    "collectes_rejetees": 0
   },
-  "motif_fin_passage": "COOLDOWN_GENY_GLOBAL",
+  "collecte_cycle": {
+    "debut_utc": "2026-11-23T03:16:54.192035+00:00",
+    "controle_utc": "2026-11-23T03:16:59.838137+00:00",
+    "source": "Geny",
+    "carrieres_completes_distinctes": 0,
+    "chevaux_confirmes_sheets": 0,
+    "performances_ajoutees_et_confirmees_sheets": 0,
+    "refus_geny": {
+      "403": 0,
+      "429": 0
+    },
+    "prochain_acces_geny_utc": null
+  },
   "lignes_historique_initiales": 15484,
   "dernier_controle_inventaire": {
     "capture_utc": "2026-11-23T03:16:38.152702+00:00",
@@ -111,12 +123,12 @@
       "LIEN_GENY_A_RESOUDRE": 57
     },
     "noms_distincts": 2593,
-    "controle_utc": "2026-11-23T03:16:38.194660+00:00"
+    "controle_utc": "2026-11-23T03:16:54.192035+00:00"
   },
   "cohortes": {
     "initiale": {
       "cibles": 1787,
-      "identifiees": 813,
+      "identifiees": 849,
       "partielles": 0,
       "completes": 790,
       "publiees": 790
@@ -143,7 +155,6 @@
   "motif_ordonnancement": "COOLDOWN_GENY_GLOBAL",
   "sync_kpi_utc": "2026-11-19T20:07:40.535698+00:00",
   "dernier_creneau_reserve_utc": "2026-11-19T20:07:22.244110+00:00",
-  "creneau_reserve": true,
   "dernier_controle_nocturne": {
     "utc": "2026-11-22T22:28:17.331831+00:00",
     "creneau": 997436,
@@ -158,7 +169,7 @@
     "nouvelle_alerte": false
   },
   "cooldown_geny": {
-    "controle_utc": "2026-11-23T03:16:48.455891+00:00",
+    "controle_utc": "2026-11-23T03:16:59.892277+00:00",
     "dernier_incident": {
       "utc": "2026-11-22T23:02:08.683333+00:00",
       "code": "429"
