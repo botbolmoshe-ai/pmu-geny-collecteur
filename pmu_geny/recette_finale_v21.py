@@ -22,6 +22,10 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--source",default="reference_pmu")
     p.add_argument("--rapport",default="resultats/v21/recette_finale.json")
+    p.add_argument(
+        "--registre-evolutif", action="store_true",
+        help="Traiter le total de l'import initial comme un minimum pour le registre actif.",
+    )
     a=p.parse_args()
     cache=Path(a.source)
     problems=[]
@@ -65,7 +69,7 @@ def main():
     missing=set(HORSES)-complete
     if missing:
         problems.append("17_HISTORIQUES_NON_VALIDES:"+",".join(sorted(missing)))
-    if validated!=EXPECTED_PERFS:
+    if validated < EXPECTED_PERFS or (validated > EXPECTED_PERFS and not a.registre_evolutif):
         problems.append(f"PERFORMANCES_IMPORTEES:{validated}/{EXPECTED_PERFS}")
     # Les 3 cas partiels sont antérieurs : signalés et tolérés pour cette recette.
     unexpected=partial-PARTIELS_CONNU
