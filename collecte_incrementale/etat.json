@@ -80602,35 +80602,35 @@
     }
   },
   "passage_utc": "2026-11-23T03:09:00.717993+00:00",
-  "maj_utc": "2026-11-23T03:16:17.443235+00:00",
+  "maj_utc": "2026-11-23T03:16:25.510159+00:00",
   "bilan": {
-    "chevaux_suivis": 2745,
+    "chevaux_suivis": 2917,
     "tentatives_collecte": 16,
     "captures_validees": 15,
     "captures_partielles": 0,
     "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 2464
+    "actualisations_en_attente": 2623
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
-      "indicateurs_actualises": 9,
+      "indicateurs_actualises": 11,
       "indicateurs_verifies": 134
     }
   },
   "priorite_collecte": "DEPARTS_DU_JOUR_NOCTURNE",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-23T03:09:00.717993+00:00",
+    "controle_utc": "2026-11-23T03:16:21.546932+00:00",
     "pret": false,
     "partants_a_venir": 104,
     "couverture_par_jour": {
       "2026-11-23": {
         "partants": 104,
-        "historiques_complets": 5,
-        "sans_historique_complet": 99,
-        "historiques_a_actualiser": 104
+        "historiques_complets": 20,
+        "sans_historique_complet": 84,
+        "historiques_a_actualiser": 89
       }
     },
     "blocages": [
@@ -80642,81 +80642,6 @@
       {
         "course": "2026-11-23_R1C1",
         "numero": "2",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "3",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "4",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "5",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "6",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "7",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "8",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "9",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "10",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "11",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "12",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "13",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "14",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "15",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "16",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
-      {
-        "course": "2026-11-23_R1C1",
-        "numero": "17",
         "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
       },
       {
@@ -81156,10 +81081,10 @@
       }
     ]
   },
-  "sync_kpi_utc": "2026-11-23T00:04:15.024827+00:00",
+  "sync_kpi_utc": "2026-11-23T03:16:25.508600+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:09:00.717993+00:00",
-    "controle_utc": "2026-11-23T03:16:17.443235+00:00",
+    "controle_utc": "2026-11-23T03:16:25.510159+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 15,
     "chevaux_confirmes_sheets": 15,
@@ -81170,5 +81095,6 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT"
+  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
+  "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
 }
