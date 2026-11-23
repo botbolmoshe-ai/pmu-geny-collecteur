@@ -22590,9 +22590,9 @@
       "origines": [
         "SHEETS:Historique chevaux"
       ],
-      "sync": "SANS_MODIFICATION",
-      "collecte": "EN_COURS",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "A_FAIRE",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "ferrures_manquantes": 0,
       "identifiants_sources": {
         "geny": "2712491"
@@ -22605,7 +22605,13 @@
         "url_geny": "https://www.geny.com/cheval/2712491-joker-du-lys/course/1654752"
       },
       "engagement_prioritaire": "2026-11-22_R11C5",
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "historique_complet_au_utc": "2026-11-23T03:17:14.895733+00:00",
+      "derniere_verification_utc": "2026-11-23T03:17:14.895733+00:00",
+      "prochaine_verification_utc": "2026-11-24T03:17:14.895733+00:00",
+      "nombre_performances": 68,
+      "erreur": "",
+      "derniere_performance_date": "2026-11-22"
     },
     "2770169": {
       "id": "2770169",
@@ -71711,23 +71717,23 @@
     "travaux_distincts_restants": 1430,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 983,
-    "identifiants_sans_carriere_complete": 71,
+    "identifiants_sans_carriere_complete": 70,
     "contextes_distincts_sans_identifiant": 912,
     "noms_distincts_sans_identifiant": 907,
     "identifiants_geny_distincts": 998,
     "identites_non_resolues": 1320,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 0,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 3559,
-    "tentatives_collecte": 0,
-    "captures_validees": 0,
+    "tentatives_collecte": 1,
+    "captures_validees": 1,
     "captures_partielles": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T03:16:54.192035+00:00",
-  "maj_utc": "2026-11-23T03:17:05.295609+00:00",
+  "maj_utc": "2026-11-23T03:17:15.788047+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 10,
@@ -73920,9 +73926,9 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:16:54.192035+00:00",
-    "controle_utc": "2026-11-23T03:17:05.295609+00:00",
+    "controle_utc": "2026-11-23T03:17:15.788047+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 0,
+    "carrieres_completes_distinctes": 1,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
     "refus_geny": {
@@ -73930,5 +73936,6 @@
       "429": 0
     },
     "prochain_acces_geny_utc": null
-  }
+  },
+  "derniere_acquisition_validee_utc": "2026-11-23T03:17:14.895733+00:00"
 }
