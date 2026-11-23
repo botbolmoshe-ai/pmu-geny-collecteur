@@ -1,0 +1,420 @@
+{
+  "date": "2026-11-24",
+  "course": "R3C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NOBLESSE DU CHENE",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2616000,
+        "gainsVictoires": 0,
+        "gainsPlace": 2616000,
+        "gainsAnneeEnCours": 2616000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NETCHKA",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2652500,
+        "gainsVictoires": 990000,
+        "gainsPlace": 1662500,
+        "gainsAnneeEnCours": 2652500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NASHVILLE BLUE",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2713000,
+        "gainsVictoires": 1710000,
+        "gainsPlace": 1003000,
+        "gainsAnneeEnCours": 1962000,
+        "gainsAnneePrecedente": 751000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-23T03:06:42.554489+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "J. LE MER",
+      "proprietaire": "Mme Y. GUEDJ",
+      "ferrure": "P4",
+      "musique_pmu": "6a2a2a3a4a3aDaDa4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 26160.0,
+      "nom": "NOBLESSE DU CHENE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "L. BAUDRON",
+      "proprietaire": "Ecurie Louis BAUDRON",
+      "ferrure": "PA",
+      "musique_pmu": "2aDa1a2aDa2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 26525.0,
+      "nom": "NETCHKA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "L. BAUDRON",
+      "entraineur": "L. BAUDRON",
+      "proprietaire": "Ecurie Louis BAUDRON",
+      "ferrure": "PA",
+      "musique_pmu": "5a3a0a5aDa1a4a7aDa(25)",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 27130.0,
+      "nom": "NASHVILLE BLUE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "S. BAUDE",
+      "entraineur": "P. LEVESQUE",
+      "proprietaire": "Ecurie Pierre LEVESQUE",
+      "ferrure": "PA",
+      "musique_pmu": "3a3aDa6a1aDa2aDa(25)1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 27725.0,
+      "nom": "NUIT DE MAI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "THEO DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ecurie MIP",
+      "ferrure": "P4",
+      "musique_pmu": "2a8a8a(25)7a3a2a1a3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 28020.0,
+      "nom": "NEW HOLIDAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "Sté. Ent. Grégory THOREL",
+      "proprietaire": "Mme A. SOBASZEK",
+      "ferrure": "P4",
+      "musique_pmu": "7aDa0a0a7a1a6a2aDa2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 29870.0,
+      "nom": "NEW YORK CITY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "A. BUISSON",
+      "proprietaire": "F. TARDIEU",
+      "musique_pmu": "Da1a1a1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 30150.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "nom": "NATURA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "Mlle C. CHASSAGNE",
+      "proprietaire": "S. QUINZLER",
+      "musique_pmu": "4a7aDa4a3a0a2a5aDa(25)",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 30170.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "nom": "NUANCE CASTELETS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "ALEXANDRE BODIN",
+      "entraineur": "CH. MOTTIER",
+      "proprietaire": "Ecurie Charley MOTTIER",
+      "ferrure": "P4",
+      "musique_pmu": "1aDa1a3a1a4a8aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 30450.0,
+      "nom": "NENESSE PECE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "X. BOVAY",
+      "entraineur": "M.A. BOVAY",
+      "proprietaire": "Mme M. BOVAY",
+      "ferrure": "PA",
+      "musique_pmu": "2a2a2a4a3a3a1a4a2aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 30878.0,
+      "nom": "NUANCE DE COLMINE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "P.A. RYNWALT-BOULARD",
+      "proprietaire": "Ecurie BRIDGE",
+      "ferrure": "PA",
+      "musique_pmu": "2aDa4a9a8a1a1a6a3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 32630.0,
+      "nom": "NEW EPATANTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "Ecurie Jean-Pierre MICHOLET",
+      "ferrure": "PA",
+      "musique_pmu": "8a4a5aDa1a1aDa3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 32690.0,
+      "nom": "NEPTUNE DE BLARY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+        "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C7/participants",
+          "capture_utc": "2026-11-23T03:06:42.554489+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

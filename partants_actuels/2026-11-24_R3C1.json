@@ -1,0 +1,359 @@
+{
+  "date": "2026-11-24",
+  "course": "R3C1",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MILORD DES ARRIS",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2904000,
+        "gainsVictoires": 832500,
+        "gainsPlace": 2071500,
+        "gainsAnneeEnCours": 2016500,
+        "gainsAnneePrecedente": 887500
+      }
+    },
+    {
+      "nom": "MARECHAL TURGOT",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5450000,
+        "gainsVictoires": 2947500,
+        "gainsPlace": 2502500,
+        "gainsAnneeEnCours": 4970000,
+        "gainsAnneePrecedente": 480000
+      }
+    },
+    {
+      "nom": "MAESTRO DU VOYAGE",
+      "deferre": "PROTEGE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5539500,
+        "gainsVictoires": 3285000,
+        "gainsPlace": 2254500,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 3696000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-23T03:06:38.557072+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "A. REBECHE",
+      "entraineur": "V. LEBARQUE",
+      "proprietaire": "Ecurie Comte P. de MONTESSON",
+      "ferrure": "D4",
+      "musique_pmu": "Dm4m3m5m3m8m0a6m1mDm",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 29040.0,
+      "nom": "MILORD DES ARRIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "S.E. PASQUIER",
+      "entraineur": "F. TERRY",
+      "proprietaire": "Philippe RENNESSON",
+      "ferrure": "D4",
+      "musique_pmu": "Dm2m1m3m9m1m1m2m(25)4m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 54500.0,
+      "nom": "MARECHAL TURGOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "W. DERSOIR-HABIB",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Ecurie Sébastien GUARATO",
+      "ferrure": "PP",
+      "musique_pmu": "DaDmDm(25)3m2mDm1m7aDm",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 55395.0,
+      "nom": "MAESTRO DU VOYAGE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "D. LECROQ",
+      "proprietaire": "D. LECROQ",
+      "ferrure": "D4",
+      "musique_pmu": "9a3m3a8a0a7a3a4a1a3a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 56900.0,
+      "nom": "MANGO PAULO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "J.PH. MONCLIN",
+      "proprietaire": "Jérôme DELAUNAY",
+      "ferrure": "D4",
+      "musique_pmu": "DmDm1m5m4m9mDmDm(25)8m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 56995.0,
+      "nom": "MONSTER SPEED",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Mlle A. GERVAIS",
+      "entraineur": "Nicolas DEVIGNE",
+      "proprietaire": "CL.G.R. ROGER",
+      "ferrure": "DA",
+      "musique_pmu": "7m7mDm6m6m0m0m1m7m(25)",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 57050.0,
+      "nom": "MAURICIO DU DERBY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "TRAMONTOM SRL",
+      "ferrure": "D4",
+      "musique_pmu": "1m3m5mDmDm3m6m(25)2m2m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 62730.0,
+      "nom": "MOJITO DES ECUS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "A. CHERE",
+      "ferrure": "D4",
+      "musique_pmu": "5m4m2m6aDaDa4a0a(25)9a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 65040.0,
+      "nom": "MERRY CHRISTMAS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie Jean Michel BAZIRE",
+      "ferrure": "DP",
+      "musique_pmu": "1m2a7a9aDa6a9a8a(25)1a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 65185.0,
+      "nom": "MANDELA SEVEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "F. DESMIGNEUX",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "Y. DESMET",
+      "ferrure": "D4",
+      "musique_pmu": "1mDm2m1m1m(25)5m2m2m2a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 65525.0,
+      "nom": "MEANDRE DE VANDEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+        "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C1/participants",
+          "capture_utc": "2026-11-23T03:06:38.557072+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

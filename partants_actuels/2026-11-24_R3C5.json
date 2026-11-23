@@ -1,0 +1,474 @@
+{
+  "date": "2026-11-24",
+  "course": "R3C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LIKE THE WIND",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3012500,
+        "gainsVictoires": 2137500,
+        "gainsPlace": 875000,
+        "gainsAnneeEnCours": 1550000,
+        "gainsAnneePrecedente": 1462500
+      }
+    },
+    {
+      "nom": "LOTUS DE BEYLEV",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5719000,
+        "gainsVictoires": 1890000,
+        "gainsPlace": 3829000,
+        "gainsAnneeEnCours": 501000,
+        "gainsAnneePrecedente": 2490000
+      }
+    },
+    {
+      "nom": "LOUIS GAILLARD",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5747500,
+        "gainsVictoires": 2272500,
+        "gainsPlace": 3475000,
+        "gainsAnneeEnCours": 3616000,
+        "gainsAnneePrecedente": 1298000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-23T03:06:41.415131+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "Mme D. BEAUFILS ERNAULT",
+      "entraineur": "S. ERNAULT",
+      "proprietaire": "G. LECOMTE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0mDmDmDm2mDm1m(25)1mDm",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 30125.0,
+      "nom": "LIKE THE WIND",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "J. FERRON",
+      "entraineur": "A. REVEILLON",
+      "proprietaire": "A. REVEILLON",
+      "ferrure": "D4",
+      "musique_pmu": "3a0a5a9a6a8a6a0aDa(25)",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 57190.0,
+      "nom": "LOTUS DE BEYLEV",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mme R. HARDOIN",
+      "entraineur": "ALEXANDRE CHEVRIER",
+      "proprietaire": "Charles DUMUR",
+      "ferrure": "D4",
+      "musique_pmu": "4m1m4m3m6m3m3m8m2m1m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 57475.0,
+      "nom": "LOUIS GAILLARD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "D. LOCQUENEUX",
+      "proprietaire": "Michel DELEY",
+      "ferrure": "DP/PA",
+      "musique_pmu": "2m0a3a1a(25)3aDa(24)1a2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 58245.0,
+      "nom": "LARGINO BRAVOURE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "LILIAN BERTIN",
+      "entraineur": "K. WESKA",
+      "proprietaire": "J.M. PLAIDEAU",
+      "musique_pmu": "5mDaDm6mDaDm(25)5m6m5m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 58970.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "nom": "LITYGE DE CYM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "ferrure": "D4",
+      "musique_pmu": "0a0a9aDa5a4a3a2a2a2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 61170.0,
+      "nom": "L'IDEALISTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "G. LENAIN",
+      "entraineur": "TH. RAFFEGEAU",
+      "proprietaire": "Ecurie Thierry RAFFEGEAU",
+      "ferrure": "DA",
+      "musique_pmu": "7m7mDmDmDm4m3m1m7mDm",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 61695.0,
+      "nom": "LEON DU CLOS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "Y. DREUX",
+      "proprietaire": "Y. DREUX",
+      "ferrure": "D4",
+      "musique_pmu": "1mDaDa1a1a6aDaDa7a(25)",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 64370.0,
+      "nom": "LOULOU BOY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "Mme T. MATHIAS-MAISONNETTE",
+      "entraineur": "TH. RAFFEGEAU",
+      "proprietaire": "Ecurie SIMPLICE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "5a6a0a(25)8m0m9mDm0a6m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 66085.0,
+      "nom": "LE BEST MADRIK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "J.Y. RICART",
+      "entraineur": "S. ERNAULT",
+      "proprietaire": "Ecurie des CHARMES",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4m2a5mDm5aDaDm4m7a0a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 66635.0,
+      "nom": "LEONARDO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "A. LAMY",
+      "entraineur": "S. DIEUDONNE",
+      "proprietaire": "S. DIEUDONNE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0a2m4a4a1a4a3a3a6a8a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 66845.0,
+      "nom": "LOVELY TRIP",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "M. DURVILLE",
+      "entraineur": "R. BRETON",
+      "proprietaire": "Mme Karen CROS",
+      "ferrure": "P4",
+      "musique_pmu": "4m3m2m7mDm4mDmDm5m1m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 67685.0,
+      "nom": "LAGON DU DEZERT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "G. ROIG-BALAGUER",
+      "proprietaire": "P. LEVY",
+      "ferrure": "D4",
+      "musique_pmu": "3m5aDa5a3a0a1a0aDm7a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 68045.0,
+      "nom": "LOVI CADENCE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "M. HELBERT",
+      "proprietaire": "P.R. MAILLARD",
+      "ferrure": "D4",
+      "musique_pmu": "7aDa0a3aDaDa4m1mDmDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 68500.0,
+      "nom": "LORD SUN DRALIAM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+        "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C5/participants",
+          "capture_utc": "2026-11-23T03:06:41.415131+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

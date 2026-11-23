@@ -1,0 +1,342 @@
+{
+  "date": "2026-11-24",
+  "course": "R3C3",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NICO ARCTIC",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 2579000,
+        "gainsVictoires": 1575000,
+        "gainsPlace": 1004000,
+        "gainsAnneeEnCours": 2579000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NAVARONE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 3069500,
+        "gainsVictoires": 742500,
+        "gainsPlace": 2327000,
+        "gainsAnneeEnCours": 3069500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NE M'ATTENDS PAS",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3175500,
+        "gainsVictoires": 2025000,
+        "gainsPlace": 1150500,
+        "gainsAnneeEnCours": 3175500,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-23T03:06:40.199001+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "Sté. Ent. R. et D. HUE",
+      "proprietaire": "Haras du ARCTIC",
+      "musique_pmu": "1m7a2aDm4a3aDa3a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 25790.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "nom": "NICO ARCTIC",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "J.Y. RICART",
+      "entraineur": "Théo RADOUX",
+      "proprietaire": "Ecurie des CHARMES",
+      "musique_pmu": "3m6m2m1m4a2aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 30695.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "nom": "NAVARONE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "M. CHAMPENOIS",
+      "entraineur": "D. BONNE",
+      "proprietaire": "Ecurie Damien BONNE",
+      "ferrure": "P4",
+      "musique_pmu": "1m2mDmDa1aDa6a5a5aDa",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 31755.0,
+      "nom": "NE M'ATTENDS PAS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "J. DAVET",
+      "musique_pmu": "DaDaDaDaDa4a6a(25)1aDa",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 35175.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "nom": "NICKNAME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "M. DURVILLE",
+      "entraineur": "M. ABRIVARD",
+      "proprietaire": "S.C. ECURIE CANE",
+      "ferrure": "P4",
+      "musique_pmu": "4m1m7m1mDm1m",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 35775.0,
+      "nom": "NEWMAN TURGOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "ferrure": "P4",
+      "musique_pmu": "Da0aDa0a2m2m2m8m",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 36000.0,
+      "nom": "NELSON DE BANVILLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "LILIAN BERTIN",
+      "entraineur": "F. LINDREC",
+      "proprietaire": "Ecurie BADREC",
+      "musique_pmu": "Da3mDaDa0a3a8a9a0aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 37615.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "nom": "NAKALOUN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mme T. MATHIAS-MAISONNETTE",
+      "entraineur": "B. BOURGOIN",
+      "proprietaire": "M. AGOSTINI",
+      "ferrure": "PA",
+      "musique_pmu": "DaDm7a6a8a5a3a7a7a6a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 37650.0,
+      "nom": "NEW YORK D'OYSE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "Sté. Ent. Fabrice SOULOY",
+      "proprietaire": "R.F. NOOTEBOOM",
+      "ferrure": "P4",
+      "musique_pmu": "1mDm2mDmDm3mDa",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 39000.0,
+      "nom": "NOBI BAROSSO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+        "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/24112026/R3/C3/participants",
+          "capture_utc": "2026-11-23T03:06:40.199001+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
