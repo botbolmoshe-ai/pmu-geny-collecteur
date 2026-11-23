@@ -27651,7 +27651,7 @@
       "course_url": "https://www.geny.com/course/1698232/partants-pronostics",
       "numero": "3",
       "engagement": "2026-11-14_R8C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C1",
@@ -27675,7 +27675,32 @@
       "prochaine_verification_utc": "2026-11-24T03:23:26.258968+00:00",
       "nombre_performances": 30,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 30,
+          "cellules_actualisees": 0,
+          "lignes_source": 30,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 30,
+            "lignes_avant": 30807,
+            "cles_avant": 30807,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3081,
+            "import_initial_explicite": false,
+            "lignes_attendues": 30837,
+            "lignes_apres": 30837,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T03:23:38.694481+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T03:23:26.258968+00:00",
+      "ajouts_confirmes": 30
     },
     "contexte:a74bd0bcf03197bbb6aede7c": {
       "nom": "MAYTIKA DU VAL",
@@ -40279,9 +40304,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C1",
       "numero": "3",
       "numero_reconcilie_depuis_snapshot": true,
@@ -40303,7 +40328,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:57d025900abb3597135b7a3f",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:57d025900abb3597135b7a3f"
+      "autre_contexte_meme_nom": "contexte:57d025900abb3597135b7a3f",
+      "rattrapage_complet_au_utc": "2026-11-23T03:23:26.258968+00:00",
+      "historique_complet_au_utc": "2026-11-23T03:23:26.258968+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:580731fe01a1e15115336a57": {
       "nom": "MAYTIKA DU VAL",
@@ -72158,12 +72187,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1199,
-    "cibles_restantes": 1385,
+    "cibles_completees": 1201,
+    "cibles_restantes": 1383,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1417,
+    "travaux_distincts_restants": 1416,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 970,
+    "carrieres_distinctes_a_completer": 969,
     "identifiants_sans_carriere_complete": 57,
     "contextes_distincts_sans_identifiant": 912,
     "noms_distincts_sans_identifiant": 907,
@@ -72171,8 +72200,8 @@
     "identites_non_resolues": 1320,
     "liens_a_resoudre": 97,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 3859,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 3889,
     "tentatives_collecte": 14,
     "captures_validees": 14,
     "captures_partielles": 0,
@@ -72180,7 +72209,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T03:16:54.192035+00:00",
-  "maj_utc": "2026-11-23T03:23:26.818903+00:00",
+  "maj_utc": "2026-11-23T03:23:38.718379+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 10,
@@ -74373,11 +74402,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T03:16:54.192035+00:00",
-    "controle_utc": "2026-11-23T03:23:26.818903+00:00",
+    "controle_utc": "2026-11-23T03:23:38.718379+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 14,
-    "chevaux_confirmes_sheets": 13,
-    "performances_ajoutees_et_confirmees_sheets": 300,
+    "chevaux_confirmes_sheets": 14,
+    "performances_ajoutees_et_confirmees_sheets": 330,
     "refus_geny": {
       "403": 0,
       "429": 0
