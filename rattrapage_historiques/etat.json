@@ -28025,7 +28025,7 @@
       "course_url": "https://www.geny.com/course/1698232/partants-pronostics",
       "numero": "10",
       "engagement": "2026-11-14_R8C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C1",
@@ -28049,7 +28049,32 @@
       "prochaine_verification_utc": "2026-11-24T21:06:37.869824+00:00",
       "nombre_performances": 26,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 26,
+          "cellules_actualisees": 0,
+          "lignes_source": 26,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 26,
+            "lignes_avant": 31579,
+            "cles_avant": 31579,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3158,
+            "import_initial_explicite": false,
+            "lignes_attendues": 31605,
+            "lignes_apres": 31605,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-23T21:06:48.284523+00:00",
+      "rattrapage_complet_au_utc": "2026-11-23T21:06:37.869824+00:00",
+      "ajouts_confirmes": 26
     },
     "contexte:804f9526495a6b78f5dcf78e": {
       "nom": "MAYA DU CHEVREL",
@@ -40907,9 +40932,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C1",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C1",
       "numero": "10",
       "numero_reconcilie_depuis_snapshot": true,
@@ -40931,7 +40956,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:a93a2b5a53123b1b4a0617d8",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:a93a2b5a53123b1b4a0617d8"
+      "autre_contexte_meme_nom": "contexte:a93a2b5a53123b1b4a0617d8",
+      "rattrapage_complet_au_utc": "2026-11-23T21:06:37.869824+00:00",
+      "historique_complet_au_utc": "2026-11-23T21:06:37.869824+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:16cf2f161e5ab6b375db9ea7": {
       "nom": "MAYA DU CHEVREL",
@@ -72785,12 +72814,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1214,
-    "cibles_restantes": 1370,
+    "cibles_completees": 1216,
+    "cibles_restantes": 1368,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1409,
+    "travaux_distincts_restants": 1408,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 962,
+    "carrieres_distinctes_a_completer": 961,
     "identifiants_sans_carriere_complete": 68,
     "contextes_distincts_sans_identifiant": 893,
     "noms_distincts_sans_identifiant": 888,
@@ -72798,8 +72827,8 @@
     "identites_non_resolues": 1282,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4020,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4046,
     "tentatives_collecte": 7,
     "captures_validees": 7,
     "captures_partielles": 0,
@@ -72807,7 +72836,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-23T21:03:50.419892+00:00",
-  "maj_utc": "2026-11-23T21:06:38.323547+00:00",
+  "maj_utc": "2026-11-23T21:06:48.304401+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -74896,11 +74925,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-23T21:03:50.419892+00:00",
-    "controle_utc": "2026-11-23T21:06:38.323547+00:00",
+    "controle_utc": "2026-11-23T21:06:48.304401+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 7,
-    "chevaux_confirmes_sheets": 6,
-    "performances_ajoutees_et_confirmees_sheets": 131,
+    "chevaux_confirmes_sheets": 7,
+    "performances_ajoutees_et_confirmees_sheets": 157,
     "refus_geny": {
       "403": 0,
       "429": 0
