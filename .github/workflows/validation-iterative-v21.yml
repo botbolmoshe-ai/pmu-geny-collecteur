@@ -45,7 +45,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m pmu_geny.recette_finale_v21 --source reference_pmu --rapport resultats/validation/registre.json
+          python -m pmu_geny.recette_finale_v21 --source reference_pmu --registre-evolutif --rapport resultats/validation/registre.json
           python -m unittest discover -s tests -p 'test_v21_paliers_offline.py' -v 2>&1 | tee resultats/validation/paliers.log
       - name: Mesurer la completude reelle des courses du registre
         shell: bash
