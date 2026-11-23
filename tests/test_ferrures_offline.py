@@ -144,7 +144,8 @@ class FerruresTests(unittest.TestCase):
 
     def report(self,*,ferrure=None):
         row=perf()
-        if ferrure:row['ferrure']=ferrure
+        if ferrure:
+            row.update(ferrure=ferrure, ferrure_qualification='SOURCEE')
         target=self.cache/'capture';inc.ecrire(target/'historique_geny.json',doc(self.now,[row]))
         return {'complet':True,'identite_verifiee':True,'geny':{'id':'123456','nom':'Test',
             'url_geny':'https://www.geny.com/cheval/123456-test/course/1698061'},'dossier':str(target)}

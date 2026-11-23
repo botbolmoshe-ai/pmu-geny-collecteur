@@ -4,7 +4,7 @@
 La cote, le rang des favoris du marché et les rapports PMU sont **interdits comme variables d'entrée de la baseline et du modèle ML**. Ils sont conservés **uniquement pour comparaison après course**. Aucune fonctionnalité, même indirecte (score de consensus, rang du marché, variable issue d'un modèle entraîné sur les cotes), ne peut réintroduire cette information dans les prédictions.
 
 ## Quatre référentiels distincts
-1. Baseline H-1 immuable, horodatée avant le départ.
+1. Baseline H-2 immuable, horodatée avant le départ. Les références historiques H-1 gardent leur libellé.
 2. Baseline finale corrigée des non-partants, horodatée et versionnée.
 3. Machine Learning, produit avant le départ, avec statut de disponibilité.
 4. Marché : cotes horodatées, relevées avant le départ, sans garantie de cote définitive. L'absence de cote doit rester visible.

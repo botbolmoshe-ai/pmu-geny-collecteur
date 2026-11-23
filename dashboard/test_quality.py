@@ -43,9 +43,10 @@ class QualityTests(unittest.TestCase):
                          ["1\u202f000", "1\u202f005", "24"])
 
     def test_sections_and_search_include_descriptions(self):
-        rows=[{"Dimension":"ML","Indicateur":"Échéances · H1 ouvertes","Valeur (automatique)":8,"Définition / réserve":"Avant départ"},
+        rows=[{"Dimension":"ML","Indicateur":"Échéances · H-3 ouvertes","Valeur (automatique)":8,"Définition / réserve":"Avant départ"},
+              {"Dimension":"ML","Indicateur":"Échéances · H1 ouvertes","Valeur (automatique)":3},
               {"Dimension":"ML","Indicateur":"Collecte · Rejets dernier passage","Valeur (automatique)":0},{}]
-        self.assertEqual(list(quality_sections(rows)),["Échéances","Collecte"])
+        self.assertEqual(list(quality_sections(rows)),["Échéances","Échéances · Historique H-2/H-1","Collecte"])
         self.assertEqual(list(quality_sections(rows,"  DÉPART ")),["Échéances"])
         self.assertEqual(quality_sections(rows,"Introuvable"),{})
 

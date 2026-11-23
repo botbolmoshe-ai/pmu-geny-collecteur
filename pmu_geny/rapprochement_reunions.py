@@ -3,7 +3,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from .echeances_production import PARIS, PHASES, instant, lire, reunions_du_jour, sauver
+from .echeances_production import PARIS, PHASES_LECTURE, instant, lire, reunions_du_jour, sauver
 
 REPRISE = timedelta(minutes=30)
 DELAI = timedelta(minutes=30)
@@ -67,7 +67,7 @@ def comparer(cache, key, depart, podium, certificat):
     from .performance_prospective import prevision_publiee
 
     scores = {}
-    for phase in PHASES:
+    for phase in PHASES_LECTURE:
         proof = certificat.get(phase, {})
         for method, version in proof.get('versions', {}).items():
             read_at = instant(version.get('lecture_sheets_utc'))

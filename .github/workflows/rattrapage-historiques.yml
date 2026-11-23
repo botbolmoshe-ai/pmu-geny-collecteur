@@ -36,6 +36,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
+      - name: Valider le budget avant de charger la collecte
+        env:
+          MAX_MINUTES: ${{ inputs.max_minutes }}
+        run: |
+          case "$MAX_MINUTES" in
+            [1-9]|1[0-5]) ;;
+            *)
+              echo '::error::Budget du rattrapage hors plage. Saisir un entier de 1 à 15 minutes.'
+              exit 2
+              ;;
+          esac
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -92,7 +103,11 @@ jobs:
           RECONCILIER_IDENTITES: ${{ inputs.reconcilier_identites || false }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          args=()
+          args=(--dedie)
+          case "$(TZ=Europe/Paris date +%H)" in
+            2[1-3]|0[0-6]) args+=(--nocturne);;
+          esac
+          printf 'RATTRAPAGE_DEDIE budget_minutes=%s options=%s\n' "$MAX_MINUTES" "${args[*]}"
           if [ "$ACTUALISER_INVENTAIRE" = 'true' ]; then args+=(--actualiser-inventaire); fi
           if [ -n "$ARCHIVES_DIAGNOSTICS" ]; then args+=(--archives-diagnostics "$ARCHIVES_DIAGNOSTICS"); fi
           if [ "$RECONCILIER_IDENTITES" = 'true' ]; then args+=(--reconcilier-identites); fi

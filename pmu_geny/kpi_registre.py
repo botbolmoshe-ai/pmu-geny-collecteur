@@ -7,6 +7,7 @@ import json
 import math
 
 KPI_TAB = 'Data Quality & KPI'
+PREFIXES_ANCIENNES_ECHEANCES = ('Échéances · H2 ', 'Échéances · H1 ')
 
 def _load(path):
     try:return json.loads(path.read_text(encoding='utf-8'))
@@ -166,14 +167,18 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
             expected += 1
             proof = _load(cache/'jalons/reunions'/f"{reunion['reunion']}.json").get(phase, {})
             ok = (proof.get('statut') == 'PUBLIE_A_TEMPS'
+                  and instant(proof.get('echeance')) == first-offset
+                  and (published := instant(proof.get('publication_utc'))) is not None
+                  and first-offset-ANTICIPATION <= published <= min(now, first-offset)
                   and instant(proof.get('reference_utc')) == first
                   and proof.get('courses_attendues') == sorted(c['code'] for c in reunion['attendues']))
             ontime += int(ok)
             missed += int(now > first-offset and not ok)
+        label = f'H-{phase[1:]}'
         operational.extend([
-            metric('Échéances · '+phase+' ouvertes', expected, 'Réunions dont la fenêtre est ouverte aujourd’hui.'),
-            metric('Échéances · '+phase+' publiées à temps', ontime, 'Toutes les courses attendues certifiées à temps.'),
-            metric('Échéances · '+phase+' dépassées sans preuve à temps', missed, 'Réunions hors délai sans certificat ponctuel.')])
+            metric('Échéances · '+label+' ouvertes', expected, 'Réunions dont la fenêtre est ouverte aujourd’hui.'),
+            metric('Échéances · '+label+' publiées à temps', ontime, 'Toutes les courses attendues certifiées à temps.'),
+            metric('Échéances · '+label+' dépassées sans preuve à temps', missed, 'Réunions hors délai sans certificat ponctuel.')])
     rapprochements = [_load(path) for path in (cache/'rapprochements').glob('????-??-??_R*.json')]
     operational.append(metric('H+30 · Arrivées à reprendre',
                               sum(len(r.get('arrivees_a_reprendre', [])) for r in rapprochements),
@@ -396,7 +401,9 @@ def totaux_reference(metrics):
     if evaluated is not None:
         totals['Taux de TOP3 exact (3 sur 3)']=evaluated
         totals['Moyenne de chevaux TOP3 retrouvés']=3
-    for phase in ('H2','H1'):
+    from .echeances_production import PHASES
+    for phase in PHASES:
+        phase = f'H-{phase[1:]}'
         opened=value('Échéances · '+phase+' ouvertes')
         if opened is not None:
             totals['Échéances · '+phase+' publiées à temps']=opened
@@ -435,7 +442,7 @@ def totaux_reference(metrics):
 
 
 PUBLISHED_PREFIXES = ('ML expérimental · ', 'ML prospectif · ', 'Maturité ML · ', 'Autostart prospectif · ',
-                      'Échéances · ', 'Collecte · ', 'Cotes PMU · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ')
+                      'Échéances · ', 'H+30 · ', 'Collecte · ', 'Cotes PMU · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ')
 
 
 def plan_kpi(values, metrics):

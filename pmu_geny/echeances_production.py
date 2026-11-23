@@ -1,4 +1,4 @@
-"""Planifier et attester les publications H-2/H-1, sans dépendance réseau."""
+"""Planifier et attester les publications H-3/H-2, sans dépendance réseau."""
 from __future__ import annotations
 
 import argparse
@@ -11,7 +11,10 @@ import re
 from pathlib import Path
 from dashboard.trot_analytics.dates import PARIS, instant_iso as instant
 
-PHASES = {'H2': timedelta(hours=2), 'H1': timedelta(hours=1)}
+PHASES = {'H3': timedelta(hours=3), 'H2': timedelta(hours=2)}
+PHASES_LECTURE = (*PHASES, 'H1')
+VERSION_JALONS = 'H3_H2'
+PHASE_SUIVANTE = dict(zip(PHASES, tuple(PHASES)[1:]))
 MARGE = timedelta(minutes=30)  # fraîcheur des données, inchangée
 # Quatre ticks au plus par heure. Conserver presque toute la fenêtre d'une
 # heure pour absorber plusieurs ticks manquants, avec un cycle observé à 3 min 30.
@@ -91,7 +94,8 @@ def planifier(cache, now, force=False):
                      if certificate.get(phase, {}).get('statut') in STATUTS_PUBLIES
                      and certificate[phase].get('courses_attendues') == sorted(
                          c['code'] for c in reunion['attendues'])
-                     and instant(certificate[phase].get('reference_utc')) == first}
+                     and instant(certificate[phase].get('reference_utc')) == first
+                     and instant(certificate[phase].get('echeance')) == first - PHASES[phase]}
         # Une exécution ne peut attester qu'une version par réunion.
         for phase in reversed(PHASES):
             deadline = first - PHASES[phase]
@@ -101,7 +105,8 @@ def planifier(cache, now, force=False):
             if now < start:
                 upcoming.append(start)
                 continue
-            if phase == 'H2' and now >= first - PHASES['H1'] - ANTICIPATION:
+            suivante = PHASE_SUIVANTE.get(phase)
+            if suivante and now >= first - PHASES[suivante] - ANTICIPATION:
                 continue
             for c in reunion['attendues']:
                 needs.append({'course': f"{day}_{c['code']}", 'reunion': key,
@@ -114,7 +119,7 @@ def planifier(cache, now, force=False):
     selection = list(dict.fromkeys(item['course'].split('_', 1)[1] for item in needs))
     from .rapprochement_reunions import planifier_rapprochements
     results = planifier_rapprochements(cache, now, prochaines=upcoming)
-    return {'plan_utc':now.isoformat(), 'date':day, 'erreurs': erreurs,
+    return {'plan_utc':now.isoformat(), 'date':day, 'erreurs': erreurs, 'version_jalons':VERSION_JALONS,
             'executer':bool(global_due or selection or results),
             'mode':'JALONS' if selection else 'RAPPROCHEMENT' if results else 'GLOBAL' if global_due else 'ATTENTE',
             'selection':selection, 'prochain_jalon_utc':prochain_jalon, 'jalons_dus':needs, 'rapprochements_dus':results,
@@ -291,9 +296,12 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
     by_course = {c['code']: r for r in reunions for c in r['attendues']}
     phases_dues = {(item['course'], item['phase']) for item in plan.get('jalons_dus', [])}
     observation = instant(sheets.get('lecture_utc')) if sheets else None
-    if plan.get('mode') in ('GLOBAL', 'JALONS', 'RAPPROCHEMENT') and not (publie and sheets):
-        report['erreurs'].append({'motif': 'PUBLICATION_SHEETS_NON_PROUVEE'})
-    if publie and sheets is not None and plan.get('mode') in ('GLOBAL', 'JALONS'):
+    sheets_confirme = bool(publie and observation and observation <= now)
+    if plan.get('mode') in ('GLOBAL', 'JALONS', 'RAPPROCHEMENT'):
+        report['publication_reussie'] = sheets_confirme
+        if not sheets_confirme:
+            report['erreurs'].append({'motif': 'PUBLICATION_SHEETS_NON_PROUVEE'})
+    if sheets_confirme and plan.get('mode') in ('GLOBAL', 'JALONS'):
         courses = [c for r in reunions if r['coherente'] for c in r['attendues']]
         for c in courses:
             if plan.get('mode')=='JALONS' and c['code'] not in plan.get('selection',[c['code']]):
@@ -319,25 +327,23 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                         or not {int(h['numero']) for h in doc.get('top3',[])}.issubset(eligible)):
                     report['erreurs'].append({'course':key, 'mode':kind, 'motif':'TOP3_ABSENT_OU_INVALIDE'})
                     continue
-                if sheets is not None:
-                    observed = sheets.get('courses', {}).get(key, {}).get(kind, {})
-                    numbers = [int(h['numero']) for h in doc['top3']]
-                    if (observed.get('numeros') != numbers or not meme_date_sheets('calcul_utc', observed.get('calcul_utc'), doc['calcul_utc'])
-                            or not observation or not instant(doc['calcul_utc']) <= observation <= now or observation >= depart):
-                        report['erreurs'].append({'course': key, 'mode': kind, 'motif': 'TOP3_NON_CONFIRME_SHEETS'})
-                        continue
+                observed = sheets.get('courses', {}).get(key, {}).get(kind, {})
+                numbers = [int(h['numero']) for h in doc['top3']]
+                if (observed.get('numeros') != numbers
+                        or not meme_date_sheets('calcul_utc', observed.get('calcul_utc'), doc['calcul_utc'])
+                        or captured > observation or not instant(doc['calcul_utc']) <= observation < depart):
+                    report['erreurs'].append({'course': key, 'mode': kind, 'motif': 'TOP3_NON_CONFIRME_SHEETS'})
+                    continue
                 docs[kind] = doc
                 proofs[kind] = {'calcul_utc':doc['calcul_utc'], 'publication_utc':observation.isoformat(),
                     'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
-                    'fichier':str(path.relative_to(cache)), 'empreinte_modele':doc.get('empreinte_modele')}
-                if sheets is not None:
-                    proofs[kind]['lecture_sheets_utc'] = observation.isoformat()
+                    'fichier':str(path.relative_to(cache)), 'empreinte_modele':doc.get('empreinte_modele'),
+                    'lecture_sheets_utc':observation.isoformat(), 'capture_partants_utc':captured.isoformat()}
             if 'direct' in proofs:
                 from .maturite_ml import certify_shadow
                 certify_shadow(cache, key, proofs['direct'], observation)
-                if sheets is not None:
-                    sauver(cache/'publications'/'direct'/f'{key}.json',
-                           {'course': key, 'depart': depart.isoformat(), 'versions': {'direct': proofs['direct']}})
+                sauver(cache/'publications'/'direct'/f'{key}.json',
+                       {'course': key, 'depart': depart.isoformat(), 'versions': {'direct': proofs['direct']}})
             if len(proofs) == 2:
                 sauver(cache/'publications'/f'{key}.json',
                        {'course':key,'depart':depart.isoformat(),'versions':proofs})
@@ -367,9 +373,9 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                                       'sha256':hashlib.sha256(frozen.read_bytes()).hexdigest()}
                 complete = len(selected) == 2
                 phases[phase] = {'echeance':deadline.isoformat(), 'controle_utc':now.isoformat(),
-                    'reference_utc':first.isoformat(), 'demarrage_utc':plan['plan_utc'],
+                    'reference_utc':first.isoformat(), 'demarrage_utc':plan['plan_utc'], 'version_jalons':VERSION_JALONS,
                     'fin_calcul_utc':max((p['calcul_utc'] for p in selected.values()), default=None),
-                    'publication_utc':observation.isoformat(),
+                    'publication_utc':observation.isoformat() if complete else None,
                     'statut':('PUBLIE_A_TEMPS' if observation<=deadline else 'PUBLIE_EN_RETARD') if complete else 'INCOMPLET',
                     'retard_secondes':max(0, (observation-deadline).total_seconds()), 'versions':selected}
                 if not complete:
@@ -394,9 +400,20 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
             path = cache/'rapprochements'/f"{item['reunion']}.json"
             record = lire(path)
             if not record:
+                # Le programme PMU peut repousser le dernier départ après la
+                # planification initiale. Le rapprochement est alors différé
+                # légitimement : ne pas faire échouer la certification.
+                current = next((r for r in reunions_du_jour(cache, item['date'])
+                                if r['reunion'] == item['reunion']), None)
+                from .rapprochement_reunions import DELAI
+                if current and current['dernier_depart'] and now < current['dernier_depart'] + DELAI:
+                    report['rapprochements'].append({
+                        'reunion': item['reunion'], 'statut': 'DIFFERE_DEPART_REPORTE',
+                        'prochaine_echeance_utc': (current['dernier_depart'] + DELAI).isoformat()})
+                    continue
                 report['erreurs'].append({'reunion': item['reunion'], 'motif': 'RAPPROCHEMENT_NON_DEMARRE'})
                 continue
-            if publie and observation and not record.get('publication_sheets_utc'):
+            if sheets_confirme and not record.get('publication_sheets_utc'):
                 record['publication_sheets_utc'] = observation.isoformat()
                 sauver(path, record)
             report['rapprochements'].append({
@@ -419,19 +436,20 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
             per_course = {}
             for code in expected:
                 proof = lire(cache/'jalons'/f'{day}_{code}.json').get(phase, {})
-                if instant(proof.get('reference_utc')) == first:
+                if (instant(proof.get('reference_utc')) == first
+                        and instant(proof.get('echeance')) == first-offset):
                     per_course[code] = proof
             complete = len(per_course) == len(expected) and all(
                 p['statut'] in STATUTS_PUBLIES for p in per_course.values())
             due = any((f'{day}_{code}', phase) in phases_dues for code in expected)
             if not due and now <= first-offset:
                 continue
-            status = 'ECHEC' if due and not (publie and sheets is not None) else 'INCOMPLET'
+            status = 'ECHEC' if due and not sheets_confirme else 'INCOMPLET'
             if complete:
                 status = ('PUBLIE_A_TEMPS' if all(p['statut'] == 'PUBLIE_A_TEMPS'
                           for p in per_course.values()) else 'PUBLIE_EN_RETARD')
             records[phase] = {
-                'statut': status, 'reference_utc': first.isoformat(),
+                'statut': status, 'reference_utc': first.isoformat(), 'version_jalons':VERSION_JALONS,
                 'hippodrome': reunion['hippodrome'],
                 'inventaire': [{'code': c['code'], 'statut_pmu': c.get('statut_pmu'),
                                 'top3_attendu': c.get('top3_attendu', True)} for c in reunion['courses']],

@@ -40,7 +40,9 @@ def quality_sections(kpis, query=""):
             dimension = "Maturité ML"
         elif label.startswith("Autostart prospectif · "):
             dimension = "Autostart prospectif"
-        elif label.startswith("Échéances · "):
+        elif label.startswith(("Échéances · H1 ", "Échéances · H2 ")):
+            dimension = "Échéances · Historique H-2/H-1"
+        elif label.startswith(("Échéances · ", "H+30 · ")):
             dimension = "Échéances"
         elif label.startswith("Collecte · "):
             dimension = "Collecte"
