@@ -62,11 +62,11 @@ def regrouper_cellules(tab, updates):
     return result
 
 
-def formats_dates(sheet_id, headers):
+def formats_dates(sheet_id, headers, only=None):
     requests = []
     for col, field in enumerate(headers):
         kind = date_kind(field)
-        if kind is None:
+        if kind is None or (only is not None and field not in only):
             continue
         pattern = DATE_PATTERN if kind == "DATE" else DATETIME_PATTERN
         requests.append({"repeatCell": {
@@ -116,6 +116,46 @@ class SynchroniseurSheets:
         return {tab:{key:{field:value for field,value in row.items()
                          if field not in RETIRED_SHEET_COLUMNS.get(tab,())}
                      for key,row in rows.items()} for tab,rows in raw.items()}
+
+    def _formater_observations(self, tab, sheet_id, headers, groupe, *, appends=False):
+        from .sync_google_sheets import colname
+
+        positions = {headers.index(name): label for name, label in groupe.libelles.items()}
+        ranges = [f"'{tab}'!{colname(i+1)}1:{colname(i+1)}2" for i in positions]
+        champs = {'ranges': ranges, 'fields': 'sheets(data(startColumn,rowData(values(note,userEnteredValue,userEnteredFormat(textFormat(italic)))))'}
+        def relire():
+            doc = self.check(get_lecture(self.session, self.base, params=champs, timeout=30))
+            return {block['startColumn'] if 'startColumn' in block else 0:
+                    [row.get('values', [{}])[0] if row.get('values') else {}
+                     for row in block.get('rowData', [])]
+                    for sheet in doc.get('sheets', []) for block in sheet.get('data', [])}
+
+        def conforme(cells, label):
+            return (len(cells) == 2 and cells[0].get('userEnteredValue', {}).get('stringValue') == label
+                    and cells[0].get('note') == groupe.usage and all(
+                        cell.get('userEnteredFormat', {}).get('textFormat', {}).get('italic', False) == groupe.italique
+                        for cell in cells))
+
+        observed = relire()
+        requests = []
+        for i, label in positions.items():
+            if not appends and conforme(observed.get(i, []), label):
+                continue
+            column = {'sheetId': sheet_id, 'startColumnIndex': i, 'endColumnIndex': i + 1}
+            format_cell = {'userEnteredFormat': {'textFormat': {'italic': groupe.italique}}}
+            requests.extend([
+                {'repeatCell': {'range': {**column, 'startRowIndex': 0, 'endRowIndex': 1},
+                                'cell': {**format_cell, 'note': groupe.usage},
+                                'fields': 'userEnteredFormat.textFormat.italic,note'}},
+                {'repeatCell': {'range': {**column, 'startRowIndex': 1}, 'cell': format_cell,
+                                'fields': 'userEnteredFormat.textFormat.italic'}},
+            ])
+        if requests:
+            self.check(self.session.post(self.base+':batchUpdate', json={'requests': requests}, timeout=30))
+            observed = relire()
+        if not all(conforme(observed.get(i, []), label) for i, label in positions.items()):
+            raise ErreurSynchronisation('En-têtes ou format des observations non confirmés dans Sheets')
+        print(f'COLONNES_OBSERVATION_VERIFIEES={len(positions)} italique={groupe.italique}', flush=True)
 
     def _formater_profils(self, properties, headers):
         from dashboard.trot_analytics.profils import (
@@ -260,10 +300,14 @@ class SynchroniseurSheets:
         updates = [(row, col, value) for (row, col), value in staged.items()]
         appends = [[encoder(field, value) for field, value in zip(effective_headers, row)]
                    for row in appends]
-        if (any(date_kind(field) for field in extra)
-                or any(date_kind(effective_headers[col - 1]) for _, col, _ in updates)
-                or appends and any(map(date_kind, effective_headers))):
-            structure.extend(formats_dates(sheet_id, effective_headers))
+        changed_dates = {field for field in extra if date_kind(field)}
+        changed_dates.update(effective_headers[col - 1] for _, col, _ in updates
+                             if date_kind(effective_headers[col - 1]))
+        if appends:
+            changed_dates.update(field for field in effective_headers if date_kind(field))
+        if changed_dates:
+            only = changed_dates if changed_dates == {'ipr_calcul_utc'} else None
+            structure.extend(formats_dates(sheet_id, effective_headers, only))
         if structure:
             self.check(self.session.post(self.base+':batchUpdate',json={'requests':structure},timeout=30))
         cells=[]
@@ -280,6 +324,11 @@ class SynchroniseurSheets:
                 json={'values':appends},timeout=45))
         if tab == 'Courses & Prévisions' and allow_structure and {'cheval', 'profil_partant'} <= set(effective_headers):
             self._formater_profils(self.metadata()[tab] if appends else properties, effective_headers)
+        if tab == 'Courses & Prévisions' and allow_structure:
+            from .ipr import actif
+            from dashboard.trot_analytics.usages import IPR
+            if actif():
+                self._formater_observations(tab, sheet_id, effective_headers, IPR, appends=bool(appends))
         result={'lignes_ajoutees':len(appends),'cellules_actualisees':len(updates),'lignes_source':len(incoming)}
         if control:
             if cells or appends:

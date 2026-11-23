@@ -282,7 +282,13 @@ def preuves_sheets(rows, now):
                     and all(meme_date_sheets(version, r.get(version), first_version) for r in picked[1:])):
                 proofs.setdefault(key, {})[kind] = {'numeros': [n for _, n in ranking],
                                                      'calcul_utc': first_version}
-    return {'lecture_utc': now.isoformat(), 'courses': proofs}
+    result = {'lecture_utc': now.isoformat(), 'courses': proofs}
+    from .ipr import actif
+    if actif():
+        from .ipr_prospectif import donnees_sheets
+        day = now.astimezone(PARIS).date().isoformat()
+        result['ipr'] = donnees_sheets(row for row in rows if row.get('date_course', '') >= day)
+    return result
 
 
 def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
@@ -467,6 +473,18 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
         if records:
             sauver(path, records)
             report['reunions'].append({'reunion': key, 'jalons': records})
+    from .ipr import actif
+    if actif():
+        from .ipr_prospectif import certifier, mesurer
+        try:
+            if sheets_confirme:
+                report['ipr_jalons_figes'] = certifier(cache, plan, sheets)
+            bilan = mesurer(cache, now)
+            sauver(cache/'ipr/bilan.json', bilan)
+            print(f'IPR_BILAN courses_prospectives={bilan["depuis_activation"]}', flush=True)
+        except Exception as exc:
+            report['ipr_controle'] = 'INDISPONIBLE'
+            print(f'::warning::Contrôle IPR indisponible ({type(exc).__name__})', flush=True)
     sauver(cache/'qualite/dernier_controle_production.json', report)
     return report
 

@@ -436,6 +436,14 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                         score_shadow(cache,c,pmu_participants,observed,clock, prepared=evidence)
                     except Exception as exc:
                         entry['erreur_ml_preproduction']=f'{type(exc).__name__}: {exc}'
+            if production and not est_partie and pmu_participants is not None:
+                from .ipr import actif, enregistrer as enregistrer_ipr
+                if actif():
+                    try:
+                        entry['statut_ipr'] = enregistrer_ipr(cache, c, pmu_participants, observed, clock)
+                    except Exception as exc:
+                        entry['erreur_ipr'] = type(exc).__name__
+                        print(f'::warning::Calcul IPR indisponible pour {date}_{key}', flush=True)
         except Exception as exc:
             entry['erreur_paliers_independants']=f'{type(exc).__name__}: {exc}'
         if cycle_leger or (production and est_partie):

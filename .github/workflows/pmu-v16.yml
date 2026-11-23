@@ -69,6 +69,8 @@ jobs:
   traiter-course:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      IPR_SHADOW_ENABLED: ${{ vars.IPR_SHADOW_ENABLED || 'true' }}
     steps:
       - uses: actions/checkout@v4
         with:
