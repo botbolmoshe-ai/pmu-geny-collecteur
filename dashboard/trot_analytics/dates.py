@@ -1,5 +1,5 @@
 """Dates affichées et conversion des valeurs numériques de Google Sheets."""
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 PARIS = ZoneInfo("Europe/Paris")
@@ -31,10 +31,8 @@ def instant_iso(value):
 def vers_nombre(field, value):
     kind = date_kind(field)
     if kind == "DATE":
-        try:
-            return (date.fromisoformat(str(value)) - EPOCH.date()).days
-        except ValueError:
-            return value
+        parsed = lire_date(value)
+        return (parsed - EPOCH.date()).days if parsed else value
     stamp = instant_iso(value) if kind == "DATE_TIME" else None
     if stamp is None:
         return value
@@ -73,10 +71,8 @@ def vers_cellule_operationnelle(field, value):
 
 
 def afficher_date(value):
-    try:
-        return date.fromisoformat(str(value)).strftime("%d/%m/%Y")
-    except ValueError:
-        return value
+    parsed = lire_date(value)
+    return parsed.strftime("%d/%m/%Y") if parsed else value
 
 
 def afficher_instant(value, zone=PARIS):
@@ -93,3 +89,62 @@ def meme_date_sheets(field, left, right):
             return abs(a - b) <= timedelta(microseconds=10)
         return left == right
     return vers_nombre(field, left) == vers_nombre(field, right)
+
+
+TIME_PATTERN = "hh:mm"
+DISPLAY_PREFIX = "Paris · "
+
+
+def lire_date(value):
+    if not isinstance(value, str):
+        return None
+    for pattern in ("%Y-%m-%d", "%d/%m/%Y", "%d/%m/%y"):
+        try:
+            return datetime.strptime(value, pattern).date()
+        except ValueError:
+            continue
+    return None
+
+
+def lire_instant_consultation(value, zone):
+    stamp = instant_iso(value)
+    if stamp or not isinstance(value, str):
+        return stamp
+    for pattern in ("%d/%m/%Y %H:%M:%S", "%d/%m/%Y %H:%M",
+                    "%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M"):
+        try:
+            local = datetime.strptime(value, pattern).replace(tzinfo=zone)
+        except ValueError:
+            continue
+        if local.utcoffset() == local.replace(fold=1).utcoffset():
+            return local
+    return None
+
+
+def nombre_paris(value, *, utc=True):
+    stamp = lire_instant_consultation(value, timezone.utc if utc else PARIS)
+    if stamp is None:
+        return value
+    delta = stamp.astimezone(PARIS).replace(tzinfo=None) - EPOCH
+    return delta / timedelta(days=1)
+
+
+def afficher_source(value):
+    """Projeter uniquement les segments datés de la provenance publiée."""
+    if not isinstance(value, str):
+        return value
+    segments = value.split(" · ")
+    if not segments[0].startswith(("https://", "http://")):
+        return value
+    for index, segment in enumerate(segments[1:], 1):
+        if segment.startswith("publié le "):
+            raw = segment.removeprefix("publié le ")
+            segments[index] = "publié le " + afficher_date(raw)
+            continue
+        for prefix in ("lu ", "collecté ", "collecté le ", "collecte ", ""):
+            if segment.startswith(prefix):
+                stamp = instant_iso(segment.removeprefix(prefix))
+                if stamp:
+                    segments[index] = prefix + afficher_instant(stamp) + " (Paris)"
+                    break
+    return " · ".join(segments)

@@ -91,6 +91,14 @@ if __name__ == '__main__':
 
     engine = SynchroniseurSheets('.', os.environ['GOOGLE_SHEETS_ID'])
     try:
-        Path(sys.argv[1]).write_text(json.dumps(inventorier(engine), ensure_ascii=False, indent=2))
+        report = inventorier(engine)
+        Path(sys.argv[1]).write_text(json.dumps(report, ensure_ascii=False, indent=2))
+        for tab, data in report.items():
+            for column in data['colonnes']:
+                formats = {key: count for key, count in column['formats'].items()
+                           if key not in ('texte', 'nombre')}
+                if formats:
+                    print(json.dumps([tab, column['colonne'], column['en_tete'], formats],
+                                     ensure_ascii=False), flush=True)
     finally:
         engine.fermer()

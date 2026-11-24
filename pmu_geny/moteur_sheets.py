@@ -303,6 +303,8 @@ class SynchroniseurSheets:
         updates = [(row, col, value) for (row, col), value in staged.items()]
         appends = [[encoder(field, value) for field, value in zip(effective_headers, row)]
                    for row in appends]
+        from .dates_registre import enrichir_publication
+        updates = enrichir_publication(tab, effective_headers, updates, appends)
         changed_dates = {field for field in extra if date_kind(field)}
         changed_dates.update(effective_headers[col - 1] for _, col, _ in updates
                              if date_kind(effective_headers[col - 1]))
