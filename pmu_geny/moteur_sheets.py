@@ -361,7 +361,7 @@ class SynchroniseurSheets:
                 self._formater_observations(tab, sheet_id, effective_headers, GENY_HISTORIQUE, appends=True)
         result={'lignes_ajoutees':len(appends),'cellules_actualisees':len(updates),'lignes_source':len(incoming)}
         if control:
-            if cells or appends:
+            if batches or appends:
                 fresh=self.metadata()[tab]
                 after=lire_feuille_complete(self.session,self.base,tab,fresh)
                 if not after or canonical_headers(after[0])!=effective_headers:
