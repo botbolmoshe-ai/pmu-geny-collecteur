@@ -10,8 +10,8 @@ from trot_analytics.dates import afficher_instant
 from trot_analytics.logic import couverture_reunions, records, selected, number, timestamp, result_matching
 from trot_analytics.quality import render_quality
 from trot_analytics.performance import render_performance
-from trot_analytics.observations import tableau_observations
-from trot_analytics.usages import IPR
+from trot_analytics.observations import tableau_geny, tableau_observations
+from trot_analytics.usages import GENY_HISTORIQUE, IPR
 from trot_analytics.profils import (
     AUCUN_PROFIL, COLONNE_INDICES, COLONNE_PROFIL, NON_EVALUABLE, PALETTE,
     SEPARATEUR_PROFILS, libelles_profils,
@@ -38,9 +38,72 @@ def read_registry():
     if not data[0] or "Clé course (technique)" not in data[0][0]: raise ValueError("Schéma courses incompatible")
     return (*data[:3],data[3] if has_history else [],datetime.now(timezone.utc))
 
+@st.cache_data(ttl=300, show_spinner=False)
+def read_geny_history():
+    creds = Credentials.from_service_account_info(dict(st.secrets["google_service_account"]), scopes=SCOPES)
+    sheets = build("sheets", "v4", credentials=creds, cache_discovery=False).spreadsheets()
+    spreadsheet = st.secrets["spreadsheet_id"]
+    tab = "'Historique chevaux'"
+    metadata = sheets.get(spreadsheetId=spreadsheet, fields='sheets(properties(title,gridProperties(rowCount)))').execute(num_retries=2)
+    height = next(item['properties']['gridProperties']['rowCount'] for item in metadata['sheets']
+                  if item['properties']['title'] == 'Historique chevaux')
+    rows = []
+    ranges = [f"{tab}!{start}:{min(start + 1999, height)}" for start in range(1, height + 1, 2000)]
+    for offset in range(0, len(ranges), 4):
+        group = ranges[offset:offset + 4]
+        response = sheets.values().batchGet(spreadsheetId=spreadsheet, ranges=group).execute(num_retries=2)
+        pages = response['valueRanges']
+        if len(pages) != len(group):
+            raise ValueError('Lecture historique incomplète')
+        for page in pages:
+            rows.extend(page.get('values', []))
+    if not rows:
+        return []
+    context_labels = {'cheval': 'Cheval', 'hippodrome': 'Hippodrome', 'discipline': 'Discipline',
+                      'date_course_historique': 'Date', 'classement': 'Classement'}
+    columns = [(index, context_labels.get(label, label)) for index, label in enumerate(rows[0]) if label]
+    if len({label for _, label in columns}) != len(columns):
+        raise ValueError('En-têtes historiques ambigus')
+    return records([[label for _, label in columns], *[
+        [row[index] if index < len(row) else '' for index, _ in columns] for row in rows[1:] if row
+    ]])
+
+
+def render_geny(page):
+    try:
+        rows = read_geny_history()
+    except Exception:
+        st.error("Historique Geny inaccessible.")
+        return
+    st.subheader("Historique Geny")
+    st.markdown(f"*{GENY_HISTORIQUE.usage}*")
+    if page == "Qualité":
+        from collections import Counter
+        labels = GENY_HISTORIQUE.libelles
+        covered = [{'Champ': label, 'Lignes renseignées': sum(r.get(label) not in ('', None) for r in rows),
+                    'Total': len(rows)} for label in labels.values()]
+        st.table(pd.DataFrame(covered).style.set_properties(**{'font-style': 'italic'}))
+        for field in ('geny_parsing_motifs', 'geny_parsing_version'):
+            st.markdown(f"*{labels[field]}*")
+            counts = Counter(value for r in rows
+                             for value in str(r.get(labels[field]) or 'Non analysé').split(', '))
+            st.table(pd.DataFrame(counts.most_common(), columns=['Valeur', 'Lignes'])
+                     .style.set_properties(**{'font-style': 'italic'}))
+    else:
+        context = ('Cheval', 'Date', 'Hippodrome', 'Discipline', 'Classement')
+        names = sorted({str(r.get('Cheval')) for r in rows if r.get('Cheval')})
+        if not names:
+            st.info("Aucun historique publié.")
+            return
+        name = st.selectbox("Cheval", names, index=None)
+        if name:
+            selected_rows = [r for r in rows if str(r.get('Cheval')) == name]
+            st.html(tableau_geny(selected_rows, context, GENY_HISTORIQUE))
+
+
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.23 · Observations IPR")
+st.caption("Version interface : 2026.11.24 · Historiques Geny")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -62,7 +125,9 @@ if not st.session_state.get("authenticated"):
     st.stop()
 
 toolbar=st.columns(2)
-if toolbar[0].button("Actualiser"): read_registry.clear()
+if toolbar[0].button("Actualiser"):
+    read_registry.clear()
+    read_geny_history.clear()
 if toolbar[1].button("Déconnexion"):
     st.session_state.authenticated=False
     st.rerun()
@@ -74,7 +139,7 @@ except Exception:
     st.stop()
 now=datetime.now(timezone.utc)
 st.caption("Registre lu à "+afficher_instant(loaded)+" (Paris) · fraîcheur des fiches distincte")
-page=st.radio("Navigation",["Accueil","Courses","Résultats","Performance","Qualité"],horizontal=True,label_visibility="collapsed")
+page=st.radio("Navigation",["Accueil","Courses","Résultats","Performance","Historique","Qualité"],horizontal=True,label_visibility="collapsed")
 if page in ("Accueil","Courses","Résultats"):
     dates=sorted({str(r.get("Date")) for r in courses if r.get("Date")})
     today=now.astimezone(PARIS).date().isoformat()
@@ -306,5 +371,10 @@ elif page=="Résultats":
         else: st.info("Pas encore de comparaison ML/direct vérifiable sur un périmètre commun.")
 elif page=="Performance":
     render_performance(results,now)
+elif page=="Historique":
+    render_geny(page)
 else:
     render_quality(kpis,courses=courses,history=quality_history)
+    with st.expander("Couverture des champs Geny"):
+        if st.checkbox("Afficher la couverture Geny"):
+            render_geny(page)

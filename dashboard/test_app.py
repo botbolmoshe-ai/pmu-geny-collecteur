@@ -110,6 +110,45 @@ class AppTests(unittest.TestCase):
         self.assertTrue(any('Aucun relevé' in x.value for x in self.app.info))
 
 
+    def test_geny_history_and_quality(self):
+        from trot_analytics.usages import GENY_HISTORIQUE
+
+        self.source()
+        sheets = self.api.spreadsheets()
+        metadata = sheets.get().execute.return_value
+        metadata['sheets'].append({'properties': {
+            'title': 'Historique chevaux', 'gridProperties': {'rowCount': 2001},
+        }})
+        original = sheets.values().batchGet().execute.return_value
+        labels = GENY_HISTORIQUE.libelles
+        historic = {'valueRanges': [
+            {'values': [['cheval', '', '', labels['piste_geny'], labels['geny_parsing_version']],
+                        ['Cheval test', '', '', 'PP', '1']]},
+            {'values': [['Cheval test', '', '', 'GP', '1']]},
+        ]}
+
+        def batch(**kwargs):
+            from unittest.mock import Mock
+            return Mock(execute=Mock(return_value=historic if kwargs['ranges'][0].startswith(
+                "'Historique chevaux'") else original))
+
+        sheets.values().batchGet.side_effect = batch
+        self.app.session_state.authenticated = True
+        self.app.run()
+        self.app.radio[0].set_value('Historique').run()
+        self.app.selectbox[0].set_value('Cheval test').run()
+        self.assertFalse(self.app.exception)
+        html = next(item.proto.body for item in self.app.get('html') if 'Historique Geny' in item.proto.body)
+        for value in (labels['piste_geny'], 'PP', 'GP'):
+            self.assertIn(f'<em>{value}</em>', html)
+        self.app.radio[0].set_value('Qualité').run()
+        next(item for item in self.app.checkbox if item.label == 'Afficher la couverture Geny').check().run()
+        self.assertFalse(self.app.exception)
+        self.assertFalse(self.app.error)
+        coverage = next(table.value for table in self.app.table if 'Lignes renseignées' in table.value)
+        self.assertEqual(coverage.loc[coverage['Champ'] == labels['piste_geny'], 'Lignes renseignées'].item(), 2)
+
+
     def test_profils_de_course_dans_le_tableau_et_styles(self):
         self.source()
         self.app.session_state.authenticated=True

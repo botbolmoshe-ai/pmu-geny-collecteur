@@ -140,6 +140,8 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
             end_index=starts[j+1] if j+1 < len(starts) else len(lines)
             candidates.append(" | ".join(lines[i:end_index]))
 
+    from .structure_geny import structurer
+
     records=[]
     qualifications_ignorees = 0
     for brut in candidates:
@@ -175,6 +177,7 @@ def parse_career(body: str, dom_rows: list[str]) -> dict:
             "date":date,"hippodrome":track,"discipline":discipline,
             "distance_m":distance,"classement":rank,"chrono":chrono,
             "texte_source":txt,
+            **structurer(txt),
         })
     # Une date repetee peut correspondre a deux courses differentes (Naples,
     # Frank Gio, 03/05/2026). Rejeter les lignes source identiques, pas les dates.
