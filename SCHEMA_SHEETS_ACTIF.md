@@ -90,8 +90,14 @@ avec décalage explicite. Le départ prévu est exprimé en Europe/Paris. Les
 colonnes UTC sont exprimées en UTC. Les séries numériques déjà publiées sont
 relues dans le fuseau indiqué par leur colonne. Un horaire local ambigu au
 changement d'heure nécessite une source avec décalage explicite. Les dates
-civiles gardent leur format natif Sheets. Streamlit affiche le départ prévu et
-l'heure de lecture de l'arrivée à Paris. Cette dernière correspond à la
+civiles gardent leur format natif Sheets. Les colonnes de consultation
+« Paris · … » affichent les instants sous forme de dates Sheets natives
+(`dd/mm/yyyy hh:mm`). Les colonnes sources restent disponibles aux consommateurs
+du registre et sont masquées. Les champs composites affichent le même lien avec
+le relevé en heure de Paris. Les valeurs d’horodatage dans les colonnes KPI
+mixtes possèdent un format par cellule. Les libellés KPI historiques restent
+les identifiants des relevés et la note indique le fuseau d’affichage.
+Streamlit affiche le départ prévu et l'heure de lecture de l'arrivée à Paris. Cette dernière correspond à la
 lecture des rangs dans le flux participants. Pour les nouvelles arrivées, le
 podium lu doit concorder avec le podium déclaré définitif par le programme
 PMU. Le programme fournit ce statut sans heure de proclamation officielle.

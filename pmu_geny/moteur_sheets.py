@@ -6,13 +6,12 @@ import os
 import re
 import tempfile
 import time
-from datetime import timezone
 from contextlib import contextmanager
 from collections import Counter
 from pathlib import Path
 from urllib.parse import quote
 
-from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, afficher_instant, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
+from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, DISPLAY_PREFIX, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
 
 from .controle_sync_sheets import HISTORY,lire_cles_independantes,verifier_avant,verifier_apres
 from .lectures_sheets import get_lecture
@@ -65,8 +64,11 @@ def regrouper_cellules(tab, updates):
 
 def formats_dates(sheet_id, headers, only=None):
     requests = []
+    from .dates_registre import SOURCES
+    composite_labels = {DISPLAY_PREFIX + label for label in SOURCES.values()}
     for col, field in enumerate(headers):
-        kind = date_kind(field)
+        kind = ('DATE_TIME' if field.startswith(DISPLAY_PREFIX) and field not in composite_labels
+                else date_kind(field))
         if kind is None or (only is not None and field not in only):
             continue
         pattern = DATE_PATTERN if kind == "DATE" else DATETIME_PATTERN
@@ -290,13 +292,15 @@ class SynchroniseurSheets:
                     'fields': 'pixelSize',
                 }},
             ])
-        encoder = vers_nombre if tab == HISTORY else vers_cellule_operationnelle
+        legacy_history = tab == HISTORY and not any(field.startswith(DISPLAY_PREFIX)
+                                                    for field in effective_headers)
+        encoder = vers_nombre if legacy_history else vers_cellule_operationnelle
         staged = {(row, col): encoder(effective_headers[col - 1], value)
                   for row, col, value in updates}
         if allow_structure:
             for row_number, raw in enumerate(values[1:], start=2):
                 for col, (field, value) in enumerate(zip(headers, raw), start=1):
-                    if tab != HISTORY and date_kind(field) == "DATE_TIME":
+                    if not legacy_history and date_kind(field) == "DATE_TIME":
                         continue  # La représentation d'un instant existant ne motive aucune réécriture.
                     converted = encoder(field, value)
                     if converted != value:
@@ -304,11 +308,14 @@ class SynchroniseurSheets:
         updates = [(row, col, value) for (row, col), value in staged.items()]
         appends = [[encoder(field, value) for field, value in zip(effective_headers, row)]
                    for row in appends]
+        from .dates_registre import enrichir_publication
+        updates = enrichir_publication(tab, effective_headers, updates, appends)
         changed_dates = {field for field in extra if date_kind(field)}
         changed_dates.update(effective_headers[col - 1] for _, col, _ in updates
                              if date_kind(effective_headers[col - 1]))
         if appends:
-            changed_dates.update(field for field in effective_headers if date_kind(field))
+            changed_dates.update(field for field in effective_headers
+                                 if date_kind(field) or field.startswith(DISPLAY_PREFIX))
         if changed_dates:
             only = changed_dates if changed_dates == {'ipr_calcul_utc'} else None
             structure.extend(formats_dates(sheet_id, effective_headers, only))
@@ -317,10 +324,20 @@ class SynchroniseurSheets:
         cells=[]
         if extra:cells.append({'range':f"'{tab}'!{colname(len(headers)+1)}1:{colname(len(effective_headers))}1",
                                'values':[[DISPLAY_NAMES.get(k,k) for k in extra]]})
-        cells.extend(regrouper_cellules(tab,updates))
-        for start in range(0,len(cells),350):
+        if any(field.startswith(DISPLAY_PREFIX) for field in effective_headers):
+            # Une date technique et son affichage sont écrits dans le même lot.
+            by_row_block = {}
+            for update in updates:
+                by_row_block.setdefault((update[0] - 2) // 200, []).append(update)
+            batches = ([cells] if cells else []) + [
+                regrouper_cellules(tab, block) for block in by_row_block.values()
+            ]
+        else:
+            cells.extend(regrouper_cellules(tab, updates))
+            batches = [cells[start:start + 350] for start in range(0, len(cells), 350)]
+        for batch in batches:
             self.check(self.session.post(self.base+'/values:batchUpdate',
-                json={'valueInputOption':'RAW','data':cells[start:start+350]},timeout=45))
+                json={'valueInputOption':'RAW','data':batch},timeout=45))
         if appends:
             path=quote("'"+tab+"'!A1",safe="!:'")
             self.check(self.session.post(self.base+'/values/'+path+':append',
@@ -344,7 +361,7 @@ class SynchroniseurSheets:
                 self._formater_observations(tab, sheet_id, effective_headers, GENY_HISTORIQUE, appends=True)
         result={'lignes_ajoutees':len(appends),'cellules_actualisees':len(updates),'lignes_source':len(incoming)}
         if control:
-            if cells or appends:
+            if batches or appends:
                 fresh=self.metadata()[tab]
                 after=lire_feuille_complete(self.session,self.base,tab,fresh)
                 if not after or canonical_headers(after[0])!=effective_headers:
@@ -450,19 +467,33 @@ class SynchroniseurSheets:
             print(f'COTES_SHEETS_VERIFIEES {len(verified)} cotes sur '
                   f'{len({key for key, _ in verified})} courses', flush=True)
         metrics = calculer_kpi(self.cache, source, sheets_courses=sheets_courses)
-        # La colonne Valeur mélange dates, taux et effectifs. Seules les
-        # valeurs horodatées sont présentées en texte français, en UTC.
-        metrics = {key: (afficher_instant(value, timezone.utc) or value, definition)
+        from .dates_registre import nombre_kpi
+        from .migration_dates_sheets import format_cell
+        dates = {key: value for key, (value, _) in metrics.items() if nombre_kpi(value, key) != value}
+        metrics = {key: (nombre_kpi(value, key), definition)
                    for key, (value, definition) in metrics.items()}
         updates=plan_kpi(values,metrics)
         if updates:
             properties = tables[KPI_TAB]
             row_count = properties['gridProperties']['rowCount']
             last_row = max(int(re.search(r'\d+$', entry['range'])[0]) for entry in updates)
+            structure = []
             if last_row > row_count:
-                self.check(self.session.post(self.base+':batchUpdate', json={'requests': [
-                    {'appendDimension': {'sheetId': properties['sheetId'], 'dimension': 'ROWS',
-                                         'length': last_row-row_count}}]}, timeout=30))
+                structure.append({'appendDimension': {'sheetId': properties['sheetId'], 'dimension': 'ROWS',
+                                                      'length': last_row-row_count}})
+            for entry in updates:
+                cell = re.search(r'!([AC])(\d+)', entry['range'])
+                if not cell:
+                    continue
+                first, row = cell[1], int(cell[2])
+                label = (entry['values'][0][1] if first == 'A' else
+                         values[row - 1][1] if first == 'C' else '')
+                if label in dates:
+                    structure.append(format_cell(properties['sheetId'], row, 2, 'DATE_TIME',
+                                                 note=f'Affichage Europe/Paris. Source : {dates[label]}'))
+            if structure:
+                self.check(self.session.post(self.base+':batchUpdate',
+                    json={'requests': structure}, timeout=30))
             self.check(self.session.post(self.base+'/values:batchUpdate',
                 json={'valueInputOption':'RAW','data':updates},timeout=45))
         totals = totaux_reference(metrics)
@@ -486,7 +517,7 @@ class SynchroniseurSheets:
                     actual = row[index] if index < len(row) else ''
                     if actual != expected and not (
                             isinstance(expected, (float, int)) and isinstance(actual, (float, int))
-                            and abs(expected - actual) <= 1e-12):
+                            and abs(expected - actual) <= (1e-10 if key in dates and index == 2 else 1e-12)):
                         raise ErreurSynchronisation('Vérification Sheets KPI échouée : ' + key)
             if seen != managed.keys():
                 raise ErreurSynchronisation('Indicateurs KPI absents après synchronisation')

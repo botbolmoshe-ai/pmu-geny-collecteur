@@ -290,7 +290,8 @@ elif page=="Courses":
                         columns.append(field)
             partants = partants.reindex(columns=columns)
             partants["Données actuelles · Mise à jour UTC"] = partants["Données actuelles · Mise à jour UTC"].map(
-                lambda value: afficher_instant(value, timezone.utc))
+                afficher_instant)
+            partants = partants.rename(columns={"Données actuelles · Mise à jour UTC": "Données actuelles · Mise à jour (Paris)"})
             partants[COLONNE_PROFIL] = [SEPARATEUR_PROFILS.join(profils_ligne(row)) for row in rows]
             partants = partants.loc[visibles]
             styles = partants[COLONNE_PROFIL].map(lambda valeur: libelles_profils(valeur)[:1]).map(

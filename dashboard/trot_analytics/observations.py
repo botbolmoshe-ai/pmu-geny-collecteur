@@ -1,5 +1,4 @@
 """Affichage en lecture seule des observations publiées dans le registre."""
-from datetime import timezone
 from html import escape
 
 from .dates import afficher_instant
@@ -23,7 +22,7 @@ def tableau_observations(rows, groupe):
     def display(row, field):
         value = row.get(field)
         if field == labels['ipr_calcul_utc']:
-            value = afficher_instant(value, timezone.utc)
+            value = afficher_instant(value)
         if type(value) is float:
             value = f'{value:g}'.replace('.', ',')
         return '—' if value is None or value == '' else str(value)
@@ -33,8 +32,9 @@ def tableau_observations(rows, groupe):
         return f'<em>{escaped}</em>' if italic else escaped
 
     observation = any(en_observation(row.get(status)) for row in values)
-    headings = ''.join(f'<th scope="col">{text(field, observation and field in labels.values())}</th>'
-                       for field in fields)
+    headings = ''.join(
+        f'<th scope="col">{text(field.removesuffix(" UTC") + " (Paris)" if field == labels["ipr_calcul_utc"] else field, observation and field in labels.values())}</th>'
+        for field in fields)
     body = []
     for row in sorted(values, key=order):
         experimental = en_observation(row.get(status))

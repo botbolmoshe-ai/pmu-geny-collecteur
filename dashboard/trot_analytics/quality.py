@@ -1,7 +1,7 @@
 """Compact, read-only presentation of the published quality indicators."""
 from collections import OrderedDict
 from datetime import timezone
-from .dates import afficher_date, afficher_instant
+from .dates import afficher_date, afficher_instant, afficher_valeur_kpi, indicateur_horodate
 from .logic import number,timestamp
 
 TOTAL_FIELD = "Total de référence (automatique)"
@@ -53,9 +53,9 @@ def quality_sections(kpis, query=""):
         if query and query not in f"{dimension} {label} {definition}".casefold():
             continue
         sections.setdefault(dimension, []).append({
-            "Indicateur": label,
+            "Indicateur": label.removesuffix(" UTC") + " (Paris)" if indicateur_horodate(label) else label,
             "Description": definition or "—",
-            "Nombre / valeur": display_value(row.get("Valeur (automatique)"), rate=is_rate(label)),
+            "Nombre / valeur": display_value(afficher_valeur_kpi(label, row.get("Valeur (automatique)")), rate=is_rate(label)),
             "Total": display_value(row.get(TOTAL_FIELD)),
         })
     return sections
@@ -117,7 +117,8 @@ def render_quality(kpis, courses=None, history=None):
         st.info("Aucun indicateur ne correspond à ces filtres.")
         return
     if series:
-        numeric=[r for r in series if number(r.get('Valeur (automatique)')) is not None]
+        numeric = [r for r in series if not indicateur_horodate(r.get('Indicateur'))
+                   and number(r.get('Valeur (automatique)')) is not None]
         labels=sorted({r['Indicateur'] for r in numeric})
         with st.expander("Évolution d’un indicateur",expanded=False):
             st.caption("Les totaux de référence sont affichés pour comparer des périmètres qui peuvent évoluer.")
@@ -128,7 +129,7 @@ def render_quality(kpis, courses=None, history=None):
                 frame=pd.DataFrame([{'Date':afficher_date(r['Date']),'Valeur (%)' if rate else 'Valeur':number(r['Valeur (automatique)'])*(100 if rate else 1)} for r in points])
                 if len(frame)>1:
                     import plotly.express as px
-                    frame['Date'] = pd.to_datetime(frame['Date'])
+                    frame['Date'] = pd.to_datetime(frame['Date'], format='%d/%m/%Y')
                     fig = px.line(frame, x='Date', y=frame.columns[1], height=220)
                     fig.update_xaxes(tickformat='%d/%m/%Y', hoverformat='%d/%m/%Y')
                     st.plotly_chart(fig, width="stretch")
