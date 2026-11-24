@@ -56,5 +56,54 @@ def main():
     print(json.dumps(planifier(json.loads(args.entetes.read_text())), ensure_ascii=False, indent=2))
 
 
+def retrait_sauvegarde(engine, sauvegarder, *, appliquer=False):
+    """Exécuter le plan sous verrou après sauvegarde, puis relire les valeurs et formules."""
+    from .moteur_sheets import verrou_local
+    from .sync_google_sheets import lire_feuille_complete
+
+    def lire(props):
+        values = lire_feuille_complete(engine.session, engine.base, TAB, props,
+                                       raw_dates=True, render_option='FORMULA')
+        if not values or not values[0]:
+            raise ValueError(f'Impossible de relire {TAB}')
+        if any(len(row) > len(values[0]) for row in values[1:]):
+            raise ValueError(f'Données sans en-tête dans {TAB}')
+        return values
+
+    with verrou_local(engine.spreadsheet):
+        before_props = engine.metadata()[TAB]
+        before = lire(before_props)
+        plan = planifier(before[0])
+        if not plan['retraits']:
+            return plan
+        # Un tableau de résultats contenant des formules exige un audit
+        # supplémentaire, puisqu'un retrait peut réécrire leurs références.
+        if any(isinstance(cell, str) and cell.startswith('=') for row in before[1:] for cell in row):
+            raise ValueError(f'Formules présentes dans {TAB}')
+        sauvegarder({'onglet': TAB, 'proprietes': before_props, 'cellules': before})
+        if not appliquer:
+            return plan
+        if lire(engine.metadata()[TAB]) != before:
+            raise ValueError('Le registre a évolué depuis la sauvegarde')
+        sheet_id = before_props['sheetId']
+        requests = [
+            {'deleteDimension': {'range': {
+                'sheetId': sheet_id, 'dimension': 'COLUMNS',
+                'startIndex': item['index'], 'endIndex': item['index'] + 1,
+            }}}
+            for item in reversed(plan['retraits'])
+        ]
+        engine.check(engine.session.post(engine.base + ':batchUpdate',
+                                         json={'requests': requests}, timeout=90))
+        after_props = engine.metadata()[TAB]
+        if after_props['sheetId'] != sheet_id:
+            raise ValueError('Identité de la feuille modifiée')
+        after = lire(after_props)
+        verifier_projection(before, after, plan)
+        if planifier(after[0])['retraits']:
+            raise ValueError('Le retrait ne converge pas')
+        return plan
+
+
 if __name__ == '__main__':
     main()

@@ -21,3 +21,38 @@ class PlanRetraitResultatsTests(unittest.TestCase):
     def test_refus_ambiguite_sur_cle(self):
         with self.assertRaisesRegex(ValueError, 'ambigus'):
             planifier(['course_key', 'Clé course (technique)'])
+
+    def test_migration_relecture_idempotente_et_sauvegarde_avant_ecriture(self):
+        from unittest.mock import Mock, patch
+        from pmu_geny.plan_retrait_resultats import TAB, retrait_sauvegarde
+
+        engine = Mock(spreadsheet='registre-hors-ligne', base='https://sheets.invalid/test')
+        engine.metadata.return_value = {TAB: {'sheetId': 12}}
+        before = [['course_key', 'Score H-2 · ML', 'matching_ml_pct'], ['r', 0, 0]]
+        after = [['course_key', 'matching_ml_pct'], ['r', 0]]
+        timeline = Mock()
+        timeline.attach_mock(engine.session.post, 'post')
+        with patch('pmu_geny.sync_google_sheets.lire_feuille_complete', side_effect=[before, before, after, after]):
+            result = retrait_sauvegarde(engine, timeline.backup, appliquer=True)
+            second = retrait_sauvegarde(engine, timeline.backup, appliquer=True)
+        self.assertEqual(result['retraits'][0]['colonne'], 'B')
+        self.assertEqual(second['retraits'], [])
+        self.assertEqual([call[0] for call in timeline.mock_calls], ['backup', 'post'])
+        self.assertEqual(engine.session.post.call_args.kwargs['json']['requests'], [
+            {'deleteDimension': {'range': {
+                'sheetId': 12, 'dimension': 'COLUMNS', 'startIndex': 1, 'endIndex': 2,
+            }}}
+        ])
+
+    def test_migration_refuse_modification_concurrente(self):
+        from unittest.mock import Mock, patch
+        from pmu_geny.plan_retrait_resultats import TAB, retrait_sauvegarde
+
+        engine = Mock(spreadsheet='registre-hors-ligne', base='https://sheets.invalid/test')
+        engine.metadata.return_value = {TAB: {'sheetId': 12}}
+        before = [['course_key', 'Score H-2 · ML'], ['r', 0]]
+        concurrent = [before[0], ['r', 1]]
+        with patch('pmu_geny.sync_google_sheets.lire_feuille_complete', side_effect=[before, concurrent]):
+            with self.assertRaisesRegex(ValueError, 'depuis la sauvegarde'):
+                retrait_sauvegarde(engine, Mock(), appliquer=True)
+        engine.session.post.assert_not_called()

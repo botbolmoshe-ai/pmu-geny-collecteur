@@ -46,3 +46,15 @@ d'écriture et le contrôle avant/après conserve notamment les zéros valides.
 ```bash
 python -m pmu_geny.plan_retrait_resultats entetes-resultats.json
 ```
+
+Une lecture complète en mode FORMULA n'a trouvé aucune formule dans Résultats
+& Analyse ni dans TCD. Le pivot inspecté dans TCD lit Historique chevaux
+(onglet 810003). L'essai hors ligne de retrait contrôle l'ordre sauvegarde,
+relecture avant écriture, mutation ciblée, puis contrôle des valeurs restantes.
+Il refuse une modification concurrente et le second passage ne produit aucune
+écriture.
+
+Le mécanisme d'application reste sans point d'entrée production. Le producteur
+Sheets actuel recréerait les en-têtes retirés au cycle suivant. L'adaptation
+coordonnée du producteur et une répétition sur une copie sauvegardée restent
+nécessaires avant migration réelle.
