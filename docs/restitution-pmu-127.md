@@ -33,3 +33,16 @@ de Google Sheets (formules, plages et vues), avec sauvegarde, test sur copie,
 contrôle du différentiel avant/après et second passage sans mutation. Ce
 complément prépare la restitution et les règles de preuve. Il ne modifie
 aucune colonne en production.
+
+Le planificateur en lecture seule a reconnu 16 colonnes par jalon parmi
+les 53 en-têtes réels de Résultats & Analyse (`AG:AR` et `AX:BA` au moment
+de l'audit). Il conserve 37 en-têtes, dont la clé, les scores synthétiques,
+les heures de référence et le jalon comparé. Les 12 formules lues dans
+Data Quality & KPI ne référencent pas directement Résultats & Analyse.
+Cela ne couvre pas les pivots, les vues, les autres formules du classeur
+ni les consommateurs externes. Le planificateur ne produit aucune requête
+d'écriture et le contrôle avant/après conserve notamment les zéros valides.
+
+```bash
+python -m pmu_geny.plan_retrait_resultats entetes-resultats.json
+```
