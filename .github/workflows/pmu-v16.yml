@@ -207,6 +207,28 @@ jobs:
                   run(root, tomorrow, [], 0, max_discoveries=0, now=now,
                       selection_complete=True, clock=clock, production=True)
           PYRUN
+      - name: Traiter aussi les rapprochements dus pendant les autres cycles
+        id: rapprochements_complementaires
+        if: always() && steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'RAPPROCHEMENT' && steps.plan.outputs.mode != 'PREPARATION_JOUR' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
+        run: |
+          python - <<'PYRESULTATS'
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from pmu_geny.echeances_production import lire, sauver
+          from pmu_geny.rapprochement_reunions import planifier_rapprochements, rapprocher
+
+          root = Path('cache_pmu')
+          path = Path('resultats/plan_production.json')
+          plan = lire(path)
+          now = datetime.now(timezone.utc)
+          due = planifier_rapprochements(root, now)
+          obligations = {item['reunion']: item for item in plan.get('rapprochements_dus', [])}
+          obligations.update({item['reunion']: item for item in due})
+          plan['rapprochements_dus'] = list(obligations.values())
+          sauver(path, plan)
+          if obligations:
+              rapprocher(root, plan)
+          PYRESULTATS
       - name: Identifier le périmètre après actualisation du programme
         if: steps.plan.outputs.executer == 'true'
         id: perimetre
