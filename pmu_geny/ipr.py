@@ -156,7 +156,16 @@ def calculer(course, profils, liens, observation, calcul):
     scores.sort(key=lambda n: (-rows[n]['ipr_score'], int(n)))
     for rang, n in enumerate(scores, start=1):
         rows[n]['ipr_rang_shadow'] = rang
-    return {'date': course['date'], 'course': course['code'], 'depart': depart.isoformat(),
+    candidate = None
+    if not preparation and len(scores) >= 3:
+        from .signaux_geny import candidat_classement, signaux
+        candidate = candidat_classement(
+            [(int(n), rows[n]['ipr_score'] / 20) for n in scores],
+            {int(n): signaux(course, profils.get(n, profils.get(int(n), {})), liens.get(n, {}), observation)
+             for n in scores},
+        )
+    return {**({'candidat_geny': candidate} if candidate else {}),
+            'date': course['date'], 'course': course['code'], 'depart': depart.isoformat(),
             'observation_utc': observation.isoformat(), 'calcul_utc': calcul.isoformat(),
             'version': VERSION, 'usage': IPR.usage, 'preparation': preparation,
             'discipline': _discipline(course.get('discipline')), 'distance': course.get('distance_m'),
