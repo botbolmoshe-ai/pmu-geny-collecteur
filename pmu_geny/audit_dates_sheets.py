@@ -46,7 +46,7 @@ def pages(engine, tab, props):
             'ranges': f"'{tab}'!A{start}:{colname(grid['columnCount'])}{end}",
             'fields': 'sheets(properties(sheetId),data(startRow,startColumn,rowData(values('
                       'userEnteredValue,effectiveValue,note,effectiveFormat(numberFormat),'
-                      'userEnteredFormat(numberFormat)))))',
+                      'userEnteredFormat))))',
         }, timeout=60))
         sheets = result['sheets']
         if len(sheets) != 1 or sheets[0]['properties']['sheetId'] != props['sheetId']:

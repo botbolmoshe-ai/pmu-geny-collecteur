@@ -73,3 +73,28 @@ class DatesRegistreTests(unittest.TestCase):
         self.assertEqual(nombre_kpi(0.75, 'Taux d’historique', legacy=True), 0.75)
         self.assertEqual(nombre_kpi('22/11/2026 23:36', 'Dernière lecture UTC', legacy=True),
                          nombre_paris('2026-11-22T23:36:00Z'))
+
+
+    def test_rejouer_le_format_cible_sans_alterer_le_style_ni_la_valeur(self):
+        from pmu_geny.migration_dates_sheets import planifier
+
+        stamp = '2026-11-22T23:36:00Z'
+        legacy_format = {'type': 'DATE_TIME', 'pattern': 'dd/MM/yyyy HH:mm:ss'}
+        headers = ['Départ (Paris)', 'Paris · Départ']
+        rows = {
+            1: [{'userEnteredValue': {'stringValue': label}} for label in headers],
+            2: [{'userEnteredValue': {'stringValue': stamp}},
+                {'userEnteredValue': {'numberValue': nombre_paris(stamp)},
+                 'userEnteredFormat': {'numberFormat': legacy_format, 'textFormat': {'bold': True}},
+                 'effectiveFormat': {'numberFormat': legacy_format}}],
+        }
+        props = {'sheetId': 17, 'gridProperties': {'columnCount': 2, 'rowCount': 5}}
+        requests, values, ignored = planifier('Courses & Prévisions', props, rows)
+        self.assertFalse(values)
+        self.assertFalse(ignored)
+        updates = [request['updateCells'] for request in requests if 'updateCells' in request]
+        self.assertEqual(len(updates), 1)
+        self.assertEqual(updates[0]['fields'], 'userEnteredFormat')
+        fmt = updates[0]['rows'][0]['values'][0]['userEnteredFormat']
+        self.assertEqual(fmt['numberFormat']['pattern'], 'dd/mm/yyyy hh:mm')
+        self.assertEqual(fmt['textFormat'], {'bold': True})

@@ -61,13 +61,9 @@ def same_value(actual, expected):
     return type(actual) is type(expected) and actual == expected
 
 
-def write_column(sheet, col, changes, kind=None):
+def write_column(sheet, col, cells, fields):
     requests = []
-    for row, value in sorted(changes.items()):
-        key = 'numberValue' if type(value) in (int, float) else 'stringValue'
-        cell = {'userEnteredValue': {key: value}} if value != '' else {}
-        if kind and row > 1:
-            cell['userEnteredFormat'] = {'numberFormat': {'type': kind, 'pattern': PATTERNS[kind]}}
+    for row, cell in sorted(cells.items()):
         if requests and row == requests[-1]['updateCells']['range']['endRowIndex'] + 1:
             block = requests[-1]['updateCells']
             block['range']['endRowIndex'] = row
@@ -75,9 +71,25 @@ def write_column(sheet, col, changes, kind=None):
         else:
             requests.append({'updateCells': {
                 'range': range_cell(sheet, row, col), 'rows': [{'values': [cell]}],
-                'fields': 'userEnteredValue,userEnteredFormat.numberFormat' if kind else 'userEnteredValue',
+                'fields': fields,
             }})
     return requests
+
+
+def valeurs_cellules(changes, kind):
+    cells = {}
+    for row, value in changes.items():
+        key = 'numberValue' if type(value) in (int, float) else 'stringValue'
+        cell = {'userEnteredValue': {key: value}} if value != '' else {}
+        if kind and row > 1:
+            cell['userEnteredFormat'] = {'numberFormat': {'type': kind, 'pattern': PATTERNS[kind]}}
+        cells[row] = cell
+    return cells
+
+
+def format_conforme(cell, kind):
+    fmt = current_format(cell)
+    return fmt.get('type') == kind and fmt.get('pattern', '').lower() == PATTERNS[kind]
 
 
 def planifier(tab, props, rows):
@@ -95,6 +107,7 @@ def planifier(tab, props, rows):
     height = props['gridProperties'].get('rowCount', max(rows, default=1))
     targets = {}
     new_columns = set()
+    styles = {}
     mixed = {'Data Quality & KPI': (1, 2), 'Historique qualité': (4, 5)}.get(tab)
     # Le TCD peut comporter des formules et des colonnes sans en-tête.
     # Seules les cellules déjà reconnues comme dates/heures y sont formatées.
@@ -117,7 +130,7 @@ def planifier(tab, props, rows):
             target = names.index(label)
             targets[col] = (field, target)
             hidden.append(col)
-            if field not in SOURCES:
+            if field not in SOURCES and target in new_columns:
                 requests.append({'repeatCell': {
                     'range': {'sheetId': sheet, 'startRowIndex': 1, 'endRowIndex': height,
                               'startColumnIndex': target, 'endColumnIndex': target + 1},
@@ -151,6 +164,11 @@ def planifier(tab, props, rows):
                     raise ValueError(f'Formule inattendue dans la projection {tab}/{row}/{target}')
                 if not same_value(raw(existing), expected):
                     updates.setdefault(target, {})[row] = expected
+                if (target not in new_columns and source not in SOURCES and
+                        type(expected) in (int, float) and not format_conforme(existing, 'DATE_TIME')):
+                    style = dict(existing.get('userEnteredFormat', {}))
+                    style['numberFormat'] = {'type': 'DATE_TIME', 'pattern': DATETIME_PATTERN}
+                    styles.setdefault(target, {})[row] = {'userEnteredFormat': style}
             elif mixed and col == mixed[1] and mixed[0] < len(cells):
                 expected = nombre_kpi(value, raw(cells[mixed[0]]), legacy=True)
                 if type(expected) in (int, float) and not same_value(value, expected):
@@ -184,12 +202,12 @@ def planifier(tab, props, rows):
             if any(len(cells) > col and (entered(cells[col]) or cells[col].get('effectiveValue'))
                    for cells in rows.values()):
                 raise ValueError(f'Une colonne sans en-tête contient déjà des données : {tab}/{col}')
-            dense = {row: changes.get(row, '') for row in range(1, max(changes) + 1)}
-            writes.extend(write_column(sheet, col, dense,
-                                       'DATE_TIME' if col in instant_columns else None))
-        else:
-            writes.extend(write_column(sheet, col, changes,
-                                       'DATE_TIME' if col in instant_columns else None))
+            changes = {row: changes.get(row, '') for row in range(1, max(changes) + 1)}
+        kind = 'DATE_TIME' if col in instant_columns and col in new_columns else None
+        fields = 'userEnteredValue,userEnteredFormat' if kind else 'userEnteredValue'
+        writes.extend(write_column(sheet, col, valeurs_cellules(changes, kind), fields))
+    for col, cells in styles.items():
+        writes.extend(write_column(sheet, col, cells, 'userEnteredFormat'))
     requests.extend(hide_column(sheet, col) for col in hidden)
     return writes + requests, updates, ignored
 
@@ -280,8 +298,10 @@ def migrer(engine, archive, *, appliquer=False, reference=None):
             verifier(original, after, original_updates)
             print('REGISTRE_DATES_REFERENCE_INITIALE_VERIFIEE=6', flush=True)
         for tab, (props, rows) in after.items():
-            _, changes, unknown = planifier(tab, props, rows)
-            if changes or unknown:
+            residual, changes, unknown = planifier(tab, props, rows)
+            formats_en_ecart = any(request.get('updateCells', {}).get('fields') == 'userEnteredFormat'
+                                   for request in residual)
+            if changes or unknown or formats_en_ecart:
                 raise ValueError(f'Migration non idempotente après relecture de {tab}')
         print('MIGRATION_DATES_SHEETS_VERIFIEE=6', flush=True)
 
