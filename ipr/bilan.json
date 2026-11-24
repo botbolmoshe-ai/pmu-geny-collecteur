@@ -1,10 +1,157 @@
 {
   "debut": "2026-11-18",
   "fin": "2026-11-24",
-  "controle_utc": "2026-11-24T15:54:41.534390+00:00",
-  "courses": [],
-  "depuis_activation": 0,
-  "agrege": [],
+  "controle_utc": "2026-11-24T17:32:41.933378+00:00",
+  "courses": [
+    {
+      "course": "2026-11-24_R3C1",
+      "phase": "H2",
+      "version": "ipr-v1",
+      "discipline": "m",
+      "depart_trot": "",
+      "distance": 2700,
+      "scores": {
+        "ipr": 2,
+        "direct": 3,
+        "ml": 2
+      },
+      "partants": 10,
+      "partants_notes": 9,
+      "preuve_sha256": "a2e765e398e056d89aa10a0bfd96d8ccfbd0a9a8b92cec9a7792dcc1ed7689b8"
+    },
+    {
+      "course": "2026-11-24_R3C2",
+      "phase": "H2",
+      "version": "ipr-v1",
+      "discipline": "a",
+      "depart_trot": "Autostart",
+      "distance": 2100,
+      "scores": {
+        "ipr": 1,
+        "direct": 1,
+        "ml": 1
+      },
+      "partants": 14,
+      "partants_notes": 11,
+      "preuve_sha256": "eb5d17a927c7780b5cbe1d2b4f44db434541a14d10c04414c8a29af8e39791f7"
+    },
+    {
+      "course": "2026-11-24_R3C3",
+      "phase": "H2",
+      "version": "ipr-v1",
+      "discipline": "m",
+      "depart_trot": "",
+      "distance": 2850,
+      "scores": {
+        "ipr": 1,
+        "ml": 1
+      },
+      "partants": 9,
+      "partants_notes": 3,
+      "preuve_sha256": "e4a488989c76d44da1223f3ff5d2b126f39b1810f5a9c5f518138784bb5997b3"
+    },
+    {
+      "course": "2026-11-24_R3C4",
+      "phase": "H2",
+      "version": "ipr-v1",
+      "discipline": "a",
+      "depart_trot": "",
+      "distance": 2200,
+      "scores": {
+        "ipr": 1,
+        "direct": 2,
+        "ml": 1
+      },
+      "partants": 12,
+      "partants_notes": 4,
+      "preuve_sha256": "12a3f19a36797802a2c30f3e633ad890abba3006803b0e6e8837b794ff81d091"
+    },
+    {
+      "course": "2026-11-24_R3C8",
+      "phase": "H2",
+      "version": "ipr-v1",
+      "discipline": "a",
+      "depart_trot": "",
+      "distance": 2200,
+      "scores": {
+        "ipr": 0,
+        "direct": 1,
+        "ml": 2
+      },
+      "partants": 13,
+      "partants_notes": 3,
+      "preuve_sha256": "d4b0dda20dbae81f8f0ff94832bbf7209117b8669f39e066b93f5c883843f4b2"
+    }
+  ],
+  "depuis_activation": 5,
+  "agrege": [
+    {
+      "phase": "H2",
+      "version": "ipr-v1",
+      "courses": 5,
+      "moyenne_sur_3": 1.0,
+      "exact_3_sur_3": 0,
+      "taux_partants_notes": 0.5172413793103449,
+      "appariements": {
+        "direct": {
+          "courses": 4,
+          "ecart_moyen": -0.75,
+          "ic95_bootstrap_par_course": [
+            -1.0,
+            -0.25
+          ]
+        },
+        "ml": {
+          "courses": 5,
+          "ecart_moyen": -0.4,
+          "ic95_bootstrap_par_course": [
+            -1.2,
+            0.0
+          ]
+        }
+      },
+      "segments": {
+        "discipline": {
+          "m": {
+            "courses": 2,
+            "moyenne_sur_3": 1.5
+          },
+          "a": {
+            "courses": 3,
+            "moyenne_sur_3": 0.6666666666666666
+          }
+        },
+        "depart_trot": {
+          "INCONNU": {
+            "courses": 4,
+            "moyenne_sur_3": 1.0
+          },
+          "Autostart": {
+            "courses": 1,
+            "moyenne_sur_3": 1.0
+          }
+        },
+        "distance": {
+          "2700": {
+            "courses": 1,
+            "moyenne_sur_3": 2.0
+          },
+          "2100": {
+            "courses": 1,
+            "moyenne_sur_3": 1.0
+          },
+          "2850": {
+            "courses": 1,
+            "moyenne_sur_3": 1.0
+          },
+          "2200": {
+            "courses": 2,
+            "moyenne_sur_3": 0.5
+          }
+        }
+      }
+    }
+  ],
   "usage": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
   "suivi": {
     "courses": 16,
