@@ -369,6 +369,8 @@ class SynchroniseurSheets:
             if not raw:
                 raise ErreurSynchronisation('Historique vide')
             headers = canonical_headers(raw[0])
+            if any(len(row) > len(headers) for row in raw[1:]):
+                raise ErreurSynchronisation('Données présentes au-delà des en-têtes historiques')
             rows = [dict(zip(headers, row)) for row in raw[1:]]
             independent = lire_cles_independantes(self.session, self.base, HISTORY, props, headers)
             keys = [str(row.get('cle_performance', '')).strip() for row in rows]
@@ -395,9 +397,12 @@ class SynchroniseurSheets:
                 cells.insert(0, {'range': f"'{HISTORY}'!{colname(len(headers) + 1)}1:{colname(len(columns))}1",
                                  'values': [visible[len(headers):]]})
             for start in range(0, len(cells), 8):
-                self.check(self.session.post(self.base + '/values:batchUpdate', json={
-                    'valueInputOption': 'RAW', 'data': cells[start:start + 8],
-                }, timeout=90))
+                payload = {'valueInputOption': 'RAW', 'data': cells[start:start + 8]}
+                response = self.session.post(self.base + '/values:batchUpdate', json=payload, timeout=90)
+                if response.status_code == 429:
+                    time.sleep(60)
+                    response = self.session.post(self.base + '/values:batchUpdate', json=payload, timeout=90)
+                self.check(response)
             self._formater_observations(HISTORY, sheet_id, columns, GENY_HISTORIQUE)
             fresh = self.metadata()[HISTORY]
             after = lire_feuille_complete(self.session, self.base, HISTORY, fresh, raw_dates=True, render_option='FORMULA')
