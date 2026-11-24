@@ -227,6 +227,41 @@ def verifier_candidat(horse,url,status,text,out):
     return {'id':ident,'nom':horse['nom'],'url_geny':url.replace('https://geny.com/','https://www.geny.com/')}
 
 
+def observer_http_geny(context, out=None):
+    from .cadence_geny import reprise_serveur
+    from .echeances_production import instant, sauver
+
+    mesure = {'requetes': 0, 'reponses_refusees': {'403': 0, '429': 0}}
+    def persister_mesure():
+        if out is not None:
+            sauver(out / 'http_geny.json', mesure)
+
+    def geny(url):
+        domaine = urlparse(url).hostname or ''
+        return domaine == 'geny.com' or domaine.endswith('.geny.com')
+
+    def requete(request):
+        if geny(request.url):
+            mesure['requetes'] += 1
+            persister_mesure()
+
+    def reponse(response):
+        if geny(response.url) and response.status in (403, 429):
+            code = str(response.status)
+            mesure['reponses_refusees'][code] += 1
+            mesure.setdefault('refus', code)
+            now = datetime.now(timezone.utc)
+            reprise = reprise_serveur(response.header_value('Retry-After'), now)
+            precedente = instant(mesure.get('reprise_au_plus_tot_utc'))
+            if reprise and (not precedente or reprise > precedente):
+                mesure['reprise_au_plus_tot_utc'] = reprise.isoformat()
+            persister_mesure()
+
+    context.on('request', requete)
+    context.on('response', reponse)
+    return mesure
+
+
 def collecter(horse, out):
     out.mkdir(parents=True, exist_ok=True)
     report = {'complet': False, 'debut_utc': datetime.now(timezone.utc).isoformat()}
@@ -235,7 +270,8 @@ def collecter(horse, out):
         with sync_playwright() as p:
             browser=p.chromium.launch(headless=True)
             try:
-                ctx=browser.new_context(locale='fr-FR',timezone_id='Europe/Paris',viewport={'width':1366,'height':900})
+                ctx=browser.new_context(locale='fr-FR',timezone_id='Europe/Paris', viewport={'width':1366,'height':900})
+                mesure_http = observer_http_geny(ctx, out)
                 statuses={}
                 def navigation(response):
                     if response.request.is_navigation_request():statuses[response.url]=response.status
@@ -243,6 +279,9 @@ def collecter(horse, out):
                 page=ctx.new_page()
                 geny=horse.get('geny') or resolve(horse,out,page)
                 report['geny']=geny
+                if mesure_http.get('refus'):
+                    from .cadence_geny import REFUS
+                    raise RuntimeError(next(statut for statut, code in REFUS.items() if code == mesure_http['refus']))
                 # Le lien résolu survit même à une interruption de l'extraction.
                 resolution = out/'resolution_geny.tmp'
                 resolution.write_text(json.dumps({'geny':geny,

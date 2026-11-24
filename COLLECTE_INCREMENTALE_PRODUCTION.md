@@ -7,21 +7,19 @@ validés et synchronisés. Son principe est repris : un cheval, un processus neu
 validation, sauvegarde distante, Sheets, puis le suivant. Le clic sur le nom exact
 et la conservation du code source `Dpg` sont repris du pilote.
 
-Le cycle PMU prépare les données et les correspondances de courses. Il ne lance
-plus l'ancien collecteur d'historiques par lots. Le workflow
-`historiques-incrementaux.yml` est déclenché à 00 h 12, 01 h 12, 02 h 12, 03 h 12
-et 04 h 12, heure de Paris. Il traite d'abord les partants du jour dans l'ordre
-des départs, pendant sept minutes au plus pour démarrer de nouvelles tâches.
-S'il reste du temps et aucun partant éligible ni reprise imminente, il propose
-un passage de rattrapage de deux minutes, limité à une carrière. De 05 h à
-23 h 59, les déclenchements au quart d'heure ne traitent que les départs à venir.
+Le workflow `historiques-incrementaux.yml` prévoit un passage aux minutes 12
+et 42 entre 21 h et 7 h, et aux minutes 05, 20, 35 et 50 entre 7 h et 21 h,
+heure de Paris. L'heure réelle de début détermine le mode si GitHub retarde un
+passage. La nuit, la file des partants à venir passe avant le rattrapage du stock.
 Le passage manuel garde sa durée configurable (20 minutes au maximum).
 
-Les collecteurs et le cycle PMU partagent `pmu-donnees-production` et les
-échéances PMU gardent la priorité. La nuit, le worker cesse de lancer des tâches
-à l'approche du prochain besoin PMU ou de 05 h. Il termine la sauvegarde et la
-publication de la fiche déjà entamée. Les pauses Geny sont communes. Le calcul
-TOP3/ML reste réservé au jour J entre 07h00 et 21h00 Paris et avant départ.
+Les deux collecteurs et le cycle PMU partagent le verrou
+`pmu-donnees-production`. La collecte nocturne cède si le programme ou les
+partants du prochain jour de courses doivent être préparés, ou si un
+rapprochement d'arrivées est dû. Le cycle GLOBAL horaire est réservé à la
+journée, comme les publications TOP3 et ML. Le secours réévalue les tâches dues
+et le relais remet la collecte en file après le checkpoint PMU. Un lancement
+déjà en file évite un second déclenchement.
 
 Pendant la première semaine, comparer la couverture du même jour dans le
 premier bilan horaire de collecte après 07 h (ou dans le registre à 07 h),
@@ -58,8 +56,7 @@ prioritaires : engagements du jour et du lendemain, puis partants récents encor
 incomplets, puis simples actualisations. Les liens de courses peuvent être
 retrouvés depuis l'index Geny déjà sauvegardé, avec le même rapprochement prudent
 que le rattrapage global et sans nouvelle requête au programme. Les liens ambigus
-restent non résolus. La sélection diurne et la pause partagée après 403/429 restent
-inchangées ; la nuit n'autorise aucun accès pendant cette pause.
+restent non résolus. La pause partagée après 403/429 s'applique également de nuit.
 
 ## Reprise et intégrité
 
@@ -71,9 +68,13 @@ Geny : seule la synchronisation est reprise. Les ajouts sont idempotents et les
 de disponibilité de l'historique. Les sélections et les formules de référence en
 colonne E des KPI sont préservées.
 
-Les refus 403/429 imposent une pause globale de 30 minutes, partagée avec le cycle
-PMU. Les autres échecs sont retentables après six heures. Une exécution de sous-processus est bornée à 240 secondes. Il n'y a plus de plafond métier de six fiches : la
-durée du passage et les règles d'accès bornent la progression.
+Les refus 403/429 imposent une suspension globale d'au moins 30 minutes, prolongée
+si l'en-tête `Retry-After` l'exige. Le journal partagé impose 30 secondes entre
+deux chevaux, ou 60 secondes après un refus jusqu'à dix validations consécutives.
+La sauvegarde et la publication consomment ce délai. Une attente longue reporte
+l'accès et libère le verrou. Le sous-processus de collecte est borné à 240 secondes.
+Les bilans enregistrent les requêtes HTTP Geny, les refus, les délais et les
+carrières validées et publiées par heure de passage.
 
 Un historique partiel ou dont des performances ont disparu ne remplace pas le
 complet existant. Les captures remplacées sont archivées sous

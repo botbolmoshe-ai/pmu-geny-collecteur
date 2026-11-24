@@ -17,6 +17,10 @@ on:
         required: true
         default: 'auto'
         options: ['auto', 'decouvrir', 'collecter', 'controle_np', 'consolider', 'entrainer_ml', 'experience_ml']
+      secours:
+        description: 'Réévaluer les tâches dues, sans forcer un cycle global'
+        type: boolean
+        default: false
       ml_validation:
         description: 'Jour de validation de experience_ml (AAAA-MM-JJ)'
         type: string
@@ -114,7 +118,7 @@ jobs:
       - name: Planifier le cycle horaire et les echeances H-3 H-2
         id: plan
         env:
-          FORCER_AUTO: ${{ github.event_name != 'schedule' }}
+          FORCER_AUTO: ${{ github.event_name != 'schedule' && !inputs.secours }}
           MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
         run: python -m pmu_geny.echeances_production --cache cache_pmu
       - name: Auditer le checkpoint du rattrapage historique
@@ -156,9 +160,10 @@ jobs:
             timeout 45s python -m playwright install chromium || echo 'GENY_CHROMIUM_NON_DISPONIBLE : PMU et Google Sheets continuent'
           fi
       - name: Installer les dependances ML (cycles legers inclus)
-        if: steps.plan.outputs.executer == 'true'
+        if: steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'PREPARATION_JOUR'
         run: python -m pip install -q -r requirements-ml.txt
       - name: Cycle automatique quotidien (PMU puis Geny, sans doublons)
+        id: cycle_auto
         if: steps.plan.outputs.executer == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
         shell: bash
         env:
@@ -180,6 +185,10 @@ jobs:
           mode = plan['mode']
           if mode == 'RAPPROCHEMENT':
               rapprocher(root, plan, clock)
+          elif mode == 'PREPARATION_JOUR':
+              diagnostic = run(root, plan['date_preparation'], [], 0, now=now, preparation_seule=True)
+              if diagnostic['statut'] == 'ERREUR_COLLECTE' or diagnostic['partants_a_reprendre']:
+                  raise SystemExit('PREPARATION_PMU_A_REPRENDRE')
           else:
               today = now.astimezone(PARIS).date()
               def refresh_plan():
@@ -311,7 +320,7 @@ jobs:
 
       - name: Synchroniser le registre Google Sheets (apres persistance)
         id: publication
-        if: always() && steps.plan.outputs.executer == 'true' && steps.persistance.conclusion == 'success'
+        if: always() && steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'PREPARATION_JOUR' && steps.persistance.conclusion == 'success'
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
@@ -324,7 +333,7 @@ jobs:
           python -m pmu_geny.sync_google_sheets
 
       - name: Certifier les publications et les echeances reelles
-        if: always() && steps.plan.outputs.executer == 'true'
+        if: always() && steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'PREPARATION_JOUR'
         env:
           PUBLICATION_REUSSIE: ${{ steps.publication.conclusion == 'success' }}
         run: |
@@ -357,7 +366,7 @@ jobs:
             fi
           fi
       - name: Apprentissage ML unique apres les cycles de resultats
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT' || inputs.mode == 'entrainer_ml')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.plan.outputs.nocturne == 'false' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT' || inputs.mode == 'entrainer_ml')
         env:
           ML_PREPRODUCTION_COURSES: ${{ vars.ML_PREPRODUCTION_COURSES }}
           ML_PREPRODUCTION_OBSERVATIONS: ${{ vars.ML_PREPRODUCTION_OBSERVATIONS }}
@@ -444,11 +453,17 @@ jobs:
             cache_pmu/partants_actuels/
           retention-days: 30
           if-no-files-found: warn
-      - name: Donner le relais au collecteur nocturne après le checkpoint PMU
-        if: always() && github.ref == 'refs/heads/main' && steps.publication.conclusion == 'success' && steps.persistance_finale.conclusion == 'success' && steps.perimetre.outputs.mode == 'GLOBAL'
+      - name: Donner le relais aux historiques après le checkpoint PMU
+        if: always() && github.ref == 'refs/heads/main' && steps.cycle_auto.conclusion == 'success' && steps.persistance_finale.conclusion == 'success' && (steps.publication.conclusion == 'success' || steps.perimetre.outputs.mode == 'PREPARATION_JOUR')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if python -m pmu_geny.echeances_production --cache cache_pmu --relais-nocturne; then
-            gh workflow run historiques-incrementaux.yml --ref main -f nocturne=true -f max_minutes=7
+          if python -m pmu_geny.echeances_production --cache cache_pmu --relais-historiques; then
+            active=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/historiques-incrementaux.yml/runs?branch=main&per_page=30" \
+              --jq '.workflow_runs[] | select(.status != "completed") | .id')
+            if [ -z "$active" ]; then
+              gh workflow run historiques-incrementaux.yml --repo "$GITHUB_REPOSITORY" --ref main -f max_minutes=7
+            else
+              echo "RELAIS_HISTORIQUES_DEJA_EN_FILE $active"
+            fi
           fi

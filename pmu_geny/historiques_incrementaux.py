@@ -21,7 +21,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from .cadence_geny import CadenceGeny, INTERVALLE_REPRISE, REFUS, TIMEOUT_COLLECTE
 from .controle_historique import classifier
+from .echeances_production import creneau_nocturne as nuit_collecte
 from .liaison_chevaux_v22 import nom_geny_concordant, nom_normalise
 
 UTC = timezone.utc
@@ -71,11 +73,6 @@ def actualisation_requise(horse, now, ttl_heures=24):
     if horse.get('verification_periodique', True) and now - complete >= timedelta(hours=ttl_heures):
         return 'VERIFICATION_PERIODIQUE'
     return ''
-
-
-def nuit_collecte(now):
-    hour=now.astimezone(ZoneInfo('Europe/Paris')).hour
-    return hour>=21 or hour<7
 
 
 def priorite_engagement(horse,now,*,manquant):
@@ -294,7 +291,7 @@ def executer_enfant(horse, out):
     task = out/'tache.json'
     ecrire(task, horse)
     subprocess.run([sys.executable, '-m', 'pmu_geny.historique_individuel',
-                    '--tache', str(task), '--sortie', str(out)], check=True, timeout=240)
+                    '--tache', str(task), '--sortie', str(out)], check=True, timeout=TIMEOUT_COLLECTE)
     return lire(out/'resultat.json')
 
 
@@ -409,13 +406,17 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
     ecrire(cache/'etat_persistant.json', journal)
 
 
-def suspendre_geny(cache, state, stamp, code):
+def suspendre_geny(cache, state, stamp, code, reprise_serveur=None):
     from .echeances_production import pause_geny_active
     deadline = stamp + timedelta(minutes=30)
     current = pause_geny_active(cache, stamp)
-    state['prochain_acces_geny_utc'] = max(deadline, current or deadline).isoformat()
+    serveur = instant(reprise_serveur)
+    reprise = max(deadline, current or deadline, serveur or deadline)
+    state['prochain_acces_geny_utc'] = reprise.isoformat()
     journal = lire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {}})
     journal['dernier_blocage_geny'] = {'utc': stamp.isoformat(), 'code': code}
+    if serveur:
+        journal['dernier_blocage_geny']['reprise_au_plus_tot_utc'] = reprise.isoformat()
     ecrire(cache/'etat_persistant.json', journal)
 
 
@@ -459,8 +460,9 @@ def checkpoint_distant(cache, *, queue=QUEUE):
 
 
 def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
-        collect=executer_enfant, checkpoint=None, sync=None, mode='production', stop_requested=None,
-        prochains_depart=False, creneau_reserve=None, nocturne=False, perimetre=None, archive_recensement=None):
+        collect=None, checkpoint=None, sync=None, mode='production', stop_requested=None,
+        prochains_depart=False, creneau_reserve=None, nocturne=False, perimetre=None, archive_recensement=None,
+        cadence_geny=None):
     cache = Path(cache)
     now = datetime.now(UTC)
     reprise=None
@@ -507,15 +509,29 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
     sync_confirmees = set()
     ajouts_sheets_confirmes = 0
     refus_geny = {'403': 0, '429': 0}
+    refus_http = {'403': 0, '429': 0}
+    requetes_geny, attente_geny, duree_geny = 0, 0.0, 0.0
+    if cadence_geny is None:
+        cadence_geny = collect is None
+    if collect is None:
+        collect = executer_enfant
+    cadence = CadenceGeny(cache) if cadence_geny else None
     deadline = None if max_minutes is None else time.monotonic()+max_minutes*60
     def save(*, distant=True):
         state['maj_utc'] = datetime.now(UTC).isoformat()
+        heures = max(1, (instant(state['maj_utc']) - now).total_seconds()) / 3600
         state['collecte_cycle'] = {
             'debut_utc': state['passage_utc'], 'controle_utc': state['maj_utc'], 'source': 'Geny',
             'carrieres_completes_distinctes': len(captures_completes),
             'chevaux_confirmes_sheets': len(sync_confirmees),
             'performances_ajoutees_et_confirmees_sheets': ajouts_sheets_confirmes,
-            'refus_geny': refus_geny, 'prochain_acces_geny_utc': state.get('prochain_acces_geny_utc'),
+            'requetes_http_geny': requetes_geny, 'attente_inter_chevaux_secondes': round(attente_geny, 2),
+            'intervalle_inter_chevaux_secondes': cadence.intervalle if cadence else None,
+            'duree_acces_geny_secondes': round(duree_geny, 2),
+            'refus_sans_validation': cadence.etat.get('incidents_sans_validation', 0) if cadence else 0,
+            'carrieres_validees_par_heure_cycle': round(len(captures_completes) / heures, 2),
+            'carrieres_publiees_par_heure_cycle': round(len(sync_confirmees) / heures, 2),
+            'refus_geny': refus_geny, 'reponses_http_refusees_geny': refus_http, 'prochain_acces_geny_utc': state.get('prochain_acces_geny_utc'),
         }
         state.setdefault('bilan',{}).update(tentatives_collecte=count,
             captures_validees=accepted,captures_partielles=partials,collectes_rejetees=count-accepted-partials)
@@ -571,6 +587,16 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         if action == 'COLLECTE' and max_chevaux is not None and count >= max_chevaux:
             state['motif_fin_passage']='MAX_CHEVAUX_ATTEINT'
             break
+        if action == 'COLLECTE' and cadence and not capture_archivee:
+            delai = cadence.delai(datetime.now(UTC))
+            if delai:
+                if delai > INTERVALLE_REPRISE or (deadline is not None and time.monotonic() + delai >= deadline):
+                    state['motif_fin_passage'] = 'CADENCE_GENY_DIFFEREE'
+                    break
+                debut_attente = time.monotonic()
+                time.sleep(min(delai, 10))
+                attente_geny += time.monotonic() - debut_attente
+                continue
         horse = state['chevaux'][key]
         attempts[(action, key)] = attempts.get((action, key), 0)+1
         if action == 'COLLECTE':
@@ -590,17 +616,32 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                     state.update(dernier_creneau_reserve_utc=stamp, creneau_reserve=True)
             if reprise:
                 attempts[reprise.cle_travail_geny(horse)] = 1
+            requete_reelle = not capture_archivee
+            if cadence and requete_reelle:
+                cadence.reserver(datetime.now(UTC))
+                save()  # Réserver avant de lancer le processus réseau.
             horse['collecte'] = 'EN_COURS'
-            # Le dernier checkpoint distant suffit à reprendre une capture interrompue.
-            # En rattrapage, le créneau réservé doit être marqué à distance avant la requête.
-            save(distant=bool(reprise))
+            # Le checkpoint précédent permet de reprendre une capture interrompue.
+            save(distant=bool(reprise) and not cadence)
             # Une clé de contexte peut contenir « : », interdit dans un artefact Actions.
             out = Path('resultats/incremental') / key.replace(':', '_') / str(time.time_ns())
             report = {}
-            refus = None
+            refus, valide, fin_requete = None, False, None
+            debut_requete = time.monotonic()
             try:
-                report = capture_archivee or collect(horse, out)
-                refus = {'ACCES_REFUSE_403': '403', 'ACCES_LIMITE_429': '429'}.get(report.get('statut'))
+                try:
+                    report = capture_archivee or collect(horse, out)
+                finally:
+                    fin_requete = datetime.now(UTC)
+                    if requete_reelle:
+                        duree_geny += time.monotonic() - debut_requete
+                        mesure = lire(out / 'http_geny.json')
+                        requetes_geny += mesure.get('requetes', 0)
+                        for code, nombre in mesure.get('reponses_refusees', {}).items():
+                            refus_http[code] += nombre
+                    refus = (mesure.get('refus') if requete_reelle else None) or REFUS.get(report.get('statut'))
+                if refus and report.get('statut') not in REFUS:
+                    report['statut'] = next(statut for statut, code in REFUS.items() if code == refus)
                 if refus:
                     raise PermissionError(report['statut'])
                 memoriser_resolution(horse,report,out,cache=cache)
@@ -616,6 +657,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                     else:accepter(cache, horse, report)
                     accepted+=1
                     captures_completes.add(str(horse['id']))
+                    valide = True
                 else:
                     from .historiques_partiels import conserver
                     if not conserver(cache,horse,report):raise ValueError('HISTORIQUE_NON_VALIDE')
@@ -648,12 +690,15 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                     'diagnostic':str(out/'resultat.json')}
                 if refus:
                     refus_geny[refus] += 1
-                    suspendre_geny(cache, state, datetime.now(UTC), refus)
+                    suspendre_geny(cache, state, fin_requete, refus, mesure.get('reprise_au_plus_tot_utc') if requete_reelle else None)
                 # Le sous-processus peut s'arrêter après la preuve et avant son bilan.
                 if not report or refus:
                     memoriser_resolution(horse,report,out,cache=cache)
                     if reprise and horse.get('preuve_identite'):
                         reprise.propager_identite(state,horse)
+            finally:
+                if cadence and requete_reelle:
+                    cadence.terminer(fin_requete, valide=valide, refus=bool(refus))
             if reprise:
                 attempts[reprise.cle_travail_geny(horse)] = 1
             count += 1
@@ -800,8 +845,9 @@ def main():
     verifier_echeances = motif_pause_collecte_nocturne if args.nocturne else besoin_pmu
     state = run(cache, max_minutes=args.max_minutes, max_chevaux=0 if args.local else args.max_chevaux, publier=True,
                 prochains_depart=True, nocturne=args.nocturne,
-                stop_requested=lambda:(priorite_production({'.github/workflows/pmu-v16.yml'})
-                    or verifier_echeances(cache, datetime.now(UTC))))
+                stop_requested=lambda:(verifier_echeances(cache, datetime.now(UTC))
+                    or (not nuit_collecte(datetime.now(UTC))
+                        and priorite_production({'.github/workflows/pmu-v16.yml'}))))
     print('BILAN_INCREMENTAL '+json.dumps({**state['bilan'],
         'motif_fin_passage':state['motif_fin_passage'],
         'couverture_par_jour':state['preparation_prochaines_courses']['couverture_par_jour'],

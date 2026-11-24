@@ -3,7 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from . import historiques_incrementaux as inc
-from .echeances_production import pause_geny_active, reunions_du_jour
+from .echeances_production import FRAICHEUR_PREPARATION_NOCTURNE, pause_geny_active, reunions_du_jour
 from .liaison_chevaux_v22 import nom_normalise
 
 
@@ -17,10 +17,11 @@ def evaluer(cache, now, state=None, *, nocturne=False):
     engagements=[];issues=[]
     demain = today + timedelta(days=1)
     days = (today,) if nocturne and local.hour < 21 else (today, demain)
+    fraicheur = FRAICHEUR_PREPARATION_NOCTURNE if nocturne else timedelta(hours=6)
     for day in days:
         program=inc.lire(cache/'sources_pmu'/f'programme_{day}.json')
         stamp=inc.instant(program.get('date_controle_utc'))
-        if not stamp or not timedelta(0)<=now-stamp<=timedelta(hours=6):
+        if not stamp or not timedelta(0)<=now-stamp<=fraicheur:
             if not nocturne or day == today:
                 issues.append({'course':str(day),'motif':'PROGRAMME_ABSENT_OU_ANCIEN'})
             continue
@@ -35,11 +36,11 @@ def evaluer(cache, now, state=None, *, nocturne=False):
             if not horses:
                 issues.append({'course':code,'motif':'PARTANTS_ABSENTS'});continue
             captured=inc.instant(profile.get('capture_utc'))
-            if not captured or not timedelta(0)<=now-captured<=timedelta(hours=6):
+            if not captured or not timedelta(0)<=now-captured<=fraicheur:
                 issues.append({'course':code,'motif':'PROFIL_PMU_ABSENT_OU_ANCIEN'})
             if c.get('nombre_declares') and len(horses)!=int(c['nombre_declares']):
                 issues.append({'course':code,'motif':'LISTE_PARTANTS_INCOMPLETE'})
-            pmu_ok=bool(captured and timedelta(0)<=now-captured<=timedelta(hours=6)
+            pmu_ok=bool(captured and timedelta(0)<=now-captured<=fraicheur
                         and (not c.get('nombre_declares') or len(horses)==int(c['nombre_declares'])))
             created=None
             if day == today and not nocturne:
@@ -127,14 +128,16 @@ def decision_fond(cache,now,*,reserve=False,nocturne=False):
     if pause:
         result['prochain_acces_geny_utc'] = pause.isoformat()
         return refuser('COOLDOWN_GENY_GLOBAL')
-    # Les contrôles PMU restent obligatoires. La nuit, le TOP3 n'est pas attendu.
+    # Les profils incomplets restent visibles. La nuit, ils ne privent pas
+    # le stock des créneaux sans préparation PMU réellement due.
     historical={'HISTORIQUE_ABSENT_OU_NON_DATE','PUBLICATION_GENY_EN_ATTENTE',
                 'NOUVELLE_COURSE_OFFICIELLE','FERRURES_HISTORIQUES_A_COMPLETER',
                 'VERIFICATION_PERIODIQUE'}
     issues=[b for b in report['blocages'] if b['motif'] not in historical]
     if issues:
         result['blocages']=issues
-        return refuser('PREPARATION_PROCHAINES_COURSES_INCOMPLETE')
+        if not nocturne:
+            return refuser('PREPARATION_PROCHAINES_COURSES_INCOMPLETE')
     if any(h.get('sync')=='A_FAIRE' for h in state['chevaux'].values()):
         return refuser('PUBLICATION_HISTORIQUE_EN_ATTENTE')
     key,action=inc.prochaine_tache(state,now,{})
@@ -159,7 +162,7 @@ def decision_fond(cache,now,*,reserve=False,nocturne=False):
             return result
         return refuser('PARTANT_PRIORITAIRE_DISPONIBLE')
     # Un cheval peut redevenir disponible pendant un sous-processus de 240 s.
-    # Garder cinq minutes pour sa reprise, les sauvegardes et la pause de cadence.
+    # Garder six minutes pour sa reprise, les sauvegardes et la pause de cadence.
     retries=[]
     for h in state['chevaux'].values():
         depart=inc.instant(h.get('depart_a_venir_utc'))
@@ -169,7 +172,7 @@ def decision_fond(cache,now,*,reserve=False,nocturne=False):
                 and retry and now<retry<depart):retries.append(retry)
     if retries:
         result['prochaine_reprise_prioritaire_utc']=min(retries).isoformat()
-        if min(retries)-now<=timedelta(minutes=5):
+        if min(retries)-now<=timedelta(minutes=6):
             return refuser('REPRISE_PARTANT_PRIORITAIRE_IMMINENTE')
     result.update(autorise=True,motif='PREPARATION_COMPLETE' if report['pret'] else 'CRENEAU_LIBRE_ENTRE_PARTANTS')
     return result
