@@ -7,7 +7,7 @@ from streamlit.testing.v1 import AppTest
 
 
 def main():
-    app = AppTest.from_file(str(Path('dashboard/app.py')), default_timeout=90)
+    app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'dashboard' / 'app.py'), default_timeout=90)
     app.secrets['app_password'] = 'test-interne-github-actions'
     app.secrets['google_service_account'] = json.loads(os.environ['GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON'])
     app.secrets['spreadsheet_id'] = os.environ['GOOGLE_SHEETS_ID']
