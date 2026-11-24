@@ -30630,7 +30630,7 @@
       "course_url": "https://www.geny.com/course/1698226/partants-pronostics",
       "numero": "18",
       "engagement": "2026-11-14_R8C8",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C8",
@@ -30654,7 +30654,32 @@
       "prochaine_verification_utc": "2026-11-25T20:49:53.774391+00:00",
       "nombre_performances": 39,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 39,
+          "cellules_actualisees": 0,
+          "lignes_source": 39,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 39,
+            "lignes_avant": 32135,
+            "cles_avant": 32135,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3214,
+            "import_initial_explicite": false,
+            "lignes_attendues": 32174,
+            "lignes_apres": 32174,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-24T20:50:15.569560+00:00",
+      "rattrapage_complet_au_utc": "2026-11-24T20:49:53.774391+00:00",
+      "ajouts_confirmes": 39
     },
     "contexte:0d0e6cfec315548d3d103151": {
       "nom": "KETTY DU BREUCQ",
@@ -43948,9 +43973,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C8",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C8",
       "numero": "18",
       "numero_reconcilie_depuis_snapshot": true,
@@ -43972,7 +43997,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:4c7798adf2301e930fb0dd2d",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:4c7798adf2301e930fb0dd2d"
+      "autre_contexte_meme_nom": "contexte:4c7798adf2301e930fb0dd2d",
+      "rattrapage_complet_au_utc": "2026-11-24T20:49:53.774391+00:00",
+      "historique_complet_au_utc": "2026-11-24T20:49:53.774391+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:0c5973a7712c6c4ce7f779ac": {
       "nom": "KETTY DU BREUCQ",
@@ -73319,12 +73348,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1235,
-    "cibles_restantes": 1349,
+    "cibles_completees": 1237,
+    "cibles_restantes": 1347,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1398,
+    "travaux_distincts_restants": 1397,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 951,
+    "carrieres_distinctes_a_completer": 950,
     "identifiants_sans_carriere_complete": 75,
     "contextes_distincts_sans_identifiant": 875,
     "noms_distincts_sans_identifiant": 870,
@@ -73332,8 +73361,8 @@
     "identites_non_resolues": 1264,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4349,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4388,
     "tentatives_collecte": 1,
     "captures_validees": 1,
     "captures_partielles": 0,
@@ -73341,7 +73370,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-24T20:49:17.907298+00:00",
-  "maj_utc": "2026-11-24T20:49:54.731619+00:00",
+  "maj_utc": "2026-11-24T20:50:15.601031+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 19,
@@ -75240,18 +75269,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-24T20:49:17.907298+00:00",
-    "controle_utc": "2026-11-24T20:49:54.731619+00:00",
+    "controle_utc": "2026-11-24T20:50:15.601031+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 39,
     "requetes_http_geny": 61,
     "attente_inter_chevaux_secondes": 9.98,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 6.88,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 97.76,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 62.4,
+    "carrieres_publiees_par_heure_cycle": 62.4,
     "refus_geny": {
       "403": 0,
       "429": 0
