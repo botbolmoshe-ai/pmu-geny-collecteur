@@ -141,7 +141,11 @@ def afficher_source(value):
         return value
     instant = re.compile(r"(?<![\w/])\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}"
                          r"(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})(?![\w/])")
-    provenance = instant.sub(lambda match: afficher_instant(match[0]) + " (Paris)", provenance)
+    def afficher_segment(match):
+        display = afficher_instant(match[0])
+        return display + " (Paris)" if display else match[0]
+
+    provenance = instant.sub(afficher_segment, provenance)
     provenance = re.sub(r"(publié le )(\d{4}-\d{2}-\d{2})(?![\dT])",
                         lambda match: match[1] + afficher_date(match[2]), provenance)
     return url + separator + provenance

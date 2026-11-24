@@ -129,7 +129,7 @@ def render_quality(kpis, courses=None, history=None):
                 frame=pd.DataFrame([{'Date':afficher_date(r['Date']),'Valeur (%)' if rate else 'Valeur':number(r['Valeur (automatique)'])*(100 if rate else 1)} for r in points])
                 if len(frame)>1:
                     import plotly.express as px
-                    frame['Date'] = pd.to_datetime(frame['Date'])
+                    frame['Date'] = pd.to_datetime(frame['Date'], format='%d/%m/%Y')
                     fig = px.line(frame, x='Date', y=frame.columns[1], height=220)
                     fig.update_xaxes(tickformat='%d/%m/%Y', hoverformat='%d/%m/%Y')
                     st.plotly_chart(fig, width="stretch")
