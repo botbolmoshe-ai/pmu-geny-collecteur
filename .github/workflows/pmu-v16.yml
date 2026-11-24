@@ -212,33 +212,21 @@ jobs:
         if: always() && steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'RAPPROCHEMENT' && steps.plan.outputs.mode != 'PREPARATION_JOUR' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
         run: |
           python - <<'PYRESULTATS'
-          from datetime import datetime, timezone
           from pathlib import Path
-          from pmu_geny.echeances_production import lire, sauver
-          from pmu_geny.rapprochement_reunions import planifier_rapprochements, rapprocher
-
-          root = Path('cache_pmu')
-          path = Path('resultats/plan_production.json')
-          plan = lire(path)
-          now = datetime.now(timezone.utc)
-          due = planifier_rapprochements(root, now)
-          obligations = {item['reunion']: item for item in plan.get('rapprochements_dus', [])}
-          obligations.update({item['reunion']: item for item in due})
-          plan['rapprochements_dus'] = list(obligations.values())
-          sauver(path, plan)
-          if obligations:
-              rapprocher(root, plan)
+          from pmu_geny.rapprochement_reunions import rattraper_obligations
+          rattraper_obligations(Path('cache_pmu'), Path('resultats/plan_production.json'))
           PYRESULTATS
       - name: Identifier le périmètre après actualisation du programme
-        if: steps.plan.outputs.executer == 'true'
+        if: always() && steps.plan.outputs.executer == 'true'
         id: perimetre
         run: |
           python - <<'PYMODE'
           import json, os
           from pathlib import Path
-          mode = json.loads(Path('resultats/plan_production.json').read_text())['mode']
+          plan = json.loads(Path('resultats/plan_production.json').read_text())
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
-              print('mode=' + mode, file=output)
+              print('mode=' + plan['mode'], file=output)
+              print('rapprochements=' + str(bool(plan.get('rapprochements_dus'))).lower(), file=output)
           PYMODE
       - name: Experience ML manuelle avec jour de test exclu
         if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'experience_ml')
@@ -355,6 +343,7 @@ jobs:
           python -m pmu_geny.sync_google_sheets
 
       - name: Certifier les publications et les echeances reelles
+        id: certification
         if: always() && steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'PREPARATION_JOUR'
         env:
           PUBLICATION_REUSSIE: ${{ steps.publication.conclusion == 'success' }}
@@ -388,7 +377,7 @@ jobs:
             fi
           fi
       - name: Apprentissage ML unique apres les cycles de resultats
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.plan.outputs.nocturne == 'false' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT' || inputs.mode == 'entrainer_ml')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.plan.outputs.nocturne == 'false' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT' || steps.perimetre.outputs.rapprochements == 'true' || inputs.mode == 'entrainer_ml')
         env:
           ML_PREPRODUCTION_COURSES: ${{ vars.ML_PREPRODUCTION_COURSES }}
           ML_PREPRODUCTION_OBSERVATIONS: ${{ vars.ML_PREPRODUCTION_OBSERVATIONS }}
@@ -413,7 +402,7 @@ jobs:
         if: always() && steps.plan.outputs.executer == 'true'
         run: python -m pmu_geny.persistance_production --cache cache_pmu
       - name: Consolider les KPI apres certification et persistance
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.persistance_finale.conclusion == 'success'
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.persistance_finale.conclusion == 'success' && steps.certification.conclusion == 'success'
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'

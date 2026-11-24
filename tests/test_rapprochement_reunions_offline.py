@@ -69,7 +69,7 @@ class RapprochementReunionsTests(TestCase):
             rapprochement.rapprocher(self.cache, production.planifier(self.cache, now), lambda: now)
         network.assert_not_called()
         production.enregistrer_publication(self.cache, now, plan, True,
-                                            sheets={'lecture_utc': now.isoformat()})
+                                            sheets={'lecture_utc': now.isoformat(), 'rapprochements_verifies': ['2026-11-21_R1']})
         later = now + timedelta(minutes=30)
         plan = production.planifier(self.cache, later)
         verified = {**provisional, 'podium_definitif_pmu': [1, 2, 3]}

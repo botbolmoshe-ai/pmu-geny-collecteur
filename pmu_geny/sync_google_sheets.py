@@ -1089,51 +1089,74 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, raw
     return values
 
 
+def publier_plan(engine, plan):
+    """Publier toutes les obligations du plan et relire les résultats ciblés."""
+    from .moteur_sheets import ErreurSynchronisation
+
+    mode = plan.get('mode')
+    courses, _, resultats = SHEET_TABS
+    reunions = {row['reunion'] for row in plan.get('rapprochements_dus', [])}
+    source = engine.source() if reunions or mode == 'JALONS' else {}
+    scope = {key: row for key, row in source.get(resultats, {}).items()
+             if row.get('reunion_pmu') in reunions}
+    tables = {}
+    if mode == 'JALONS':
+        codes = set(plan['selection'])
+        tables[courses] = {key: row for key, row in source[courses].items()
+                          if row.get('date_course') == plan['date'] and row.get('rncn') in codes}
+    if mode in ('JALONS', 'RAPPROCHEMENT'):
+        if scope:
+            tables[resultats] = scope
+        if tables:
+            engine.synchroniser_tables(tables, scope=mode, allow_structure=True)
+    else:
+        engine.synchroniser_cycle(include_kpi=False)
+    for reunion in reunions:
+        record = load_json(engine.cache / 'rapprochements' / f'{reunion}.json')
+        codes = {row['rncn'] for row in scope.values() if row['reunion_pmu'] == reunion}
+        if record and codes != set(record.get('courses', {})):
+            raise ErreurSynchronisation('Périmètre des résultats incomplet : ' + reunion)
+    if not scope:
+        return set()
+    values = lire_feuille_complete(engine.session, engine.base, resultats, engine.metadata()[resultats],
+                                   raw_dates=True)
+    if not values:
+        raise ErreurSynchronisation('Relecture des rapprochements vide')
+    headers = canonical_headers(values[0])
+    visible = {}
+    for values_row in values[1:]:
+        row = dict(zip(headers, values_row))
+        key = row.get('course_key')
+        if key in scope and key in visible:
+            raise ErreurSynchronisation('Doublon de résultat dans Sheets : ' + key)
+        visible[key] = row
+    for key, expected in scope.items():
+        actual = visible.get(key, {})
+        if not actual or any(not meme_date_sheets(field, sheet_value(field, expected[field]), actual.get(field, ''))
+                             for field in RAPPROCHEMENT_COLUMNS if field in expected):
+            raise ErreurSynchronisation('Rapprochement non confirmé dans Sheets : ' + key)
+    return {row['reunion_pmu'] for row in scope.values()}
+
+
 def main():
     from .moteur_sheets import ErreurSynchronisation, SynchroniseurSheets
     cache=Path(os.getenv('PMU_CACHE','cache_pmu'))
     spreadsheet=os.getenv('GOOGLE_SHEETS_ID','1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo')
     if not os.getenv('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON'):
-        print('SYNC_GOOGLE_SHEETS=NON_CONFIGURE: secret absent');return 0
+        print('SYNC_GOOGLE_SHEETS=NON_CONFIGURE: secret absent');return int(bool(os.getenv('PMU_PREUVE_SHEETS')))
     engine=None
     try:
         engine=SynchroniseurSheets(cache,spreadsheet)
         if os.getenv('PMU_KPI_ONLY')=='true':engine.synchroniser_kpi()
         elif os.getenv('PMU_KPI_DIFFERE')=='true':
             plan = load_json(Path(os.environ['PMU_PLAN'])) if os.getenv('PMU_PLAN') else {}
-            mode = plan.get('mode')
-            if mode in ('JALONS', 'RAPPROCHEMENT'):
-                source = engine.source()
-                if mode == 'JALONS':
-                    tab = 'Courses & Prévisions'
-                    codes = set(plan['selection'])
-                    scope = {key: row for key, row in source[tab].items()
-                             if row.get('date_course') == plan['date'] and row.get('rncn') in codes}
-                else:
-                    tab = 'Résultats & Analyse'
-                    reunions = {r['reunion'] for r in plan['rapprochements_dus']}
-                    scope = {key: row for key, row in source[tab].items() if row.get('reunion_pmu') in reunions}
-                engine.synchroniser_tables({tab: scope}, scope=mode, allow_structure=True)
-                if mode == 'RAPPROCHEMENT':
-                    values = lire_feuille_complete(engine.session, engine.base, tab, engine.metadata()[tab],
-                                                   raw_dates=True)
-                    if not values:
-                        raise ErreurSynchronisation('Relecture des rapprochements vide')
-                    headers = canonical_headers(values[0])
-                    visible = {row.get('course_key'): row for row in
-                               (dict(zip(headers, values_row)) for values_row in values[1:])}
-                    for key, expected in scope.items():
-                        actual = visible.get(key, {})
-                        if any(not meme_date_sheets(field, expected[field], actual.get(field, ''))
-                               for field in RAPPROCHEMENT_COLUMNS if field in expected):
-                            raise ErreurSynchronisation('Rapprochement non confirmé dans Sheets : ' + key)
-            else:
-                engine.synchroniser_cycle(include_kpi=False)
+            reunions_verifiees = publier_plan(engine, plan)
             from .echeances_production import preuves_sheets, sauver
             if os.getenv('PMU_PREUVE_SHEETS'):
                 rows = engine.lire_courses(engine.metadata())
                 preuves = preuves_sheets(rows, datetime.now(timezone.utc),
                                         observations_verifiees=engine.observations_verifiees)
+                preuves['rapprochements_verifies'] = sorted(reunions_verifiees)
                 sauver(os.environ['PMU_PREUVE_SHEETS'], preuves)
         else:engine.synchroniser_cycle()
         return 0

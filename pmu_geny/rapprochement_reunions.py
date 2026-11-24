@@ -85,6 +85,20 @@ def comparer(cache, key, depart, podium, certificat):
     return scores
 
 
+def rattraper_obligations(cache, plan_path, clock=lambda: datetime.now(timezone.utc)):
+    """Préserver les obligations du plan et inclure celles échues pendant le cycle."""
+    plan = lire(plan_path)
+    if not plan:
+        raise ValueError('Plan de production absent')
+    obligations = {item['reunion']: item for item in plan.get('rapprochements_dus', [])}
+    obligations.update({item['reunion']: item for item in planifier_rapprochements(cache, clock())})
+    plan['rapprochements_dus'] = list(obligations.values())
+    sauver(plan_path, plan)
+    if obligations:
+        rapprocher(cache, plan, clock)
+    return plan
+
+
 def rapprocher(cache, plan, clock=lambda: datetime.now(timezone.utc)):
     from .auto_v18 import BASE, get_json, programme_diagnostic
     from .resultats_v18 import enregistrer_resultats
