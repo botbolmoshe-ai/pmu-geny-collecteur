@@ -164,10 +164,11 @@ def planifier(tab, props, rows):
                 if type(expected) in (int, float) and not same_value(value, expected):
                     updates.setdefault(col, {})[row] = expected
                     requests.append(format_cell(sheet, row, col, 'DATE'))
-            if col not in targets:
+            if col not in targets and 'numberValue' in cell.get('effectiveValue', {}):
                 fmt = current_format(cell)
                 kind = fmt.get('type')
-                if kind in PATTERNS and fmt.get('pattern', '').lower() != PATTERNS[kind]:
+                if (kind in PATTERNS and (date_kind(field) == kind or tab == 'TCD')
+                        and fmt.get('pattern', '').lower() != PATTERNS[kind]):
                     requests.append(format_cell(sheet, row, col, kind))
     if len(names) > width:
         requests.insert(0, {'appendDimension': {
@@ -220,7 +221,8 @@ def verifier(before, after, updates):
                         raise ValueError(f'Relecture différente pour {tab}/{index}/{col}')
                     if type(expected) in (int, float):
                         fmt = current_format(new[col])
-                        if fmt.get('type') not in PATTERNS:
+                        if (fmt.get('type') not in PATTERNS
+                                or fmt.get('pattern', '').lower() != PATTERNS[fmt['type']]):
                             raise ValueError(f'Format natif absent dans {tab}/{index}/{col}')
                 elif left != right:
                     raise ValueError(f'Valeur hors migration modifiée dans {tab}/{index}/{col}')
@@ -238,14 +240,16 @@ def migrer(engine, archive, *, appliquer=False):
         summary = {tab: {'requêtes': len(plan[0]), 'cellules': sum(map(len, plan[1].values())),
                          'à examiner': dict(plan[2])} for tab, plan in plans.items()}
         print(json.dumps(summary, ensure_ascii=False), flush=True)
+        unknown_count = sum(sum(plan[2].values()) for plan in plans.values())
+        print(f'REGISTRE_DATES_A_EXAMINER={unknown_count}', flush=True)
+        if unknown_count:
+            raise ValueError('Des dates de consultation restent à examiner')
         if not appliquer:
             with gzip.open(archive, 'xt', encoding='utf-8') as out:
                 json.dump({'empreinte': empreinte(before), 'onglets': before}, out,
                           ensure_ascii=False, separators=(',', ':'))
             return
         requests = [request for plan in plans.values() for request in plan[0]]
-        if any(plan[2] for plan in plans.values()):
-            raise ValueError('Des dates de consultation restent à examiner')
         with gzip.open(archive, 'rt', encoding='utf-8') as saved:
             if json.load(saved)['empreinte'] != empreinte(before):
                 raise ValueError('Le registre a évolué depuis la sauvegarde')
