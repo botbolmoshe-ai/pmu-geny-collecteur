@@ -30252,9 +30252,9 @@
       "course_url": "https://www.geny.com/course/1698226/partants-pronostics",
       "numero": "6",
       "engagement": "2026-11-14_R8C8",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C8",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2021,
@@ -30272,7 +30272,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:7d6dcb8b3c045f40656b13a3",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:7d6dcb8b3c045f40656b13a3"
+      "autre_contexte_meme_nom": "contexte:7d6dcb8b3c045f40656b13a3",
+      "rattrapage_complet_au_utc": "2026-11-24T20:54:55.881290+00:00",
+      "historique_complet_au_utc": "2026-11-24T20:54:55.881290+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:7bd1012a9c3ef8a26f58b458": {
       "nom": "LYPSIE THONIC",
@@ -43638,7 +43642,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C8",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C8",
@@ -43666,7 +43670,32 @@
       "prochaine_verification_utc": "2026-11-25T20:54:55.881290+00:00",
       "nombre_performances": 20,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 20,
+          "cellules_actualisees": 0,
+          "lignes_source": 20,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 20,
+            "lignes_avant": 32373,
+            "cles_avant": 32373,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3238,
+            "import_initial_explicite": false,
+            "lignes_attendues": 32393,
+            "lignes_apres": 32393,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-24T20:55:16.699832+00:00",
+      "rattrapage_complet_au_utc": "2026-11-24T20:54:55.881290+00:00",
+      "ajouts_confirmes": 20
     },
     "contexte:3adf2a9995dd95607f591a1b": {
       "nom": "LYPSIE THONIC",
@@ -73564,12 +73593,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1249,
-    "cibles_restantes": 1335,
+    "cibles_completees": 1251,
+    "cibles_restantes": 1333,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1391,
+    "travaux_distincts_restants": 1390,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 944,
+    "carrieres_distinctes_a_completer": 943,
     "identifiants_sans_carriere_complete": 68,
     "contextes_distincts_sans_identifiant": 875,
     "noms_distincts_sans_identifiant": 870,
@@ -73577,8 +73606,8 @@
     "identites_non_resolues": 1264,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4587,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4607,
     "tentatives_collecte": 8,
     "captures_validees": 8,
     "captures_partielles": 0,
@@ -73586,7 +73615,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-24T20:49:17.907298+00:00",
-  "maj_utc": "2026-11-24T20:54:56.615077+00:00",
+  "maj_utc": "2026-11-24T20:55:16.730204+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 19,
@@ -75485,18 +75514,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-24T20:49:17.907298+00:00",
-    "controle_utc": "2026-11-24T20:54:56.615077+00:00",
+    "controle_utc": "2026-11-24T20:55:16.730204+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 8,
-    "chevaux_confirmes_sheets": 7,
-    "performances_ajoutees_et_confirmees_sheets": 238,
+    "chevaux_confirmes_sheets": 8,
+    "performances_ajoutees_et_confirmees_sheets": 258,
     "requetes_http_geny": 488,
     "attente_inter_chevaux_secondes": 33.15,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 56.54,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 85.03,
-    "carrieres_publiees_par_heure_cycle": 74.4,
+    "carrieres_validees_par_heure_cycle": 80.26,
+    "carrieres_publiees_par_heure_cycle": 80.26,
     "refus_geny": {
       "403": 0,
       "429": 0
