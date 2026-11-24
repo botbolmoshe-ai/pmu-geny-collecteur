@@ -57,7 +57,14 @@ def read_geny_history():
             raise ValueError('Lecture historique incomplète')
         for page in pages:
             rows.extend(page.get('values', []))
-    return records(rows)
+    if not rows:
+        return []
+    columns = [(index, label) for index, label in enumerate(rows[0]) if label]
+    if len({label for _, label in columns}) != len(columns):
+        raise ValueError('En-têtes historiques ambigus')
+    return records([[label for _, label in columns], *[
+        [row[index] if index < len(row) else '' for index, _ in columns] for row in rows[1:] if row
+    ]])
 
 
 def render_geny(page):
