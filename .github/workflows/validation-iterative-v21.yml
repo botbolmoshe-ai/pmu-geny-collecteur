@@ -15,7 +15,7 @@ on:
       dates_registre:
         description: 'Audit ou migration des dates du registre'
         type: choice
-        options: [aucun, audit, appliquer]
+        options: [aucun, audit, appliquer, streamlit]
         default: aucun
       reference:
         description: Exécution contenant la sauvegarde initiale à relire
@@ -136,7 +136,7 @@ jobs:
           fi
           python -m pmu_geny.migration_dates_sheets --appliquer --sauvegarde resultats/dates/avant.json.gz "${args[@]}"
       - name: Vérifier Streamlit sur le registre réel
-        if: inputs.dates_registre == 'appliquer' && github.ref == 'refs/heads/main'
+        if: (inputs.dates_registre == 'streamlit' || inputs.dates_registre == 'appliquer') && github.ref == 'refs/heads/main'
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
         run: |
