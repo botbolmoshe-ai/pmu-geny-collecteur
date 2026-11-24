@@ -119,7 +119,7 @@ def planifier(cache, now, force=False):
     global_due = not nuit and (force or not last or not timedelta(0) <= now-last < timedelta(hours=1))
     preparation = preparation_nocturne(cache, now) if nuit else None
     needs, upcoming, erreurs = [], [], []
-    for reunion in (() if nuit else reunions_du_jour(cache, day)):
+    for reunion in reunions_du_jour(cache, day):
         key = reunion['reunion']
         first = reunion['premier_depart']
         if not first:
@@ -454,7 +454,7 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                 sauver(cache/'orchestration/production_etat.json',
                        {'dernier_global_publie_utc':now.isoformat()})
     report['rapprochements'] = []
-    if plan.get('mode') == 'RAPPROCHEMENT':
+    if plan.get('rapprochements_dus') and plan.get('mode') in ('RAPPROCHEMENT', 'GLOBAL', 'JALONS'):
         for item in plan.get('rapprochements_dus', []):
             path = cache/'rapprochements'/f"{item['reunion']}.json"
             record = lire(path)
@@ -472,7 +472,9 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                     continue
                 report['erreurs'].append({'reunion': item['reunion'], 'motif': 'RAPPROCHEMENT_NON_DEMARRE'})
                 continue
-            if sheets_confirme and not record.get('publication_sheets_utc'):
+            if sheets_confirme and item['reunion'] not in sheets.get('rapprochements_verifies', []):
+                report['erreurs'].append({'reunion': item['reunion'], 'motif': 'RAPPROCHEMENT_NON_CONFIRME_SHEETS'})
+            elif sheets_confirme and not record.get('publication_sheets_utc'):
                 record['publication_sheets_utc'] = observation.isoformat()
                 sauver(path, record)
             report['rapprochements'].append({

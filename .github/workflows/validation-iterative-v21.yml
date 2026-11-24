@@ -52,6 +52,12 @@ jobs:
           set -euo pipefail
           mkdir -p resultats/validation
           python -m unittest discover -s tests -p 'test_*.py' -v 2>&1 | tee resultats/validation/regression.log
+      - name: Recette d’ordonnancement 48 h hors réseau
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p resultats/validation
+          python -m unittest discover -s tests -p 'test_recette_48h_offline.py' -v 2>&1 | tee resultats/validation/ordonnancement-48h.log
       - name: Audit du registre et des paliers
         shell: bash
         run: |
