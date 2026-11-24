@@ -61,11 +61,13 @@ def same_value(actual, expected):
     return type(actual) is type(expected) and actual == expected
 
 
-def write_column(sheet, col, changes):
+def write_column(sheet, col, changes, kind=None):
     requests = []
     for row, value in sorted(changes.items()):
         key = 'numberValue' if type(value) in (int, float) else 'stringValue'
         cell = {'userEnteredValue': {key: value}} if value != '' else {}
+        if kind and row > 1:
+            cell['userEnteredFormat'] = {'numberFormat': {'type': kind, 'pattern': PATTERNS[kind]}}
         if requests and row == requests[-1]['updateCells']['range']['endRowIndex'] + 1:
             block = requests[-1]['updateCells']
             block['range']['endRowIndex'] = row
@@ -73,7 +75,7 @@ def write_column(sheet, col, changes):
         else:
             requests.append({'updateCells': {
                 'range': range_cell(sheet, row, col), 'rows': [{'values': [cell]}],
-                'fields': 'userEnteredValue',
+                'fields': 'userEnteredValue,userEnteredFormat.numberFormat' if kind else 'userEnteredValue',
             }})
     return requests
 
@@ -90,6 +92,7 @@ def planifier(tab, props, rows):
     ignored = Counter()
     hidden = []
     width = props['gridProperties']['columnCount']
+    height = props['gridProperties'].get('rowCount', max(rows, default=1))
     targets = {}
     new_columns = set()
     mixed = {'Data Quality & KPI': (1, 2), 'Historique qualité': (4, 5)}.get(tab)
@@ -116,7 +119,7 @@ def planifier(tab, props, rows):
             hidden.append(col)
             if field not in SOURCES:
                 requests.append({'repeatCell': {
-                    'range': {'sheetId': sheet, 'startRowIndex': 1,
+                    'range': {'sheetId': sheet, 'startRowIndex': 1, 'endRowIndex': height,
                               'startColumnIndex': target, 'endColumnIndex': target + 1},
                     'cell': {'userEnteredFormat': {
                         'numberFormat': {'type': 'DATE_TIME', 'pattern': DATETIME_PATTERN}}},
@@ -170,21 +173,25 @@ def planifier(tab, props, rows):
                 if (kind in PATTERNS and (date_kind(field) == kind or tab == 'TCD')
                         and fmt.get('pattern', '').lower() != PATTERNS[kind]):
                     requests.append(format_cell(sheet, row, col, kind))
+    writes = []
     if len(names) > width:
-        requests.insert(0, {'appendDimension': {
+        writes.append({'appendDimension': {
             'sheetId': sheet, 'dimension': 'COLUMNS', 'length': len(names) - width,
         }})
+    instant_columns = {target for field, target in targets.values() if field not in SOURCES}
     for col, changes in updates.items():
         if col in new_columns:
             if any(len(cells) > col and (entered(cells[col]) or cells[col].get('effectiveValue'))
                    for cells in rows.values()):
                 raise ValueError(f'Une colonne sans en-tête contient déjà des données : {tab}/{col}')
             dense = {row: changes.get(row, '') for row in range(1, max(changes) + 1)}
-            requests.extend(write_column(sheet, col, dense))
+            writes.extend(write_column(sheet, col, dense,
+                                       'DATE_TIME' if col in instant_columns else None))
         else:
-            requests.extend(write_column(sheet, col, changes))
+            writes.extend(write_column(sheet, col, changes,
+                                       'DATE_TIME' if col in instant_columns else None))
     requests.extend(hide_column(sheet, col) for col in hidden)
-    return requests, updates, ignored
+    return writes + requests, updates, ignored
 
 
 def snapshot(engine):
@@ -223,12 +230,21 @@ def verifier(before, after, updates):
                         fmt = current_format(new[col])
                         if (fmt.get('type') not in PATTERNS
                                 or fmt.get('pattern', '').lower() != PATTERNS[fmt['type']]):
-                            raise ValueError(f'Format natif absent dans {tab}/{index}/{col}')
+                            authored = new[col].get('userEnteredFormat', {}).get('numberFormat', {})
+                            raise ValueError(f'Format natif inattendu dans {tab}/{index}/{col} '
+                                             f'(effectif={fmt}, saisi={authored})')
                 elif left != right:
                     raise ValueError(f'Valeur hors migration modifiée dans {tab}/{index}/{col}')
 
 
-def migrer(engine, archive, *, appliquer=False):
+def relire_archive(archive):
+    with gzip.open(archive, 'rt', encoding='utf-8') as saved:
+        tabs = json.load(saved)['onglets']
+    return {tab: (props, {int(row): cells for row, cells in rows.items()})
+            for tab, (props, rows) in tabs.items()}
+
+
+def migrer(engine, archive, *, appliquer=False, reference=None):
     with verrou_local(engine.spreadsheet):
         doc = engine.check(get_lecture(engine.session, engine.base, params={
             'fields': 'properties(locale,timeZone)',
@@ -257,6 +273,12 @@ def migrer(engine, archive, *, appliquer=False):
                                          json={'requests': requests}, timeout=120))
         after = snapshot(engine)
         verifier(before, after, {tab: plan[1] for tab, plan in plans.items()})
+        if reference:
+            original = relire_archive(reference)
+            original_updates = {tab: planifier(tab, props, rows)[1]
+                                for tab, (props, rows) in original.items()}
+            verifier(original, after, original_updates)
+            print('REGISTRE_DATES_REFERENCE_INITIALE_VERIFIEE=6', flush=True)
         for tab, (props, rows) in after.items():
             _, changes, unknown = planifier(tab, props, rows)
             if changes or unknown:
@@ -268,10 +290,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--appliquer', action='store_true')
     parser.add_argument('--sauvegarde', type=Path, required=True)
+    parser.add_argument('--reference', type=Path)
     args = parser.parse_args()
     engine = SynchroniseurSheets('.', os.environ['GOOGLE_SHEETS_ID'])
     try:
-        migrer(engine, args.sauvegarde, appliquer=args.appliquer)
+        migrer(engine, args.sauvegarde, appliquer=args.appliquer, reference=args.reference)
     finally:
         engine.fermer()
 
