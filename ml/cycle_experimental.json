@@ -1,106 +1,105 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "f8c432da35a83e0a9ee0be7fe83c7bcb0cd9812fcea332a8577107d6d92243dc",
-  "execute_utc": "2026-11-24T00:09:36.128617+00:00",
+  "empreinte_donnees": "54695ccd10a6aa889a462ae63432b2399c8ebb5a1b77b642891f306c5895b773",
+  "execute_utc": "2026-11-24T17:32:53.980954+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 189,
-  "lignes_admissibles": 2519,
+  "courses_admissibles": 197,
+  "lignes_admissibles": 2615,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-f8c432da35a83e0a9ee0/rapport.json",
-  "validation_day": "2026-11-22",
-  "test_day": "2026-11-23",
-  "modele": "regression_logistique",
+  "rapport": "ml/experiences/automatique-54695ccd10a6aa889a46/rapport.json",
+  "validation_day": "2026-11-23",
+  "test_day": "2026-11-24",
+  "modele": "gradient_boosting",
   "test_ml": {
     "courses": 8,
-    "chevaux_retrouves": 8,
-    "moyenne": 1.0,
+    "chevaux_retrouves": 9,
+    "moyenne": 1.125,
     "au_moins_2_sur_3": 2,
-    "exact_3_sur_3": 1,
+    "exact_3_sur_3": 0,
     "distribution": {
-      "0": 3,
-      "1": 3,
-      "2": 1,
-      "3": 1
+      "0": 1,
+      "1": 5,
+      "2": 2
     },
     "hits_par_course": {
-      "2026-11-23_R1C1": 2,
-      "2026-11-23_R1C2": 1,
-      "2026-11-23_R1C3": 0,
-      "2026-11-23_R1C4": 1,
-      "2026-11-23_R1C5": 3,
-      "2026-11-23_R1C6": 1,
-      "2026-11-23_R1C7": 0,
-      "2026-11-23_R1C8": 0
+      "2026-11-24_R3C1": 1,
+      "2026-11-24_R3C2": 2,
+      "2026-11-24_R3C3": 1,
+      "2026-11-24_R3C4": 1,
+      "2026-11-24_R3C5": 1,
+      "2026-11-24_R3C6": 1,
+      "2026-11-24_R3C7": 0,
+      "2026-11-24_R3C8": 2
     },
     "selections": {
-      "2026-11-23_R1C1": [
+      "2026-11-24_R3C1": [
         3,
-        13,
-        2
-      ],
-      "2026-11-23_R1C2": [
-        10,
-        7,
-        6
-      ],
-      "2026-11-23_R1C3": [
-        2,
-        4,
-        11
-      ],
-      "2026-11-23_R1C4": [
-        9,
-        4,
-        11
-      ],
-      "2026-11-23_R1C5": [
-        10,
-        3,
-        7
-      ],
-      "2026-11-23_R1C6": [
-        1,
         8,
         9
       ],
-      "2026-11-23_R1C7": [
-        13,
-        16,
-        10
+      "2026-11-24_R3C2": [
+        5,
+        7,
+        13
       ],
-      "2026-11-23_R1C8": [
-        10,
-        4,
-        14
+      "2026-11-24_R3C3": [
+        3,
+        6,
+        2
+      ],
+      "2026-11-24_R3C4": [
+        6,
+        7,
+        12
+      ],
+      "2026-11-24_R3C5": [
+        8,
+        3,
+        11
+      ],
+      "2026-11-24_R3C6": [
+        12,
+        11,
+        9
+      ],
+      "2026-11-24_R3C7": [
+        7,
+        2,
+        1
+      ],
+      "2026-11-24_R3C8": [
+        3,
+        9,
+        13
       ]
     }
   },
   "comparaison": {
     "courses": 8,
-    "ecart_moyen": -0.125,
+    "ecart_moyen": 0.0,
     "ic95_bootstrap_par_course": [
       -0.5,
-      0.25
+      0.5
     ]
   },
   "decoupage": {
     "train": {
-      "courses": 143,
-      "lignes": 1896,
+      "courses": 181,
+      "lignes": 2415,
       "premier_depart": "2026-11-11T16:42:00+01:00",
-      "dernier_depart": "2026-11-21T20:13:00+01:00"
-    },
-    "validation": {
-      "courses": 38,
-      "lignes": 519,
-      "premier_depart": "2026-11-22T12:05:00+01:00",
       "dernier_depart": "2026-11-22T18:10:00+01:00"
     },
-    "test": {
+    "validation": {
       "courses": 8,
       "lignes": 104,
       "premier_depart": "2026-11-23T13:55:00+01:00",
       "dernier_depart": "2026-11-23T18:00:00+01:00"
+    },
+    "test": {
+      "courses": 8,
+      "lignes": 96,
+      "premier_depart": "2026-11-24T12:17:00+01:00",
+      "dernier_depart": "2026-11-24T16:32:00+01:00"
     }
   }
 }
