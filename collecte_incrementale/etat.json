@@ -81887,7 +81887,7 @@
     },
     "2783473": {
       "nom": "LOBBY MESLOIS",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "7",
       "engagement": "2026-11-24_R3C2",
       "vu_utc": "2026-11-24T09:32:51.859319+00:00",
@@ -81924,7 +81924,35 @@
       "prochaine_verification_utc": "2026-11-25T09:33:09.927736+00:00",
       "nombre_performances": 30,
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-06"
+      "derniere_performance_date": "2026-11-06",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 30,
+          "cellules_actualisees": 0,
+          "lignes_source": 30,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 30,
+            "lignes_avant": 31908,
+            "cles_avant": 31908,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3191,
+            "import_initial_explicite": false,
+            "lignes_attendues": 31938,
+            "lignes_apres": 31938,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-24T09:33:27.584371+00:00"
     },
     "2797924": {
       "nom": "LORENZO BERRY",
@@ -84702,7 +84730,7 @@
     }
   },
   "passage_utc": "2026-11-24T09:32:51.859319+00:00",
-  "maj_utc": "2026-11-24T09:33:10.709659+00:00",
+  "maj_utc": "2026-11-24T09:33:27.584399+00:00",
   "bilan": {
     "chevaux_suivis": 3088,
     "tentatives_collecte": 1,
@@ -84713,7 +84741,7 @@
     "actualisations_en_attente": 2787
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 11,
@@ -86450,18 +86478,18 @@
   "sync_kpi_utc": "2026-11-23T21:03:25.116580+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-24T09:32:51.859319+00:00",
-    "controle_utc": "2026-11-24T09:33:10.709659+00:00",
+    "controle_utc": "2026-11-24T09:33:27.584399+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 30,
     "requetes_http_geny": 61,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 6.43,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 190.98,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 100.77,
+    "carrieres_publiees_par_heure_cycle": 100.77,
     "refus_geny": {
       "403": 0,
       "429": 0
