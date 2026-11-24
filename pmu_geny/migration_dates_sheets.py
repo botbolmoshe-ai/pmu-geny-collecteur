@@ -298,8 +298,10 @@ def migrer(engine, archive, *, appliquer=False, reference=None):
             verifier(original, after, original_updates)
             print('REGISTRE_DATES_REFERENCE_INITIALE_VERIFIEE=6', flush=True)
         for tab, (props, rows) in after.items():
-            _, changes, unknown = planifier(tab, props, rows)
-            if changes or unknown:
+            residual, changes, unknown = planifier(tab, props, rows)
+            formats_en_ecart = any(request.get('updateCells', {}).get('fields') == 'userEnteredFormat'
+                                   for request in residual)
+            if changes or unknown or formats_en_ecart:
                 raise ValueError(f'Migration non idempotente après relecture de {tab}')
         print('MIGRATION_DATES_SHEETS_VERIFIEE=6', flush=True)
 
