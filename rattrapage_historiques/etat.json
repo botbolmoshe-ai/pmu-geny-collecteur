@@ -30322,9 +30322,9 @@
       "course_url": "https://www.geny.com/course/1698226/partants-pronostics",
       "numero": "8",
       "engagement": "2026-11-14_R8C8",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C8",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2021,
@@ -30342,7 +30342,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:d79a52175cfac8c3442ece5a",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:d79a52175cfac8c3442ece5a"
+      "autre_contexte_meme_nom": "contexte:d79a52175cfac8c3442ece5a",
+      "rattrapage_complet_au_utc": "2026-11-24T20:55:38.935601+00:00",
+      "historique_complet_au_utc": "2026-11-24T20:55:38.935601+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:5c5818490b8ce47bdbbec3d0": {
       "nom": "LATINO BOY",
@@ -43764,7 +43768,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C8",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C8",
@@ -43792,7 +43796,32 @@
       "prochaine_verification_utc": "2026-11-25T20:55:38.935601+00:00",
       "nombre_performances": 22,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 22,
+          "cellules_actualisees": 0,
+          "lignes_source": 22,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 22,
+            "lignes_avant": 32393,
+            "cles_avant": 32393,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3240,
+            "import_initial_explicite": false,
+            "lignes_attendues": 32415,
+            "lignes_apres": 32415,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-24T20:56:00.361199+00:00",
+      "rattrapage_complet_au_utc": "2026-11-24T20:55:38.935601+00:00",
+      "ajouts_confirmes": 22
     },
     "contexte:dca186d22a8dbcf975a92cbd": {
       "nom": "LATINO BOY",
@@ -73599,12 +73628,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1251,
-    "cibles_restantes": 1333,
+    "cibles_completees": 1253,
+    "cibles_restantes": 1331,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1390,
+    "travaux_distincts_restants": 1389,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 943,
+    "carrieres_distinctes_a_completer": 942,
     "identifiants_sans_carriere_complete": 67,
     "contextes_distincts_sans_identifiant": 875,
     "noms_distincts_sans_identifiant": 870,
@@ -73612,8 +73641,8 @@
     "identites_non_resolues": 1264,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4607,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4629,
     "tentatives_collecte": 9,
     "captures_validees": 9,
     "captures_partielles": 0,
@@ -73621,7 +73650,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-24T20:49:17.907298+00:00",
-  "maj_utc": "2026-11-24T20:55:39.693900+00:00",
+  "maj_utc": "2026-11-24T20:56:00.393323+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 19,
@@ -75520,18 +75549,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-24T20:49:17.907298+00:00",
-    "controle_utc": "2026-11-24T20:55:39.693900+00:00",
+    "controle_utc": "2026-11-24T20:56:00.393323+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 9,
-    "chevaux_confirmes_sheets": 8,
-    "performances_ajoutees_et_confirmees_sheets": 258,
+    "chevaux_confirmes_sheets": 9,
+    "performances_ajoutees_et_confirmees_sheets": 280,
     "requetes_http_geny": 549,
     "attente_inter_chevaux_secondes": 37.18,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 63.68,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 84.86,
-    "carrieres_publiees_par_heure_cycle": 75.43,
+    "carrieres_validees_par_heure_cycle": 80.5,
+    "carrieres_publiees_par_heure_cycle": 80.5,
     "refus_geny": {
       "403": 0,
       "429": 0
