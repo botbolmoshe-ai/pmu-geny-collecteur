@@ -131,20 +131,27 @@ def nombre_paris(value, *, utc=True):
 
 def afficher_source(value):
     """Projeter uniquement les segments datés de la provenance publiée."""
-    if not isinstance(value, str):
+    import re
+
+    if not isinstance(value, str) or not value.startswith(("https://", "http://")):
         return value
-    segments = value.split(" · ")
-    if not segments[0].startswith(("https://", "http://")):
+    # L’URL initiale est conservée intégralement, même si son chemin contient une date.
+    url, separator, provenance = value.partition(" ")
+    if not separator:
         return value
-    for index, segment in enumerate(segments[1:], 1):
-        if segment.startswith("publié le "):
-            raw = segment.removeprefix("publié le ")
-            segments[index] = "publié le " + afficher_date(raw)
-            continue
-        for prefix in ("lu ", "collecté ", "collecté le ", "collecte ", ""):
-            if segment.startswith(prefix):
-                stamp = instant_iso(segment.removeprefix(prefix))
-                if stamp:
-                    segments[index] = prefix + afficher_instant(stamp) + " (Paris)"
-                    break
-    return " · ".join(segments)
+    instant = re.compile(r"(?<![\w/])\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}"
+                         r"(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})(?![\w/])")
+    provenance = instant.sub(lambda match: afficher_instant(match[0]) + " (Paris)", provenance)
+    provenance = re.sub(r"(publié le )(\d{4}-\d{2}-\d{2})(?![\dT])",
+                        lambda match: match[1] + afficher_date(match[2]), provenance)
+    return url + separator + provenance
+
+
+def indicateur_horodate(label):
+    return isinstance(label, str) and label.endswith(" UTC")
+
+
+def afficher_valeur_kpi(label, value):
+    if indicateur_horodate(label) and type(value) in (int, float) and 20000 < value < 80000:
+        return (EPOCH + timedelta(days=value)).strftime("%d/%m/%Y %H:%M")
+    return afficher_instant(value) or value

@@ -93,6 +93,22 @@ jobs:
           mkdir -p resultats/dates
           python -m pmu_geny.audit_dates_sheets resultats/dates/audit.json
           python -m pmu_geny.migration_dates_sheets --sauvegarde resultats/dates/avant.json.gz
+      - name: Sauvegarder avant la migration
+        if: inputs.dates_registre == 'appliquer' && github.ref == 'refs/heads/main'
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+        run: |
+          mkdir -p resultats/dates
+          python -m pmu_geny.migration_dates_sheets --sauvegarde resultats/dates/avant.json.gz
+          python -c 'import hashlib,json,os; print(hashlib.sha256(json.loads(os.environ["GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON"])["private_key"].encode()).hexdigest())' |
+            openssl enc -aes-256-cbc -salt -pbkdf2 -iter 200000 -pass stdin \
+              -in resultats/dates/avant.json.gz -out resultats/dates/avant.json.gz.enc
+      - uses: actions/upload-artifact@v4
+        if: inputs.dates_registre == 'appliquer' && github.ref == 'refs/heads/main'
+        with:
+          name: sauvegarde-registre-dates-${{ github.run_id }}
+          path: resultats/dates/avant.json.gz.enc
+          if-no-files-found: error
       - name: Migrer et relire le registre
         if: inputs.dates_registre == 'appliquer' && github.ref == 'refs/heads/main'
         env:
@@ -101,8 +117,8 @@ jobs:
           mkdir -p resultats/dates
           python -m pmu_geny.migration_dates_sheets --appliquer --sauvegarde resultats/dates/avant.json.gz
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && inputs.dates_registre == 'audit'
         with:
           name: dates-registre-${{ github.run_id }}
-          path: resultats/dates
+          path: resultats/dates/audit.json
           if-no-files-found: warn

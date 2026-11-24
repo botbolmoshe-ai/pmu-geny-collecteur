@@ -4,7 +4,7 @@ import json
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
-from dashboard.trot_analytics.dates import afficher_instant, depuis_nombre, vers_nombre
+from dashboard.trot_analytics.dates import depuis_nombre, indicateur_horodate, vers_nombre
 from .kpi_registre import PREFIXES_ANCIENNES_ECHEANCES
 
 TAB='Historique qualité'
@@ -63,9 +63,16 @@ def enregistrer(engine,tables,now=None):
             'properties':{'title':TAB,'gridProperties':{'rowCount':1000,'columnCount':8}}}}]},timeout=30))
         tables=engine.metadata()
     properties=tables[TAB];count=properties['gridProperties']['rowCount']
-    path=quote(f"'{TAB}'!A1:H{count}",safe="!:'")
-    existing=engine.check(get_lecture(engine.session,engine.base+'/values/'+path,
-        params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
+    from .dates_registre import libelle_paris, nombre_kpi, projection
+    from .migration_dates_sheets import format_cell
+    from .sync_google_sheets import colname
+    width = properties['gridProperties']['columnCount']
+    path = quote(f"'{TAB}'!A1:{colname(width)}{count}", safe="!:'")
+    grid = engine.check(get_lecture(engine.session, engine.base+'/values/'+path,
+        params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values', [])
+    existing = [row[:len(HEADERS)] for row in grid]
+    label = libelle_paris(HEADERS[2], HEADERS[2])
+    capture_paris = colname(grid[0].index(label) + 1) if grid and label in grid[0] else None
     normalise = [row[:] for row in existing]
     for row in normalise[1:]:
         for col in (1, 2):
@@ -79,22 +86,28 @@ def enregistrer(engine,tables,now=None):
         dates = [vers_nombre(HEADERS[col], row[col]) for col in (1, 2)]
         if dates != existing[index - 1][1:3]:
             updates.append({'range': f"'{TAB}'!B{index}:C{index}", 'values': [dates]})
-        value = afficher_instant(row[5], timezone.utc) if len(row) > 5 else ''
-        if value:
-            updates.append({'range': f"'{TAB}'!F{index}", 'values': [[value]]})
+    projections = []
+    mixed_formats = []
     for entry in updates:
         if '!A' in entry['range'] and '!A1:H1' not in entry['range']:
             row = entry['values'][0]
+            index = int(entry['range'].split('!A')[1].split(':')[0])
+            if capture_paris:
+                projections.append({'range': f"'{TAB}'!{capture_paris}{index}",
+                                    'values': [[projection(HEADERS[2], row[2])]]})
             for col in (1, 2):
                 row[col] = vers_nombre(HEADERS[col], row[col])
-            row[5] = afficher_instant(row[5], timezone.utc) or row[5]
+            row[5] = nombre_kpi(row[5], row[4], legacy=True)
+            if indicateur_horodate(row[4]) and type(row[5]) in (float, int):
+                mixed_formats.append(format_cell(properties['sheetId'], index, 5, 'DATE_TIME'))
+    updates.extend(projections)
     if last>count:
         engine.check(engine.session.post(engine.base+':batchUpdate',json={'requests':[{'appendDimension':{
             'sheetId':properties['sheetId'],'dimension':'ROWS','length':max(last-count,1000)}}]},timeout=30))
     if updates:
         from .moteur_sheets import formats_dates
         engine.check(engine.session.post(engine.base+':batchUpdate',
-            json={'requests':formats_dates(properties['sheetId'], HEADERS)},timeout=30))
+            json={'requests':formats_dates(properties['sheetId'], HEADERS) + mixed_formats},timeout=30))
         # Ranges explicites : relire puis réessayer ne crée pas un deuxième append.
         engine.check(engine.session.post(engine.base+'/values:batchUpdate',json={
             'valueInputOption':'RAW','data':updates},timeout=45))

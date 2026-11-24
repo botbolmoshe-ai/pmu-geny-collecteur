@@ -1,7 +1,7 @@
 """Projection des horodatages Sheets sans perte des instants utilisés par la production."""
 from dashboard.trot_analytics.dates import (
     DISPLAY_PREFIX, date_kind, depuis_nombre, afficher_source, instant_iso,
-    nombre_paris,
+    indicateur_horodate, nombre_paris,
 )
 
 SOURCES = {
@@ -55,6 +55,6 @@ def enrichir_publication(tab, headers, updates, appends):
 
 
 def nombre_kpi(value, label, *, legacy=False):
-    if instant_iso(value) or (legacy and isinstance(label, str) and label.endswith(' UTC')):
+    if instant_iso(value) or (legacy and indicateur_horodate(label)):
         return nombre_paris(value)
     return value

@@ -6,12 +6,11 @@ import os
 import re
 import tempfile
 import time
-from datetime import timezone
 from contextlib import contextmanager
 from pathlib import Path
 from urllib.parse import quote
 
-from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, afficher_instant, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
+from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
 
 from .controle_sync_sheets import HISTORY,lire_cles_independantes,verifier_avant,verifier_apres
 from .lectures_sheets import get_lecture
@@ -390,19 +389,31 @@ class SynchroniseurSheets:
             print(f'COTES_SHEETS_VERIFIEES {len(verified)} cotes sur '
                   f'{len({key for key, _ in verified})} courses', flush=True)
         metrics = calculer_kpi(self.cache, source, sheets_courses=sheets_courses)
-        # La colonne Valeur mélange dates, taux et effectifs. Seules les
-        # valeurs horodatées sont présentées en texte français, en UTC.
-        metrics = {key: (afficher_instant(value, timezone.utc) or value, definition)
+        from .dates_registre import nombre_kpi
+        from .migration_dates_sheets import format_cell
+        dates = {key for key, (value, _) in metrics.items() if nombre_kpi(value, key) != value}
+        metrics = {key: (nombre_kpi(value, key), definition)
                    for key, (value, definition) in metrics.items()}
         updates=plan_kpi(values,metrics)
         if updates:
             properties = tables[KPI_TAB]
             row_count = properties['gridProperties']['rowCount']
             last_row = max(int(re.search(r'\d+$', entry['range'])[0]) for entry in updates)
+            structure = []
             if last_row > row_count:
-                self.check(self.session.post(self.base+':batchUpdate', json={'requests': [
-                    {'appendDimension': {'sheetId': properties['sheetId'], 'dimension': 'ROWS',
-                                         'length': last_row-row_count}}]}, timeout=30))
+                structure.append({'appendDimension': {'sheetId': properties['sheetId'], 'dimension': 'ROWS',
+                                                      'length': last_row-row_count}})
+            for entry in updates:
+                first, row = re.search(r'!([AC])(\d+)', entry['range']).groups() if re.search(
+                    r'![AC]\d+', entry['range']) else ('', '0')
+                row = int(row)
+                label = (entry['values'][0][1] if first == 'A' else
+                         values[row - 1][1] if first == 'C' else '')
+                if label in dates:
+                    structure.append(format_cell(properties['sheetId'], row, 2, 'DATE_TIME'))
+            if structure:
+                self.check(self.session.post(self.base+':batchUpdate',
+                    json={'requests': structure}, timeout=30))
             self.check(self.session.post(self.base+'/values:batchUpdate',
                 json={'valueInputOption':'RAW','data':updates},timeout=45))
         totals = totaux_reference(metrics)

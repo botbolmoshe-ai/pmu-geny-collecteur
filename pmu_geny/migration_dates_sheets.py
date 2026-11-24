@@ -11,7 +11,7 @@ from dashboard.trot_analytics.dates import (
     DATE_PATTERN, DATETIME_PATTERN, TIME_PATTERN, date_kind, vers_nombre,
 )
 from .audit_dates_sheets import TABS, pages
-from .dates_registre import SOURCES, libelle_paris, projection
+from .dates_registre import SOURCES, libelle_paris, nombre_kpi, projection
 from .lectures_sheets import get_lecture
 from .moteur_sheets import SynchroniseurSheets, verrou_local
 from .sync_google_sheets import DISPLAY_NAMES, SHEET_HEADER_LABELS, canonical_headers
@@ -86,6 +86,8 @@ def planifier(tab, props, rows):
     hidden = []
     width = props['gridProperties']['columnCount']
     targets = {}
+    new_columns = set()
+    mixed = {'Data Quality & KPI': (1, 2), 'Historique qualité': (4, 5)}.get(tab)
     # Le TCD peut comporter des formules et des colonnes sans en-tête.
     # Seules les cellules déjà reconnues comme dates/heures y sont formatées.
     if tab in TABS[:3] or tab == 'Historique qualité':
@@ -101,7 +103,9 @@ def planifier(tab, props, rows):
             label = libelle_paris(field, labels.get(field, names[col]))
             if label not in names:
                 names.append(label)
-                updates.setdefault(len(names) - 1, {})[1] = label
+                target = len(names) - 1
+                new_columns.add(target)
+                updates.setdefault(target, {})[1] = label
             target = names.index(label)
             targets[col] = (field, target)
             hidden.append(col)
@@ -130,11 +134,20 @@ def planifier(tab, props, rows):
                 expected = projection(source, value)
                 if source not in SOURCES and expected != '' and type(expected) not in (int, float):
                     ignored[f'valeur:{source}'] += 1
+                if source in SOURCES and isinstance(value, str) and value.startswith(('https://', 'http://')):
+                    from .audit_dates_sheets import categorie
+                    if categorie(cell) == 'URL et instant' and expected == value:
+                        ignored[f'provenance:{source}'] += 1
                 existing = cells[target] if target < len(cells) else {}
                 if 'formulaValue' in entered(existing):
                     raise ValueError(f'Formule inattendue dans la projection {tab}/{row}/{target}')
                 if not same_value(raw(existing), expected):
                     updates.setdefault(target, {})[row] = expected
+            elif mixed and col == mixed[1] and mixed[0] < len(cells):
+                expected = nombre_kpi(value, raw(cells[mixed[0]]), legacy=True)
+                if type(expected) in (int, float) and not same_value(value, expected):
+                    updates.setdefault(col, {})[row] = expected
+                    requests.append(format_cell(sheet, row, col, 'DATE_TIME'))
             elif date_kind(field) == 'DATE':
                 expected = vers_nombre(field, value)
                 if type(expected) in (int, float) and not same_value(value, expected):
@@ -150,7 +163,11 @@ def planifier(tab, props, rows):
             'sheetId': sheet, 'dimension': 'COLUMNS', 'length': len(names) - width,
         }})
     for col, changes in updates.items():
-        requests.extend(write_column(sheet, col, changes))
+        if col in new_columns:
+            dense = {row: changes.get(row, '') for row in range(1, max(changes) + 1)}
+            requests.extend(write_column(sheet, col, dense))
+        else:
+            requests.extend(write_column(sheet, col, changes))
     requests.extend(hide_column(sheet, col) for col in hidden)
     return requests, updates, ignored
 
@@ -158,6 +175,19 @@ def planifier(tab, props, rows):
 def snapshot(engine):
     tables = engine.metadata()
     return {tab: (tables[tab], dict(pages(engine, tab, tables[tab]))) for tab in TABS}
+
+
+def empreinte(snapshot_data):
+    values = {
+        tab: [props['gridProperties'], {
+            row: [{"value": entered(cell), "format": cell.get("userEnteredFormat", {})}
+                  for cell in cells]
+            for row, cells in rows.items()
+        }]
+        for tab, (props, rows) in snapshot_data.items()
+    }
+    import hashlib
+    return hashlib.sha256(json.dumps(values, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
 def verifier(before, after, updates):
@@ -191,12 +221,16 @@ def migrer(engine, archive, *, appliquer=False):
                          'à examiner': dict(plan[2])} for tab, plan in plans.items()}
         print(json.dumps(summary, ensure_ascii=False), flush=True)
         if not appliquer:
+            with gzip.open(archive, 'xt', encoding='utf-8') as out:
+                json.dump({'empreinte': empreinte(before), 'onglets': before}, out,
+                          ensure_ascii=False, separators=(',', ':'))
             return
         requests = [request for plan in plans.values() for request in plan[0]]
         if any(plan[2] for plan in plans.values()):
             raise ValueError('Des dates de consultation restent à examiner')
-        with gzip.open(archive, 'xt', encoding='utf-8') as out:
-            json.dump(before, out, ensure_ascii=False, separators=(',', ':'))
+        with gzip.open(archive, 'rt', encoding='utf-8') as saved:
+            if json.load(saved)['empreinte'] != empreinte(before):
+                raise ValueError('Le registre a évolué depuis la sauvegarde')
         engine.check(engine.session.post(engine.base + ':batchUpdate',
                                          json={'requests': requests}, timeout=120))
         after = snapshot(engine)

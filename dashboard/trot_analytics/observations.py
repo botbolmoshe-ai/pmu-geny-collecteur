@@ -32,8 +32,9 @@ def tableau_observations(rows, groupe):
         return f'<em>{escaped}</em>' if italic else escaped
 
     observation = any(en_observation(row.get(status)) for row in values)
-    headings = ''.join(f'<th scope="col">{text(field, observation and field in labels.values())}</th>'
-                       for field in fields)
+    headings = ''.join(
+        f'<th scope="col">{text(field.removesuffix(" UTC") + " (Paris)" if field == labels["ipr_calcul_utc"] else field, observation and field in labels.values())}</th>'
+        for field in fields)
     body = []
     for row in sorted(values, key=order):
         experimental = en_observation(row.get(status))
