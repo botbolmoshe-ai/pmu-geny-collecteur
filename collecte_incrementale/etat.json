@@ -81887,7 +81887,7 @@
     },
     "2783473": {
       "nom": "LOBBY MESLOIS",
-      "sync": "SANS_MODIFICATION",
+      "sync": "A_FAIRE",
       "numero": "7",
       "engagement": "2026-11-24_R3C2",
       "vu_utc": "2026-11-24T09:32:51.859319+00:00",
@@ -81900,16 +81900,15 @@
         "preuve": "LIENS_COURSE_GENY"
       },
       "id": "2783473",
-      "collecte": "A_REPRENDRE",
+      "collecte": "COMPLET",
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
       "annee_naissance_pmu": 2021,
       "recherche_geny_par_nom": false,
-      "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
+      "motif_actualisation": "",
       "depart_a_venir_utc": "2026-11-24T11:52:00+00:00",
       "premier_depart_reunion_utc": "2026-11-24T11:17:00+00:00",
       "preparation_pmu_ok": true,
-      "erreur": "PermissionError: ACCES_REFUSE_403",
-      "prochain_essai_utc": "2026-11-24T03:22:29.680480+00:00",
+      "erreur": "",
       "dernier_echec_collecte": {
         "utc": "2026-11-23T21:22:29.680499+00:00",
         "statut": "ACCES_REFUSE_403",
@@ -81919,7 +81918,13 @@
         "erreur": "ACCES_REFUSE_403",
         "identite_verifiee": false,
         "diagnostic": "resultats/incremental/2783473/1795468944351915921/resultat.json"
-      }
+      },
+      "historique_complet_au_utc": "2026-11-24T09:33:09.927736+00:00",
+      "derniere_verification_utc": "2026-11-24T09:33:09.927736+00:00",
+      "prochaine_verification_utc": "2026-11-25T09:33:09.927736+00:00",
+      "nombre_performances": 30,
+      "ferrures_manquantes": 0,
+      "derniere_performance_date": "2026-11-06"
     },
     "2797924": {
       "nom": "LORENZO BERRY",
@@ -84697,11 +84702,11 @@
     }
   },
   "passage_utc": "2026-11-24T09:32:51.859319+00:00",
-  "maj_utc": "2026-11-24T09:32:58.476232+00:00",
+  "maj_utc": "2026-11-24T09:33:10.709659+00:00",
   "bilan": {
     "chevaux_suivis": 3088,
-    "tentatives_collecte": 0,
-    "captures_validees": 0,
+    "tentatives_collecte": 1,
+    "captures_validees": 1,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
@@ -86445,17 +86450,17 @@
   "sync_kpi_utc": "2026-11-23T21:03:25.116580+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-24T09:32:51.859319+00:00",
-    "controle_utc": "2026-11-24T09:32:58.476232+00:00",
+    "controle_utc": "2026-11-24T09:33:10.709659+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 0,
+    "carrieres_completes_distinctes": 1,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
-    "requetes_http_geny": 0,
+    "requetes_http_geny": 61,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 60,
-    "duree_acces_geny_secondes": 0.0,
+    "duree_acces_geny_secondes": 6.43,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 190.98,
     "carrieres_publiees_par_heure_cycle": 0.0,
     "refus_geny": {
       "403": 0,
