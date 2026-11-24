@@ -45,7 +45,7 @@ def pages(engine, tab, props):
         result = engine.check(get_lecture(engine.session, engine.base, params={
             'ranges': f"'{tab}'!A{start}:{colname(grid['columnCount'])}{end}",
             'fields': 'sheets(properties(sheetId),data(startRow,startColumn,rowData(values('
-                      'userEnteredValue,effectiveValue,effectiveFormat(numberFormat),'
+                      'userEnteredValue,effectiveValue,note,effectiveFormat(numberFormat),'
                       'userEnteredFormat(numberFormat)))))',
         }, timeout=60))
         sheets = result['sheets']

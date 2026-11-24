@@ -1,14 +1,16 @@
 """Migration ciblée des champs de consultation du classeur existant."""
 import argparse
 from collections import Counter
+from datetime import timezone
 import gzip
+import hashlib
 import json
 import math
 import os
 from pathlib import Path
 
 from dashboard.trot_analytics.dates import (
-    DATE_PATTERN, DATETIME_PATTERN, TIME_PATTERN, date_kind, vers_nombre,
+    DATE_PATTERN, DATETIME_PATTERN, TIME_PATTERN, date_kind, lire_instant_consultation, vers_nombre,
 )
 from .audit_dates_sheets import TABS, pages
 from .dates_registre import SOURCES, libelle_paris, nombre_kpi, projection
@@ -24,12 +26,13 @@ def range_cell(sheet, row, col):
             'startColumnIndex': col, 'endColumnIndex': col + 1}
 
 
-def format_cell(sheet, row, col, kind):
-    return {'repeatCell': {
-        'range': range_cell(sheet, row, col),
-        'cell': {'userEnteredFormat': {'numberFormat': {'type': kind, 'pattern': PATTERNS[kind]}}},
-        'fields': 'userEnteredFormat.numberFormat',
-    }}
+def format_cell(sheet, row, col, kind, note=None):
+    cell = {'userEnteredFormat': {'numberFormat': {'type': kind, 'pattern': PATTERNS[kind]}}}
+    fields = 'userEnteredFormat.numberFormat'
+    if note:
+        cell['note'] = note
+        fields += ',note'
+    return {'repeatCell': {'range': range_cell(sheet, row, col), 'cell': cell, 'fields': fields}}
 
 
 def entered(cell):
@@ -79,6 +82,8 @@ def planifier(tab, props, rows):
     sheet = props['sheetId']
     header = rows.get(1, [])
     names = [raw(cell) for cell in header]
+    while names and not names[-1]:
+        names.pop()
     headers = canonical_headers(names)
     updates = {}
     requests = []
@@ -147,7 +152,13 @@ def planifier(tab, props, rows):
                 expected = nombre_kpi(value, raw(cells[mixed[0]]), legacy=True)
                 if type(expected) in (int, float) and not same_value(value, expected):
                     updates.setdefault(col, {})[row] = expected
-                    requests.append(format_cell(sheet, row, col, 'DATE_TIME'))
+                    note = '\n'.join(filter(None, (
+                        cell.get('note'),
+                        f'Affichage Europe/Paris. Valeur source UTC avant migration : {value}',
+                    )))
+                    requests.append(format_cell(sheet, row, col, 'DATE_TIME', note=note))
+                elif lire_instant_consultation(value, timezone.utc) and type(value) is str:
+                    ignored[f'KPI:{raw(cells[mixed[0]])}'] += 1
             elif date_kind(field) == 'DATE':
                 expected = vers_nombre(field, value)
                 if type(expected) in (int, float) and not same_value(value, expected):
@@ -164,6 +175,9 @@ def planifier(tab, props, rows):
         }})
     for col, changes in updates.items():
         if col in new_columns:
+            if any(len(cells) > col and (entered(cells[col]) or cells[col].get('effectiveValue'))
+                   for cells in rows.values()):
+                raise ValueError(f'Une colonne sans en-tête contient déjà des données : {tab}/{col}')
             dense = {row: changes.get(row, '') for row in range(1, max(changes) + 1)}
             requests.extend(write_column(sheet, col, dense))
         else:
@@ -180,13 +194,13 @@ def snapshot(engine):
 def empreinte(snapshot_data):
     values = {
         tab: [props['gridProperties'], {
-            row: [{"value": entered(cell), "format": cell.get("userEnteredFormat", {})}
+            row: [{"value": entered(cell), "format": cell.get("userEnteredFormat", {}),
+                   "note": cell.get("note", "")}
                   for cell in cells]
             for row, cells in rows.items()
         }]
         for tab, (props, rows) in snapshot_data.items()
     }
-    import hashlib
     return hashlib.sha256(json.dumps(values, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
@@ -204,6 +218,10 @@ def verifier(before, after, updates):
                     expected = changes[col][index]
                     if not same_value(raw(new[col]) if col < len(new) else '', expected):
                         raise ValueError(f'Relecture différente pour {tab}/{index}/{col}')
+                    if type(expected) in (int, float):
+                        fmt = current_format(new[col])
+                        if fmt.get('type') not in PATTERNS:
+                            raise ValueError(f'Format natif absent dans {tab}/{index}/{col}')
                 elif left != right:
                     raise ValueError(f'Valeur hors migration modifiée dans {tab}/{index}/{col}')
 

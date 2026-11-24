@@ -10,7 +10,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from urllib.parse import quote
 
-from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
+from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, DISPLAY_PREFIX, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
 
 from .controle_sync_sheets import HISTORY,lire_cles_independantes,verifier_avant,verifier_apres
 from .lectures_sheets import get_lecture
@@ -288,13 +288,15 @@ class SynchroniseurSheets:
                     'fields': 'pixelSize',
                 }},
             ])
-        encoder = vers_nombre if tab == HISTORY else vers_cellule_operationnelle
+        legacy_history = tab == HISTORY and not any(field.startswith(DISPLAY_PREFIX)
+                                                    for field in effective_headers)
+        encoder = vers_nombre if legacy_history else vers_cellule_operationnelle
         staged = {(row, col): encoder(effective_headers[col - 1], value)
                   for row, col, value in updates}
         if allow_structure:
             for row_number, raw in enumerate(values[1:], start=2):
                 for col, (field, value) in enumerate(zip(headers, raw), start=1):
-                    if tab != HISTORY and date_kind(field) == "DATE_TIME":
+                    if not legacy_history and date_kind(field) == "DATE_TIME":
                         continue  # La représentation d'un instant existant ne motive aucune réécriture.
                     converted = encoder(field, value)
                     if converted != value:
@@ -391,7 +393,7 @@ class SynchroniseurSheets:
         metrics = calculer_kpi(self.cache, source, sheets_courses=sheets_courses)
         from .dates_registre import nombre_kpi
         from .migration_dates_sheets import format_cell
-        dates = {key for key, (value, _) in metrics.items() if nombre_kpi(value, key) != value}
+        dates = {key: value for key, (value, _) in metrics.items() if nombre_kpi(value, key) != value}
         metrics = {key: (nombre_kpi(value, key), definition)
                    for key, (value, definition) in metrics.items()}
         updates=plan_kpi(values,metrics)
@@ -404,13 +406,15 @@ class SynchroniseurSheets:
                 structure.append({'appendDimension': {'sheetId': properties['sheetId'], 'dimension': 'ROWS',
                                                       'length': last_row-row_count}})
             for entry in updates:
-                first, row = re.search(r'!([AC])(\d+)', entry['range']).groups() if re.search(
-                    r'![AC]\d+', entry['range']) else ('', '0')
-                row = int(row)
+                cell = re.search(r'!([AC])(\d+)', entry['range'])
+                if not cell:
+                    continue
+                first, row = cell[1], int(cell[2])
                 label = (entry['values'][0][1] if first == 'A' else
                          values[row - 1][1] if first == 'C' else '')
                 if label in dates:
-                    structure.append(format_cell(properties['sheetId'], row, 2, 'DATE_TIME'))
+                    structure.append(format_cell(properties['sheetId'], row, 2, 'DATE_TIME',
+                                                 note=f'Affichage Europe/Paris. Source : {dates[label]}'))
             if structure:
                 self.check(self.session.post(self.base+':batchUpdate',
                     json={'requests': structure}, timeout=30))
@@ -437,7 +441,7 @@ class SynchroniseurSheets:
                     actual = row[index] if index < len(row) else ''
                     if actual != expected and not (
                             isinstance(expected, (float, int)) and isinstance(actual, (float, int))
-                            and abs(expected - actual) <= 1e-12):
+                            and abs(expected - actual) <= (1e-10 if key in dates and index == 2 else 1e-12)):
                         raise ErreurSynchronisation('Vérification Sheets KPI échouée : ' + key)
             if seen != managed.keys():
                 raise ErreurSynchronisation('Indicateurs KPI absents après synchronisation')

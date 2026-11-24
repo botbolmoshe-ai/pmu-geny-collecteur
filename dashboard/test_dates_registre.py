@@ -56,3 +56,20 @@ class DatesRegistreTests(unittest.TestCase):
             1: 'Paris · Historique · Mise à jour', 2: nombre_paris(stamp)}})
         self.assertFalse(ignored)
         self.assertEqual(rows[2][1], text(stamp))
+
+
+    def test_publication_et_reprise_mixte(self):
+        from pmu_geny.dates_registre import enrichir_publication, libelle_paris, nombre_kpi
+
+        source = 'historique_maj_utc'
+        label = libelle_paris(source, 'Historique · Mise à jour UTC')
+        timestamp = '2026-11-22T23:36:48.804558+00:00'
+        appends = [[timestamp, '']]
+        actual = enrichir_publication('Courses & Prévisions', [source, label],
+                                     [(8, 1, timestamp), (9, 1, '')], appends)
+        expected = nombre_paris(timestamp)
+        self.assertEqual(actual, [(8, 1, timestamp), (9, 1, ''), (8, 2, expected), (9, 2, '')])
+        self.assertEqual(appends, [[timestamp, expected]])
+        self.assertEqual(nombre_kpi(0.75, 'Taux d’historique', legacy=True), 0.75)
+        self.assertEqual(nombre_kpi('22/11/2026 23:36', 'Dernière lecture UTC', legacy=True),
+                         nombre_paris('2026-11-22T23:36:00Z'))

@@ -95,8 +95,9 @@ def enregistrer(engine,tables,now=None):
             if capture_paris:
                 projections.append({'range': f"'{TAB}'!{capture_paris}{index}",
                                     'values': [[projection(HEADERS[2], row[2])]]})
-            for col in (1, 2):
-                row[col] = vers_nombre(HEADERS[col], row[col])
+            row[1] = vers_nombre(HEADERS[1], row[1])
+            if not capture_paris:
+                row[2] = vers_nombre(HEADERS[2], row[2])
             row[5] = nombre_kpi(row[5], row[4], legacy=True)
             if indicateur_horodate(row[4]) and type(row[5]) in (float, int):
                 mixed_formats.append(format_cell(properties['sheetId'], index, 5, 'DATE_TIME'))
