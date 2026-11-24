@@ -341,10 +341,12 @@ def accepter(cache, horse, report, *, origine='COLLECTE_INCREMENTALE_PRODUCTION'
     previous = capture_valide(cache, ident)
     if previous:
         # Les mêmes dates peuvent contenir plusieurs courses : comparer les lignes complètes.
+        from .structure_geny import FIELDS
+
         def indexed(d):
             result={}
             for row in d['performances']:
-                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source','ferrure_qualification','depart_trot')}
+                clean={k:v for k,v in row.items() if k not in ('ferrure','ferrure_source','ferrure_qualification','depart_trot', *FIELDS)}
                 clean['texte_source']=re.sub(r'\s*\|\s*\d{1,2}:\d{2}\s*\|\s*/\s*\|\s*\d{1,2}:\d{2}\s*$',
                                              '',str(clean.get('texte_source','')))
                 result.setdefault(json.dumps(clean, sort_keys=True, ensure_ascii=False),[]).append(row)

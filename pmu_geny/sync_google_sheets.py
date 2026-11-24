@@ -13,7 +13,8 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 from dashboard.trot_analytics.dates import date_kind, depuis_nombre, instant_iso, meme_date_sheets
-from dashboard.trot_analytics.usages import IPR
+from dashboard.trot_analytics.usages import GENY_HISTORIQUE, IPR
+from .structure_geny import FIELDS, PROVENANCE, est_url, structurer
 
 SHEET_TABS = ('Courses & Prévisions', 'Historique chevaux', 'Résultats & Analyse')
 # Nouvelle base visuelle : ne pas republier les anciennes courses apres le nettoyage.
@@ -222,6 +223,7 @@ DISPLAY_NAMES.update({
            ('statut', 'État'), ('echeance_utc', 'Échéance UTC'), ('publication_utc', 'Publication UTC'))},
 })
 DISPLAY_NAMES.update(IPR.libelles)
+DISPLAY_NAMES.update(GENY_HISTORIQUE.libelles)
 INVERSE_NAMES = {label:key for key,label in DISPLAY_NAMES.items()}
 assert len(INVERSE_NAMES)==len(DISPLAY_NAMES)
 INVERSE_NAMES.update({'Ferrure':'ferrure', 'PMU · Complétude fiche':'actuel_statut',
@@ -860,7 +862,7 @@ def source_rows(cache):
                 stamp=datetime.fromisoformat(doc['extrait_utc'])
                 if stamp.tzinfo:captured=stamp.astimezone(timezone.utc).isoformat()
             except (KeyError,ValueError,TypeError):pass
-            row={'cheval_id':ident,'nom':cheval,**perf,'_capture_historique_utc':captured,
+            row={'cheval_id':ident,'nom':cheval,'url_source_geny':doc.get('source_url',''),**perf,'_capture_historique_utc':captured,
                  '_statut_verification':'EXTRACTION_GENY_PARTIELLE' if partial else 'EXTRACTION_GENY'}
             if not row.get('ferrure'):
                 row['ferrure']=ferrure_historique_explicite(perf.get('texte_source',''))
@@ -882,6 +884,13 @@ def source_rows(cache):
             doc={out:r.get(inn,'') for out,inn in HIST_MAPPING.items()}
             if not doc.get('ferrure'):
                 doc['ferrure']=ferrure_historique_explicite(r.get('texte_source',''))
+            legacy = r.get('texte_source', '')
+            url = r.get('url_source_geny') or r.get('source_url') or legacy
+            if est_url(url):
+                doc['url_source_geny'] = url
+            if legacy and not est_url(legacy):
+                doc['texte_source'] = legacy
+                doc.update(structurer(legacy))
             doc['cle_performance']=k
             doc['statut_verification']=r.get('_statut_verification','EXTRACTION_GENY')
             history[k]=doc
@@ -938,6 +947,10 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
                     continue
                 value=sheet_value(name,val)
                 before=old.get(name,'')
+                if tab == SHEET_TABS[1] and (
+                        (name in FIELDS + PROVENANCE and before not in ('', None))
+                        or (name == 'source_url' and est_url(before))):
+                    continue
                 differs=((before!=value or (isinstance(value,int) and
                            (not isinstance(before,(int,float)) or isinstance(before,bool))))
                          if name in NUMERIC_SCORES or name == 'top3_cotes_valeur' else (before!=value or (isinstance(before,bool) and not isinstance(value,bool)) if name in MATCHING_COLUMNS else str(before)!=str(value)))
@@ -1024,7 +1037,7 @@ def limiter_cours_registre(source, date_debut=LIVE_RESET_DATE):
     return result
 
 
-def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, raw_dates=False):
+def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, raw_dates=False, render_option='UNFORMATTED_VALUE'):
     """Lire toutes les lignes sans perdre les positions des plages vides.
 
     Une lecture limitée aux 5000 premières lignes faisait réinsérer les clés
@@ -1048,7 +1061,7 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, raw
     for offset in range(0,len(pages),pages_par_appel):
         group=pages[offset:offset+pages_par_appel]
         params = {'ranges': [p[0] for p in group], 'majorDimension': 'ROWS'}
-        params['valueRenderOption'] = 'UNFORMATTED_VALUE'
+        params['valueRenderOption'] = render_option
         response=get_lecture(session,base+'/values:batchGet',params=params,timeout=60)
         if response.status_code!=200:
             raise RuntimeError(f'Lecture incomplete {tab} lignes {group[0][1]}:{group[-1][2]}, HTTP {response.status_code}')

@@ -44,3 +44,19 @@ def tableau_observations(rows, groupe):
     legend = f'<p><em>{escape(groupe.usage)}</em></p>' if observation else ''
     return (legend + f'<div style="overflow-x:auto"><table aria-label="Indice de performance relative">'
             f'<thead><tr>{headings}</tr></thead><tbody>{"".join(body)}</tbody></table></div>')
+
+
+def tableau_geny(rows, context, groupe):
+    fields = [*context, *groupe.libelles.values()]
+
+    def cell(tag, value, italic):
+        text = escape(str(value if value not in ('', None) else '—'))
+        if italic:
+            text = f'<em>{text}</em>'
+        return f'<{tag}>{text}</{tag}>'
+
+    heading = ''.join(cell('th', field, groupe.italique and field not in context) for field in fields)
+    body = ''.join('<tr>' + ''.join(cell('td', row.get(field), groupe.italique and field not in context)
+                                  for field in fields) + '</tr>' for row in rows)
+    return (f'<div style="overflow-x:auto"><table aria-label="Historique Geny">'
+            f'<thead><tr>{heading}</tr></thead><tbody>{body}</tbody></table></div>')
