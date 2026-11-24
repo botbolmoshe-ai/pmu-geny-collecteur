@@ -59,7 +59,9 @@ def read_geny_history():
             rows.extend(page.get('values', []))
     if not rows:
         return []
-    columns = [(index, label) for index, label in enumerate(rows[0]) if label]
+    context_labels = {'cheval': 'Cheval', 'hippodrome': 'Hippodrome', 'discipline': 'Discipline',
+                      'date_course_historique': 'Date', 'classement': 'Classement'}
+    columns = [(index, context_labels.get(label, label)) for index, label in enumerate(rows[0]) if label]
     if len({label for _, label in columns}) != len(columns):
         raise ValueError('En-têtes historiques ambigus')
     return records([[label for _, label in columns], *[
@@ -88,7 +90,7 @@ def render_geny(page):
             st.table(pd.DataFrame(counts.most_common(), columns=['Valeur', 'Lignes'])
                      .style.set_properties(**{'font-style': 'italic'}))
     else:
-        context = ('Cheval', 'date_course_historique', 'Hippodrome', 'Discipline', 'classement')
+        context = ('Cheval', 'Date', 'Hippodrome', 'Discipline', 'Classement')
         names = sorted({str(r.get('Cheval')) for r in rows if r.get('Cheval')})
         if not names:
             st.info("Aucun historique publié.")

@@ -122,7 +122,7 @@ class AppTests(unittest.TestCase):
         original = sheets.values().batchGet().execute.return_value
         labels = GENY_HISTORIQUE.libelles
         historic = {'valueRanges': [
-            {'values': [['Cheval', '', '', labels['piste_geny'], labels['geny_parsing_version']],
+            {'values': [['cheval', '', '', labels['piste_geny'], labels['geny_parsing_version']],
                         ['Cheval test', '', '', 'PP', '1']]},
             {'values': [['Cheval test', '', '', 'GP', '1']]},
         ]}
