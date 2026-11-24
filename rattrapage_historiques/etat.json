@@ -43638,9 +43638,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C8",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "A_FAIRE",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C8",
       "numero": "6",
       "numero_reconcilie_depuis_snapshot": true,
@@ -43660,7 +43660,13 @@
         "nom_pmu": "LE DIABLE BLANC"
       },
       "preuve_identite": "LIENS_COURSE_GENY",
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "historique_complet_au_utc": "2026-11-24T20:54:55.881290+00:00",
+      "derniere_verification_utc": "2026-11-24T20:54:55.881290+00:00",
+      "prochaine_verification_utc": "2026-11-25T20:54:55.881290+00:00",
+      "nombre_performances": 20,
+      "erreur": "",
+      "derniere_performance_date": "2026-11-14"
     },
     "contexte:3adf2a9995dd95607f591a1b": {
       "nom": "LYPSIE THONIC",
@@ -73564,23 +73570,23 @@
     "travaux_distincts_restants": 1391,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 944,
-    "identifiants_sans_carriere_complete": 69,
+    "identifiants_sans_carriere_complete": 68,
     "contextes_distincts_sans_identifiant": 875,
     "noms_distincts_sans_identifiant": 870,
     "identifiants_geny_distincts": 1035,
     "identites_non_resolues": 1264,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 0,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 4587,
-    "tentatives_collecte": 7,
-    "captures_validees": 7,
+    "tentatives_collecte": 8,
+    "captures_validees": 8,
     "captures_partielles": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-24T20:49:17.907298+00:00",
-  "maj_utc": "2026-11-24T20:54:45.386538+00:00",
+  "maj_utc": "2026-11-24T20:54:56.615077+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 19,
@@ -75479,18 +75485,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-24T20:49:17.907298+00:00",
-    "controle_utc": "2026-11-24T20:54:45.386538+00:00",
+    "controle_utc": "2026-11-24T20:54:56.615077+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 7,
+    "carrieres_completes_distinctes": 8,
     "chevaux_confirmes_sheets": 7,
     "performances_ajoutees_et_confirmees_sheets": 238,
-    "requetes_http_geny": 427,
+    "requetes_http_geny": 488,
     "attente_inter_chevaux_secondes": 33.15,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 50.0,
+    "duree_acces_geny_secondes": 56.54,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 76.95,
-    "carrieres_publiees_par_heure_cycle": 76.95,
+    "carrieres_validees_par_heure_cycle": 85.03,
+    "carrieres_publiees_par_heure_cycle": 74.4,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -75501,5 +75507,5 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "derniere_acquisition_validee_utc": "2026-11-24T20:54:12.822605+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-24T20:54:55.881290+00:00"
 }
