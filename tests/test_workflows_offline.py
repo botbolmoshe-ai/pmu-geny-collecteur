@@ -63,6 +63,33 @@ class WorkflowSyntaxTests(unittest.TestCase):
                     self.assertNotIn('rattrapage_historiques', output)
                     self.assertIn('RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE', output)
 
+    def test_declenchements_sous_le_verrou_et_sans_doublon(self):
+        root = Path(__file__).resolve().parents[1] / '.github/workflows'
+        historique = yaml.safe_load((root / 'historiques-incrementaux.yml').read_text())
+        pmu = yaml.safe_load((root / 'pmu-v16.yml').read_text())
+        fond = yaml.safe_load((root / 'rattrapage-historiques.yml').read_text())
+        self.assertEqual(pmu['concurrency'], fond['concurrency'])
+        self.assertEqual(pmu['concurrency']['group'], 'pmu-donnees-production')
+        self.assertIn('pmu-donnees-production', historique['concurrency']['group'])
+        self.assertEqual(historique['jobs']['historiques']['permissions']['actions'], 'write')
+        self.assertEqual(pmu['permissions']['actions'], 'write')
+        secours = next(step for step in historique['jobs']['historiques']['steps']
+                       if step.get('name', '').startswith('Demander un cycle'))
+        self.assertIn("steps.plan.outputs.secours_pmu == 'true'", secours['if'])
+        relais = pmu['jobs']['traiter-course']['steps'][-1]['run']
+        commandes = '''gh() {
+          if [[ "$1" == api ]]; then printf '%s' "$RUN_ACTIF"; else echo "$*"; fi
+        }
+        python() { return 0; }
+        '''
+        for script, workflow in ((secours['run'], 'pmu-v16.yml'), (relais, 'historiques-incrementaux.yml')):
+            for actif in ('', '123'):
+                with self.subTest(workflow=workflow, actif=actif):
+                    stdout = subprocess.check_output(
+                        ['bash', '-e', '-c', commandes + script], text=True,
+                        env={**os.environ, 'RUN_ACTIF': actif, 'GITHUB_REPOSITORY': 'exemple/pmu'})
+                    self.assertEqual(stdout.count(f'workflow run {workflow}'), int(not actif))
+
     def test_rattrapage_dedie_valide_budget_et_selectionne_le_mode_selon_paris(self):
         path = Path(__file__).resolve().parents[1] / '.github/workflows/rattrapage-historiques.yml'
         steps = yaml.safe_load(path.read_text())['jobs']['rattrapage']['steps']

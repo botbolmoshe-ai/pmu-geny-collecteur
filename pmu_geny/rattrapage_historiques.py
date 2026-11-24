@@ -884,7 +884,11 @@ def main():
         workflows = {'.github/workflows/pmu-v16.yml'} if args.nocturne and not args.dedie else None
 
         def controle_pmu():
-            return priorite_production(workflows) or verifier_echeances(cache, datetime.now(inc.UTC))
+            now = datetime.now(inc.UTC)
+            if not inc.nuit_collecte(now):
+                return verifier_echeances(cache, now) or priorite_production(workflows)
+            return verifier_echeances(cache, now) or (priorite_production(
+                {'.github/workflows/historiques-incrementaux.yml'}) if args.dedie else None)
 
         def controle_fond():
             return controle_pmu() or autoriser_fond(cache,datetime.now(inc.UTC), reserve=not args.nocturne,
@@ -1006,8 +1010,7 @@ def main():
         if restant <= 0:
             differer('BUDGET_TEMPS_ATTEINT', inc.lire(cache / QUEUE))
             return
-        max_chevaux = args.max_chevaux if args.nocturne else 1
-        state=inc.run(cache,max_minutes=restant,max_chevaux=max_chevaux,
+        state=inc.run(cache,max_minutes=restant,max_chevaux=args.max_chevaux,
                       publier=True,mode='rattrapage',nocturne=args.nocturne,
                       stop_requested=controle_fond,
                       creneau_reserve=lambda: inc.lire(Path('resultats/rattrapage/ordonnancement_fond.json')).get('creneau_reserve'))

@@ -35,10 +35,11 @@ concurrency:
   group: ${{ (inputs.date_courses != '' || inputs.hippodrome != '') && format('recensement-{0}', github.run_id) || 'pmu-donnees-production' }}
   cancel-in-progress: false
   queue: max
-env:
-  COLLECTE_NOCTURNE: ${{ (github.event_name == 'schedule' && github.event.schedule == '12,42 0-6,21-23 * * *') || (github.event_name == 'workflow_dispatch' && inputs.nocturne) }}
 jobs:
   historiques:
+    permissions:
+      contents: write
+      actions: write
     if: inputs.date_courses == '' && inputs.hippodrome == ''
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -59,10 +60,22 @@ jobs:
           git archive origin/pmu-data | tar -x -C cache_pmu
       - name: Reserver les echeances et respecter la pause avant de charger le navigateur
         id: plan
+        run: python -m pmu_geny.echeances_production --cache cache_pmu --collecte-selon-heure
+      - name: Demander un cycle PMU réellement dû
+        if: steps.plan.outputs.secours_pmu == 'true' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          mode=--collecte
-          if [ "$COLLECTE_NOCTURNE" = 'true' ]; then mode=--collecte-nocturne; fi
-          python -m pmu_geny.echeances_production --cache cache_pmu "$mode"
+          # Le cycle demandé attend la libération du verrou de production.
+          recent=$(date -u -d '15 minutes ago' +%FT%TZ)
+          active=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/pmu-v16.yml/runs?branch=main&per_page=30" \
+            --jq ".workflow_runs[] | select(.status != \"completed\" or .created_at >= \"$recent\") | .id")
+          if [ -n "$active" ]; then
+            echo "SECOURS_PMU_DIFFERE cycle actif ou recent: $active"
+            exit 0
+          fi
+          gh workflow run pmu-v16.yml --repo "$GITHUB_REPOSITORY" --ref main -f mode=auto -f secours=true
+          echo 'SECOURS_PMU_DEMANDE publication a confirmer'
       - uses: actions/cache@v4
         if: steps.plan.outputs.geny == 'true'
         with:
@@ -83,6 +96,7 @@ jobs:
           MAX_MINUTES: ${{ inputs.max_minutes || 7 }}
           GH_TOKEN: ${{ github.token }}
           GENY_AUTORISE: ${{ steps.plan.outputs.geny }}
+          COLLECTE_NOCTURNE: ${{ steps.plan.outputs.nocturne }}
         run: |
           options=()
           if [ "$GENY_AUTORISE" != 'true' ]; then options+=(--local); fi

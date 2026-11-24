@@ -8,11 +8,13 @@ from urllib.parse import urlparse
 
 from . import historiques_incrementaux as inc
 from . import liens_geny_course as liens
+from .cadence_geny import CadenceGeny, REFUS
+from .echeances_production import pause_geny_active
+from .historique_individuel import observer_http_geny
 from .liaison_chevaux_v22 import nom_geny_concordant, nom_normalise
 
 PILOTE = Path('rattrapage_historiques/resolution_identites_courses.json')
 LIMITE_COURSES = 10
-REFUS = {'ACCES_REFUSE_403': '403', 'ACCES_LIMITE_429': '429'}
 
 
 def identifiant_course(url):
@@ -74,11 +76,18 @@ def lire_page(course, *, page=None):
         try:
             with sync_playwright() as playwright:
                 browser = playwright.chromium.launch(headless=True)
+                mesure = {}
                 try:
                     context = browser.new_context(locale='fr-FR', timezone_id='Europe/Paris')
-                    return lire_page(course, page=context.new_page())
+                    mesure = observer_http_geny(context)
+                    result = lire_page(course, page=context.new_page())
+                except Error as exc:
+                    result = {'statut': 'ERREUR_NAVIGATION', 'erreur': type(exc).__name__}
                 finally:
                     browser.close()
+                if mesure.get('refus'):
+                    result['statut'] = next(statut for statut, code in REFUS.items() if code == mesure['refus'])
+                return {**result, 'http_geny': mesure}
         except Error as exc:
             return {'statut': 'ERREUR_NAVIGATION', 'erreur': type(exc).__name__}
 
@@ -140,12 +149,17 @@ def preuves_concordantes(cache, course, proof, now):
     return accepted, conflicts
 
 
-def passage(cache, state, *, stop_requested, checkpoint, collect=lire_page,
+def passage(cache, state, *, stop_requested, checkpoint, collect=None,
             now=lambda: datetime.now(inc.UTC)):
     """Traiter au plus une page par passage et suivre une cohorte fixe de dix courses."""
     pilot = inc.lire(cache/PILOTE)
     if pilot.get('statut') == 'TERMINE' or stop_requested():
         return False
+    cadence = CadenceGeny(cache) if collect is None else None
+    if cadence:
+        if pause_geny_active(cache, now(), back=state) or cadence.delai(now()):
+            return False
+        collect = lire_page
     groups, exclusions = inventaire(cache, state)
     if not pilot:
         pilot = {'creation_utc': now().isoformat(), 'courses': {
@@ -168,12 +182,19 @@ def passage(cache, state, *, stop_requested, checkpoint, collect=lire_page,
             result['statut'] = 'CONFLIT_COURSE_DEPUIS_SELECTION'
         else:
             attempted = True
+            if cadence:
+                cadence.reserver(now())
+                checkpoint()
             response = collect(course)
             stamp = now()
             status = response['statut']
-            result.update(tentatives=result['tentatives']+1, statut=status, lecture_utc=stamp.isoformat())
+            mesure = response.get('http_geny', {})
+            result.update(tentatives=result['tentatives']+1, statut=status, lecture_utc=stamp.isoformat(),
+                          http_geny=mesure)
+            if cadence:
+                cadence.terminer(stamp, refus=status in REFUS)
             if status in REFUS:
-                inc.suspendre_geny(cache, state, stamp, REFUS[status])
+                inc.suspendre_geny(cache, state, stamp, REFUS[status], mesure.get('reprise_au_plus_tot_utc'))
                 if result['tentatives'] < 2:
                     result.update(statut='DIFFERE_REFUS_GENY', dernier_refus=status)
             elif status == 'PAGE_LUE':

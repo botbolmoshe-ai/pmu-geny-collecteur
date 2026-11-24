@@ -227,7 +227,7 @@ def update_np(cache, course, manifest, pmu_data):
                                        'nouveau':r['statut_participation']} for r in rows if old.get(r['numero'],{}).get('statut_participation')!=r['statut_participation']]}
     save(target,doc);return doc
 
-def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None, clock=None, priorites=(), production=False, prioritaire=False, actualiser_plan=None):
+def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto', max_discoveries:int=2, now=None, selection_complete=None, clock=None, priorites=(), production=False, prioritaire=False, actualiser_plan=None, preparation_seule=False):
     if clock is None:
         clock=(lambda:now) if now is not None else (lambda:datetime.now(PARIS))
     now=now or clock()
@@ -298,6 +298,21 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
                 error = f'{type(exc).__name__}: {exc}'
             participants_by_course[code] = (raw, clock(), error)
         return participants_by_course[code]
+
+    if preparation_seule:
+        from .echeances_production import profil_preparation_disponible
+        from .partants_actuels_v21 import enregistrer
+
+        erreurs_partants = []
+        for course in courses:
+            if profil_preparation_disponible(cache, date, course, clock()):
+                continue
+            raw, _, error = charger_participants(course['code'])
+            if error or enregistrer(cache, course, raw) != 'PARTANTS_ACTUELS_ENREGISTRES':
+                erreurs_partants.append(course['code'])
+        controle['partants_a_reprendre'] = erreurs_partants
+        save(cache/'sources_pmu'/f'diagnostic_{date}.json', controle)
+        return controle
 
     # Enregistrer le marché avant les enrichissements et partager une requête
     # par course entre collecte, modèles, contrôle des NP et résultats.

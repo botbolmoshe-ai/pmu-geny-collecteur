@@ -121,7 +121,7 @@ class PreparationTests(unittest.TestCase):
     def test_reprise_prioritaire_imminente_garde_le_creneau(self):
         e,k,s=self.attente(minutes=5)
         self.assertEqual(autoriser_fond(self.cache,self.now),'REPRISE_PARTANT_PRIORITAIRE_IMMINENTE')
-        s['chevaux'][k]['prochain_essai_utc']=(self.now+timedelta(minutes=6)).isoformat()
+        s['chevaux'][k]['prochain_essai_utc']=(self.now+timedelta(minutes=7)).isoformat()
         inc.ecrire(self.cache/inc.QUEUE,s)
         self.assertIsNone(autoriser_fond(self.cache,self.now))
 

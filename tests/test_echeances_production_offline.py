@@ -25,6 +25,12 @@ class EcheancesTests(unittest.TestCase):
     def mark_global(self, now):
         e.sauver(self.cache/'orchestration/production_etat.json',{'dernier_global_publie_utc':now.isoformat()})
 
+    def mark_preparation(self, now):
+        day = (now.astimezone(e.PARIS).date()
+               + timedelta(days=now.astimezone(e.PARIS).hour >= 21)).isoformat()
+        e.sauver(self.cache/'sources_pmu'/f'programme_{day}.json',
+                 {'date_controle_utc': now.isoformat(), 'programme': []})
+
     def predictions(self, now, ml=True):
         profile={'capture_utc':now.isoformat(),'chevaux':{str(n):{'statut_np':'PARTANT'} for n in (1,2,3)}}
         e.sauver(self.cache/'partants_actuels'/f'{self.key}.json', profile)
@@ -68,7 +74,7 @@ class EcheancesTests(unittest.TestCase):
 
     def test_pause_commune_active_et_expiree_sur_un_creneau_nocturne(self):
         now = datetime(2026, 11, 22, 2, 40, tzinfo=timezone.utc)
-        self.mark_global(now)
+        self.mark_preparation(now)
         for code in ('403', '429'):
             with self.subTest(code=code):
                 e.sauver(self.cache / 'rattrapage_historiques/etat.json', {
@@ -98,24 +104,55 @@ class EcheancesTests(unittest.TestCase):
         self.assertEqual(e.pause_geny_active(self.cache, now), deadline)
         self.assertIsNone(e.pause_geny_active(self.cache, deadline))
 
-    def test_relais_apres_checkpoint_global_sans_relacher_garde_pmu(self):
+    def test_relais_apres_preparation_sans_relacher_garde_arrivees(self):
         now = datetime(2026, 11, 22, 2, 40, tzinfo=timezone.utc)
-        self.mark_global(now - timedelta(minutes=55))
-        run = {'mode': 'GLOBAL', 'plan_utc': (now - timedelta(minutes=4)).isoformat()}
-        self.assertFalse(e.plan_collecte(self.cache, now, nocturne=True)['executer'])
+        run = e.planifier(self.cache, now)
+        self.assertEqual(run['mode'], 'PREPARATION_JOUR')
         self.assertFalse(e.relais_nocturne(self.cache, now, run))
-        self.mark_global(now)
+        self.mark_preparation(now)
         self.assertTrue(e.relais_nocturne(self.cache, now, run))
-        self.assertFalse(e.relais_nocturne(self.cache, now, {**run, 'mode': 'JALONS'}))
-        e.sauver(self.cache / 'sources_pmu/programme_2026-11-22.json', {'programme': [
-            {'code': 'R1C1', 'depart': (now + timedelta(hours=3)).isoformat()}]})
+        self.assertFalse(e.relais_nocturne(self.cache, now, {**run, 'mode': 'ATTENTE'}))
+        e.sauver(self.cache / 'sources_pmu/programme_2026-11-21.json', {'programme': [
+            {'code': 'R1C1', 'depart': (now - timedelta(hours=2)).isoformat()},
+        ]})
+        self.assertEqual(e.planifier(self.cache, now)['mode'], 'ATTENTE')  # programme incohérent
+        e.sauver(self.cache / 'sources_pmu/programme_2026-11-22.json', {
+            'date_controle_utc': now.isoformat(), 'programme': [
+                {'code': 'R1C1', 'depart': (now - timedelta(hours=1)).isoformat()},
+            ],
+        })
+        self.assertEqual(e.planifier(self.cache, now)['mode'], 'RAPPROCHEMENT')
         self.assertFalse(e.relais_nocturne(self.cache, now, run))
+
+    def test_global_perime_ne_bloque_pas_la_nuit_mais_reprend_a_7h(self):
+        for day in ('2026-03-29', '2026-10-25'):
+            with self.subTest(day=day):
+                matin = datetime.fromisoformat(f'{day}T07:00').replace(tzinfo=e.PARIS).astimezone(timezone.utc)
+                nuit = matin - timedelta(hours=1)
+                self.mark_preparation(nuit)
+                self.mark_global(nuit - timedelta(hours=8))
+                self.assertEqual(e.planifier(self.cache, nuit, force=True)['mode'], 'ATTENTE')
+                self.assertIsNone(e.besoin_pmu(self.cache, nuit))
+                self.assertTrue(e.plan_collecte(self.cache, nuit, nocturne=True)['executer'])
+                self.assertEqual(e.planifier(self.cache, matin)['mode'], 'GLOBAL')
+                self.assertTrue(e.plan_collecte(self.cache, matin)['secours_pmu'])
+
+    def test_21h_ne_declenche_que_la_preparation_manquante(self):
+        soir = datetime(2026, 11, 24, 21, tzinfo=e.PARIS)
+        self.mark_global(soir - timedelta(hours=3))
+        self.assertEqual(e.planifier(self.cache, soir - timedelta(minutes=1))['mode'], 'GLOBAL')
+        plan = e.planifier(self.cache, soir)
+        self.assertEqual((plan['mode'], plan['date_preparation']), ('PREPARATION_JOUR', '2026-11-25'))
+        self.assertTrue(e.plan_collecte(self.cache, soir, nocturne=True)['secours_pmu'])
+        self.mark_preparation(soir)
+        self.assertEqual(e.planifier(self.cache, soir)['mode'], 'ATTENTE')
+        self.assertTrue(e.plan_collecte(self.cache, soir, nocturne=True)['executer'])
 
     def test_creneau_nocturne_suit_paris_ete_hiver_et_garde_la_marge(self):
         for month, hour_utc in ((1, 5), (7, 4)):
             with self.subTest(month=month):
                 now = datetime(2026, month, 17, hour_utc, 12, tzinfo=timezone.utc)
-                self.mark_global(now)
+                self.mark_preparation(now)
                 self.assertTrue(e.plan_collecte(self.cache, now, nocturne=True)['executer'])
                 for minute in (53, 59):
                     end = now.replace(minute=minute)
@@ -133,20 +170,8 @@ class EcheancesTests(unittest.TestCase):
         e.sauver(self.cache / 'sources_pmu/programme_2026-11-17.json', {'programme': [{
             'code': 'R1C1', 'depart': (now - timedelta(minutes=18)).isoformat(),
         }]})
-        self.assertEqual(e.budget_collecte_nocturne(self.cache, now), 5)
+        self.assertEqual(e.budget_collecte_nocturne(self.cache, now), 4)
         self.assertEqual(e.motif_pause_collecte_nocturne(self.cache, now + timedelta(minutes=5)),
-                         'ECHEANCE_PMU_PRIORITAIRE')
-
-    def test_collecte_nocturne_cede_avant_un_besoin_pmu(self):
-        now = datetime(2026, 11, 17, 1, 12, tzinfo=timezone.utc)
-        self.mark_global(now - timedelta(minutes=54))
-        self.assertEqual(e.plan_collecte(self.cache, now, nocturne=True)['motif'],
-                         'ECHEANCE_PMU_PRIORITAIRE')
-        self.mark_global(now)
-        e.sauver(self.cache / 'sources_pmu/programme_2026-11-17.json', {'programme': [{
-            'code': 'R1C1', 'depart': (now + timedelta(hours=3)).isoformat(),
-        }]})
-        self.assertEqual(e.plan_collecte(self.cache, now, nocturne=True)['motif'],
                          'ECHEANCE_PMU_PRIORITAIRE')
 
     def test_relecture_sheets_justifie_la_version_avant_depart(self):

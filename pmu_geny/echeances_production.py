@@ -71,6 +71,42 @@ def reunions_du_jour(cache, day, *, inventaire=None):
         }
 
 
+def creneau_nocturne(now):
+    return not 7 <= now.astimezone(PARIS).hour < 21
+
+
+FRAICHEUR_PREPARATION_NOCTURNE = timedelta(hours=24)
+
+
+def profil_preparation_disponible(cache, date, course, now):
+    depart = instant(course.get('depart'))
+    if not depart or depart <= now:
+        return True
+    profil = lire(cache / 'partants_actuels' / f"{date}_{course['code']}.json")
+    capture = instant(profil.get('capture_utc'))
+    chevaux = profil.get('chevaux', {})
+    declares = course.get('nombre_declares')
+    return bool(capture and timedelta(0) <= now - capture <= FRAICHEUR_PREPARATION_NOCTURNE
+                and chevaux and (not declares or len(chevaux) == int(declares)))
+
+
+def preparation_nocturne(cache, now):
+    local = now.astimezone(PARIS)
+    date = (local.date() + timedelta(days=local.hour >= 21)).isoformat()
+    sources = cache / 'sources_pmu'
+    programme = lire(sources / f'programme_{date}.json')
+    controle = instant(programme.get('date_controle_utc'))
+    if (controle and timedelta(0) <= now - controle <= FRAICHEUR_PREPARATION_NOCTURNE
+            and all(profil_preparation_disponible(cache, date, course, now)
+                    for course in programme.get('programme', []))):
+        return None
+    diagnostic = lire(sources / f'diagnostic_{date}.json')
+    dernier_essai = instant(diagnostic.get('horodatage_utc'))
+    if dernier_essai and timedelta(0) <= now - dernier_essai < timedelta(hours=1):
+        return None
+    return date
+
+
 def planifier(cache, now, force=False):
     if now.tzinfo is None:
         raise ValueError('Heure avec fuseau obligatoire')
@@ -79,9 +115,11 @@ def planifier(cache, now, force=False):
     previous = lire(cache/'orchestration/production_etat.json')
     last = instant(previous.get('dernier_global_publie_utc'))
     day = now.astimezone(PARIS).date().isoformat()
-    global_due = force or not last or not timedelta(0) <= now-last < timedelta(hours=1)
+    nuit = creneau_nocturne(now)
+    global_due = not nuit and (force or not last or not timedelta(0) <= now-last < timedelta(hours=1))
+    preparation = preparation_nocturne(cache, now) if nuit else None
     needs, upcoming, erreurs = [], [], []
-    for reunion in reunions_du_jour(cache, day):
+    for reunion in (() if nuit else reunions_du_jour(cache, day)):
         key = reunion['reunion']
         first = reunion['premier_depart']
         if not first:
@@ -113,21 +151,27 @@ def planifier(cache, now, force=False):
                               'phase': phase, 'echeance': deadline.isoformat()})
             break
     prochain_jalon = min(upcoming).isoformat() if upcoming else None
-    if last and last+timedelta(hours=1)>now:
+    if not nuit and last and last+timedelta(hours=1)>now:
         upcoming.append(last+timedelta(hours=1))
     needs.sort(key=lambda item: (instant(item['echeance']) < now, instant(item['echeance']), item['course']))
     selection = list(dict.fromkeys(item['course'].split('_', 1)[1] for item in needs))
     from .rapprochement_reunions import planifier_rapprochements
     results = planifier_rapprochements(cache, now, prochaines=upcoming)
+    secours = bool(selection or results or preparation or (
+        global_due and (not last or now - last >= timedelta(hours=2))))
     return {'plan_utc':now.isoformat(), 'date':day, 'erreurs': erreurs, 'version_jalons':VERSION_JALONS,
-            'executer':bool(global_due or selection or results),
-            'mode':'JALONS' if selection else 'RAPPROCHEMENT' if results else 'GLOBAL' if global_due else 'ATTENTE',
+            'executer':bool(global_due or selection or results or preparation),
+            'mode': ('JALONS' if selection else 'RAPPROCHEMENT' if results else
+                     'PREPARATION_JOUR' if preparation else 'GLOBAL' if global_due else 'ATTENTE'),
+            'date_preparation': preparation, 'secours_pmu': secours,
             'selection':selection, 'prochain_jalon_utc':prochain_jalon, 'jalons_dus':needs, 'rapprochements_dus':results,
             'prochain_besoin_utc':min(upcoming).isoformat() if upcoming else None}
 
 
 def besoin_pmu(cache, now):
     """Réserver le créneau avant une échéance, même si le cron est retardé."""
+    if creneau_nocturne(now):
+        return motif_pause_collecte_nocturne(cache, now)
     plan = planifier(cache, now)
     prochain = instant(plan['prochain_jalon_utc'])
     if plan['executer'] or (prochain and prochain <= now + timedelta(minutes=30)):
@@ -135,8 +179,8 @@ def besoin_pmu(cache, now):
     return None
 
 
-# Un sous-processus peut prendre 240 s avant ses sauvegardes et la pause de cadence.
-MARGE_COLLECTE = timedelta(minutes=7)
+# Sous-processus (240 s), cadence adaptative (60 s), sauvegarde et relais.
+MARGE_COLLECTE = timedelta(minutes=8)
 
 
 def limite_collecte_nocturne(cache, now):
@@ -181,6 +225,7 @@ def etat_cooldown_geny(cache, now, *, prod=None, back=None):
     pauses = [instant(state.get('prochain_acces_geny_utc')) for state in (prod, back)]
     if blocked:
         pauses.append(blocked + timedelta(minutes=30))
+        pauses.append(instant(incident.get('reprise_au_plus_tot_utc')))
     deadline = max((pause for pause in pauses if pause), default=None)
     active = bool(deadline and deadline > now)
     return {
@@ -208,7 +253,8 @@ def plan_collecte(cache, now, *, nocturne=False):
         result.update(geny=False, prochain_acces_geny_utc=cooldown['echeance_utc'])
     motif = motif_pause_collecte_nocturne(cache, now) if nocturne else besoin_pmu(cache, now)
     if motif:
-        return {**result, 'executer': False, 'motif': motif, 'geny': False}
+        secours = motif == 'ECHEANCE_PMU_PRIORITAIRE' and planifier(cache, now)['secours_pmu']
+        return {**result, 'executer': False, 'motif': motif, 'geny': False, 'secours_pmu': secours}
     if cooldown['actif']:
         prod = lire(cache / 'collecte_incrementale/etat.json')
         pending = prod.get('sync_kpi') == 'A_REPRENDRE' or any(
@@ -219,17 +265,24 @@ def plan_collecte(cache, now, *, nocturne=False):
     return result
 
 
-def relais_nocturne(cache, now, plan):
-    """Un cycle global durable peut transmettre le verrou à la collecte existante."""
-    if plan.get('mode') != 'GLOBAL':
+def relais_historiques(cache, now, plan, *, nocturne=False):
+    """Relayer seulement après une tâche PMU utile et persistée."""
+    mode = plan.get('mode')
+    debut = instant(plan.get('plan_utc'))
+    if mode not in {'PREPARATION_JOUR', 'RAPPROCHEMENT', 'GLOBAL', 'JALONS'} or not debut or debut > now:
         return False
-    cache = Path(cache)
-    last = instant(lire(cache / 'orchestration/production_etat.json').get(
-        'dernier_global_publie_utc'))
-    start = instant(plan.get('plan_utc'))
-    return bool(start and last and start <= last <= now
-                and budget_collecte_nocturne(cache, now) >= 2
-                and plan_collecte(cache, now, nocturne=True)['executer'])
+    if mode == 'GLOBAL':
+        last = instant(lire(Path(cache) / 'orchestration/production_etat.json').get('dernier_global_publie_utc'))
+        if not last or not debut <= last <= now:
+            return False
+    nuit = creneau_nocturne(now)
+    if (nocturne and not nuit) or (nuit and budget_collecte_nocturne(cache, now) < 2):
+        return False
+    return plan_collecte(cache, now, nocturne=nuit)['executer']
+
+
+def relais_nocturne(cache, now, plan):
+    return relais_historiques(cache, now, plan, nocturne=True)
 
 
 def prevision_valide(doc, depart, now, ml=False, key=None):
@@ -497,29 +550,38 @@ def main():
     parser.add_argument('--strict', action='store_true')
     parser.add_argument('--collecte', action='store_true')
     parser.add_argument('--collecte-nocturne', action='store_true')
+    parser.add_argument('--collecte-selon-heure', action='store_true')
     parser.add_argument('--preuve-sheets')
     parser.add_argument('--relais-nocturne', action='store_true')
+    parser.add_argument('--relais-historiques', action='store_true')
     args = parser.parse_args()
     now = datetime.now(timezone.utc)
-    if args.relais_nocturne:
-        raise SystemExit(0 if relais_nocturne(args.cache, now, lire(args.plan)) else 1)
+    if args.relais_nocturne or args.relais_historiques:
+        autorise = relais_historiques(args.cache, now, lire(args.plan), nocturne=args.relais_nocturne)
+        raise SystemExit(0 if autorise else 1)
     if args.certifier:
         result = enregistrer_publication(args.cache, now, lire(args.plan), os.getenv('PUBLICATION_REUSSIE')=='true',
                                             sheets=lire(args.preuve_sheets) if args.preuve_sheets else None)
     else:
-        collecte = args.collecte or args.collecte_nocturne
+        collecte = args.collecte or args.collecte_nocturne or args.collecte_selon_heure
+        nuit = creneau_nocturne(now)
+        nocturne = args.collecte_nocturne or (args.collecte_selon_heure and nuit)
         if collecte:
-            result = plan_collecte(args.cache, now, nocturne=args.collecte_nocturne)
+            result = plan_collecte(args.cache, now, nocturne=nocturne)
         else:
             result = planifier(args.cache, now, force=os.getenv('FORCER_AUTO')=='true')
-        if not collecte and os.getenv('MODE_PRODUCTION','auto') != 'auto':
-            result.update(executer=True, mode='MANUEL')
+        if not collecte and (mode := os.getenv('MODE_PRODUCTION', 'auto')) != 'auto':
+            autorise = not creneau_nocturne(now) or mode in {'decouvrir', 'collecter', 'consolider'}
+            result.update(executer=autorise, mode='MANUEL' if autorise else 'ATTENTE')
         sauver(args.plan, result)
         if os.getenv('GITHUB_OUTPUT'):
             with open(os.environ['GITHUB_OUTPUT'],'a') as f:
                 f.write('executer='+str(result['executer']).lower()+'\n')
+                f.write('mode='+result['mode']+'\n')
+                f.write('nocturne='+str(nocturne if collecte else nuit).lower()+'\n')
                 if collecte:
                     f.write('geny='+str(result['geny']).lower()+'\n')
+                    f.write('secours_pmu='+str(result.get('secours_pmu', False)).lower()+'\n')
     print(json.dumps(result, ensure_ascii=False))
     if args.certifier and args.strict and (not result['publication_reussie'] or result['erreurs']):
         raise SystemExit(2)
