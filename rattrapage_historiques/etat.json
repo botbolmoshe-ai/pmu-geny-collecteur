@@ -30345,7 +30345,7 @@
       "course_url": "https://www.geny.com/course/1698226/partants-pronostics",
       "numero": "9",
       "engagement": "2026-11-14_R8C8",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C8",
@@ -30369,7 +30369,32 @@
       "prochaine_verification_utc": "2026-11-25T20:51:20.371108+00:00",
       "nombre_performances": 27,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 27,
+          "cellules_actualisees": 0,
+          "lignes_source": 27,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 27,
+            "lignes_avant": 32218,
+            "cles_avant": 32218,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3222,
+            "import_initial_explicite": false,
+            "lignes_attendues": 32245,
+            "lignes_apres": 32245,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-24T20:51:41.917592+00:00",
+      "rattrapage_complet_au_utc": "2026-11-24T20:51:20.371108+00:00",
+      "ajouts_confirmes": 27
     },
     "contexte:ca1c6efb12264661ef143b42": {
       "nom": "LUMINOSO JYL",
@@ -43606,9 +43631,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C8",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C8",
       "numero": "9",
       "numero_reconcilie_depuis_snapshot": true,
@@ -43630,7 +43655,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:5c5818490b8ce47bdbbec3d0",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:5c5818490b8ce47bdbbec3d0"
+      "autre_contexte_meme_nom": "contexte:5c5818490b8ce47bdbbec3d0",
+      "rattrapage_complet_au_utc": "2026-11-24T20:51:20.371108+00:00",
+      "historique_complet_au_utc": "2026-11-24T20:51:20.371108+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:116dd4280aeeeb59a8e79051": {
       "nom": "LUMINOSO JYL",
@@ -73389,12 +73418,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1239,
-    "cibles_restantes": 1345,
+    "cibles_completees": 1241,
+    "cibles_restantes": 1343,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1396,
+    "travaux_distincts_restants": 1395,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 949,
+    "carrieres_distinctes_a_completer": 948,
     "identifiants_sans_carriere_complete": 73,
     "contextes_distincts_sans_identifiant": 875,
     "noms_distincts_sans_identifiant": 870,
@@ -73402,8 +73431,8 @@
     "identites_non_resolues": 1264,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4432,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4459,
     "tentatives_collecte": 3,
     "captures_validees": 3,
     "captures_partielles": 0,
@@ -73411,7 +73440,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-24T20:49:17.907298+00:00",
-  "maj_utc": "2026-11-24T20:51:21.188563+00:00",
+  "maj_utc": "2026-11-24T20:51:41.947135+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 19,
@@ -75310,18 +75339,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-24T20:49:17.907298+00:00",
-    "controle_utc": "2026-11-24T20:51:21.188563+00:00",
+    "controle_utc": "2026-11-24T20:51:41.947135+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 3,
-    "chevaux_confirmes_sheets": 2,
-    "performances_ajoutees_et_confirmees_sheets": 83,
+    "chevaux_confirmes_sheets": 3,
+    "performances_ajoutees_et_confirmees_sheets": 110,
     "requetes_http_geny": 183,
     "attente_inter_chevaux_secondes": 16.48,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 20.96,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 87.6,
-    "carrieres_publiees_par_heure_cycle": 58.4,
+    "carrieres_validees_par_heure_cycle": 74.98,
+    "carrieres_publiees_par_heure_cycle": 74.98,
     "refus_geny": {
       "403": 0,
       "429": 0
