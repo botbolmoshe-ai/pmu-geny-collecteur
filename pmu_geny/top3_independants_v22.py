@@ -60,6 +60,7 @@ def _calculer_direct(cache, course, raw, now, clock):
     from .formes_contextuelles_v32 import forme_meme_depart, noter_partant
     from .liaison_chevaux_v22 import etablir
     from .partants_actuels_v21 import extraire_partants
+    from .signaux_geny import candidat_classement, signaux as signaux_historiques
     profils=extraire_partants(raw)
     # Les critères courants proviennent exclusivement du relevé PMU fourni.
     identites=[{'numero':numero,'nom':profil['nom']}
@@ -78,6 +79,7 @@ def _calculer_direct(cache, course, raw, now, clock):
     all_numbers=set()
     eligible=[];direct=[]
     signaux = {}
+    historiques = {}
     for item in participants:
         if not isinstance(item,dict):continue
         n=_num(item,'numPmu','num','numero','numeroPmu')
@@ -98,6 +100,7 @@ def _calculer_direct(cache, course, raw, now, clock):
         if label:
             signaux[str(n)] = evaluer_profils(course, lien, profil, now)
         if info['score'] is not None and label:
+            historiques[n] = signaux_historiques(course, profil, lien, now)
             direct.append({'numero':n,'nom':label,'score_direct':info['score'],
                            'source_forme':info['source_forme'],
                            'qualite_score':info['qualite'],
@@ -163,6 +166,10 @@ def _calculer_direct(cache, course, raw, now, clock):
             'top3': [horse['numero'] for horse in candidate[:3]],
             'partants_avec_forme_meme_depart': sum('forme_geny_meme_depart' in horse for horse in ranking),
         }
+    if sufficient and complete_list and len(ranking) == len(eligible) and not reuse_previous:
+        candidat = candidat_classement([(h['numero'], h['score_direct']) for h in ranking], historiques)
+        if candidat:
+            doc['candidat_geny'] = candidat
     doc['couverture_sources'] = {
         'pmu_musique':sum(h.get('musique_exploitable',0)>0 for h in ranking),
         'geny_historique':sum(h.get('historique_exploitable',0)>0 for h in ranking),

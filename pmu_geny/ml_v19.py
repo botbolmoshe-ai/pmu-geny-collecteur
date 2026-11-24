@@ -177,6 +177,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
     from .partants_actuels_v21 import extraire_partants, ferrure_normalisee
     from .top3_independants_v22 import _form_score
     from .profils_partants import evaluer_profils
+    from .signaux_geny import signaux
     cache=Path(cache)
     participants=_list(raw,'participants','partants')
     if len(participants)<3:return 'PARTANTS_INSUFFISANTS',[],{}
@@ -265,6 +266,7 @@ def pmu_rows(cache,course,raw,now,*,legacy=False):
                 research['recul_depart_m'] = depart_trot['recul_m']
             if histo:
                 research.update(chronos_comparables(histo, course))
+                research.update(signaux(course, profil, {**link, 'historique': histo}, now))
             same_mode = forme_meme_depart(histo, course, profil, now)
             if same_mode:
                 research.update(forme_geny_meme_depart=same_mode['score'],
