@@ -358,7 +358,7 @@ class SynchroniseurSheets:
 
     def migrer_structure_geny(self, sauvegarde, *, appliquer=False):
         """Sauvegarder ou appliquer le même instantané sous le verrou du registre."""
-        from .migration_geny import planifier, verifier
+        from .migration_geny import plages_migration, planifier, verifier
         from .structure_geny import couverture
         from .sync_google_sheets import canonical_headers, colname, lire_feuille_complete, reconcilier_cles_historiques
         from dashboard.trot_analytics.usages import GENY_HISTORIQUE
@@ -390,13 +390,13 @@ class SynchroniseurSheets:
                                          'length': len(columns) - width}},
                 ]}, timeout=30))
             visible = raw[0] + [GENY_HISTORIQUE.libelles[field] for field in columns[len(headers):]]
-            cells = regrouper_cellules(HISTORY, updates)
+            cells = plages_migration(HISTORY, updates)
             if columns != headers:
                 cells.insert(0, {'range': f"'{HISTORY}'!{colname(len(headers) + 1)}1:{colname(len(columns))}1",
                                  'values': [visible[len(headers):]]})
-            for start in range(0, len(cells), 100):
+            for start in range(0, len(cells), 8):
                 self.check(self.session.post(self.base + '/values:batchUpdate', json={
-                    'valueInputOption': 'RAW', 'data': cells[start:start + 100],
+                    'valueInputOption': 'RAW', 'data': cells[start:start + 8],
                 }, timeout=90))
             self._formater_observations(HISTORY, sheet_id, columns, GENY_HISTORIQUE)
             fresh = self.metadata()[HISTORY]

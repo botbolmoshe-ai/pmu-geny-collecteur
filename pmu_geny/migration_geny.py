@@ -1,5 +1,5 @@
 """Plan additif appliqué aux seules performances déjà présentes dans le registre."""
-from collections import Counter
+from collections import Counter, defaultdict
 
 from dashboard.trot_analytics.usages import GENY_HISTORIQUE
 
@@ -51,3 +51,15 @@ def verifier(before, after, headers, fields, updates):
         for col, value in enumerate(new, start=1):
             if value != expected.get((index, col), restored[col - 1]):
                 raise ValueError(f'Écart après migration ligne {index}, colonne {col}')
+
+
+def plages_migration(tab, updates):
+    """Google ignore les valeurs nulles, ce qui espace les écritures sans toucher aux cellules intermédiaires."""
+    from .sync_google_sheets import colname
+
+    blocks = defaultdict(dict)
+    for row, col, value in updates:
+        blocks[col, (row - 2) // 1000][row] = value
+    return [{'range': f"'{tab}'!{colname(col)}{min(rows)}",
+             'values': [[rows.get(row)] for row in range(min(rows), max(rows) + 1)]}
+            for (col, _), rows in sorted(blocks.items())]

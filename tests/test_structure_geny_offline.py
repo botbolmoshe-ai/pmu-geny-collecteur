@@ -1,7 +1,7 @@
 import unittest
 
 from pmu_geny.collecte_geny_v4 import parse_career
-from pmu_geny.migration_geny import planifier, verifier
+from pmu_geny.migration_geny import plages_migration, planifier, verifier
 from pmu_geny.structure_geny import structurer
 from pmu_geny.sync_google_sheets import plan_sheet
 
@@ -63,6 +63,10 @@ class StructureGeny(unittest.TestCase):
         after[2][1] = ''
         with self.assertRaises(ValueError):
             verifier(raw, after, headers, fields, updates)
+
+    def test_sparse_write_skips_existing_cells(self):
+        self.assertEqual(plages_migration('Historique chevaux', [(4, 2, 'a'), (6, 2, 'b')]),
+                         [{'range': "'Historique chevaux'!B4", 'values': [['a'], [None], ['b']]}])
 
     def test_regular_sync_preserves_real_legacy_url(self):
         headers = ['cle_performance', 'source_url', 'texte_source']
