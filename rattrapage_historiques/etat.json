@@ -30444,7 +30444,7 @@
       "course_url": "https://www.geny.com/course/1698226/partants-pronostics",
       "numero": "11",
       "engagement": "2026-11-14_R8C8",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C8",
@@ -30468,7 +30468,32 @@
       "prochaine_verification_utc": "2026-11-25T20:54:12.822605+00:00",
       "nombre_performances": 54,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 54,
+          "cellules_actualisees": 0,
+          "lignes_source": 54,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 54,
+            "lignes_avant": 32319,
+            "cles_avant": 32319,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3232,
+            "import_initial_explicite": false,
+            "lignes_attendues": 32373,
+            "lignes_apres": 32373,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-24T20:54:34.776612+00:00",
+      "rattrapage_complet_au_utc": "2026-11-24T20:54:12.822605+00:00",
+      "ajouts_confirmes": 54
     },
     "contexte:da8ad678225b24dff4b1f59f": {
       "nom": "LOVELY BRUYERE",
@@ -43831,9 +43856,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C8",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C8",
       "numero": "11",
       "numero_reconcilie_depuis_snapshot": true,
@@ -43855,7 +43880,11 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "cible_equivalente_a": "contexte:7690c0caafdb53f52c0c8a13",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:7690c0caafdb53f52c0c8a13"
+      "autre_contexte_meme_nom": "contexte:7690c0caafdb53f52c0c8a13",
+      "rattrapage_complet_au_utc": "2026-11-24T20:54:12.822605+00:00",
+      "historique_complet_au_utc": "2026-11-24T20:54:12.822605+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:1e26d021a7a713f799e26e6b": {
       "nom": "LOVELY BRUYERE",
@@ -73529,12 +73558,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1247,
-    "cibles_restantes": 1337,
+    "cibles_completees": 1249,
+    "cibles_restantes": 1335,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1392,
+    "travaux_distincts_restants": 1391,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 945,
+    "carrieres_distinctes_a_completer": 944,
     "identifiants_sans_carriere_complete": 69,
     "contextes_distincts_sans_identifiant": 875,
     "noms_distincts_sans_identifiant": 870,
@@ -73542,8 +73571,8 @@
     "identites_non_resolues": 1264,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4533,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4587,
     "tentatives_collecte": 7,
     "captures_validees": 7,
     "captures_partielles": 0,
@@ -73551,7 +73580,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-24T20:49:17.907298+00:00",
-  "maj_utc": "2026-11-24T20:54:13.917436+00:00",
+  "maj_utc": "2026-11-24T20:54:34.808905+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 19,
@@ -75450,18 +75479,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-24T20:49:17.907298+00:00",
-    "controle_utc": "2026-11-24T20:54:13.917436+00:00",
+    "controle_utc": "2026-11-24T20:54:34.808905+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 7,
-    "chevaux_confirmes_sheets": 6,
-    "performances_ajoutees_et_confirmees_sheets": 184,
+    "chevaux_confirmes_sheets": 7,
+    "performances_ajoutees_et_confirmees_sheets": 238,
     "requetes_http_geny": 427,
     "attente_inter_chevaux_secondes": 30.04,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 50.0,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 85.13,
-    "carrieres_publiees_par_heure_cycle": 72.97,
+    "carrieres_validees_par_heure_cycle": 79.52,
+    "carrieres_publiees_par_heure_cycle": 79.52,
     "refus_geny": {
       "403": 0,
       "429": 0
