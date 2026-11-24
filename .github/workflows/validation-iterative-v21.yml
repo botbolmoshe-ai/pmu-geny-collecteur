@@ -17,8 +17,13 @@ on:
         type: choice
         options: [aucun, audit, appliquer]
         default: aucun
+      reference:
+        description: Exécution contenant la sauvegarde initiale à relire
+        type: string
+        default: ''
 permissions:
   contents: read
+  actions: read
 jobs:
   validation:
     runs-on: ubuntu-latest
@@ -110,13 +115,26 @@ jobs:
           path: resultats/dates/avant.json.gz.enc
           if-no-files-found: error
           retention-days: 30
+      - uses: actions/download-artifact@v4
+        if: inputs.dates_registre == 'appliquer' && github.ref == 'refs/heads/main' && inputs.reference != ''
+        with:
+          name: sauvegarde-registre-dates-${{ inputs.reference }}
+          path: resultats/dates/reference
+          run-id: ${{ inputs.reference }}
+          github-token: ${{ github.token }}
       - name: Migrer et relire le registre
         if: inputs.dates_registre == 'appliquer' && github.ref == 'refs/heads/main'
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
         run: |
-          mkdir -p resultats/dates
-          python -m pmu_geny.migration_dates_sheets --appliquer --sauvegarde resultats/dates/avant.json.gz
+          args=()
+          if [[ -f resultats/dates/reference/avant.json.gz.enc ]]; then
+            python -c 'import hashlib,json,os; print(hashlib.sha256(json.loads(os.environ["GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON"])["private_key"].encode()).hexdigest())' |
+              openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -pass stdin \
+                -in resultats/dates/reference/avant.json.gz.enc -out resultats/dates/reference.json.gz
+            args+=(--reference resultats/dates/reference.json.gz)
+          fi
+          python -m pmu_geny.migration_dates_sheets --appliquer --sauvegarde resultats/dates/avant.json.gz "${args[@]}"
       - name: Vérifier Streamlit sur le registre réel
         if: inputs.dates_registre == 'appliquer' && github.ref == 'refs/heads/main'
         env:
