@@ -1,0 +1,359 @@
+{
+  "date": "2026-11-25",
+  "course": "R4C1",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KELMONDO BOY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8055500,
+        "gainsVictoires": 4095000,
+        "gainsPlace": 3960500,
+        "gainsAnneeEnCours": 2518500,
+        "gainsAnneePrecedente": 2187500
+      }
+    },
+    {
+      "nom": "KENOBI D'HERFRAIE",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 9208500,
+        "gainsVictoires": 6322500,
+        "gainsPlace": 2886000,
+        "gainsAnneeEnCours": 1588000,
+        "gainsAnneePrecedente": 3230000
+      }
+    },
+    {
+      "nom": "KING DE PLAY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 10846500,
+        "gainsVictoires": 4500000,
+        "gainsPlace": 6346500,
+        "gainsAnneeEnCours": 2236000,
+        "gainsAnneePrecedente": 3270000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-24T00:08:44.313591+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "L. CHEVROLLIER",
+      "entraineur": "Y. DREUX",
+      "proprietaire": "Y. DREUX",
+      "ferrure": "D4",
+      "musique_pmu": "2m0a6a1a2a5a1a8a5a0a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 80555.0,
+      "nom": "KELMONDO BOY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "TH. ROULLIER",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie de BAFFE",
+      "ferrure": "DA",
+      "musique_pmu": "0a7mDmDmDmDm1mDmDa4m",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 92085.0,
+      "nom": "KENOBI D'HERFRAIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mme M.K. DUVAL",
+      "entraineur": "B. MARIE",
+      "proprietaire": "A. GASSIRARO",
+      "ferrure": "D4",
+      "musique_pmu": "6m6m6mGmDm4m7m0m6m6m",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 108465.0,
+      "nom": "KING DE PLAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "Mlle A. POULAIN",
+      "entraineur": "P. SORAIS",
+      "proprietaire": "P. SORAIS",
+      "ferrure": "D4",
+      "musique_pmu": "4m1m7mDa0a3m1m2m0a(25)",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 111535.0,
+      "nom": "KASANGA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "LOUIS FORTIN",
+      "entraineur": "F. NIVARD",
+      "proprietaire": "Ecurie Franck NIVARD",
+      "ferrure": "D4",
+      "musique_pmu": "1mDaDa0mDm0aDa9m3m1m",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 111815.0,
+      "nom": "KOREA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "G. GILARD",
+      "entraineur": "Mme E. DESSARTRE",
+      "proprietaire": "A. FIEURGANT",
+      "ferrure": "D4",
+      "musique_pmu": "2m7a6a7a8m3m(25)1m1m1m",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 113915.0,
+      "nom": "KHEOPS DORE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "Mlle E. BOUCLET",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "Ecurie SMACH",
+      "ferrure": "P4",
+      "musique_pmu": "7m8m9m0aDm1m1m1mDm2m",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 115015.0,
+      "nom": "KABALA QUICK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mlle H. GODEY",
+      "entraineur": "A.G. MAILLARD",
+      "proprietaire": "Richard DUMAINE",
+      "ferrure": "D4",
+      "musique_pmu": "Da2m2m1m8a1m1m2m1m8a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 120320.0,
+      "nom": "KAMIKAZE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "Mme C. BLAIZOT",
+      "entraineur": "TH. LEVESQUE",
+      "proprietaire": "Ecurie Thomas LEVESQUE",
+      "ferrure": "D4",
+      "musique_pmu": "3m1mAm1m3m(25)3m6mDm(24)",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 120820.0,
+      "nom": "KEPHYR D'ESTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "R. VILAULT",
+      "entraineur": "Sté. Ent. Théo BRIAND",
+      "proprietaire": "Ecurie TURGOT",
+      "ferrure": "PA",
+      "musique_pmu": "8aDaDm2a2mDaDaDa2aDa",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 123955.0,
+      "nom": "KHEOPS TURGOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+        "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C1/participants",
+          "capture_utc": "2026-11-24T00:08:44.313591+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

@@ -1,0 +1,368 @@
+{
+  "date": "2026-11-25",
+  "course": "R4C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MEVOILA VIVANCIERE",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1088500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1088500,
+        "gainsAnneeEnCours": 968500,
+        "gainsAnneePrecedente": 120000
+      }
+    },
+    {
+      "nom": "MONALISA CELO",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 2185000,
+        "gainsVictoires": 675000,
+        "gainsPlace": 1510000,
+        "gainsAnneeEnCours": 1090000,
+        "gainsAnneePrecedente": 1095000
+      }
+    },
+    {
+      "nom": "MACOE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2689500,
+        "gainsVictoires": 1507500,
+        "gainsPlace": 1182000,
+        "gainsAnneeEnCours": 1707000,
+        "gainsAnneePrecedente": 982500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-24T00:08:48.456595+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie Jean Michel BAZIRE",
+      "ferrure": "DA",
+      "musique_pmu": "DmDaDmDmDmDm4mDmDm2m",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 10885.0,
+      "nom": "MEVOILA VIVANCIERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "Sté. Ent. Christophe CLIN",
+      "proprietaire": "Ecurie D' AJAC",
+      "musique_pmu": "5m4m3mDmDa5a(25)DaDa3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 21850.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "nom": "MONALISA CELO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mme C. LEVESQUE",
+      "entraineur": "TH. LEVESQUE",
+      "proprietaire": "Ecurie Thomas LEVESQUE",
+      "ferrure": "D4",
+      "musique_pmu": "2aDa7a1a4a(25)2aDa1a5a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 26895.0,
+      "nom": "MACOE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "M. CHAMPENOIS",
+      "entraineur": "K. CHAMPENOIS",
+      "proprietaire": "K. CHAMPENOIS",
+      "musique_pmu": "Da4a3aDa6a7a1a(25)1a8a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 30510.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "nom": "MA ROSE DE SARTHE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "Mlle NOEMIE HARDY",
+      "entraineur": "S. HARDY",
+      "proprietaire": "Ecurie Sébastien HARDY",
+      "ferrure": "D4",
+      "musique_pmu": "DaDa7m5mDm7m0a(25)8m7m",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 30855.0,
+      "nom": "MONALYSA DU ROEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1a6a8a7a2a(25)1a3a1a5a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 32140.0,
+      "nom": "MATA HARI TURGOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "J.F. SENET",
+      "proprietaire": "Ecurie J-F. SENET",
+      "ferrure": "D4",
+      "musique_pmu": "2a6a4a5a2a3m3a7a5a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 32320.0,
+      "nom": "MANON BLONDE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "TH. DROMIGNY",
+      "entraineur": "D. BROHIER",
+      "proprietaire": "D. BROHIER",
+      "musique_pmu": "5m4m1m2m5mDm(25)2m4a3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 33020.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "nom": "MODIG VIKING",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "Cédric POSTOLLEC",
+      "ferrure": "D4",
+      "musique_pmu": "6m3m0a1m2m3a(25)0aDm3m",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 33600.0,
+      "nom": "MADISON MATIDY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "S.E. PASQUIER",
+      "entraineur": "B. LEFEVRE",
+      "proprietaire": "G.M. DREUX",
+      "ferrure": "DP/PA",
+      "musique_pmu": "7m5m6mDa8m1m2m0aDm7a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 34175.0,
+      "nom": "MOMINETTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+        "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C7/participants",
+          "capture_utc": "2026-11-24T00:08:48.456595+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

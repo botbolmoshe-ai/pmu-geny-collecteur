@@ -1,0 +1,342 @@
+{
+  "date": "2026-11-25",
+  "course": "R4C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NOSTALGIE D'OLMEN",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 2400000,
+        "gainsVictoires": 742500,
+        "gainsPlace": 1657500,
+        "gainsAnneeEnCours": 2400000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NAYA REINA",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2407500,
+        "gainsVictoires": 1755000,
+        "gainsPlace": 652500,
+        "gainsAnneeEnCours": 2407500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NAGINATA",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2575000,
+        "gainsVictoires": 1710000,
+        "gainsPlace": 865000,
+        "gainsAnneeEnCours": 1750000,
+        "gainsAnneePrecedente": 825000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-24T00:08:46.975469+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "D. BONNE",
+      "entraineur": "V. MARTENS",
+      "proprietaire": "Ecurie OLMENHOF",
+      "musique_pmu": "4a2a1a2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 24000.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "nom": "NOSTALGIE D'OLMEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "Scuderia PANTHERE ROSE",
+      "ferrure": "P4",
+      "musique_pmu": "5a0a1a1a2a4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 24075.0,
+      "nom": "NAYA REINA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "Sté. Ent. Emmanuel ALLARD",
+      "proprietaire": "Ecurie FIF",
+      "ferrure": "P4",
+      "musique_pmu": "7m0aDaDmDmDmDm1mDm(25)",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 25750.0,
+      "nom": "NAGINATA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "G. LENAIN",
+      "entraineur": "P. LELIEVRE",
+      "proprietaire": "S. LEFORT",
+      "musique_pmu": "3mDa1m2a4m6aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 32110.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "nom": "NESTINA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "B. GOGLIN",
+      "proprietaire": "Ecurie LA TOUR DE VANDEL",
+      "musique_pmu": "1m3mDmDm2m2m7a5m",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 32865.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "nom": "NUEVA DE VANDEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "A. VOISIN",
+      "entraineur": "F. BLANDIN",
+      "proprietaire": "Ecurie AB TROT",
+      "ferrure": "P4",
+      "musique_pmu": "5m2m7a4m3m7a6aDa2a1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 33655.0,
+      "nom": "NOA BY STEED",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "M. CHAMPENOIS",
+      "entraineur": "G. HOUEL",
+      "proprietaire": "Jean TRAVERS",
+      "ferrure": "P4",
+      "musique_pmu": "2m2m2m1mDm(25)7mDaDm",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 34080.0,
+      "nom": "NIGHT LILOMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mme T. MATHIAS-MAISONNETTE",
+      "entraineur": "A. RIPOLL RIGO",
+      "proprietaire": "M. ALADENISE",
+      "ferrure": "P4",
+      "musique_pmu": "Dm9m1m7m6m1m(25)9m8m",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 37180.0,
+      "nom": "NAYAMA BERRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "R. MARTY",
+      "entraineur": "J.M. MARIE",
+      "proprietaire": "J.M. MARIE",
+      "musique_pmu": "2m4a8a5a6a6a6a6aDa3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 39040.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+          "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+        }
+      },
+      "nom": "NASHIRA RUSCINO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C5/participants",
+        "capture_utc": "2026-11-24T00:08:46.975469+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

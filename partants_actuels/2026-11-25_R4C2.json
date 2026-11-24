@@ -1,0 +1,617 @@
+{
+  "date": "2026-11-25",
+  "course": "R4C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "tauxReclamation",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NOUMEA DES BROUETS",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3009500,
+        "gainsVictoires": 0,
+        "gainsPlace": 3009500,
+        "gainsAnneeEnCours": 1240000,
+        "gainsAnneePrecedente": 1769500
+      }
+    },
+    {
+      "nom": "NOVELISTA",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3070000,
+        "gainsVictoires": 990000,
+        "gainsPlace": 2080000,
+        "gainsAnneeEnCours": 3070000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NEBBIO DU LIAMONE",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3160000,
+        "gainsVictoires": 1260000,
+        "gainsPlace": 1900000,
+        "gainsAnneeEnCours": 2195000,
+        "gainsAnneePrecedente": 965000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-24T00:08:45.010127+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "TANGUY DEVOUASSOUX",
+      "proprietaire": "Ecurie DEVOUASSOUX",
+      "ferrure": "PA",
+      "musique_pmu": "0aDa5a0a8a0aTmDm0a2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 30095.0,
+      "nom": "NOUMEA DES BROUETS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "J. DAVET",
+      "ferrure": "P4",
+      "musique_pmu": "6m2m2m1mDa2aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 30700.0,
+      "nom": "NOVELISTA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "R. LAMY",
+      "entraineur": "E. VARIN",
+      "proprietaire": "Ecurie LES FRERES DU TROT",
+      "ferrure": "P4",
+      "musique_pmu": "DaDa6a4a1aDm4aDaDa1a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 31600.0,
+      "nom": "NEBBIO DU LIAMONE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "L. BARASSIN",
+      "proprietaire": "Ecurie INITIAL",
+      "ferrure": "PA",
+      "musique_pmu": "2a4a3a3a8a8a9aDa1aDm",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 22480.0,
+      "nom": "NOSTALGIE DAIRPET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "LEO ABRIVARD",
+      "proprietaire": "S. BERREBI",
+      "ferrure": "PA",
+      "musique_pmu": "7a3aDa4a3a7aDa3aDa9a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 18970.0,
+      "nom": "NOBLE AVENUE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "CL. DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "J. COTTEL",
+      "ferrure": "P4",
+      "musique_pmu": "1a5a6a6a3a1a4a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 17300.0,
+      "nom": "NORTH OF STATE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "E. DE JESUS",
+      "entraineur": "A. REVEILLON",
+      "proprietaire": "A. REVEILLON",
+      "ferrure": "P4",
+      "musique_pmu": "9a8a1a2a2a6a4a6aDm4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 19920.0,
+      "nom": "NOGHERA COUNTESS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "S. ROGER",
+      "proprietaire": "R. PLANTIN",
+      "ferrure": "P4",
+      "musique_pmu": "7a3a2aDa5a8a7a5a4aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 25245.0,
+      "nom": "NEEDREAM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "G. GELORMINI",
+      "entraineur": "S. ROGER",
+      "proprietaire": "PH. THIRIONET",
+      "ferrure": "P4",
+      "musique_pmu": "6a6a5aDa9a3a3a2a(25)4a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 23615.0,
+      "nom": "NAPOLI DU BOUFFEY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "Sté. Ent. Grégory THOREL",
+      "proprietaire": "Sté. Ent. Grégory THOREL",
+      "ferrure": "P4",
+      "musique_pmu": "8m5a5aDa8m6a6a2a6a3a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 14660.0,
+      "nom": "NEVERS DE BELLANDE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "TANGUY DEVOUASSOUX",
+      "proprietaire": "F. LAFOLLET",
+      "musique_pmu": "DaDa7a6a0aDa9a1a4a4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 16925.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "nom": "NOUCHKA ROYALE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "F. NIVARD",
+      "proprietaire": "Ecurie des CHARMES",
+      "ferrure": "P4",
+      "musique_pmu": "6a4a3a3a0a5a6aDaDa6a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 10895.0,
+      "nom": "NOTTINGHAM PLACE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "LEO ABRIVARD",
+      "entraineur": "LEO ABRIVARD",
+      "proprietaire": "Ecurie Léo ABRIVARD",
+      "ferrure": "PA",
+      "musique_pmu": "6a8a4a4aDaDa1aDa(25)4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 14320.0,
+      "nom": "NEURO BELLA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "G. JUNOD",
+      "entraineur": "L. BAUDRON",
+      "proprietaire": "Ecurie Louis BAUDRON",
+      "ferrure": "PA",
+      "musique_pmu": "0a7a0aDaDm4aDaDaDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 7830.0,
+      "nom": "NEWLIFE DE CAHOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "R. DERIEUX",
+      "entraineur": "R. DERIEUX",
+      "proprietaire": "Ecurie du VAL TENSE",
+      "musique_pmu": "6aDa7aDa3aDaDa(25)4a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 4310.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "nom": "NORTHFIELDS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 15,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "16": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "A. DE VAUGIRAUD",
+      "proprietaire": "Mme N. VIEL-PIERRE",
+      "musique_pmu": "3a4aDa4a4a8a2aDa(25)Da",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 9320.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+          "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+        }
+      },
+      "nom": "NARCISSE DE BLAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "conditions",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 16,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026/R4/C2/participants",
+        "capture_utc": "2026-11-24T00:08:45.010127+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}
