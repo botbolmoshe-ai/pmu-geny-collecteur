@@ -108,7 +108,8 @@ def enregistrer(engine,tables,now=None):
     if updates:
         from .moteur_sheets import formats_dates
         engine.check(engine.session.post(engine.base+':batchUpdate',
-            json={'requests':formats_dates(properties['sheetId'], HEADERS) + mixed_formats},timeout=30))
+            json={'requests':formats_dates(properties['sheetId'], grid[0] if capture_paris else HEADERS)
+                  + mixed_formats},timeout=30))
         # Ranges explicites : relire puis réessayer ne crée pas un deuxième append.
         engine.check(engine.session.post(engine.base+'/values:batchUpdate',json={
             'valueInputOption':'RAW','data':updates},timeout=45))
