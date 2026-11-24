@@ -1,0 +1,35 @@
+# Restitution des résultats PMU — complément du ticket 127
+
+Contrôle en lecture du checkpoint `pmu-data@198eea531` du 24 novembre 2026.
+Les rapprochements préexistants ont un dictionnaire de scores vide sur les
+cinq courses signalées. La restitution relit la paire H2 dans les archives
+durables, vérifie la relecture Sheets, l'empreinte de la version, l'heure de
+publication et le départ. Elle ne recalcule aucun pronostic.
+
+| Course | Constat sur la preuve H2 | Matching ML de restitution |
+| --- | --- | ---: |
+| R3C6 | Départ enregistré différent du départ de la version archivée | Non évaluable |
+| R3C7 | Départ enregistré différent du départ de la version archivée | Non évaluable |
+| R3C8 | Départ enregistré différent du départ de la version archivée | Non évaluable |
+| R4C1 | Paire Direct et ML retrouvée et validée | 2/3, soit 66,67 % |
+| R4C3 | Paire Direct et ML retrouvée et validée | 1/3, soit 33,33 % |
+
+La publication prend la paire H2 en priorité et utilise une paire complète
+H3 ou H1 en secours. Cette règle remplace la priorité historique donnée à
+H1 dans la restitution quand les deux paires sont disponibles. Les preuves
+et versions individuelles restent dans `jalons` et `publications`.
+Le calcul ML et la raison d'une évaluation manquante sont exposés au tableau
+de bord. Les données/états par jalon restent disponibles pour la supervision
+et les tests, même lorsqu'ils sont retirés de la table utilisateur.
+
+## Migration à qualifier avant déploiement
+
+Le moteur Sheets lit les en-têtes normalisés et republie le périmètre à partir
+de `REPORT_COLUMNS`. Le dashboard lit les champs de comparaison et le KPI
+exploite les archives séparées de rapprochement. La migration existante des
+dates a ajouté des colonnes d'affichage Paris dans plusieurs onglets.
+Une suppression de colonnes doit couvrir également les usages non versionnés
+de Google Sheets (formules, plages et vues), avec sauvegarde, test sur copie,
+contrôle du différentiel avant/après et second passage sans mutation. Ce
+complément prépare la restitution et les règles de preuve. Il ne modifie
+aucune colonne en production.

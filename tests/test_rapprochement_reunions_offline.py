@@ -117,9 +117,10 @@ class RapprochementReunionsTests(TestCase):
         report, = source['Résultats & Analyse'].values()
         self.assertEqual(report['score_h2_direct'], 3)
         self.assertEqual(report['score_h1_ml'], 1)
-        self.assertEqual(report['top3_direct_numeros'], '1,4,5')
-        self.assertEqual(report['matching_ml_pct'], 33.33)
-        self.assertEqual(report['jalon_compare'], 'H-1')
+        self.assertEqual(report['top3_direct_numeros'], '1,2,3')
+        self.assertEqual(report['matching_ml_pct'], 100.0)
+        self.assertEqual(report['top3_ml_calcule_utc'], plans['H2']['versions']['ml']['calcul_utc'])
+        self.assertEqual(report['jalon_compare'], 'H-2')
         report_path = self.cache/'rapprochements'/f'{self.day}_R1.json'
         record = production.lire(report_path)
         record['courses']['R1C1']['scores'] = {

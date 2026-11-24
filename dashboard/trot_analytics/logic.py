@@ -59,9 +59,9 @@ def result_matching(row,method,now=None):
         if row.get('Évaluation · État') != 'EVALUE': return None
         state=str(row.get('ML · Statut',''))
         if 'ENTRAINE_NON_CALIBRE' not in state and state not in ('ML_ENTRAINE','ML_CALCULE','ML_PRODUCTION_ENTRAINE','ML_ENTRAINE_CALIBRE'): return None
-        # Current sheet has no independent ML calculation timestamp.
-        # Accept only the stored matching field produced by the guarded engine,
-        # otherwise leave it unknown instead of claiming pre-departure proof.
+        ml_stamp = row.get('TOP3 ML · Heure calcul UTC')
+        if ml_stamp and (not (created := timestamp(ml_stamp)) or created >= depart): return None
+        # Compatibility with rows published before the independent ML timestamp.
         if number(row.get(prefix+' · Matching (%)')) is None: return None
     hits=number(row.get(prefix+' · Chevaux à l’arrivée (0–3)'))
     if hits!=len(chosen&actual): return None
