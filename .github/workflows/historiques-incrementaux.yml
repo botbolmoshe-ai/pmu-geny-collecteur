@@ -30,7 +30,7 @@ on:
         required: false
 permissions:
   contents: write
-  actions: read
+  actions: write
 concurrency:
   group: ${{ (inputs.date_courses != '' || inputs.hippodrome != '') && format('recensement-{0}', github.run_id) || 'pmu-donnees-production' }}
   cancel-in-progress: false
@@ -63,6 +63,32 @@ jobs:
           mode=--collecte
           if [ "$COLLECTE_NOCTURNE" = 'true' ]; then mode=--collecte-nocturne; fi
           python -m pmu_geny.echeances_production --cache cache_pmu "$mode"
+      - name: Secourir le cycle PMU horaire en retard sans contourner les gardes
+        if: steps.plan.outputs.executer == 'false' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Le verrou partagé reste acquis : le cycle demandé attendra sa libération.
+          # Ne jamais attendre sa fin ici ni démarrer un deuxième collecteur.
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone, timedelta
+          from pathlib import Path
+          plan = json.loads(Path('resultats/plan_production.json').read_text())
+          state_path = Path('cache_pmu/orchestration/production_etat.json')
+          state = json.loads(state_path.read_text()) if state_path.exists() else {}
+          last = state.get('dernier_global_publie_utc')
+          stale = not last or datetime.now(timezone.utc) - datetime.fromisoformat(last) >= timedelta(hours=2)
+          Path('resultats/secours_pmu').write_text('oui' if stale and plan.get('motif') == 'ECHEANCE_PMU_PRIORITAIRE' else 'non')
+          PY
+          if [ "$(cat resultats/secours_pmu)" != oui ]; then exit 0; fi
+          active=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/pmu-v16.yml/runs?per_page=30" --jq '.workflow_runs[] | select(.status != "completed") | .id')
+          if [ -n "$active" ]; then
+            echo "SECOURS_PMU_DIFFERE cycle deja actif: $active"
+            exit 0
+          fi
+          gh workflow run pmu-v16.yml --repo "$GITHUB_REPOSITORY" --ref main -f mode=auto
+          echo 'SECOURS_PMU_DEMANDE publication a confirmer'
       - uses: actions/cache@v4
         if: steps.plan.outputs.geny == 'true'
         with:
