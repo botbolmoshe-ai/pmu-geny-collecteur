@@ -84796,7 +84796,7 @@
     },
     "2878838": {
       "nom": "NAVARONE",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "2",
       "engagement": "2026-11-24_R3C3",
       "vu_utc": "2026-11-24T09:32:51.859319+00:00",
@@ -84827,11 +84827,39 @@
       "nombre_performances": 7,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-06-25"
+      "derniere_performance_date": "2026-06-25",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 7,
+          "cellules_actualisees": 0,
+          "lignes_source": 7,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 7,
+            "lignes_avant": 31980,
+            "cles_avant": 31980,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3198,
+            "import_initial_explicite": false,
+            "lignes_attendues": 31987,
+            "lignes_apres": 31987,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 3,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-24T09:37:01.179230+00:00"
     }
   },
   "passage_utc": "2026-11-24T09:32:51.859319+00:00",
-  "maj_utc": "2026-11-24T09:36:43.513488+00:00",
+  "maj_utc": "2026-11-24T09:37:01.179255+00:00",
   "bilan": {
     "chevaux_suivis": 3088,
     "tentatives_collecte": 4,
@@ -86579,18 +86607,18 @@
   "sync_kpi_utc": "2026-11-23T21:03:25.116580+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-24T09:32:51.859319+00:00",
-    "controle_utc": "2026-11-24T09:36:43.513488+00:00",
+    "controle_utc": "2026-11-24T09:37:01.179255+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 4,
-    "chevaux_confirmes_sheets": 3,
-    "performances_ajoutees_et_confirmees_sheets": 72,
+    "chevaux_confirmes_sheets": 4,
+    "performances_ajoutees_et_confirmees_sheets": 79,
     "requetes_http_geny": 293,
     "attente_inter_chevaux_secondes": 108.85,
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 24.98,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 62.16,
-    "carrieres_publiees_par_heure_cycle": 46.62,
+    "carrieres_validees_par_heure_cycle": 57.76,
+    "carrieres_publiees_par_heure_cycle": 57.76,
     "refus_geny": {
       "403": 0,
       "429": 0
