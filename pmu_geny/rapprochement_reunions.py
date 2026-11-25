@@ -20,12 +20,13 @@ def inventaire_confirme(record):
 
 # Instantanés déjà publics sur pmu-data, antérieurs aux TOP3 qu'ils documentent.
 ARCHIVES_PROGRAMME = {
+    '2026-11-24': ('e484fa158feedeb43d49780c9132327259479143',),
     '2026-11-25': (
         'd0f654aca65ea778130171ffdc4f1a77436085d6',
         'e21d067472694e1c92e135a9b88fa5e473400d5a',
     ),
 }
-REPRISES_PROGRAMME = {'2026-11-25_R2', '2026-11-25_R4'}
+REPRISES_PROGRAMME = {'2026-11-24_R3', '2026-11-25_R2', '2026-11-25_R4'}
 
 
 @lru_cache(maxsize=4)
