@@ -54268,7 +54268,7 @@
       "numero": "13",
       "course_url": "https://www.geny.com/course/1698709/partants-pronostics",
       "engagement": "2026-11-16_R1C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "ferrures_manquantes": 0,
       "engagement_prioritaire": "2026-11-16_R1C1",
       "collecte": "COMPLET",
@@ -54290,7 +54290,32 @@
       "prochaine_verification_utc": "2026-11-26T03:46:17.718597+00:00",
       "nombre_performances": 29,
       "erreur": "",
-      "derniere_performance_date": "2026-11-16"
+      "derniere_performance_date": "2026-11-16",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 29,
+          "cellules_actualisees": 0,
+          "lignes_source": 29,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 29,
+            "lignes_avant": 32797,
+            "cles_avant": 32797,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3280,
+            "import_initial_explicite": false,
+            "lignes_attendues": 32826,
+            "lignes_apres": 32826,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-25T03:46:37.549093+00:00",
+      "rattrapage_complet_au_utc": "2026-11-25T03:46:17.718597+00:00",
+      "ajouts_confirmes": 29
     },
     "contexte:8db8725158c0730e818a2191": {
       "nom": "ISIS DE POULINE",
@@ -73829,12 +73854,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1260,
-    "cibles_restantes": 1324,
+    "cibles_completees": 1261,
+    "cibles_restantes": 1323,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1382,
+    "travaux_distincts_restants": 1381,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 935,
+    "carrieres_distinctes_a_completer": 934,
     "identifiants_sans_carriere_complete": 60,
     "contextes_distincts_sans_identifiant": 874,
     "noms_distincts_sans_identifiant": 869,
@@ -73842,8 +73867,8 @@
     "identites_non_resolues": 1263,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4922,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4951,
     "tentatives_collecte": 7,
     "captures_validees": 7,
     "captures_partielles": 0,
@@ -73851,7 +73876,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T03:40:08.788670+00:00",
-  "maj_utc": "2026-11-25T03:46:18.518850+00:00",
+  "maj_utc": "2026-11-25T03:46:37.578943+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 18,
@@ -75750,18 +75775,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T03:40:08.788670+00:00",
-    "controle_utc": "2026-11-25T03:46:18.518850+00:00",
+    "controle_utc": "2026-11-25T03:46:37.578943+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 7,
-    "chevaux_confirmes_sheets": 6,
-    "performances_ajoutees_et_confirmees_sheets": 293,
+    "chevaux_confirmes_sheets": 7,
+    "performances_ajoutees_et_confirmees_sheets": 322,
     "requetes_http_geny": 429,
     "attente_inter_chevaux_secondes": 109.7,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 47.48,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 68.16,
-    "carrieres_publiees_par_heure_cycle": 58.42,
+    "carrieres_validees_par_heure_cycle": 64.82,
+    "carrieres_publiees_par_heure_cycle": 64.82,
     "refus_geny": {
       "403": 0,
       "429": 0
