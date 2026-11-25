@@ -24226,7 +24226,7 @@
       "course_url": "https://www.geny.com/course/1697676/partants-pronostics",
       "numero": "15",
       "engagement": "2026-11-11_R10C5",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R10C5",
@@ -24250,7 +24250,32 @@
       "prochaine_verification_utc": "2026-11-26T20:52:42.422370+00:00",
       "nombre_performances": 39,
       "erreur": "",
-      "derniere_performance_date": "2026-11-11"
+      "derniere_performance_date": "2026-11-11",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 39,
+          "cellules_actualisees": 0,
+          "lignes_source": 39,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 39,
+            "lignes_avant": 34218,
+            "cles_avant": 34218,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3422,
+            "import_initial_explicite": false,
+            "lignes_attendues": 34257,
+            "lignes_apres": 34257,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-25T20:53:05.158415+00:00",
+      "rattrapage_complet_au_utc": "2026-11-25T20:52:42.422370+00:00",
+      "ajouts_confirmes": 39
     },
     "contexte:70e772a2263ae9d09acea2c9": {
       "nom": "KEN FERFAY",
@@ -74406,12 +74431,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1278,
-    "cibles_restantes": 1306,
+    "cibles_completees": 1279,
+    "cibles_restantes": 1305,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1368,
+    "travaux_distincts_restants": 1367,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 921,
+    "carrieres_distinctes_a_completer": 920,
     "identifiants_sans_carriere_complete": 66,
     "contextes_distincts_sans_identifiant": 854,
     "noms_distincts_sans_identifiant": 849,
@@ -74419,8 +74444,8 @@
     "identites_non_resolues": 1239,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 5430,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 5469,
     "tentatives_collecte": 8,
     "captures_validees": 8,
     "captures_partielles": 0,
@@ -74428,7 +74453,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T20:47:01.568859+00:00",
-  "maj_utc": "2026-11-25T20:52:43.258866+00:00",
+  "maj_utc": "2026-11-25T20:53:05.184735+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -76327,18 +76352,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T20:47:01.568859+00:00",
-    "controle_utc": "2026-11-25T20:52:43.258866+00:00",
+    "controle_utc": "2026-11-25T20:53:05.184735+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 8,
-    "chevaux_confirmes_sheets": 7,
-    "performances_ajoutees_et_confirmees_sheets": 363,
+    "chevaux_confirmes_sheets": 8,
+    "performances_ajoutees_et_confirmees_sheets": 402,
     "requetes_http_geny": 488,
     "attente_inter_chevaux_secondes": 34.38,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 61.21,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 84.29,
-    "carrieres_publiees_par_heure_cycle": 73.75,
+    "carrieres_validees_par_heure_cycle": 79.2,
+    "carrieres_publiees_par_heure_cycle": 79.2,
     "refus_geny": {
       "403": 0,
       "429": 0
