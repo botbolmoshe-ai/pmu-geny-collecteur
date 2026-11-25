@@ -85634,7 +85634,19 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-25T10:25:00+00:00",
       "premier_depart_reunion_utc": "2026-11-25T10:25:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "erreur": "PermissionError: ACCES_REFUSE_403",
+      "prochain_essai_utc": "2026-11-25T07:35:13.039294+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-25T01:35:13.039314+00:00",
+        "statut": "ACCES_REFUSE_403",
+        "motifs": [
+          "ACCES_REFUSE_403"
+        ],
+        "erreur": "ACCES_REFUSE_403",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2803505/1795570507762655562/resultat.json"
+      }
     },
     "2854791": {
       "nom": "MAESTRO DES GIRES",
@@ -85664,13 +85676,13 @@
     }
   },
   "passage_utc": "2026-11-25T01:34:59.079721+00:00",
-  "maj_utc": "2026-11-25T01:35:04.259505+00:00",
+  "maj_utc": "2026-11-25T01:35:13.090447+00:00",
   "bilan": {
     "chevaux_suivis": 3088,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2798
   },
@@ -86531,27 +86543,28 @@
   "sync_kpi_utc": "2026-11-24T20:48:35.857660+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-25T01:34:59.079721+00:00",
-    "controle_utc": "2026-11-25T01:35:04.259505+00:00",
+    "controle_utc": "2026-11-25T01:35:13.090447+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
-    "requetes_http_geny": 0,
+    "requetes_http_geny": 2,
     "attente_inter_chevaux_secondes": 0.0,
-    "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 0.0,
-    "refus_sans_validation": 0,
+    "intervalle_inter_chevaux_secondes": 60,
+    "duree_acces_geny_secondes": 5.28,
+    "refus_sans_validation": 1,
     "carrieres_validees_par_heure_cycle": 0.0,
     "carrieres_publiees_par_heure_cycle": 0.0,
     "refus_geny": {
-      "403": 0,
+      "403": 1,
       "429": 0
     },
     "reponses_http_refusees_geny": {
       "403": 0,
       "429": 0
     },
-    "prochain_acces_geny_utc": null
+    "prochain_acces_geny_utc": "2026-11-25T02:05:13.039227+00:00"
   },
-  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT"
+  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
+  "prochain_acces_geny_utc": "2026-11-25T02:05:13.039227+00:00"
 }
