@@ -76,7 +76,7 @@
         "direct": "CALCULE_COMPLET",
         "cotes": "CALCULE_COMPLET"
       },
-      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R2C4": {
@@ -102,7 +102,7 @@
         "direct": "CALCULE_COMPLET",
         "cotes": "CALCULE_COMPLET"
       },
-      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R2C5": {
@@ -128,7 +128,7 @@
         "direct": "CALCULE_COMPLET",
         "cotes": "CALCULE_COMPLET"
       },
-      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R2C6": {
@@ -154,7 +154,7 @@
         "direct": "CALCULE_PARTIEL",
         "cotes": "CALCULE_COMPLET"
       },
-      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R4C1": {
@@ -382,17 +382,17 @@
         "direct": "CALCULE_COMPLET",
         "cotes": "CALCULE_COMPLET"
       },
-      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE",
       "statut_ipr": "CALCULE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-25T10:47:42.302982+00:00",
+  "dernier_controle_pmu": "2026-11-25T10:56:54.870671+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-25",
-    "horodatage_utc": "2026-11-25T10:47:42.302982+00:00",
+    "horodatage_utc": "2026-11-25T10:56:54.870671+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/25112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 14,
@@ -905,9 +905,13 @@
         "date": "2026-11-25",
         "hippodrome": "HIPPODROME DE CHARTRES",
         "depart": "2026-11-25T11:25:00+01:00",
-        "statut_pmu": "ARRIVEE_PROVISOIRE_NON_VALIDEE",
+        "statut_pmu": "FIN_COURSE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          12,
+          3,
+          10
+        ],
         "priorite_metier": "P2",
         "motif_selection": "HIPPODROME_MAJEUR_P2",
         "allocation_eur": 18000,
@@ -934,7 +938,7 @@
         "date": "2026-11-25",
         "hippodrome": "HIPPODROME DE CHARTRES",
         "depart": "2026-11-25T11:55:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ROUGE_AUX_PARTANTS",
         "top3_attendu": true,
         "podium_definitif_pmu": [],
         "priorite_metier": "P2",
@@ -1342,9 +1346,13 @@
         "date": "2026-11-25",
         "hippodrome": "HIPPODROME DE CHARTRES",
         "depart": "2026-11-25T11:25:00+01:00",
-        "statut_pmu": "ARRIVEE_PROVISOIRE_NON_VALIDEE",
+        "statut_pmu": "FIN_COURSE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          12,
+          3,
+          10
+        ],
         "priorite_metier": "P2",
         "motif_selection": "HIPPODROME_MAJEUR_P2",
         "allocation_eur": 18000,
@@ -1371,7 +1379,7 @@
         "date": "2026-11-25",
         "hippodrome": "HIPPODROME DE CHARTRES",
         "depart": "2026-11-25T11:55:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ROUGE_AUX_PARTANTS",
         "top3_attendu": true,
         "podium_definitif_pmu": [],
         "priorite_metier": "P2",

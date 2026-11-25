@@ -1,0 +1,507 @@
+{
+  "date": "2026-11-26",
+  "course": "R4C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "JAIN DE JANVILLE",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5443000,
+        "gainsVictoires": 2047500,
+        "gainsPlace": 3395500,
+        "gainsAnneeEnCours": 1289000,
+        "gainsAnneePrecedente": 1316500
+      }
+    },
+    {
+      "nom": "JAZZ DES CORVEES",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 5600000,
+        "gainsVictoires": 1980000,
+        "gainsPlace": 3620000,
+        "gainsAnneeEnCours": 754500,
+        "gainsAnneePrecedente": 570000
+      }
+    },
+    {
+      "nom": "JACK RUSSELL",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5625500,
+        "gainsVictoires": 2520000,
+        "gainsPlace": 3105500,
+        "gainsAnneeEnCours": 70500,
+        "gainsAnneePrecedente": 403500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-25T10:57:56.024856+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "TH. ROUSSIN",
+      "entraineur": "N. PERRELLE",
+      "proprietaire": "Mme Marie-Christine URBAN",
+      "ferrure": "PA",
+      "musique_pmu": "5a0a9a3a3a5a3a2a4a3a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 54430.0,
+      "nom": "JAIN DE JANVILLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "MAXENCE LECOQ",
+      "entraineur": "TH. ALINE",
+      "proprietaire": "G. RAULLINE",
+      "musique_pmu": "2a6a8a2a4aDa0a0a(25)Da",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 56000.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "nom": "JAZZ DES CORVEES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "Mme I. LELIEVRE",
+      "entraineur": "B. BLACHET",
+      "proprietaire": "L. LAULETTA",
+      "ferrure": "D4",
+      "musique_pmu": "0aDa5a7a6a8a9a(25)0a7a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 56255.0,
+      "nom": "JACK RUSSELL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "P. BUHIGNE",
+      "entraineur": "J.PH. RAFFEGEAU",
+      "proprietaire": "Ecurie de MARBEN",
+      "ferrure": "D4",
+      "musique_pmu": "3m3a3m3a0m6a3a3a6aDa",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 57135.0,
+      "nom": "JAROD DE TRIOU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "S. GOHIER",
+      "entraineur": "J. BAUDRON",
+      "proprietaire": "Mlle S. JALASTI",
+      "ferrure": "D4",
+      "musique_pmu": "4aDa5a4a4a(25)1a7a5a4a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 57680.0,
+      "nom": "JAMAIS SANS TOI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "J. PLASSAIS",
+      "entraineur": "Louis BEILEARD",
+      "proprietaire": "Louis BEILEARD",
+      "ferrure": "D4",
+      "musique_pmu": "DmDa5a7a6aDa1aDa3a1a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 59840.0,
+      "nom": "JOUR DU TRESOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "TH. BIZOUX",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "ferrure": "PA",
+      "musique_pmu": "1a0aDa(25)1mDmDa(24)Dm3m",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 59865.0,
+      "nom": "JOUR DE VICTOIRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "J. MAILLARD",
+      "entraineur": "Pavel TAMSIN",
+      "proprietaire": "S. HOSTE",
+      "musique_pmu": "1a6aDa3a2aDa2a1a1a1a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 59885.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "nom": "JAZZ OPERA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "G. MONTHULE",
+      "entraineur": "D. CHERBONNEL",
+      "proprietaire": "Y. FAUCHEUX",
+      "ferrure": "D4",
+      "musique_pmu": "9aDa0aDaDa0a(25)6a3a0a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 81380.0,
+      "nom": "JAYF",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "A. BESCHER",
+      "entraineur": "D. CHERBONNEL",
+      "proprietaire": "D. CHERBONNEL",
+      "ferrure": "PA",
+      "musique_pmu": "4a5a1a4a8aDaDaDa(24)6a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 81390.0,
+      "nom": "JASMINE DU MAXFRAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "L. PITON",
+      "entraineur": "F. DUCROCQ",
+      "proprietaire": "D. GROGNET",
+      "musique_pmu": "7a0a0a5a0a2a6a0a7aDa",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 86160.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "nom": "JAG DE ROZEVIC",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "R. ROIG-BALAGUER",
+      "entraineur": "G. ROIG-BALAGUER",
+      "proprietaire": "Cuadras ROIG",
+      "ferrure": "D4",
+      "musique_pmu": "2a5a1a3a3aDa7aDa0a4a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 100480.0,
+      "nom": "JOLIE CADENCE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "E. LE BEC",
+      "entraineur": "W. MICHEL",
+      "proprietaire": "Didier VERNEUIL",
+      "ferrure": "P4",
+      "musique_pmu": "7a5a3a0a4a5a0aDa8a0a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 102070.0,
+      "nom": "JIM CADE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "G. DESPREZ",
+      "entraineur": "P. DESPREZ",
+      "proprietaire": "P. DESPREZ",
+      "ferrure": "PA",
+      "musique_pmu": "4mDaDmDm1m5a6a2a(25)Da",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 105435.0,
+      "nom": "JANARDAL CLUB",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "driver_jockey": "A. ROUSSIN",
+      "entraineur": "B. LEFEVRE",
+      "proprietaire": "Ecurie Bertrand LEFEVRE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "7a5a2a1a5a7a0a2a3a6a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 113510.0,
+      "nom": "JOYCE PILE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+        "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C5/participants",
+          "capture_utc": "2026-11-25T10:57:56.024856+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

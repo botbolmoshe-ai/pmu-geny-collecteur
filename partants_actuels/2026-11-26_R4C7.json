@@ -1,0 +1,393 @@
+{
+  "date": "2026-11-26",
+  "course": "R4C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LEWIS D'ESPOIR",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1625500,
+        "gainsVictoires": 540000,
+        "gainsPlace": 1085500,
+        "gainsAnneeEnCours": 415000,
+        "gainsAnneePrecedente": 419000
+      }
+    },
+    {
+      "nom": "LUMIERE D'AUVRECY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2793000,
+        "gainsVictoires": 2520000,
+        "gainsPlace": 273000,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 2793000
+      }
+    },
+    {
+      "nom": "LARGO FLIGNY",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3306500,
+        "gainsVictoires": 1777500,
+        "gainsPlace": 1529000,
+        "gainsAnneeEnCours": 2159000,
+        "gainsAnneePrecedente": 1147500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-25T10:57:59.001954+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "J. CONDETTE",
+      "entraineur": "B. GUILLOUX",
+      "proprietaire": "B. GUILLOUX",
+      "ferrure": "DP/PA",
+      "musique_pmu": "DaDm3m8m6m9aDa0a5aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 16255.0,
+      "nom": "LEWIS D'ESPOIR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "J. MAILLARD",
+      "entraineur": "F. TERRY",
+      "proprietaire": "F. TERRY",
+      "ferrure": "D4",
+      "musique_pmu": "8mDmDaDm(25)1m6mDmDm1m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 27930.0,
+      "nom": "LUMIERE D'AUVRECY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "Mme C. DE SOETE",
+      "proprietaire": "J. VANDERMEULEN",
+      "ferrure": "PA",
+      "musique_pmu": "1a2mDa0a1a4aDa4aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 33065.0,
+      "nom": "LARGO FLIGNY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "L. JUBLOT",
+      "entraineur": "L. JUBLOT",
+      "proprietaire": "Ecurie Louis JUBLOT",
+      "ferrure": "D4",
+      "musique_pmu": "Dm9mAm6m4m7m3m5mDm5m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 38445.0,
+      "nom": "LATINO BOY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "Mlle ALEXIANE LEPAGE",
+      "entraineur": "J.B. LEMOINE",
+      "proprietaire": "Ec. JB LEMOINE",
+      "ferrure": "DA",
+      "musique_pmu": "5m5aDa9a(25)3a1a2m1m1m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 40405.0,
+      "nom": "LUMINOSO JYL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "ALEXANDRE BODIN",
+      "entraineur": "CH. MOTTIER",
+      "proprietaire": "Mme CH. MOTTIER",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1m5a1a4aDa2a2a0aDa0a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 40745.0,
+      "nom": "LILIUM TUILERIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "G. GILARD",
+      "entraineur": "St. PROVOOST",
+      "proprietaire": "Ecurie DANOVER",
+      "musique_pmu": "4m5m1a8a9a9a6m5a4a6a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 44425.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "nom": "LEGENDE DEL PHEDO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "Mlle E. CALLIER",
+      "entraineur": "G. DE DRYVER",
+      "proprietaire": "G. DE DRYVER",
+      "ferrure": "P4",
+      "musique_pmu": "Da3m4mDaDa6aDa6mDmDm",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 45000.0,
+      "nom": "LISA MI FOR CLARA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "AURELIEN DESMARRES",
+      "entraineur": "B. GUILLOUX",
+      "proprietaire": "Mlle Pauline GUILLOUX",
+      "ferrure": "D4",
+      "musique_pmu": "7mDm1mDm8m1mDmDm3mDm",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 45480.0,
+      "nom": "LUCKY NUMBER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "Mme R. HAGHIGHAT",
+      "entraineur": "PH. DAUGEARD",
+      "proprietaire": "D.M. AUBRY",
+      "musique_pmu": "4mDa7a0a7a5a2a4aDa1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 46805.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "nom": "LOVELY BRUYERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "J.Y. RICART",
+      "entraineur": "J. CHEVREUX",
+      "proprietaire": "J. CHEVREUX",
+      "ferrure": "D4",
+      "musique_pmu": "9mDm2mDm4m7a6m5a3a5a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 47655.0,
+      "nom": "LEO DES PIECES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+        "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C7/participants",
+          "capture_utc": "2026-11-25T10:57:59.001954+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

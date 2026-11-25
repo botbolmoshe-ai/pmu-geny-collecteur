@@ -1,0 +1,419 @@
+{
+  "date": "2026-11-26",
+  "course": "R4C3",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MAX DU CAMPDOS",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1673000,
+        "gainsVictoires": 540000,
+        "gainsPlace": 1133000,
+        "gainsAnneeEnCours": 647000,
+        "gainsAnneePrecedente": 1026000
+      }
+    },
+    {
+      "nom": "MILO JO",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1719000,
+        "gainsVictoires": 540000,
+        "gainsPlace": 1179000,
+        "gainsAnneeEnCours": 519000,
+        "gainsAnneePrecedente": 1200000
+      }
+    },
+    {
+      "nom": "MIRACLE DE SAMCOF",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1769000,
+        "gainsVictoires": 0,
+        "gainsPlace": 1769000,
+        "gainsAnneeEnCours": 1565000,
+        "gainsAnneePrecedente": 204000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-25T10:57:38.310247+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "C. DEFFAUX",
+      "entraineur": "C. DEFFAUX",
+      "proprietaire": "PH. VINCENT",
+      "musique_pmu": "DaDa9a7a6a8a4a2aDa(25)",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16730.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "nom": "MAX DU CAMPDOS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "B. VALLETTE",
+      "entraineur": "B. VALLETTE",
+      "proprietaire": "B. VALLETTE",
+      "ferrure": "DA",
+      "musique_pmu": "Da6aDaDaDaDaDaDaDaDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17190.0,
+      "nom": "MILO JO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "L. JUBLOT",
+      "entraineur": "L. JUBLOT",
+      "proprietaire": "Anthony POSSON",
+      "ferrure": "D4",
+      "musique_pmu": "8a5a8a4a3a6a3a3a4a2a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17690.0,
+      "nom": "MIRACLE DE SAMCOF",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "CH. CRIADO",
+      "entraineur": "Sté. Ent. Charles CRIADO",
+      "proprietaire": "Sté. Ent. Charles CRIADO",
+      "ferrure": "D4",
+      "musique_pmu": "6a5a8a5mDmDm2a9a5m2m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17720.0,
+      "nom": "MEC DES RACQUES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "M. VERVA",
+      "entraineur": "M. VERVA",
+      "proprietaire": "Th. LEVASSEUR",
+      "ferrure": "DA",
+      "musique_pmu": "Aa6a3a7a2a1a(25)AaDa5a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17895.0,
+      "nom": "MAXIMUS MATIDY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "M. LEGROS",
+      "entraineur": "CH. PETREMENT",
+      "proprietaire": "Jérôme DEVILLE",
+      "ferrure": "DP",
+      "musique_pmu": "Da3a3a1a4a0a7a4a7a9a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17990.0,
+      "nom": "MAESTRO DAIRPET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "PH. DAUGEARD",
+      "entraineur": "PH. DAUGEARD",
+      "proprietaire": "Ecurie Philippe DAUGEARD",
+      "ferrure": "DP",
+      "musique_pmu": "Da0a4a2a3a4a2aDaDaDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 18615.0,
+      "nom": "MIGHTY DU DOME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "J. TRAVERS",
+      "entraineur": "St. PROVOOST",
+      "proprietaire": "Ecurie DANOVER",
+      "ferrure": "DA",
+      "musique_pmu": "Da0a7a3a3a2a7a5a7a8a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 19005.0,
+      "nom": "MY HOPE FLIGNY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "CH. PETREMENT",
+      "proprietaire": "Mme Catherine ROUVIERE",
+      "ferrure": "DA",
+      "musique_pmu": "Da7a0a1aDa9a8a3a3a9a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 19290.0,
+      "nom": "MIVASO DU JACKY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "J.R. DECLERCQ",
+      "entraineur": "J.R. DECLERCQ",
+      "proprietaire": "F. BEAUVALOT",
+      "ferrure": "D4",
+      "musique_pmu": "5a5a2a4a4a3a6aDa5a4a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 19450.0,
+      "nom": "MATIN DE MARS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "S. OLIVIER",
+      "entraineur": "PH. DAUGEARD",
+      "proprietaire": "Ecurie Philippe DAUGEARD",
+      "musique_pmu": "2a1a3a5a1a6a4aDaDa4a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 38055.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "nom": "MAXIMUS DU DOME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "Guillaume JOUVE",
+      "proprietaire": "CH. LECACHEUX",
+      "ferrure": "D4",
+      "musique_pmu": "1a6a5a8a1a8aDa2a7aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 38495.0,
+      "nom": "MY MILLION ATOUT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+        "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R4/C3/participants",
+          "capture_utc": "2026-11-25T10:57:38.310247+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

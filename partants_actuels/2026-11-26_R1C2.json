@@ -1,0 +1,418 @@
+{
+  "date": "2026-11-26",
+  "course": "R1C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MY SHOT JOSSELYN",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1192500,
+        "gainsVictoires": 540000,
+        "gainsPlace": 652500,
+        "gainsAnneeEnCours": 830000,
+        "gainsAnneePrecedente": 362500
+      }
+    },
+    {
+      "nom": "MICHIGAN",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2849500,
+        "gainsVictoires": 1575000,
+        "gainsPlace": 1274500,
+        "gainsAnneeEnCours": 1582500,
+        "gainsAnneePrecedente": 1267000
+      }
+    },
+    {
+      "nom": "MIRAGE BOY",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2954500,
+        "gainsVictoires": 1867500,
+        "gainsPlace": 1087000,
+        "gainsAnneeEnCours": 2362000,
+        "gainsAnneePrecedente": 592500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-25T10:57:27.890842+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie LEADER",
+      "ferrure": "D4",
+      "musique_pmu": "4m3a1mDaDaDm9m(25)2mDm",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 11925.0,
+      "nom": "MY SHOT JOSSELYN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "A. LAMY",
+      "entraineur": "CH. MOTTIER",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "D4",
+      "musique_pmu": "5mDm2m8mDmDm1mDm(25)5m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 28495.0,
+      "nom": "MICHIGAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "L. CHEVROLLIER",
+      "entraineur": "Y. DREUX",
+      "proprietaire": "Y. DREUX",
+      "ferrure": "DP/PA",
+      "musique_pmu": "3m6m1mDaDa2a1aDa(25)0m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 29545.0,
+      "nom": "MIRAGE BOY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "P.Y. ROCHARD",
+      "proprietaire": "Ecurie TEAM ROCHARD",
+      "ferrure": "D4",
+      "musique_pmu": "Da4m4a0a4a3a2a(25)4a2a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 34215.0,
+      "nom": "MONTANA MONNERIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "A. GENDROT",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie DUB'S",
+      "ferrure": "D4",
+      "musique_pmu": "1m1m0a5m3m2mDa8a(25)2m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 35110.0,
+      "nom": "MAJOR DES ROSEAUX",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "Mme T. MATHIAS-MAISONNETTE",
+      "entraineur": "B. BOURGOIN",
+      "proprietaire": "M. HULAK",
+      "ferrure": "D4",
+      "musique_pmu": "Dm0m6m4m3m8a0aDa4a0a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 36010.0,
+      "nom": "MELKIOR DE BAILLY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "Mme CLEA ROGER",
+      "entraineur": "P. DESPREZ",
+      "proprietaire": "P. DESPREZ",
+      "ferrure": "P4",
+      "musique_pmu": "Dm2m7a1m4a8aAa9a0aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 38460.0,
+      "nom": "MUNCH CLUB",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "M. DURVILLE",
+      "entraineur": "Charly FOURE",
+      "proprietaire": "Charly FOURE",
+      "ferrure": "PA",
+      "musique_pmu": "0m3mDa7aDm6mDm6m4mDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 39755.0,
+      "nom": "MAXOU DIGEO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ph.B. PELTIER",
+      "ferrure": "D4",
+      "musique_pmu": "9aDa1m(25)7a2m9aDa8a1a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 40280.0,
+      "nom": "MATISSE DU PONT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "LILIAN BERTIN",
+      "entraineur": "B. ROUER",
+      "proprietaire": "B. ROUER",
+      "ferrure": "D4",
+      "musique_pmu": "DmDmDmDmDmDm5mDm2m5m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 40500.0,
+      "nom": "MID DANCER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "A. DE VAUGIRAUD",
+      "proprietaire": "Mme N. VIEL-PIERRE",
+      "musique_pmu": "1mDaDa1a4aDa2aDaDa1a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 40505.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "nom": "MATHUSALEM PIYA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "A.W. BOSSCHA",
+      "proprietaire": "Piet SIDERIUS",
+      "ferrure": "DP",
+      "musique_pmu": "5m5a4a2aDa5a3a5a1a1a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 40870.0,
+      "nom": "MALO RENKA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+        "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C2/participants",
+          "capture_utc": "2026-11-25T10:57:27.890842+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

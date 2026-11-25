@@ -1,0 +1,511 @@
+{
+  "date": "2026-11-26",
+  "course": "R1C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LADIVINA",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 7828500,
+        "gainsVictoires": 1687500,
+        "gainsPlace": 6141000,
+        "gainsAnneeEnCours": 3552500,
+        "gainsAnneePrecedente": 2763500
+      }
+    },
+    {
+      "nom": "LUNA DE JOUDES",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 7368000,
+        "gainsVictoires": 4860000,
+        "gainsPlace": 2508000,
+        "gainsAnneeEnCours": 2673000,
+        "gainsAnneePrecedente": 4666000
+      }
+    },
+    {
+      "nom": "LUCRECE DE CORDAY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 7532000,
+        "gainsVictoires": 3127500,
+        "gainsPlace": 4404500,
+        "gainsAnneeEnCours": 3472500,
+        "gainsAnneePrecedente": 2607000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-25T10:57:31.014124+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "CEDRIC TERRY",
+      "entraineur": "F. TERRY",
+      "proprietaire": "M. MAIGE",
+      "ferrure": "D4",
+      "musique_pmu": "2a4aDa2a6a2a6aDa2a8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 78285.0,
+      "nom": "LADIVINA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "A. LAURENT",
+      "entraineur": "A. LAURENT",
+      "proprietaire": "Ecurie Alain LAURENT",
+      "ferrure": "D4",
+      "musique_pmu": "Dm2mDm4m8aDa0a1a4a6a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 73680.0,
+      "nom": "LUNA DE JOUDES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "M. ABRIVARD",
+      "proprietaire": "Ecurie JPB ROMET",
+      "ferrure": "D4",
+      "musique_pmu": "3a6a1aDm5a8a4aDaDa5a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 75320.0,
+      "nom": "LUCRECE DE CORDAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "A. REBECHE",
+      "entraineur": "E. VARIN",
+      "proprietaire": "Ecurie E. VARIN",
+      "ferrure": "D4",
+      "musique_pmu": "9aDa3a2aDa0aDaDaDaDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 80255.0,
+      "nom": "LAIKA DES MARES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "Sté. Ent. Etienne DUBOIS",
+      "proprietaire": "Sté. Ent. Etienne DUBOIS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0a4a3a4a(25)7a0aDa5a9a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 75200.0,
+      "nom": "LAST QUEEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "LEO ABRIVARD",
+      "entraineur": "J.PH. RAFFEGEAU",
+      "proprietaire": "CH. GERMAIN",
+      "ferrure": "D4",
+      "musique_pmu": "2m4a5a5a4aDa1a4m3mDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 74940.0,
+      "nom": "LUCIOLA DE LOU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "CH. BIGEON",
+      "proprietaire": "Ecurie Christian BIGEON",
+      "ferrure": "D4",
+      "musique_pmu": "Da0a9aDa3a4a(25)4a3aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 74775.0,
+      "nom": "LA VISTA HAUFOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "LILIAN BERTIN",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "Ecurie Alexis GRIMAULT",
+      "ferrure": "D4",
+      "musique_pmu": "0a7m4m3m(25)7m2m6m2m3m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 75275.0,
+      "nom": "LUXUEUSE DANICA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "G. GELORMINI",
+      "entraineur": "N. RAIMBEAUX",
+      "proprietaire": "T. AIT-HAMOUDA",
+      "ferrure": "D4",
+      "musique_pmu": "7a2a6a3aDa9a9a7a7a2a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 75150.0,
+      "nom": "LOUVE DE BAIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "ligne": 1,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "Y. DREUX",
+      "proprietaire": "Y. DREUX",
+      "ferrure": "D4",
+      "musique_pmu": "1a0a0a1aDa2a2a(25)2a4m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 71350.0,
+      "nom": "LOUISIANE GIRL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "M. HERRAULT",
+      "entraineur": "R. JAJOLET",
+      "proprietaire": "Lukasz* KURYS",
+      "ferrure": "D4",
+      "musique_pmu": "9a3a0a7a0a0a(25)0a0a1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 71260.0,
+      "nom": "LARA MAKS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "T. BEAUVAIS",
+      "entraineur": "E. BEAUVAIS",
+      "proprietaire": "Mme Clémence NEEL",
+      "musique_pmu": "0a5a5a1aDa7a6a(25)DaDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 61570.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "nom": "L'HAVANA D'ELMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "N. LEMETAYER",
+      "proprietaire": "Ecurie SADALBARI STAR",
+      "ferrure": "D4",
+      "musique_pmu": "Da5aDa2a2a5a8a(25)3a7a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 72590.0,
+      "nom": "LASSIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "capacite": 9,
+        "source_capacite": "https://www.pmu.fr/turf/faq/culture-des-courses-et-paris-hippiques/comment-fonctionne-autostart-course-hippique/",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "ligne": 2,
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+        "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C5/participants",
+          "capture_utc": "2026-11-25T10:57:31.014124+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

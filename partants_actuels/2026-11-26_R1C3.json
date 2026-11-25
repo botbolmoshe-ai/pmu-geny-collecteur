@@ -1,0 +1,432 @@
+{
+  "date": "2026-11-26",
+  "course": "R1C3",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NUAGE DE JAFRAN",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 512500,
+        "gainsVictoires": 0,
+        "gainsPlace": 512500,
+        "gainsAnneeEnCours": 512500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NENO KUNJI WIND",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 816000,
+        "gainsVictoires": 540000,
+        "gainsPlace": 276000,
+        "gainsAnneeEnCours": 816000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NONAME DE CHENU",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 975000,
+        "gainsVictoires": 562500,
+        "gainsPlace": 412500,
+        "gainsAnneeEnCours": 975000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-25T10:57:29.014746+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "CH.J. BIGEON",
+      "entraineur": "CH.J. BIGEON",
+      "proprietaire": "CH.J. BIGEON",
+      "ferrure": "P4",
+      "musique_pmu": "Da3a3aDa4a7a7aDa9aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 5125.0,
+      "nom": "NUAGE DE JAFRAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "A. GENDROT",
+      "entraineur": "R.CH. LARUE",
+      "proprietaire": "Ecurie de WINDCUT",
+      "ferrure": "P4",
+      "musique_pmu": "Da1a4aDa3aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 8160.0,
+      "nom": "NENO KUNJI WIND",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "J.M. BAUDOUIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "musique_pmu": "DaDa0a2a1aDa",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 9750.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "nom": "NONAME DE CHENU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "Ecurie Alexis GRIMAULT",
+      "musique_pmu": "Da2a9a1a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 10050.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "nom": "NINJA LANDIA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "THEO DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Théo DUVALDESTIN",
+      "ferrure": "P4",
+      "musique_pmu": "4a2a7a1a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 10745.0,
+      "nom": "NOW WITH US",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "W. BIGEON",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "Ecurie William BIGEON",
+      "ferrure": "P4",
+      "musique_pmu": "3a1aDa2aDaDaDa",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 11840.0,
+      "nom": "NIGHT KNIGHT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "J. BLAVETTE",
+      "proprietaire": "J. BLAVETTE",
+      "ferrure": "P4",
+      "musique_pmu": "3a5a2a3a5a3a7a5a6a8a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 12265.0,
+      "nom": "NELSON DES DAMES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "J.M. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie Jean Michel BAZIRE",
+      "musique_pmu": "Da4aDaDa2a4a2a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 12295.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "nom": "NIRVANA DU PONT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "L. BAUDRON",
+      "proprietaire": "Ecurie Louis BAUDRON",
+      "ferrure": "P4",
+      "musique_pmu": "1aDa7aDa4a2aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 12335.0,
+      "nom": "NOTCH UP",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "Y. DREUX",
+      "proprietaire": "Y. DREUX",
+      "musique_pmu": "1a2a2a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 12575.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "nom": "NON STOP BOY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "J. DAVET",
+      "musique_pmu": "1a1aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 13500.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "nom": "NOTORIOUS JIEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "G.A. POU POU",
+      "proprietaire": "Ecurie Gabriel POU POU",
+      "musique_pmu": "2a6a9a6a8aDa1a5a6a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 13840.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+          "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+        }
+      },
+      "nom": "NECTAR DE MONTCEAU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026/R1/C3/participants",
+        "capture_utc": "2026-11-25T10:57:29.014746+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}
