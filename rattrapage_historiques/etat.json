@@ -23783,9 +23783,9 @@
       "course_url": "https://www.geny.com/course/1697676/partants-pronostics",
       "numero": "4",
       "engagement": "2026-11-11_R10C5",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "A_FAIRE",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-21_R10C6",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2019,
@@ -23801,7 +23801,13 @@
         "nom_pmu": "JEAN MADRIK"
       },
       "preuve_identite": "LIENS_COURSE_GENY",
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "historique_complet_au_utc": "2026-11-25T21:09:11.046955+00:00",
+      "derniere_verification_utc": "2026-11-25T21:09:11.046955+00:00",
+      "prochaine_verification_utc": "2026-11-26T21:09:11.046955+00:00",
+      "nombre_performances": 72,
+      "erreur": "",
+      "derniere_performance_date": "2026-11-21"
     },
     "contexte:887373877213cf70399913c9": {
       "nom": "KART HAUFOR",
@@ -74810,23 +74816,23 @@
     "travaux_distincts_restants": 1361,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 914,
-    "identifiants_sans_carriere_complete": 81,
+    "identifiants_sans_carriere_complete": 80,
     "contextes_distincts_sans_identifiant": 833,
     "noms_distincts_sans_identifiant": 828,
     "identifiants_geny_distincts": 1077,
     "identites_non_resolues": 1217,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 0,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 5706,
-    "tentatives_collecte": 4,
-    "captures_validees": 4,
+    "tentatives_collecte": 5,
+    "captures_validees": 5,
     "captures_partielles": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T21:05:41.726406+00:00",
-  "maj_utc": "2026-11-25T21:09:00.691255+00:00",
+  "maj_utc": "2026-11-25T21:09:12.458265+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -76725,18 +76731,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T21:05:41.726406+00:00",
-    "controle_utc": "2026-11-25T21:09:00.691255+00:00",
+    "controle_utc": "2026-11-25T21:09:12.458265+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 4,
+    "carrieres_completes_distinctes": 5,
     "chevaux_confirmes_sheets": 4,
     "performances_ajoutees_et_confirmees_sheets": 173,
-    "requetes_http_geny": 244,
+    "requetes_http_geny": 305,
     "attente_inter_chevaux_secondes": 13.83,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 27.25,
+    "duree_acces_geny_secondes": 34.7,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 72.37,
-    "carrieres_publiees_par_heure_cycle": 72.37,
+    "carrieres_validees_par_heure_cycle": 85.42,
+    "carrieres_publiees_par_heure_cycle": 68.33,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -76747,5 +76753,5 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "derniere_acquisition_validee_utc": "2026-11-25T21:08:27.475854+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-25T21:09:11.046955+00:00"
 }
