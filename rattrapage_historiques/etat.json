@@ -24075,7 +24075,7 @@
       "course_url": "https://www.geny.com/course/1697676/partants-pronostics",
       "numero": "13",
       "engagement": "2026-11-11_R10C5",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R10C5",
@@ -24099,7 +24099,32 @@
       "prochaine_verification_utc": "2026-11-26T20:49:48.210529+00:00",
       "nombre_performances": 28,
       "erreur": "",
-      "derniere_performance_date": "2026-11-11"
+      "derniere_performance_date": "2026-11-11",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 28,
+          "cellules_actualisees": 0,
+          "lignes_source": 28,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 28,
+            "lignes_avant": 33993,
+            "cles_avant": 33993,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3400,
+            "import_initial_explicite": false,
+            "lignes_attendues": 34021,
+            "lignes_apres": 34021,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-25T20:50:08.774354+00:00",
+      "rattrapage_complet_au_utc": "2026-11-25T20:49:48.210529+00:00",
+      "ajouts_confirmes": 28
     },
     "contexte:bdd26e88e99b7e7e17804df2": {
       "nom": "KAIROS DE BOMO",
@@ -74282,12 +74307,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1274,
-    "cibles_restantes": 1310,
+    "cibles_completees": 1275,
+    "cibles_restantes": 1309,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1372,
+    "travaux_distincts_restants": 1371,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 925,
+    "carrieres_distinctes_a_completer": 924,
     "identifiants_sans_carriere_complete": 70,
     "contextes_distincts_sans_identifiant": 854,
     "noms_distincts_sans_identifiant": 849,
@@ -74295,8 +74320,8 @@
     "identites_non_resolues": 1239,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 5205,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 5233,
     "tentatives_collecte": 4,
     "captures_validees": 4,
     "captures_partielles": 0,
@@ -74304,7 +74329,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T20:47:01.568859+00:00",
-  "maj_utc": "2026-11-25T20:49:48.896109+00:00",
+  "maj_utc": "2026-11-25T20:50:08.803376+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -76203,18 +76228,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T20:47:01.568859+00:00",
-    "controle_utc": "2026-11-25T20:49:48.896109+00:00",
+    "controle_utc": "2026-11-25T20:50:08.803376+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 4,
-    "chevaux_confirmes_sheets": 3,
-    "performances_ajoutees_et_confirmees_sheets": 138,
+    "chevaux_confirmes_sheets": 4,
+    "performances_ajoutees_et_confirmees_sheets": 166,
     "requetes_http_geny": 244,
     "attente_inter_chevaux_secondes": 16.83,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 29.45,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 86.06,
-    "carrieres_publiees_par_heure_cycle": 64.54,
+    "carrieres_validees_par_heure_cycle": 76.91,
+    "carrieres_publiees_par_heure_cycle": 76.91,
     "refus_geny": {
       "403": 0,
       "429": 0
