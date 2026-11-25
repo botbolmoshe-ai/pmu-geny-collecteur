@@ -89504,7 +89504,7 @@
     },
     "2839254": {
       "nom": "MOLLY DU CAUX",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "9",
       "engagement": "2026-11-25_R2C3",
       "vu_utc": "2026-11-25T11:00:53.738000+00:00",
@@ -89535,11 +89535,39 @@
       "nombre_performances": 16,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-08-21"
+      "derniere_performance_date": "2026-08-21",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 16,
+          "cellules_actualisees": 0,
+          "lignes_source": 16,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 16,
+            "lignes_avant": 33105,
+            "cles_avant": 33105,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3311,
+            "import_initial_explicite": false,
+            "lignes_attendues": 33121,
+            "lignes_apres": 33121,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-25T11:07:59.637672+00:00"
     }
   },
   "passage_utc": "2026-11-25T11:00:53.738000+00:00",
-  "maj_utc": "2026-11-25T11:07:43.093460+00:00",
+  "maj_utc": "2026-11-25T11:07:59.637696+00:00",
   "bilan": {
     "chevaux_suivis": 3087,
     "tentatives_collecte": 11,
@@ -91307,18 +91335,18 @@
   "sync_kpi_utc": "2026-11-25T03:39:40.155716+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-25T11:00:53.738000+00:00",
-    "controle_utc": "2026-11-25T11:07:43.093460+00:00",
+    "controle_utc": "2026-11-25T11:07:59.637696+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 11,
-    "chevaux_confirmes_sheets": 10,
-    "performances_ajoutees_et_confirmees_sheets": 163,
+    "chevaux_confirmes_sheets": 11,
+    "performances_ajoutees_et_confirmees_sheets": 179,
     "requetes_http_geny": 738,
     "attente_inter_chevaux_secondes": 91.58,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 62.59,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 96.74,
-    "carrieres_publiees_par_heure_cycle": 87.94,
+    "carrieres_validees_par_heure_cycle": 92.98,
+    "carrieres_publiees_par_heure_cycle": 92.98,
     "refus_geny": {
       "403": 0,
       "429": 0
