@@ -1,0 +1,116 @@
+{
+  "reunion": "2026-11-25_R2",
+  "date": "2026-11-25",
+  "echeance": "2026-11-25T14:25:00+00:00",
+  "reference_utc": "2026-11-25T13:55:00+00:00",
+  "inventaire_pmu_verifie": true,
+  "declenchement_utc": "2026-11-25T17:06:46.191053+00:00",
+  "retard_declenchement_secondes": 9706.191053,
+  "dernier_demarrage_utc": "2026-11-25T17:06:46.191053+00:00",
+  "fin_utc": "2026-11-25T17:06:49.956305+00:00",
+  "statut": "INCOMPLET",
+  "arrivees_a_reprendre": [
+    "R2C3",
+    "R2C5"
+  ],
+  "prochaine_reprise_utc": "2026-11-25T17:36:49.956305+00:00",
+  "courses": {
+    "R2C1": {
+      "statut": "ARRIVEE_OFFICIELLE",
+      "podium": [
+        12,
+        3,
+        10
+      ],
+      "top3_attendu": true,
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 0,
+          "sha256": "97ed77a3dfd48c54f6a68f6d27c00dbb1a3e6a7f306cf6558d44a499b6c29145",
+          "numeros": [
+            6,
+            8,
+            13
+          ],
+          "calcul_utc": "2026-11-25T10:07:22.747163+00:00",
+          "statut_modele": "PARTIEL"
+        },
+        "H2_ml": {
+          "hits_top3": 1,
+          "sha256": "954769e2b94dfdb709366501db6adc978c47366b5f06635be8c753d8cdf4a7fa",
+          "numeros": [
+            13,
+            8,
+            12
+          ],
+          "calcul_utc": "2026-11-25T10:07:23.057528+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
+    },
+    "R2C2": {
+      "statut": "ARRIVEE_OFFICIELLE",
+      "podium": [
+        9,
+        8,
+        5
+      ],
+      "top3_attendu": true,
+      "scores": {}
+    },
+    "R2C3": {
+      "statut": "ARRIVEE_NON_VERIFIEE",
+      "podium": null,
+      "top3_attendu": true,
+      "scores": {}
+    },
+    "R2C4": {
+      "statut": "ARRIVEE_OFFICIELLE",
+      "podium": [
+        4,
+        8,
+        6
+      ],
+      "top3_attendu": true,
+      "scores": {}
+    },
+    "R2C5": {
+      "statut": "ARRIVEE_NON_VERIFIEE",
+      "podium": null,
+      "top3_attendu": true,
+      "scores": {}
+    },
+    "R2C6": {
+      "statut": "ARRIVEE_OFFICIELLE",
+      "podium": [
+        10,
+        5,
+        11
+      ],
+      "top3_attendu": true,
+      "scores": {}
+    },
+    "R2C7": {
+      "statut": "ARRIVEE_OFFICIELLE",
+      "podium": [
+        3,
+        4,
+        7
+      ],
+      "top3_attendu": true,
+      "scores": {}
+    }
+  },
+  "performances": {
+    "H2_direct": {
+      "courses": 1,
+      "moyenne_sur_3": 0.0,
+      "exact_3_sur_3": 0
+    },
+    "H2_ml": {
+      "courses": 1,
+      "moyenne_sur_3": 1.0,
+      "exact_3_sur_3": 0
+    }
+  }
+}
