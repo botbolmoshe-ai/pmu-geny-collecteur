@@ -1,207 +1,80 @@
 {
-  "controle_utc": "2026-11-25T10:58:37.216827+00:00",
+  "controle_utc": "2026-11-25T13:33:26.568814+00:00",
   "publication_reussie": true,
   "plan": {
-    "plan_utc": "2026-11-25T10:56:43.025687+00:00",
+    "plan_utc": "2026-11-25T13:32:38.712057+00:00",
     "date": "2026-11-25",
     "erreurs": [],
     "version_jalons": "H3_H2",
     "executer": true,
-    "mode": "GLOBAL",
+    "mode": "JALONS",
     "date_preparation": null,
     "secours_pmu": true,
-    "selection": [],
+    "selection": [
+      "R4C1",
+      "R4C2",
+      "R4C3",
+      "R4C4",
+      "R4C5",
+      "R4C6",
+      "R4C7",
+      "R4C8"
+    ],
     "prochain_jalon_utc": null,
-    "jalons_dus": [],
+    "jalons_dus": [
+      {
+        "course": "2026-11-25_R4C1",
+        "reunion": "2026-11-25_R4",
+        "phase": "H2",
+        "echeance": "2026-11-25T11:47:00+00:00"
+      },
+      {
+        "course": "2026-11-25_R4C2",
+        "reunion": "2026-11-25_R4",
+        "phase": "H2",
+        "echeance": "2026-11-25T11:47:00+00:00"
+      },
+      {
+        "course": "2026-11-25_R4C3",
+        "reunion": "2026-11-25_R4",
+        "phase": "H2",
+        "echeance": "2026-11-25T11:47:00+00:00"
+      },
+      {
+        "course": "2026-11-25_R4C4",
+        "reunion": "2026-11-25_R4",
+        "phase": "H2",
+        "echeance": "2026-11-25T11:47:00+00:00"
+      },
+      {
+        "course": "2026-11-25_R4C5",
+        "reunion": "2026-11-25_R4",
+        "phase": "H2",
+        "echeance": "2026-11-25T11:47:00+00:00"
+      },
+      {
+        "course": "2026-11-25_R4C6",
+        "reunion": "2026-11-25_R4",
+        "phase": "H2",
+        "echeance": "2026-11-25T11:47:00+00:00"
+      },
+      {
+        "course": "2026-11-25_R4C7",
+        "reunion": "2026-11-25_R4",
+        "phase": "H2",
+        "echeance": "2026-11-25T11:47:00+00:00"
+      },
+      {
+        "course": "2026-11-25_R4C8",
+        "reunion": "2026-11-25_R4",
+        "phase": "H2",
+        "echeance": "2026-11-25T11:47:00+00:00"
+      }
+    ],
     "rapprochements_dus": [],
-    "prochain_besoin_utc": "2026-11-25T13:52:00+00:00"
+    "prochain_besoin_utc": "2026-11-25T14:25:00+00:00"
   },
   "courses": [
-    {
-      "course": "2026-11-25_R2C3",
-      "top3_direct_et_ml": true,
-      "jalons": {
-        "H2": {
-          "echeance": "2026-11-25T08:25:00+00:00",
-          "controle_utc": "2026-11-25T10:07:55.552036+00:00",
-          "reference_utc": "2026-11-25T10:25:00+00:00",
-          "demarrage_utc": "2026-11-25T10:06:59.426307+00:00",
-          "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-25T10:07:24.725189+00:00",
-          "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-          "statut": "PUBLIE_EN_RETARD",
-          "retard_secondes": 6175.438613,
-          "versions": {
-            "direct": {
-              "calcul_utc": "2026-11-25T10:07:24.397952+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "5032800278cc572c733da299ac0bc2288f90dcffb6328434b412a8dbc184e2a9",
-              "fichier": "jalons/2026-11-25_R2C3/H2_direct_20261125T100724397952Z.json",
-              "empreinte_modele": null,
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:24.151407+00:00"
-            },
-            "ml": {
-              "calcul_utc": "2026-11-25T10:07:24.725189+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "ccd7638704d7d1478711b07d691014b6ef8fa6099216980ed67d42e69971d19d",
-              "fichier": "jalons/2026-11-25_R2C3/H2_ml_20261125T100724725189Z.json",
-              "empreinte_modele": "2908c6cabc62052d45a7cc4b4f41613fe67471c440cb5a2aa923c551a8683907",
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:24.151407+00:00"
-            }
-          }
-        }
-      }
-    },
-    {
-      "course": "2026-11-25_R2C4",
-      "top3_direct_et_ml": true,
-      "jalons": {
-        "H2": {
-          "echeance": "2026-11-25T08:25:00+00:00",
-          "controle_utc": "2026-11-25T10:07:55.552036+00:00",
-          "reference_utc": "2026-11-25T10:25:00+00:00",
-          "demarrage_utc": "2026-11-25T10:06:59.426307+00:00",
-          "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-25T10:07:25.523233+00:00",
-          "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-          "statut": "PUBLIE_EN_RETARD",
-          "retard_secondes": 6175.438613,
-          "versions": {
-            "direct": {
-              "calcul_utc": "2026-11-25T10:07:25.219414+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "62bf6cc0d054e00902d45b815eb7dd1b6edd92bc077993c9646d1fe3f28c4fc6",
-              "fichier": "jalons/2026-11-25_R2C4/H2_direct_20261125T100725219414Z.json",
-              "empreinte_modele": null,
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:24.970540+00:00"
-            },
-            "ml": {
-              "calcul_utc": "2026-11-25T10:07:25.523233+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "2c69c3d0005422d1640114aac9453d9c8b97b90aa581672396da07dc62d58d0e",
-              "fichier": "jalons/2026-11-25_R2C4/H2_ml_20261125T100725523233Z.json",
-              "empreinte_modele": "2908c6cabc62052d45a7cc4b4f41613fe67471c440cb5a2aa923c551a8683907",
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:24.970540+00:00"
-            }
-          }
-        }
-      }
-    },
-    {
-      "course": "2026-11-25_R2C5",
-      "top3_direct_et_ml": true,
-      "jalons": {
-        "H2": {
-          "echeance": "2026-11-25T08:25:00+00:00",
-          "controle_utc": "2026-11-25T10:07:55.552036+00:00",
-          "reference_utc": "2026-11-25T10:25:00+00:00",
-          "demarrage_utc": "2026-11-25T10:06:59.426307+00:00",
-          "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-25T10:07:26.324485+00:00",
-          "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-          "statut": "PUBLIE_EN_RETARD",
-          "retard_secondes": 6175.438613,
-          "versions": {
-            "direct": {
-              "calcul_utc": "2026-11-25T10:07:26.017985+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "52c3c005f3d8c85286303dedebc14a9416db44a5e1f024553a9acd7a5c99901d",
-              "fichier": "jalons/2026-11-25_R2C5/H2_direct_20261125T100726017985Z.json",
-              "empreinte_modele": null,
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:25.771040+00:00"
-            },
-            "ml": {
-              "calcul_utc": "2026-11-25T10:07:26.324485+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "531f7e4461a2da788963a176f5d1720ecc25a811bbb142e185d179499f1d61c1",
-              "fichier": "jalons/2026-11-25_R2C5/H2_ml_20261125T100726324485Z.json",
-              "empreinte_modele": "2908c6cabc62052d45a7cc4b4f41613fe67471c440cb5a2aa923c551a8683907",
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:25.771040+00:00"
-            }
-          }
-        }
-      }
-    },
-    {
-      "course": "2026-11-25_R2C6",
-      "top3_direct_et_ml": true,
-      "jalons": {
-        "H2": {
-          "echeance": "2026-11-25T08:25:00+00:00",
-          "controle_utc": "2026-11-25T10:07:55.552036+00:00",
-          "reference_utc": "2026-11-25T10:25:00+00:00",
-          "demarrage_utc": "2026-11-25T10:06:59.426307+00:00",
-          "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-25T10:07:27.150463+00:00",
-          "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-          "statut": "PUBLIE_EN_RETARD",
-          "retard_secondes": 6175.438613,
-          "versions": {
-            "direct": {
-              "calcul_utc": "2026-11-25T10:07:26.848210+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "c2ae3f5a914383e846a08d9c48e527004dfb423bcef4696c839baa0b101731a1",
-              "fichier": "jalons/2026-11-25_R2C6/H2_direct_20261125T100726848210Z.json",
-              "empreinte_modele": null,
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:26.573330+00:00"
-            },
-            "ml": {
-              "calcul_utc": "2026-11-25T10:07:27.150463+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "889ae333e485243b6184546d06dd1bd8b39df292ae4c2de659f960a422778071",
-              "fichier": "jalons/2026-11-25_R2C6/H2_ml_20261125T100727150463Z.json",
-              "empreinte_modele": "2908c6cabc62052d45a7cc4b4f41613fe67471c440cb5a2aa923c551a8683907",
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:26.573330+00:00"
-            }
-          }
-        }
-      }
-    },
-    {
-      "course": "2026-11-25_R2C7",
-      "top3_direct_et_ml": true,
-      "jalons": {
-        "H2": {
-          "echeance": "2026-11-25T08:25:00+00:00",
-          "controle_utc": "2026-11-25T10:07:55.552036+00:00",
-          "reference_utc": "2026-11-25T10:25:00+00:00",
-          "demarrage_utc": "2026-11-25T10:06:59.426307+00:00",
-          "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-25T10:07:27.945282+00:00",
-          "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-          "statut": "PUBLIE_EN_RETARD",
-          "retard_secondes": 6175.438613,
-          "versions": {
-            "direct": {
-              "calcul_utc": "2026-11-25T10:07:27.638918+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "d9393e5daa91c95fcc52874cc1abcd8e9fb34c22533071fedc31110da6d83c46",
-              "fichier": "jalons/2026-11-25_R2C7/H2_direct_20261125T100727638918Z.json",
-              "empreinte_modele": null,
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:27.395727+00:00"
-            },
-            "ml": {
-              "calcul_utc": "2026-11-25T10:07:27.945282+00:00",
-              "publication_utc": "2026-11-25T10:07:55.438613+00:00",
-              "sha256": "a1d57653b4c9245968657e2479073605ad1f9b4e1e84d2f2061ef05aa830ea2a",
-              "fichier": "jalons/2026-11-25_R2C7/H2_ml_20261125T100727945282Z.json",
-              "empreinte_modele": "2908c6cabc62052d45a7cc4b4f41613fe67471c440cb5a2aa923c551a8683907",
-              "lecture_sheets_utc": "2026-11-25T10:07:55.438613+00:00",
-              "capture_partants_utc": "2026-11-25T10:07:27.395727+00:00"
-            }
-          }
-        }
-      }
-    },
     {
       "course": "2026-11-25_R4C1",
       "top3_direct_et_ml": true,
@@ -766,27 +639,27 @@
             },
             {
               "code": "R2C2",
-              "statut_pmu": "ROUGE_AUX_PARTANTS",
+              "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
               "top3_attendu": true
             },
             {
               "code": "R2C3",
-              "statut_pmu": "PROGRAMMEE",
+              "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
               "top3_attendu": true
             },
             {
               "code": "R2C4",
-              "statut_pmu": "PROGRAMMEE",
+              "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
               "top3_attendu": true
             },
             {
               "code": "R2C5",
-              "statut_pmu": "PROGRAMMEE",
+              "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
               "top3_attendu": true
             },
             {
               "code": "R2C6",
-              "statut_pmu": "PROGRAMMEE",
+              "statut_pmu": "DEPART_CONFIRME",
               "top3_attendu": true
             },
             {
@@ -805,7 +678,7 @@
             "R2C6",
             "R2C7"
           ],
-          "demarrage_utc": "2026-11-25T10:56:43.025687+00:00",
+          "demarrage_utc": "2026-11-25T13:32:38.712057+00:00",
           "fin_calcul_utc": null,
           "publication_utc": null,
           "courses": {}
@@ -1717,5 +1590,7 @@
       }
     }
   ],
-  "ipr_jalons_figes": {}
+  "ipr_jalons_figes": {
+    "2026-11-25_R4C8": "H2"
+  }
 }
