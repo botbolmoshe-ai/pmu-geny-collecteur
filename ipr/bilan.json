@@ -1,7 +1,7 @@
 {
   "debut": "2026-11-19",
   "fin": "2026-11-25",
-  "controle_utc": "2026-11-25T17:07:05.277932+00:00",
+  "controle_utc": "2026-11-25T18:42:12.653345+00:00",
   "courses": [
     {
       "course": "2026-11-24_R3C1",
@@ -112,32 +112,64 @@
       "partants": 11,
       "partants_notes": 4,
       "preuve_sha256": "fa4e1df068cba66bbe7f0e1d8eb8a47355b43c0d90e7723a706f726ff9c42395"
+    },
+    {
+      "course": "2026-11-25_R4C8",
+      "phase": "H2",
+      "version": "ipr-v1",
+      "discipline": "a",
+      "depart_trot": "",
+      "distance": 2200,
+      "scores": {
+        "ipr": 1,
+        "direct": 1,
+        "ml": 2
+      },
+      "partants": 14,
+      "partants_notes": 3,
+      "preuve_sha256": "f23633f7ba497b6dee2b10821ca44079eaf8df25b5f3582c0d3e6346ae33b4f1"
+    },
+    {
+      "course": "2026-11-25_R4C8",
+      "phase": "H3",
+      "version": "ipr-v1",
+      "discipline": "a",
+      "depart_trot": "",
+      "distance": 2200,
+      "scores": {
+        "ipr": 1,
+        "direct": 1,
+        "ml": 2
+      },
+      "partants": 14,
+      "partants_notes": 3,
+      "preuve_sha256": "30042b18916412e54d42fe1efbbf250e7ee2b0414f691b8b11c09c1879a9eedc"
     }
   ],
-  "depuis_activation": 7,
+  "depuis_activation": 9,
   "agrege": [
     {
       "phase": "H2",
       "version": "ipr-v1",
-      "courses": 7,
-      "moyenne_sur_3": 0.7142857142857143,
+      "courses": 8,
+      "moyenne_sur_3": 0.75,
       "exact_3_sur_3": 0,
-      "taux_partants_notes": 0.5487804878048781,
+      "taux_partants_notes": 0.5,
       "appariements": {
         "direct": {
-          "courses": 5,
-          "ecart_moyen": -0.8,
+          "courses": 6,
+          "ecart_moyen": -0.6666666666666666,
           "ic95_bootstrap_par_course": [
             -1.0,
-            -0.4
+            -0.3333333333333333
           ]
         },
         "ml": {
-          "courses": 7,
-          "ecart_moyen": -0.5714285714285714,
+          "courses": 8,
+          "ecart_moyen": -0.625,
           "ic95_bootstrap_par_course": [
-            -1.1428571428571428,
-            -0.14285714285714285
+            -1.125,
+            -0.125
           ]
         }
       },
@@ -148,14 +180,14 @@
             "moyenne_sur_3": 1.0
           },
           "a": {
-            "courses": 4,
-            "moyenne_sur_3": 0.5
+            "courses": 5,
+            "moyenne_sur_3": 0.6
           }
         },
         "depart_trot": {
           "INCONNU": {
-            "courses": 6,
-            "moyenne_sur_3": 0.6666666666666666
+            "courses": 7,
+            "moyenne_sur_3": 0.7142857142857143
           },
           "Autostart": {
             "courses": 1,
@@ -176,8 +208,8 @@
             "moyenne_sur_3": 1.0
           },
           "2200": {
-            "courses": 2,
-            "moyenne_sur_3": 0.5
+            "courses": 3,
+            "moyenne_sur_3": 0.6666666666666666
           },
           "2825": {
             "courses": 1,
@@ -186,6 +218,52 @@
           "2800": {
             "courses": 1,
             "moyenne_sur_3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "phase": "H3",
+      "version": "ipr-v1",
+      "courses": 1,
+      "moyenne_sur_3": 1.0,
+      "exact_3_sur_3": 0,
+      "taux_partants_notes": 0.21428571428571427,
+      "appariements": {
+        "direct": {
+          "courses": 1,
+          "ecart_moyen": 0.0,
+          "ic95_bootstrap_par_course": [
+            0.0,
+            0.0
+          ]
+        },
+        "ml": {
+          "courses": 1,
+          "ecart_moyen": -1.0,
+          "ic95_bootstrap_par_course": [
+            -1.0,
+            -1.0
+          ]
+        }
+      },
+      "segments": {
+        "discipline": {
+          "a": {
+            "courses": 1,
+            "moyenne_sur_3": 1.0
+          }
+        },
+        "depart_trot": {
+          "INCONNU": {
+            "courses": 1,
+            "moyenne_sur_3": 1.0
+          }
+        },
+        "distance": {
+          "2200": {
+            "courses": 1,
+            "moyenne_sur_3": 1.0
           }
         }
       }
