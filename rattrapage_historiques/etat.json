@@ -53932,7 +53932,7 @@
       "numero": "8",
       "course_url": "https://www.geny.com/course/1698709/partants-pronostics",
       "engagement": "2026-11-16_R1C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "ferrures_manquantes": 0,
       "engagement_prioritaire": "2026-11-16_R1C1",
       "collecte": "COMPLET",
@@ -53964,7 +53964,32 @@
       "derniere_verification_utc": "2026-11-25T03:40:33.329899+00:00",
       "prochaine_verification_utc": "2026-11-26T03:40:33.329899+00:00",
       "nombre_performances": 67,
-      "derniere_performance_date": "2026-11-16"
+      "derniere_performance_date": "2026-11-16",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 67,
+          "cellules_actualisees": 0,
+          "lignes_source": 67,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 67,
+            "lignes_avant": 32504,
+            "cles_avant": 32504,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3251,
+            "import_initial_explicite": false,
+            "lignes_attendues": 32571,
+            "lignes_apres": 32571,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-25T03:40:53.931918+00:00",
+      "rattrapage_complet_au_utc": "2026-11-25T03:40:33.329899+00:00",
+      "ajouts_confirmes": 67
     },
     "contexte:6ebf1631833740b0816deb28": {
       "nom": "I LOVE JOSSELYN",
@@ -73645,12 +73670,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1254,
-    "cibles_restantes": 1330,
+    "cibles_completees": 1255,
+    "cibles_restantes": 1329,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1388,
+    "travaux_distincts_restants": 1387,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 941,
+    "carrieres_distinctes_a_completer": 940,
     "identifiants_sans_carriere_complete": 66,
     "contextes_distincts_sans_identifiant": 874,
     "noms_distincts_sans_identifiant": 869,
@@ -73658,8 +73683,8 @@
     "identites_non_resolues": 1263,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4629,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4696,
     "tentatives_collecte": 1,
     "captures_validees": 1,
     "captures_partielles": 0,
@@ -73667,7 +73692,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T03:40:08.788670+00:00",
-  "maj_utc": "2026-11-25T03:40:34.616557+00:00",
+  "maj_utc": "2026-11-25T03:40:53.960500+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 18,
@@ -75566,18 +75591,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T03:40:08.788670+00:00",
-    "controle_utc": "2026-11-25T03:40:34.616557+00:00",
+    "controle_utc": "2026-11-25T03:40:53.960500+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 67,
     "requetes_http_geny": 62,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 7.48,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 139.38,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 79.7,
+    "carrieres_publiees_par_heure_cycle": 79.7,
     "refus_geny": {
       "403": 0,
       "429": 0
