@@ -90474,7 +90474,7 @@
     },
     "2842135": {
       "nom": "MAXOU DIGEO",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "8",
       "engagement": "2026-11-26_R1C2",
       "vu_utc": "2026-11-25T20:57:10.500791+00:00",
@@ -90505,11 +90505,39 @@
       "nombre_performances": 17,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-10-27"
+      "derniere_performance_date": "2026-10-27",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 17,
+          "cellules_actualisees": 0,
+          "lignes_source": 17,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 17,
+            "lignes_avant": 34578,
+            "cles_avant": 34578,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3458,
+            "import_initial_explicite": false,
+            "lignes_attendues": 34595,
+            "lignes_apres": 34595,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-25T21:03:26.565072+00:00"
     }
   },
   "passage_utc": "2026-11-25T20:57:10.500791+00:00",
-  "maj_utc": "2026-11-25T21:03:01.084006+00:00",
+  "maj_utc": "2026-11-25T21:03:26.565105+00:00",
   "bilan": {
     "chevaux_suivis": 3277,
     "tentatives_collecte": 9,
@@ -91486,18 +91514,18 @@
   "sync_kpi_utc": "2026-11-25T20:46:20.192212+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-25T20:57:10.500791+00:00",
-    "controle_utc": "2026-11-25T21:03:01.084006+00:00",
+    "controle_utc": "2026-11-25T21:03:26.565105+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 9,
-    "chevaux_confirmes_sheets": 8,
-    "performances_ajoutees_et_confirmees_sheets": 257,
+    "chevaux_confirmes_sheets": 9,
+    "performances_ajoutees_et_confirmees_sheets": 274,
     "requetes_http_geny": 600,
     "attente_inter_chevaux_secondes": 11.9,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 61.02,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 92.42,
-    "carrieres_publiees_par_heure_cycle": 82.15,
+    "carrieres_validees_par_heure_cycle": 86.16,
+    "carrieres_publiees_par_heure_cycle": 86.16,
     "refus_geny": {
       "403": 0,
       "429": 0
