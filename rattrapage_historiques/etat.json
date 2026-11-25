@@ -53838,7 +53838,7 @@
       "numero": "5",
       "course_url": "https://www.geny.com/course/1698709/partants-pronostics",
       "engagement": "2026-11-16_R1C1",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "ferrures_manquantes": 0,
       "engagement_prioritaire": "2026-11-16_R1C1",
       "collecte": "COMPLET",
@@ -53868,7 +53868,32 @@
       "derniere_verification_utc": "2026-11-25T03:41:46.016164+00:00",
       "prochaine_verification_utc": "2026-11-26T03:41:46.016164+00:00",
       "nombre_performances": 47,
-      "derniere_performance_date": "2026-11-16"
+      "derniere_performance_date": "2026-11-16",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 47,
+          "cellules_actualisees": 0,
+          "lignes_source": 47,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 47,
+            "lignes_avant": 32571,
+            "cles_avant": 32571,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3258,
+            "import_initial_explicite": false,
+            "lignes_attendues": 32618,
+            "lignes_apres": 32618,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-25T03:42:06.715656+00:00",
+      "rattrapage_complet_au_utc": "2026-11-25T03:41:46.016164+00:00",
+      "ajouts_confirmes": 47
     },
     "contexte:6c95af54fc1ec67bce40bf4e": {
       "nom": "JEWEL DE BANVILLE",
@@ -73674,12 +73699,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1255,
-    "cibles_restantes": 1329,
+    "cibles_completees": 1256,
+    "cibles_restantes": 1328,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1387,
+    "travaux_distincts_restants": 1386,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 940,
+    "carrieres_distinctes_a_completer": 939,
     "identifiants_sans_carriere_complete": 65,
     "contextes_distincts_sans_identifiant": 874,
     "noms_distincts_sans_identifiant": 869,
@@ -73687,8 +73712,8 @@
     "identites_non_resolues": 1263,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 4696,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 4743,
     "tentatives_collecte": 2,
     "captures_validees": 2,
     "captures_partielles": 0,
@@ -73696,7 +73721,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T03:40:08.788670+00:00",
-  "maj_utc": "2026-11-25T03:41:47.053568+00:00",
+  "maj_utc": "2026-11-25T03:42:06.747728+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 18,
@@ -75595,18 +75620,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T03:40:08.788670+00:00",
-    "controle_utc": "2026-11-25T03:41:47.053568+00:00",
+    "controle_utc": "2026-11-25T03:42:06.747728+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 2,
-    "chevaux_confirmes_sheets": 1,
-    "performances_ajoutees_et_confirmees_sheets": 67,
+    "chevaux_confirmes_sheets": 2,
+    "performances_ajoutees_et_confirmees_sheets": 114,
     "requetes_http_geny": 123,
     "attente_inter_chevaux_secondes": 30.76,
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 14.37,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 73.27,
-    "carrieres_publiees_par_heure_cycle": 36.64,
+    "carrieres_validees_par_heure_cycle": 61.04,
+    "carrieres_publiees_par_heure_cycle": 61.04,
     "refus_geny": {
       "403": 0,
       "429": 0
