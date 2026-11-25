@@ -24081,7 +24081,7 @@
       "course_url": "https://www.geny.com/course/1697676/partants-pronostics",
       "numero": "10",
       "engagement": "2026-11-11_R10C5",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R10C5",
@@ -24105,7 +24105,32 @@
       "prochaine_verification_utc": "2026-11-26T21:07:00.819556+00:00",
       "nombre_performances": 30,
       "erreur": "",
-      "derniere_performance_date": "2026-11-11"
+      "derniere_performance_date": "2026-11-11",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 30,
+          "cellules_actualisees": 0,
+          "lignes_source": 30,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 30,
+            "lignes_avant": 34640,
+            "cles_avant": 34640,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3464,
+            "import_initial_explicite": false,
+            "lignes_attendues": 34670,
+            "lignes_apres": 34670,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-25T21:07:24.103963+00:00",
+      "rattrapage_complet_au_utc": "2026-11-25T21:07:00.819556+00:00",
+      "ajouts_confirmes": 30
     },
     "contexte:f51ec590b67a03d13b05629b": {
       "nom": "KAPELLA VET",
@@ -74717,12 +74742,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1283,
-    "cibles_restantes": 1301,
+    "cibles_completees": 1284,
+    "cibles_restantes": 1300,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1364,
+    "travaux_distincts_restants": 1363,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 917,
+    "carrieres_distinctes_a_completer": 916,
     "identifiants_sans_carriere_complete": 83,
     "contextes_distincts_sans_identifiant": 833,
     "noms_distincts_sans_identifiant": 828,
@@ -74730,8 +74755,8 @@
     "identites_non_resolues": 1217,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 5556,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 5586,
     "tentatives_collecte": 2,
     "captures_validees": 2,
     "captures_partielles": 0,
@@ -74739,7 +74764,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T21:05:41.726406+00:00",
-  "maj_utc": "2026-11-25T21:07:01.674635+00:00",
+  "maj_utc": "2026-11-25T21:07:24.133390+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -76638,18 +76663,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T21:05:41.726406+00:00",
-    "controle_utc": "2026-11-25T21:07:01.674635+00:00",
+    "controle_utc": "2026-11-25T21:07:24.133390+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 2,
-    "chevaux_confirmes_sheets": 1,
-    "performances_ajoutees_et_confirmees_sheets": 23,
+    "chevaux_confirmes_sheets": 2,
+    "performances_ajoutees_et_confirmees_sheets": 53,
     "requetes_http_geny": 122,
     "attente_inter_chevaux_secondes": 10.38,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 12.88,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 90.06,
-    "carrieres_publiees_par_heure_cycle": 45.03,
+    "carrieres_validees_par_heure_cycle": 70.31,
+    "carrieres_publiees_par_heure_cycle": 70.31,
     "refus_geny": {
       "403": 0,
       "429": 0
