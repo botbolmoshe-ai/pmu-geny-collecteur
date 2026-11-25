@@ -2,18 +2,16 @@
   "reunion": "2026-11-25_R2",
   "date": "2026-11-25",
   "echeance": "2026-11-25T14:25:00+00:00",
+  "revision_preuves_programme": "27fd219b11c83502407d1241b5e9463596b35abc71988b920b95da28da1731d6",
   "reference_utc": "2026-11-25T13:55:00+00:00",
   "inventaire_pmu_verifie": true,
   "declenchement_utc": "2026-11-25T17:06:46.191053+00:00",
   "retard_declenchement_secondes": 9706.191053,
-  "dernier_demarrage_utc": "2026-11-25T18:41:52.237974+00:00",
-  "fin_utc": "2026-11-25T18:41:54.377052+00:00",
-  "statut": "INCOMPLET",
-  "arrivees_a_reprendre": [
-    "R2C3",
-    "R2C5"
-  ],
-  "prochaine_reprise_utc": "2026-11-25T19:11:54.377052+00:00",
+  "dernier_demarrage_utc": "2026-11-25T20:37:35.850250+00:00",
+  "fin_utc": "2026-11-25T20:37:36.960580+00:00",
+  "statut": "COMPLET",
+  "arrivees_a_reprendre": [],
+  "prochaine_reprise_utc": null,
   "courses": {
     "R2C1": {
       "statut": "ARRIVEE_OFFICIELLE",
@@ -56,13 +54,63 @@
         5
       ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 1,
+          "sha256": "fb8ca8cc35f32eabea1d86bbc8d221913addfb4fd4b3c37b5c5f7a1f3fbac45e",
+          "numeros": [
+            5,
+            7,
+            6
+          ],
+          "calcul_utc": "2026-11-25T10:07:23.588733+00:00",
+          "statut_modele": "COMPLET"
+        },
+        "H2_ml": {
+          "hits_top3": 1,
+          "sha256": "0d02673d7b4f57d679bfdec3a6df9a5325ce5097651ef7d5be8c92fa66b230f9",
+          "numeros": [
+            5,
+            10,
+            12
+          ],
+          "calcul_utc": "2026-11-25T10:07:23.901140+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     },
     "R2C3": {
-      "statut": "ARRIVEE_NON_VERIFIEE",
-      "podium": null,
+      "statut": "ARRIVEE_OFFICIELLE",
+      "podium": [
+        4,
+        6,
+        8
+      ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 2,
+          "sha256": "5032800278cc572c733da299ac0bc2288f90dcffb6328434b412a8dbc184e2a9",
+          "numeros": [
+            11,
+            8,
+            6
+          ],
+          "calcul_utc": "2026-11-25T10:07:24.397952+00:00",
+          "statut_modele": "COMPLET"
+        },
+        "H2_ml": {
+          "hits_top3": 1,
+          "sha256": "ccd7638704d7d1478711b07d691014b6ef8fa6099216980ed67d42e69971d19d",
+          "numeros": [
+            6,
+            12,
+            11
+          ],
+          "calcul_utc": "2026-11-25T10:07:24.725189+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     },
     "R2C4": {
       "statut": "ARRIVEE_OFFICIELLE",
@@ -72,13 +120,63 @@
         6
       ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 0,
+          "sha256": "62bf6cc0d054e00902d45b815eb7dd1b6edd92bc077993c9646d1fe3f28c4fc6",
+          "numeros": [
+            5,
+            2,
+            11
+          ],
+          "calcul_utc": "2026-11-25T10:07:25.219414+00:00",
+          "statut_modele": "COMPLET"
+        },
+        "H2_ml": {
+          "hits_top3": 0,
+          "sha256": "2c69c3d0005422d1640114aac9453d9c8b97b90aa581672396da07dc62d58d0e",
+          "numeros": [
+            7,
+            13,
+            2
+          ],
+          "calcul_utc": "2026-11-25T10:07:25.523233+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     },
     "R2C5": {
-      "statut": "ARRIVEE_NON_VERIFIEE",
-      "podium": null,
+      "statut": "ARRIVEE_OFFICIELLE",
+      "podium": [
+        5,
+        2,
+        6
+      ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 0,
+          "sha256": "52c3c005f3d8c85286303dedebc14a9416db44a5e1f024553a9acd7a5c99901d",
+          "numeros": [
+            3,
+            7,
+            12
+          ],
+          "calcul_utc": "2026-11-25T10:07:26.017985+00:00",
+          "statut_modele": "COMPLET"
+        },
+        "H2_ml": {
+          "hits_top3": 1,
+          "sha256": "531f7e4461a2da788963a176f5d1720ecc25a811bbb142e185d179499f1d61c1",
+          "numeros": [
+            7,
+            2,
+            15
+          ],
+          "calcul_utc": "2026-11-25T10:07:26.324485+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     },
     "R2C6": {
       "statut": "ARRIVEE_OFFICIELLE",
@@ -88,7 +186,30 @@
         11
       ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 2,
+          "sha256": "c2ae3f5a914383e846a08d9c48e527004dfb423bcef4696c839baa0b101731a1",
+          "numeros": [
+            5,
+            7,
+            10
+          ],
+          "calcul_utc": "2026-11-25T10:07:26.848210+00:00",
+          "statut_modele": "PARTIEL"
+        },
+        "H2_ml": {
+          "hits_top3": 0,
+          "sha256": "889ae333e485243b6184546d06dd1bd8b39df292ae4c2de659f960a422778071",
+          "numeros": [
+            9,
+            12,
+            8
+          ],
+          "calcul_utc": "2026-11-25T10:07:27.150463+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     },
     "R2C7": {
       "statut": "ARRIVEE_OFFICIELLE",
@@ -98,20 +219,42 @@
         7
       ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 2,
+          "sha256": "d9393e5daa91c95fcc52874cc1abcd8e9fb34c22533071fedc31110da6d83c46",
+          "numeros": [
+            7,
+            12,
+            3
+          ],
+          "calcul_utc": "2026-11-25T10:07:27.638918+00:00",
+          "statut_modele": "COMPLET"
+        },
+        "H2_ml": {
+          "hits_top3": 1,
+          "sha256": "a1d57653b4c9245968657e2479073605ad1f9b4e1e84d2f2061ef05aa830ea2a",
+          "numeros": [
+            3,
+            12,
+            6
+          ],
+          "calcul_utc": "2026-11-25T10:07:27.945282+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     }
   },
   "performances": {
     "H2_direct": {
-      "courses": 1,
-      "moyenne_sur_3": 0.0,
+      "courses": 7,
+      "moyenne_sur_3": 1.0,
       "exact_3_sur_3": 0
     },
     "H2_ml": {
-      "courses": 1,
-      "moyenne_sur_3": 1.0,
+      "courses": 7,
+      "moyenne_sur_3": 0.7142857142857143,
       "exact_3_sur_3": 0
     }
-  },
-  "publication_sheets_utc": "2026-11-25T18:42:12.562219+00:00"
+  }
 }
