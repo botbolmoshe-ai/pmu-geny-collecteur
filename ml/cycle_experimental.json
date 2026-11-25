@@ -1,153 +1,87 @@
 {
   "version_cycle": 1,
-  "empreinte_donnees": "2ec68442a9e34fcf45ac56e4b7d2dc6094b153dc47cd7e8c99491935fd939aca",
-  "execute_utc": "2026-11-25T10:59:31.505359+00:00",
+  "empreinte_donnees": "58b7e5f68d63cf90a9c296ad1472fbe477d3d1976bc03a9426e80b44271241d4",
+  "execute_utc": "2026-11-25T17:07:18.821052+00:00",
   "statut": "EXPERIMENTAL_NON_CALIBRE_NON_DEPLOYE",
-  "courses_admissibles": 205,
-  "lignes_admissibles": 2719,
+  "courses_admissibles": 210,
+  "lignes_admissibles": 2780,
   "promotion_production": false,
-  "rapport": "ml/experiences/automatique-2ec68442a9e34fcf45ac/rapport.json",
-  "validation_day": "2026-11-23",
-  "test_day": "2026-11-24",
+  "rapport": "ml/experiences/automatique-58b7e5f68d63cf90a9c2/rapport.json",
+  "validation_day": "2026-11-24",
+  "test_day": "2026-11-25",
   "modele": "gradient_boosting",
   "test_ml": {
-    "courses": 16,
-    "chevaux_retrouves": 16,
-    "moyenne": 1.0,
-    "au_moins_2_sur_3": 3,
+    "courses": 5,
+    "chevaux_retrouves": 3,
+    "moyenne": 0.6,
+    "au_moins_2_sur_3": 1,
     "exact_3_sur_3": 0,
     "distribution": {
       "0": 3,
-      "1": 10,
-      "2": 3
+      "1": 1,
+      "2": 1
     },
     "hits_par_course": {
-      "2026-11-24_R3C1": 1,
-      "2026-11-24_R3C2": 2,
-      "2026-11-24_R3C3": 1,
-      "2026-11-24_R3C4": 1,
-      "2026-11-24_R3C5": 1,
-      "2026-11-24_R3C6": 1,
-      "2026-11-24_R3C7": 0,
-      "2026-11-24_R3C8": 2,
-      "2026-11-24_R4C1": 1,
-      "2026-11-24_R4C2": 1,
-      "2026-11-24_R4C3": 1,
-      "2026-11-24_R4C4": 2,
-      "2026-11-24_R4C5": 0,
-      "2026-11-24_R4C6": 0,
-      "2026-11-24_R4C7": 1,
-      "2026-11-24_R4C8": 1
+      "2026-11-25_R2C1": 0,
+      "2026-11-25_R2C2": 1,
+      "2026-11-25_R2C4": 0,
+      "2026-11-25_R2C6": 0,
+      "2026-11-25_R2C7": 2
     },
     "selections": {
-      "2026-11-24_R3C1": [
-        3,
+      "2026-11-25_R2C1": [
+        13,
         8,
-        9
+        7
       ],
-      "2026-11-24_R3C2": [
+      "2026-11-25_R2C2": [
         5,
-        7,
-        13
+        12,
+        10
       ],
-      "2026-11-24_R3C3": [
-        3,
-        6,
+      "2026-11-25_R2C4": [
+        7,
+        13,
         2
       ],
-      "2026-11-24_R3C4": [
-        6,
-        7,
-        12
-      ],
-      "2026-11-24_R3C5": [
-        8,
-        3,
-        11
-      ],
-      "2026-11-24_R3C6": [
-        12,
-        11,
-        9
-      ],
-      "2026-11-24_R3C7": [
-        7,
-        2,
-        1
-      ],
-      "2026-11-24_R3C8": [
-        3,
+      "2026-11-25_R2C6": [
         9,
-        13
-      ],
-      "2026-11-24_R4C1": [
-        5,
-        8,
-        12
-      ],
-      "2026-11-24_R4C2": [
-        1,
-        4,
-        8
-      ],
-      "2026-11-24_R4C3": [
-        2,
-        1,
-        6
-      ],
-      "2026-11-24_R4C4": [
-        8,
-        4,
-        1
-      ],
-      "2026-11-24_R4C5": [
-        2,
         12,
-        1
-      ],
-      "2026-11-24_R4C6": [
-        10,
-        11,
-        5
-      ],
-      "2026-11-24_R4C7": [
-        12,
-        11,
         4
       ],
-      "2026-11-24_R4C8": [
-        1,
-        4,
-        7
+      "2026-11-25_R2C7": [
+        12,
+        7,
+        3
       ]
     }
   },
   "comparaison": {
-    "courses": 14,
-    "ecart_moyen": -0.21428571428571427,
+    "courses": 4,
+    "ecart_moyen": 0.5,
     "ic95_bootstrap_par_course": [
-      -0.6428571428571429,
-      0.21428571428571427
+      0.0,
+      1.0
     ]
   },
   "decoupage": {
     "train": {
-      "courses": 181,
-      "lignes": 2415,
+      "courses": 189,
+      "lignes": 2519,
       "premier_depart": "2026-11-11T16:42:00+01:00",
-      "dernier_depart": "2026-11-22T18:10:00+01:00"
-    },
-    "validation": {
-      "courses": 8,
-      "lignes": 104,
-      "premier_depart": "2026-11-23T13:55:00+01:00",
       "dernier_depart": "2026-11-23T18:00:00+01:00"
     },
-    "test": {
+    "validation": {
       "courses": 16,
       "lignes": 200,
       "premier_depart": "2026-11-24T12:17:00+01:00",
       "dernier_depart": "2026-11-24T20:45:00+01:00"
+    },
+    "test": {
+      "courses": 5,
+      "lignes": 61,
+      "premier_depart": "2026-11-25T11:25:00+01:00",
+      "dernier_depart": "2026-11-25T14:22:00+01:00"
     }
   }
 }
