@@ -24081,9 +24081,9 @@
       "course_url": "https://www.geny.com/course/1697676/partants-pronostics",
       "numero": "10",
       "engagement": "2026-11-11_R10C5",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "A_FAIRE",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R10C5",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2020,
@@ -24099,7 +24099,13 @@
         "nom_pmu": "KLASS HAUFOR"
       },
       "preuve_identite": "LIENS_COURSE_GENY",
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "historique_complet_au_utc": "2026-11-25T21:07:00.819556+00:00",
+      "derniere_verification_utc": "2026-11-25T21:07:00.819556+00:00",
+      "prochaine_verification_utc": "2026-11-26T21:07:00.819556+00:00",
+      "nombre_performances": 30,
+      "erreur": "",
+      "derniere_performance_date": "2026-11-11"
     },
     "contexte:f51ec590b67a03d13b05629b": {
       "nom": "KAPELLA VET",
@@ -74717,23 +74723,23 @@
     "travaux_distincts_restants": 1364,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 917,
-    "identifiants_sans_carriere_complete": 84,
+    "identifiants_sans_carriere_complete": 83,
     "contextes_distincts_sans_identifiant": 833,
     "noms_distincts_sans_identifiant": 828,
     "identifiants_geny_distincts": 1077,
     "identites_non_resolues": 1217,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 0,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 5556,
-    "tentatives_collecte": 1,
-    "captures_validees": 1,
+    "tentatives_collecte": 2,
+    "captures_validees": 2,
     "captures_partielles": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T21:05:41.726406+00:00",
-  "maj_utc": "2026-11-25T21:06:49.984366+00:00",
+  "maj_utc": "2026-11-25T21:07:01.674635+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -76632,18 +76638,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T21:05:41.726406+00:00",
-    "controle_utc": "2026-11-25T21:06:49.984366+00:00",
+    "controle_utc": "2026-11-25T21:07:01.674635+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 1,
+    "carrieres_completes_distinctes": 2,
     "chevaux_confirmes_sheets": 1,
     "performances_ajoutees_et_confirmees_sheets": 23,
-    "requetes_http_geny": 61,
+    "requetes_http_geny": 122,
     "attente_inter_chevaux_secondes": 10.38,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 5.94,
+    "duree_acces_geny_secondes": 12.88,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 52.74,
-    "carrieres_publiees_par_heure_cycle": 52.74,
+    "carrieres_validees_par_heure_cycle": 90.06,
+    "carrieres_publiees_par_heure_cycle": 45.03,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -76654,5 +76660,5 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "derniere_acquisition_validee_utc": "2026-11-25T21:06:17.548287+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-25T21:07:00.819556+00:00"
 }
