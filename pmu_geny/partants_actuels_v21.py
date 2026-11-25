@@ -198,8 +198,8 @@ def extraire_partants(raw, *, course=None):
         resultat[n]=qualifier_ferrure(fields)
     return resultat
 
-def enregistrer(cache:Path, course:dict, raw):
-    captured = datetime.now(timezone.utc)
+def enregistrer(cache:Path, course:dict, raw, *, observe=None):
+    captured = observe if observe is not None else datetime.now(timezone.utc)
     depart = instant(course.get('depart'))
     avant_depart = depart is not None and captured < depart
     resultat=extraire_partants(raw, course=course if avant_depart else None)

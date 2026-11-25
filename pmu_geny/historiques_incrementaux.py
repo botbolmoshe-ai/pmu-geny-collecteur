@@ -824,20 +824,23 @@ def main():
     if not all(os.environ.get(k) for k in ('GOOGLE_SHEETS_ID', 'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
         raise SystemExit('Secrets Sheets absents : aucune collecte lancée')
     if args.date_courses:
-        # GitHub termine un job hébergé à six heures. Transmettre le lot avant
-        # cette limite, en conservant le bilan et le prochain cheval à traiter.
+        # Un recensement ne peut pas monopoliser le verrou de production.
+        from .echeances_production import besoin_pmu
+
         sortie_actions = os.getenv('GITHUB_OUTPUT')
-        relais = time.monotonic() + 5 * 3600
-
-        def limite_runner():
-            return 'RELAIS_RUNNER' if sortie_actions and time.monotonic() >= relais else None
-
-        suivi = run(Path(args.cache), max_minutes=None, publier=True, stop_requested=limite_runner,
-                    perimetre=(args.date_courses, args.hippodrome), archive_recensement=args.archive_recensement)
+        cache = Path(args.cache)
+        suivi = run(cache, max_minutes=7, publier=True,
+                    stop_requested=lambda: besoin_pmu(cache, datetime.now(UTC)),
+                    perimetre=(args.date_courses, args.hippodrome),
+                    archive_recensement=args.archive_recensement)
         print('BILAN_RECENSEMENT ' + json.dumps(suivi['bilan'], ensure_ascii=False))
         motif = suivi['motif_fin_passage']
-        if sortie_actions and motif in ('COOLDOWN', 'RELAIS_RUNNER'):
-            reprise = suivi['prochain_acces_geny_utc'] if motif == 'COOLDOWN' else datetime.now(UTC).isoformat()
+        reprise = None
+        if motif == 'COOLDOWN':
+            reprise = suivi.get('prochain_acces_geny_utc')
+        elif motif in {'BUDGET_TEMPS_ATTEINT', 'ECHEANCE_PMU_PRIORITAIRE', 'CADENCE_GENY_DIFFEREE'}:
+            reprise = (datetime.now(UTC) + timedelta(minutes=15)).isoformat()
+        if sortie_actions and reprise:
             with open(sortie_actions, 'a') as output:
                 output.write(f'reprise_utc={reprise}\n')
         return

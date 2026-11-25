@@ -44,6 +44,16 @@ def courses_du_jour(cache, now):
 STATUTS_PUBLIES = {'PUBLIE_A_TEMPS', 'PUBLIE_EN_RETARD'}
 
 
+def course_annulee(course):
+    return course.get('statut_pmu') in {'ANNULEE', 'COURSE_ANNULEE', 'REUNION_ANNULEE'}
+
+
+def identite_course(course):
+    """Caractéristiques indépendantes de l'heure annoncée dans le programme PMU."""
+    fields = ('date', 'code', 'hippodrome', 'nom', 'discipline', 'distance_m')
+    return {field: course[field] for field in fields} if all(course.get(f) for f in fields) else None
+
+
 def reunions_du_jour(cache, day, *, inventaire=None):
     programme = lire(Path(cache)/'sources_pmu'/f'programme_{day}.json')
     if inventaire is None:
@@ -54,10 +64,11 @@ def reunions_du_jour(cache, day, *, inventaire=None):
         if ident:
             groupes[ident[1]].append(course)
     for ident, courses in sorted(groupes.items()):
-        attendues = [c for c in courses if c.get('top3_attendu', True)]
+        maintenues = [c for c in courses if not course_annulee(c)]
+        attendues = [c for c in maintenues if c.get('top3_attendu', True)]
         if not attendues:
             continue
-        departs = [instant(c.get('depart')) for c in courses]
+        departs = [instant(c.get('depart')) for c in maintenues]
         hippodromes = {c['hippodrome'].strip().casefold() for c in courses if c.get('hippodrome')}
         coherent = (all(d and d.astimezone(PARIS).date().isoformat() == day for d in departs)
                     and len(hippodromes) <= 1
@@ -132,8 +143,8 @@ def planifier(cache, now, force=False):
                      if certificate.get(phase, {}).get('statut') in STATUTS_PUBLIES
                      and certificate[phase].get('courses_attendues') == sorted(
                          c['code'] for c in reunion['attendues'])
-                     and instant(certificate[phase].get('reference_utc')) == first
-                     and instant(certificate[phase].get('echeance')) == first - PHASES[phase]}
+                     and instant(certificate[phase].get('publication_utc'))
+                     and instant(certificate[phase]['publication_utc']) < first}
         # Une exécution ne peut attester qu'une version par réunion.
         for phase in reversed(PHASES):
             deadline = first - PHASES[phase]
@@ -163,7 +174,7 @@ def planifier(cache, now, force=False):
             'executer':bool(global_due or selection or results or preparation),
             'mode': ('JALONS' if selection else 'RAPPROCHEMENT' if results else
                      'PREPARATION_JOUR' if preparation else 'GLOBAL' if global_due else 'ATTENTE'),
-            'date_preparation': preparation, 'secours_pmu': secours,
+            'date_preparation': preparation, 'global_du': global_due, 'secours_pmu': secours,
             'selection':selection, 'prochain_jalon_utc':prochain_jalon, 'jalons_dus':needs, 'rapprochements_dus':results,
             'prochain_besoin_utc':min(upcoming).isoformat() if upcoming else None}
 
@@ -174,7 +185,7 @@ def besoin_pmu(cache, now):
         return motif_pause_collecte_nocturne(cache, now)
     plan = planifier(cache, now)
     prochain = instant(plan['prochain_jalon_utc'])
-    if plan['executer'] or (prochain and prochain <= now + timedelta(minutes=30)):
+    if (plan['secours_pmu'] or (prochain and prochain <= now + MARGE_COLLECTE)):
         return 'ECHEANCE_PMU_PRIORITAIRE'
     return None
 
@@ -398,6 +409,8 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                     'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
                     'fichier':str(path.relative_to(cache)), 'empreinte_modele':doc.get('empreinte_modele'),
                     'lecture_sheets_utc':observation.isoformat(), 'capture_partants_utc':captured.isoformat()}
+                if identity := identite_course(c):
+                    proofs[kind]['programme_pmu'] = {'identite': identity, 'depart': depart.isoformat()}
             if 'direct' in proofs:
                 from .maturite_ml import certify_shadow
                 certify_shadow(cache, key, proofs['direct'], observation)
@@ -450,7 +463,8 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
             # Le cache ancien d'un programme ne suffit pas à valider un cycle global.
             days = [now.astimezone(PARIS).date()+timedelta(days=n) for n in (0,1)]
             stamps = [instant(lire(cache/'sources_pmu'/f'programme_{d}.json').get('date_controle_utc')) for d in days]
-            if all(s and timedelta(0)<=now-s<=MARGE for s in stamps):
+            started = instant(plan.get('plan_utc'))
+            if started and all(s and started <= s <= observation and now-s <= MARGE for s in stamps):
                 sauver(cache/'orchestration/production_etat.json',
                        {'dernier_global_publie_utc':now.isoformat()})
     report['rapprochements'] = []

@@ -321,10 +321,10 @@ def matching_pct(prediction, arrival, departure, now=None):
     if not selected:
         return ''
     try:
-        podium=sorted((h for h in arrival['arrivee'] if h['rang'] in (1,2,3)),key=lambda h:h['rang'])
-        if [h['rang'] for h in podium]!=[1,2,3]:return ''
-        actual={int(h['numero']) for h in podium}
-        if len(actual)!=3 or not all(1<=n<=30 for n in actual):return ''
+        from .resultats_v18 import classement_podium
+        actual = set(classement_podium(arrival['arrivee']))
+        if not actual:
+            return ''
         return round(100*len(actual&set(selected))/3,2)
     except (KeyError,TypeError,ValueError,OverflowError):
         return ''
@@ -348,7 +348,7 @@ def conclusion_methodes(scores):
     return f'Meilleure méthode : {names} ({best}/3)'
 
 
-def source_rows(cache):
+def source_rows(cache, *, now=None):
     from .partants_actuels_v21 import profil_pmu_exclusif
     from .cotes_v19 import cote_valide, dernier_releve
     from .identites_chevaux import IndexGeny
@@ -356,7 +356,7 @@ def source_rows(cache):
     publier_ipr = ipr_actif()
     identites_geny = IndexGeny(cache)
     courses, history, reports = {}, {}, {}
-    now = datetime.now(timezone.utc)
+    now = now or datetime.now(timezone.utc)
     from .cycle_ml_actif import modele_disponible,STATUT
     candidat_disponible=modele_disponible(cache) is not None
     def statut_ml(document,depart):
@@ -659,6 +659,8 @@ def source_rows(cache):
                 authoritative.update(IPR.libelles)
             courses[krow]={**existing,**{key:value for key,value in current.items()
                                          if value is not None and (value!='' or key in authoritative)}}
+    from .resultats_v18 import classement_podium
+
     # Les arrivees PMU officielles peuvent exister sans manifeste Geny.
     # Enregistrer une ligne bilan par course meme sans TOP3.
     for arrival_file in sorted((cache/'arrivees').glob('????-??-??_R*C*.json')):
@@ -670,8 +672,9 @@ def source_rows(cache):
         arrivee=load_json(arrival_file)
         podium=sorted(
             (x for x in arrivee.get('arrivee',[]) if x.get('rang') in (1,2,3)),
-            key=lambda x:x['rang'])
-        if len(podium)!=3 or [x['rang'] for x in podium]!=[1,2,3]:continue
+            key=lambda x:(x['rang'], int(x['numero'])))
+        if not classement_podium(podium):
+            continue
         k=course_key(date,info.get('hippodrome',''),code)
         existing=reports.get(k,{})
         forecast=load_json(cache/'pronostics'/f'{date}_{code}_top3.json')
@@ -736,7 +739,7 @@ def source_rows(cache):
             reports[k].update({
                 prefix + 'numero': number,
                 prefix + 'rang': ranks[0] if len(ranks) == 1 else '',
-                prefix + 'verdict': 'Trouvé' if number == int(podium[0]['numero']) else 'Non trouvé',
+                prefix + 'verdict': 'Trouvé' if ranks == [1] else 'Non trouvé',
             })
     from .echeances_production import instant
     from .rapprochement_reunions import comparer, podium_officiel
@@ -762,7 +765,7 @@ def source_rows(cache):
             podium = podium_officiel(cache, archive_key, departure, now) if departure else None
             rejets = {}
             if podium and any(proof.get('versions') for proof in certificate.values()):
-                archived = comparer(cache, archive_key, departure, podium, certificate, rejets=rejets)
+                archived = comparer(cache, archive_key, departure, podium, certificate, rejets=rejets, course=info)
             for label, score in archived.items():
                 report_row['score_' + label.lower()] = score['hits_top3']
             # L'ordre inverse garde la dernière paire attestée, y compris pour les anciens bilans.
@@ -773,10 +776,10 @@ def source_rows(cache):
             if not pair:
                 official = row['statut'] == 'ARRIVEE_OFFICIELLE'
                 direct_score = report_row.get('matching_direct_pct', '') if official else ''
-                status = 'ARRIVEE_NON_VERIFIEE'
+                status = ('COURSE_ANNULEE' if row['statut'] == 'COURSE_ANNULEE' else 'ARRIVEE_NON_VERIFIEE')
                 if official:
                     status = 'EVALUE_DIRECT' if direct_score != '' else 'ARRIVEE_SANS_TOP3_PUBLIE'
-                motif = 'Arrivée officielle non vérifiée'
+                motif = 'Course annulée par le PMU' if status == 'COURSE_ANNULEE' else 'Arrivée officielle non vérifiée'
                 if official:
                     motif = ('Départ de la prévision H2 différent du départ enregistré'
                              if rejets.get('H2_ml') == 'COURSE_INCOHERENTE'
@@ -1155,8 +1158,11 @@ def publier_plan(engine, plan):
         if key in scope and key in visible:
             raise ErreurSynchronisation('Doublon de résultat dans Sheets : ' + key)
         visible[key] = row
-    fields_to_check = tuple(field for field in RAPPROCHEMENT_COLUMNS
-                            if field not in DETAILS_JALONS or field in headers)
+    evidence = ('arrivee_officielle_numeros', 'arrivee_verifiee_utc', 'statut_evaluation',
+                'matching_direct_pct', 'matching_ml_pct', 'motif_ml_non_evaluable')
+    fields_to_check = (*[field for field in RAPPROCHEMENT_COLUMNS
+                         if field not in DETAILS_JALONS or field in headers],
+                       *[field for field in evidence if field in headers])
     for key, expected in scope.items():
         actual = visible.get(key, {})
         if not actual or any(not meme_date_sheets(field, sheet_value(field, expected[field]), actual.get(field, ''))
