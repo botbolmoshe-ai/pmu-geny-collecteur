@@ -59,13 +59,17 @@ SCORE_JALON_COLUMNS = tuple(
 ETAT_JALON_COLUMNS = tuple(
     f'jalon_{phase}_{field}' for phase in ('h3', 'h2')
     for field in ('statut', 'echeance_utc', 'publication_utc'))
-RAPPROCHEMENT_COLUMNS = ('reunion_pmu', 'rapprochement_statut', 'rapprochement_arrivee_statut',
-                         'rapprochement_declenchement_utc') + SCORE_JALON_COLUMNS + ETAT_JALON_COLUMNS + ('jalon_compare',)
+DETAILS_JALONS = frozenset(SCORE_JALON_COLUMNS + ETAT_JALON_COLUMNS)
+RAPPROCHEMENT_SYNTHESE = ('reunion_pmu', 'rapprochement_statut', 'rapprochement_arrivee_statut',
+                         'rapprochement_declenchement_utc', 'jalon_compare')
+RAPPROCHEMENT_COLUMNS = RAPPROCHEMENT_SYNTHESE + SCORE_JALON_COLUMNS + ETAT_JALON_COLUMNS
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
                   'arrivee_officielle_numeros','arrivee_officielle_noms','arrivee_verifiee_utc',
-                  'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct') + WINNER_REPORT_COLUMNS + RAPPROCHEMENT_COLUMNS
+                  'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct',
+                  'motif_ml_non_evaluable','top3_ml_calcule_utc') + WINNER_REPORT_COLUMNS + RAPPROCHEMENT_COLUMNS
+REPORT_PUBLICATION_COLUMNS = tuple(field for field in REPORT_COLUMNS if field not in DETAILS_JALONS)
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final', *SCORE_JALON_COLUMNS})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
@@ -75,7 +79,7 @@ CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUM
     *COTES_COLUMNS,'ml_rang','ml_top3',
     'ml_proba_podium','ml_score_non_calibre',
     'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites',
-    *REPORT_NAME_COLUMNS.values(), *WINNER_SELECTION_COLUMNS, *WINNER_REPORT_COLUMNS,
+    'motif_ml_non_evaluable', 'top3_ml_calcule_utc', *REPORT_NAME_COLUMNS.values(), *WINNER_SELECTION_COLUMNS, *WINNER_REPORT_COLUMNS,
     'jalon_compare', *ETAT_JALON_COLUMNS})
 PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','ferrure','musique_pmu'})
 IPR_NUMERIC = frozenset({'ipr_score', 'ipr_rang_shadow', 'ipr_n_historiques_comparables', 'ipr_couverture'})
@@ -137,6 +141,8 @@ DISPLAY_NAMES = {
     'score_ml':'TOP3 ML · Chevaux à l’arrivée (0–3)',
     'matching_direct_pct':'TOP3 direct · Matching (%)',
     'matching_ml_pct':'TOP3 ML · Matching (%)',
+    'motif_ml_non_evaluable':'ML · Motif non évalué',
+    'top3_ml_calcule_utc':'TOP3 ML · Heure calcul UTC',
     'gagnant_direct_selection':'Gagnant potentiel direct · Sélection',
     'gagnant_ml_selection':'Gagnant potentiel ML · Sélection',
     'gagnant_direct_numero':'Gagnant potentiel direct · N°',
@@ -732,6 +738,9 @@ def source_rows(cache):
                 prefix + 'rang': ranks[0] if len(ranks) == 1 else '',
                 prefix + 'verdict': 'Trouvé' if number == int(podium[0]['numero']) else 'Non trouvé',
             })
+    from .echeances_production import instant
+    from .rapprochement_reunions import comparer, podium_officiel
+
     for file in sorted((cache/'rapprochements').glob('????-??-??_R*.json')):
         report = load_json(file)
         date = report.get('date', '')
@@ -746,12 +755,19 @@ def source_rows(cache):
             report_row.update(reunion_pmu=report['reunion'], rapprochement_statut=report['statut'],
                               rapprochement_arrivee_statut=row['statut'],
                               rapprochement_declenchement_utc=report['declenchement_utc'])
-            for label, score in row['scores'].items():
+            archived = row['scores']
+            departure = instant(info.get('depart'))
+            archive_key = f'{date}_{code}'
+            certificate = load_json(cache/'jalons'/f'{archive_key}.json')
+            podium = podium_officiel(cache, archive_key, departure, now) if departure else None
+            rejets = {}
+            if podium and any(proof.get('versions') for proof in certificate.values()):
+                archived = comparer(cache, archive_key, departure, podium, certificate, rejets=rejets)
+            for label, score in archived.items():
                 report_row['score_' + label.lower()] = score['hits_top3']
             # L'ordre inverse garde la dernière paire attestée, y compris pour les anciens bilans.
-            from .echeances_production import PHASES_LECTURE
-            pairs = ((phase, (row['scores'].get(f'{phase}_direct'), row['scores'].get(f'{phase}_ml')))
-                     for phase in reversed(PHASES_LECTURE))
+            pairs = ((phase, (archived.get(f'{phase}_direct'), archived.get(f'{phase}_ml')))
+                     for phase in ('H2', 'H3', 'H1'))
             phase, pair = next(((phase, pair) for phase, pair in pairs if all(pair)), (None, None))
             report_row['jalon_compare'] = f'H-{phase[1:]}' if phase else ''
             if not pair:
@@ -760,8 +776,16 @@ def source_rows(cache):
                 status = 'ARRIVEE_NON_VERIFIEE'
                 if official:
                     status = 'EVALUE_DIRECT' if direct_score != '' else 'ARRIVEE_SANS_TOP3_PUBLIE'
+                motif = 'Arrivée officielle non vérifiée'
+                if official:
+                    motif = ('Départ de la prévision H2 différent du départ enregistré'
+                             if rejets.get('H2_ml') == 'COURSE_INCOHERENTE'
+                             else 'Aucune paire Direct/ML publiée et vérifiable pour le départ enregistré')
                 report_row.update(statut_evaluation=status, matching_direct_pct=direct_score,
-                                  matching_ml_pct='', conclusion=conclusion_methodes({'Direct': direct_score}))
+                                  matching_ml_pct='',
+                                  motif_ml_non_evaluable=motif,
+                                  top3_ml_calcule_utc='',
+                                  conclusion=conclusion_methodes({'Direct': direct_score}))
                 for method in ('direct', 'ml'):
                     if method == 'ml' or direct_score == '':
                         report_row.update({f'gagnant_{method}_{field}': ''
@@ -787,6 +811,7 @@ def source_rows(cache):
                     })
                 report_row.update(etat_ml=pair[1]['statut_modele'],
                                   top3_direct_calcule_utc=pair[0]['calcul_utc'],
+                                  top3_ml_calcule_utc=pair[1]['calcul_utc'], motif_ml_non_evaluable='',
                                   statut_evaluation='EVALUE', conclusion=conclusion_methodes(scores))
     from .echeances_production import PHASES
     for report_row in reports.values():
@@ -909,7 +934,7 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
     keys={'Courses & Prévisions':('course_key','numero'),
           'Historique chevaux':('cle_performance',),
           'Résultats & Analyse':('course_key',)}[tab]
-    additions=COMPARE_COLUMNS if tab=='Courses & Prévisions' else REPORT_COLUMNS if tab=='Résultats & Analyse' else ()
+    additions=COMPARE_COLUMNS if tab=='Courses & Prévisions' else REPORT_PUBLICATION_COLUMNS if tab=='Résultats & Analyse' else ()
     if tab == SHEET_TABS[0]:
         from .ipr import actif
         if actif():
@@ -1130,10 +1155,12 @@ def publier_plan(engine, plan):
         if key in scope and key in visible:
             raise ErreurSynchronisation('Doublon de résultat dans Sheets : ' + key)
         visible[key] = row
+    fields_to_check = tuple(field for field in RAPPROCHEMENT_COLUMNS
+                            if field not in DETAILS_JALONS or field in headers)
     for key, expected in scope.items():
         actual = visible.get(key, {})
         if not actual or any(not meme_date_sheets(field, sheet_value(field, expected[field]), actual.get(field, ''))
-                             for field in RAPPROCHEMENT_COLUMNS if field in expected):
+                             for field in fields_to_check if field in expected):
             raise ErreurSynchronisation('Rapprochement non confirmé dans Sheets : ' + key)
     return {row['reunion_pmu'] for row in scope.values()}
 

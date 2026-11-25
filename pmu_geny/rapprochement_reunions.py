@@ -63,7 +63,7 @@ def podium_officiel(cache, key, depart, now):
     return None
 
 
-def comparer(cache, key, depart, podium, certificat):
+def comparer(cache, key, depart, podium, certificat, *, rejets=None):
     from .performance_prospective import prevision_publiee
 
     scores = {}
@@ -72,10 +72,14 @@ def comparer(cache, key, depart, podium, certificat):
         for method, version in proof.get('versions', {}).items():
             read_at = instant(version.get('lecture_sheets_utc'))
             if not read_at or read_at != instant(version.get('publication_utc')):
+                if rejets is not None:
+                    rejets[f'{phase}_{method}'] = 'RELECTURE_SHEETS_NON_PROUVEE'
                 continue
             try:
                 doc, numbers = prevision_publiee(cache, key, method, version, depart)
-            except (KeyError, TypeError, ValueError, OSError):
+            except (KeyError, TypeError, ValueError, OSError) as exc:
+                if rejets is not None:
+                    rejets[f'{phase}_{method}'] = str(exc) if isinstance(exc, ValueError) else 'ARCHIVE_INVALIDE'
                 continue
             scores[f'{phase}_{method}'] = {'hits_top3': len(numbers.intersection(podium)),
                                           'sha256': version['sha256'],

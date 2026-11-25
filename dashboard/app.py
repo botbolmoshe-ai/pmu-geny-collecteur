@@ -27,7 +27,7 @@ SCOPES=["https://www.googleapis.com/auth/spreadsheets.readonly"]
 def read_registry():
     creds=Credentials.from_service_account_info(dict(st.secrets["google_service_account"]),scopes=SCOPES)
     api=build("sheets","v4",credentials=creds,cache_discovery=False)
-    ranges=[f"'{TABS[0]}'", *(f"'{tab}'!A1:AZ" for tab in TABS[1:])]
+    ranges=[f"'{TABS[0]}'", f"'{TABS[1]}'", f"'{TABS[2]}'!A1:AZ"]
     metadata=api.spreadsheets().get(spreadsheetId=st.secrets['spreadsheet_id'],fields='sheets(properties(title))').execute(num_retries=2)
     has_history=any(s.get('properties',{}).get('title')==HISTORY_TAB for s in metadata.get('sheets',[]))
     if has_history:ranges.append("'"+HISTORY_TAB+"'!A1:H")
@@ -334,7 +334,10 @@ elif page=="Résultats":
             "Direct (%)":direct_score,
             "ML (%)":result_matching(r,"ml",now),
             "État":display_state,
-            "État enregistré":recorded_state,"ML statut":r.get("ML · Statut"),
+            "ML statut":r.get("ML · Statut"),
+            "ML non évalué":r.get("ML · Motif non évalué"),
+            "Calcul Direct (Paris)":afficher_instant(r.get("TOP3 direct · Heure calcul UTC")),
+            "Calcul ML (Paris)":afficher_instant(r.get("TOP3 ML · Heure calcul UTC")),
             "Départ prévu (Paris)":afficher_instant(r.get("Départ (Paris)")),
             "Arrivée lue dans le flux PMU (Paris)":afficher_instant(r.get("Arrivée · Vérifiée UTC")),
             "Conclusion Direct / ML":r.get("Évaluation · Conclusion")}
@@ -349,13 +352,6 @@ elif page=="Résultats":
             winner = number(r.get(f"Gagnant potentiel {mode} · N°"))
             row[key] = names[0] if winner and winner == number(numbers[0]) and len(names) == 3 else None
         row["Jalon comparé"] = r.get("Jalon comparé") or None
-        for phase in ("H-3", "H-2"):
-            row[f"{phase} · État"] = r.get(f"{phase} · État") or None
-            for field in ("Échéance", "Publication"):
-                row[f"{phase} · {field} (Paris)"] = afficher_instant(r.get(f"{phase} · {field} UTC"))
-            for method in ("Direct", "ML"):
-                label = f"Score {phase} · {method}"
-                row[label] = number(r.get(label))
         table.append(row)
     if not table: st.info("Aucun bilan enregistré.")
     else:
