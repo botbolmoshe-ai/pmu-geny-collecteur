@@ -90124,7 +90124,7 @@
     },
     "2700213": {
       "nom": "DIABEL",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "9",
       "engagement": "2026-11-26_R1C1",
       "vu_utc": "2026-11-25T20:57:10.500791+00:00",
@@ -90153,11 +90153,39 @@
       "nombre_performances": 68,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-10-02"
+      "derniere_performance_date": "2026-10-02",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 68,
+          "cellules_actualisees": 0,
+          "lignes_source": 68,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 68,
+            "lignes_avant": 34321,
+            "cles_avant": 34321,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3433,
+            "import_initial_explicite": false,
+            "lignes_attendues": 34389,
+            "lignes_apres": 34389,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-25T20:57:58.517446+00:00"
     }
   },
   "passage_utc": "2026-11-25T20:57:10.500791+00:00",
-  "maj_utc": "2026-11-25T20:57:31.824134+00:00",
+  "maj_utc": "2026-11-25T20:57:58.517486+00:00",
   "bilan": {
     "chevaux_suivis": 3277,
     "tentatives_collecte": 1,
@@ -90168,7 +90196,7 @@
     "actualisations_en_attente": 2985
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 11,
@@ -91134,18 +91162,18 @@
   "sync_kpi_utc": "2026-11-25T20:46:20.192212+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-25T20:57:10.500791+00:00",
-    "controle_utc": "2026-11-25T20:57:31.824134+00:00",
+    "controle_utc": "2026-11-25T20:57:58.517486+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 68,
     "requetes_http_geny": 61,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 9.54,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 168.83,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 74.97,
+    "carrieres_publiees_par_heure_cycle": 74.97,
     "refus_geny": {
       "403": 0,
       "429": 0
