@@ -1,7 +1,7 @@
 {
   "debut": "2026-11-19",
   "fin": "2026-11-25",
-  "controle_utc": "2026-11-25T13:40:04.494348+00:00",
+  "controle_utc": "2026-11-25T17:07:05.277932+00:00",
   "courses": [
     {
       "course": "2026-11-24_R3C1",
@@ -81,50 +81,81 @@
       "partants": 13,
       "partants_notes": 3,
       "preuve_sha256": "d4b0dda20dbae81f8f0ff94832bbf7209117b8669f39e066b93f5c883843f4b2"
+    },
+    {
+      "course": "2026-11-25_R2C1",
+      "phase": "H2",
+      "version": "ipr-v1",
+      "discipline": "m",
+      "depart_trot": "",
+      "distance": 2825,
+      "scores": {
+        "ipr": 0,
+        "ml": 1
+      },
+      "partants": 13,
+      "partants_notes": 11,
+      "preuve_sha256": "38b0f8c6bc72bc2aeba7fe1e1e5993739e59dea7a70768f93beafdf856f3004f"
+    },
+    {
+      "course": "2026-11-25_R2C2",
+      "phase": "H2",
+      "version": "ipr-v1",
+      "discipline": "a",
+      "depart_trot": "",
+      "distance": 2800,
+      "scores": {
+        "ipr": 0,
+        "direct": 1,
+        "ml": 1
+      },
+      "partants": 11,
+      "partants_notes": 4,
+      "preuve_sha256": "fa4e1df068cba66bbe7f0e1d8eb8a47355b43c0d90e7723a706f726ff9c42395"
     }
   ],
-  "depuis_activation": 5,
+  "depuis_activation": 7,
   "agrege": [
     {
       "phase": "H2",
       "version": "ipr-v1",
-      "courses": 5,
-      "moyenne_sur_3": 1.0,
+      "courses": 7,
+      "moyenne_sur_3": 0.7142857142857143,
       "exact_3_sur_3": 0,
-      "taux_partants_notes": 0.5172413793103449,
+      "taux_partants_notes": 0.5487804878048781,
       "appariements": {
         "direct": {
-          "courses": 4,
-          "ecart_moyen": -0.75,
+          "courses": 5,
+          "ecart_moyen": -0.8,
           "ic95_bootstrap_par_course": [
             -1.0,
-            -0.25
+            -0.4
           ]
         },
         "ml": {
-          "courses": 5,
-          "ecart_moyen": -0.4,
+          "courses": 7,
+          "ecart_moyen": -0.5714285714285714,
           "ic95_bootstrap_par_course": [
-            -1.2,
-            0.0
+            -1.1428571428571428,
+            -0.14285714285714285
           ]
         }
       },
       "segments": {
         "discipline": {
           "m": {
-            "courses": 2,
-            "moyenne_sur_3": 1.5
+            "courses": 3,
+            "moyenne_sur_3": 1.0
           },
           "a": {
-            "courses": 3,
-            "moyenne_sur_3": 0.6666666666666666
+            "courses": 4,
+            "moyenne_sur_3": 0.5
           }
         },
         "depart_trot": {
           "INCONNU": {
-            "courses": 4,
-            "moyenne_sur_3": 1.0
+            "courses": 6,
+            "moyenne_sur_3": 0.6666666666666666
           },
           "Autostart": {
             "courses": 1,
@@ -147,6 +178,14 @@
           "2200": {
             "courses": 2,
             "moyenne_sur_3": 0.5
+          },
+          "2825": {
+            "courses": 1,
+            "moyenne_sur_3": 0.0
+          },
+          "2800": {
+            "courses": 1,
+            "moyenne_sur_3": 0.0
           }
         }
       }
