@@ -23808,7 +23808,7 @@
       "course_url": "https://www.geny.com/course/1697676/partants-pronostics",
       "numero": "7",
       "engagement": "2026-11-11_R10C5",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R10C5",
@@ -23832,7 +23832,32 @@
       "prochaine_verification_utc": "2026-11-26T20:47:37.871289+00:00",
       "nombre_performances": 63,
       "erreur": "",
-      "derniere_performance_date": "2026-11-11"
+      "derniere_performance_date": "2026-11-11",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 63,
+          "cellules_actualisees": 0,
+          "lignes_source": 63,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 63,
+            "lignes_avant": 33855,
+            "cles_avant": 33855,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3386,
+            "import_initial_explicite": false,
+            "lignes_attendues": 33918,
+            "lignes_apres": 33918,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-25T20:48:01.367997+00:00",
+      "rattrapage_complet_au_utc": "2026-11-25T20:47:37.871289+00:00",
+      "ajouts_confirmes": 63
     },
     "contexte:6a18c037a6e4e088b8018817": {
       "nom": "JACKPOT JOMUNA",
@@ -74189,12 +74214,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1271,
-    "cibles_restantes": 1313,
+    "cibles_completees": 1272,
+    "cibles_restantes": 1312,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1375,
+    "travaux_distincts_restants": 1374,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 928,
+    "carrieres_distinctes_a_completer": 927,
     "identifiants_sans_carriere_complete": 73,
     "contextes_distincts_sans_identifiant": 854,
     "noms_distincts_sans_identifiant": 849,
@@ -74202,8 +74227,8 @@
     "identites_non_resolues": 1239,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 5067,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 5130,
     "tentatives_collecte": 1,
     "captures_validees": 1,
     "captures_partielles": 0,
@@ -74211,7 +74236,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T20:47:01.568859+00:00",
-  "maj_utc": "2026-11-25T20:47:38.975436+00:00",
+  "maj_utc": "2026-11-25T20:48:01.396858+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -76110,18 +76135,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T20:47:01.568859+00:00",
-    "controle_utc": "2026-11-25T20:47:38.975436+00:00",
+    "controle_utc": "2026-11-25T20:48:01.396858+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 63,
     "requetes_http_geny": 61,
     "attente_inter_chevaux_secondes": 10.01,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 7.54,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 96.24,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 60.17,
+    "carrieres_publiees_par_heure_cycle": 60.17,
     "refus_geny": {
       "403": 0,
       "429": 0
