@@ -2,12 +2,13 @@
   "reunion": "2026-11-24_R3",
   "date": "2026-11-24",
   "echeance": "2026-11-24T16:06:00+00:00",
+  "revision_preuves_programme": "9b5c483e30e8fa22db602127077e8f3e3ed9e697f87025918ee88352ad680934",
   "reference_utc": "2026-11-24T15:36:00+00:00",
   "inventaire_pmu_verifie": true,
   "declenchement_utc": "2026-11-24T17:32:21.560204+00:00",
   "retard_declenchement_secondes": 5181.560204,
-  "dernier_demarrage_utc": "2026-11-24T17:32:21.560204+00:00",
-  "fin_utc": "2026-11-24T17:32:24.418814+00:00",
+  "dernier_demarrage_utc": "2026-11-25T20:55:32.738888+00:00",
+  "fin_utc": "2026-11-25T20:55:33.936761+00:00",
   "statut": "COMPLET",
   "arrivees_a_reprendre": [],
   "prochaine_reprise_utc": null,
@@ -185,7 +186,30 @@
         2
       ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 1,
+          "sha256": "4f1f84aeab0d065d652ee183a7ef852ab6b09dc965adae554bcc452a43aec8b1",
+          "numeros": [
+            7,
+            12,
+            5
+          ],
+          "calcul_utc": "2026-11-24T08:59:52.679570+00:00",
+          "statut_modele": "COMPLET"
+        },
+        "H2_ml": {
+          "hits_top3": 0,
+          "sha256": "01f95bac8ad83015ea0f184c8add8d469f572db7be62ead1fbac3575b41d0a37",
+          "numeros": [
+            12,
+            8,
+            7
+          ],
+          "calcul_utc": "2026-11-24T08:59:52.878060+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     },
     "R3C7": {
       "statut": "ARRIVEE_OFFICIELLE",
@@ -195,7 +219,30 @@
         4
       ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 0,
+          "sha256": "1b51dcd88552e91d4b08295a298dae52c03e521d181d683b153ee1af6308214b",
+          "numeros": [
+            7,
+            9,
+            10
+          ],
+          "calcul_utc": "2026-11-24T08:59:53.299030+00:00",
+          "statut_modele": "COMPLET"
+        },
+        "H2_ml": {
+          "hits_top3": 0,
+          "sha256": "07193467386ebb2fd2d3357d16f02a5f59e72c481350821517d83167aec54559",
+          "numeros": [
+            7,
+            9,
+            1
+          ],
+          "calcul_utc": "2026-11-24T08:59:53.501680+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     },
     "R3C8": {
       "statut": "ARRIVEE_OFFICIELLE",
@@ -205,20 +252,42 @@
         13
       ],
       "top3_attendu": true,
-      "scores": {}
+      "scores": {
+        "H2_direct": {
+          "hits_top3": 1,
+          "sha256": "ace215b10a7b594a8edb5e7a830adeda07236e4ffcbcfb9581c3b4979caa0c31",
+          "numeros": [
+            7,
+            10,
+            13
+          ],
+          "calcul_utc": "2026-11-24T08:59:53.828768+00:00",
+          "statut_modele": "COMPLET"
+        },
+        "H2_ml": {
+          "hits_top3": 2,
+          "sha256": "b46fc6e2d7d2c44f946970b7666868f1946df86f219bea3b36a42b95b6060c07",
+          "numeros": [
+            13,
+            3,
+            9
+          ],
+          "calcul_utc": "2026-11-24T08:59:54.029250+00:00",
+          "statut_modele": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE"
+        }
+      }
     }
   },
   "performances": {
     "H2_direct": {
-      "courses": 5,
-      "moyenne_sur_3": 1.8,
+      "courses": 8,
+      "moyenne_sur_3": 1.375,
       "exact_3_sur_3": 1
     },
     "H2_ml": {
-      "courses": 5,
-      "moyenne_sur_3": 1.4,
+      "courses": 8,
+      "moyenne_sur_3": 1.125,
       "exact_3_sur_3": 0
     }
-  },
-  "publication_sheets_utc": "2026-11-24T17:32:41.785587+00:00"
+  }
 }
