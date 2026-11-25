@@ -6,16 +6,15 @@ import json
 
 from .dates_registre import libelle_paris
 from .sync_google_sheets import (
-    DISPLAY_NAMES, ETAT_JALON_COLUMNS, SCORE_JALON_COLUMNS, canonical_headers, colname,
+    DETAILS_JALONS, DISPLAY_NAMES, ETAT_JALON_COLUMNS, canonical_headers, colname,
 )
 
 TAB = 'Résultats & Analyse'
 
 
 def colonnes_jalons():
-    fields = (*SCORE_JALON_COLUMNS, *ETAT_JALON_COLUMNS)
     projections = {libelle_paris(field, DISPLAY_NAMES.get(field, field)) for field in ETAT_JALON_COLUMNS}
-    return set(fields) | projections
+    return DETAILS_JALONS | projections
 
 
 def planifier(headers):

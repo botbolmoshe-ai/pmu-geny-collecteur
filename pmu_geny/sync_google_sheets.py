@@ -59,14 +59,17 @@ SCORE_JALON_COLUMNS = tuple(
 ETAT_JALON_COLUMNS = tuple(
     f'jalon_{phase}_{field}' for phase in ('h3', 'h2')
     for field in ('statut', 'echeance_utc', 'publication_utc'))
-RAPPROCHEMENT_COLUMNS = ('reunion_pmu', 'rapprochement_statut', 'rapprochement_arrivee_statut',
-                         'rapprochement_declenchement_utc') + SCORE_JALON_COLUMNS + ETAT_JALON_COLUMNS + ('jalon_compare',)
+DETAILS_JALONS = frozenset(SCORE_JALON_COLUMNS + ETAT_JALON_COLUMNS)
+RAPPROCHEMENT_SYNTHESE = ('reunion_pmu', 'rapprochement_statut', 'rapprochement_arrivee_statut',
+                         'rapprochement_declenchement_utc', 'jalon_compare')
+RAPPROCHEMENT_COLUMNS = RAPPROCHEMENT_SYNTHESE + SCORE_JALON_COLUMNS + ETAT_JALON_COLUMNS
 REPORT_COLUMNS = ('course_key','date_course','hippodrome','rncn','heure_depart_paris',
                   'top3_direct_numeros','top3_direct_noms','top3_direct_calcule_utc','score_direct',
                   'top3_ml_numeros','top3_ml_noms','score_ml','etat_ml',
                   'arrivee_officielle_numeros','arrivee_officielle_noms','arrivee_verifiee_utc',
                   'statut_evaluation','conclusion','matching_direct_pct','matching_ml_pct',
                   'motif_ml_non_evaluable','top3_ml_calcule_utc') + WINNER_REPORT_COLUMNS + RAPPROCHEMENT_COLUMNS
+REPORT_PUBLICATION_COLUMNS = tuple(field for field in REPORT_COLUMNS if field not in DETAILS_JALONS)
 NUMERIC_SCORES = frozenset({'score_direct','score_cotes','score_ml','score_sur_3',
                             'score_baseline','score_baseline_final', *SCORE_JALON_COLUMNS})
 MATCHING_COLUMNS = frozenset({'matching_direct_pct','matching_ml_pct'})
@@ -931,7 +934,7 @@ def plan_sheet(existing_headers,existing_rows,new_items,tab,now=None):
     keys={'Courses & Prévisions':('course_key','numero'),
           'Historique chevaux':('cle_performance',),
           'Résultats & Analyse':('course_key',)}[tab]
-    additions=COMPARE_COLUMNS if tab=='Courses & Prévisions' else REPORT_COLUMNS if tab=='Résultats & Analyse' else ()
+    additions=COMPARE_COLUMNS if tab=='Courses & Prévisions' else REPORT_PUBLICATION_COLUMNS if tab=='Résultats & Analyse' else ()
     if tab == SHEET_TABS[0]:
         from .ipr import actif
         if actif():
@@ -1152,10 +1155,12 @@ def publier_plan(engine, plan):
         if key in scope and key in visible:
             raise ErreurSynchronisation('Doublon de résultat dans Sheets : ' + key)
         visible[key] = row
+    fields_to_check = tuple(field for field in RAPPROCHEMENT_COLUMNS
+                            if field not in DETAILS_JALONS or field in headers)
     for key, expected in scope.items():
         actual = visible.get(key, {})
         if not actual or any(not meme_date_sheets(field, sheet_value(field, expected[field]), actual.get(field, ''))
-                             for field in RAPPROCHEMENT_COLUMNS if field in expected):
+                             for field in fields_to_check if field in expected):
             raise ErreurSynchronisation('Rapprochement non confirmé dans Sheets : ' + key)
     return {row['reunion_pmu'] for row in scope.values()}
 

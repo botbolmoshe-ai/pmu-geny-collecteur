@@ -56,3 +56,18 @@ class PlanRetraitResultatsTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'depuis la sauvegarde'):
                 retrait_sauvegarde(engine, Mock(), appliquer=True)
         engine.session.post.assert_not_called()
+
+    def test_publication_ne_recree_pas_les_colonnes_retirees(self):
+        from pmu_geny.plan_retrait_resultats import TAB
+        from pmu_geny.sync_google_sheets import DETAILS_JALONS, plan_sheet
+
+        record = {'course_key': 'r', 'score_h2_ml': 0, 'jalon_h2_statut': 'PUBLIE_A_TEMPS',
+                  'matching_ml_pct': 0, 'jalon_compare': 'H-2'}
+        for initial in (['course_key'], ['course_key', 'score_h2_ml']):
+            headers, _, rows = plan_sheet(initial, [], {'r': record}, TAB)
+            self.assertEqual(set(headers) & DETAILS_JALONS, set(initial) & DETAILS_JALONS)
+            projected = dict(zip(headers, rows[0]))
+            self.assertEqual(projected['matching_ml_pct'], 0)
+            self.assertEqual(projected['jalon_compare'], 'H-2')
+            if 'score_h2_ml' in initial:
+                self.assertEqual(projected['score_h2_ml'], 0)

@@ -54,7 +54,9 @@ relecture avant écriture, mutation ciblée, puis contrôle des valeurs restante
 Il refuse une modification concurrente et le second passage ne produit aucune
 écriture.
 
-Le mécanisme d'application reste sans point d'entrée production. Le producteur
-Sheets actuel recréerait les en-têtes retirés au cycle suivant. L'adaptation
-coordonnée du producteur et une répétition sur une copie sauvegardée restent
-nécessaires avant migration réelle.
+Le producteur publie la synthèse sans recréer les en-têtes H1/H2/H3 retirés.
+Il reste compatible avec les registres qui les possèdent encore. La relecture
+certifie les champs synthétiques et les détails lorsqu'ils existent. Les
+preuves et métriques par jalon restent dans les données d'archive.
+Le mécanisme d'application reste sans point d'entrée production jusqu'à la
+répétition sur une copie sauvegardée et au contrôle des consommateurs.

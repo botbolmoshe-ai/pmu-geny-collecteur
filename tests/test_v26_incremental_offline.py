@@ -155,10 +155,11 @@ class IncrementalTests(unittest.TestCase):
         self.assertEqual(inc.actualisation_requise(h, self.now), 'NOUVELLE_COURSE_OFFICIELLE')
 
     def test_publication_geny_retardee_reste_a_completer(self):
-        h = {'historique_complet_au_utc': self.now.isoformat(),
-             'derniere_course_officielle_utc': (self.now-timedelta(hours=1)).isoformat(),
-             'derniere_performance_date': (self.now-timedelta(days=1)).date().isoformat()}
-        self.assertEqual(inc.actualisation_requise(h, self.now), 'PUBLICATION_GENY_EN_ATTENTE')
+        now = datetime(2026, 11, 24, 12, tzinfo=UTC)
+        h = {'historique_complet_au_utc': now.isoformat(),
+             'derniere_course_officielle_utc': (now-timedelta(hours=1)).isoformat(),
+             'derniere_performance_date': (now-timedelta(days=1)).date().isoformat()}
+        self.assertEqual(inc.actualisation_requise(h, now), 'PUBLICATION_GENY_EN_ATTENTE')
 
     def test_checkpoint_avant_sheets_et_sans_recollecte_au_second_passage(self):
         self.seed()
