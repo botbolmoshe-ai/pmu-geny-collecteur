@@ -23779,7 +23779,7 @@
       "course_url": "https://www.geny.com/course/1697676/partants-pronostics",
       "numero": "6",
       "engagement": "2026-11-11_R10C5",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R10C5",
@@ -23803,7 +23803,32 @@
       "prochaine_verification_utc": "2026-11-26T20:51:58.771317+00:00",
       "nombre_performances": 85,
       "erreur": "",
-      "derniere_performance_date": "2026-11-11"
+      "derniere_performance_date": "2026-11-11",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 85,
+          "cellules_actualisees": 0,
+          "lignes_source": 85,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 85,
+            "lignes_avant": 34133,
+            "cles_avant": 34133,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3414,
+            "import_initial_explicite": false,
+            "lignes_attendues": 34218,
+            "lignes_apres": 34218,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-25T20:52:19.598548+00:00",
+      "rattrapage_complet_au_utc": "2026-11-25T20:51:58.771317+00:00",
+      "ajouts_confirmes": 85
     },
     "contexte:143eed016f6929451ed5047a": {
       "nom": "JUPITER MADRIK",
@@ -74375,12 +74400,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1277,
-    "cibles_restantes": 1307,
+    "cibles_completees": 1278,
+    "cibles_restantes": 1306,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1369,
+    "travaux_distincts_restants": 1368,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 922,
+    "carrieres_distinctes_a_completer": 921,
     "identifiants_sans_carriere_complete": 67,
     "contextes_distincts_sans_identifiant": 854,
     "noms_distincts_sans_identifiant": 849,
@@ -74388,8 +74413,8 @@
     "identites_non_resolues": 1239,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 5345,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 5430,
     "tentatives_collecte": 7,
     "captures_validees": 7,
     "captures_partielles": 0,
@@ -74397,7 +74422,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-25T20:47:01.568859+00:00",
-  "maj_utc": "2026-11-25T20:52:00.233562+00:00",
+  "maj_utc": "2026-11-25T20:52:19.629117+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -76296,18 +76321,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-25T20:47:01.568859+00:00",
-    "controle_utc": "2026-11-25T20:52:00.233562+00:00",
+    "controle_utc": "2026-11-25T20:52:19.629117+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 7,
-    "chevaux_confirmes_sheets": 6,
-    "performances_ajoutees_et_confirmees_sheets": 278,
+    "chevaux_confirmes_sheets": 7,
+    "performances_ajoutees_et_confirmees_sheets": 363,
     "requetes_http_geny": 427,
     "attente_inter_chevaux_secondes": 29.61,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 53.98,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 84.38,
-    "carrieres_publiees_par_heure_cycle": 72.32,
+    "carrieres_validees_par_heure_cycle": 79.23,
+    "carrieres_publiees_par_heure_cycle": 79.23,
     "refus_geny": {
       "403": 0,
       "429": 0
