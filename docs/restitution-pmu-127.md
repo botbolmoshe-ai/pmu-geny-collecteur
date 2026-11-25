@@ -60,3 +60,14 @@ certifie les champs synthétiques et les détails lorsqu'ils existent. Les
 preuves et métriques par jalon restent dans les données d'archive.
 Le mécanisme d'application reste sans point d'entrée production jusqu'à la
 répétition sur une copie sauvegardée et au contrôle des consommateurs.
+
+
+## Vérification complémentaire de Vincennes
+
+Le commit public `pmu-data@e484fa15` conserve le programme consulté avant
+l'établissement des TOP3 de Vincennes R3 le 24 novembre. Pour R3C6, R3C7
+et R3C8, l'hippodrome, le libellé, la discipline et la distance concordent
+avec le programme final. Les deux versions H2 et leur publication précèdent
+l'horaire annoncé et l'horaire final. Le rapprochement peut donc réutiliser
+les paires Direct/ML et les arrivées déjà vérifiées. La référence initiale
+et les fichiers figés restent les preuves de ce qui a été publié.
