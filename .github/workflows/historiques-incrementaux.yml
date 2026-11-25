@@ -67,9 +67,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           # Le cycle demandé attend la libération du verrou de production.
-          recent=$(date -u -d '15 minutes ago' +%FT%TZ)
+          recent=$(date -u -d '3 minutes ago' +%FT%TZ)
           active=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/pmu-v16.yml/runs?branch=main&per_page=30" \
-            --jq ".workflow_runs[] | select(.status != \"completed\" or .created_at >= \"$recent\") | .id")
+            --jq ".workflow_runs[] | select(.status != \"completed\" or (.conclusion == \"success\" and .created_at >= \"$recent\")) | .id")
           if [ -n "$active" ]; then
             echo "SECOURS_PMU_DIFFERE cycle actif ou recent: $active"
             exit 0
@@ -149,6 +149,7 @@ jobs:
   recensement:
     if: github.event_name == 'workflow_dispatch' && (inputs.date_courses != '' || inputs.hippodrome != '')
     runs-on: ubuntu-latest
+    timeout-minutes: 18
     concurrency:
       group: pmu-donnees-production
       cancel-in-progress: false
@@ -224,6 +225,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           DATE_COURSES: ${{ inputs.date_courses }}
           HIPPODROME: ${{ inputs.hippodrome }}
+          ARCHIVE_EXECUTION: ${{ inputs.archive_execution }}
         run: |
           reprise=$(date -u -d "$REPRISE_UTC" +%s)
           restant=$(( reprise - $(date -u +%s) + 1 ))
@@ -232,4 +234,4 @@ jobs:
             sleep "$restant"
           fi
           gh workflow run historiques-incrementaux.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME" \
-            -f date_courses="$DATE_COURSES" -f hippodrome="$HIPPODROME"
+            -f date_courses="$DATE_COURSES" -f hippodrome="$HIPPODROME" -f archive_execution="$ARCHIVE_EXECUTION"

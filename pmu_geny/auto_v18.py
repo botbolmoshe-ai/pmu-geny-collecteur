@@ -88,6 +88,8 @@ def programme_diagnostic(doc, date):
     courses_jalons=[]
     decision_courses=[]
     from .selection_metier_v20_4 import discipline_course, niveau
+    from .resultats_v18 import podium_programme
+    from .echeances_production import course_annulee
     def exclusion(reason):
         diag['exclusions'][reason]=diag['exclusions'].get(reason,0)+1
     for r in reunions:
@@ -118,16 +120,7 @@ def programme_diagnostic(doc, date):
             instant = (datetime.fromtimestamp(depart/1000 if depart>10**11 else depart,
                                               tz=timezone.utc).astimezone(PARIS)
                        if isinstance(depart, (int, float)) else None)
-            ordre = c.get('ordreArrivee')
-            podium_definitif = []
-            if (any(c.get(flag) is True for flag in ('arriveeDefinitive', 'isArriveeDefinitive'))
-                    and all(c.get(flag) is not False for flag in ('arriveeDefinitive', 'isArriveeDefinitive'))
-                    and isinstance(ordre, list) and len(ordre) >= 3
-                    and all(isinstance(rang, list) and len(rang) == 1
-                            and type(rang[0]) is int and 1 <= rang[0] <= 30 for rang in ordre[:3])):
-                podium_definitif = [rang[0] for rang in ordre[:3]]
-                if len(set(podium_definitif)) != 3:
-                    podium_definitif = []
+            podium_definitif = podium_programme(c)
             inventory.append({'code': f'R{numero_reunion}C{no}', 'date': date,
                               'hippodrome': hp, 'depart': instant.isoformat() if instant else None,
                               'statut_pmu': c.get('statut'), 'top3_attendu': False,
@@ -163,7 +156,9 @@ def programme_diagnostic(doc, date):
                           'typePiste', 'corde', 'typeDepart') if c.get(k) is not None}}
             if in_scope:
                 course_inventaire.update(course)
-            if not plage:
+            if course_annulee(course_inventaire):
+                exclusion('course_annulee')
+            elif not plage:
                 exclusion('depart_hors_plage_07_21')
             elif tier is None:
                 exclusion('metier_'+motif.lower())
@@ -172,7 +167,7 @@ def programme_diagnostic(doc, date):
                 output.append(course)
         if reunion_suivie:
             for course in candidats_reunion:
-                course['top3_attendu'] = True
+                course['top3_attendu'] = not course_annulee(course)
                 if course.get('nombre_declares'):
                     courses_jalons.append(course)
     diag['courses_retenues']=len(output)
@@ -235,7 +230,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     index=cache/'orchestration'/f'{date}.json'; state=load(index,{'date':date,'courses':{},'alertes':[]})
     # Les diagnostics sont persistés même en cas de source vide ou invalide.
     # Une erreur de consultation ne signifie jamais "aucune course".
-    controle={'date':date,'horodatage_utc':datetime.now(timezone.utc).isoformat(),
+    controle={'date':date,'horodatage_utc':clock().astimezone(timezone.utc).isoformat(),
               'source_url':BASE+datetime.fromisoformat(date).strftime('%d%m%Y'),
               'statut':'NON_VERIFIE','courses_retenues':0}
     try:
@@ -307,8 +302,8 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         for course in courses:
             if profil_preparation_disponible(cache, date, course, clock()):
                 continue
-            raw, _, error = charger_participants(course['code'])
-            if error or enregistrer(cache, course, raw) != 'PARTANTS_ACTUELS_ENREGISTRES':
+            raw, observed, error = charger_participants(course['code'])
+            if error or enregistrer(cache, course, raw, observe=observed) != 'PARTANTS_ACTUELS_ENREGISTRES':
                 erreurs_partants.append(course['code'])
         controle['partants_a_reprendre'] = erreurs_partants
         save(cache/'sources_pmu'/f'diagnostic_{date}.json', controle)
@@ -418,7 +413,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
             if pmu_participants is not None:
                 try:
                     from .partants_actuels_v21 import enregistrer
-                    entry['statut_partants_actuels'] = enregistrer(cache, c, pmu_participants)
+                    entry['statut_partants_actuels'] = enregistrer(cache, c, pmu_participants, observe=observed)
                 except Exception as exc:
                     entry['erreur_partants_actuels'] = f'{type(exc).__name__}: {exc}'
             if not cycle_leger and not est_partie and pmu_participants is not None:

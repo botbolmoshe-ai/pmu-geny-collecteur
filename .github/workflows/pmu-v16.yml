@@ -171,45 +171,13 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PYRUN'
-          from datetime import datetime, timedelta, timezone
-          from pmu_geny.auto_v18 import run
-          from pmu_geny.echeances_production import lire, sauver, planifier, PARIS
-          from pmu_geny.rapprochement_reunions import rapprocher
           from pathlib import Path
-
-          root = Path('cache_pmu')
-          clock = lambda: datetime.now(timezone.utc)
-          now = clock()
-          plan_path = Path('resultats/plan_production.json')
-          plan = lire(plan_path)
-          mode = plan['mode']
-          if mode == 'RAPPROCHEMENT':
-              rapprocher(root, plan, clock)
-          elif mode == 'PREPARATION_JOUR':
-              diagnostic = run(root, plan['date_preparation'], [], 0, now=now, preparation_seule=True)
-              if diagnostic['statut'] == 'ERREUR_COLLECTE' or diagnostic['partants_a_reprendre']:
-                  raise SystemExit('PREPARATION_PMU_A_REPRENDRE')
-          else:
-              today = now.astimezone(PARIS).date()
-              def refresh_plan():
-                  fresh = planifier(root, clock())
-                  if fresh['mode'] == 'JALONS':
-                      fresh['plan_utc'] = plan['plan_utc']
-                      sauver(plan_path, fresh)
-                      return fresh['selection']
-                  return []
-              run(root, today.isoformat(), plan['selection'], 0,
-                  max_discoveries=0, now=now, selection_complete=True, clock=clock,
-                  priorites=plan['selection'], production=True,
-                  prioritaire=mode == 'JALONS', actualiser_plan=refresh_plan if mode == 'GLOBAL' else None)
-              if lire(plan_path)['mode'] == 'GLOBAL':
-                  tomorrow = (today + timedelta(days=1)).isoformat()
-                  run(root, tomorrow, [], 0, max_discoveries=0, now=now,
-                      selection_complete=True, clock=clock, production=True)
+          from pmu_geny.cycle_production import executer
+          executer(Path('cache_pmu'), Path('resultats/plan_production.json'))
           PYRUN
       - name: Traiter aussi les rapprochements dus pendant les autres cycles
         id: rapprochements_complementaires
-        if: always() && steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'RAPPROCHEMENT' && steps.plan.outputs.mode != 'PREPARATION_JOUR' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
+        if: always() && steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'PREPARATION_JOUR' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
         run: |
           python - <<'PYRESULTATS'
           from pathlib import Path

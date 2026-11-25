@@ -18,15 +18,16 @@ def retrouver(cache,key,kind,proof):
     return None
 
 
-def prevision_publiee(cache, key, kind, proof, depart):
+def prevision_publiee(cache, key, kind, proof, depart, *, depart_programme=None):
     published = instant(proof.get('publication_utc'))
     created = instant(proof.get('calcul_utc'))
     doc = retrouver(cache, key, kind, proof)
-    if not doc or not published or not created or not created <= published < depart:
+    cutoff = min(depart, depart_programme) if depart_programme else depart
+    if not doc or not published or not created or not created <= published < cutoff:
         raise ValueError('PREUVE_PUBLICATION_INVALIDE')
     if doc.get('calcul_utc') != proof['calcul_utc']:
         raise ValueError('VERSION_INCOHERENTE')
-    if doc.get('date', '') + '_' + doc.get('course', '') != key or instant(doc.get('depart')) != depart:
+    if doc.get('date', '') + '_' + doc.get('course', '') != key or instant(doc.get('depart')) != (depart_programme or depart):
         raise ValueError('COURSE_INCOHERENTE')
     if kind == 'ml' and doc.get('experimental'):
         fitted = instant(doc.get('entrainement_utc'))
