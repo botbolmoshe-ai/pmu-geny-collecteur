@@ -90680,7 +90680,7 @@
     },
     "2875488": {
       "nom": "NECTAR DE MONTCEAU",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "12",
       "engagement": "2026-11-26_R1C3",
       "vu_utc": "2026-11-26T01:02:39.737449+00:00",
@@ -90709,11 +90709,39 @@
       "nombre_performances": 9,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-10"
+      "derniere_performance_date": "2026-11-10",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 9,
+          "cellules_actualisees": 0,
+          "lignes_source": 9,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 9,
+            "lignes_avant": 35111,
+            "cles_avant": 35111,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3512,
+            "import_initial_explicite": false,
+            "lignes_attendues": 35120,
+            "lignes_apres": 35120,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-26T01:03:27.810456+00:00"
     }
   },
   "passage_utc": "2026-11-26T01:02:39.737449+00:00",
-  "maj_utc": "2026-11-26T01:03:01.385954+00:00",
+  "maj_utc": "2026-11-26T01:03:27.810485+00:00",
   "bilan": {
     "chevaux_suivis": 3277,
     "tentatives_collecte": 1,
@@ -90724,7 +90752,7 @@
     "actualisations_en_attente": 2974
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 11,
@@ -91635,18 +91663,18 @@
   "sync_kpi_utc": "2026-11-25T21:04:56.947422+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-26T01:02:39.737449+00:00",
-    "controle_utc": "2026-11-26T01:03:01.385954+00:00",
+    "controle_utc": "2026-11-26T01:03:27.810485+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 9,
     "requetes_http_geny": 61,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 6.28,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 166.29,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 74.89,
+    "carrieres_publiees_par_heure_cycle": 74.89,
     "refus_geny": {
       "403": 0,
       "429": 0
