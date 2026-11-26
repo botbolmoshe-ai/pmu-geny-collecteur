@@ -40,7 +40,7 @@
     }
   ],
   "causes_contextes_sans_geny": {
-    "AUCUNE_PREUVE_LOCALE_AVEC_COURSE": 743,
+    "AUCUNE_PREUVE_LOCALE_AVEC_COURSE": 727,
     "AUCUNE_PREUVE_LOCALE_SANS_COURSE": 56
   },
   "phase_reprise": "CARRIERES_MANQUANTES",
@@ -51,8 +51,8 @@
     "performances_revalidees": 3,
     "captures_ignorees": 8
   },
-  "passage_utc": "2026-11-26T23:08:37.380929+00:00",
-  "maj_utc": "2026-11-26T23:09:39.298320+00:00",
+  "passage_utc": "2026-11-26T23:39:38.842033+00:00",
+  "maj_utc": "2026-11-26T23:39:46.043811+00:00",
   "statut": "PARTIEL_REPRENABLE",
   "priorite_collecte": "STOCK_NOCTURNE",
   "sync_kpi": "A_REPRENDRE",
@@ -64,11 +64,11 @@
     "travaux_distincts_restants": 1332,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 885,
-    "identifiants_sans_carriere_complete": 85,
-    "contextes_distincts_sans_identifiant": 799,
-    "noms_distincts_sans_identifiant": 795,
-    "identifiants_geny_distincts": 1110,
-    "identites_non_resolues": 1153,
+    "identifiants_sans_carriere_complete": 101,
+    "contextes_distincts_sans_identifiant": 783,
+    "noms_distincts_sans_identifiant": 779,
+    "identifiants_geny_distincts": 1126,
+    "identites_non_resolues": 1121,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
     "synchronisations_en_attente": 0,
@@ -79,19 +79,21 @@
     "collectes_rejetees": 0
   },
   "collecte_cycle": {
-    "debut_utc": "2026-11-26T23:08:37.380929+00:00",
-    "controle_utc": "2026-11-26T23:09:35.213733+00:00",
+    "debut_utc": "2026-11-26T23:39:38.842033+00:00",
+    "controle_utc": "2026-11-26T23:39:46.043811+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
-    "chevaux_confirmes_sheets": 2,
+    "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
     "requetes_http_geny": 0,
+    "requetes_geny_par_ressource": {},
+    "ressources_geny_servies_du_cache_http": 0,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 0.0,
     "refus_sans_validation": 1,
     "carrieres_validees_par_heure_cycle": 0.0,
-    "carrieres_publiees_par_heure_cycle": 124.5,
+    "carrieres_publiees_par_heure_cycle": 0.0,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -100,9 +102,8 @@
       "403": 0,
       "429": 0
     },
-    "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00"
+    "prochain_acces_geny_utc": null
   },
-  "motif_fin_passage": "COOLDOWN",
   "lignes_historique_initiales": 15484,
   "dernier_controle_inventaire": {
     "capture_utc": "2026-11-26T23:39:11.893799+00:00",
@@ -135,12 +136,12 @@
       "LIEN_GENY_A_RESOUDRE": 56
     },
     "noms_distincts": 3166,
-    "controle_utc": "2026-11-26T23:39:12.010163+00:00"
+    "controle_utc": "2026-11-26T23:39:38.842033+00:00"
   },
   "cohortes": {
     "initiale": {
       "cibles": 1787,
-      "identifiees": 989,
+      "identifiees": 1021,
       "partielles": 0,
       "completes": 917,
       "publiees": 917
@@ -182,7 +183,7 @@
     "nouvelle_alerte": false
   },
   "cooldown_geny": {
-    "controle_utc": "2026-11-26T23:39:33.487453+00:00",
+    "controle_utc": "2026-11-26T23:39:46.102532+00:00",
     "dernier_incident": {
       "utc": "2026-11-26T23:08:08.278284+00:00",
       "code": "429"
