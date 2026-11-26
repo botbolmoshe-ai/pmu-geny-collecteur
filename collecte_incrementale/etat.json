@@ -93538,7 +93538,7 @@
     },
     "2655111": {
       "nom": "HOLLYWOOD TRICK",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "1",
       "engagement": "2026-11-27_R5C3",
       "vu_utc": "2026-11-26T23:07:08.867239+00:00",
@@ -93567,11 +93567,39 @@
       "nombre_performances": 85,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-08"
+      "derniere_performance_date": "2026-11-08",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 85,
+          "cellules_actualisees": 0,
+          "lignes_source": 85,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 85,
+            "lignes_avant": 37067,
+            "cles_avant": 37067,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3707,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37152,
+            "lignes_apres": 37152,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-26T23:07:57.804520+00:00"
     }
   },
   "passage_utc": "2026-11-26T23:07:08.867239+00:00",
-  "maj_utc": "2026-11-26T23:07:31.410720+00:00",
+  "maj_utc": "2026-11-26T23:07:57.804548+00:00",
   "bilan": {
     "chevaux_suivis": 3360,
     "tentatives_collecte": 1,
@@ -93582,7 +93610,7 @@
     "actualisations_en_attente": 3024
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 11,
@@ -94003,18 +94031,18 @@
   "sync_kpi_utc": "2026-11-26T16:57:36.762166+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-26T23:07:08.867239+00:00",
-    "controle_utc": "2026-11-26T23:07:31.410720+00:00",
+    "controle_utc": "2026-11-26T23:07:57.804548+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 85,
     "requetes_http_geny": 117,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 10.9,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 159.69,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 73.56,
+    "carrieres_publiees_par_heure_cycle": 73.56,
     "refus_geny": {
       "403": 0,
       "429": 0
