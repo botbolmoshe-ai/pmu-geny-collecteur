@@ -91427,7 +91427,7 @@
     },
     "2800192": {
       "nom": "L'HAVANA D'ELMA",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "12",
       "engagement": "2026-11-26_R1C5",
       "vu_utc": "2026-11-26T02:51:25.624096+00:00",
@@ -91458,11 +91458,39 @@
       "nombre_performances": 31,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-15"
+      "derniere_performance_date": "2026-11-15",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 31,
+          "cellules_actualisees": 0,
+          "lignes_source": 31,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 31,
+            "lignes_avant": 35932,
+            "cles_avant": 35932,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3594,
+            "import_initial_explicite": false,
+            "lignes_attendues": 35963,
+            "lignes_apres": 35963,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-26T02:57:40.946602+00:00"
     }
   },
   "passage_utc": "2026-11-26T02:51:25.624096+00:00",
-  "maj_utc": "2026-11-26T02:57:17.749727+00:00",
+  "maj_utc": "2026-11-26T02:57:40.946631+00:00",
   "bilan": {
     "chevaux_suivis": 3276,
     "tentatives_collecte": 9,
@@ -92329,18 +92357,18 @@
   "sync_kpi_utc": "2026-11-26T01:10:12.732784+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-26T02:51:25.624096+00:00",
-    "controle_utc": "2026-11-26T02:57:17.749727+00:00",
+    "controle_utc": "2026-11-26T02:57:40.946631+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 9,
-    "chevaux_confirmes_sheets": 8,
-    "performances_ajoutees_et_confirmees_sheets": 165,
+    "chevaux_confirmes_sheets": 9,
+    "performances_ajoutees_et_confirmees_sheets": 196,
     "requetes_http_geny": 599,
     "attente_inter_chevaux_secondes": 21.67,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 57.52,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 92.01,
-    "carrieres_publiees_par_heure_cycle": 81.79,
+    "carrieres_validees_par_heure_cycle": 86.33,
+    "carrieres_publiees_par_heure_cycle": 86.33,
     "refus_geny": {
       "403": 0,
       "429": 0
