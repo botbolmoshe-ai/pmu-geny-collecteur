@@ -30761,9 +30761,9 @@
       "course_url": "https://www.geny.com/course/1698228/partants-pronostics",
       "numero": "1",
       "engagement": "2026-11-14_R8C6",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C6",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2021,
@@ -30779,7 +30779,11 @@
         "nom_pmu": "LIOR DE SASSY"
       },
       "preuve_identite": "LIENS_COURSE_GENY",
-      "cible_equivalente_a": "contexte:1faf3484801a741d72b7a6ec"
+      "cible_equivalente_a": "contexte:1faf3484801a741d72b7a6ec",
+      "rattrapage_complet_au_utc": "2026-11-26T03:05:33.965257+00:00",
+      "historique_complet_au_utc": "2026-11-26T03:05:33.965257+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:3d0e3b4f7de5e0d007ff835a": {
       "nom": "LIZY DE LA SALETTE",
@@ -44544,7 +44548,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C6",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C6",
@@ -44571,7 +44575,32 @@
       "prochaine_verification_utc": "2026-11-27T03:05:33.965257+00:00",
       "nombre_performances": 23,
       "erreur": "",
-      "derniere_performance_date": "2026-11-01"
+      "derniere_performance_date": "2026-11-01",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 23,
+          "cellules_actualisees": 0,
+          "lignes_source": 23,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 23,
+            "lignes_avant": 36426,
+            "cles_avant": 36426,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3643,
+            "import_initial_explicite": false,
+            "lignes_attendues": 36449,
+            "lignes_apres": 36449,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-26T03:05:55.419728+00:00",
+      "rattrapage_complet_au_utc": "2026-11-26T03:05:33.965257+00:00",
+      "ajouts_confirmes": 23
     },
     "contexte:e4f290ef1dd0abc8038cdb56": {
       "nom": "LIZY DE LA SALETTE",
@@ -76142,12 +76171,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1315,
-    "cibles_restantes": 1269,
+    "cibles_completees": 1317,
+    "cibles_restantes": 1267,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1335,
+    "travaux_distincts_restants": 1334,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 888,
+    "carrieres_distinctes_a_completer": 887,
     "identifiants_sans_carriere_complete": 85,
     "contextes_distincts_sans_identifiant": 801,
     "noms_distincts_sans_identifiant": 797,
@@ -76155,8 +76184,8 @@
     "identites_non_resolues": 1155,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 7038,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 7061,
     "tentatives_collecte": 9,
     "captures_validees": 9,
     "captures_partielles": 0,
@@ -76164,7 +76193,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-26T02:59:16.128165+00:00",
-  "maj_utc": "2026-11-26T03:05:34.512284+00:00",
+  "maj_utc": "2026-11-26T03:05:55.443355+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -78063,18 +78092,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-26T02:59:16.128165+00:00",
-    "controle_utc": "2026-11-26T03:05:34.512284+00:00",
+    "controle_utc": "2026-11-26T03:05:55.443355+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 9,
-    "chevaux_confirmes_sheets": 8,
-    "performances_ajoutees_et_confirmees_sheets": 436,
+    "chevaux_confirmes_sheets": 9,
+    "performances_ajoutees_et_confirmees_sheets": 459,
     "requetes_http_geny": 550,
     "attente_inter_chevaux_secondes": 29.44,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 59.34,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 85.63,
-    "carrieres_publiees_par_heure_cycle": 76.11,
+    "carrieres_validees_par_heure_cycle": 81.14,
+    "carrieres_publiees_par_heure_cycle": 81.14,
     "refus_geny": {
       "403": 0,
       "429": 0
