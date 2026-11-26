@@ -92864,7 +92864,30 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-27T17:05:00+00:00",
       "premier_depart_reunion_utc": "2026-11-27T15:55:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "collecte": "A_REPRENDRE",
+      "erreur": "PermissionError: ACCES_LIMITE_429",
+      "prochain_essai_utc": "2026-11-27T05:08:08.278364+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-26T23:08:08.278381+00:00",
+        "statut": "ACCES_LIMITE_429",
+        "motifs": [
+          "ACCES_LIMITE_429"
+        ],
+        "erreur": "ACCES_LIMITE_429",
+        "identite_verifiee": false,
+        "diagnostic": "resultats/incremental/2026-11-27_R5C3_10/1795734486358176656/resultat.json"
+      },
+      "geny": {
+        "id": "2626925",
+        "nom": "Hajime",
+        "age_geny": 9,
+        "nationalite_geny": null,
+        "url_geny": "https://www.geny.com/cheval/2626925",
+        "preuve": "RECHERCHE_GENY_NOM_EXACT"
+      },
+      "id": "2626925",
+      "preuve_identite": "RECHERCHE_GENY_NOM_EXACT"
     },
     "2026-11-27_R5C3_11": {
       "nom": "GOLDEN VISAIS",
@@ -93599,13 +93622,13 @@
     }
   },
   "passage_utc": "2026-11-26T23:07:08.867239+00:00",
-  "maj_utc": "2026-11-26T23:08:01.928292+00:00",
+  "maj_utc": "2026-11-26T23:08:08.347555+00:00",
   "bilan": {
     "chevaux_suivis": 3360,
-    "tentatives_collecte": 1,
+    "tentatives_collecte": 2,
     "captures_validees": 1,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 3024
   },
@@ -94031,27 +94054,28 @@
   "sync_kpi_utc": "2026-11-26T16:57:36.762166+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-26T23:07:08.867239+00:00",
-    "controle_utc": "2026-11-26T23:08:01.928292+00:00",
+    "controle_utc": "2026-11-26T23:08:08.347555+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
     "chevaux_confirmes_sheets": 1,
     "performances_ajoutees_et_confirmees_sheets": 85,
-    "requetes_http_geny": 117,
+    "requetes_http_geny": 168,
     "attente_inter_chevaux_secondes": 0.0,
-    "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 10.9,
-    "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 67.85,
-    "carrieres_publiees_par_heure_cycle": 67.85,
+    "intervalle_inter_chevaux_secondes": 60,
+    "duree_acces_geny_secondes": 12.82,
+    "refus_sans_validation": 1,
+    "carrieres_validees_par_heure_cycle": 60.52,
+    "carrieres_publiees_par_heure_cycle": 60.52,
     "refus_geny": {
       "403": 0,
-      "429": 0
+      "429": 1
     },
     "reponses_http_refusees_geny": {
       "403": 0,
       "429": 0
     },
-    "prochain_acces_geny_utc": null
+    "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00"
   },
-  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT"
+  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
+  "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00"
 }
