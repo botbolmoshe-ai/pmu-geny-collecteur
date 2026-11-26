@@ -131,4 +131,6 @@ class CorrespondanceGenyTests(TestCase):
         denominator = KPI_PREFIX + 'Chevaux distincts'
         self.assertEqual(metrics[denominator][0], 2)
         values = [['Dimension', 'Indicateur'], ['ML', denominator, *metrics[denominator]]]
-        self.assertIn({'range': "'Data Quality & KPI'!A2", 'values': [[COLONNE]]}, plan_kpi(values, metrics))
+        self.assertIn({'range': "'Data Quality & KPI'!A2:D2",
+                       'values': [[COLONNE, denominator, *metrics[denominator]]]},
+                      plan_kpi(values, metrics))

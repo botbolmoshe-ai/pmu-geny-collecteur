@@ -487,11 +487,12 @@ def plan_kpi(values, metrics):
         if len(row)>1 and row[1] in metrics:
             value,definition=metrics[row[1]]
             label=row[1]
-            if label.startswith(KPI_PREFIX) and row[0] != COLONNE:
-                updates.append({'range': f"'{KPI_TAB}'!A{number}", 'values': [[COLONNE]]})
             desired=[value,definition]+([totals[label]] if label in totals else [])
-            if row[2:2+len(desired)]!=desired:
-                end='E' if label in totals else 'D'
+            end='E' if label in totals else 'D'
+            if label.startswith(KPI_PREFIX) and row[0] != COLONNE:
+                updates.append({'range': f"'{KPI_TAB}'!A{number}:{end}{number}",
+                                'values': [[COLONNE, label, *desired]]})
+            elif row[2:2+len(desired)]!=desired:
                 updates.append({'range':f"'{KPI_TAB}'!C{number}:{end}{number}",'values':[desired]})
     present={row[1] for row in values[1:] if len(row)>1}
     last=max((i for i,row in enumerate(values,start=1) if any(str(v or '').strip() for v in row)),default=1)
