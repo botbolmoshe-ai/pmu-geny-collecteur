@@ -26270,9 +26270,9 @@
       "course_url": "https://www.geny.com/course/1697659/partants-pronostics",
       "numero": "14",
       "engagement": "2026-11-11_R4C2",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "A_FAIRE",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R4C2",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2018,
@@ -26288,7 +26288,13 @@
         "nom_pmu": "INDIC"
       },
       "preuve_identite": "LIENS_COURSE_GENY",
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "historique_complet_au_utc": "2026-11-26T01:12:06.151928+00:00",
+      "derniere_verification_utc": "2026-11-26T01:12:06.151928+00:00",
+      "prochaine_verification_utc": "2026-11-27T01:12:06.151928+00:00",
+      "nombre_performances": 52,
+      "erreur": "",
+      "derniere_performance_date": "2026-11-22"
     },
     "contexte:42d66a158721649417f739d4": {
       "nom": "INESKA",
@@ -75346,23 +75352,23 @@
     "travaux_distincts_restants": 1351,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 904,
-    "identifiants_sans_carriere_complete": 87,
+    "identifiants_sans_carriere_complete": 86,
     "contextes_distincts_sans_identifiant": 816,
     "noms_distincts_sans_identifiant": 812,
     "identifiants_geny_distincts": 1093,
     "identites_non_resolues": 1184,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 0,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 6090,
-    "tentatives_collecte": 1,
-    "captures_validees": 1,
+    "tentatives_collecte": 2,
+    "captures_validees": 2,
     "captures_partielles": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-26T01:10:49.941325+00:00",
-  "maj_utc": "2026-11-26T01:11:57.069476+00:00",
+  "maj_utc": "2026-11-26T01:12:06.943001+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 16,
@@ -77261,18 +77267,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-26T01:10:49.941325+00:00",
-    "controle_utc": "2026-11-26T01:11:57.069476+00:00",
+    "controle_utc": "2026-11-26T01:12:06.943001+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 1,
+    "carrieres_completes_distinctes": 2,
     "chevaux_confirmes_sheets": 1,
     "performances_ajoutees_et_confirmees_sheets": 63,
-    "requetes_http_geny": 61,
+    "requetes_http_geny": 122,
     "attente_inter_chevaux_secondes": 15.07,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 6.18,
+    "duree_acces_geny_secondes": 12.16,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 53.63,
-    "carrieres_publiees_par_heure_cycle": 53.63,
+    "carrieres_validees_par_heure_cycle": 93.5,
+    "carrieres_publiees_par_heure_cycle": 46.75,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -77283,5 +77289,5 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "derniere_acquisition_validee_utc": "2026-11-26T01:11:24.980266+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-26T01:12:06.151928+00:00"
 }
