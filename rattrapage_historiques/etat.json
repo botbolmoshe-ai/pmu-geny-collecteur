@@ -26309,7 +26309,7 @@
       "course_url": "https://www.geny.com/course/1697659/partants-pronostics",
       "numero": "10",
       "engagement": "2026-11-11_R4C2",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R4C2",
@@ -26333,7 +26333,32 @@
       "prochaine_verification_utc": "2026-11-27T03:02:45.466918+00:00",
       "nombre_performances": 69,
       "erreur": "",
-      "derniere_performance_date": "2026-11-20"
+      "derniere_performance_date": "2026-11-20",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 69,
+          "cellules_actualisees": 0,
+          "lignes_source": 69,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 69,
+            "lignes_avant": 36266,
+            "cles_avant": 36266,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3627,
+            "import_initial_explicite": false,
+            "lignes_attendues": 36335,
+            "lignes_apres": 36335,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-26T03:03:08.235474+00:00",
+      "rattrapage_complet_au_utc": "2026-11-26T03:02:45.466918+00:00",
+      "ajouts_confirmes": 69
     },
     "contexte:658d97572253d063cf64e7e6": {
       "nom": "JUST D'ERONVILLE",
@@ -76006,12 +76031,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1308,
-    "cibles_restantes": 1276,
+    "cibles_completees": 1309,
+    "cibles_restantes": 1275,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1339,
+    "travaux_distincts_restants": 1338,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 892,
+    "carrieres_distinctes_a_completer": 891,
     "identifiants_sans_carriere_complete": 89,
     "contextes_distincts_sans_identifiant": 801,
     "noms_distincts_sans_identifiant": 797,
@@ -76019,8 +76044,8 @@
     "identites_non_resolues": 1155,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 6878,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 6947,
     "tentatives_collecte": 5,
     "captures_validees": 5,
     "captures_partielles": 0,
@@ -76028,7 +76053,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-26T02:59:16.128165+00:00",
-  "maj_utc": "2026-11-26T03:02:46.394640+00:00",
+  "maj_utc": "2026-11-26T03:03:08.260653+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -77927,18 +77952,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-26T02:59:16.128165+00:00",
-    "controle_utc": "2026-11-26T03:02:46.394640+00:00",
+    "controle_utc": "2026-11-26T03:03:08.260653+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 5,
-    "chevaux_confirmes_sheets": 4,
-    "performances_ajoutees_et_confirmees_sheets": 276,
+    "chevaux_confirmes_sheets": 5,
+    "performances_ajoutees_et_confirmees_sheets": 345,
     "requetes_http_geny": 305,
     "attente_inter_chevaux_secondes": 19.6,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 34.56,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 85.61,
-    "carrieres_publiees_par_heure_cycle": 68.48,
+    "carrieres_validees_par_heure_cycle": 77.54,
+    "carrieres_publiees_par_heure_cycle": 77.54,
     "refus_geny": {
       "403": 0,
       "429": 0
