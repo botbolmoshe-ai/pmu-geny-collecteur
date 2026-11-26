@@ -26034,7 +26034,7 @@
       "course_url": "https://www.geny.com/course/1697659/partants-pronostics",
       "numero": "8",
       "engagement": "2026-11-11_R4C2",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R4C2",
@@ -26058,7 +26058,32 @@
       "prochaine_verification_utc": "2026-11-27T01:11:24.980266+00:00",
       "nombre_performances": 63,
       "erreur": "",
-      "derniere_performance_date": "2026-11-11"
+      "derniere_performance_date": "2026-11-11",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 63,
+          "cellules_actualisees": 0,
+          "lignes_source": 63,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 63,
+            "lignes_avant": 35192,
+            "cles_avant": 35192,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3520,
+            "import_initial_explicite": false,
+            "lignes_attendues": 35255,
+            "lignes_apres": 35255,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-26T01:11:46.748009+00:00",
+      "rattrapage_complet_au_utc": "2026-11-26T01:11:24.980266+00:00",
+      "ajouts_confirmes": 63
     },
     "contexte:129e32e17ee5d4569fdb808a": {
       "nom": "HOUPETTE ROSE",
@@ -75315,12 +75340,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1295,
-    "cibles_restantes": 1289,
+    "cibles_completees": 1296,
+    "cibles_restantes": 1288,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1352,
+    "travaux_distincts_restants": 1351,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 905,
+    "carrieres_distinctes_a_completer": 904,
     "identifiants_sans_carriere_complete": 87,
     "contextes_distincts_sans_identifiant": 816,
     "noms_distincts_sans_identifiant": 812,
@@ -75328,8 +75353,8 @@
     "identites_non_resolues": 1184,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 6027,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 6090,
     "tentatives_collecte": 1,
     "captures_validees": 1,
     "captures_partielles": 0,
@@ -75337,7 +75362,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-26T01:10:49.941325+00:00",
-  "maj_utc": "2026-11-26T01:11:25.888666+00:00",
+  "maj_utc": "2026-11-26T01:11:46.770793+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 16,
@@ -77236,18 +77261,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-26T01:10:49.941325+00:00",
-    "controle_utc": "2026-11-26T01:11:25.888666+00:00",
+    "controle_utc": "2026-11-26T01:11:46.770793+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 63,
     "requetes_http_geny": 61,
     "attente_inter_chevaux_secondes": 11.36,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 6.18,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 100.15,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 63.35,
+    "carrieres_publiees_par_heure_cycle": 63.35,
     "refus_geny": {
       "403": 0,
       "429": 0
