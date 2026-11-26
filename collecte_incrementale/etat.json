@@ -93622,43 +93622,38 @@
     }
   },
   "passage_utc": "2026-11-26T23:07:08.867239+00:00",
-  "maj_utc": "2026-11-26T23:08:08.347555+00:00",
+  "maj_utc": "2026-11-26T23:08:22.381628+00:00",
   "bilan": {
-    "chevaux_suivis": 3360,
+    "chevaux_suivis": 3361,
     "tentatives_collecte": 2,
     "captures_validees": 1,
     "captures_partielles": 0,
     "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 3024
+    "actualisations_en_attente": 3075
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
-      "indicateurs_actualises": 11,
+      "indicateurs_actualises": 15,
       "indicateurs_verifies": 159
     }
   },
   "priorite_collecte": "DEPARTS_DU_JOUR_NOCTURNE",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-26T23:07:08.867239+00:00",
+    "controle_utc": "2026-11-26T23:08:12.659173+00:00",
     "pret": false,
     "partants_a_venir": 79,
     "couverture_par_jour": {
       "2026-11-27": {
         "partants": 79,
-        "historiques_complets": 11,
-        "sans_historique_complet": 68,
-        "historiques_a_actualiser": 79
+        "historiques_complets": 12,
+        "sans_historique_complet": 67,
+        "historiques_a_actualiser": 78
       }
     },
     "blocages": [
-      {
-        "course": "2026-11-27_R5C3",
-        "numero": "1",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
-      },
       {
         "course": "2026-11-27_R5C3",
         "numero": "2",
@@ -94051,10 +94046,10 @@
       }
     ]
   },
-  "sync_kpi_utc": "2026-11-26T16:57:36.762166+00:00",
+  "sync_kpi_utc": "2026-11-26T23:08:22.379994+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-26T23:07:08.867239+00:00",
-    "controle_utc": "2026-11-26T23:08:08.347555+00:00",
+    "controle_utc": "2026-11-26T23:08:22.381628+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
     "chevaux_confirmes_sheets": 1,
@@ -94064,8 +94059,8 @@
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 12.82,
     "refus_sans_validation": 1,
-    "carrieres_validees_par_heure_cycle": 60.52,
-    "carrieres_publiees_par_heure_cycle": 60.52,
+    "carrieres_validees_par_heure_cycle": 48.97,
+    "carrieres_publiees_par_heure_cycle": 48.97,
     "refus_geny": {
       "403": 0,
       "429": 1
@@ -94077,5 +94072,6 @@
     "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00"
   },
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
-  "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00"
+  "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00",
+  "motif_fin_passage": "COOLDOWN"
 }
