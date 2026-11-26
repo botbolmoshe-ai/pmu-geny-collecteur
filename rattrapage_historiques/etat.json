@@ -68438,7 +68438,6 @@
       "preuve_identite": "CAPTURE_GENY",
       "nombre_performances": 48,
       "historique_complet_au_utc": "2026-11-26T16:50:52.073171+00:00",
-      "partant_course_passee": true,
       "sync_details": {
         "Historique chevaux": {
           "lignes_ajoutees": 0,
@@ -68464,7 +68463,8 @@
       "sync_utc": "2026-11-26T23:09:03.823839+00:00",
       "erreur": "",
       "rattrapage_complet_au_utc": "2026-11-26T16:50:52.073171+00:00",
-      "ajouts_confirmes": 0
+      "ajouts_confirmes": 0,
+      "partant_course_passee": true
     },
     "contexte:ce5e32e4c466f8aaf950c26b": {
       "nom": "ISSIA DE CHARLY",
@@ -71544,7 +71544,6 @@
       "preuve_identite": "CAPTURE_GENY",
       "nombre_performances": 102,
       "historique_complet_au_utc": "2026-11-26T16:56:23.135953+00:00",
-      "partant_course_passee": true,
       "sync_details": {
         "Historique chevaux": {
           "lignes_ajoutees": 0,
@@ -71570,7 +71569,8 @@
       "sync_utc": "2026-11-26T23:09:21.146924+00:00",
       "erreur": "",
       "rattrapage_complet_au_utc": "2026-11-26T16:56:23.135953+00:00",
-      "ajouts_confirmes": 0
+      "ajouts_confirmes": 0,
+      "partant_course_passee": true
     },
     "contexte:c0efde0a1bff9d86f5538a58": {
       "nom": "LAMBADA DU GOUTIER",
@@ -76240,7 +76240,7 @@
       "partant_course_passee": true
     }
   },
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
@@ -76266,10 +76266,10 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-26T23:08:37.380929+00:00",
-  "maj_utc": "2026-11-26T23:09:21.176437+00:00",
+  "maj_utc": "2026-11-26T23:09:35.213733+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
-      "indicateurs_actualises": 16,
+      "indicateurs_actualises": 10,
       "indicateurs_verifies": 159
     }
   },
@@ -76345,13 +76345,12 @@
     "bilan": {
       "ABSENT_DE_LA_FILE": 1344,
       "A_REPRENDRE": 779,
-      "COMPLET": 559,
+      "COMPLET": 561,
       "FERRURES_A_COMPLETER": 426,
-      "LIEN_GENY_A_RESOUDRE": 56,
-      "SYNCHRONISATION_A_REPRENDRE": 2
+      "LIEN_GENY_A_RESOUDRE": 56
     },
     "noms_distincts": 3166,
-    "controle_utc": "2026-11-26T23:08:37.380929+00:00"
+    "controle_utc": "2026-11-26T23:09:25.340169+00:00"
   },
   "cles_initiales": [
     "1717076",
@@ -78144,13 +78143,13 @@
   ],
   "collecte_tentee_utc": "2026-11-26T03:05:23.476326+00:00",
   "dernier_creneau_reserve_utc": "2026-11-19T20:07:22.244110+00:00",
-  "controle_ordonnancement_utc": "2026-11-26T03:06:12.230951+00:00",
-  "sync_kpi_utc": "2026-11-26T03:06:07.432115+00:00",
+  "controle_ordonnancement_utc": "2026-11-26T23:09:25.340161+00:00",
+  "sync_kpi_utc": "2026-11-26T23:09:35.212118+00:00",
   "causes_contextes_sans_geny": {
     "AUCUNE_PREUVE_LOCALE_AVEC_COURSE": 743,
     "AUCUNE_PREUVE_LOCALE_SANS_COURSE": 56
   },
-  "motif_ordonnancement": "BUDGET_TEMPS_ATTEINT",
+  "motif_ordonnancement": "COOLDOWN",
   "dernier_controle_nocturne": {
     "utc": "2026-11-26T02:58:40.441411+00:00",
     "creneau": 997589,
@@ -78166,7 +78165,7 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-26T23:08:37.380929+00:00",
-    "controle_utc": "2026-11-26T23:09:21.176437+00:00",
+    "controle_utc": "2026-11-26T23:09:35.213733+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 2,
@@ -78177,7 +78176,7 @@
     "duree_acces_geny_secondes": 0.0,
     "refus_sans_validation": 1,
     "carrieres_validees_par_heure_cycle": 0.0,
-    "carrieres_publiees_par_heure_cycle": 164.4,
+    "carrieres_publiees_par_heure_cycle": 124.5,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -78189,5 +78188,6 @@
     "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00"
   },
   "derniere_acquisition_validee_utc": "2026-11-26T03:05:33.965257+00:00",
-  "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00"
+  "prochain_acces_geny_utc": "2026-11-26T23:38:08.278284+00:00",
+  "motif_fin_passage": "COOLDOWN"
 }
