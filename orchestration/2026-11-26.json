@@ -250,7 +250,7 @@
         "direct": "CALCULE_PARTIEL",
         "cotes": "CALCULE_COMPLET"
       },
-      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_snapshot_ml": "DEJA_CAPTURE",
       "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R4C3": {
@@ -316,7 +316,7 @@
       "motif_selection": "HIPPODROME_MAJEUR_P2",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME DE MAUQUENCHY (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "statut_ipr": "CALCULE",
@@ -407,10 +407,10 @@
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-26T14:24:37.908589+00:00",
+  "dernier_controle_pmu": "2026-11-26T16:47:35.702141+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-26",
-    "horodatage_utc": "2026-11-26T14:24:37.908589+00:00",
+    "horodatage_utc": "2026-11-26T16:47:35.702141+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/26112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 15,
@@ -481,7 +481,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "regionHippique",
           "specialites",
           "statut",
@@ -513,7 +512,6 @@
           "offresInternet",
           "parisEvenement",
           "pays",
-          "prochaineCourse",
           "specialites",
           "statut",
           "timezoneOffset"
@@ -1048,9 +1046,13 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
         "depart": "2026-11-26T15:40:00+01:00",
-        "statut_pmu": "ROUGE_AUX_PARTANTS",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          5,
+          10,
+          8
+        ],
         "priorite_metier": "P1",
         "motif_selection": "VINCENNES",
         "allocation_eur": 120000,
@@ -1076,10 +1078,14 @@
         "code": "R1C5",
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
-        "depart": "2026-11-26T16:15:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "depart": "2026-11-26T16:16:00+01:00",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          3,
+          1,
+          13
+        ],
         "priorite_metier": "P1",
         "motif_selection": "VINCENNES",
         "allocation_eur": 46000,
@@ -1105,10 +1111,14 @@
         "code": "R1C6",
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
-        "depart": "2026-11-26T16:50:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "depart": "2026-11-26T16:52:00+01:00",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          12,
+          3,
+          9
+        ],
         "priorite_metier": "P1",
         "motif_selection": "VINCENNES",
         "allocation_eur": 62000,
@@ -1135,9 +1145,13 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
         "depart": "2026-11-26T17:25:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          7,
+          11,
+          9
+        ],
         "priorite_metier": "P1",
         "motif_selection": "VINCENNES",
         "allocation_eur": 53000,
@@ -1164,7 +1178,7 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
         "depart": "2026-11-26T18:00:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ROUGE_AUX_PARTANTS",
         "top3_attendu": true,
         "podium_definitif_pmu": [],
         "priorite_metier": "P1",
@@ -1297,9 +1311,13 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE LIGNIERES",
         "depart": "2026-11-26T15:30:00+01:00",
-        "statut_pmu": "CHEVAUX_ENTRENT_EN_PISTE",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": false,
-        "podium_definitif_pmu": []
+        "podium_definitif_pmu": [
+          9,
+          1,
+          4
+        ]
       },
       {
         "code": "R3C1",
@@ -1371,36 +1389,52 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE CHANTILLY",
         "depart": "2026-11-26T15:22:00+01:00",
-        "statut_pmu": "DEPART_CONFIRME",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": false,
-        "podium_definitif_pmu": []
+        "podium_definitif_pmu": [
+          7,
+          8,
+          9
+        ]
       },
       {
         "code": "R3C7",
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE CHANTILLY",
         "depart": "2026-11-26T15:57:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": false,
-        "podium_definitif_pmu": []
+        "podium_definitif_pmu": [
+          12,
+          10,
+          13
+        ]
       },
       {
         "code": "R3C8",
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE CHANTILLY",
-        "depart": "2026-11-26T16:32:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "depart": "2026-11-26T16:33:00+01:00",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": false,
-        "podium_definitif_pmu": []
+        "podium_definitif_pmu": [
+          6,
+          4,
+          7
+        ]
       },
       {
         "code": "R4C1",
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE MAUQUENCHY",
         "depart": "2026-11-26T17:07:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          5,
+          14,
+          8
+        ],
         "priorite_metier": "P2",
         "motif_selection": "HIPPODROME_MAJEUR_P2",
         "allocation_eur": 21000,
@@ -1427,7 +1461,7 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE MAUQUENCHY",
         "depart": "2026-11-26T17:42:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ARRIVEE_PROVISOIRE_NON_VALIDEE",
         "top3_attendu": true,
         "podium_definitif_pmu": [],
         "priorite_metier": "P2",
@@ -1731,9 +1765,13 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
         "depart": "2026-11-26T15:40:00+01:00",
-        "statut_pmu": "ROUGE_AUX_PARTANTS",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          5,
+          10,
+          8
+        ],
         "priorite_metier": "P1",
         "motif_selection": "VINCENNES",
         "allocation_eur": 120000,
@@ -1759,10 +1797,14 @@
         "code": "R1C5",
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
-        "depart": "2026-11-26T16:15:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "depart": "2026-11-26T16:16:00+01:00",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          3,
+          1,
+          13
+        ],
         "priorite_metier": "P1",
         "motif_selection": "VINCENNES",
         "allocation_eur": 46000,
@@ -1788,10 +1830,14 @@
         "code": "R1C6",
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
-        "depart": "2026-11-26T16:50:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "depart": "2026-11-26T16:52:00+01:00",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          12,
+          3,
+          9
+        ],
         "priorite_metier": "P1",
         "motif_selection": "VINCENNES",
         "allocation_eur": 62000,
@@ -1818,9 +1864,13 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
         "depart": "2026-11-26T17:25:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          7,
+          11,
+          9
+        ],
         "priorite_metier": "P1",
         "motif_selection": "VINCENNES",
         "allocation_eur": 53000,
@@ -1847,7 +1897,7 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
         "depart": "2026-11-26T18:00:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ROUGE_AUX_PARTANTS",
         "top3_attendu": true,
         "podium_definitif_pmu": [],
         "priorite_metier": "P1",
@@ -1876,9 +1926,13 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE MAUQUENCHY",
         "depart": "2026-11-26T17:07:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
         "top3_attendu": true,
-        "podium_definitif_pmu": [],
+        "podium_definitif_pmu": [
+          5,
+          14,
+          8
+        ],
         "priorite_metier": "P2",
         "motif_selection": "HIPPODROME_MAJEUR_P2",
         "allocation_eur": 21000,
@@ -1905,7 +1959,7 @@
         "date": "2026-11-26",
         "hippodrome": "HIPPODROME DE MAUQUENCHY",
         "depart": "2026-11-26T17:42:00+01:00",
-        "statut_pmu": "PROGRAMMEE",
+        "statut_pmu": "ARRIVEE_PROVISOIRE_NON_VALIDEE",
         "top3_attendu": true,
         "podium_definitif_pmu": [],
         "priorite_metier": "P2",

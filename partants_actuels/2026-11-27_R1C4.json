@@ -1,0 +1,472 @@
+{
+  "date": "2026-11-27",
+  "course": "R1C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "JONGLEUSE DE BRY",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 11933000,
+        "gainsVictoires": 9652500,
+        "gainsPlace": 2280500,
+        "gainsAnneeEnCours": 3740000,
+        "gainsAnneePrecedente": 3579000
+      }
+    },
+    {
+      "nom": "KISS ME DE NAVARY",
+      "deferre": "PROTEGE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 13125500,
+        "gainsVictoires": 3139500,
+        "gainsPlace": 9926000,
+        "gainsAnneeEnCours": 1235000,
+        "gainsAnneePrecedente": 774000
+      }
+    },
+    {
+      "nom": "KARA D'OR",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 13199500,
+        "gainsVictoires": 4072500,
+        "gainsPlace": 9127000,
+        "gainsAnneeEnCours": 3601000,
+        "gainsAnneePrecedente": 3938000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-26T16:48:09.447108+00:00",
+  "chevaux": {
+    "1": {
+      "driver_jockey": "M. IONESCU",
+      "entraineur": "R. DERIEUX",
+      "proprietaire": "Ecurie SERENITE",
+      "musique_pmu": "Da0a0a1a1a2a(25)9a3a1a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 119330.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "nom": "JONGLEUSE DE BRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "P. HACHIN",
+      "proprietaire": "P. HACHIN",
+      "ferrure": "PP",
+      "musique_pmu": "3a0a3a8aDaDa2a4a7aDa",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 131255.0,
+      "nom": "KISS ME DE NAVARY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "driver_jockey": "R. HEMERY",
+      "entraineur": "M. DUPUIS",
+      "proprietaire": "J. LEGRAND",
+      "ferrure": "D4",
+      "musique_pmu": "2a8a7a1a5aDa9a7aDaDm",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 131995.0,
+      "nom": "KARA D'OR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "W. BIGEON",
+      "proprietaire": "J. SECHE",
+      "ferrure": "D4",
+      "musique_pmu": "Da3a0a9a3aDa1a4a0a6a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 132945.0,
+      "nom": "KUNAMATATA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "H. TOUVAIS",
+      "proprietaire": "H. TOUVAIS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a4a1aAa1a6a2a9a1aDa",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 140245.0,
+      "nom": "KALIAKIE PHEDO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "driver_jockey": "D. BONNE",
+      "entraineur": "A. PILLON",
+      "proprietaire": "Ecurie Alexandre PILLON",
+      "ferrure": "D4",
+      "musique_pmu": "0aDm0a2a0a4a1aDa3a2a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 141395.0,
+      "nom": "KELLY GEDE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "J. COTTEL",
+      "ferrure": "DP",
+      "musique_pmu": "Da6aDa3a4aDa0a3aDa7a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 144610.0,
+      "nom": "KYNTE FLUSH",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "J.M. MAILLARD",
+      "proprietaire": "J.M. MAILLARD",
+      "ferrure": "D4",
+      "musique_pmu": "1a2a4a4a1a6a3a6a7a8a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 148390.0,
+      "nom": "KISS ME DU LIVET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "P. HACHIN",
+      "proprietaire": "P. HACHIN",
+      "ferrure": "P4",
+      "musique_pmu": "0a0a0aDa8a8a2a2a0a5a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 151670.0,
+      "nom": "JADE DE NAVARY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "E. PLANCHENAULT",
+      "proprietaire": "E. PLANCHENAULT",
+      "ferrure": "D4",
+      "musique_pmu": "1a6a5a7a5a3a1aDa(25)2a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 155375.0,
+      "nom": "JACINTHE DU BOIRON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "driver_jockey": "J. DUBOIS",
+      "entraineur": "J. DUBOIS",
+      "proprietaire": "J. DUBOIS",
+      "ferrure": "D4",
+      "musique_pmu": "0a0a0a0a8a4m4a1a(25)4a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 155485.0,
+      "nom": "KELLY JANE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "ferrure": "D4",
+      "musique_pmu": "5a7aDa1a5a2a4a7aDa1a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 156075.0,
+      "nom": "JUNE D'ERABLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "E. SZIRMAY",
+      "proprietaire": "E. SZIRMAY",
+      "ferrure": "DP/PA",
+      "musique_pmu": "9a6a5a1a9a8a1aDa6a5a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 156935.0,
+      "nom": "KALINKA DU GRENAT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "P.Y. ROCHARD",
+      "proprietaire": "Ecurie TEAM ROCHARD",
+      "ferrure": "D4",
+      "musique_pmu": "7a0a6a7a5a0a7a4a7a7a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 164445.0,
+      "nom": "KIPHYLE DESBOIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+        "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C4/participants",
+          "capture_utc": "2026-11-26T16:48:09.447108+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}
