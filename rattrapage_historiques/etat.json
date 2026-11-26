@@ -39997,7 +39997,7 @@
       "course_url": "https://www.geny.com/course/1697659/partants-pronostics",
       "numero": "7",
       "engagement": "2026-11-11_R4C2",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-11_R4C2",
@@ -40020,7 +40020,32 @@
       "prochaine_verification_utc": "2026-11-27T03:02:02.748899+00:00",
       "nombre_performances": 80,
       "erreur": "",
-      "derniere_performance_date": "2026-07-26"
+      "derniere_performance_date": "2026-07-26",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 80,
+          "cellules_actualisees": 0,
+          "lignes_source": 80,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 80,
+            "lignes_avant": 36186,
+            "cles_avant": 36186,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3619,
+            "import_initial_explicite": false,
+            "lignes_attendues": 36266,
+            "lignes_apres": 36266,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-26T03:02:25.423257+00:00",
+      "rattrapage_complet_au_utc": "2026-11-26T03:02:02.748899+00:00",
+      "ajouts_confirmes": 80
     },
     "contexte:506175ec85a52f0896733e96": {
       "nom": "NO ONE",
@@ -75975,12 +76000,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1307,
-    "cibles_restantes": 1277,
+    "cibles_completees": 1308,
+    "cibles_restantes": 1276,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1340,
+    "travaux_distincts_restants": 1339,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 893,
+    "carrieres_distinctes_a_completer": 892,
     "identifiants_sans_carriere_complete": 90,
     "contextes_distincts_sans_identifiant": 801,
     "noms_distincts_sans_identifiant": 797,
@@ -75988,8 +76013,8 @@
     "identites_non_resolues": 1155,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 6798,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 6878,
     "tentatives_collecte": 4,
     "captures_validees": 4,
     "captures_partielles": 0,
@@ -75997,7 +76022,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-26T02:59:16.128165+00:00",
-  "maj_utc": "2026-11-26T03:02:03.797991+00:00",
+  "maj_utc": "2026-11-26T03:02:25.448473+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -77896,18 +77921,18 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-26T02:59:16.128165+00:00",
-    "controle_utc": "2026-11-26T03:02:03.797991+00:00",
+    "controle_utc": "2026-11-26T03:02:25.448473+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 4,
-    "chevaux_confirmes_sheets": 3,
-    "performances_ajoutees_et_confirmees_sheets": 196,
+    "chevaux_confirmes_sheets": 4,
+    "performances_ajoutees_et_confirmees_sheets": 276,
     "requetes_http_geny": 244,
     "attente_inter_chevaux_secondes": 17.17,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 27.68,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 85.88,
-    "carrieres_publiees_par_heure_cycle": 64.41,
+    "carrieres_validees_par_heure_cycle": 76.06,
+    "carrieres_publiees_par_heure_cycle": 76.06,
     "refus_geny": {
       "403": 0,
       "429": 0
