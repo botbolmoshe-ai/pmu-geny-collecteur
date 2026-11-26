@@ -113,3 +113,22 @@ class CorrespondanceGenyTests(TestCase):
             cell['effectiveValue']['stringValue'] = NON_EFFECTUEE
             with self.assertRaisesRegex(ErreurSynchronisation, 'non confirmée'):
                 moteur._controler_correspondances(tab, properties, headers, expected, formater=False)
+
+    def test_archives_sheets_relues_dans_le_kpi_et_dimension_corrigee(self):
+        from dashboard.trot_analytics.correspondance_geny import COLONNE
+        from pmu_geny.kpi_registre import plan_kpi
+        from pmu_geny.moteur_sheets import SynchroniseurSheets
+
+        moteur = SynchroniseurSheets(self.cache, 'fixture', session=Mock())
+        cache_source, rows, published = self.publier()
+        key = f'{self.date}|VINCENNES|R1C2'
+        archive = {'course_key': key, 'numero': 2, 'cheval': 'Cheval archivé'}
+        mapping = moteur._correspondances_archivees([published, archive], rows)
+        self.assertEqual(list(mapping), [key + '|2'])
+        self.assertEqual(mapping[key + '|2'][CHAMP], NON_EFFECTUEE)
+        sheets = [published, archive | {CHAMP: NON_EFFECTUEE}]
+        metrics = calculer_kpi(self.cache, cache_source, self.now, sheets_courses=sheets)
+        denominator = KPI_PREFIX + 'Chevaux distincts'
+        self.assertEqual(metrics[denominator][0], 2)
+        values = [['Dimension', 'Indicateur'], ['ML', denominator, *metrics[denominator]]]
+        self.assertIn({'range': "'Data Quality & KPI'!A2", 'values': [[COLONNE]]}, plan_kpi(values, metrics))

@@ -343,3 +343,23 @@ class TentativesGeny:
             self.pmu.get((str(id_pmu), name)),
         ) if item)
         return max(records, key=lambda item: item[0])[1] if records else {}
+
+
+
+def champs_correspondance_geny(tentative, pmu_id, geny_id, methode):
+    from dashboard.trot_analytics.correspondance_geny import AMBIGUE, CHAMP, CONFIRMEE, NON_EFFECTUEE, NON_TROUVEE
+
+    if geny_id:
+        statut, motif = CONFIRMEE, ''
+    elif tentative and (methode != 'NOM_AMBIGU' or tentative['statut'] != NON_TROUVEE):
+        statut, motif = tentative['statut'], tentative.get('motif', '')
+    elif methode == 'NOM_AMBIGU':
+        statut, motif = AMBIGUE, methode
+    else:
+        statut, motif = NON_EFFECTUEE, ''
+    details = [motif] if motif else []
+    if tentative and statut == tentative.get('statut'):
+        details.extend(f'{label} {tentative[key]}' for label, key in (
+            ('Contrôle UTC', 'utc'), ('Reprise UTC', 'reprise_utc')) if tentative.get(key))
+    return {CHAMP: statut, '_note_correspondance_geny': '\n'.join(details),
+            '_id_pmu_correspondance': pmu_id, '_id_geny_correspondance': geny_id}
