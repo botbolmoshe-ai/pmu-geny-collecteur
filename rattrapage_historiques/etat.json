@@ -68421,7 +68421,7 @@
       "numero": "7",
       "course_url": "https://www.geny.com/course/1698921/partants-pronostics",
       "engagement": "2026-11-18_R1C5",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "ferrures_manquantes": 0,
       "engagement_prioritaire": "2026-11-26_R1C8",
       "collecte": "COMPLET",
@@ -68438,7 +68438,33 @@
       "preuve_identite": "CAPTURE_GENY",
       "nombre_performances": 48,
       "historique_complet_au_utc": "2026-11-26T16:50:52.073171+00:00",
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 0,
+          "lignes_source": 48,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 0,
+            "lignes_avant": 37152,
+            "cles_avant": 37152,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3716,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37152,
+            "lignes_apres": 37152,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-26T23:09:03.823839+00:00",
+      "erreur": "",
+      "rattrapage_complet_au_utc": "2026-11-26T16:50:52.073171+00:00",
+      "ajouts_confirmes": 0
     },
     "contexte:ce5e32e4c466f8aaf950c26b": {
       "nom": "ISSIA DE CHARLY",
@@ -76192,12 +76218,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1317,
-    "cibles_restantes": 1267,
+    "cibles_completees": 1318,
+    "cibles_restantes": 1266,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1334,
+    "travaux_distincts_restants": 1333,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 887,
+    "carrieres_distinctes_a_completer": 886,
     "identifiants_sans_carriere_complete": 85,
     "contextes_distincts_sans_identifiant": 799,
     "noms_distincts_sans_identifiant": 795,
@@ -76205,7 +76231,7 @@
     "identites_non_resolues": 1153,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 2,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 7061,
     "tentatives_collecte": 0,
     "captures_validees": 0,
@@ -76214,7 +76240,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-26T23:08:37.380929+00:00",
-  "maj_utc": "2026-11-26T23:08:46.440113+00:00",
+  "maj_utc": "2026-11-26T23:09:03.853843+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 16,
@@ -78114,10 +78140,10 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-26T23:08:37.380929+00:00",
-    "controle_utc": "2026-11-26T23:08:46.440113+00:00",
+    "controle_utc": "2026-11-26T23:09:03.853843+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
-    "chevaux_confirmes_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
     "performances_ajoutees_et_confirmees_sheets": 0,
     "requetes_http_geny": 0,
     "attente_inter_chevaux_secondes": 0.0,
@@ -78125,7 +78151,7 @@
     "duree_acces_geny_secondes": 0.0,
     "refus_sans_validation": 1,
     "carrieres_validees_par_heure_cycle": 0.0,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_publiees_par_heure_cycle": 135.99,
     "refus_geny": {
       "403": 0,
       "429": 0
