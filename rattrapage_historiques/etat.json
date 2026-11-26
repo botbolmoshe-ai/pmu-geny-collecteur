@@ -31738,7 +31738,6 @@
       },
       "preuve_identite": "LIENS_COURSE_GENY",
       "course_geny_deja_lue": true,
-      "partant_course_passee": true,
       "historique_complet_au_utc": "2026-11-26T23:40:40.302271+00:00",
       "derniere_verification_utc": "2026-11-26T23:40:40.302271+00:00",
       "prochaine_verification_utc": "2026-11-27T23:40:40.302271+00:00",
@@ -31769,7 +31768,8 @@
       },
       "sync_utc": "2026-11-26T23:41:04.211625+00:00",
       "rattrapage_complet_au_utc": "2026-11-26T23:40:40.302271+00:00",
-      "ajouts_confirmes": 44
+      "ajouts_confirmes": 44,
+      "partant_course_passee": true
     },
     "contexte:f73fff66577cc53bf42f929b": {
       "nom": "LAGHERTHA DU PONT",
@@ -46134,12 +46134,12 @@
       "preuve_identite": "LIENS_COURSE_GENY",
       "course_geny_deja_lue": true,
       "cible_equivalente_a": "contexte:33fdb36c8179e09924d897b8",
-      "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:33fdb36c8179e09924d897b8",
       "rattrapage_complet_au_utc": "2026-11-26T23:40:40.302271+00:00",
       "historique_complet_au_utc": "2026-11-26T23:40:40.302271+00:00",
       "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
-      "erreur": ""
+      "erreur": "",
+      "partant_course_passee": true,
+      "autre_contexte_meme_nom": "contexte:33fdb36c8179e09924d897b8"
     },
     "contexte:adce6b3e4d3c219afdad150f": {
       "nom": "LAGHERTHA DU PONT",
@@ -78475,7 +78475,7 @@
       "partant_course_passee": true
     }
   },
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
@@ -78501,11 +78501,11 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-26T23:39:38.842033+00:00",
-  "maj_utc": "2026-11-26T23:42:15.441609+00:00",
+  "maj_utc": "2026-11-26T23:42:38.014966+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
-      "indicateurs_actualises": 10,
-      "indicateurs_verifies": 159
+      "indicateurs_actualises": 20,
+      "indicateurs_verifies": 165
     }
   },
   "dernier_controle_inventaire": {
@@ -78579,13 +78579,13 @@
     "participations_a_confirmer": 0,
     "bilan": {
       "ABSENT_DE_LA_FILE": 1344,
-      "A_REPRENDRE": 779,
-      "COMPLET": 561,
+      "A_REPRENDRE": 778,
+      "COMPLET": 562,
       "FERRURES_A_COMPLETER": 426,
       "LIEN_GENY_A_RESOUDRE": 56
     },
     "noms_distincts": 3166,
-    "controle_utc": "2026-11-26T23:39:38.842033+00:00"
+    "controle_utc": "2026-11-26T23:42:20.190440+00:00"
   },
   "cles_initiales": [
     "1717076",
@@ -80378,13 +80378,13 @@
   ],
   "collecte_tentee_utc": "2026-11-26T23:41:42.518515+00:00",
   "dernier_creneau_reserve_utc": "2026-11-19T20:07:22.244110+00:00",
-  "controle_ordonnancement_utc": "2026-11-26T23:09:39.298337+00:00",
-  "sync_kpi_utc": "2026-11-26T23:09:35.212118+00:00",
+  "controle_ordonnancement_utc": "2026-11-26T23:42:20.190421+00:00",
+  "sync_kpi_utc": "2026-11-26T23:42:38.012888+00:00",
   "causes_contextes_sans_geny": {
     "AUCUNE_PREUVE_LOCALE_AVEC_COURSE": 727,
     "AUCUNE_PREUVE_LOCALE_SANS_COURSE": 56
   },
-  "motif_ordonnancement": "COOLDOWN_GENY_GLOBAL",
+  "motif_ordonnancement": "BUDGET_TEMPS_ATTEINT",
   "dernier_controle_nocturne": {
     "utc": "2026-11-26T23:08:26.954612+00:00",
     "creneau": 997630,
@@ -80400,7 +80400,7 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-26T23:39:38.842033+00:00",
-    "controle_utc": "2026-11-26T23:42:15.441609+00:00",
+    "controle_utc": "2026-11-26T23:42:38.014966+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 2,
     "chevaux_confirmes_sheets": 2,
@@ -80419,8 +80419,8 @@
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 11.47,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 45.98,
-    "carrieres_publiees_par_heure_cycle": 45.98,
+    "carrieres_validees_par_heure_cycle": 40.18,
+    "carrieres_publiees_par_heure_cycle": 40.18,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -80431,5 +80431,6 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "derniere_acquisition_validee_utc": "2026-11-26T23:41:51.808745+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-26T23:41:51.808745+00:00",
+  "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
 }
