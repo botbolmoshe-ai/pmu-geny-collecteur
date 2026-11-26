@@ -6,7 +6,6 @@ Les mises à jour n'écrivent aucun fichier de pronostic, résultat ou entraîne
 from __future__ import annotations
 
 import argparse
-import hashlib
 import csv
 import hashlib
 import json
@@ -119,8 +118,9 @@ def alimenter(cache, now, *, sauvegarder=True, engagements=None, associations=No
     if state.get('version') != 1 or not isinstance(state.get('chevaux'), dict):
         raise ValueError('FILE_INCREMENTALE_INCOMPATIBLE')
     from collections import Counter
-    from .identites_chevaux import IndexGeny, source_identifiant
+    from .identites_chevaux import IndexGeny, TentativesGeny, source_identifiant
     index = IndexGeny(cache)
+    tentatives = TentativesGeny(cache, now)
     for path in sorted((cache/'partants_actuels').glob('????-??-??_R*C*.json')):
         code = path.stem
         day = datetime.fromisoformat(code[:10]).date()
@@ -152,7 +152,8 @@ def alimenter(cache, now, *, sauvegarder=True, engagements=None, associations=No
             count = counts[nom_normalise(name)]
             age = str(participant.get('age_ans', ''))
             year = day.year - int(age) if age.isdigit() else None
-            link, method = index.resoudre(name, cid, number, nom_repris=count > 1, annee=year)
+            pmu_id = participant.get('id_pmu')
+            link, method = index.resoudre(name, cid, number, nom_repris=count > 1, annee=year, id_pmu=pmu_id)
             ident = link.get('id', '')
             if not ident and method != 'NOM_AMBIGU' and count == 1:
                 # Les anciens manifestes de la course peuvent manquer d'URL.
@@ -164,11 +165,15 @@ def alimenter(cache, now, *, sauvegarder=True, engagements=None, associations=No
             if ident and context_key in state['chevaux'] and key != context_key:
                 old = state['chevaux'].pop(context_key)
                 for field in ('prochain_essai_utc', 'prochaine_sync_utc'):
+                    if field == 'prochain_essai_utc' and old.get('recherche_identite_geny') and link:
+                        continue
                     deadline = instant(old.get(field))
                     current = instant(horse.get(field))
                     if deadline and (current is None or deadline > current):
                         horse[field] = old[field]
             horse.update(nom=name, numero=number, engagement=code, vu_utc=now.isoformat())
+            if pmu_id:
+                horse['id_pmu'] = pmu_id
             horse['verification_periodique'] = not bool(official.get('arrivee'))
             if re.fullmatch(r'GENY-\d+', str(cid)):
                 horse['course_url'] = 'https://www.geny.com/course/'+cid[5:]+'/partants-pronostics'
@@ -202,8 +207,14 @@ def alimenter(cache, now, *, sauvegarder=True, engagements=None, associations=No
                     horse['derniere_course_officielle_utc'] = departure.isoformat()
             horse['rapprochement_geny'] = method
             horse['annee_naissance_pmu'] = year
-            horse['recherche_geny_par_nom'] = bool(not horse.get('id') and not horse.get('geny')
-                                                     and not horse.get('course_url') and method != 'NOM_AMBIGU')
+            horse['recherche_geny_par_nom'] = bool(not horse.get('id') and not horse.get('geny'))
+            if horse['recherche_geny_par_nom']:
+                tentative = tentatives.retrouver(code, number, name, pmu_id)
+                retry = instant(tentative.get('reprise_utc'))
+                if retry and retry > (instant(horse.get('prochain_essai_utc')) or now):
+                    horse['prochain_essai_utc'] = retry.isoformat()
+            elif ident and link:
+                horse.pop('recherche_identite_geny', None)
             horse['motif_actualisation'] = actualisation_requise(horse, now)
             if horse.get('collecte') == 'EN_COURS':
                 horse['collecte'] = 'A_REPRENDRE'
@@ -286,12 +297,15 @@ def prochaine_tache(state, now, attempts):
     return None, 'TERMINE'
 
 
-def executer_enfant(horse, out):
+def executer_enfant(horse, out, *, profil=None):
     out.mkdir(parents=True, exist_ok=True)
     task = out/'tache.json'
     ecrire(task, horse)
-    subprocess.run([sys.executable, '-m', 'pmu_geny.historique_individuel',
-                    '--tache', str(task), '--sortie', str(out)], check=True, timeout=TIMEOUT_COLLECTE)
+    command = [sys.executable, '-m', 'pmu_geny.historique_individuel',
+               '--tache', str(task), '--sortie', str(out)]
+    if profil:
+        command += ['--profil', profil]
+    subprocess.run(command, check=True, timeout=TIMEOUT_COLLECTE)
     return lire(out/'resultat.json')
 
 
@@ -314,7 +328,10 @@ def memoriser_resolution(horse, report, out, *, cache=None):
     if (cache is not None and preuve_resolution_valide(proof) and proof.get('geny') == geny
             and proof.get('engagement') == horse.get('engagement')
             and proof.get('numero') == str(horse.get('numero', ''))):
-        digest = hashlib.sha256(nom_normalise(geny['nom']).encode()).hexdigest()[:16]
+        identity_key = nom_normalise(geny['nom'])
+        if proof.get('id_pmu'):
+            identity_key += ':' + str(proof['id_pmu'])
+        digest = hashlib.sha256(identity_key.encode()).hexdigest()[:16]
         path = cache/'sources_geny/identites'/f'{ident}-{digest}.json'
         stored = lire(path)
         if not stored or len(geny.get('homonymes', [])) > len(stored['geny'].get('homonymes', [])):
@@ -512,11 +529,17 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
     ajouts_sheets_confirmes = 0
     refus_geny = {'403': 0, '429': 0}
     refus_http = {'403': 0, '429': 0}
+    from collections import Counter
+    requetes_par_ressource = Counter()
+    hits_cache_http = 0
     requetes_geny, attente_geny, duree_geny = 0, 0.0, 0.0
     if cadence_geny is None:
         cadence_geny = collect is None
-    if collect is None:
+    profil = None
+    executor_reel = collect is None
+    if executor_reel:
         collect = executer_enfant
+        from .historique_individuel import RECHERCHE_NON_AUTORISEE, recherche_bloquee_avant_navigation
     cadence = CadenceGeny(cache) if cadence_geny else None
     deadline = None if max_minutes is None else time.monotonic()+max_minutes*60
     def save(*, distant=True):
@@ -527,7 +550,9 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             'carrieres_completes_distinctes': len(captures_completes),
             'chevaux_confirmes_sheets': len(sync_confirmees),
             'performances_ajoutees_et_confirmees_sheets': ajouts_sheets_confirmes,
-            'requetes_http_geny': requetes_geny, 'attente_inter_chevaux_secondes': round(attente_geny, 2),
+            'requetes_http_geny': requetes_geny, 'requetes_geny_par_ressource': dict(requetes_par_ressource),
+            'ressources_geny_servies_du_cache_http': hits_cache_http,
+            'attente_inter_chevaux_secondes': round(attente_geny, 2),
             'intervalle_inter_chevaux_secondes': cadence.intervalle if cadence else None,
             'duree_acces_geny_secondes': round(duree_geny, 2),
             'refus_sans_validation': cadence.etat.get('incidents_sans_validation', 0) if cadence else 0,
@@ -589,7 +614,10 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         if action == 'COLLECTE' and max_chevaux is not None and count >= max_chevaux:
             state['motif_fin_passage']='MAX_CHEVAUX_ATTEINT'
             break
-        if action == 'COLLECTE' and cadence and not capture_archivee:
+        horse = state['chevaux'][key]
+        recherche_bloquee = (action == 'COLLECTE' and executor_reel and not capture_archivee
+                             and recherche_bloquee_avant_navigation(horse))
+        if action == 'COLLECTE' and cadence and not capture_archivee and not recherche_bloquee:
             delai = cadence.delai(datetime.now(UTC))
             if delai:
                 if delai > INTERVALLE_REPRISE or (deadline is not None and time.monotonic() + delai >= deadline):
@@ -599,7 +627,6 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 time.sleep(min(delai, 10))
                 attente_geny += time.monotonic() - debut_attente
                 continue
-        horse = state['chevaux'][key]
         attempts[(action, key)] = attempts.get((action, key), 0)+1
         if action == 'COLLECTE':
             statut_initial = 'ECHEC_COLLECTE' if capture_archivee else 'A_EXAMINER'
@@ -618,7 +645,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                     state.update(dernier_creneau_reserve_utc=stamp, creneau_reserve=True)
             if reprise:
                 attempts[reprise.cle_travail_geny(horse)] = 1
-            requete_reelle = not capture_archivee
+            requete_reelle = not capture_archivee and not recherche_bloquee
             if cadence and requete_reelle:
                 cadence.reserver(datetime.now(UTC))
                 save()  # Réserver avant de lancer le processus réseau.
@@ -627,18 +654,32 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             save(distant=bool(reprise) and not cadence)
             # Une clé de contexte peut contenir « : », interdit dans un artefact Actions.
             out = Path('resultats/incremental') / key.replace(':', '_') / str(time.time_ns())
-            report = {}
+            report, mesure = {}, {}
             refus, valide, fin_requete = None, False, None
             debut_requete = time.monotonic()
             try:
                 try:
-                    report = capture_archivee or collect(horse, out)
+                    if recherche_bloquee:
+                        report = {'statut': RECHERCHE_NON_AUTORISEE}
+                    elif capture_archivee:
+                        report = capture_archivee
+                    elif executor_reel:
+                        if profil is None:
+                            profil = tempfile.TemporaryDirectory(prefix='pmu-geny-session-')
+                        report = collect(horse, out, profil=profil.name)
+                    else:
+                        report = collect(horse, out)
                 finally:
                     fin_requete = datetime.now(UTC)
                     if requete_reelle:
                         duree_geny += time.monotonic() - debut_requete
                         mesure = lire(out / 'http_geny.json')
-                        requetes_geny += mesure.get('requetes', 0)
+                        cache_http = mesure.get('cache_http_par_ressource', {})
+                        hits = sum(cache_http.values())
+                        hits_cache_http += hits
+                        requetes_geny += max(0, mesure.get('requetes', 0) - hits)
+                        requetes_par_ressource.update(mesure.get('par_ressource', {}))
+                        requetes_par_ressource.subtract(cache_http)
                         for code, nombre in mesure.get('reponses_refusees', {}).items():
                             refus_http[code] += nombre
                     refus = (mesure.get('refus') if requete_reelle else None) or REFUS.get(report.get('statut'))
@@ -683,8 +724,12 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                         horse['motif_actualisation'] = 'PUBLICATION_GENY_EN_ATTENTE'
                         horse['prochain_essai_utc'] = (datetime.now(UTC)+timedelta(hours=6)).isoformat()
             except Exception as exc:
+                if isinstance(exc, subprocess.TimeoutExpired) and profil:
+                    profil.cleanup()
+                    profil = None
                 horse.update(collecte='A_REPRENDRE', erreur=f'{type(exc).__name__}: {exc}',
-                             prochain_essai_utc=(datetime.now(UTC)+timedelta(hours=6)).isoformat())
+                             prochain_essai_utc=(datetime.now(UTC)+timedelta(hours=168 if
+                                 report.get('statut') == 'RECHERCHE_GENY_NON_AUTORISEE' else 6)).isoformat())
                 horse['dernier_echec_collecte']={'utc':datetime.now(UTC).isoformat(),
                     'statut':report.get('statut') or type(exc).__name__,
                     'motifs':report.get('motifs',[]),'erreur':str(exc),
@@ -699,6 +744,11 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                     if reprise and horse.get('preuve_identite'):
                         reprise.propager_identite(state,horse)
             finally:
+                if requete_reelle or recherche_bloquee:
+                    state['sync_kpi'] = 'A_REPRENDRE'
+                    from .identites_chevaux import memoriser_tentative
+                    memoriser_tentative(horse, report, debut_tentative,
+                                        acces=bool(mesure), refus=refus)
                 if cadence and requete_reelle:
                     cadence.terminer(fin_requete, valide=valide, refus=bool(refus))
             if reprise:
@@ -783,6 +833,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         from .moteur_sheets import SynchroniseurSheets
         if sheets_engine is None:sheets_engine=SynchroniseurSheets(cache,os.environ['GOOGLE_SHEETS_ID'])
         try:
+            sheets_engine.synchroniser_correspondances()
             state['sync_kpi_details']=sheets_engine.synchroniser_kpi()
             state['sync_kpi']='OK'
             state['sync_kpi_utc']=datetime.now(UTC).isoformat()

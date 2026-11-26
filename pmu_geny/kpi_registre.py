@@ -6,6 +6,8 @@ from pathlib import Path
 import json
 import math
 
+from dashboard.trot_analytics.correspondance_geny import CONFIRMEE, KPI_PREFIX, STATUTS, statut_ligne
+
 KPI_TAB = 'Data Quality & KPI'
 PREFIXES_ANCIENNES_ECHEANCES = ('Échéances · H2 ', 'Échéances · H1 ')
 
@@ -316,7 +318,36 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
         metric('Cotes PMU · Taux de TOP3 complets', odds_complete/len(odds_cohorts) if odds_cohorts else '',
                'Courses avec TOP3 Cotes complet / courses suivies.'),
     ]
+    par_cheval = defaultdict(set)
+    liens = defaultdict(set)
+    for row in participants:
+        ident = row.get('_id_geny_correspondance')
+        pmu_id = row.get('_id_pmu_correspondance')
+        nom = nom_normalise(row.get('cheval'))
+        if nom and (ident or pmu_id):
+            liens[(nom, str(row.get('age_ans') or ''))].add(('PMU', pmu_id) if pmu_id else ('Geny', ident))
+    for row in participants:
+        nom = nom_normalise(row.get('cheval'))
+        if not nom:
+            continue
+        pmu_id, ident = row.get('_id_pmu_correspondance'), row.get('_id_geny_correspondance')
+        age = str(row.get('age_ans') or '')
+        possibles = liens[(nom, age)]
+        cle = ('PMU', pmu_id) if pmu_id else ('Geny', ident) if ident else ('Nom et âge', nom, age)
+        if len(possibles) == 1:
+            cle = next(iter(possibles))
+        par_cheval[cle].add(statut_ligne(row))
+    correspondances = [
+        metric(KPI_PREFIX + 'Chevaux distincts', len(par_cheval),
+               'Périmètre de Courses & Prévisions. Identifiant PMU ou Geny, sinon nom normalisé et âge.'),
+        *[metric(KPI_PREFIX + label, sum(statut in states and (statut == CONFIRMEE or CONFIRMEE not in states)
+                                       for states in par_cheval.values()),
+                 'Chevaux distincts concernés / chevaux distincts du registre. '
+                 'Plusieurs états non confirmés sont possibles selon les engagements.')
+          for statut, (label, _) in STATUTS.items()],
+    ]
     return dict([
+        *correspondances,
         *ml_metrics,
         *odds_metrics,
         *operational,
@@ -361,7 +392,8 @@ def totaux_reference(metrics):
     participants=value('Participations recensées')
     courses=value('Courses distinctes collectées')
     evaluated=value('Courses évaluées')
-    totals={}
+    totals={label: value(KPI_PREFIX + 'Chevaux distincts')
+            for label in metrics if label.startswith(KPI_PREFIX) and label != KPI_PREFIX + 'Chevaux distincts'}
     for suffix in ('Cotes collectées', 'Cotes manquantes', 'Taux de couverture'):
         if 'Cotes PMU · Chevaux éligibles' in metrics:
             totals['Cotes PMU · '+suffix] = value('Cotes PMU · Chevaux éligibles')
@@ -427,7 +459,7 @@ def totaux_reference(metrics):
 
 
 PUBLISHED_PREFIXES = ('ML expérimental · ', 'ML prospectif · ', 'Maturité ML · ', 'Autostart prospectif · ',
-                      'Échéances · ', 'H+30 · ', 'Collecte · ', 'Cotes PMU · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ')
+                      'Échéances · ', 'H+30 · ', 'Collecte · ', 'Cotes PMU · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ', KPI_PREFIX)
 
 
 def plan_kpi(values, metrics):

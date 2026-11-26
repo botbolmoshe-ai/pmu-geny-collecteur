@@ -1,6 +1,7 @@
 """Extraction isolée issue du pilote c08feed, sans état global ni écriture Sheets."""
 import argparse
 import json
+import os
 import re
 import time
 from pathlib import Path
@@ -11,15 +12,17 @@ from zoneinfo import ZoneInfo
 from .extraction_historique_par_cheval import extraire_cheval
 from .controle_historique import classifier
 from .liaison_chevaux_v22 import nom_geny_concordant, nom_normalise, separer_pays_pmu
-from .decouverte_partants import get_rows, participants_from_rows, try_direct_url
+from .decouverte_partants import get_rows
 from .collecte_geny_v4 import diagnostic_acces, dismiss_consent
 
 
-def cliquer_nom(cell, nom):
-    target = cell.get_by_text(nom, exact=True)
-    if target.count() != 1:
-        raise LookupError('NOM_CLIQUABLE_AMBIGU')
-    target.click(timeout=8000)
+RECHERCHE_NON_AUTORISEE = 'RECHERCHE_GENY_NON_AUTORISEE'
+
+
+def recherche_autorisee():
+    # /recherche est exclu par robots.txt. Réserver l'accès nominatif aux
+    # exécutions bénéficiant d'une autorisation explicite du fournisseur.
+    return os.environ.get('GENY_RECHERCHE_AUTORISEE') == 'true'
 
 
 def candidats_recherche(html, nom):
@@ -63,6 +66,8 @@ def candidats_recherche(html, nom):
 
 
 def rechercher(horse, page):
+    if not recherche_autorisee():
+        raise ValueError(RECHERCHE_NON_AUTORISEE)
     name, country = separer_pays_pmu(horse['nom'])
     url = 'https://www.geny.com/recherche?'+urlencode({'q': name})
     response = page.goto(url, wait_until='domcontentloaded', timeout=45000)
@@ -75,33 +80,35 @@ def rechercher(horse, page):
     if (not response or response.status != 200 or target.scheme != 'https'
             or target.hostname not in ('geny.com', 'www.geny.com') or target.path.rstrip('/') != '/recherche'):
         raise ValueError('RECHERCHE_GENY_INDISPONIBLE')
-    try:
-        candidates = candidats_recherche(html, name)
-    except ValueError as exc:
-        if horse.get('course_url') and horse.get('numero') and str(exc) == 'RECHERCHE_GENY_NON_INTERPRETABLE':
-            return None
-        raise
+    candidates = candidats_recherche(html, name)
     if country:
+        sans_nationalite = any(not fiche.get('nationalite_geny') for fiche in candidates.values())
         candidates = {ident: {**fiche, 'nom_pmu': horse['nom']} for ident, fiche in candidates.items()
                       if nom_geny_concordant(horse['nom'], fiche)}
-    if len(candidates) == 1 and horse.get('rapprochement_geny') != 'NOM_AMBIGU':
-        return {**next(iter(candidates.values())), 'preuve': 'RECHERCHE_GENY_NOM_EXACT'}
+        if not candidates and sans_nationalite:
+            raise ValueError('RECHERCHE_GENY_NOM_AMBIGU')
     year = horse.get('annee_naissance_pmu')
+    current = datetime.now(ZoneInfo('Europe/Paris')).year
+    if len(candidates) == 1 and horse.get('rapprochement_geny') != 'NOM_AMBIGU':
+        fiche = next(iter(candidates.values()))
+        if not year or fiche['age_geny'] is None or current - fiche['age_geny'] == year:
+            return {**fiche, 'preuve': 'RECHERCHE_GENY_NOM_EXACT',
+                    'annee_naissance_pmu': year}
+        raise ValueError('RECHERCHE_GENY_NOM_AMBIGU')
     if len(candidates) > 1 and year and all(h['age_geny'] is not None for h in candidates.values()):
-        current = datetime.now(ZoneInfo('Europe/Paris')).year
         same_year = [h for h in candidates.values() if current - h['age_geny'] == year]
         if len(same_year) == 1:
             return {**same_year[0], 'preuve': 'RECHERCHE_GENY_NOM_EXACT',
                     'homonymes': list(candidates.values()), 'annee_naissance_pmu': year}
-    if not horse.get('course_url') or not horse.get('numero'):
-        raise ValueError('RECHERCHE_GENY_NOM_AMBIGU' if candidates else 'RECHERCHE_GENY_SANS_NOM_EXACT')
-    # Le contexte sert de preuve si la recherche exacte ne permet pas de conclure.
-    if len(candidates) > 1:
-        horse['homonymes_geny'] = list(candidates.values())
-    return None
+    raise ValueError('RECHERCHE_GENY_NOM_AMBIGU' if candidates else 'RECHERCHE_GENY_SANS_NOM_EXACT')
 
 
-def resolve(horse, out, page=None):
+def recherche_bloquee_avant_navigation(horse):
+    return (not recherche_autorisee() and not (horse.get('geny') or horse.get('lien_candidat'))
+            and (not horse.get('course_url') or not horse.get('numero') or horse.get('course_geny_deja_lue')))
+
+
+def resolve(horse, out, page=None, *, arreter=None):
     if page is None:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -111,23 +118,20 @@ def resolve(horse, out, page=None):
                 return resolve(horse,out,ctx.new_page())
             finally:
                 browser.close()
-    candidate = horse.get('lien_candidat')
-    search_first = horse.get('recherche_geny_par_nom') and not candidate
-    if search_first:
-        found = rechercher(horse, page)
-        if found:
-            return found
-    try:
+    if horse.get('lien_candidat'):
         return ouvrir_source(horse, out, page)
-    except LookupError:
-        if candidate or search_first or horse.get('id'):
-            raise
-        # La course a été consultée. Rechercher la fiche sans revenir sur la même page.
+    if horse.get('course_url') and horse.get('numero') and not horse.get('course_geny_deja_lue'):
+        try:
+            return ouvrir_source(horse, out, page)
+        except LookupError:
+            if horse.get('id') or arreter and arreter():
+                raise
+    if not horse.get('id') and horse.get('nom'):
         return rechercher({**horse, 'course_url': ''}, page)
+    raise ValueError('IDENTITE_GENY_SANS_PREUVE')
 
 
 def ouvrir_source(horse, out, page):
-    ctx = page.context
     candidate = horse.get('lien_candidat')
     if candidate:
         ident = str(horse.get('id', ''))
@@ -153,50 +157,23 @@ def ouvrir_source(horse, out, page):
     if not response or response.status != 200 or not expected or not actual or expected[1] != actual[1]:
         raise LookupError('COURSE_GENY_NON_CONFIRMEE')
     from .liens_geny_course import extraire
-    proof = extraire([], page.content(), horse.get('engagement'), url, datetime.now(timezone.utc).isoformat())
+    stamp = datetime.now(timezone.utc).isoformat()
+    html = page.content()
+    proof = extraire([], html, horse.get('engagement'), url, stamp)
     found = proof.get('chevaux', {}).get(str(horse['numero']))
-    if found and nom_geny_concordant(horse['nom'], found):
-        if nom_normalise(found['nom']) != nom_normalise(horse['nom']):
-            found['nom_pmu'] = horse['nom']
-        (out/'liens_course.json').write_text(json.dumps(proof, ensure_ascii=False, indent=2), encoding='utf-8')
-        return {**found, 'preuve': 'COURSE_GENY_VERIFIEE', 'homonymes': horse.get('homonymes_geny', [])}
-    dismiss_consent(page)
-    deadline = time.monotonic() + 20
-    matched = []
-    while time.monotonic() < deadline:
-        matched = [r for r in participants_from_rows(get_rows(page))
-                   if nom_normalise(r['nom']) == nom_normalise(horse['nom'])]
-        if matched:
-            break
-        page.wait_for_timeout(500)
-    # Le numéro confirme le contexte de course ; il n'identifie pas le cheval.
-    if len(matched) > 1:
-        matched = [row for row in matched if str(row['numero']) == str(horse['numero'])]
-    if len(matched) != 1 or str(matched[0]['numero']) != str(horse['numero']):
+    if not found:
+        dismiss_consent(page)
+        proof = extraire(get_rows(page), page.content(), horse.get('engagement'), url, stamp)
+        found = proof.get('chevaux', {}).get(str(horse['numero']))
+    if not found:
         (out/'diagnostic_resolution.html').write_text(page.content(), encoding='utf-8')
         raise LookupError('FICHE_EXACTE_NON_IDENTIFIEE')
-    from .liens_geny_course import extraire
-    proof=extraire(get_rows(page),page.content(),horse.get('engagement'),url,
-                  datetime.now(timezone.utc).isoformat())
-    (out/'liens_course.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2),encoding='utf-8')
-    index = matched[0]['row_index']
-    direct = try_direct_url(page, index)
-    if not direct:
-        before, pages = page.url, set(ctx.pages)
-        cliquer_nom(page.locator('tr').nth(index).locator('td').nth(2), matched[0]['nom'])
-        for _ in range(30):
-            new = [x for x in ctx.pages if x not in pages]
-            if new or page.url != before:
-                direct = new[-1].url if new else page.url
-                if '/cheval/' in direct:
-                    break
-            page.wait_for_timeout(250)
-    match = re.search(r'/cheval/(\d+)', direct or '')
-    if not match or urlparse(direct).hostname not in ('geny.com', 'www.geny.com'):
-        raise LookupError('FICHE_EXACTE_NON_IDENTIFIEE')
-    return {'id': match[1], 'nom': matched[0]['nom'], 'preuve': 'COURSE_GENY_VERIFIEE',
-            'url_geny': direct.replace('https://geny.com/', 'https://www.geny.com/'),
-            'homonymes': horse.get('homonymes_geny', [])}
+    if not nom_geny_concordant(horse['nom'], found):
+        raise ValueError('NOM_FICHE_GENY_NON_CONCORDANT')
+    if nom_normalise(found['nom']) != nom_normalise(horse['nom']):
+        found['nom_pmu'] = horse['nom']
+    (out/'liens_course.json').write_text(json.dumps(proof, ensure_ascii=False, indent=2), encoding='utf-8')
+    return {**found, 'preuve': 'COURSE_GENY_VERIFIEE'}
 
 
 def nom_fiche(html, ident):
@@ -227,11 +204,22 @@ def verifier_candidat(horse,url,status,text,out):
     return {'id':ident,'nom':horse['nom'],'url_geny':url.replace('https://geny.com/','https://www.geny.com/')}
 
 
-def observer_http_geny(context, out=None):
+def ignorer_ressource(route):
+    # Le texte, les données, les scripts et les styles restent disponibles.
+    if route.request.resource_type in ('image', 'media', 'font'):
+        route.abort()
+    else:
+        route.fallback()
+
+
+def observer_http_geny(context, out=None, *, filtrage=False):
     from .cadence_geny import reprise_serveur
     from .echeances_production import instant, sauver
 
-    mesure = {'requetes': 0, 'reponses_refusees': {'403': 0, '429': 0}}
+    mesure = {'requetes': 0, 'reponses_refusees': {'403': 0, '429': 0}, 'par_ressource': {},
+              'details': []}
+    en_cours = {}
+    occurrences = {}
     def persister_mesure():
         if out is not None:
             sauver(out / 'http_geny.json', mesure)
@@ -242,11 +230,34 @@ def observer_http_geny(context, out=None):
 
     def requete(request):
         if geny(request.url):
+            # Playwright émet aussi request pour les ressources interceptées.
+            resource = getattr(request, 'resource_type', 'inconnu')
+            if resource in ('image', 'media', 'font') and filtrage:
+                return
             mesure['requetes'] += 1
-            persister_mesure()
+            mesure['par_ressource'][resource] = mesure['par_ressource'].get(resource, 0) + 1
+            url = request.url
+            method = getattr(request, 'method', 'GET')
+            key = (url, method)
+            occurrences[key] = occurrences.get(key, 0) + 1
+            entry = {'url': url, 'type': resource, 'methode': method,
+                     'occurrence': occurrences[key], 'origine': 'navigateur',
+                     'etape': 'recherche' if '/recherche' in url else 'course' if '/course/' in url
+                     and '/cheval/' not in url else 'carriere' if '/cheval/' in url else 'ressource'}
+            en_cours[id(request)] = (time.monotonic(), entry)
+            mesure['details'].append(entry)
+            if mesure['requetes'] % 20 == 0:
+                persister_mesure()
 
     def reponse(response):
-        if geny(response.url) and response.status in (403, 429):
+        if not geny(response.url):
+            return
+        timing = en_cours.pop(id(getattr(response, 'request', None)), None)
+        if timing:
+            start, entry = timing
+            entry.update(statut=response.status, duree_ms=round((time.monotonic() - start) * 1000),
+                         service_worker=bool(getattr(response, 'from_service_worker', False)))
+        if response.status in (403, 429):
             code = str(response.status)
             mesure['reponses_refusees'][code] += 1
             mesure.setdefault('refus', code)
@@ -259,25 +270,69 @@ def observer_http_geny(context, out=None):
 
     context.on('request', requete)
     context.on('response', reponse)
+    context.on('close', lambda *_: persister_mesure())
+    persister_mesure()
     return mesure
 
 
-def collecter(horse, out):
+def observer_cache_chromium(context, page, mesure):
+    """Distinguer les événements du navigateur des requêtes sorties sur le réseau."""
+    session = context.new_cdp_session(page)
+    memory_cache = set()
+    hits = mesure.setdefault('cache_http_par_ressource', {})
+
+    def reponse(event):
+        identifiant = event['requestId']
+        response = event['response']
+        if identifiant not in memory_cache and not response.get('fromDiskCache'):
+            return
+        memory_cache.discard(identifiant)
+        target = urlparse(response['url']).hostname or ''
+        if target == 'geny.com' or target.endswith('.geny.com'):
+            resource = event['type'].lower()
+            hits[resource] = hits.get(resource, 0) + 1
+            for entry in reversed(mesure['details']):
+                if entry['url'] == response['url'] and not entry.get('cache_http'):
+                    entry['cache_http'] = True
+                    break
+
+    session.on('Network.requestServedFromCache', lambda event: memory_cache.add(event['requestId']))
+    session.on('Network.responseReceived', reponse)
+    session.send('Network.enable')
+
+
+def collecter(horse, out, *, profil=None):
     out.mkdir(parents=True, exist_ok=True)
     report = {'complet': False, 'debut_utc': datetime.now(timezone.utc).isoformat()}
     try:
+        if recherche_bloquee_avant_navigation(horse):
+            raise ValueError(RECHERCHE_NON_AUTORISEE)
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
-            browser=p.chromium.launch(headless=True)
+            config = {'locale': 'fr-FR', 'timezone_id': 'Europe/Paris',
+                      'viewport': {'width': 1366, 'height': 900}}
+            browser = None
+            if profil:
+                # Sans interception Playwright, Chromium conserve son cache HTTP.
+                ctx = p.chromium.launch_persistent_context(profil,
+                    args=['--blink-settings=imagesEnabled=false'], **config)
+            else:
+                browser = p.chromium.launch(headless=True)
+                ctx = browser.new_context(**config)
+                ctx.route('**/*', ignorer_ressource)
             try:
-                ctx=browser.new_context(locale='fr-FR',timezone_id='Europe/Paris', viewport={'width':1366,'height':900})
-                mesure_http = observer_http_geny(ctx, out)
+                mesure_http = observer_http_geny(ctx, out, filtrage=not profil)
                 statuses={}
                 def navigation(response):
                     if response.request.is_navigation_request():statuses[response.url]=response.status
                 ctx.on('response',navigation)
-                page=ctx.new_page()
-                geny=horse.get('geny') or resolve(horse,out,page)
+                page = ctx.pages[0] if profil and ctx.pages else ctx.new_page()
+                if profil:
+                    observer_cache_chromium(ctx, page, mesure_http)
+                def interrompre():
+                    return bool(mesure_http.get('refus'))
+
+                geny=horse.get('geny') or resolve(horse,out,page,arreter=interrompre)
                 report['geny']=geny
                 if mesure_http.get('refus'):
                     from .cadence_geny import REFUS
@@ -287,15 +342,27 @@ def collecter(horse, out):
                 resolution.write_text(json.dumps({'geny':geny,
                     'preuve':geny.get('preuve'), 'nom_attendu':horse['nom'],'engagement':horse.get('engagement'),
                     'numero':str(horse.get('numero','')),
+                    'id_pmu':horse.get('id_pmu'), 'annee_naissance_pmu':horse.get('annee_naissance_pmu'),
                     'resolution_utc':datetime.now(timezone.utc).isoformat()},ensure_ascii=False),encoding='utf-8')
                 resolution.replace(out/'resolution_geny.json')
-                loaded=next((candidate for candidate in ctx.pages if candidate.url==geny['url_geny']),None)
-                if loaded:loaded.wait_for_load_state('domcontentloaded',timeout=15000)
-                result=extraire_cheval(geny['url_geny'],geny['id'],out,
-                    page=loaded or page,page_chargee=loaded is not None,
-                    http_status=statuses.get(geny['url_geny']))
+                from .liens_geny_course import url_fiche_canonique
+                url_fiche = url_fiche_canonique(geny['url_geny'])
+                loaded = page.url == url_fiche
+                result=extraire_cheval(url_fiche,geny['id'],out,
+                    page=page,page_chargee=loaded,
+                    http_status=statuses.get(url_fiche),
+                    arreter=interrompre)
             finally:
-                browser.close()
+                if browser:
+                    browser.close()
+                else:
+                    # Le profil garde le cache mais redémarre sur une page vide.
+                    # Chromium ne doit jamais rouvrir les fiches du cheval précédent.
+                    try:
+                        for tab in ctx.pages:
+                            tab.goto('about:blank', timeout=3000)
+                    finally:
+                        ctx.close()
         status, reasons = classifier(result)
         folder = out/geny['id']
         textfile = folder/'diagnostic_texte_geny.txt'
@@ -312,7 +379,8 @@ def collecter(horse, out):
         reason = str(exc)
         reason_codes = {'ACCES_LIMITE_429', 'ACCES_REFUSE_403', 'RECHERCHE_GENY_NON_INTERPRETABLE',
                         'RECHERCHE_GENY_SANS_NOM_EXACT', 'RECHERCHE_GENY_NOM_AMBIGU',
-                        'RECHERCHE_GENY_INDISPONIBLE', 'FICHE_EXACTE_NON_IDENTIFIEE'}
+                        'RECHERCHE_GENY_INDISPONIBLE', 'FICHE_EXACTE_NON_IDENTIFIEE',
+                        'NOM_FICHE_GENY_NON_CONCORDANT', RECHERCHE_NON_AUTORISEE}
         status = reason if reason in reason_codes else 'ERREUR'
         report.update(statut=status, erreur=f'{type(exc).__name__}: {exc}')
     report['fin_utc'] = datetime.now(timezone.utc).isoformat()
@@ -323,9 +391,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--tache', required=True)
     parser.add_argument('--sortie', required=True)
+    parser.add_argument('--profil')
     args = parser.parse_args()
     out = Path(args.sortie)
-    report = collecter(json.loads(Path(args.tache).read_text()), out)
+    report = collecter(json.loads(Path(args.tache).read_text()), out, profil=args.profil)
     (out/'resultat.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
 
 

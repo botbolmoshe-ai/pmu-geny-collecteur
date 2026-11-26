@@ -55,10 +55,10 @@ on:
         required: false
         default: false
       max_chevaux:
-        description: 'Maximum de nouvelles fiches a consulter pour cette execution'
+        description: 'Plafond manuel facultatif de nouvelles fiches (0 = budget de temps seul)'
         type: number
-        required: true
-        default: 18
+        required: false
+        default: 0
 
 permissions:
   contents: write
@@ -88,7 +88,7 @@ jobs:
         env:
           COURSE_URL: ${{ inputs.course_url || 'https://www.geny.com/course/1697377-2026-11-10-vincennes-prix-de-beauvais/partants-pronostics' }}
           NOMBRE: ${{ inputs.nombre_partants || 18 }}
-          MAX: ${{ inputs.max_chevaux || 18 }}
+          MAX: ${{ inputs.max_chevaux || 0 }}
         shell: bash
         run: |
           set -euo pipefail
@@ -104,7 +104,7 @@ jobs:
           m=re.match(r'^/course/(\d+)(?:-[^/]*)?(?:/partants-pronostics)?/?$',parsed.path)
           assert m, 'URL de course Geny invalide'
           assert 1 <= int(os.environ['NOMBRE']) <= 30
-          assert 1 <= int(os.environ['MAX']) <= 30
+          assert 0 <= int(os.environ['MAX'])
           with open('course_id.txt','w') as f:f.write(m.group(1))
           print('COURSE ID',m.group(1))
           PYVALID
@@ -245,7 +245,7 @@ jobs:
       - name: Collecter depuis la file incrementale persistante
         if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'collecter')
         env:
-          MAX: ${{ inputs.max_chevaux || 18 }}
+          MAX: ${{ inputs.max_chevaux || 0 }}
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
         shell: bash
@@ -259,8 +259,10 @@ jobs:
           fi
           # Même chemin que le worker permanent, aucune ancienne collecte par lots.
           python -m pip install -q google-auth==2.43.0 requests
+          args=()
+          if [ "$MAX" -gt 0 ]; then args+=(--max-chevaux "$MAX"); fi
           python -m pmu_geny.historiques_incrementaux --cache cache_pmu \
-            --max-minutes 15 --max-chevaux "$MAX" --publier
+            --max-minutes 15 --publier "${args[@]}"
       - name: Verifier les non-partants d'apres une consultation confirmee de PMU
         if: steps.plan.outputs.executer == 'true' && (inputs.mode == 'controle_np')
         shell: bash

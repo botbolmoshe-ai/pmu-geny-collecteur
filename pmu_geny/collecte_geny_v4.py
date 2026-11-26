@@ -10,6 +10,7 @@ import argparse
 import csv
 import json
 import re
+import time
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -266,7 +267,7 @@ def sauver_refus_ou_limitation(outdir: Path, url: str, status: int | None, titre
     }, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
-def collecter_page(page, url: str, outdir: Path, *, page_chargee=False, http_status=None) -> int:
+def collecter_page(page, url: str, outdir: Path, *, page_chargee=False, http_status=None, arreter=None) -> int:
     """Lire dans la session courante ; aucune reconnexion ni navigation de secours."""
     outdir=Path(outdir);outdir.mkdir(parents=True,exist_ok=True)
     text=""; dom_rows=[];cookie_status="NON_TESTE"
@@ -320,13 +321,15 @@ def collecter_page(page, url: str, outdir: Path, *, page_chargee=False, http_sta
         # Continuer progressivement jusqu'a disparition des changements de taille,
         # puis remonter pour garder toute la page accessible.
         last_height=-1; stable=0
-        for _ in range(35):
+        deadline = time.monotonic() + 90
+        while stable < 5 and time.monotonic() < deadline:
+            if arreter and arreter():
+                return 3
             page.mouse.wheel(0,1400)
             page.wait_for_timeout(400)
             height=page.evaluate("document.body.scrollHeight")
             stable=stable+1 if height==last_height else 0
             last_height=height
-            if stable>=5: break
         page.wait_for_timeout(800)
         text=page.locator("body").inner_text(timeout=20000)
         controle_final = diagnostic_acces(http_status, page.title(), text, page.content())
@@ -397,11 +400,19 @@ def main() -> int:
     args=p.parse_args()
     if not args.url.startswith("https://www.geny.com/cheval/"):
         p.error("URL cheval Geny attendue")
+    return collecter_url(args.url, Path(args.sortie), headless=args.headless)
+
+
+def collecter_url(url, sortie, *, headless=True):
+    from .liens_geny_course import url_fiche_canonique
+
+    url = url_fiche_canonique(url)
     with sync_playwright() as pw:
-        browser=pw.chromium.launch(headless=args.headless)
+        browser = pw.chromium.launch(headless=headless)
         try:
-            context=browser.new_context(locale="fr-FR",timezone_id="Europe/Paris",viewport={"width":1366,"height":900})
-            return collecter_page(context.new_page(), args.url, Path(args.sortie))
+            context = browser.new_context(locale="fr-FR", timezone_id="Europe/Paris",
+                                          viewport={"width": 1366, "height": 900})
+            return collecter_page(context.new_page(), url, sortie)
         finally:
             browser.close()
 

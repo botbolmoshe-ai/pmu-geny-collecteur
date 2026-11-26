@@ -134,7 +134,8 @@ class IdentificationGenyTests(unittest.TestCase):
         page = Mock(url='https://www.geny.com/recherche?q=Etoile')
         page.goto.return_value.status = 200
         page.content.return_value = html
-        with patch('pmu_geny.historique_individuel.diagnostic_acces', return_value=''):
+        with patch('pmu_geny.historique_individuel.diagnostic_acces', return_value=''), \
+             patch('pmu_geny.historique_individuel.recherche_autorisee', return_value=True):
             with self.assertRaisesRegex(ValueError, 'NOM_AMBIGU'):
                 rechercher(self.horse, page)
             resolved = rechercher({**self.horse, 'annee_naissance_pmu': self.now.year-4}, page)
@@ -143,7 +144,8 @@ class IdentificationGenyTests(unittest.TestCase):
         query['state']['data'][0]['resume'] += ', pays : Suède, discipline : Trot'
         flight = '28:'+json.dumps(query, ensure_ascii=False)
         page.content.return_value = '<script>self.__next_f.push('+json.dumps([1, flight])+')</script>'
-        with patch('pmu_geny.historique_individuel.diagnostic_acces', return_value=''):
+        with patch('pmu_geny.historique_individuel.diagnostic_acces', return_value=''), \
+             patch('pmu_geny.historique_individuel.recherche_autorisee', return_value=True):
             alias = rechercher({'nom': self.horse['nom']+' (SWE)'}, page)
         self.assertEqual(alias['id'], '123456')
         self.assertEqual(alias['nom_pmu'], self.horse['nom']+' (SWE)')

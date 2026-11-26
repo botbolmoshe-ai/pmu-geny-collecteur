@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from unittest.mock import Mock, patch
+from unittest.mock import ANY, Mock, patch
 
 from pmu_geny import historiques_incrementaux as inc
 from pmu_geny import historique_individuel as individuel
@@ -26,8 +26,8 @@ class SessionTests(unittest.TestCase):
         self.ctx=self.browser.new_context.return_value;self.page=self.ctx.new_page.return_value
         self.ctx.pages=[self.page]
 
-    def test_un_seul_navigateur_et_la_page_ouverte_par_le_clic_est_reutilisee(self):
-        self.page.url=self.geny['url_geny']
+    def test_un_seul_navigateur_et_la_fiche_canonique_deja_chargee_est_reutilisee(self):
+        self.page.url=self.geny['url_geny'].split('/course/')[0]
         with patch('playwright.sync_api.sync_playwright') as driver, \
              patch.object(individuel,'resolve',return_value=self.geny) as resolve, \
              patch.object(individuel,'extraire_cheval',side_effect=TimeoutError('interruption')) as extract, \
@@ -35,7 +35,7 @@ class SessionTests(unittest.TestCase):
             driver.return_value.__enter__.return_value=self.pw
             result=individuel.collecter(self.horse,self.out)
         self.pw.chromium.launch.assert_called_once();self.browser.new_context.assert_called_once()
-        resolve.assert_called_once_with(self.horse,self.out,self.page)
+        resolve.assert_called_once_with(self.horse,self.out,self.page,arreter=ANY)
         self.assertIs(extract.call_args.kwargs['page'],self.page)
         self.assertTrue(extract.call_args.kwargs['page_chargee']);sleep.assert_not_called()
         self.browser.close.assert_called_once()

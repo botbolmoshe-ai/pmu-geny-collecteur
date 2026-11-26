@@ -9,6 +9,7 @@ from googleapiclient.discovery import build
 from trot_analytics.dates import afficher_instant
 from trot_analytics.logic import couverture_reunions, records, selected, number, timestamp, result_matching
 from trot_analytics.quality import render_quality
+from trot_analytics.correspondance_geny import COLONNE as COLONNE_GENY, STATUTS as STATUTS_GENY, statut_ligne
 from trot_analytics.performance import render_performance
 from trot_analytics.observations import tableau_geny, tableau_observations
 from trot_analytics.usages import GENY_HISTORIQUE, IPR
@@ -33,7 +34,31 @@ def read_registry():
     if has_history:ranges.append("'"+HISTORY_TAB+"'!A1:H")
     resp=api.spreadsheets().values().batchGet(spreadsheetId=st.secrets["spreadsheet_id"],
         ranges=ranges,valueRenderOption="UNFORMATTED_VALUE").execute(num_retries=2)
-    data=[records(v.get("values",[])) for v in resp.get("valueRanges",[])]
+    values = [v.get("values", []) for v in resp.get("valueRanges", [])]
+    if len(values) != len(ranges):
+        raise ValueError('Onglets manquants')
+    courses = values[0]
+    if len(courses) > 1 and COLONNE_GENY in courses[0]:
+        index = courses[0].index(COLONNE_GENY)
+        col = ""
+        position = index + 1
+        while position:
+            position, remainder = divmod(position - 1, 26)
+            col = chr(65 + remainder) + col
+        try:
+            grid = api.spreadsheets().get(spreadsheetId=st.secrets["spreadsheet_id"],
+                ranges=[f"'{TABS[0]}'!{col}2:{col}{len(courses)}"],
+                fields="sheets(data(rowData(values(note))))").execute(num_retries=2)
+            notes = (grid["sheets"][0].get("data") or [{}])[0].get("rowData", [])
+        except Exception:
+            notes = []
+        courses[0].append("Détail du rapprochement Geny")
+        for row, cell in zip(courses[1:], notes):
+            note = (cell.get("values") or [{}])[0].get("note")
+            if note and any(v not in ("", None) for v in row):
+                row.extend([""] * (len(courses[0]) - 1 - len(row)))
+                row.append(note)
+    data=[records(v) for v in values]
     if len(data)!=len(ranges): raise ValueError("Onglets manquants")
     if not data[0] or "Clé course (technique)" not in data[0][0]: raise ValueError("Schéma courses incompatible")
     return (*data[:3],data[3] if has_history else [],datetime.now(timezone.utc))
@@ -103,7 +128,7 @@ def render_geny(page):
 
 st.title("TROT Analytics")
 st.caption("Observatoire des courses · France · Lecture seule")
-st.caption("Version interface : 2026.11.24 · Historiques Geny")
+st.caption("Version interface : 2026.11.26 · Correspondances Geny")
 # Fail closed even if a public code repository is used for deployment.
 # A separate app password prevents accidental public disclosure.
 try:
@@ -191,6 +216,8 @@ elif page=="Courses":
 
     profil_filtre = st.multiselect("Filtrer les partants par profil",
                                   [*PALETTE, NON_EVALUABLE, AUCUN_PROFIL], key="profils_filtre")
+    geny_filtre = st.multiselect("Filtrer par correspondance PMU–Geny", list(STATUTS_GENY),
+                                 format_func=lambda code: STATUTS_GENY[code][0])
     if groups:
         st.html(badges(PALETTE))
         st.caption("Le violet/or est prioritaire sur la ligne si les deux profils sont présents. "
@@ -268,16 +295,20 @@ elif page=="Courses":
             if latest_odds:
                 st.caption("Dernier relevé PMU à " + afficher_instant(latest_odds)
                            + " (Paris)")
-            visibles = [not profil_filtre or bool(set(profil_filtre).intersection(profils_ligne(row)))
-                        for row in rows]
+            visibles = [
+                (not profil_filtre or bool(set(profil_filtre).intersection(profils_ligne(row))))
+                and (not geny_filtre or statut_ligne(row) in geny_filtre)
+                for row in rows
+            ]
             if not any(visibles):
-                st.caption("Aucun partant pour les profils sélectionnés.")
+                st.caption("Aucun partant pour les filtres sélectionnés.")
                 continue
-            columns = ["N°", "Cheval", "Cote PMU", "Âge (ans)", COLONNE_PROFIL, COLONNE_INDICES, "Ferrure", "Musique PMU",
+            columns = ["N°", "Cheval", COLONNE_GENY, "Cote PMU", "Âge (ans)", COLONNE_PROFIL, COLONNE_INDICES, "Ferrure", "Musique PMU",
                        "Non-partant (NP)", "Historique · Nb performances récupérées",
                        "Données actuelles · Mise à jour UTC"]
             partants = pd.DataFrame(rows)
             partants["Cote PMU"] = odds
+            partants[COLONNE_GENY] = [STATUTS_GENY[statut_ligne(row)][0] for row in rows]
             if "Ferrure" not in partants and "Ferrure · Course du jour" in partants:
                 partants = partants.rename(columns={"Ferrure · Course du jour": "Ferrure"})
             for field in ("Autostart · Position assignée", "Autostart · Ligne", "Départ · Recul (m)"):
@@ -296,11 +327,13 @@ elif page=="Courses":
             partants = partants.loc[visibles]
             styles = partants[COLONNE_PROFIL].map(lambda valeur: libelles_profils(valeur)[:1]).map(
                 lambda profils: PALETTE.get(profils[0]) if profils else None)
-            if styles.notna().any():
-                styles = styles.map(lambda couleur: (
-                    f"background-color: {couleur[0]}; color: {couleur[1]}; font-weight: bold"
-                    if couleur else ""))
-                partants = partants.style.apply(lambda _: styles, subset=["Cheval", COLONNE_PROFIL])
+            styles = styles.map(lambda couleur: (
+                f"background-color: {couleur[0]}; color: {couleur[1]}; font-weight: bold"
+                if couleur else ""))
+            fonds_geny = {label: fond for label, fond in STATUTS_GENY.values()}
+            partants = partants.style.apply(lambda _: styles, subset=["Cheval", COLONNE_PROFIL])
+            partants = partants.map(lambda label: f"background-color: {fonds_geny[label]}; color: #172033",
+                                   subset=[COLONNE_GENY])
             st.dataframe(partants, hide_index=True, use_container_width=True,
                          column_config={"Cote PMU": st.column_config.NumberColumn(format="localized", width="small")})
             fiches = [row for row, visible in zip(rows, visibles) if visible]
@@ -312,6 +345,9 @@ elif page=="Courses":
                                  key=f"fiche_{key}")
             if fiche is not None:
                 row = fiches[fiche]
+                st.write(STATUTS_GENY[statut_ligne(row)][0])
+                if row.get("Détail du rapprochement Geny"):
+                    st.text(row["Détail du rapprochement Geny"])
                 libelles = profils_ligne(row)
                 if rendu := badges(libelles):
                     st.html(rendu)
@@ -372,6 +408,19 @@ elif page=="Historique":
     render_geny(page)
 else:
     render_quality(kpis,courses=courses,history=quality_history)
+    with st.expander("Liste nominative des correspondances PMU–Geny"):
+        filtre = st.multiselect("Statuts à afficher", list(STATUTS_GENY),
+                                format_func=lambda code: STATUTS_GENY[code][0], key="qualite_geny")
+        from collections import defaultdict
+        chevaux = defaultdict(set)
+        for row in courses:
+            code = statut_ligne(row)
+            if row.get("Cheval") and (not filtre or code in filtre):
+                chevaux[(row["Cheval"], code)].add(f"{row.get('Date', '')} {row.get('Course R/C', '')}")
+        st.dataframe([{"Cheval": nom, COLONNE_GENY: STATUTS_GENY[code][0],
+                       "Engagements": ", ".join(sorted(engagements))}
+                      for (nom, code), engagements in sorted(chevaux.items())],
+                     hide_index=True, use_container_width=True)
     with st.expander("Couverture des champs Geny"):
         if st.checkbox("Afficher la couverture Geny"):
             render_geny(page)

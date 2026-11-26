@@ -3,6 +3,7 @@ from collections import OrderedDict
 from datetime import timezone
 from .dates import afficher_date, afficher_instant, afficher_valeur_kpi, indicateur_horodate
 from .logic import number,timestamp
+from .correspondance_geny import KPI_PREFIX
 
 TOTAL_FIELD = "Total de référence (automatique)"
 COLUMNS = ["Indicateur", "Description", "Nombre / valeur", "Total"]
@@ -48,6 +49,8 @@ def quality_sections(kpis, query=""):
             dimension = "Collecte"
         elif label.startswith(("J · ", "J+1 · ", "Registre · ")):
             dimension = "Lecture Sheets J/J+1"
+        elif label.startswith(KPI_PREFIX):
+            dimension = "Correspondance PMU–Geny"
         elif label.startswith("Rattrapage · "):
             dimension = "Rattrapage"
         if query and query not in f"{dimension} {label} {definition}".casefold():
