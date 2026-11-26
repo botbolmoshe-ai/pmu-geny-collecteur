@@ -359,25 +359,12 @@ def source_rows(cache, *, now=None):
     identites_geny = IndexGeny(cache)
     courses, history, reports = {}, {}, {}
     now = now or datetime.now(timezone.utc)
-    from dashboard.trot_analytics.correspondance_geny import AMBIGUE, CONFIRMEE, NON_EFFECTUEE, NON_TROUVEE
+    from .identites_chevaux import champs_correspondance_geny
     tentatives_geny = TentativesGeny(cache, now)
 
     def correspondance(date, code, numero, nom, pmu_id, geny_id, methode):
         tentative = tentatives_geny.retrouver(f'{date}_{code}', numero, nom, pmu_id)
-        if geny_id:
-            statut, motif = CONFIRMEE, ''
-        elif tentative and (methode != 'NOM_AMBIGU' or tentative['statut'] != NON_TROUVEE):
-            statut, motif = tentative['statut'], tentative.get('motif', '')
-        elif methode == 'NOM_AMBIGU':
-            statut, motif = AMBIGUE, methode
-        else:
-            statut, motif = NON_EFFECTUEE, ''
-        details = [motif] if motif else []
-        if tentative and statut == tentative.get('statut'):
-            details.extend(f'{label} {tentative[key]}' for label, key in (
-                ('Contrôle UTC', 'utc'), ('Reprise UTC', 'reprise_utc')) if tentative.get(key))
-        return {STATUT_GENY: statut, '_note_correspondance_geny': '\n'.join(details),
-                '_id_pmu_correspondance': pmu_id, '_id_geny_correspondance': geny_id}
+        return champs_correspondance_geny(tentative, pmu_id, geny_id, methode)
 
     from .cycle_ml_actif import modele_disponible,STATUT
     candidat_disponible=modele_disponible(cache) is not None

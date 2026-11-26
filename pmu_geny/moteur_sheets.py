@@ -6,6 +6,7 @@ import os
 import re
 import tempfile
 import time
+from datetime import datetime, timezone
 from contextlib import contextmanager
 from collections import Counter
 from pathlib import Path
@@ -223,6 +224,42 @@ class SynchroniseurSheets:
             self.check(self.session.post(self.base + ':batchUpdate',
                 json={'requests': requetes}, timeout=30))
 
+    def _correspondances_archivees(self, existing, incoming):
+        from .historiques_incrementaux import course_geny_connue
+        from .identites_chevaux import IndexGeny, TentativesGeny, champs_correspondance_geny
+        from .liaison_chevaux_v22 import nom_normalise
+
+        participants = [r for r in existing if r.get('course_key') and r.get('numero') and r.get('cheval')]
+        cles = Counter((r['course_key'], str(r['numero'])) for r in participants)
+        noms = Counter((r['course_key'], nom_normalise(r['cheval'])) for r in participants)
+        archives = {}
+        for row in participants:
+            key, number = row['course_key'], str(row['numero'])
+            cle = f'{key}|{number}'
+            if cle in incoming or cles[key, number] != 1:
+                continue
+            if not re.fullmatch(r'\d{4}-\d{2}-\d{2}\|[^|]+\|R\d+C\d+', str(key)):
+                continue
+            archives[cle] = row
+        if not archives:
+            return {}
+        index = IndexGeny(self.cache)
+        tentatives = TentativesGeny(self.cache, datetime.now(timezone.utc))
+        result = {}
+        for cle, row in archives.items():
+            date, _, code = row['course_key'].split('|')
+            number, name = str(row['numero']), row['cheval']
+            engagement = f'{date}_{code}'
+            age = str(row.get('age_ans', ''))
+            year = int(date[:4]) - int(age) if age.isdigit() else None
+            cid = course_geny_connue(self.cache, engagement)
+            link, methode = index.resoudre(name, cid, number, annee=year,
+                                          nom_repris=noms[row['course_key'], nom_normalise(name)] > 1)
+            tentative = tentatives.retrouver(engagement, number, name, None)
+            result[cle] = {'course_key': row['course_key'], 'numero': number,
+                           **champs_correspondance_geny(tentative, None, link.get('id'), methode)}
+        return result
+
     def _controler_correspondances(self, tab, properties, headers, incoming, *, formater):
         from dashboard.trot_analytics.correspondance_geny import CHAMP, STATUTS
         from .sync_google_sheets import colname
@@ -315,6 +352,8 @@ class SynchroniseurSheets:
         if statut_seul:
             deja_publies = {f"{row.get('course_key')}|{row.get('numero')}" for row in existing}
             incoming = {key: row for key, row in incoming.items() if key in deja_publies}
+        if tab == 'Courses & Prévisions' and (statut_seul or full_source):
+            incoming = {**incoming, **self._correspondances_archivees(existing, incoming)}
         if tab==HISTORY:
             incoming=reconcilier_cles_historiques(existing,incoming)
         all_headers,updates,appends=plan_sheet(headers,existing,incoming,tab)
@@ -656,7 +695,6 @@ class SynchroniseurSheets:
 
     def inventaire_rattrapage(self):
         """Lecture complète seule : inventaire et preuve des clés déjà publiées."""
-        from datetime import datetime,timezone
         from .sync_google_sheets import lire_feuille_complete,canonical_headers,reconcilier_cles_historiques
         from .identites_chevaux import source_identifiant
         with verrou_local(self.spreadsheet):

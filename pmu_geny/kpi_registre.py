@@ -6,7 +6,7 @@ from pathlib import Path
 import json
 import math
 
-from dashboard.trot_analytics.correspondance_geny import CONFIRMEE, KPI_PREFIX, STATUTS, statut_ligne
+from dashboard.trot_analytics.correspondance_geny import CHAMP, COLONNE, CONFIRMEE, KPI_PREFIX, STATUTS, statut_ligne
 
 KPI_TAB = 'Data Quality & KPI'
 PREFIXES_ANCIENNES_ECHEANCES = ('Échéances · H2 ', 'Échéances · H1 ')
@@ -318,20 +318,31 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
         metric('Cotes PMU · Taux de TOP3 complets', odds_complete/len(odds_cohorts) if odds_cohorts else '',
                'Courses avec TOP3 Cotes complet / courses suivies.'),
     ]
+    population_geny = participants
+    if sheets_courses and any(CHAMP in row for row in sheets_courses):
+        preuves = {(row.get('course_key'), str(row.get('numero'))): row for row in participants}
+        population_geny = [{**preuves.get((row.get('course_key'), str(row.get('numero'))), {}), **row}
+                           for row in sheets_courses if row.get('course_key') and row.get('numero') and row.get('cheval')]
     par_cheval = defaultdict(set)
     liens = defaultdict(set)
-    for row in participants:
+
+    def annee_ou_age(row):
+        age = _nombre(row.get('age_ans'))
+        year = str(row.get('date_course') or '')[:4]
+        return ('naissance', int(year) - int(age)) if year.isdigit() and age is not None else ('âge', age)
+
+    for row in population_geny:
         ident = row.get('_id_geny_correspondance')
         pmu_id = row.get('_id_pmu_correspondance')
         nom = nom_normalise(row.get('cheval'))
         if nom and (ident or pmu_id):
-            liens[(nom, str(row.get('age_ans') or ''))].add(('PMU', pmu_id) if pmu_id else ('Geny', ident))
-    for row in participants:
+            liens[(nom, annee_ou_age(row))].add(('PMU', pmu_id) if pmu_id else ('Geny', ident))
+    for row in population_geny:
         nom = nom_normalise(row.get('cheval'))
         if not nom:
             continue
         pmu_id, ident = row.get('_id_pmu_correspondance'), row.get('_id_geny_correspondance')
-        age = str(row.get('age_ans') or '')
+        age = annee_ou_age(row)
         possibles = liens[(nom, age)]
         cle = ('PMU', pmu_id) if pmu_id else ('Geny', ident) if ident else ('Nom et âge', nom, age)
         if len(possibles) == 1:
@@ -339,7 +350,7 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
         par_cheval[cle].add(statut_ligne(row))
     correspondances = [
         metric(KPI_PREFIX + 'Chevaux distincts', len(par_cheval),
-               'Périmètre de Courses & Prévisions. Identifiant PMU ou Geny, sinon nom normalisé et âge.'),
+               'Périmètre de Courses & Prévisions. Identifiant PMU ou Geny, sinon nom normalisé et année de naissance estimée avec l’âge.'),
         *[metric(KPI_PREFIX + label, sum(statut in states and (statut == CONFIRMEE or CONFIRMEE not in states)
                                        for states in par_cheval.values()),
                  'Chevaux distincts concernés / chevaux distincts du registre. '
@@ -477,15 +488,19 @@ def plan_kpi(values, metrics):
             value,definition=metrics[row[1]]
             label=row[1]
             desired=[value,definition]+([totals[label]] if label in totals else [])
-            if row[2:2+len(desired)]!=desired:
-                end='E' if label in totals else 'D'
+            end='E' if label in totals else 'D'
+            if label.startswith(KPI_PREFIX) and row[0] != COLONNE:
+                updates.append({'range': f"'{KPI_TAB}'!A{number}:{end}{number}",
+                                'values': [[COLONNE, label, *desired]]})
+            elif row[2:2+len(desired)]!=desired:
                 updates.append({'range':f"'{KPI_TAB}'!C{number}:{end}{number}",'values':[desired]})
     present={row[1] for row in values[1:] if len(row)>1}
     last=max((i for i,row in enumerate(values,start=1) if any(str(v or '').strip() for v in row)),default=1)
     for label,(value,definition) in metrics.items():
         if label.startswith(PUBLISHED_PREFIXES) and label not in present:
             last+=1
-            desired=['Cotes PMU' if label.startswith('Cotes PMU · ') else 'ML',label,value,definition]+([totals[label]] if label in totals else [])
+            dimension = COLONNE if label.startswith(KPI_PREFIX) else 'Cotes PMU' if label.startswith('Cotes PMU · ') else 'ML'
+            desired=[dimension,label,value,definition]+([totals[label]] if label in totals else [])
             end='E' if label in totals else 'D'
             updates.append({'range':f"'{KPI_TAB}'!A{last}:{end}{last}",'values':[desired]})
     return updates
