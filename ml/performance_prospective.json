@@ -1,6 +1,6 @@
 {
   "nature": "PREVISIONS_PUBLIEES_AVANT_DEPART",
-  "controle_utc": "2026-11-25T18:42:26.860380+00:00",
+  "controle_utc": "2026-11-26T16:49:25.588007+00:00",
   "courses": 135,
   "moyenne_ml": 1.0888888888888888,
   "moyenne_direct": 1.0888888888888888,
@@ -1899,7 +1899,16 @@
       "empreinte_modele": "91d51dafdd2702739efea1b35ad476db9073cdef4def3e5b63b539841f0e1640"
     }
   ],
-  "rejets": [],
+  "rejets": [
+    {
+      "course": "2026-11-25_R2C3",
+      "motif": "ARRIVEE_INVALIDE"
+    },
+    {
+      "course": "2026-11-25_R2C5",
+      "motif": "ARRIVEE_INVALIDE"
+    }
+  ],
   "regle_ajustement": "Réentraînement sur nouveaux labels admissibles ; choix sur validation temporelle, sans promotion sur ces seuls scores.",
   "candidat_depart": {
     "courses": 5,
