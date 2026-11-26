@@ -86496,6 +86496,21 @@
         "source_lien": "GENY_QUERY_PARTANTS",
         "preuve_course_utc": "2026-11-26T16:50:47.311450+00:00",
         "preuve": "COURSE_GENY_VERIFIEE"
+      },
+      "collecte": "A_REPRENDRE",
+      "id": "2783742",
+      "preuve_identite": "COURSE_GENY_VERIFIEE",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-11-26T22:53:37.243482+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-26T16:53:37.243493+00:00",
+        "statut": "PARTIEL_HISTORIQUE",
+        "motifs": [
+          "NB_COURSES_DIFFERENT:0/46"
+        ],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": true,
+        "diagnostic": "resultats/incremental/2026-11-26_R1C8_2/1795712012265548571/resultat.json"
       }
     },
     "2026-11-26_R1C8_3": {
@@ -93115,13 +93130,13 @@
     }
   },
   "passage_utc": "2026-11-26T16:50:30.113277+00:00",
-  "maj_utc": "2026-11-26T16:53:27.720215+00:00",
+  "maj_utc": "2026-11-26T16:53:37.257252+00:00",
   "bilan": {
     "chevaux_suivis": 3276,
-    "tentatives_collecte": 4,
+    "tentatives_collecte": 5,
     "captures_validees": 4,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 2950
   },
@@ -93928,18 +93943,18 @@
   "sync_kpi_utc": "2026-11-26T02:58:35.934419+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-26T16:50:30.113277+00:00",
-    "controle_utc": "2026-11-26T16:53:27.720215+00:00",
+    "controle_utc": "2026-11-26T16:53:37.257252+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 4,
     "chevaux_confirmes_sheets": 4,
     "performances_ajoutees_et_confirmees_sheets": 235,
-    "requetes_http_geny": 309,
+    "requetes_http_geny": 366,
     "attente_inter_chevaux_secondes": 14.93,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 27.4,
+    "duree_acces_geny_secondes": 32.37,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 81.08,
-    "carrieres_publiees_par_heure_cycle": 81.08,
+    "carrieres_validees_par_heure_cycle": 76.95,
+    "carrieres_publiees_par_heure_cycle": 76.95,
     "refus_geny": {
       "403": 0,
       "429": 0
