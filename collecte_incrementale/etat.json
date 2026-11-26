@@ -92902,7 +92902,7 @@
     },
     "2779653": {
       "nom": "KENYAN BLUES",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "1",
       "engagement": "2026-11-26_R1C8",
       "vu_utc": "2026-11-26T16:50:30.113277+00:00",
@@ -92933,11 +92933,39 @@
       "nombre_performances": 48,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-18"
+      "derniere_performance_date": "2026-11-18",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 48,
+          "cellules_actualisees": 0,
+          "lignes_source": 48,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 48,
+            "lignes_avant": 36449,
+            "cles_avant": 36449,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3645,
+            "import_initial_explicite": false,
+            "lignes_attendues": 36497,
+            "lignes_apres": 36497,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 8,
+          "lignes_source": 2
+        }
+      },
+      "sync_utc": "2026-11-26T16:51:15.531308+00:00"
     }
   },
   "passage_utc": "2026-11-26T16:50:30.113277+00:00",
-  "maj_utc": "2026-11-26T16:50:52.768922+00:00",
+  "maj_utc": "2026-11-26T16:51:15.531339+00:00",
   "bilan": {
     "chevaux_suivis": 3276,
     "tentatives_collecte": 1,
@@ -92948,7 +92976,7 @@
     "actualisations_en_attente": 2950
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 13,
@@ -93750,18 +93778,18 @@
   "sync_kpi_utc": "2026-11-26T02:58:35.934419+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-26T16:50:30.113277+00:00",
-    "controle_utc": "2026-11-26T16:50:52.768922+00:00",
+    "controle_utc": "2026-11-26T16:51:15.531339+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 48,
     "requetes_http_geny": 126,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 7.44,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 158.9,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 79.26,
+    "carrieres_publiees_par_heure_cycle": 79.26,
     "refus_geny": {
       "403": 0,
       "429": 0
