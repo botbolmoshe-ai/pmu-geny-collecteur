@@ -110,8 +110,8 @@ class SynchroniseurSheets:
 
     def metadata(self):
         doc=self.check(get_lecture(self.session,self.base,
-            params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)),conditionalFormats)'},timeout=30))
-        return {x['properties']['title']: {**x['properties'], 'conditionalFormats': x.get('conditionalFormats', [])}
+            params={'fields':'sheets(properties(sheetId,title,gridProperties(rowCount,columnCount)),conditionalFormats,basicFilter)'},timeout=30))
+        return {x['properties']['title']: {**x['properties'], 'conditionalFormats': x.get('conditionalFormats', []), 'basicFilter': x.get('basicFilter')}
                 for x in doc['sheets']}
 
     def source(self):
@@ -223,6 +223,69 @@ class SynchroniseurSheets:
             self.check(self.session.post(self.base + ':batchUpdate',
                 json={'requests': requetes}, timeout=30))
 
+    def _controler_correspondances(self, tab, properties, headers, incoming, *, formater):
+        from dashboard.trot_analytics.correspondance_geny import CHAMP, STATUTS
+        from .sync_google_sheets import colname
+
+        index = headers.index(CHAMP)
+        col = colname(index + 1)
+        sheet_id = properties['sheetId']
+        plage = {'sheetId': sheet_id, 'startRowIndex': 1, 'startColumnIndex': index, 'endColumnIndex': index + 1}
+        scope = f"'{tab}'!{col}2:{col}"
+        # Relire les clés indépendamment pour associer chaque note à la bonne ligne.
+        cles = []
+        for field in ('course_key', 'numero'):
+            c = colname(headers.index(field) + 1)
+            cles.append(f"'{tab}'!{c}2:{c}")
+        values = self.check(get_lecture(self.session, self.base + '/values:batchGet',
+            params={'ranges': cles, 'valueRenderOption': 'UNFORMATTED_VALUE'}, timeout=30))
+        keys, numbers = ([row[0] if row else '' for row in part.get('values', [])]
+                         for part in values['valueRanges'])
+        grid = self.check(get_lecture(self.session, self.base,
+            params={'ranges': scope, 'fields': 'sheets(data(startRow,rowData(values(note,effectiveValue))))'},
+            timeout=30))
+        cells = (grid['sheets'][0].get('data') or [{}])[0].get('rowData', [])
+        requests = []
+        confirmed = set()
+        for row, (key, number) in enumerate(zip(keys, numbers), start=2):
+            row_key = f'{key}|{number}'
+            expected = incoming.get(row_key)
+            if not expected or row_key in confirmed:
+                continue
+            confirmed.add(row_key)
+            cell = ((cells[row-2].get('values') or [{}])[0] if row-2 < len(cells) else {})
+            if cell.get('effectiveValue', {}).get('stringValue') != expected[CHAMP]:
+                raise ErreurSynchronisation('Correspondance Geny non confirmée dans Sheets : ' + row_key)
+            note = expected.get('_note_correspondance_geny', '')
+            if cell.get('note', '') != note:
+                requests.append({'updateCells': {'start': {'sheetId': sheet_id, 'rowIndex': row-1,
+                    'columnIndex': index}, 'rows': [{'values': [{'note': note}]}], 'fields': 'note'}})
+        if confirmed != incoming.keys():
+            raise ErreurSynchronisation('Correspondances Geny absentes après publication')
+        if formater:
+            anciennes = properties['conditionalFormats']
+            for code, (_, fond) in STATUTS.items():
+                condition = {'type': 'TEXT_EQ', 'values': [{'userEnteredValue': code}]}
+                rgb = {canal: int(fond[i:i+2], 16)/255 for canal, i in zip(('red','green','blue'), (1,3,5))}
+                existing = next((i for i, rule in enumerate(anciennes)
+                    if rule.get('booleanRule', {}).get('condition') == condition
+                    and rule.get('ranges', [{}])[0].get('startColumnIndex') == index), None)
+                if existing is None:
+                    requests.append({'addConditionalFormatRule': {'index': len(anciennes),
+                        'rule': {'ranges': [plage], 'booleanRule': {'condition': condition,
+                            'format': {'backgroundColorStyle': {'rgbColor': rgb}}}}}})
+            filtre = properties.get('basicFilter')
+            if filtre and filtre.get('range', {}).get('endColumnIndex', len(headers)) < len(headers):
+                requests.append({'setBasicFilter': {'filter': {**filtre, 'range': {
+                    **filtre['range'], 'endColumnIndex': len(headers)}}}})
+            elif not filtre:
+                requests.append({'setBasicFilter': {'filter': {'range': {'sheetId': sheet_id,
+                    'startRowIndex': 0, 'startColumnIndex': 0, 'endColumnIndex': len(headers)}}}})
+        for start in range(0, len(requests), 250):
+            self.check(self.session.post(self.base+':batchUpdate',
+                json={'requests': requests[start:start+250]}, timeout=30))
+        return len(confirmed)
+
     def _synchroniser_onglet(self,tab,incoming,properties,*,full_source,allow_structure):
         from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques,RETIRED_SHEET_COLUMNS,SHEET_HEADER_LABELS
         values=lire_feuille_complete(self.session,self.base,tab,properties,raw_dates=True)
@@ -247,13 +310,21 @@ class SynchroniseurSheets:
         headers=canonical_headers(values[0])
         existing=[{name: depuis_nombre(name, value) for name, value in zip(headers, row)}
                   for row in values[1:]]
+        from dashboard.trot_analytics.correspondance_geny import CHAMP
+        statut_seul = tab == 'Courses & Prévisions' and not allow_structure and any(CHAMP in row for row in incoming.values())
+        if statut_seul:
+            deja_publies = {f"{row.get('course_key')}|{row.get('numero')}" for row in existing}
+            incoming = {key: row for key, row in incoming.items() if key in deja_publies}
         if tab==HISTORY:
             incoming=reconcilier_cles_historiques(existing,incoming)
         all_headers,updates,appends=plan_sheet(headers,existing,incoming,tab)
-        effective_headers=all_headers if allow_structure else headers
+        effective_headers = all_headers if allow_structure else headers
+        if statut_seul and CHAMP not in headers:
+            effective_headers = [*headers, CHAMP]
         if not allow_structure:
-            updates=[(r,c,v) for r,c,v in updates if c<=len(headers)]
-            appends=[row[:len(headers)] for row in appends]
+            allowed = {i for i, field in enumerate(all_headers, 1) if field in effective_headers}
+            updates = [(r, effective_headers.index(all_headers[c-1])+1, v) for r, c, v in updates if c in allowed]
+            appends = [[row[all_headers.index(field)] for field in effective_headers] for row in appends]
         control=None
         if tab==HISTORY:
             independent=lire_cles_independantes(self.session,self.base,tab,properties,headers)
@@ -360,6 +431,12 @@ class SynchroniseurSheets:
             if GENY_HISTORIQUE.libelles.keys() <= set(effective_headers):
                 self._formater_observations(tab, sheet_id, effective_headers, GENY_HISTORIQUE, appends=True)
         result={'lignes_ajoutees':len(appends),'cellules_actualisees':len(updates),'lignes_source':len(incoming)}
+        correspondances = {key: row for key, row in incoming.items() if CHAMP in row}
+        if tab == 'Courses & Prévisions' and CHAMP in effective_headers and correspondances:
+            formater = allow_structure or CHAMP in extra
+            result['correspondances_geny_verifiees'] = self._controler_correspondances(
+                tab, self.metadata()[tab] if formater else properties, effective_headers,
+                correspondances, formater=formater)
         if control:
             if batches or appends:
                 fresh=self.metadata()[tab]
@@ -614,6 +691,16 @@ class SynchroniseurSheets:
             return {'capture_utc':datetime.now(timezone.utc).isoformat(),'chevaux':horses,
                 'ids_couverts':[ident for ident,wanted in expected.items() if wanted<=keys],
                 'lignes_historique':len(rows),'controle':control}
+
+    def synchroniser_correspondances(self):
+        """Actualiser les preuves seules sur les lignes déjà publiées."""
+        from dashboard.trot_analytics.correspondance_geny import CHAMP
+
+        tab = 'Courses & Prévisions'
+        champs = {'course_key', 'numero', CHAMP, '_note_correspondance_geny'}
+        courses = {key: {field: value for field, value in row.items() if field in champs}
+                   for key, row in self.source()[tab].items() if CHAMP in row}
+        return self.synchroniser_tables({tab: courses}, scope='CORRESPONDANCES_GENY')
 
     def synchroniser_kpi(self):
         with verrou_local(self.spreadsheet):return self._synchroniser_kpi(self.metadata(),self.source(),relire_courses=True)

@@ -1,4 +1,4 @@
-"""Découverte Geny : tableau des partants sans liens href, ouverture des fiches au clic.
+"""Découverte Geny depuis les preuves contenues dans la page des partants.
 
 Pilote défensif : valide la course, le nombre de partants, l'unicité des numéros,
 les URLs /cheval/{ID} et n'écrit le manifeste que si tout est vérifié.
@@ -7,7 +7,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse, urlsplit, urlunsplit
@@ -17,7 +16,6 @@ from .collecte_geny_v4 import dismiss_consent, diagnostic_acces
 PROGRAMME = 'https://www.geny.com/programme/2026-11-10/orga/PMU'
 COURSE_NAME = 'prix-des-tulipes'
 COURSE_RE = re.compile(r'/course/(\d+)(?:-([^/?#]+))?', re.I)
-HORSE_RE = re.compile(r'/cheval/(\d+)(?:-([^/?#]+))?', re.I)
 
 
 def write_json(file: Path, obj):
@@ -56,7 +54,6 @@ def candidate_urls(urls):
 def get_rows(page):
     """Lit les tr HTML sans supposer que le nom est un href.
 
-    Conserve l'index DOM de chaque ligne pour cliquer sur la même ligne ensuite.
     Les lignes sont reconnues par : premier texte = numéro, au moins 4 cellules,
     troisième cellule = nom; vérifications de l'absence de doublon ensuite.
     """
@@ -83,105 +80,38 @@ def participants_from_rows(rows):
     return found
 
 
-def try_direct_url(page, row_index):
-    return page.locator('tr').nth(row_index).evaluate('''tr => {
-      const node = tr.querySelectorAll(':scope > td')[2];
-      const a = node && node.closest('a[href]') || node && node.querySelector('a[href]');
-      return a ? a.href : null;
-    }''')
+def extract_partants(page, race_id, attendu, diagnostic):
+    from .liens_geny_course import extraire
+    from .liaison_chevaux_v22 import nom_geny_concordant
 
-
-def click_get_horse_url(page, context, row_index, name, diagnostic, number):
-    """Clique uniquement dans la cellule du nom et suit popup OU navigation locale.
-
-    En cas d'ambiguïté, journalise et ne devine aucun identifiant.
-    """
-    before = page.url
-    before_pages = set(context.pages)
-    target = page.locator('tr').nth(row_index).locator('td').nth(2)
-    try:
-        # Le clic porte sur le nom plutôt que sur le bouton de pari voisin.
-        matching = target.get_by_text(name, exact=True)
-        if matching.count() == 1:
-            matching.click(timeout=6500)
-        else:
-            target.click(timeout=6500)
-    except Exception as exc:
-        return None, 'clic impossible : ' + str(exc)[:240]
-    new_pages = []
-    for _ in range(15):
-        page.wait_for_timeout(250)
-        new_pages = [p for p in context.pages if p not in before_pages]
-        if new_pages or page.url != before:
-            break
-    if new_pages:
-        popup = new_pages[-1]
-        try:
-            popup.wait_for_load_state('domcontentloaded', timeout=12000)
-        except Exception:
-            pass
-        url = popup.url
-        write_json(diagnostic / f'clic_{number:02d}.json', {'nom': name, 'mode': 'nouvel_onglet', 'url': url})
-        try:
-            popup.close()
-        except Exception:
-            pass
-        return url, 'nouvel_onglet'
-    if page.url != before:
-        url = page.url
-        write_json(diagnostic / f'clic_{number:02d}.json', {'nom': name, 'mode': 'meme_onglet', 'url': url})
-        try:
-            page.go_back(wait_until='domcontentloaded', timeout=20000)
-            page.wait_for_timeout(650)
-        except Exception:
-            pass
-        return url, 'meme_onglet'
-    write_json(diagnostic / f'clic_{number:02d}.json', {'nom': name, 'mode': 'aucune_navigation', 'url': page.url})
-    return None, 'aucune_navigation'
-
-
-def extract_partants(page, context, race_id, attendu, diagnostic):
     rows = get_rows(page)
     write_json(diagnostic / 'lignes_tableau.json', rows)
     partants = participants_from_rows(rows)
-    # Exclure tableaux parasites si leurs numéros entrent en collision.
-    numbers = [x['numero'] for x in partants]
-    if len(partants) != attendu or len(numbers) != len(set(numbers)):
-        raise RuntimeError(f'Tableau des partants ambigu : {len(partants)} lignes, {len(set(numbers))} numeros distincts, attendu {attendu}. Voir lignes_tableau.json')
-    if sorted(numbers) != list(range(1, attendu + 1)):
-        raise RuntimeError(f'Numeros partants incoherents : {numbers}')
+    if sorted(horse['numero'] for horse in partants) != list(range(1, attendu + 1)):
+        raise RuntimeError(f'Tableau des partants ambigu : {len(partants)} lignes, attendu {attendu}')
+    proof = extraire(rows, page.content(), None, page.url, datetime.now(timezone.utc).isoformat())
+    if proof.get('course_geny_id') != race_id:
+        raise RuntimeError('Course finale Geny non concordante')
     result = []
-    for idx, horse in enumerate(partants, start=1):
-        name, row_index = horse['nom'], horse['row_index']
-        # Les lignes du DOM peuvent changer après retour arrière : les retrouver par numéro.
-        now = participants_from_rows(get_rows(page))
-        matching = [x for x in now if x['numero'] == horse['numero'] and x['nom'] == name]
-        if len(matching) != 1:
-            raise RuntimeError(f'Ligne introuvable apres navigation : {horse["numero"]} {name}')
-        row_index = matching[0]['row_index']
-        url = try_direct_url(page, row_index)
-        how = 'lien_direct'
-        if not url or not HORSE_RE.search(urlparse(url).path):
-            url, how = click_get_horse_url(page, context, row_index, name, diagnostic, horse['numero'])
-        m = HORSE_RE.search(urlparse(url or '').path)
-        if not m:
-            raise RuntimeError(f'Fiche cheval non identifiee pour n°{horse["numero"]} {name} ({how}, url={url!r}). Voir clic_{horse["numero"]:02d}.json')
-        horse_id = m.group(1)
-        if urlparse(url).hostname not in ('geny.com', 'www.geny.com'):
-            raise RuntimeError(f'Domaine inattendu pour le cheval {name} : {url}')
-        result.append({'id': horse_id, 'numero': horse['numero'], 'nom': name, 'url_geny': url})
-        print(f'Partant {idx}/{attendu} : n°{horse["numero"]} {name} -> {horse_id} ({how})', flush=True)
-        page.wait_for_timeout(350)
+    for horse in partants:
+        number = horse['numero']
+        link = proof.get('chevaux', {}).get(str(number))
+        if not link or not nom_geny_concordant(horse['nom'], link):
+            raise RuntimeError(f'Fiche cheval non identifiée pour n°{number} {horse["nom"]}')
+        result.append({'id': link['id'], 'numero': number, 'nom': horse['nom'], 'url_geny': link['url_geny']})
     if len({p['id'] for p in result}) != attendu:
         raise RuntimeError('Identifiants de chevaux en doublon : extraction refusee')
     return result
 
 
 def produire_manifest(race_url, programme, attendu, output, diagnostic, keyword, etat_path=None):
+    from .historique_individuel import ignorer_ressource
+
     diagnostic.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         ctx = browser.new_context(locale='fr-FR', timezone_id='Europe/Paris', viewport={'width':1366,'height':900})
+        ctx.route('**/*', ignorer_ressource)
         page = ctx.new_page()
         try:
             if race_url:
@@ -235,7 +165,7 @@ def produire_manifest(race_url, programme, attendu, output, diagnostic, keyword,
                 print(f'Tentative {attempt_number}: HTTP {status}, lignes candidates {len(rows)}/{attendu}', flush=True)
                 if status != 200 or len(rows) != attendu:
                     continue
-                horses = extract_partants(page, ctx, race_id, attendu, diagnostic)
+                horses = extract_partants(page, race_id, attendu, diagnostic)
                 output_data = {'courses': [{'course_id': f'GENY-{race_id}', 'source_course_geny': url,
                                             'nombre_partants_attendu': attendu, 'partants': horses}]}
                 write_json(output, output_data)

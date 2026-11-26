@@ -321,7 +321,10 @@ def preparer(cache,now):
     state=inc.lire(cache/QUEUE)
     if state and (state.get('version')!=1 or not isinstance(state.get('chevaux'),dict)):
         raise ValueError('FILE_RATTRAPAGE_INCOMPATIBLE')
-    from .identites_chevaux import IndexGeny
+    from .identites_chevaux import IndexGeny, TentativesGeny
+    from .resolution_identites_courses import PILOTE, identifiant_course
+    lectures = inc.lire(cache/PILOTE).get('courses', {})
+    tentatives = TentativesGeny(cache, now)
     index = IndexGeny(cache, observations=sheets['chevaux'])
     local = inventaire_local(cache, sheets, index=index)
     if not state:
@@ -412,15 +415,19 @@ def preparer(cache,now):
             if canonical not in pmu_partants:
                 pmu_partants[canonical] = inc.lire(cache/'partants_actuels'/f'{canonical}.json').get('chevaux', {})
             runner = pmu_partants[canonical].get(str(h['numero']), {})
-            if nom_normalise(runner.get('nom')) == name and str(runner.get('age_ans', '')).isdigit():
-                h['annee_naissance_pmu'] = int(canonical[:4]) - int(runner['age_ans'])
+            if nom_normalise(runner.get('nom')) == name:
+                if str(runner.get('age_ans', '')).isdigit():
+                    h['annee_naissance_pmu'] = int(canonical[:4]) - int(runner['age_ans'])
+                if runner.get('id_pmu'):
+                    h['id_pmu'] = runner['id_pmu']
         if not h.get('id') and not h.get('identifiant_externe_non_reconcilie') and not h.get('conflit_identite'):
             source = re.search(r'/course/(\d+)', str(h.get('course_url') or ''))
             pmu_numbers = [number for number, runner in pmu_partants.get(canonical, {}).items()
                            if nom_normalise(runner.get('nom')) == name]
             duplicate = len(set(pmu_numbers) | observed_numbers.get((name, canonical), set())) > 1
             link, method = index.resoudre(h.get('nom'), 'GENY-'+source[1] if source else None,
-                                          h.get('numero'), nom_repris=duplicate, annee=h.get('annee_naissance_pmu'))
+                                          h.get('numero'), nom_repris=duplicate, annee=h.get('annee_naissance_pmu'),
+                                          id_pmu=h.get('id_pmu'))
             if link:
                 h.update(id=link['id'], geny=link, preuve_identite=link['preuve'])
             h['rapprochement_geny'] = method
@@ -437,6 +444,19 @@ def preparer(cache,now):
             if fresh.get('engagement'):
                 h['engagement_prioritaire'] = fresh['engagement']
         h['recherche_geny_par_nom'] = not bool(h.get('id')) and bool(name)
+        lecture = lectures.get(canonical, {})
+        h['course_geny_deja_lue'] = bool(lecture.get('statut') == 'PAGE_LUE'
+            and lecture.get('id') == identifiant_course(h.get('course_url')) and lecture.get('id'))
+        if str(h.get('numero')) in lecture.get('conflits', {}) and h['course_geny_deja_lue'] and not h.get('geny'):
+            h['rapprochement_geny'] = 'NOM_AMBIGU'
+        if h.get('geny') and (ancienne := h.pop('recherche_identite_geny', {})):
+            if h.get('prochain_essai_utc') == ancienne.get('reprise_utc'):
+                h.pop('prochain_essai_utc', None)
+        if not h.get('geny'):
+            tentative = tentatives.retrouver(canonical, h.get('numero'), h.get('nom'), h.get('id_pmu'))
+            retry = inc.instant(tentative.get('reprise_utc'))
+            if retry and retry > (inc.instant(h.get('prochain_essai_utc')) or now):
+                h['prochain_essai_utc'] = retry.isoformat()
         if h.get('geny') or url_course(h.get('course_url')) and h.get('numero'):
             h.pop('lien_candidat',None)
         ident=h.get('id','');doc=capture(ident)
@@ -465,6 +485,13 @@ def preparer(cache,now):
                 if not h.get('lien_candidat'):h['collecte']='LIEN_GENY_A_RESOUDRE'
         if h['ferrures_manquantes']:
             h['motif_actualisation']='FERRURES_HISTORIQUES_A_COMPLETER'
+    reference_lot = inc.lire(Path(__file__).with_name('rattrapage_lot_96.json'))
+    lot = set(reference_lot['identifiants_origine']) if reference_lot.get('inventaire_id') == state['inventaire_id'] else set()
+    for key, h in state['chevaux'].items():
+        if key in lot or h.get('id') in lot:
+            h['priorite_lot_96'] = True
+        else:
+            h.pop('priorite_lot_96', None)
     deadlines = {}
     for h in state['chevaux'].values():
         task = cle_travail_geny(h)
@@ -506,6 +533,8 @@ def cle_travail_geny(horse):
     ident = horse.get('id')
     if ident:
         return ('IDENTIFIANT', ident)
+    if horse.get('id_pmu'):
+        return ('PMU', str(horse['id_pmu']))
     name = nom_normalise(horse.get('nom'))
     if horse.get('rapprochement_geny') == 'NOM_AMBIGU':
         year = horse.get('annee_naissance_pmu')
@@ -530,7 +559,6 @@ def prochaine_tache(state,now,attempts):
         if (h.get('rattrapage_complet_au_utc') and not h.get('ferrures_manquantes')) or not h.get('motif_actualisation'):continue
         if h.get('collecte') == 'IDENTITE_A_VERIFIER':continue
         if h.get('collecte') == 'LIEN_GENY_A_RESOUDRE' and not h.get('recherche_geny_par_nom'):continue
-        if h.get('rapprochement_geny') == 'NOM_AMBIGU' and not (h.get('course_url') and h.get('numero')):continue
         retry=inc.instant(h.get('prochain_essai_utc'))
         if attempts.get(('COLLECTE',key),0) or retry and retry>now:continue
         if attempts.get(cle_travail_geny(h)):continue
@@ -545,7 +573,8 @@ def prochaine_tache(state,now,attempts):
         corrected=bool(h.get('priorite_identite_corrigee') and not h.get('historique_complet_au_utc'))
         # Le besoin J+1 doit primer sur une identite corrigee ancienne pendant la nuit.
         if state.get('priorite_collecte') == 'STOCK_NOCTURNE':
-            order = (enrichment, unidentified, priority, night, h.get('engagement',''), key)
+            order = (enrichment, unidentified, priority, night, not h.get('priorite_lot_96'),
+                     h.get('engagement',''), key)
         else:
             order = (enrichment, night, not h.get('partant_course_passee'), not corrected,
                      unidentified, priority, h.get('engagement',''), key)
@@ -569,11 +598,17 @@ def propager_identite(state, horse):
     ident = horse.get('id')
     if not name or not ident:
         return
-    year = horse.get('geny', {}).get('annee_naissance_pmu')
+    year = horse.get('annee_naissance_pmu') or horse.get('geny', {}).get('annee_naissance_pmu')
+    pmu_id = horse.get('id_pmu')
     if horse.get('rapprochement_geny') == 'NOM_AMBIGU' and not year:
         return
     group = [h for h in state['chevaux'].values() if nom_normalise(h.get('nom')) == name
-             and (not year or h.get('annee_naissance_pmu') == year)]
+             and (not year or h.get('annee_naissance_pmu') == year or (pmu_id and h.get('id_pmu') == pmu_id))]
+    pmu_ids = {h['id_pmu'] for h in group if h.get('id_pmu')}
+    if len(pmu_ids) > 1:
+        if not pmu_id:
+            return
+        group = [h for h in group if h.get('id_pmu') == pmu_id]
     if any((h.get('id') and h['id'] != ident) or h.get('conflit_identite')
            or h.get('nom_passe_en_conflit') or (not year and h.get('rapprochement_geny') == 'NOM_AMBIGU') for h in group):
         return
@@ -804,6 +839,7 @@ def priorite_production(paths=None):
 def synchroniser_kpi(engine, state, cache):
     from .kpi_registre import KPI_TAB
 
+    engine.synchroniser_correspondances()
     details = engine.synchroniser_kpi()
     if KPI_TAB not in details:
         raise ValueError('KPI_SHEETS_NON_VERIFIES')
@@ -897,7 +933,6 @@ def main():
         debut = datetime.now(inc.UTC)
         limite = time.monotonic() + args.max_minutes * 60
         initial = inc.lire(cache / QUEUE)
-        from .resolution_identites_courses import PILOTE
 
         def progression_locale(state):
             counts = state.get('bilan', {})
@@ -994,18 +1029,19 @@ def main():
         if args.nocturne:
             from .resolution_identites_courses import passage
 
-            if inc.lire(cache/PILOTE).get('statut') != 'TERMINE':
-                now = datetime.now(inc.UTC)
-                state = preparer(cache, now)
-                if prochaine_tache(state, now, {})[1] != 'SYNC':
-                    def checkpoint_identites():
-                        persister_etat(cache, state)
-                        inc.checkpoint_distant(cache, queue=QUEUE)
+            now = datetime.now(inc.UTC)
+            state = preparer(cache, now)
+            if prochaine_tache(state, now, {})[1] != 'SYNC':
+                def checkpoint_identites():
+                    persister_etat(cache, state)
+                    inc.checkpoint_distant(cache, queue=QUEUE)
 
-                    passage(cache, state, stop_requested=controle_fond, checkpoint=checkpoint_identites)
-                    if reason := controle_fond():
-                        differer(reason, state)
-                        return
+                if passage(cache, state, stop_requested=controle_fond, checkpoint=checkpoint_identites):
+                    state['sync_kpi'] = 'A_REPRENDRE'
+                    checkpoint_identites()
+                if reason := controle_fond():
+                    differer(reason, state)
+                    return
         restant = (limite - time.monotonic()) / 60
         if restant <= 0:
             differer('BUDGET_TEMPS_ATTEINT', inc.lire(cache / QUEUE))

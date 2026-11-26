@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 from datetime import datetime, timezone
 
+from dashboard.trot_analytics.correspondance_geny import CHAMP as STATUT_GENY, COLONNE as LIBELLE_GENY
 from dashboard.trot_analytics.dates import date_kind, depuis_nombre, instant_iso, meme_date_sheets
 from dashboard.trot_analytics.usages import GENY_HISTORIQUE, IPR
 from .structure_geny import FIELDS, PROVENANCE, est_url, structurer
@@ -53,7 +54,7 @@ WINNER_REPORT_COLUMNS = tuple(
 )
 COTES_COLUMNS = ('top3_cotes_valeur', 'cote_releve_utc', 'cote_rapport_utc',
                  'top3_cotes_top3', 'top3_cotes_rang', 'top3_cotes_statut', 'top3_cotes_utc')
-COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + EDITORIAL_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS + DEPART_COLUMNS
+COMPARE_COLUMNS = PROFILE_COLUMNS + EXPERT_COLUMNS + EDITORIAL_COLUMNS + ('ml_modele_statut','top3_direct_rang','top3_direct_score','top3_direct_top3','top3_direct_statut','ml_score_non_calibre','top3_direct_utc','version_ml_utc','ml_rang','ml_top3','arrivee_rang','meteo_resume','meteo_statut') + COURSE_PMU_COLUMNS + WINNER_SELECTION_COLUMNS + COTES_COLUMNS + DEPART_COLUMNS + (STATUT_GENY,)
 SCORE_JALON_COLUMNS = tuple(
     f'score_{phase}_{kind}' for phase in ('h3', 'h2', 'h1') for kind in ('direct', 'ml'))
 ETAT_JALON_COLUMNS = tuple(
@@ -107,6 +108,7 @@ HIST_MAPPING = {'identifiant_cheval':'cheval_id','cheval':'nom','date_course_his
 # Les libelles Google Sheets sont independants des noms techniques Python.
 # Une seule correspondance stable permet de conserver la synchronisation idempotente.
 DISPLAY_NAMES = {
+    STATUT_GENY:LIBELLE_GENY,
     'course_key':'Clé course (technique)',
     'date_course':'Date',
     'hippodrome':'Hippodrome',
@@ -351,12 +353,32 @@ def conclusion_methodes(scores):
 def source_rows(cache, *, now=None):
     from .partants_actuels_v21 import profil_pmu_exclusif
     from .cotes_v19 import cote_valide, dernier_releve
-    from .identites_chevaux import IndexGeny
+    from .identites_chevaux import IndexGeny, TentativesGeny
     from .ipr import actif as ipr_actif
     publier_ipr = ipr_actif()
     identites_geny = IndexGeny(cache)
     courses, history, reports = {}, {}, {}
     now = now or datetime.now(timezone.utc)
+    from dashboard.trot_analytics.correspondance_geny import AMBIGUE, CONFIRMEE, NON_EFFECTUEE, NON_TROUVEE
+    tentatives_geny = TentativesGeny(cache, now)
+
+    def correspondance(date, code, numero, nom, pmu_id, geny_id, methode):
+        tentative = tentatives_geny.retrouver(f'{date}_{code}', numero, nom, pmu_id)
+        if geny_id:
+            statut, motif = CONFIRMEE, ''
+        elif tentative and (methode != 'NOM_AMBIGU' or tentative['statut'] != NON_TROUVEE):
+            statut, motif = tentative['statut'], tentative.get('motif', '')
+        elif methode == 'NOM_AMBIGU':
+            statut, motif = AMBIGUE, methode
+        else:
+            statut, motif = NON_EFFECTUEE, ''
+        details = [motif] if motif else []
+        if tentative and statut == tentative.get('statut'):
+            details.extend(f'{label} {tentative[key]}' for label, key in (
+                ('Contrôle UTC', 'utc'), ('Reprise UTC', 'reprise_utc')) if tentative.get(key))
+        return {STATUT_GENY: statut, '_note_correspondance_geny': '\n'.join(details),
+                '_id_pmu_correspondance': pmu_id, '_id_geny_correspondance': geny_id}
+
     from .cycle_ml_actif import modele_disponible,STATUT
     candidat_disponible=modele_disponible(cache) is not None
     def statut_ml(document,depart):
@@ -434,6 +456,8 @@ def source_rows(cache, *, now=None):
                  'baseline_top3':'OUI' if any(str(h.get('numero'))==str(n) for h in frozen.get('top3',[])) else '',
                  'baseline_final_top3':'OUI' if any(str(h.get('numero'))==str(n) for h in (latest or frozen).get('top3',[])) else '',
                  'rang_top3':r.get('baseline_final_rang','') if r.get('baseline_final_top3')=='OUI' else ''}
+            link, method = identites_geny.resoudre(doc['cheval'], cid, n, id_pmu=actual.get('id_pmu'))
+            doc.update(correspondance(date, code, n, doc['cheval'], actual.get('id_pmu'), link.get('id'), method))
             for c in COMPARE_COLUMNS:
                  if c not in doc and c not in PROFILE_COLUMNS:doc[c]=r.get(c,'')
             # Un score brut ML n'est pas une probabilite calibree.
@@ -529,7 +553,7 @@ def source_rows(cache, *, now=None):
             direct.get('version_profils') and calcul and depart and calcul < depart
             and instant(direct.get('depart')) == depart) else {}
         liens=etablir(cache,{'date':date,'code':code},[
-            {'numero':n,'nom':v.get('nom',''),'age_ans':v.get('age_ans')}
+            {'numero':n,'nom':v.get('nom',''),'age_ans':v.get('age_ans'),'id_pmu':v.get('id_pmu')}
             for n,v in participants.items()
         ],index=identites_geny)
         for n,act in participants.items():
@@ -657,6 +681,8 @@ def source_rows(cache, *, now=None):
                     current.update(ipr_rang_shadow='', ipr_score='', ipr_confiance='NON ÉVALUABLE',
                                    ipr_motifs='Participation non confirmée au dernier relevé PMU')
                 authoritative.update(IPR.libelles)
+            current.update(correspondance(date, code, n, act.get('nom'), act.get('id_pmu'),
+                                           link.get('cheval_id'), link_method))
             courses[krow]={**existing,**{key:value for key,value in current.items()
                                          if value is not None and (value!='' or key in authoritative)}}
     from .resultats_v18 import classement_podium

@@ -81,7 +81,7 @@ class ResolutionCoursesTests(unittest.TestCase):
         self.assertEqual(set(result['conflits']), {'1', '2', '3'})
         self.assertEqual(result['numeros_sans_lien'], ['4'])
 
-    def test_403_partage_la_pause_et_la_cohorte_ne_change_pas(self):
+    def test_403_partage_la_pause_et_la_file_reprend_sans_plafond(self):
         engagement = self.course(1, ['Opale'])
         refused = Mock(return_value={'statut': 'ACCES_REFUSE_403'})
         self.assertTrue(self.run_passage(refused))
@@ -89,14 +89,17 @@ class ResolutionCoursesTests(unittest.TestCase):
         self.assertEqual(journal['dernier_blocage_geny']['code'], '403')
         self.assertEqual(inc.instant(self.state['prochain_acces_geny_utc']), self.now+timedelta(minutes=30))
         self.assertFalse(self.run_passage(refused, stop=lambda: 'COOLDOWN_GENY_GLOBAL'))
-        self.course(2, ['Orion', 'Océane'])
-        self.now += timedelta(minutes=31)
-        self.assertTrue(self.run_passage(refused))
-        pilot = inc.lire(self.cache/resolution.PILOTE)
-        self.assertEqual(list(pilot['courses']), [engagement])
-        self.assertEqual(pilot['statut'], 'TERMINE')
+        others = [self.course(n, [f'Cheval {n}']) for n in range(2, 14)]
         self.assertFalse(self.run_passage(refused))
-        self.assertEqual(refused.call_count, 2)
+        self.now += timedelta(minutes=31)
+        read = Mock(side_effect=self.reply)
+        self.assertTrue(self.run_passage(read))
+        self.assertEqual(read.call_args.args[0]['engagement'], min(others))
+        pilot = inc.lire(self.cache/resolution.PILOTE)
+        self.assertEqual(set(pilot['courses']), {engagement, *others})
+        self.assertEqual(pilot['courses'][engagement]['statut'], 'DIFFERE_REFUS_GENY')
+        self.assertEqual(pilot['statut'], 'EN_COURS')
+        refused.assert_called_once()
 
     def test_page_publique_lue_une_fois_et_redirection_vers_autre_course_refusee(self):
         self.course(1, ['Opale'])

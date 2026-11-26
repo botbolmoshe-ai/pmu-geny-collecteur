@@ -15,6 +15,14 @@ def lien_valide(url, ident=None):
                 and match and (not ident or match[1]==str(ident)))
 
 
+
+def url_fiche_canonique(url):
+    """Conserver l'URL de preuve et utiliser sa fiche publique pour la carrière."""
+    if not lien_valide(url):
+        raise ValueError('URL_GENY_INVALIDE')
+    segment = urlparse(url).path.split('/')[2]
+    return f'https://www.geny.com/cheval/{segment}'
+
 def extraire(rows,html,engagement,source_url,stamp):
     course=re.search(r'/course/(\d+)',source_url)
     parsed=urlparse(source_url)

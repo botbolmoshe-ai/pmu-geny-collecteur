@@ -117,6 +117,8 @@ class IndexGeny:
         self.noms = defaultdict(dict)
         self.contextes = defaultdict(set)
         self.annees = defaultdict(set)
+        self.pmu = defaultdict(set)
+        self.annees_par_id = defaultdict(set)
         self.noms_par_id = defaultdict(set)
         self.cache = Path(cache)
         journal = (load(self.cache/'etat_persistant.json', {}) or {}).get('chevaux', {})
@@ -198,8 +200,13 @@ class IndexGeny:
             if preuve_resolution_valide(proof):
                 horse = proof['geny']
                 self.ajouter(horse['nom'], horse['id'], horse['url_geny'], proof['preuve'], fiche=horse)
-                if horse.get('annee_naissance_pmu'):
-                    self.annees[(nom_normalise(horse['nom']), horse['annee_naissance_pmu'])].add(str(horse['id']))
+                if proof.get('id_pmu'):
+                    self.pmu[str(proof['id_pmu'])].add(str(horse['id']))
+                year = proof.get('annee_naissance_pmu') or horse.get('annee_naissance_pmu')
+                if year:
+                    key = nom_normalise(proof['nom_attendu'])
+                    self.annees[(key, int(year))].add(str(horse['id']))
+                    self.annees_par_id[(key, str(horse['id']))].add(int(year))
                 for candidate in horse.get('homonymes', []):
                     if nom_normalise(candidate.get('nom')) == nom_normalise(horse['nom']):
                         self.ajouter(candidate.get('nom'), candidate.get('id'), candidate.get('url_geny'),
@@ -224,12 +231,22 @@ class IndexGeny:
             for name in keys:
                 self.contextes[(name, course, str(numero))].add(ident)
 
-    def resoudre(self, nom, course=None, numero=None, *, nom_repris=False, annee=None):
+    def resoudre(self, nom, course=None, numero=None, *, nom_repris=False, annee=None, id_pmu=None):
         key = nom_normalise(nom)
         candidates = self.noms.get(key, {})
         context = self.contextes.get((key, course, str(numero)), set())
+        pmu_ids = self.pmu.get(str(id_pmu), set())
+        annee_ids = self.annees.get((key, annee), set())
+        if pmu_ids:
+            confirmed = pmu_ids.intersection(candidates)
+            if context:
+                confirmed &= context
+            if annee_ids:
+                confirmed &= annee_ids
+            if len(confirmed) == 1 and len(pmu_ids) == 1:
+                return candidates[next(iter(confirmed))], 'ID_PMU_VERIFIE'
+            return {}, 'NOM_AMBIGU'
         if len(candidates) > 1 or nom_repris:
-            annee_ids = self.annees.get((key, annee), set())
             confirmed = context & annee_ids if context and annee_ids else context or annee_ids
             if len(confirmed) == 1:
                 ident = next(iter(confirmed))
@@ -237,7 +254,8 @@ class IndexGeny:
                     return candidates[ident], 'NOM_AMBIGU_ID_CONFIRME'
         elif len(candidates) == 1:
             ident = next(iter(candidates))
-            if len(self.noms_par_id[ident]) == 1:
+            known_years = self.annees_par_id.get((key, ident), set())
+            if len(self.noms_par_id[ident]) == 1 and (not annee or not known_years or annee in known_years):
                 return candidates[ident], ('NOM_EXACT_ET_ID_GENY_CONFIRME' if context
                                            else 'NOM_EXACT_UNIQUE')
         return {}, 'NOM_AMBIGU' if candidates or nom_repris else 'NON_ASSOCIE'
@@ -254,3 +272,74 @@ def preuve_resolution_valide(proof):
             and source_identifiant(ident, horse.get('url_geny')) == 'geny'
             and bool(nom_normalise(horse.get('nom')))
             and nom_geny_concordant(proof.get('nom_attendu'), horse))
+
+
+def statut_tentative(motif):
+    from dashboard.trot_analytics.correspondance_geny import AMBIGUE, BLOQUEE, NON_TROUVEE
+
+    if motif == 'RECHERCHE_GENY_SANS_NOM_EXACT':
+        return NON_TROUVEE
+    if motif in ('RECHERCHE_GENY_NOM_AMBIGU', 'NOM_NUMERO_OU_IDENTIFIANT_NON_CONCORDANT',
+                 'CONFLIT_PREUVE_ARCHIVEE', 'NOM_FICHE_GENY_NON_CONCORDANT'):
+        return AMBIGUE
+    return BLOQUEE
+
+
+def memoriser_tentative(horse, report, stamp, *, acces, refus=None):
+    """Journaliser une tentative d'identité dans la file durable existante."""
+    if horse.get('geny') and source_identifiant(horse['geny'].get('id'), horse['geny'].get('url_geny')) == 'geny':
+        return
+    motif = report.get('statut')
+    if not (acces or refus or motif in ('RECHERCHE_GENY_SANS_NOM_EXACT', 'RECHERCHE_GENY_NOM_AMBIGU',
+                                        'RECHERCHE_GENY_NON_AUTORISEE')):
+        return
+    motif = motif or ('ACCES_GENY_' + refus if refus else 'EXECUTION_GENY_INTERROMPUE')
+    horse['recherche_identite_geny'] = {
+        'statut': statut_tentative(motif), 'motif': motif,
+        'utc': stamp, 'reprise_utc': horse.get('prochain_essai_utc'),
+    }
+
+
+class TentativesGeny:
+    """Relecture des preuves des deux files par contexte ou identifiant PMU."""
+
+    def __init__(self, cache, now):
+        from .echeances_production import instant, lire
+
+        self.contextes = {}
+        self.pmu = {}
+        for path in ('collecte_incrementale/etat.json', 'rattrapage_historiques/etat.json'):
+            for horse in lire(Path(cache) / path).get('chevaux', {}).values():
+                name = nom_normalise(horse.get('nom'))
+                record = horse.get('recherche_identite_geny')
+                if not record:
+                    old = horse.get('dernier_echec_collecte') or {}
+                    motif = old.get('statut')
+                    if motif not in ('RECHERCHE_GENY_NOM_AMBIGU', 'RECHERCHE_GENY_SANS_NOM_EXACT',
+                                      'RECHERCHE_GENY_INDISPONIBLE', 'RECHERCHE_GENY_NON_INTERPRETABLE',
+                                      'NOM_FICHE_GENY_NON_CONCORDANT'):
+                        continue
+                    record = {'statut': statut_tentative(motif), 'motif': motif, 'utc': old.get('utc'),
+                              'reprise_utc': horse.get('prochain_essai_utc')}
+                stamp = instant(record.get('utc'))
+                if not name or not stamp or stamp > now:
+                    continue
+                context = (horse.get('engagement'), str(horse.get('numero') or ''), name)
+                if all(context):
+                    self._ajouter(self.contextes, context, stamp, record)
+                if horse.get('id_pmu'):
+                    self._ajouter(self.pmu, (str(horse['id_pmu']), name), stamp, record)
+
+    @staticmethod
+    def _ajouter(index, key, stamp, record):
+        previous = index.get(key)
+        if previous is None or stamp > previous[0]:
+            index[key] = (stamp, record)
+
+    def retrouver(self, engagement, numero, nom, id_pmu):
+        name = nom_normalise(nom)
+        records = tuple(item for item in (
+            self.contextes.get((engagement, str(numero), name)),
+            self.pmu.get((str(id_pmu), name)),
+        ) if item)
+        return max(records, key=lambda item: item[0])[1] if records else {}

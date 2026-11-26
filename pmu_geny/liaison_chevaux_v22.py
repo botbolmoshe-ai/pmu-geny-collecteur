@@ -48,6 +48,8 @@ def etablir(cache, course, participants=None, *, index=None):
             names[str(number)] = h.get('nom', h.get('nomCheval', ''))
     ages = {str(h.get('numero', h.get('numPmu'))): str(h.get('age_ans', h.get('age', '')))
             for h in participants or [] if isinstance(h, dict)}
+    ids_pmu = {str(h.get('numero', h.get('numPmu'))): h.get('id_pmu')
+               for h in participants or [] if isinstance(h, dict)}
     counts = Counter(nom_normalise(name) for name in names.values())
     cid = course_geny_connue(cache, f"{course['date']}_{course['code']}")
     if cid:
@@ -63,7 +65,7 @@ def etablir(cache, course, participants=None, *, index=None):
     for number, name in names.items():
         age = ages[number]
         year = int(course['date'][:4]) - int(age) if age.isdigit() else None
-        link, method = index.resoudre(name, cid, number, nom_repris=counts[nom_normalise(name)] > 1, annee=year)
+        link, method = index.resoudre(name, cid, number, nom_repris=counts[nom_normalise(name)] > 1, annee=year, id_pmu=ids_pmu.get(number))
         ident = link.get('id', '')
         doc = {}
         if ident:

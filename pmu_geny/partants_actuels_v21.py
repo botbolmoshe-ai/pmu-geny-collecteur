@@ -156,6 +156,9 @@ def extraire_partants(raw, *, course=None):
         if n is None or n in resultat:
             continue
         fields={}
+        ident = item.get('idCheval')
+        if isinstance(ident, (int, str)) and not isinstance(ident, bool) and str(ident).strip():
+            fields['id_pmu'] = str(ident).strip()
         for label,aliases in FIELDS.items():
             for alias in aliases:
                 val=_label(item.get(alias))

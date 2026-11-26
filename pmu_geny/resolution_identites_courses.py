@@ -1,6 +1,6 @@
 """Résoudre les identités du rattrapage à partir des pages de partants Geny."""
 from collections import Counter, defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 import json
 import re
@@ -10,11 +10,10 @@ from . import historiques_incrementaux as inc
 from . import liens_geny_course as liens
 from .cadence_geny import CadenceGeny, REFUS
 from .echeances_production import pause_geny_active
-from .historique_individuel import observer_http_geny
+from .historique_individuel import ignorer_ressource, observer_http_geny
 from .liaison_chevaux_v22 import nom_geny_concordant, nom_normalise
 
 PILOTE = Path('rattrapage_historiques/resolution_identites_courses.json')
-LIMITE_COURSES = 10
 
 
 def identifiant_course(url):
@@ -79,7 +78,8 @@ def lire_page(course, *, page=None):
                 mesure = {}
                 try:
                     context = browser.new_context(locale='fr-FR', timezone_id='Europe/Paris')
-                    mesure = observer_http_geny(context)
+                    context.route('**/*', ignorer_ressource)
+                    mesure = observer_http_geny(context, filtrage=True)
                     result = lire_page(course, page=context.new_page())
                 except Error as exc:
                     result = {'statut': 'ERREUR_NAVIGATION', 'erreur': type(exc).__name__}
@@ -151,31 +151,32 @@ def preuves_concordantes(cache, course, proof, now):
 
 def passage(cache, state, *, stop_requested, checkpoint, collect=None,
             now=lambda: datetime.now(inc.UTC)):
-    """Traiter au plus une page par passage et suivre une cohorte fixe de dix courses."""
+    """Lire la prochaine page utile sous la cadence commune et conserver les preuves du pilote."""
     pilot = inc.lire(cache/PILOTE)
-    if pilot.get('statut') == 'TERMINE' or stop_requested():
+    if stop_requested() or pause_geny_active(cache, now(), back=state):
         return False
     cadence = CadenceGeny(cache) if collect is None else None
     if cadence:
-        if pause_geny_active(cache, now(), back=state) or cadence.delai(now()):
+        if cadence.delai(now()):
             return False
         collect = lire_page
     groups, exclusions = inventaire(cache, state)
-    if not pilot:
-        pilot = {'creation_utc': now().isoformat(), 'courses': {
-            g['engagement']: {'id': g['id'], 'cibles': len(g['partants']), 'tentatives': 0}
-            for g in groups[:LIMITE_COURSES]}}
+    if not groups:
+        return False
+    pilot.setdefault('creation_utc', now().isoformat())
+    courses = pilot.setdefault('courses', {})
     by_engagement = {g['engagement']: g for g in groups}
-    for engagement, result in pilot['courses'].items():
-        if result.get('statut') not in (None, 'DIFFERE_REFUS_GENY') or engagement in by_engagement:
-            continue
-        result['statut'] = 'AUCUNE_CIBLE_ELIGIBLE_APRES_RELECTURE'
-    pending = [(r['tentatives'], e) for e, r in pilot['courses'].items()
-               if r.get('statut') in (None, 'DIFFERE_REFUS_GENY') and e in by_engagement]
+    for group in groups:
+        courses.setdefault(group['engagement'], {'id': group['id'],
+                           'cibles': len(group['partants']), 'tentatives': 0})
+    pending = [(r['tentatives'], -len(by_engagement[e]['partants']), e) for e, r in courses.items()
+               if e in by_engagement and r.get('statut') in (None, 'DIFFERE_REFUS_GENY', 'ERREUR_NAVIGATION')
+               and (not inc.instant(r.get('reprise_utc')) or inc.instant(r['reprise_utc']) <= now())]
+    if not pending:
+        return False
     attempted = False
     if pending and not stop_requested():
-        # L'ordre de la cohorte reste stable en cas d'égalité de tentatives.
-        engagement = min(pending, key=lambda item: item[0])[1]
+        _, _, engagement = min(pending)
         course = by_engagement[engagement]
         result = pilot['courses'][engagement]
         if result['id'] != course['id']:
@@ -195,16 +196,29 @@ def passage(cache, state, *, stop_requested, checkpoint, collect=None,
                 cadence.terminer(stamp, refus=status in REFUS)
             if status in REFUS:
                 inc.suspendre_geny(cache, state, stamp, REFUS[status], mesure.get('reprise_au_plus_tot_utc'))
-                if result['tentatives'] < 2:
-                    result.update(statut='DIFFERE_REFUS_GENY', dernier_refus=status)
+                result.update(statut='DIFFERE_REFUS_GENY', dernier_refus=status,
+                              reprise_utc=state['prochain_acces_geny_utc'])
+            elif status == 'ERREUR_NAVIGATION':
+                result['reprise_utc'] = (stamp + timedelta(hours=6)).isoformat()
             elif status == 'PAGE_LUE':
                 accepted, conflicts = preuves_concordantes(cache, course, response['preuve'], stamp)
                 ids = {link['id'] for link in accepted.values()}
                 result.update(identites_confirmees=len(accepted), conflits=conflicts,
                               carrieres_a_collecter=sorted(ident for ident in ids if not inc.capture_valide(cache, ident)),
                               numeros_sans_lien=sorted(set(course['partants']) - accepted.keys() - conflicts.keys()))
-    pilot['statut'] = ('EN_COURS' if any(r.get('statut') in (None, 'DIFFERE_REFUS_GENY')
-                                       for r in pilot['courses'].values()) else 'TERMINE')
+    if attempted:
+        from .identites_chevaux import statut_tentative
+        for horse in state['chevaux'].values():
+            number = str(horse.get('numero'))
+            if (horse.get('id') or horse.get('engagement') != engagement
+                    or nom_normalise(horse.get('nom')) != nom_normalise(course['partants'].get(number))):
+                continue
+            motif = result.get('conflits', {}).get(number) if status == 'PAGE_LUE' else status
+            if motif:
+                horse['recherche_identite_geny'] = {'statut': statut_tentative(motif), 'motif': motif,
+                    'utc': stamp.isoformat(), 'reprise_utc': result.get('reprise_utc')}
+    pilot['statut'] = ('EN_COURS' if any(r.get('statut') in (None, 'DIFFERE_REFUS_GENY', 'ERREUR_NAVIGATION')
+                                       for e, r in courses.items() if e in by_engagement) else 'TERMINE')
     pilot['exclusions_inventaire'] = exclusions
     pilot['identites_confirmees'] = sum(r.get('identites_confirmees', 0) for r in pilot['courses'].values())
     pilot['conflits'] = sum(len(r.get('conflits', {})) for r in pilot['courses'].values())
