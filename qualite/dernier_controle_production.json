@@ -1,299 +1,76 @@
 {
-  "controle_utc": "2026-11-26T14:25:03.241727+00:00",
+  "controle_utc": "2026-11-26T16:48:37.845805+00:00",
   "publication_reussie": true,
   "plan": {
-    "plan_utc": "2026-11-26T14:24:27.678773+00:00",
+    "plan_utc": "2026-11-26T16:47:27.384373+00:00",
     "date": "2026-11-26",
     "erreurs": [],
     "version_jalons": "H3_H2",
     "executer": true,
-    "mode": "JALONS",
+    "mode": "GLOBAL",
     "date_preparation": null,
     "global_du": true,
     "secours_pmu": true,
-    "selection": [
-      "R4C1",
-      "R4C2",
-      "R4C3",
-      "R4C4",
-      "R4C5",
-      "R4C6",
-      "R4C7",
-      "R4C8"
-    ],
+    "selection": [],
     "prochain_jalon_utc": null,
-    "jalons_dus": [
-      {
-        "course": "2026-11-26_R4C1",
-        "reunion": "2026-11-26_R4",
-        "phase": "H2",
-        "echeance": "2026-11-26T14:07:00+00:00"
-      },
-      {
-        "course": "2026-11-26_R4C2",
-        "reunion": "2026-11-26_R4",
-        "phase": "H2",
-        "echeance": "2026-11-26T14:07:00+00:00"
-      },
-      {
-        "course": "2026-11-26_R4C3",
-        "reunion": "2026-11-26_R4",
-        "phase": "H2",
-        "echeance": "2026-11-26T14:07:00+00:00"
-      },
-      {
-        "course": "2026-11-26_R4C4",
-        "reunion": "2026-11-26_R4",
-        "phase": "H2",
-        "echeance": "2026-11-26T14:07:00+00:00"
-      },
-      {
-        "course": "2026-11-26_R4C5",
-        "reunion": "2026-11-26_R4",
-        "phase": "H2",
-        "echeance": "2026-11-26T14:07:00+00:00"
-      },
-      {
-        "course": "2026-11-26_R4C6",
-        "reunion": "2026-11-26_R4",
-        "phase": "H2",
-        "echeance": "2026-11-26T14:07:00+00:00"
-      },
-      {
-        "course": "2026-11-26_R4C7",
-        "reunion": "2026-11-26_R4",
-        "phase": "H2",
-        "echeance": "2026-11-26T14:07:00+00:00"
-      },
-      {
-        "course": "2026-11-26_R4C8",
-        "reunion": "2026-11-26_R4",
-        "phase": "H2",
-        "echeance": "2026-11-26T14:07:00+00:00"
-      }
-    ],
+    "jalons_dus": [],
     "rapprochements_dus": [],
     "prochain_besoin_utc": "2026-11-26T17:30:00+00:00"
   },
   "courses": [
     {
-      "course": "2026-11-26_R4C1",
+      "course": "2026-11-26_R1C8",
       "top3_direct_et_ml": true,
       "jalons": {
-        "H3": {
-          "echeance": "2026-11-26T13:07:00+00:00",
+        "H2": {
+          "echeance": "2026-11-26T10:55:00+00:00",
           "controle_utc": "2026-11-26T12:33:31.334736+00:00",
-          "reference_utc": "2026-11-26T16:07:00+00:00",
+          "reference_utc": "2026-11-26T12:55:00+00:00",
           "demarrage_utc": "2026-11-26T12:32:30.950848+00:00",
           "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-26T12:32:49.775604+00:00",
+          "fin_calcul_utc": "2026-11-26T12:33:02.153617+00:00",
           "publication_utc": "2026-11-26T12:33:31.222861+00:00",
-          "statut": "PUBLIE_A_TEMPS",
-          "retard_secondes": 0,
-          "versions": {
-            "direct": {
-              "calcul_utc": "2026-11-26T12:32:48.308059+00:00",
-              "publication_utc": "2026-11-26T12:33:31.222861+00:00",
-              "sha256": "4d41ef7cb45ff78a98de3bfadfc1b0c4d705e2fbcf0be02c97450278ed7c4cfe",
-              "fichier": "jalons/2026-11-26_R4C1/H3_direct_20261126T123248308059Z.json",
-              "empreinte_modele": null,
-              "lecture_sheets_utc": "2026-11-26T12:33:31.222861+00:00",
-              "capture_partants_utc": "2026-11-26T12:32:43.834909+00:00",
-              "programme_pmu": {
-                "identite": {
-                  "date": "2026-11-26",
-                  "code": "R4C1",
-                  "hippodrome": "HIPPODROME DE MAUQUENCHY",
-                  "nom": "PRIX LE NORMANDY D'AUMALE",
-                  "discipline": "TROT_ATTELE",
-                  "distance_m": 2850
-                },
-                "depart": "2026-11-26T17:07:00+01:00"
-              }
-            },
-            "ml": {
-              "calcul_utc": "2026-11-26T12:32:49.775604+00:00",
-              "publication_utc": "2026-11-26T12:33:31.222861+00:00",
-              "sha256": "d9f3853c560f6d90aa6e749f33941f0ae8a02c1d6f7884de931fd7a8a56c4306",
-              "fichier": "jalons/2026-11-26_R4C1/H3_ml_20261126T123249775604Z.json",
-              "empreinte_modele": "1bb771e5f1b9a043d962860b3e042d5dc8e42730d005cbca9365976c3254caad",
-              "lecture_sheets_utc": "2026-11-26T12:33:31.222861+00:00",
-              "capture_partants_utc": "2026-11-26T12:32:43.834909+00:00",
-              "programme_pmu": {
-                "identite": {
-                  "date": "2026-11-26",
-                  "code": "R4C1",
-                  "hippodrome": "HIPPODROME DE MAUQUENCHY",
-                  "nom": "PRIX LE NORMANDY D'AUMALE",
-                  "discipline": "TROT_ATTELE",
-                  "distance_m": 2850
-                },
-                "depart": "2026-11-26T17:07:00+01:00"
-              }
-            }
-          }
-        },
-        "H2": {
-          "echeance": "2026-11-26T14:07:00+00:00",
-          "controle_utc": "2026-11-26T14:25:03.241727+00:00",
-          "reference_utc": "2026-11-26T16:07:00+00:00",
-          "demarrage_utc": "2026-11-26T14:24:27.678773+00:00",
-          "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-26T14:24:42.295075+00:00",
-          "publication_utc": "2026-11-26T14:25:03.147314+00:00",
           "statut": "PUBLIE_EN_RETARD",
-          "retard_secondes": 1083.147314,
+          "retard_secondes": 5911.222861,
           "versions": {
             "direct": {
-              "calcul_utc": "2026-11-26T14:24:40.390935+00:00",
-              "publication_utc": "2026-11-26T14:25:03.147314+00:00",
-              "sha256": "d31902bbb98290c6f611f492f9df5bfc295073f1e56f130b873aa02280752ab9",
-              "fichier": "jalons/2026-11-26_R4C1/H2_direct_20261126T142440390935Z.json",
-              "empreinte_modele": null,
-              "lecture_sheets_utc": "2026-11-26T14:25:03.147314+00:00",
-              "capture_partants_utc": "2026-11-26T14:24:38.959075+00:00",
-              "programme_pmu": {
-                "identite": {
-                  "date": "2026-11-26",
-                  "code": "R4C1",
-                  "hippodrome": "HIPPODROME DE MAUQUENCHY",
-                  "nom": "PRIX LE NORMANDY D'AUMALE",
-                  "discipline": "TROT_ATTELE",
-                  "distance_m": 2850
-                },
-                "depart": "2026-11-26T17:07:00+01:00"
-              }
-            },
-            "ml": {
-              "calcul_utc": "2026-11-26T14:24:42.295075+00:00",
-              "publication_utc": "2026-11-26T14:25:03.147314+00:00",
-              "sha256": "336dc8bf2b23364818d8abe9f49ae64becfca6d7d6e00a52852a9e4c43a9518d",
-              "fichier": "jalons/2026-11-26_R4C1/H2_ml_20261126T142442295075Z.json",
-              "empreinte_modele": "1bb771e5f1b9a043d962860b3e042d5dc8e42730d005cbca9365976c3254caad",
-              "lecture_sheets_utc": "2026-11-26T14:25:03.147314+00:00",
-              "capture_partants_utc": "2026-11-26T14:24:38.959075+00:00",
-              "programme_pmu": {
-                "identite": {
-                  "date": "2026-11-26",
-                  "code": "R4C1",
-                  "hippodrome": "HIPPODROME DE MAUQUENCHY",
-                  "nom": "PRIX LE NORMANDY D'AUMALE",
-                  "discipline": "TROT_ATTELE",
-                  "distance_m": 2850
-                },
-                "depart": "2026-11-26T17:07:00+01:00"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "course": "2026-11-26_R4C2",
-      "top3_direct_et_ml": true,
-      "jalons": {
-        "H3": {
-          "echeance": "2026-11-26T13:07:00+00:00",
-          "controle_utc": "2026-11-26T12:33:31.334736+00:00",
-          "reference_utc": "2026-11-26T16:07:00+00:00",
-          "demarrage_utc": "2026-11-26T12:32:30.950848+00:00",
-          "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-26T12:32:50.605147+00:00",
-          "publication_utc": "2026-11-26T12:33:31.222861+00:00",
-          "statut": "PUBLIE_A_TEMPS",
-          "retard_secondes": 0,
-          "versions": {
-            "direct": {
-              "calcul_utc": "2026-11-26T12:32:50.303157+00:00",
+              "calcul_utc": "2026-11-26T12:33:01.854911+00:00",
               "publication_utc": "2026-11-26T12:33:31.222861+00:00",
-              "sha256": "f4533515243c64fe888375f1f75df2ad59db8732e049b0d1a1f5914b0f197ef7",
-              "fichier": "jalons/2026-11-26_R4C2/H3_direct_20261126T123250303157Z.json",
+              "sha256": "b97aae7d823832b8f9af07369706ca20821e2f94fb5f3b0480d37ace234da2e5",
+              "fichier": "jalons/2026-11-26_R1C8/H2_direct_20261126T123301854911Z.json",
               "empreinte_modele": null,
               "lecture_sheets_utc": "2026-11-26T12:33:31.222861+00:00",
-              "capture_partants_utc": "2026-11-26T12:32:44.112181+00:00",
+              "capture_partants_utc": "2026-11-26T12:32:47.901342+00:00",
               "programme_pmu": {
                 "identite": {
                   "date": "2026-11-26",
-                  "code": "R4C2",
-                  "hippodrome": "HIPPODROME DE MAUQUENCHY",
-                  "nom": "PRIX LE VILLAGE - MESNIERES EN BRAY",
-                  "discipline": "TROT_ATTELE",
+                  "code": "R1C8",
+                  "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+                  "nom": "PRIX DE L'ILE DE RE",
+                  "discipline": "TROT_MONTE",
                   "distance_m": 2850
                 },
-                "depart": "2026-11-26T17:42:00+01:00"
+                "depart": "2026-11-26T18:00:00+01:00"
               }
             },
             "ml": {
-              "calcul_utc": "2026-11-26T12:32:50.605147+00:00",
+              "calcul_utc": "2026-11-26T12:33:02.153617+00:00",
               "publication_utc": "2026-11-26T12:33:31.222861+00:00",
-              "sha256": "72398ba91064a5927e26d6404aa958d3466273f6681d4e15840ebb7e0978744b",
-              "fichier": "jalons/2026-11-26_R4C2/H3_ml_20261126T123250605147Z.json",
+              "sha256": "9818b140ab17951132a3c128382a718ba37e52d92fdf63c79f13b8e1fa648885",
+              "fichier": "jalons/2026-11-26_R1C8/H2_ml_20261126T123302153617Z.json",
               "empreinte_modele": "1bb771e5f1b9a043d962860b3e042d5dc8e42730d005cbca9365976c3254caad",
               "lecture_sheets_utc": "2026-11-26T12:33:31.222861+00:00",
-              "capture_partants_utc": "2026-11-26T12:32:44.112181+00:00",
+              "capture_partants_utc": "2026-11-26T12:32:47.901342+00:00",
               "programme_pmu": {
                 "identite": {
                   "date": "2026-11-26",
-                  "code": "R4C2",
-                  "hippodrome": "HIPPODROME DE MAUQUENCHY",
-                  "nom": "PRIX LE VILLAGE - MESNIERES EN BRAY",
-                  "discipline": "TROT_ATTELE",
+                  "code": "R1C8",
+                  "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+                  "nom": "PRIX DE L'ILE DE RE",
+                  "discipline": "TROT_MONTE",
                   "distance_m": 2850
                 },
-                "depart": "2026-11-26T17:42:00+01:00"
-              }
-            }
-          }
-        },
-        "H2": {
-          "echeance": "2026-11-26T14:07:00+00:00",
-          "controle_utc": "2026-11-26T14:25:03.241727+00:00",
-          "reference_utc": "2026-11-26T16:07:00+00:00",
-          "demarrage_utc": "2026-11-26T14:24:27.678773+00:00",
-          "version_jalons": "H3_H2",
-          "fin_calcul_utc": "2026-11-26T14:24:43.032811+00:00",
-          "publication_utc": "2026-11-26T14:25:03.147314+00:00",
-          "statut": "PUBLIE_EN_RETARD",
-          "retard_secondes": 1083.147314,
-          "versions": {
-            "direct": {
-              "calcul_utc": "2026-11-26T14:24:42.754206+00:00",
-              "publication_utc": "2026-11-26T14:25:03.147314+00:00",
-              "sha256": "9be082c64afb8e933427ab450ce18cf49d647773e96f75c81d43d43e63ca8dc1",
-              "fichier": "jalons/2026-11-26_R4C2/H2_direct_20261126T142442754206Z.json",
-              "empreinte_modele": null,
-              "lecture_sheets_utc": "2026-11-26T14:25:03.147314+00:00",
-              "capture_partants_utc": "2026-11-26T14:24:39.147681+00:00",
-              "programme_pmu": {
-                "identite": {
-                  "date": "2026-11-26",
-                  "code": "R4C2",
-                  "hippodrome": "HIPPODROME DE MAUQUENCHY",
-                  "nom": "PRIX LE VILLAGE - MESNIERES EN BRAY",
-                  "discipline": "TROT_ATTELE",
-                  "distance_m": 2850
-                },
-                "depart": "2026-11-26T17:42:00+01:00"
-              }
-            },
-            "ml": {
-              "calcul_utc": "2026-11-26T14:24:43.032811+00:00",
-              "publication_utc": "2026-11-26T14:25:03.147314+00:00",
-              "sha256": "728d3fb8bd382ed92729a91b0cb5554ecda1628f90394df2bda21877fddbce5f",
-              "fichier": "jalons/2026-11-26_R4C2/H2_ml_20261126T142443032811Z.json",
-              "empreinte_modele": "1bb771e5f1b9a043d962860b3e042d5dc8e42730d005cbca9365976c3254caad",
-              "lecture_sheets_utc": "2026-11-26T14:25:03.147314+00:00",
-              "capture_partants_utc": "2026-11-26T14:24:39.147681+00:00",
-              "programme_pmu": {
-                "identite": {
-                  "date": "2026-11-26",
-                  "code": "R4C2",
-                  "hippodrome": "HIPPODROME DE MAUQUENCHY",
-                  "nom": "PRIX LE VILLAGE - MESNIERES EN BRAY",
-                  "discipline": "TROT_ATTELE",
-                  "distance_m": 2850
-                },
-                "depart": "2026-11-26T17:42:00+01:00"
+                "depart": "2026-11-26T18:00:00+01:00"
               }
             }
           }
@@ -973,53 +750,7 @@
       }
     }
   ],
-  "erreurs": [
-    {
-      "course": "2026-11-26_R4C1",
-      "phase": "H2",
-      "motif": "JALON_PUBLIE_EN_RETARD"
-    },
-    {
-      "course": "2026-11-26_R4C2",
-      "phase": "H2",
-      "motif": "JALON_PUBLIE_EN_RETARD"
-    },
-    {
-      "course": "2026-11-26_R4C3",
-      "phase": "H2",
-      "motif": "JALON_PUBLIE_EN_RETARD"
-    },
-    {
-      "course": "2026-11-26_R4C4",
-      "phase": "H2",
-      "motif": "JALON_PUBLIE_EN_RETARD"
-    },
-    {
-      "course": "2026-11-26_R4C5",
-      "phase": "H2",
-      "motif": "JALON_PUBLIE_EN_RETARD"
-    },
-    {
-      "course": "2026-11-26_R4C6",
-      "phase": "H2",
-      "motif": "JALON_PUBLIE_EN_RETARD"
-    },
-    {
-      "course": "2026-11-26_R4C7",
-      "phase": "H2",
-      "motif": "JALON_PUBLIE_EN_RETARD"
-    },
-    {
-      "course": "2026-11-26_R4C8",
-      "phase": "H2",
-      "motif": "JALON_PUBLIE_EN_RETARD"
-    },
-    {
-      "reunion": "2026-11-26_R4",
-      "phase": "H2",
-      "motif": "PUBLIE_EN_RETARD"
-    }
-  ],
+  "erreurs": [],
   "rapprochements": [],
   "reunions": [
     {
@@ -1048,27 +779,27 @@
             },
             {
               "code": "R1C4",
-              "statut_pmu": "ROUGE_AUX_PARTANTS",
+              "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
               "top3_attendu": true
             },
             {
               "code": "R1C5",
-              "statut_pmu": "PROGRAMMEE",
+              "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
               "top3_attendu": true
             },
             {
               "code": "R1C6",
-              "statut_pmu": "PROGRAMMEE",
+              "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
               "top3_attendu": true
             },
             {
               "code": "R1C7",
-              "statut_pmu": "PROGRAMMEE",
+              "statut_pmu": "ARRIVEE_DEFINITIVE_COMPLETE",
               "top3_attendu": true
             },
             {
               "code": "R1C8",
-              "statut_pmu": "PROGRAMMEE",
+              "statut_pmu": "ROUGE_AUX_PARTANTS",
               "top3_attendu": true
             }
           ],
@@ -1083,7 +814,7 @@
             "R1C7",
             "R1C8"
           ],
-          "demarrage_utc": "2026-11-26T14:24:27.678773+00:00",
+          "demarrage_utc": "2026-11-26T16:47:27.384373+00:00",
           "fin_calcul_utc": null,
           "publication_utc": null,
           "courses": {}
@@ -2560,8 +2291,5 @@
       }
     }
   ],
-  "ipr_jalons_figes": {
-    "2026-11-26_R4C4": "H2",
-    "2026-11-26_R4C7": "H2"
-  }
+  "ipr_jalons_figes": {}
 }
