@@ -195,6 +195,36 @@ class IncrementalTests(unittest.TestCase):
         self.assertEqual(result['chevaux']['123456']['sync'], 'OK')
         self.assertEqual(result['bilan']['tentatives_collecte'], 0)
 
+    def test_deux_phases_reprennent_sheets_sans_recollecter_ni_effacer_la_mesure_geny(self):
+        self.seed()
+        checkpoints = []
+        collect = Mock(side_effect=self.collect)
+        pending = inc.run(self.cache, collect=collect, phase='acquisition',
+                          checkpoint=lambda cache: checkpoints.append(inc.lire(cache/inc.QUEUE)))
+        collect.assert_called_once()
+        self.assertEqual(pending['chevaux']['123456']['sync'], 'A_FAIRE')
+        self.assertEqual(checkpoints[-1]['chevaux']['123456']['sync'], 'A_FAIRE')
+        self.assertEqual(pending['bilan']['captures_validees'], 1)
+        inc.suspendre_geny(self.cache, {}, self.now, '429')
+        with self.assertRaisesRegex(RuntimeError, 'PUBLICATIONS_SHEETS_A_REPRENDRE'):
+            inc.run(self.cache, phase='publication', collect=collect,
+                    sync=Mock(side_effect=RuntimeError('Sheets indisponible')))
+        state = inc.lire(self.cache/inc.QUEUE)
+        self.assertEqual(state['chevaux']['123456']['sync'], 'A_FAIRE')
+        self.assertEqual(state['publication_cycle']['erreurs_sync'], 1)
+        state['chevaux']['123456'].pop('prochaine_sync_utc')
+        inc.ecrire(self.cache/inc.QUEUE, state)
+        sync = Mock(return_value={'Historique chevaux': {'controle': {'statut': 'VALIDE'},
+                                                          'lignes_ajoutees': 1}})
+        final = inc.run(self.cache, phase='publication', collect=collect, sync=sync)
+        self.assertEqual(final['chevaux']['123456']['sync'], 'OK')
+        self.assertEqual(final['collecte_cycle'], pending['collecte_cycle'])
+        self.assertEqual(final['bilan']['captures_validees'], 1)
+        self.assertEqual(final['publication_cycle']['performances_ajoutees_et_confirmees_sheets'], 1)
+        inc.run(self.cache, phase='publication', collect=collect, sync=sync)
+        sync.assert_called_once()
+        collect.assert_called_once()
+
     def test_refus_global_403_et_429(self):
         for code in ('403', '429'):
             with self.subTest(code=code):

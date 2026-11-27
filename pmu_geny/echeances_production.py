@@ -253,7 +253,7 @@ def pause_geny_active(cache, now, *, prod=None, back=None):
     return instant(state['echeance_utc']) if state['actif'] else None
 
 
-def plan_collecte(cache, now, *, nocturne=False):
+def plan_collecte(cache, now, *, nocturne=False, independante=False):
     """Contrôle léger avant installation du navigateur et des dépendances."""
     cache = Path(cache)
     result = {'plan_utc': now.isoformat(), 'executer': True, 'geny': True,
@@ -265,7 +265,9 @@ def plan_collecte(cache, now, *, nocturne=False):
     motif = motif_pause_collecte_nocturne(cache, now) if nocturne else besoin_pmu(cache, now)
     if motif:
         secours = motif == 'ECHEANCE_PMU_PRIORITAIRE' and planifier(cache, now)['secours_pmu']
-        return {**result, 'executer': False, 'motif': motif, 'geny': False, 'secours_pmu': secours}
+        if not independante:
+            return {**result, 'executer': False, 'motif': motif, 'geny': False, 'secours_pmu': secours}
+        result['secours_pmu'] = secours
     if cooldown['actif']:
         prod = lire(cache / 'collecte_incrementale/etat.json')
         pending = prod.get('sync_kpi') == 'A_REPRENDRE' or any(
@@ -567,6 +569,7 @@ def main():
     parser.add_argument('--collecte', action='store_true')
     parser.add_argument('--collecte-nocturne', action='store_true')
     parser.add_argument('--collecte-selon-heure', action='store_true')
+    parser.add_argument('--collecte-independante', action='store_true')
     parser.add_argument('--preuve-sheets')
     parser.add_argument('--relais-nocturne', action='store_true')
     parser.add_argument('--relais-historiques', action='store_true')
@@ -579,11 +582,11 @@ def main():
         result = enregistrer_publication(args.cache, now, lire(args.plan), os.getenv('PUBLICATION_REUSSIE')=='true',
                                             sheets=lire(args.preuve_sheets) if args.preuve_sheets else None)
     else:
-        collecte = args.collecte or args.collecte_nocturne or args.collecte_selon_heure
+        collecte = args.collecte or args.collecte_nocturne or args.collecte_selon_heure or args.collecte_independante
         nuit = creneau_nocturne(now)
         nocturne = args.collecte_nocturne or (args.collecte_selon_heure and nuit)
         if collecte:
-            result = plan_collecte(args.cache, now, nocturne=nocturne)
+            result = plan_collecte(args.cache, now, nocturne=nocturne, independante=args.collecte_independante)
         else:
             result = planifier(args.cache, now, force=os.getenv('FORCER_AUTO')=='true')
         if not collecte and (mode := os.getenv('MODE_PRODUCTION', 'auto')) != 'auto':

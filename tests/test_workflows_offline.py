@@ -68,9 +68,20 @@ class WorkflowSyntaxTests(unittest.TestCase):
         historique = yaml.safe_load((root / 'historiques-incrementaux.yml').read_text())
         pmu = yaml.safe_load((root / 'pmu-v16.yml').read_text())
         fond = yaml.safe_load((root / 'rattrapage-historiques.yml').read_text())
-        self.assertEqual(pmu['concurrency'], fond['concurrency'])
-        self.assertEqual(pmu['concurrency']['group'], 'pmu-donnees-production')
-        self.assertIn('pmu-donnees-production', historique['concurrency']['group'])
+        collecter = historique['jobs']['historiques']
+        publier = historique['jobs']['publication']
+        self.assertEqual(historique['concurrency'], fond['concurrency'])
+        self.assertEqual(historique['concurrency']['group'], 'pmu-geny-acquisition')
+        self.assertIn('pmu-geny-acquisition', pmu['concurrency']['group'])
+        self.assertEqual(pmu['jobs']['traiter-course']['concurrency'], publier['concurrency'])
+        self.assertEqual(fond['jobs']['rattrapage']['concurrency'], publier['concurrency'])
+        self.assertEqual(publier['concurrency']['group'], 'pmu-donnees-production')
+        self.assertIn('geny-lecture-', collecter['concurrency']['group'])
+        self.assertIn('pmu-donnees-production', collecter['concurrency']['group'])
+        self.assertEqual(publier['needs'], 'historiques')
+        acquisition = next(s for s in collecter['steps'] if '--acquisition-seule' in s.get('run', ''))
+        self.assertNotIn('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON', acquisition['env'])
+        self.assertIn('--publication-seule', publier['steps'][-1]['run'])
         self.assertEqual(historique['jobs']['historiques']['permissions']['actions'], 'write')
         self.assertEqual(pmu['permissions']['actions'], 'write')
         secours = next(step for step in historique['jobs']['historiques']['steps']

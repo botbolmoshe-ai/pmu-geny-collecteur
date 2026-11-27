@@ -393,19 +393,22 @@ class EcheancesTests(unittest.TestCase):
         self.assertEqual(h2['publication_utc'], (deadline - timedelta(seconds=1)).isoformat())
         self.assertEqual(result['erreurs'], [])
 
-    def test_trois_ecrivains_file_max_et_unique_verrou(self):
+    def test_ecrivains_sheets_dans_la_meme_file_sans_annulation(self):
         import yaml
         root=Path(__file__).resolve().parents[1]/'.github/workflows'
-        for name in ('pmu-v16.yml','historiques-incrementaux.yml','rattrapage-historiques.yml'):
+        for name, jobs in {
+            'pmu-v16.yml': ('traiter-course',),
+            'historiques-incrementaux.yml': ('publication', 'recensement'),
+            'rattrapage-historiques.yml': ('rattrapage',),
+            'validation-iterative-v21.yml': ('dates-registre',),
+            'migration-structure-geny.yml': (),
+        }.items():
             config=yaml.load((root/name).read_text(),Loader=yaml.BaseLoader)
             expected = {'group':'pmu-donnees-production', 'cancel-in-progress':'false','queue':'max'}
-            if name == 'historiques-incrementaux.yml':
-                self.assertEqual(config['jobs']['recensement']['concurrency'], expected)
-                self.assertNotIn('concurrency', config['jobs']['reprendre_recensement'])
-                conditional = config['concurrency']['group']
-                self.assertTrue(conditional.endswith("|| 'pmu-donnees-production' }}"))
-                config['concurrency']['group'] = expected['group']
-            self.assertEqual(config['concurrency'], expected)
+            for job in jobs:
+                self.assertEqual(config['jobs'][job]['concurrency'], expected)
+            if not jobs:
+                self.assertEqual(config['concurrency'], expected)
 
     def test_cli_fait_echouer_un_controle_fonctionnel_non_publie(self):
         from unittest.mock import patch

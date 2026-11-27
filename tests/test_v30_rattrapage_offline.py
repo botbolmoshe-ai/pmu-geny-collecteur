@@ -345,7 +345,8 @@ class RepriseTests(unittest.TestCase):
         import yaml
         root=Path(__file__).resolve().parents[1]
         config=yaml.load((root/'.github/workflows/rattrapage-historiques.yml').read_text(),Loader=yaml.BaseLoader)
-        self.assertEqual(config['concurrency'],{'group':'pmu-donnees-production','cancel-in-progress':'false','queue':'max'})
+        self.assertEqual(config['concurrency'],{'group':'pmu-geny-acquisition','cancel-in-progress':'false','queue':'max'})
+        self.assertEqual(config['jobs']['rattrapage']['concurrency']['group'], 'pmu-donnees-production')
         self.assertIn('workflow_dispatch',config['on'])
         self.assertNotEqual(back.QUEUE,inc.QUEUE)
 
