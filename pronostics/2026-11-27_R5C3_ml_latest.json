@@ -1,16 +1,16 @@
 {
   "date": "2026-11-27",
   "course": "R5C3",
-  "calcul_utc": "2026-11-27T10:04:28.062042+00:00",
+  "calcul_utc": "2026-11-27T10:26:43.517315+00:00",
   "depart": "2026-11-27T18:05:00+01:00",
-  "donnees_observees_utc": "2026-11-27T10:04:19.310619+00:00",
+  "donnees_observees_utc": "2026-11-27T10:26:33.299895+00:00",
   "modele": "gradient_boosting",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-25T18:42:26.860380+00:00",
-  "dernier_label_entrainement_utc": "2026-11-25T18:41:56.808802+00:00",
-  "empreinte_modele": "1bb771e5f1b9a043d962860b3e042d5dc8e42730d005cbca9365976c3254caad",
+  "entrainement_utc": "2026-11-27T10:06:04.551687+00:00",
+  "dernier_label_entrainement_utc": "2026-11-26T23:05:13.410681+00:00",
+  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
   "features_schema": "pmu-podium-actif-v1",
   "variables_modele": [
     "courses_30j",
@@ -74,21 +74,21 @@
     "ferrures_historiques_comparees"
   ],
   "couverture_variables": {
-    "courses_30j": 2,
-    "courses_60j": 2,
-    "courses_120j": 2,
+    "courses_30j": 3,
+    "courses_60j": 3,
+    "courses_120j": 3,
     "podiums_30j": 1,
-    "podiums_120j": 2,
-    "victoires_120j": 2,
-    "disqualifications_120j": 2,
-    "score_forme": 2,
+    "podiums_120j": 3,
+    "victoires_120j": 3,
+    "disqualifications_120j": 3,
+    "score_forme": 3,
     "forme_30j": 1,
-    "forme_ancien": 2,
-    "jours_repos": 2,
+    "forme_ancien": 3,
+    "jours_repos": 3,
     "distance_m": 13,
-    "distance_ecart_m": 2,
+    "distance_ecart_m": 3,
     "aptitude_hippodrome": 0,
-    "taux_podium_distance": 2,
+    "taux_podium_distance": 3,
     "nb_partants": 13,
     "meteo_pluie_mm": 0,
     "meteo_vent_kmh": 0,
@@ -112,10 +112,10 @@
     "ferrure_pp": 13,
     "discipline_montee": 13,
     "forme_pmu_discipline": 13,
-    "forme_geny_comparable": 1,
-    "forme_ferrure_neutre": 2,
-    "forme_ferrure_moderee": 2,
-    "forme_ferrure_actuelle": 2,
+    "forme_geny_comparable": 2,
+    "forme_ferrure_neutre": 3,
+    "forme_ferrure_moderee": 3,
+    "forme_ferrure_actuelle": 3,
     "chrono_comparable_mediane_sec_km": 0,
     "chrono_comparable_nb_sorties": 0,
     "tandem_podium_lisse": 1,
@@ -129,10 +129,10 @@
     "forme_geny_meme_depart": 0,
     "sorties_geny_meme_depart": 0,
     "recul_depart_m": 13,
-    "est_crack": 1,
-    "est_haut_potentiel": 1,
-    "sorties_geny_comparables_120j": 2,
-    "ferrures_historiques_comparees": 2
+    "est_crack": 2,
+    "est_haut_potentiel": 2,
+    "sorties_geny_comparables_120j": 3,
+    "ferrures_historiques_comparees": 3
   },
   "entrees_modele": [
     {
@@ -668,35 +668,36 @@
       "numero": 10,
       "cheval_id": "2626925",
       "nom": "HAJIME",
-      "historique_ok": false,
-      "historique_complet": false,
+      "historique_ok": true,
+      "historique_complet": true,
       "methode_liaison": "NOM_EXACT_UNIQUE",
-      "source_historique": null,
-      "historique_extrait_utc": null,
+      "source_historique": "https://www.geny.com/cheval/2626925",
+      "historique_extrait_utc": "2026-11-27T10:08:14.909325+00:00",
       "intervenants_pmu": {
         "driver_score": "CHBOUTEILLER",
         "entraineur_score": "PIERRICKLEMOEL"
       },
       "score_direct_pmu": 4.68,
       "features": {
-        "courses_30j": null,
-        "courses_60j": null,
-        "courses_120j": null,
+        "courses_30j": 0,
+        "courses_60j": 0,
+        "courses_120j": 2,
         "podiums_30j": null,
-        "podiums_120j": null,
-        "victoires_120j": null,
-        "disqualifications_120j": null,
-        "score_forme": null,
+        "podiums_120j": 0.0,
+        "victoires_120j": 0,
+        "disqualifications_120j": 1,
+        "score_forme": 0.5,
         "forme_30j": null,
-        "forme_ancien": null,
-        "jours_repos": null,
+        "forme_ancien": 0.5,
+        "jours_repos": 106,
         "distance_m": 2650.0,
         "discipline_montee": 0,
-        "forme_geny_comparable": null,
-        "distance_ecart_m": null,
+        "forme_geny_comparable": 0.0,
+        "distance_ecart_m": 0.0,
         "aptitude_hippodrome": null,
-        "taux_podium_distance": null,
+        "taux_podium_distance": 0.61538,
         "nb_partants": 13.0,
+        "sorties_geny_comparables_120j": 1,
         "meteo_pluie_mm": null,
         "meteo_vent_kmh": null,
         "meteo_temperature_c": null,
@@ -718,7 +719,14 @@
         "ferrure_pa": 0.0,
         "ferrure_pp": 0.0,
         "forme_pmu_discipline": 1.2316,
-        "recul_depart_m": 25
+        "est_crack": 0,
+        "est_haut_potentiel": 0,
+        "recul_depart_m": 25,
+        "geny_forme_niveau": 3.5,
+        "forme_ferrure_neutre": 2.0601,
+        "ferrures_historiques_comparees": 8,
+        "forme_ferrure_moderee": 2.0545,
+        "forme_ferrure_actuelle": 2.0492
       }
     },
     {
@@ -898,19 +906,19 @@
       "numero": 4,
       "nom": "KANDIE D'ORCO",
       "cheval_id": "2741865",
-      "score_non_calibre": 0.56048
+      "score_non_calibre": 0.35028
+    },
+    {
+      "numero": 12,
+      "nom": "JASON GINYU",
+      "cheval_id": "",
+      "score_non_calibre": 0.28377
     },
     {
       "numero": 6,
       "nom": "KEEN ON ME",
       "cheval_id": "",
-      "score_non_calibre": 0.38991
-    },
-    {
-      "numero": 1,
-      "nom": "HOLLYWOOD TRICK",
-      "cheval_id": "2655111",
-      "score_non_calibre": 0.3712
+      "score_non_calibre": 0.28028
     }
   ],
   "classement_complet": [
@@ -918,79 +926,79 @@
       "numero": 4,
       "nom": "KANDIE D'ORCO",
       "cheval_id": "2741865",
-      "score_non_calibre": 0.56048
-    },
-    {
-      "numero": 6,
-      "nom": "KEEN ON ME",
-      "cheval_id": "",
-      "score_non_calibre": 0.38991
-    },
-    {
-      "numero": 1,
-      "nom": "HOLLYWOOD TRICK",
-      "cheval_id": "2655111",
-      "score_non_calibre": 0.3712
-    },
-    {
-      "numero": 2,
-      "nom": "IDEFIX DHELPA",
-      "cheval_id": "",
-      "score_non_calibre": 0.30281
-    },
-    {
-      "numero": 9,
-      "nom": "JALAPENO",
-      "cheval_id": "",
-      "score_non_calibre": 0.29554
+      "score_non_calibre": 0.35028
     },
     {
       "numero": 12,
       "nom": "JASON GINYU",
       "cheval_id": "",
-      "score_non_calibre": 0.24513
+      "score_non_calibre": 0.28377
     },
     {
-      "numero": 10,
-      "nom": "HAJIME",
-      "cheval_id": "2626925",
-      "score_non_calibre": 0.15639
-    },
-    {
-      "numero": 5,
-      "nom": "KINGEN MEARAS",
+      "numero": 6,
+      "nom": "KEEN ON ME",
       "cheval_id": "",
-      "score_non_calibre": 0.14203
+      "score_non_calibre": 0.28028
+    },
+    {
+      "numero": 2,
+      "nom": "IDEFIX DHELPA",
+      "cheval_id": "",
+      "score_non_calibre": 0.25039
     },
     {
       "numero": 8,
       "nom": "KAPORAL VISAIS",
       "cheval_id": "",
-      "score_non_calibre": 0.10999
+      "score_non_calibre": 0.20854
     },
     {
-      "numero": 3,
-      "nom": "GIRLY VICTORY",
+      "numero": 5,
+      "nom": "KINGEN MEARAS",
       "cheval_id": "",
-      "score_non_calibre": 0.10321
+      "score_non_calibre": 0.19622
+    },
+    {
+      "numero": 9,
+      "nom": "JALAPENO",
+      "cheval_id": "",
+      "score_non_calibre": 0.17539
+    },
+    {
+      "numero": 10,
+      "nom": "HAJIME",
+      "cheval_id": "2626925",
+      "score_non_calibre": 0.14797
+    },
+    {
+      "numero": 1,
+      "nom": "HOLLYWOOD TRICK",
+      "cheval_id": "2655111",
+      "score_non_calibre": 0.11701
     },
     {
       "numero": 7,
       "nom": "JUPITER DU CORTA",
       "cheval_id": "",
-      "score_non_calibre": 0.08492
+      "score_non_calibre": 0.10295
+    },
+    {
+      "numero": 3,
+      "nom": "GIRLY VICTORY",
+      "cheval_id": "",
+      "score_non_calibre": 0.07215
     },
     {
       "numero": 13,
       "nom": "GRAND TRIO LUDOIS",
       "cheval_id": "",
-      "score_non_calibre": 0.05891
+      "score_non_calibre": 0.05345
     },
     {
       "numero": 11,
       "nom": "GOLDEN VISAIS",
       "cheval_id": "",
-      "score_non_calibre": 0.03303
+      "score_non_calibre": 0.03726
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."
