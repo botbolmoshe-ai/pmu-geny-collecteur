@@ -98053,7 +98053,7 @@
     },
     "2744321": {
       "nom": "KALINKA DU GRENAT",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "13",
       "engagement": "2026-11-27_R1C4",
       "vu_utc": "2026-11-27T10:28:52.102141+00:00",
@@ -98085,11 +98085,39 @@
       "nombre_performances": 54,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-10-27"
+      "derniere_performance_date": "2026-10-27",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 54,
+          "cellules_actualisees": 0,
+          "lignes_source": 54,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 54,
+            "lignes_avant": 39270,
+            "cles_avant": 39270,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3927,
+            "import_initial_explicite": false,
+            "lignes_attendues": 39324,
+            "lignes_apres": 39324,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 0,
+          "lignes_source": 0
+        }
+      },
+      "sync_utc": "2026-11-27T10:32:40.794854+00:00"
     }
   },
   "passage_utc": "2026-11-27T10:28:52.102141+00:00",
-  "maj_utc": "2026-11-27T10:32:21.259373+00:00",
+  "maj_utc": "2026-11-27T10:32:40.794883+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 6,
@@ -98862,11 +98890,11 @@
   "sync_kpi_utc": "2026-11-27T10:23:55.120052+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T10:28:52.102141+00:00",
-    "controle_utc": "2026-11-27T10:32:21.259373+00:00",
+    "controle_utc": "2026-11-27T10:32:40.794883+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 6,
-    "chevaux_confirmes_sheets": 5,
-    "performances_ajoutees_et_confirmees_sheets": 173,
+    "chevaux_confirmes_sheets": 6,
+    "performances_ajoutees_et_confirmees_sheets": 227,
     "requetes_http_geny": 106,
     "requetes_geny_par_ressource": {
       "document": 8,
@@ -98881,8 +98909,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 37.01,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 103.27,
-    "carrieres_publiees_par_heure_cycle": 86.06,
+    "carrieres_validees_par_heure_cycle": 94.45,
+    "carrieres_publiees_par_heure_cycle": 94.45,
     "refus_geny": {
       "403": 0,
       "429": 0
