@@ -12,6 +12,12 @@ KPI_TAB = 'Data Quality & KPI'
 PREFIXES_ANCIENNES_ECHEANCES = ('Échéances · H2 ', 'Échéances · H1 ')
 PERIMETRE_RESULTATS = 'Registre · Courses distinctes du périmètre résultats et prévisions'
 INDICATEURS_RESULTATS = ('Courses avec arrivée officielle', 'Courses avec arrivée vérifiée', 'Courses évaluées')
+DIMENSIONS_KPI = {
+    KPI_PREFIX: COLONNE,
+    'Cotes PMU · ': 'Cotes PMU',
+    'Collecte · ': 'Collecte',
+    'Registre · ': 'Registre',
+}
 
 def _load(path):
     try:return json.loads(path.read_text(encoding='utf-8'))
@@ -291,6 +297,14 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
         operational.append(metric(f'Collecte · PMU · Programme {label} UTC', programme.get('date_controle_utc', ''),
                                   'Acquisition du programme PMU, indépendante de sa publication dans Sheets.'))
     pmu = _load(cache/'orchestration/production_etat.json')
+    acquisition_geny = instant(queue.get('derniere_acquisition_validee_utc'))
+    if not acquisition_geny or acquisition_geny > now:
+        journal = _load(cache/'etat_persistant.json')
+        acquisition_geny = max((stamp for h in journal.get('chevaux', {}).values()
+                                if h.get('origine') == 'COLLECTE_INCREMENTALE_PRODUCTION'
+                                and h.get('statut') == 'COMPLET'
+                                and (stamp := instant(h.get('historique_complet_au_utc')))
+                                and stamp <= now), default=None)
     publication_geny = max((stamp for h in queue.get('chevaux', {}).values()
                             if h.get('sync_details', {}).get('Historique chevaux', {}).get(
                                 'controle', {}).get('statut') == 'VALIDE'
@@ -298,7 +312,8 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
     operational.extend([
         metric('Collecte · PMU · Publication globale UTC', pmu.get('dernier_global_publie_utc', ''),
                'Dernière publication globale attestée à partir de la relecture Sheets.'),
-        metric('Collecte · Geny · Acquisition incrémentale validée UTC', queue.get('derniere_acquisition_validee_utc', ''),
+        metric('Collecte · Geny · Acquisition incrémentale validée UTC',
+               acquisition_geny.isoformat() if acquisition_geny else '',
                'Date source de la dernière carrière complète validée dans la file incrémentale.'),
         metric('Collecte · Geny · Publication incrémentale vérifiée UTC',
                publication_geny.isoformat() if publication_geny else '',
@@ -503,6 +518,9 @@ def plan_kpi(values, metrics):
     """Actualise valeur, définition et référence connue ensemble ; préserve les autres formules."""
     updates=[]
     totals=totaux_reference(metrics)
+    def dimension(label):
+        return next((name for prefix, name in DIMENSIONS_KPI.items() if label.startswith(prefix)), None)
+
     for number,row in enumerate(values[1:],start=2):
         if len(row)>1 and row[1] in ('Avis Equidia renseignés','Avis ZEturf renseignés'):
             updates.append({'range':f"'{KPI_TAB}'!A{number}:E{number}",'values':[['','','','','']]})
@@ -515,9 +533,10 @@ def plan_kpi(values, metrics):
             label=row[1]
             desired=[value,definition]+([totals[label]] if label in totals else [])
             end='E' if label in totals else 'D'
-            if label.startswith(KPI_PREFIX) and row[0] != COLONNE:
+            categorie = dimension(label)
+            if categorie and row[0] != categorie:
                 updates.append({'range': f"'{KPI_TAB}'!A{number}:{end}{number}",
-                                'values': [[COLONNE, label, *desired]]})
+                                'values': [[categorie, label, *desired]]})
             elif row[2:2+len(desired)]!=desired:
                 updates.append({'range':f"'{KPI_TAB}'!C{number}:{end}{number}",'values':[desired]})
     present={row[1] for row in values[1:] if len(row)>1}
@@ -525,8 +544,7 @@ def plan_kpi(values, metrics):
     for label,(value,definition) in metrics.items():
         if label.startswith(PUBLISHED_PREFIXES) and label not in present:
             last+=1
-            dimension = COLONNE if label.startswith(KPI_PREFIX) else 'Cotes PMU' if label.startswith('Cotes PMU · ') else 'ML'
-            desired=[dimension,label,value,definition]+([totals[label]] if label in totals else [])
+            desired=[dimension(label) or 'ML',label,value,definition]+([totals[label]] if label in totals else [])
             end='E' if label in totals else 'D'
             updates.append({'range':f"'{KPI_TAB}'!A{last}:{end}{last}",'values':[desired]})
     return updates
