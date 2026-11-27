@@ -99076,7 +99076,7 @@
     },
     "2740146": {
       "nom": "JERIKA DE KERYANN",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "9",
       "engagement": "2026-11-27_R1C5",
       "vu_utc": "2026-11-27T12:19:02.888905+00:00",
@@ -99106,11 +99106,55 @@
       "nombre_performances": 65,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-19"
+      "derniere_performance_date": "2026-11-19",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 65,
+          "cellules_actualisees": 0,
+          "lignes_source": 65,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 65,
+            "lignes_avant": 40248,
+            "cles_avant": 40248,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4025,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40313,
+            "lignes_apres": 40313,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 8,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "statut_historique": 2,
+              "nombre_performances": 2,
+              "date_capture": 2
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1052,
+              "HISTO_OK_NOM": 405,
+              "HISTO_NON_COLLECTE": 1952,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 139
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T12:23:15.929089+00:00"
     }
   },
   "passage_utc": "2026-11-27T12:19:02.888905+00:00",
-  "maj_utc": "2026-11-27T12:22:47.652846+00:00",
+  "maj_utc": "2026-11-27T12:23:15.929122+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 3,
@@ -99881,11 +99925,11 @@
   "sync_kpi_utc": "2026-11-27T12:18:14.410966+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T12:19:02.888905+00:00",
-    "controle_utc": "2026-11-27T12:22:47.652846+00:00",
+    "controle_utc": "2026-11-27T12:23:15.929122+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 3,
-    "chevaux_confirmes_sheets": 7,
-    "performances_ajoutees_et_confirmees_sheets": 384,
+    "chevaux_confirmes_sheets": 8,
+    "performances_ajoutees_et_confirmees_sheets": 449,
     "requetes_http_geny": 72,
     "requetes_geny_par_ressource": {
       "document": 3,
@@ -99900,8 +99944,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 19.41,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 48.05,
-    "carrieres_publiees_par_heure_cycle": 112.12,
+    "carrieres_validees_par_heure_cycle": 42.68,
+    "carrieres_publiees_par_heure_cycle": 113.82,
     "refus_geny": {
       "403": 0,
       "429": 0
