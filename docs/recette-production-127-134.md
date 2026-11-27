@@ -42,10 +42,12 @@ La recette hors réseau couvre une collision jalons/arrivées, deux jours virtue
 
 Le run PMU pilote du 27 confirme l’écriture pmu-data, la synchronisation Sheets, la certification et la consolidation des KPI. La lecture directe de Résultats & Analyse confirme les huit arrivées de Vincennes du 24 novembre. Les scores ML relus de R3C6, R3C7 et R3C8 sont 0, 0 et 2 sur 3.
 
-[Run PMU pilote](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45978869432) · [Premier run Geny après changement des index](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45979321774) · [Résultats publiés](https://docs.google.com/spreadsheets/d/1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo/edit#gid=810005)
+Le passage indépendant du 27 a validé cinq carrières en 86 requêtes Geny, sans 403 ni 429. Le job Sheets a relu les cinq carrières et leurs 165 nouvelles performances, sans erreur ni publication restante dans la file incrémentale. Le registre affiche 39 097 performances après ce passage.
+
+[Run PMU pilote](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45978869432) · [Premier run Geny après changement des index](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45979321774) · [Passage Geny indépendant](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45980746217) · [Résultats publiés](https://docs.google.com/spreadsheets/d/1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo/edit#gid=810005)
 
 ## Déploiement et retour arrière
 
-La PR #137 fournit la base de publication Git. La PR #139 ajoute le chemin indépendant de jour derrière le paramètre manuel acquisition_independante et la variable GENY_ACQUISITION_INDEPENDANTE. La variable à false redonne le chemin historique aux déclenchements programmés. Revert des commits par ordre inverse en fenêtre calme si nécessaire. Les anciens instantanés pmu-data et les captures en attente utilisent le même schéma.
+La PR #137 fournit la base de publication Git. La PR #139 ajoute le chemin indépendant de jour derrière le paramètre manuel acquisition_independante. Après recette réelle, ce chemin est activé par défaut pour les crons de jour et les relais PMU de jour. La variable GENY_ACQUISITION_INDEPENDANTE à false redonne le chemin historique aux déclenchements automatiques. Revert des commits par ordre inverse en fenêtre calme si nécessaire. Les anciens instantanés pmu-data et les captures en attente utilisent le même schéma.
 
 Les accès manuels et le stock nocturne conservent la sérialisation historique. L’observation de deux journées réelles, la couverture intégrale de l’échantillon comparatif Geny et la mesure du respect des objectifs de service restent nécessaires pour clôturer les tickets. Les domaines de recherche Geny soumis à autorisation gardent les contrôles existants. Aucun résultat nominatif n’est déduit de l’absence de preuve locale.

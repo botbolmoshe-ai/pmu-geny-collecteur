@@ -177,6 +177,21 @@ class KpiTests(unittest.TestCase):
         self.assertEqual(totals['Courses avec arrivée officielle'], 3)
         self.assertEqual(totals['Courses avec sélection TOP3 direct'], 2)
 
+    def test_fraicheur_geny_reprise_depuis_le_journal_et_dimension_corrigee(self):
+        label = 'Collecte · Geny · Acquisition incrémentale validée UTC'
+        capture = (NOW - timedelta(minutes=12)).isoformat()
+        write(self.root/'etat_persistant.json', {'chevaux': {
+            '123456': {'origine': 'COLLECTE_INCREMENTALE_PRODUCTION', 'statut': 'COMPLET',
+                       'historique_complet_au_utc': capture},
+            '234567': {'origine': 'RATTRAPAGE_GLOBAL', 'statut': 'COMPLET',
+                       'historique_complet_au_utc': NOW.isoformat()},
+        }})
+        metrics = calculer_kpi(self.root, self.source, NOW)
+        self.assertEqual(metrics[label][0], capture)
+        updates = plan_kpi([['Dimension', 'Indicateur'], ['ML', label]], metrics)
+        self.assertEqual(updates[0]['range'], "'Data Quality & KPI'!A2:D2")
+        self.assertEqual(updates[0]['values'][0][:3], ['Collecte', label, capture])
+
     def test_real_reference_reconciles_all_13_races_and_historical_baseline(self):
         if not Path('reference_pmu').is_dir():self.skipTest('reference facultative absente')
         from pmu_geny.qualite_registre_v21 import evaluer

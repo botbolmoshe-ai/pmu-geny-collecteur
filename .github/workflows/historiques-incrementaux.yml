@@ -48,11 +48,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
-      group: ${{ (inputs.acquisition_independante || (vars.GENY_ACQUISITION_INDEPENDANTE == 'true' && github.event.schedule == '5,20,35,50 7-20 * * *')) && format('geny-lecture-{0}', github.run_id) || 'pmu-donnees-production' }}
+      group: ${{ (inputs.acquisition_independante || (vars.GENY_ACQUISITION_INDEPENDANTE != 'false' && github.event.schedule == '5,20,35,50 7-20 * * *')) && format('geny-lecture-{0}', github.run_id) || 'pmu-donnees-production' }}
       cancel-in-progress: false
       queue: max
     env:
-      ACQUISITION_INDEPENDANTE: ${{ inputs.acquisition_independante || (vars.GENY_ACQUISITION_INDEPENDANTE == 'true' && github.event.schedule == '5,20,35,50 7-20 * * *') }}
+      ACQUISITION_INDEPENDANTE: ${{ inputs.acquisition_independante || (vars.GENY_ACQUISITION_INDEPENDANTE != 'false' && github.event.schedule == '5,20,35,50 7-20 * * *') }}
     outputs:
       publication_independante: ${{ steps.plan.outputs.publication_independante }}
     steps:

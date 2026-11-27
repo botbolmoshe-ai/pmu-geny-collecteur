@@ -78,6 +78,8 @@ class WorkflowSyntaxTests(unittest.TestCase):
         self.assertEqual(publier['concurrency']['group'], 'pmu-donnees-production')
         self.assertIn('geny-lecture-', collecter['concurrency']['group'])
         self.assertIn('pmu-donnees-production', collecter['concurrency']['group'])
+        self.assertIn("GENY_ACQUISITION_INDEPENDANTE != 'false'", collecter['concurrency']['group'])
+        self.assertIn("GENY_ACQUISITION_INDEPENDANTE != 'false'", collecter['env']['ACQUISITION_INDEPENDANTE'])
         self.assertEqual(publier['needs'], 'historiques')
         acquisition = next(s for s in collecter['steps'] if '--acquisition-seule' in s.get('run', ''))
         self.assertNotIn('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON', acquisition['env'])
@@ -100,12 +102,13 @@ class WorkflowSyntaxTests(unittest.TestCase):
                         ['bash', '-e', '-c', commandes + script], text=True,
                         env={**os.environ, 'RUN_ACTIF': actif, 'GITHUB_REPOSITORY': 'exemple/pmu'})
                     self.assertEqual(stdout.count(f'workflow run {workflow}'), int(not actif))
-        for nocturne in ('true', 'false'):
+        for nocturne, option, attendu in (('true', 'true', False), ('false', '', True),
+                                           ('false', 'false', False)):
             stdout = subprocess.check_output(
                 ['bash', '-e', '-c', commandes + relais], text=True,
                 env={**os.environ, 'RUN_ACTIF': '', 'GITHUB_REPOSITORY': 'exemple/pmu',
-                     'GENY_ACQUISITION_INDEPENDANTE': 'true', 'PMU_NOCTURNE': nocturne})
-            self.assertEqual('acquisition_independante=true' in stdout, nocturne == 'false')
+                     'GENY_ACQUISITION_INDEPENDANTE': option, 'PMU_NOCTURNE': nocturne})
+            self.assertEqual('acquisition_independante=true' in stdout, attendu)
 
     def test_rattrapage_dedie_valide_budget_et_selectionne_le_mode_selon_paris(self):
         path = Path(__file__).resolve().parents[1] / '.github/workflows/rattrapage-historiques.yml'

@@ -431,7 +431,7 @@ jobs:
               --jq '.workflow_runs[] | select(.status != "completed") | .id')
             if [ -z "$active" ]; then
               options=(-f max_minutes=7)
-              if [ "$GENY_ACQUISITION_INDEPENDANTE" = 'true' ] && [ "$PMU_NOCTURNE" = 'false' ]; then
+              if [ "$GENY_ACQUISITION_INDEPENDANTE" != 'false' ] && [ "$PMU_NOCTURNE" = 'false' ]; then
                 options+=(-f acquisition_independante=true)
               fi
               gh workflow run historiques-incrementaux.yml --repo "$GITHUB_REPOSITORY" --ref main "${options[@]}"
