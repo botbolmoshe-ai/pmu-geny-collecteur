@@ -53553,9 +53553,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-15_R3C5",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "A_FAIRE",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-15|BEAUMONT DE LOMAGNE|R3C5",
       "numero": "14",
       "numero_reconcilie_depuis_snapshot": true,
@@ -53576,7 +53576,13 @@
       },
       "preuve_identite": "LIENS_COURSE_GENY",
       "course_geny_deja_lue": true,
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "historique_complet_au_utc": "2026-11-27T03:03:46.119868+00:00",
+      "derniere_verification_utc": "2026-11-27T03:03:46.119868+00:00",
+      "prochaine_verification_utc": "2026-11-28T03:03:46.119868+00:00",
+      "nombre_performances": 74,
+      "erreur": "",
+      "derniere_performance_date": "2026-11-15"
     },
     "contexte:b236ebd82d9526fae9f86389": {
       "nom": "HOCKFELER DU MESLE",
@@ -79500,23 +79506,23 @@
     "travaux_distincts_restants": 1314,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 867,
-    "identifiants_sans_carriere_complete": 117,
+    "identifiants_sans_carriere_complete": 116,
     "contextes_distincts_sans_identifiant": 749,
     "noms_distincts_sans_identifiant": 745,
     "identifiants_geny_distincts": 1160,
     "identites_non_resolues": 1070,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 0,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 7797,
-    "tentatives_collecte": 6,
-    "captures_validees": 6,
+    "tentatives_collecte": 7,
+    "captures_validees": 7,
     "captures_partielles": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T02:59:11.054693+00:00",
-  "maj_utc": "2026-11-27T03:03:37.393408+00:00",
+  "maj_utc": "2026-11-27T03:03:46.826351+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -81415,27 +81421,27 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T02:59:11.054693+00:00",
-    "controle_utc": "2026-11-27T03:03:37.393408+00:00",
+    "controle_utc": "2026-11-27T03:03:46.826351+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 6,
+    "carrieres_completes_distinctes": 7,
     "chevaux_confirmes_sheets": 6,
     "performances_ajoutees_et_confirmees_sheets": 427,
-    "requetes_http_geny": 90,
+    "requetes_http_geny": 95,
     "requetes_geny_par_ressource": {
-      "document": 6,
+      "document": 7,
       "stylesheet": 2,
       "script": 52,
       "font": 3,
-      "fetch": 12,
-      "image": 15
+      "fetch": 14,
+      "image": 17
     },
-    "ressources_geny_servies_du_cache_http": 288,
+    "ressources_geny_servies_du_cache_http": 346,
     "attente_inter_chevaux_secondes": 44.69,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 34.55,
+    "duree_acces_geny_secondes": 39.97,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 81.1,
-    "carrieres_publiees_par_heure_cycle": 81.1,
+    "carrieres_validees_par_heure_cycle": 91.38,
+    "carrieres_publiees_par_heure_cycle": 78.33,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -81446,5 +81452,5 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "derniere_acquisition_validee_utc": "2026-11-27T03:03:05.869735+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-27T03:03:46.119868+00:00"
 }
