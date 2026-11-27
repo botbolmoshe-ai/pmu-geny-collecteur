@@ -165,9 +165,9 @@ def parser_zeturf(html, course, participants):
             'parametres':{'conditions_txt_course':text(soup.select_one('.conditions'))}}
 
 def parser_pmu(prono, course, participants):
-    from zoneinfo import ZoneInfo
+    from dashboard.trot_analytics.dates import PARIS
     stamp=prono.get('dateReunion')
-    date=datetime.fromtimestamp(stamp/1000,ZoneInfo('Europe/Paris')).date().isoformat() if isinstance(stamp,(int,float)) else ''
+    date=datetime.fromtimestamp(stamp/1000,PARIS).date().isoformat() if isinstance(stamp,(int,float)) else ''
     if (date!=course['date'] or f"R{prono.get('numeroReunion')}C{prono.get('numeroCourse')}"!=course['code']):
         raise ValueError('COURSE_NON_CORRESPONDANTE')
     answers={};ranking=[]

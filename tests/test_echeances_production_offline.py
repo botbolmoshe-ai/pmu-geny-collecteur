@@ -422,14 +422,11 @@ class EcheancesTests(unittest.TestCase):
             'historiques-incrementaux.yml': ('publication', 'recensement'),
             'rattrapage-historiques.yml': ('rattrapage',),
             'validation-iterative-v21.yml': ('dates-registre',),
-            'migration-structure-geny.yml': (),
         }.items():
             config=yaml.load((root/name).read_text(),Loader=yaml.BaseLoader)
             expected = {'group':'pmu-donnees-production', 'cancel-in-progress':'false','queue':'max'}
             for job in jobs:
                 self.assertEqual(config['jobs'][job]['concurrency'], expected)
-            if not jobs:
-                self.assertEqual(config['concurrency'], expected)
 
     def test_cli_fait_echouer_un_controle_fonctionnel_non_publie(self):
         from unittest.mock import patch

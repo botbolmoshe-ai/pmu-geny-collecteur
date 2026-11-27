@@ -63,6 +63,18 @@ class WorkflowSyntaxTests(unittest.TestCase):
                     self.assertNotIn('rattrapage_historiques', output)
                     self.assertIn('RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE', output)
 
+    def test_cinq_workflows_publics_et_fuseau_paris(self):
+        workflows = Path(__file__).resolve().parents[1] / '.github/workflows'
+        configs = [yaml.load(path.read_text(), Loader=yaml.BaseLoader) for path in workflows.glob('*.yml')]
+        self.assertEqual({config['name'] for config in configs}, {
+            '01 — PMU Production', '02 — Geny Collecte incrémentale', '03 — Geny Rattrapage global',
+            '04 — Validation moteur PMU', '05 — Validation TROT Analytics',
+        })
+        for config in configs:
+            self.assertEqual(config['env']['TZ'], 'Europe/Paris')
+            for schedule in config['on'].get('schedule', []):
+                self.assertEqual(schedule['timezone'], 'Europe/Paris')
+
     def test_declenchements_sous_le_verrou_et_sans_doublon(self):
         root = Path(__file__).resolve().parents[1] / '.github/workflows'
         historique = yaml.safe_load((root / 'historiques-incrementaux.yml').read_text())

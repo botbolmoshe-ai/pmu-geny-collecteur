@@ -1,7 +1,7 @@
 """Preuve explicite de carrière vide avant le premier départ, sans course inventée."""
 import re
 from datetime import datetime,timezone
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 
 from .ferrures_geny import documents,normaliser
 
@@ -32,7 +32,7 @@ def confirmer_inedit(document,html,ident):
                     except (KeyError,TypeError,ValueError):departure=None
                     if departure:
                         # L'interface a été capturée avec le fuseau Europe/Paris.
-                        if departure.tzinfo is None:departure=departure.replace(tzinfo=ZoneInfo('Europe/Paris'))
+                        if departure.tzinfo is None:departure=departure.replace(tzinfo=PARIS)
                         if stamp<departure:evidence.append(departure.astimezone(timezone.utc).isoformat())
             for item in value.values():walk(item)
         elif isinstance(value,list):

@@ -1,4 +1,4 @@
-name: PMU - Historiques incrementaux par cheval
+name: 02 — Geny Collecte incrémentale
 on:
   schedule:
     - cron: '12,42 0-6,21-23 * * *'
@@ -39,6 +39,10 @@ concurrency:
   group: pmu-geny-acquisition
   cancel-in-progress: false
   queue: max
+env:
+  TZ: Europe/Paris
+  PMU_REFERENTIEL: 'true'
+
 jobs:
   historiques:
     permissions:

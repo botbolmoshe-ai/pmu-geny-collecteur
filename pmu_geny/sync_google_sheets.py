@@ -1202,7 +1202,10 @@ def main():
     engine=None
     try:
         engine=SynchroniseurSheets(cache,spreadsheet)
-        if os.getenv('PMU_KPI_ONLY')=='true':engine.synchroniser_kpi()
+        if os.getenv('PMU_SUPERVISION_ONLY') == 'true':
+            from .supervision_sheets import synchroniser
+            synchroniser(engine, avec_referentiel=False)
+        elif os.getenv('PMU_KPI_ONLY')=='true':engine.synchroniser_kpi()
         elif os.getenv('PMU_KPI_DIFFERE')=='true':
             plan = load_json(Path(os.environ['PMU_PLAN'])) if os.getenv('PMU_PLAN') else {}
             reunions_verifiees = publier_plan(engine, plan)

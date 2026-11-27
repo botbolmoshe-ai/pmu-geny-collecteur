@@ -1,4 +1,4 @@
-name: TROT Analytics - validation indépendante
+name: 05 — Validation TROT Analytics
 on:
   push:
     branches: [main]
@@ -8,6 +8,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+env:
+  TZ: Europe/Paris
+
 jobs:
   test:
     runs-on: ubuntu-latest

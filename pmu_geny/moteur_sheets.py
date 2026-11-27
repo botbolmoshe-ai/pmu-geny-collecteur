@@ -530,63 +530,6 @@ class SynchroniseurSheets:
               f'cellules_mises_a_jour={len(updates)} lignes_ajoutees={len(appends)}',flush=True)
         return result
 
-    def migrer_structure_geny(self, sauvegarde, *, appliquer=False):
-        """Sauvegarder ou appliquer le même instantané sous le verrou du registre."""
-        from .migration_geny import plages_migration, planifier, verifier
-        from .structure_geny import couverture
-        from .sync_google_sheets import canonical_headers, colname, lire_feuille_complete, reconcilier_cles_historiques
-        from dashboard.trot_analytics.usages import GENY_HISTORIQUE
-
-        with verrou_local(self.spreadsheet):
-            props = self.metadata()[HISTORY]
-            raw = lire_feuille_complete(self.session, self.base, HISTORY, props, raw_dates=True, render_option='FORMULA')
-            if not raw:
-                raise ErreurSynchronisation('Historique vide')
-            headers = canonical_headers(raw[0])
-            if any(len(row) > len(headers) for row in raw[1:]):
-                raise ErreurSynchronisation('Données présentes au-delà des en-têtes historiques')
-            rows = [dict(zip(headers, row)) for row in raw[1:]]
-            independent = lire_cles_independantes(self.session, self.base, HISTORY, props, headers)
-            keys = [str(row.get('cle_performance', '')).strip() for row in rows]
-            if independent != Counter(filter(None, keys)):
-                raise ErreurSynchronisation('Inventaire indépendant des clés incohérent')
-            normalized = [{field: depuis_nombre(field, value) for field, value in row.items()} for row in rows]
-            archives = reconcilier_cles_historiques(normalized, self.source()[HISTORY])
-            columns, updates, conflicts, duplicates = planifier(headers, rows, archives)
-            sauvegarde(raw)
-            summary = {'lignes': len(rows), 'doublons': duplicates, 'conflits': conflicts,
-                       'cellules_planifiees': len(updates), 'colonnes_ajoutees': len(columns) - len(headers)}
-            if not appliquer:
-                return summary
-            sheet_id = props['sheetId']
-            width = props['gridProperties']['columnCount']
-            if len(columns) > width:
-                self.check(self.session.post(self.base + ':batchUpdate', json={'requests': [
-                    {'appendDimension': {'sheetId': sheet_id, 'dimension': 'COLUMNS',
-                                         'length': len(columns) - width}},
-                ]}, timeout=30))
-            visible = raw[0] + [GENY_HISTORIQUE.libelles[field] for field in columns[len(headers):]]
-            cells = plages_migration(HISTORY, updates)
-            if columns != headers:
-                cells.insert(0, {'range': f"'{HISTORY}'!{colname(len(headers) + 1)}1:{colname(len(columns))}1",
-                                 'values': [visible[len(headers):]]})
-            for start in range(0, len(cells), 8):
-                payload = {'valueInputOption': 'RAW', 'data': cells[start:start + 8]}
-                response = self.session.post(self.base + '/values:batchUpdate', json=payload, timeout=90)
-                if response.status_code == 429:
-                    time.sleep(60)
-                    response = self.session.post(self.base + '/values:batchUpdate', json=payload, timeout=90)
-                self.check(response)
-            self._formater_observations(HISTORY, sheet_id, columns, GENY_HISTORIQUE)
-            fresh = self.metadata()[HISTORY]
-            after = lire_feuille_complete(self.session, self.base, HISTORY, fresh, raw_dates=True, render_option='FORMULA')
-            verifier(raw, after, headers, visible, updates)
-            after_keys = lire_cles_independantes(self.session, self.base, HISTORY, fresh, columns)
-            if independent != after_keys:
-                raise ErreurSynchronisation('Clés historiques modifiées')
-            summary['couverture'] = couverture([dict(zip(columns, row)) for row in after[1:]])
-            return summary
-
     def lire_courses(self, tables):
         from .sync_google_sheets import canonical_headers, lire_feuille_complete
         tab = 'Courses & Prévisions'
@@ -729,6 +672,9 @@ class SynchroniseurSheets:
             if kpi_source is not None:
                 counts.update(self._synchroniser_kpi(tables,kpi_source,
                     courses_verifiees=reconciliation.get('courses') if reconcilier else None))
+            if scope == 'CORRESPONDANCES_GENY' and os.getenv('PMU_REFERENTIEL') == 'true':
+                from .supervision_sheets import REFERENTIEL, publier_referentiel
+                publier_referentiel(self, reconciliation['historique'], tables.get(REFERENTIEL))
         print('SHEETS_MOTEUR_UNIQUE '+json.dumps({'perimetre':scope,
             'lectures_api':self.session.lectures-before[0],'ecritures_api':self.session.ecritures-before[1],
             'duree_secondes':round(time.monotonic()-start,3)},ensure_ascii=False),flush=True)

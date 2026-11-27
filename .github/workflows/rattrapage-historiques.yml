@@ -1,4 +1,4 @@
-name: PMU - Rattrapage global des historiques
+name: 03 — Geny Rattrapage global
 on:
   workflow_dispatch:
     inputs:
@@ -29,6 +29,10 @@ concurrency:
   group: pmu-geny-acquisition
   cancel-in-progress: false
   queue: max
+env:
+  TZ: Europe/Paris
+  PMU_REFERENTIEL: 'true'
+
 jobs:
   rattrapage:
     runs-on: ubuntu-latest

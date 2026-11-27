@@ -1,9 +1,8 @@
 """Planification J-1 / jour J, avec arrêt strict des prédictions au départ."""
 from __future__ import annotations
 from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 
-PARIS=ZoneInfo('Europe/Paris')
 
 def decision_autorisee(now, date, depart):
     if now.tzinfo is None or depart.tzinfo is None:

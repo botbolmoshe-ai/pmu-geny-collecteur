@@ -11,10 +11,9 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 from .export_v17 import exporter
 
-PARIS=ZoneInfo('Europe/Paris')
 BASE='https://online.turfinfo.api.pmu.fr/rest/client/1/programme/'
 
 def save(path, doc):

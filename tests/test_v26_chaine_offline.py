@@ -101,7 +101,7 @@ class ChaineTests(unittest.TestCase):
         ])
         patterns = [request['repeatCell']['cell']['userEnteredFormat']['numberFormat']['pattern']
                     for _, payload in session.writes for request in payload.get('requests', [])]
-        self.assertEqual(patterns, ['dd/mm/yyyy hh:mm', 'dd/mm/yyyy'])
+        self.assertEqual(patterns, ['dd/mm/yyyy hh:mm:ss', 'dd/mm/yyyy'])
         self.assertEqual((first['cellules_actualisees'], second['cellules_actualisees']), (2, 0))
         self.assertTrue(meme_date_sheets('extraction_utc', capture, session.tables[tab][1][0]))
         self.assertFalse(meme_date_sheets('extraction_utc', capture, '2026-11-19T16:02:46+01:00'))
@@ -135,8 +135,8 @@ class ChaineTests(unittest.TestCase):
         self.assertEqual(raw['arrivee_verifiee_utc'], '2026-11-19T16:01:17.029833+00:00')
         self.assertEqual(second['cellules_actualisees'], 0)
         for row in records(session.tables[tab]):
-            self.assertEqual(afficher_instant(row['Départ (Paris)']), '19/11/2026 16:52')
-            self.assertEqual(afficher_instant(row['Arrivée · Vérifiée UTC']), '19/11/2026 17:01')
+            self.assertEqual(afficher_instant(row['Départ (Paris)']), '19/11/2026 16:52:00')
+            self.assertEqual(afficher_instant(row['Arrivée · Vérifiée UTC']), '19/11/2026 17:01:17')
 
         early = '2026-10-25T02:30:00+02:00'
         late = '2026-10-25T02:30:00+01:00'

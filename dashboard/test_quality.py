@@ -46,12 +46,12 @@ class QualityTests(unittest.TestCase):
         rows=[{"Dimension":"ML","Indicateur":"Échéances · H-3 ouvertes","Valeur (automatique)":8,"Définition / réserve":"Avant départ"},
               {"Dimension":"ML","Indicateur":"Échéances · H1 ouvertes","Valeur (automatique)":3},
               {"Dimension":"ML","Indicateur":"Collecte · Rejets dernier passage","Valeur (automatique)":0},{}]
-        self.assertEqual(list(quality_sections(rows)),["Échéances","Échéances · Historique H-2/H-1","Collecte"])
+        self.assertEqual(list(quality_sections(rows)),["Échéances","Échéances · Archives des anciens jalons","Collecte"])
         self.assertEqual(list(quality_sections(rows,"  DÉPART ")),["Échéances"])
         self.assertEqual(quality_sections(rows,"Introuvable"),{})
 
     def test_text_timestamps_and_decimals_are_display_values(self):
-        self.assertEqual(display_value("2026-11-17T16:02:00+00:00"),"17/11/2026 16:02")
+        self.assertEqual(display_value("2026-11-17T16:02:00+00:00"),"17/11/2026 17:02:00")
         self.assertEqual(display_value(1.02564),"1,03")
         self.assertEqual(display_value(0,rate=True),"0,0 %")
 

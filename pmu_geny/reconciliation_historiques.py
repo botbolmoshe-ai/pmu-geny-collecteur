@@ -152,32 +152,41 @@ class ReconciliationHistoriques:
         return diagnostics, anomalies
 
 
-    def stock(self):
+    def stock_entry(self, horse):
         from .rattrapage_historiques import contexte_verifiable, engagement_canonique
 
+        name = horse.get('nom', '')
+        engagement = engagement_canonique(horse.get('engagement'))
+        number = str(horse.get('numero') or '')
+        ident = str(horse.get('id') or '')
+        diagnostic = {}
+        if contexte_verifiable(horse):
+            day, code = engagement.split('_')
+            diagnostic = self.diagnostiquer({'course_key': f'{day}|Stock|{code}',
+                'numero': number, 'cheval': name, '_id_pmu_correspondance': horse.get('id_pmu')})
+        geny = horse.get('geny') or {}
+        ident = ident or str(geny.get('id') or '')
+        if (not diagnostic.get('_id_geny_correspondance') and not horse.get('conflit_identite')
+                and diagnostic.get(CHAMP) != AMBIGUE and source_identifiant(ident, geny.get('url_geny')) == 'geny'
+                and ident in self.index.noms[nom_normalise(name)]):
+            status, count, stamp, action = self.historique(ident)
+            diagnostic = {CHAMP: CONFIRMEE, 'historique_statut': status,
+                          'historique_nb_courses_datees': count, 'historique_maj_utc': stamp,
+                          '_id_geny_correspondance': ident, '_note_correspondance_geny': action}
+        if diagnostic:
+            return diagnostic
+        tentative = self.tentatives.retrouver(engagement, number, name, horse.get('id_pmu'))
+        return champs_correspondance_geny(tentative, horse.get('id_pmu'), None,
+                                           'NOM_AMBIGU' if horse.get('conflit_identite') else None)
+
+    def stock(self):
+        from .rattrapage_historiques import engagement_canonique
+
         targets = lire(self.cache/'rattrapage_historiques/etat.json').get('chevaux', {})
-        diagnostics = {}
-        for key, horse in targets.items():
-            name = horse.get('nom', '')
-            engagement = engagement_canonique(horse.get('engagement'))
-            number = str(horse.get('numero') or '')
-            ident = str(horse.get('id') or '')
-            diagnostic = {}
-            if contexte_verifiable(horse):
-                day, code = engagement.split('_')
-                diagnostic = self.diagnostiquer({'course_key': f'{day}|Stock|{code}',
-                    'numero': number, 'cheval': name, '_id_pmu_correspondance': horse.get('id_pmu')})
-            geny = horse.get('geny') or {}
-            if (not diagnostic.get('_id_geny_correspondance') and not horse.get('conflit_identite')
-                    and diagnostic.get(CHAMP) != AMBIGUE and source_identifiant(ident, geny.get('url_geny')) == 'geny'
-                    and ident in self.index.noms[nom_normalise(name)]):
-                status, count, stamp, action = self.historique(ident)
-                diagnostic = {CHAMP: CONFIRMEE, 'historique_statut': status,
-                              'historique_nb_courses_datees': count, 'historique_maj_utc': stamp,
-                              '_id_geny_correspondance': ident, '_note_correspondance_geny': action}
-            diagnostics[key] = {'nom': name, 'engagement': engagement, 'numero': number,
-                                'cible_equivalente_a': horse.get('cible_equivalente_a'), **diagnostic}
-        return diagnostics
+        return {key: {'nom': horse.get('nom', ''), 'engagement': engagement_canonique(horse.get('engagement')),
+                      'numero': str(horse.get('numero') or ''),
+                      'cible_equivalente_a': horse.get('cible_equivalente_a'), **self.stock_entry(horse)}
+                for key, horse in targets.items()}
 
 
 def compter_ecart(counts, ancien, courant):

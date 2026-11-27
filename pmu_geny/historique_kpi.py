@@ -2,9 +2,8 @@
 from datetime import datetime,timezone
 import json
 from urllib.parse import quote
-from zoneinfo import ZoneInfo
 
-from dashboard.trot_analytics.dates import depuis_nombre, indicateur_horodate, vers_nombre
+from dashboard.trot_analytics.dates import PARIS, depuis_nombre, indicateur_horodate, vers_nombre
 from .kpi_registre import PREFIXES_ANCIENNES_ECHEANCES
 
 TAB='Historique qualité'
@@ -17,7 +16,7 @@ def planifier(source,existing,now):
     if not source or source[0][:5]!=SOURCE_HEADERS:raise ValueError('SCHEMA_KPI_INCOMPATIBLE')
     if not any(any(v not in ('',None) for v in row) for row in existing):existing=[]
     if existing and existing[0]!=HEADERS:raise ValueError('SCHEMA_HISTORIQUE_KPI_INCOMPATIBLE')
-    day=now.astimezone(ZoneInfo('Europe/Paris')).date().isoformat()
+    day=now.astimezone(PARIS).date().isoformat()
     positions={}
     for n,row in enumerate(existing[1:],2):
         if not any(v not in ('',None) for v in row):continue
@@ -25,7 +24,7 @@ def planifier(source,existing,now):
         try:
             stamp=datetime.fromisoformat(row[2])
             if (json.loads(row[0])!=[row[1],row[4]] or stamp.tzinfo is None
-                    or stamp.astimezone(ZoneInfo('Europe/Paris')).date().isoformat()!=row[1]):
+                    or stamp.astimezone(PARIS).date().isoformat()!=row[1]):
                 raise ValueError('RELEVE_INCOHERENT')
         except (ValueError,TypeError):raise ValueError('RELEVE_INCOHERENT')
         positions[row[0]]=(n,row)
@@ -113,5 +112,5 @@ def enregistrer(engine,tables,now=None):
         # Ranges explicites : relire puis réessayer ne crée pas un deuxième append.
         engine.check(engine.session.post(engine.base+'/values:batchUpdate',json={
             'valueInputOption':'RAW','data':updates},timeout=45))
-    print('HISTORIQUE_KPI '+json.dumps({'date':now.astimezone(ZoneInfo('Europe/Paris')).date().isoformat(),
+    print('HISTORIQUE_KPI '+json.dumps({'date':now.astimezone(PARIS).date().isoformat(),
         'plages_actualisees':len(updates)},ensure_ascii=False),flush=True)

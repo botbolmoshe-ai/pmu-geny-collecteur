@@ -1,4 +1,4 @@
-name: PMU V21 - Validation iterative du moteur (lecture seule)
+name: 04 — Validation moteur PMU
 on:
   pull_request:
     branches: [main]
@@ -29,6 +29,9 @@ on:
 permissions:
   contents: read
   actions: read
+env:
+  TZ: Europe/Paris
+
 jobs:
   validation:
     runs-on: ubuntu-latest

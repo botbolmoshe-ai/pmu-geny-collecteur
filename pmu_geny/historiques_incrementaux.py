@@ -17,7 +17,7 @@ import tempfile
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 
 from .cadence_geny import CadenceGeny, INTERVALLE_REPRISE, REFUS, TIMEOUT_COLLECTE
 from .controle_historique import classifier
@@ -76,10 +76,10 @@ def actualisation_requise(horse, now, ttl_heures=24):
 def priorite_engagement(horse,now,*,manquant):
     engagement=str(horse.get('engagement_prioritaire') or horse.get('engagement',''))
     day=engagement[:10] if re.fullmatch(r'\d{4}-\d{2}-\d{2}_R\d+C\d+',engagement) else ''
-    future=bool(day and day>=now.astimezone(ZoneInfo('Europe/Paris')).date().isoformat())
+    future=bool(day and day>=now.astimezone(PARIS).date().isoformat())
     if nuit_collecte(now):
         # Apres 21 h, J+1 passe avant les courses du jour deja disputees.
-        tomorrow=(now.astimezone(ZoneInfo('Europe/Paris')).date()+timedelta(days=1)).isoformat()
+        tomorrow=(now.astimezone(PARIS).date()+timedelta(days=1)).isoformat()
         if manquant and day==tomorrow:return 0
         if manquant and future:return 1
         if manquant and day:return 2
@@ -127,7 +127,7 @@ def alimenter(cache, now, *, sauvegarder=True, engagements=None, associations=No
         code = path.stem
         day = datetime.fromisoformat(code[:10]).date()
         # Reprise du passé récent + engagements du jour et du lendemain.
-        today = now.astimezone(ZoneInfo('Europe/Paris')).date()
+        today = now.astimezone(PARIS).date()
         if engagements is not None:
             if code not in engagements:
                 continue

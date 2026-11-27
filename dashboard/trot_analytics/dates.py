@@ -5,7 +5,8 @@ from zoneinfo import ZoneInfo
 PARIS = ZoneInfo("Europe/Paris")
 EPOCH = datetime(1899, 12, 30)
 DATE_PATTERN = "dd/mm/yyyy"
-DATETIME_PATTERN = DATE_PATTERN + " hh:mm"
+DATETIME_PATTERN = DATE_PATTERN + " hh:mm:ss"
+DATETIME_DISPLAY = "%d/%m/%Y %H:%M:%S"
 
 DATE_FIELDS = {"date_course", "date_course_historique", "Date", "Date du relevé"}
 PARIS_FIELDS = {"heure_depart_paris", "Départ (Paris)"}
@@ -75,9 +76,9 @@ def afficher_date(value):
     return parsed.strftime("%d/%m/%Y") if parsed else value
 
 
-def afficher_instant(value, zone=PARIS):
+def afficher_instant(value):
     stamp = instant_iso(value)
-    return stamp.astimezone(zone).strftime("%d/%m/%Y %H:%M") if stamp else ""
+    return stamp.astimezone(PARIS).strftime(DATETIME_DISPLAY) if stamp else ""
 
 
 def meme_date_sheets(field, left, right):
@@ -157,5 +158,5 @@ def indicateur_horodate(label):
 
 def afficher_valeur_kpi(label, value):
     if indicateur_horodate(label) and type(value) in (int, float) and 20000 < value < 80000:
-        return (EPOCH + timedelta(days=value)).strftime("%d/%m/%Y %H:%M")
+        return (EPOCH + timedelta(days=value)).strftime(DATETIME_DISPLAY)
     return afficher_instant(value) or value
