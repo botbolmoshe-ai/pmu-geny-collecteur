@@ -92873,7 +92873,24 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-27T17:05:00+00:00",
       "premier_depart_reunion_utc": "2026-11-27T15:55:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "collecte": "A_REPRENDRE",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-12-04T00:51:29.051867+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-27T00:51:29.051882+00:00",
+        "statut": "RECHERCHE_GENY_NON_AUTORISEE",
+        "motifs": [],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-27_R5C3_11/1795740689050715063/resultat.json"
+      },
+      "recherche_identite_geny": {
+        "statut": "RECHERCHE_BLOQUEE",
+        "motif": "RECHERCHE_GENY_NON_AUTORISEE",
+        "utc": "2026-11-27T00:51:28.986738+00:00",
+        "reprise_utc": "2026-12-04T00:51:29.051867+00:00"
+      }
     },
     "2026-11-27_R5C3_12": {
       "nom": "JASON GINYU",
@@ -93611,18 +93628,18 @@
     }
   },
   "passage_utc": "2026-11-27T00:51:23.559580+00:00",
-  "maj_utc": "2026-11-27T00:51:24.912779+00:00",
+  "maj_utc": "2026-11-27T00:51:29.051920+00:00",
   "bilan": {
     "chevaux_suivis": 3361,
-    "tentatives_collecte": 0,
+    "tentatives_collecte": 1,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 0,
+    "collectes_rejetees": 1,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 3075
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -94038,7 +94055,7 @@
   "sync_kpi_utc": "2026-11-26T23:08:22.379994+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:51:23.559580+00:00",
-    "controle_utc": "2026-11-27T00:51:24.912779+00:00",
+    "controle_utc": "2026-11-27T00:51:29.051920+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
