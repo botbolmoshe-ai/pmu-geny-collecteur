@@ -98920,7 +98920,7 @@
     },
     "2725517": {
       "nom": "JADE DU CEDRE",
-      "sync": "SANS_MODIFICATION",
+      "sync": "A_FAIRE",
       "numero": "7",
       "engagement": "2026-11-27_R1C5",
       "vu_utc": "2026-11-27T12:19:02.888905+00:00",
@@ -98936,14 +98936,21 @@
         "preuve_course_utc": "2026-11-27T12:08:45.427735+00:00"
       },
       "id": "2725517",
-      "collecte": "A_REPRENDRE",
+      "collecte": "COMPLET",
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
       "annee_naissance_pmu": 2019,
       "recherche_geny_par_nom": false,
-      "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
+      "motif_actualisation": "",
       "depart_a_venir_utc": "2026-11-27T19:48:00+00:00",
       "premier_depart_reunion_utc": "2026-11-27T17:23:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "historique_complet_au_utc": "2026-11-27T12:21:29.321828+00:00",
+      "derniere_verification_utc": "2026-11-27T12:21:29.321828+00:00",
+      "prochaine_verification_utc": "2026-11-28T12:21:29.321828+00:00",
+      "nombre_performances": 55,
+      "erreur": "",
+      "ferrures_manquantes": 0,
+      "derniere_performance_date": "2026-11-15"
     },
     "2728824": {
       "nom": "JOIE DES VENTES",
@@ -99001,11 +99008,11 @@
     }
   },
   "passage_utc": "2026-11-27T12:19:02.888905+00:00",
-  "maj_utc": "2026-11-27T12:21:21.269625+00:00",
+  "maj_utc": "2026-11-27T12:21:30.233755+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
-    "tentatives_collecte": 0,
-    "captures_validees": 0,
+    "tentatives_collecte": 1,
+    "captures_validees": 1,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 5,
@@ -99772,20 +99779,27 @@
   "sync_kpi_utc": "2026-11-27T12:18:14.410966+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T12:19:02.888905+00:00",
-    "controle_utc": "2026-11-27T12:21:21.269625+00:00",
+    "controle_utc": "2026-11-27T12:21:30.233755+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 0,
+    "carrieres_completes_distinctes": 1,
     "chevaux_confirmes_sheets": 5,
     "performances_ajoutees_et_confirmees_sheets": 288,
-    "requetes_http_geny": 0,
-    "requetes_geny_par_ressource": {},
+    "requetes_http_geny": 62,
+    "requetes_geny_par_ressource": {
+      "document": 1,
+      "stylesheet": 2,
+      "script": 52,
+      "font": 3,
+      "fetch": 2,
+      "image": 2
+    },
     "ressources_geny_servies_du_cache_http": 0,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 0.0,
+    "duree_acces_geny_secondes": 6.94,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 0.0,
-    "carrieres_publiees_par_heure_cycle": 130.08,
+    "carrieres_validees_par_heure_cycle": 24.43,
+    "carrieres_publiees_par_heure_cycle": 122.16,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -99805,5 +99819,5 @@
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
   },
-  "derniere_acquisition_validee_utc": "2026-11-27T12:13:17.385473+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-27T12:21:29.321828+00:00"
 }
