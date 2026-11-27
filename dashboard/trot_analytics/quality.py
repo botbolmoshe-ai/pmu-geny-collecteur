@@ -51,6 +51,8 @@ def quality_sections(kpis, query=""):
             dimension = "Lecture Sheets J/J+1"
         elif label.startswith(KPI_PREFIX):
             dimension = "Correspondance PMU–Geny"
+        elif label.startswith("Historique courant · "):
+            dimension = "Historique courant"
         elif label.startswith("Rattrapage · "):
             dimension = "Rattrapage"
         if query and query not in f"{dimension} {label} {definition}".casefold():

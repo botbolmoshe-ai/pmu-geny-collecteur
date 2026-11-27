@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from trot_analytics.dates import afficher_instant
 from trot_analytics.logic import couverture_reunions, records, selected, number, timestamp, result_matching
 from trot_analytics.quality import render_quality
-from trot_analytics.correspondance_geny import COLONNE as COLONNE_GENY, STATUTS as STATUTS_GENY, statut_ligne
+from trot_analytics.correspondance_geny import COLONNE as COLONNE_GENY, STATUTS as STATUTS_GENY, libelle_historique, statut_ligne
 from trot_analytics.performance import render_performance
 from trot_analytics.observations import tableau_geny, tableau_observations
 from trot_analytics.usages import GENY_HISTORIQUE, IPR
@@ -303,12 +303,15 @@ elif page=="Courses":
             if not any(visibles):
                 st.caption("Aucun partant pour les filtres sélectionnés.")
                 continue
-            columns = ["N°", "Cheval", COLONNE_GENY, "Cote PMU", "Âge (ans)", COLONNE_PROFIL, COLONNE_INDICES, "Ferrure", "Musique PMU",
+            columns = ["N°", "Cheval", COLONNE_GENY, "Historique courant", "Cote PMU", "Âge (ans)", COLONNE_PROFIL, COLONNE_INDICES, "Ferrure", "Musique PMU",
                        "Non-partant (NP)", "Historique · Nb performances récupérées",
                        "Données actuelles · Mise à jour UTC"]
             partants = pd.DataFrame(rows)
             partants["Cote PMU"] = odds
             partants[COLONNE_GENY] = [STATUTS_GENY[statut_ligne(row)][0] for row in rows]
+            partants["Historique courant"] = [
+                libelle_historique(row.get("Historique · État")) for row in rows
+            ]
             if "Ferrure" not in partants and "Ferrure · Course du jour" in partants:
                 partants = partants.rename(columns={"Ferrure · Course du jour": "Ferrure"})
             for field in ("Autostart · Position assignée", "Autostart · Ligne", "Départ · Recul (m)"):
@@ -346,6 +349,7 @@ elif page=="Courses":
             if fiche is not None:
                 row = fiches[fiche]
                 st.write(STATUTS_GENY[statut_ligne(row)][0])
+                st.write(libelle_historique(row.get("Historique · État")))
                 if row.get("Détail du rapprochement Geny"):
                     st.text(row["Détail du rapprochement Geny"])
                 libelles = profils_ligne(row)

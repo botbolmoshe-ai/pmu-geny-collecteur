@@ -12,6 +12,11 @@ on:
       - '.github/workflows/**'
   workflow_dispatch:
     inputs:
+      historiques_registre:
+        description: 'Contrôle des historiques courants (publication sur main uniquement)'
+        type: choice
+        options: [aucun, audit, appliquer]
+        default: aucun
       dates_registre:
         description: 'Audit ou migration des dates du registre'
         type: choice
@@ -154,3 +159,47 @@ jobs:
           name: dates-registre-${{ github.run_id }}
           path: resultats/dates/audit.json
           if-no-files-found: warn
+
+  historiques-registre:
+    if: github.event_name == 'workflow_dispatch' && inputs.historiques_registre != 'aucun'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: pmu-donnees-production
+      cancel-in-progress: false
+      queue: max
+    env:
+      GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: pmu-data
+          path: reference_pmu
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt -r requirements-ml.txt google-auth==2.43.0 requests
+      - name: Contrôler les historiques
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          MODE: ${{ inputs.historiques_registre }}
+        run: |
+          set -euo pipefail
+          arguments=()
+          if [[ "$MODE" == "appliquer" ]]; then
+            [[ "$GITHUB_REF" == "refs/heads/main" ]]
+            arguments+=(--appliquer)
+          fi
+          git -C reference_pmu rev-parse HEAD
+          python -m pmu_geny.audit_reconciliation_historiques --cache reference_pmu \
+            --sortie resultats/historiques/diagnostic.json "${arguments[@]}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-historiques-${{ github.run_id }}
+          path: resultats/historiques/diagnostic.json
+          if-no-files-found: ignore
