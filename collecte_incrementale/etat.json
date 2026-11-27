@@ -92937,7 +92937,24 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-27T17:05:00+00:00",
       "premier_depart_reunion_utc": "2026-11-27T15:55:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "collecte": "A_REPRENDRE",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-12-04T00:51:35.308195+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-27T00:51:35.308212+00:00",
+        "statut": "RECHERCHE_GENY_NON_AUTORISEE",
+        "motifs": [],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-27_R5C3_13/1795740695308064521/resultat.json"
+      },
+      "recherche_identite_geny": {
+        "statut": "RECHERCHE_BLOQUEE",
+        "motif": "RECHERCHE_GENY_NON_AUTORISEE",
+        "utc": "2026-11-27T00:51:35.233849+00:00",
+        "reprise_utc": "2026-12-04T00:51:35.308195+00:00"
+      }
     },
     "2779653": {
       "nom": "KENYAN BLUES",
@@ -93645,13 +93662,13 @@
     }
   },
   "passage_utc": "2026-11-27T00:51:23.559580+00:00",
-  "maj_utc": "2026-11-27T00:51:31.996479+00:00",
+  "maj_utc": "2026-11-27T00:51:35.308234+00:00",
   "bilan": {
     "chevaux_suivis": 3361,
-    "tentatives_collecte": 2,
+    "tentatives_collecte": 3,
     "captures_validees": 0,
     "captures_partielles": 0,
-    "collectes_rejetees": 2,
+    "collectes_rejetees": 3,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 3075
   },
@@ -94072,7 +94089,7 @@
   "sync_kpi_utc": "2026-11-26T23:08:22.379994+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:51:23.559580+00:00",
-    "controle_utc": "2026-11-27T00:51:31.996479+00:00",
+    "controle_utc": "2026-11-27T00:51:35.308234+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 0,
