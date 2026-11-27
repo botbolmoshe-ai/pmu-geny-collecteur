@@ -21,3 +21,15 @@ KPI_PREFIX = 'Correspondance Geny · '
 def statut_ligne(row):
     value = row.get(COLONNE) or row.get(CHAMP)
     return value if value in STATUTS else NON_EFFECTUEE
+
+
+def libelle_historique(value):
+    if str(value or '').startswith('HISTO_OK'):
+        return 'Carrière validée et publiée'
+    return {
+        'HISTO_PARTIEL_GENY': 'Historique partiel',
+        'HISTO_PUBLICATION_EN_ATTENTE': 'Publication en attente',
+        'GENY_IDENTIFIE_CARRIERE_MANQUANTE': 'Carrière à collecter',
+        'HISTO_NON_COLLECTE': 'Historique absent',
+        'HISTO_AMBIGU': 'Identité à vérifier',
+    }.get(value, 'État indisponible')

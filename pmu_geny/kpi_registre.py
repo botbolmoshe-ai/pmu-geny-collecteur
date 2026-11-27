@@ -17,6 +17,7 @@ DIMENSIONS_KPI = {
     'Cotes PMU · ': 'Cotes PMU',
     'Collecte · ': 'Collecte',
     'Registre · ': 'Registre',
+    'Historique courant · ': 'Historique courant',
 }
 
 def _load(path):
@@ -68,8 +69,11 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
             if len(predicted)==len(set(predicted))==3 and created<departure:
                 scores.append(len(set(predicted)&podium))
         except (ValueError,KeyError,TypeError):continue
-    linked=sum(str(r.get('historique_statut','')).startswith('HISTO_OK') for r in participants)
-    has_history=sum((_nombre(r.get('historique_nb_courses_datees')) or 0)>0 for r in participants)
+    history_rows = participants if sheets_courses is None else [
+        row for row in sheets_courses if row.get('course_key') and row.get('numero') and row.get('cheval')
+    ]
+    linked=sum(str(r.get('historique_statut','')).startswith('HISTO_OK') for r in history_rows)
+    has_history=sum((_nombre(r.get('historique_nb_courses_datees')) or 0)>0 for r in history_rows)
     def ferrure_sourcee(row):
         code = ferrure_normalisee(row.get('ferrure'))
         if row.get('actuel_statut') in ('CODE_INCONNU', 'NON_RECUPEREE', 'FERRURE_NON_RECUPEREE'):
@@ -397,6 +401,14 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
     ]
     return dict([
         *correspondances,
+        metric('Historique courant · Participations contrôlées', len(history_rows),
+               'Lignes cheval-course dans Courses & Prévisions.'),
+        metric('Historique courant · Publications en attente',
+               sum(r.get('historique_statut') == 'HISTO_PUBLICATION_EN_ATTENTE' for r in history_rows),
+               'Captures validées dont la publication complète reste à confirmer dans Sheets.'),
+        metric('Historique courant · Identités sans carrière',
+               sum(r.get('historique_statut') == 'GENY_IDENTIFIE_CARRIERE_MANQUANTE' for r in history_rows),
+               'Identités Geny confirmées sans données de carrière utilisables.'),
         *ml_metrics,
         *odds_metrics,
         *operational,
@@ -405,7 +417,7 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
         metric(PERIMETRE_RESULTATS, len(courses_previsions | courses_resultats),
                'Union des clés distinctes de Courses & Prévisions et Résultats & Analyse, préparations J+1 incluses.'),
         metric('Partants avec historique identifié (nom/ID)',linked,'Participations dont le statut commence par HISTO_OK.'),
-        metric('Chevaux avec historique partiel',sum('PARTIEL' in str(r.get('historique_statut','')) for r in participants),'Participations avec statut partiel ; distinct du stock de fichiers partiels.'),
+        metric('Chevaux avec historique partiel',sum('PARTIEL' in str(r.get('historique_statut','')) for r in history_rows),'Participations avec statut partiel ; distinct du stock de fichiers partiels.'),
         metric('Partants avec historique disponible',has_history,'Nombre de performances strictement positif, valeur numérique contrôlée.'),
         metric('Partants sélectionnés TOP3 direct',sum(r.get('top3_direct_top3')=='OUI' for r in participants),'Participations sélectionnées ; préparations J+1 incluses.'),
         metric('Courses avec arrivée officielle',arrived,'Bilans avec arrivée PMU présente ; finalité officielle à contrôler séparément.'),
@@ -421,8 +433,8 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
         metric('Participations avec modèle ML non entraîné',sum(r.get('ml_modele_statut')=='ML_NON_ENTRAINE' for r in participants),
                'Participations dont le statut ML est explicitement ML_NON_ENTRAINE ; même périmètre que les participations recensées.'),
         metric('Participations recensées',count,'Lignes de partants, distinctes des chevaux et des courses.'),
-        metric('Partants sans historique collecté',sum(r.get('historique_statut')=='HISTO_NON_COLLECTE' for r in participants),'Participations explicitement sans historique collecté.'),
-        metric('Taux de partants avec historique identifié',linked/count if count else '','Participations HISTO_OK / participations recensées.'),
+        metric('Partants sans historique collecté',sum(r.get('historique_statut')=='HISTO_NON_COLLECTE' for r in history_rows),'Participations explicitement sans historique collecté.'),
+        metric('Taux de partants avec historique identifié',linked/len(history_rows) if history_rows else '','Participations HISTO_OK / participations recensées.'),
         metric('Courses avec sélection TOP3 direct',len({r['course_key'] for r in participants if r.get('top3_direct_top3')=='OUI'}),'Courses avec au moins une sélection directe ; préparations J+1 incluses.'),
         metric('Musique PMU renseignée',nonempty('musique_pmu'),'Lignes dont la musique PMU a ete recuperee; n atteste pas son interpretation.'),
         metric('TOP3 direct avec score calculable',sum(_nombre(r.get('top3_direct_score')) is not None for r in participants),
@@ -463,6 +475,13 @@ def totaux_reference(metrics):
         'TOP3 direct sur musique PMU seule','Participations avec sélection ML publiée',
         'Participations avec modèle ML non entraîné'):
         if participants is not None:totals[label]=participants
+    history_total = value('Historique courant · Participations contrôlées')
+    if history_total is not None:
+        for label in ('Partants avec historique identifié (nom/ID)', 'Chevaux avec historique partiel',
+                      'Partants avec historique disponible', 'Partants sans historique collecté',
+                      'Taux de partants avec historique identifié', 'Historique courant · Publications en attente',
+                      'Historique courant · Identités sans carrière'):
+            totals[label] = history_total
     for label in ('Courses distinctes collectées', 'Courses avec sélection TOP3 direct'):
         if courses is not None:totals[label]=courses
     if (perimetre := value(PERIMETRE_RESULTATS)) is not None:
@@ -511,7 +530,7 @@ def totaux_reference(metrics):
 
 
 PUBLISHED_PREFIXES = ('ML expérimental · ', 'ML prospectif · ', 'Maturité ML · ', 'Autostart prospectif · ',
-                      'Échéances · ', 'H+30 · ', 'Collecte · ', 'Cotes PMU · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ', KPI_PREFIX)
+                      'Échéances · ', 'H+30 · ', 'Collecte · ', 'Cotes PMU · ', 'Registre · ', 'J · ', 'J+1 · ', 'Rattrapage · ', 'Historique courant · ', KPI_PREFIX)
 
 
 def plan_kpi(values, metrics):

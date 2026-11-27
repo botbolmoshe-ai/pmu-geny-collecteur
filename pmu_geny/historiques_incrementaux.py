@@ -107,6 +107,9 @@ def course_geny_connue(cache,engagement):
                                  'num_course':int(match[3])},index.get('courses',[]))
             if decision.get('statut')=='CORRESPONDANCE_CONFIRMEE':
                 cid='GENY-'+str(decision['geny_id'])
+    if not cid:
+        from .identites_chevaux import course_verifiee
+        cid = course_verifiee(engagement)
     return cid if re.fullmatch(r'GENY-\d+',str(cid)) else ''
 
 
