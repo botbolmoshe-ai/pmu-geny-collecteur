@@ -1,101 +1,928 @@
 {
-  "controle_utc": "2026-11-27T10:27:26.336281+00:00",
+  "controle_utc": "2026-11-27T12:05:19.959610+00:00",
   "publication_reussie": true,
   "plan": {
-    "plan_utc": "2026-11-27T10:26:19.128870+00:00",
+    "plan_utc": "2026-11-27T12:04:46.836254+00:00",
     "date": "2026-11-27",
     "erreurs": [],
     "version_jalons": "H3_H2",
     "executer": true,
-    "mode": "GLOBAL",
+    "mode": "JALONS",
     "date_preparation": null,
     "global_du": true,
-    "secours_pmu": false,
-    "selection": [],
-    "prochain_jalon_utc": "2026-11-27T12:00:00+00:00",
-    "jalons_dus": [],
+    "secours_pmu": true,
+    "selection": [
+      "R5C1",
+      "R5C2",
+      "R5C3",
+      "R5C4",
+      "R5C5",
+      "R5C6",
+      "R5C7"
+    ],
+    "prochain_jalon_utc": "2026-11-27T13:00:00+00:00",
+    "jalons_dus": [
+      {
+        "course": "2026-11-27_R5C1",
+        "reunion": "2026-11-27_R5",
+        "phase": "H3",
+        "echeance": "2026-11-27T12:55:00+00:00"
+      },
+      {
+        "course": "2026-11-27_R5C2",
+        "reunion": "2026-11-27_R5",
+        "phase": "H3",
+        "echeance": "2026-11-27T12:55:00+00:00"
+      },
+      {
+        "course": "2026-11-27_R5C3",
+        "reunion": "2026-11-27_R5",
+        "phase": "H3",
+        "echeance": "2026-11-27T12:55:00+00:00"
+      },
+      {
+        "course": "2026-11-27_R5C4",
+        "reunion": "2026-11-27_R5",
+        "phase": "H3",
+        "echeance": "2026-11-27T12:55:00+00:00"
+      },
+      {
+        "course": "2026-11-27_R5C5",
+        "reunion": "2026-11-27_R5",
+        "phase": "H3",
+        "echeance": "2026-11-27T12:55:00+00:00"
+      },
+      {
+        "course": "2026-11-27_R5C6",
+        "reunion": "2026-11-27_R5",
+        "phase": "H3",
+        "echeance": "2026-11-27T12:55:00+00:00"
+      },
+      {
+        "course": "2026-11-27_R5C7",
+        "reunion": "2026-11-27_R5",
+        "phase": "H3",
+        "echeance": "2026-11-27T12:55:00+00:00"
+      }
+    ],
     "rapprochements_dus": [],
-    "prochain_besoin_utc": "2026-11-27T11:05:38.632567+00:00"
+    "prochain_besoin_utc": "2026-11-27T13:00:00+00:00"
   },
   "courses": [
     {
-      "course": "2026-11-27_R1C1",
-      "top3_direct_et_ml": true,
-      "jalons": {}
-    },
-    {
-      "course": "2026-11-27_R1C2",
-      "top3_direct_et_ml": true,
-      "jalons": {}
-    },
-    {
-      "course": "2026-11-27_R1C3",
-      "top3_direct_et_ml": true,
-      "jalons": {}
-    },
-    {
-      "course": "2026-11-27_R1C4",
-      "top3_direct_et_ml": true,
-      "jalons": {}
-    },
-    {
-      "course": "2026-11-27_R1C5",
-      "top3_direct_et_ml": true,
-      "jalons": {}
-    },
-    {
-      "course": "2026-11-27_R1C6",
-      "top3_direct_et_ml": true,
-      "jalons": {}
-    },
-    {
-      "course": "2026-11-27_R1C7",
-      "top3_direct_et_ml": true,
-      "jalons": {}
-    },
-    {
-      "course": "2026-11-27_R1C8",
-      "top3_direct_et_ml": true,
-      "jalons": {}
-    },
-    {
       "course": "2026-11-27_R5C1",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H3": {
+          "echeance": "2026-11-27T12:55:00+00:00",
+          "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+          "reference_utc": "2026-11-27T15:55:00+00:00",
+          "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+          "version_jalons": "H3_H2",
+          "fin_calcul_utc": "2026-11-27T12:05:00.073927+00:00",
+          "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-27T12:04:58.773190+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "ec76b1aba308de3f55db5e0d825b9250f7f2c2ef2a4059d8a3966cbf2f668a2f",
+              "fichier": "jalons/2026-11-27_R5C1/H3_direct_20261127T120458773190Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.163727+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C1",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DE SAINT-LOUP",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T16:55:00+01:00"
+              }
+            },
+            "ml": {
+              "calcul_utc": "2026-11-27T12:05:00.073927+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "395cf96b9d0cd6c3c7490ebd92871f1df78b3c9c96434ebb50dfc291815edb23",
+              "fichier": "jalons/2026-11-27_R5C1/H3_ml_20261127T120500073927Z.json",
+              "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.163727+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C1",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DE SAINT-LOUP",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T16:55:00+01:00"
+              }
+            }
+          }
+        }
+      }
     },
     {
       "course": "2026-11-27_R5C2",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H3": {
+          "echeance": "2026-11-27T12:55:00+00:00",
+          "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+          "reference_utc": "2026-11-27T15:55:00+00:00",
+          "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+          "version_jalons": "H3_H2",
+          "fin_calcul_utc": "2026-11-27T12:05:01.069008+00:00",
+          "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-27T12:05:00.696094+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "719bafd4abcb3970268e9379b6e95de6e4a457cd7dbe41d377e7b87568a1862c",
+              "fichier": "jalons/2026-11-27_R5C2/H3_direct_20261127T120500696094Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.299058+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C2",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DE LA ROSE",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T17:30:00+01:00"
+              }
+            },
+            "ml": {
+              "calcul_utc": "2026-11-27T12:05:01.069008+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "873e48d42abadda2c00b2240a21496f8591b0c86e99234f4a894743ab57be93d",
+              "fichier": "jalons/2026-11-27_R5C2/H3_ml_20261127T120501069008Z.json",
+              "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.299058+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C2",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DE LA ROSE",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T17:30:00+01:00"
+              }
+            }
+          }
+        }
+      }
     },
     {
       "course": "2026-11-27_R5C3",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H3": {
+          "echeance": "2026-11-27T12:55:00+00:00",
+          "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+          "reference_utc": "2026-11-27T15:55:00+00:00",
+          "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+          "version_jalons": "H3_H2",
+          "fin_calcul_utc": "2026-11-27T12:05:02.081854+00:00",
+          "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-27T12:05:01.682566+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "59f0bf992520f18ad103fd021ff5e105000769768408c46ccd979c58ab72a8c2",
+              "fichier": "jalons/2026-11-27_R5C3/H3_direct_20261127T120501682566Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.485924+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C3",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX GENERAL BONNAFE",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T18:05:00+01:00"
+              }
+            },
+            "ml": {
+              "calcul_utc": "2026-11-27T12:05:02.081854+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "6d33b4a9771836d4d29c520aed92cb5dad8f8e6fd3059edd43a2ce213d0a4106",
+              "fichier": "jalons/2026-11-27_R5C3/H3_ml_20261127T120502081854Z.json",
+              "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.485924+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C3",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX GENERAL BONNAFE",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T18:05:00+01:00"
+              }
+            }
+          }
+        }
+      }
     },
     {
       "course": "2026-11-27_R5C4",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H3": {
+          "echeance": "2026-11-27T12:55:00+00:00",
+          "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+          "reference_utc": "2026-11-27T15:55:00+00:00",
+          "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+          "version_jalons": "H3_H2",
+          "fin_calcul_utc": "2026-11-27T12:05:03.052631+00:00",
+          "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-27T12:05:02.686359+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "5b6de304d7aa1554cb4c60de54bac1b4ae5ad536e0bfab48247dd4cd962b7857",
+              "fichier": "jalons/2026-11-27_R5C4/H3_direct_20261127T120502686359Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.666577+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C4",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX FRANCOIS-REGIS LE VEXIER",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T18:40:00+01:00"
+              }
+            },
+            "ml": {
+              "calcul_utc": "2026-11-27T12:05:03.052631+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "7e92fe72861004c95d6af06cbf55a89a9672586fedab24e4b652e7fe4e0ae9ed",
+              "fichier": "jalons/2026-11-27_R5C4/H3_ml_20261127T120503052631Z.json",
+              "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.666577+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C4",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX FRANCOIS-REGIS LE VEXIER",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T18:40:00+01:00"
+              }
+            }
+          }
+        }
+      }
     },
     {
       "course": "2026-11-27_R5C5",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H3": {
+          "echeance": "2026-11-27T12:55:00+00:00",
+          "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+          "reference_utc": "2026-11-27T15:55:00+00:00",
+          "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+          "version_jalons": "H3_H2",
+          "fin_calcul_utc": "2026-11-27T12:05:04.059546+00:00",
+          "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-27T12:05:03.667551+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "52d08cf43836c99d737b680037c058d69b22ac152824ff23e158105377e73701",
+              "fichier": "jalons/2026-11-27_R5C5/H3_direct_20261127T120503667551Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.868896+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C5",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DU PRADO",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T19:15:00+01:00"
+              }
+            },
+            "ml": {
+              "calcul_utc": "2026-11-27T12:05:04.059546+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "5aded607642d830d62f53918e110d30a238c31f060f286259a441765019f5861",
+              "fichier": "jalons/2026-11-27_R5C5/H3_ml_20261127T120504059546Z.json",
+              "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:57.868896+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C5",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DU PRADO",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T19:15:00+01:00"
+              }
+            }
+          }
+        }
+      }
     },
     {
       "course": "2026-11-27_R5C6",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H3": {
+          "echeance": "2026-11-27T12:55:00+00:00",
+          "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+          "reference_utc": "2026-11-27T15:55:00+00:00",
+          "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+          "version_jalons": "H3_H2",
+          "fin_calcul_utc": "2026-11-27T12:05:05.039943+00:00",
+          "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-27T12:05:04.668626+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "7f2d156d1277ca840dd8cf5dc2b366d248e0c1df36fc4bdbf1557418100a27ae",
+              "fichier": "jalons/2026-11-27_R5C6/H3_direct_20261127T120504668626Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:58.115192+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C6",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DES CAMOINS",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T19:50:00+01:00"
+              }
+            },
+            "ml": {
+              "calcul_utc": "2026-11-27T12:05:05.039943+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "578d8c05d06c3e9e4f221d84de52f6b720075a9e1ed7e3ed67a3b92292c0b740",
+              "fichier": "jalons/2026-11-27_R5C6/H3_ml_20261127T120505039943Z.json",
+              "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:58.115192+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C6",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DES CAMOINS",
+                  "discipline": "TROT_ATTELE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T19:50:00+01:00"
+              }
+            }
+          }
+        }
+      }
     },
     {
       "course": "2026-11-27_R5C7",
       "top3_direct_et_ml": true,
-      "jalons": {}
+      "jalons": {
+        "H3": {
+          "echeance": "2026-11-27T12:55:00+00:00",
+          "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+          "reference_utc": "2026-11-27T15:55:00+00:00",
+          "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+          "version_jalons": "H3_H2",
+          "fin_calcul_utc": "2026-11-27T12:05:06.025329+00:00",
+          "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+          "statut": "PUBLIE_A_TEMPS",
+          "retard_secondes": 0,
+          "versions": {
+            "direct": {
+              "calcul_utc": "2026-11-27T12:05:05.642938+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "ea436331cde52c33b32eacc4464a19e3665ecce2f83f1ee0af59c8d5df4172d4",
+              "fichier": "jalons/2026-11-27_R5C7/H3_direct_20261127T120505642938Z.json",
+              "empreinte_modele": null,
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:58.301656+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C7",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DE GRAVELLES",
+                  "discipline": "TROT_MONTE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T20:32:00+01:00"
+              }
+            },
+            "ml": {
+              "calcul_utc": "2026-11-27T12:05:06.025329+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "sha256": "380062686933a938bb887c3d33236c8d69d35b6715c08d95cc3f459490e02bb4",
+              "fichier": "jalons/2026-11-27_R5C7/H3_ml_20261127T120506025329Z.json",
+              "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+              "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+              "capture_partants_utc": "2026-11-27T12:04:58.301656+00:00",
+              "programme_pmu": {
+                "identite": {
+                  "date": "2026-11-27",
+                  "code": "R5C7",
+                  "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                  "nom": "PRIX DE GRAVELLES",
+                  "discipline": "TROT_MONTE",
+                  "distance_m": 2650
+                },
+                "depart": "2026-11-27T20:32:00+01:00"
+              }
+            }
+          }
+        }
+      }
     }
   ],
   "erreurs": [],
   "rapprochements": [],
-  "reunions": [],
-  "ipr_jalons_figes": {}
+  "reunions": [
+    {
+      "reunion": "2026-11-27_R5",
+      "jalons": {
+        "H3": {
+          "statut": "PUBLIE_A_TEMPS",
+          "reference_utc": "2026-11-27T15:55:00+00:00",
+          "version_jalons": "H3_H2",
+          "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+          "inventaire": [
+            {
+              "code": "R5C1",
+              "statut_pmu": "PROGRAMMEE",
+              "top3_attendu": true
+            },
+            {
+              "code": "R5C2",
+              "statut_pmu": "PROGRAMMEE",
+              "top3_attendu": true
+            },
+            {
+              "code": "R5C3",
+              "statut_pmu": "PROGRAMMEE",
+              "top3_attendu": true
+            },
+            {
+              "code": "R5C4",
+              "statut_pmu": "PROGRAMMEE",
+              "top3_attendu": true
+            },
+            {
+              "code": "R5C5",
+              "statut_pmu": "PROGRAMMEE",
+              "top3_attendu": true
+            },
+            {
+              "code": "R5C6",
+              "statut_pmu": "PROGRAMMEE",
+              "top3_attendu": true
+            },
+            {
+              "code": "R5C7",
+              "statut_pmu": "PROGRAMMEE",
+              "top3_attendu": true
+            }
+          ],
+          "echeance": "2026-11-27T12:55:00+00:00",
+          "courses_attendues": [
+            "R5C1",
+            "R5C2",
+            "R5C3",
+            "R5C4",
+            "R5C5",
+            "R5C6",
+            "R5C7"
+          ],
+          "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+          "fin_calcul_utc": "2026-11-27T12:05:06.025329+00:00",
+          "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+          "courses": {
+            "R5C1": {
+              "echeance": "2026-11-27T12:55:00+00:00",
+              "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+              "reference_utc": "2026-11-27T15:55:00+00:00",
+              "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+              "version_jalons": "H3_H2",
+              "fin_calcul_utc": "2026-11-27T12:05:00.073927+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "statut": "PUBLIE_A_TEMPS",
+              "retard_secondes": 0,
+              "versions": {
+                "direct": {
+                  "calcul_utc": "2026-11-27T12:04:58.773190+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "ec76b1aba308de3f55db5e0d825b9250f7f2c2ef2a4059d8a3966cbf2f668a2f",
+                  "fichier": "jalons/2026-11-27_R5C1/H3_direct_20261127T120458773190Z.json",
+                  "empreinte_modele": null,
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.163727+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C1",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DE SAINT-LOUP",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T16:55:00+01:00"
+                  }
+                },
+                "ml": {
+                  "calcul_utc": "2026-11-27T12:05:00.073927+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "395cf96b9d0cd6c3c7490ebd92871f1df78b3c9c96434ebb50dfc291815edb23",
+                  "fichier": "jalons/2026-11-27_R5C1/H3_ml_20261127T120500073927Z.json",
+                  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.163727+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C1",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DE SAINT-LOUP",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T16:55:00+01:00"
+                  }
+                }
+              }
+            },
+            "R5C2": {
+              "echeance": "2026-11-27T12:55:00+00:00",
+              "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+              "reference_utc": "2026-11-27T15:55:00+00:00",
+              "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+              "version_jalons": "H3_H2",
+              "fin_calcul_utc": "2026-11-27T12:05:01.069008+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "statut": "PUBLIE_A_TEMPS",
+              "retard_secondes": 0,
+              "versions": {
+                "direct": {
+                  "calcul_utc": "2026-11-27T12:05:00.696094+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "719bafd4abcb3970268e9379b6e95de6e4a457cd7dbe41d377e7b87568a1862c",
+                  "fichier": "jalons/2026-11-27_R5C2/H3_direct_20261127T120500696094Z.json",
+                  "empreinte_modele": null,
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.299058+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C2",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DE LA ROSE",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T17:30:00+01:00"
+                  }
+                },
+                "ml": {
+                  "calcul_utc": "2026-11-27T12:05:01.069008+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "873e48d42abadda2c00b2240a21496f8591b0c86e99234f4a894743ab57be93d",
+                  "fichier": "jalons/2026-11-27_R5C2/H3_ml_20261127T120501069008Z.json",
+                  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.299058+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C2",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DE LA ROSE",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T17:30:00+01:00"
+                  }
+                }
+              }
+            },
+            "R5C3": {
+              "echeance": "2026-11-27T12:55:00+00:00",
+              "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+              "reference_utc": "2026-11-27T15:55:00+00:00",
+              "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+              "version_jalons": "H3_H2",
+              "fin_calcul_utc": "2026-11-27T12:05:02.081854+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "statut": "PUBLIE_A_TEMPS",
+              "retard_secondes": 0,
+              "versions": {
+                "direct": {
+                  "calcul_utc": "2026-11-27T12:05:01.682566+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "59f0bf992520f18ad103fd021ff5e105000769768408c46ccd979c58ab72a8c2",
+                  "fichier": "jalons/2026-11-27_R5C3/H3_direct_20261127T120501682566Z.json",
+                  "empreinte_modele": null,
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.485924+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C3",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX GENERAL BONNAFE",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T18:05:00+01:00"
+                  }
+                },
+                "ml": {
+                  "calcul_utc": "2026-11-27T12:05:02.081854+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "6d33b4a9771836d4d29c520aed92cb5dad8f8e6fd3059edd43a2ce213d0a4106",
+                  "fichier": "jalons/2026-11-27_R5C3/H3_ml_20261127T120502081854Z.json",
+                  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.485924+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C3",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX GENERAL BONNAFE",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T18:05:00+01:00"
+                  }
+                }
+              }
+            },
+            "R5C4": {
+              "echeance": "2026-11-27T12:55:00+00:00",
+              "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+              "reference_utc": "2026-11-27T15:55:00+00:00",
+              "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+              "version_jalons": "H3_H2",
+              "fin_calcul_utc": "2026-11-27T12:05:03.052631+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "statut": "PUBLIE_A_TEMPS",
+              "retard_secondes": 0,
+              "versions": {
+                "direct": {
+                  "calcul_utc": "2026-11-27T12:05:02.686359+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "5b6de304d7aa1554cb4c60de54bac1b4ae5ad536e0bfab48247dd4cd962b7857",
+                  "fichier": "jalons/2026-11-27_R5C4/H3_direct_20261127T120502686359Z.json",
+                  "empreinte_modele": null,
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.666577+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C4",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX FRANCOIS-REGIS LE VEXIER",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T18:40:00+01:00"
+                  }
+                },
+                "ml": {
+                  "calcul_utc": "2026-11-27T12:05:03.052631+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "7e92fe72861004c95d6af06cbf55a89a9672586fedab24e4b652e7fe4e0ae9ed",
+                  "fichier": "jalons/2026-11-27_R5C4/H3_ml_20261127T120503052631Z.json",
+                  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.666577+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C4",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX FRANCOIS-REGIS LE VEXIER",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T18:40:00+01:00"
+                  }
+                }
+              }
+            },
+            "R5C5": {
+              "echeance": "2026-11-27T12:55:00+00:00",
+              "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+              "reference_utc": "2026-11-27T15:55:00+00:00",
+              "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+              "version_jalons": "H3_H2",
+              "fin_calcul_utc": "2026-11-27T12:05:04.059546+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "statut": "PUBLIE_A_TEMPS",
+              "retard_secondes": 0,
+              "versions": {
+                "direct": {
+                  "calcul_utc": "2026-11-27T12:05:03.667551+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "52d08cf43836c99d737b680037c058d69b22ac152824ff23e158105377e73701",
+                  "fichier": "jalons/2026-11-27_R5C5/H3_direct_20261127T120503667551Z.json",
+                  "empreinte_modele": null,
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.868896+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C5",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DU PRADO",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T19:15:00+01:00"
+                  }
+                },
+                "ml": {
+                  "calcul_utc": "2026-11-27T12:05:04.059546+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "5aded607642d830d62f53918e110d30a238c31f060f286259a441765019f5861",
+                  "fichier": "jalons/2026-11-27_R5C5/H3_ml_20261127T120504059546Z.json",
+                  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:57.868896+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C5",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DU PRADO",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T19:15:00+01:00"
+                  }
+                }
+              }
+            },
+            "R5C6": {
+              "echeance": "2026-11-27T12:55:00+00:00",
+              "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+              "reference_utc": "2026-11-27T15:55:00+00:00",
+              "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+              "version_jalons": "H3_H2",
+              "fin_calcul_utc": "2026-11-27T12:05:05.039943+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "statut": "PUBLIE_A_TEMPS",
+              "retard_secondes": 0,
+              "versions": {
+                "direct": {
+                  "calcul_utc": "2026-11-27T12:05:04.668626+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "7f2d156d1277ca840dd8cf5dc2b366d248e0c1df36fc4bdbf1557418100a27ae",
+                  "fichier": "jalons/2026-11-27_R5C6/H3_direct_20261127T120504668626Z.json",
+                  "empreinte_modele": null,
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:58.115192+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C6",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DES CAMOINS",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T19:50:00+01:00"
+                  }
+                },
+                "ml": {
+                  "calcul_utc": "2026-11-27T12:05:05.039943+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "578d8c05d06c3e9e4f221d84de52f6b720075a9e1ed7e3ed67a3b92292c0b740",
+                  "fichier": "jalons/2026-11-27_R5C6/H3_ml_20261127T120505039943Z.json",
+                  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:58.115192+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C6",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DES CAMOINS",
+                      "discipline": "TROT_ATTELE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T19:50:00+01:00"
+                  }
+                }
+              }
+            },
+            "R5C7": {
+              "echeance": "2026-11-27T12:55:00+00:00",
+              "controle_utc": "2026-11-27T12:05:19.959610+00:00",
+              "reference_utc": "2026-11-27T15:55:00+00:00",
+              "demarrage_utc": "2026-11-27T12:04:46.836254+00:00",
+              "version_jalons": "H3_H2",
+              "fin_calcul_utc": "2026-11-27T12:05:06.025329+00:00",
+              "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+              "statut": "PUBLIE_A_TEMPS",
+              "retard_secondes": 0,
+              "versions": {
+                "direct": {
+                  "calcul_utc": "2026-11-27T12:05:05.642938+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "ea436331cde52c33b32eacc4464a19e3665ecce2f83f1ee0af59c8d5df4172d4",
+                  "fichier": "jalons/2026-11-27_R5C7/H3_direct_20261127T120505642938Z.json",
+                  "empreinte_modele": null,
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:58.301656+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C7",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DE GRAVELLES",
+                      "discipline": "TROT_MONTE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T20:32:00+01:00"
+                  }
+                },
+                "ml": {
+                  "calcul_utc": "2026-11-27T12:05:06.025329+00:00",
+                  "publication_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "sha256": "380062686933a938bb887c3d33236c8d69d35b6715c08d95cc3f459490e02bb4",
+                  "fichier": "jalons/2026-11-27_R5C7/H3_ml_20261127T120506025329Z.json",
+                  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+                  "lecture_sheets_utc": "2026-11-27T12:05:19.824002+00:00",
+                  "capture_partants_utc": "2026-11-27T12:04:58.301656+00:00",
+                  "programme_pmu": {
+                    "identite": {
+                      "date": "2026-11-27",
+                      "code": "R5C7",
+                      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+                      "nom": "PRIX DE GRAVELLES",
+                      "discipline": "TROT_MONTE",
+                      "distance_m": 2650
+                    },
+                    "depart": "2026-11-27T20:32:00+01:00"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "ipr_jalons_figes": {
+    "2026-11-27_R5C1": "H3",
+    "2026-11-27_R5C2": "H3"
+  }
 }
