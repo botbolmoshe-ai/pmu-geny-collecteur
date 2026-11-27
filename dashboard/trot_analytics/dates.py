@@ -126,7 +126,7 @@ def nombre_paris(value, *, utc=True):
     stamp = lire_instant_consultation(value, timezone.utc if utc else PARIS)
     if stamp is None:
         return value
-    delta = stamp.astimezone(PARIS).replace(tzinfo=None) - EPOCH
+    delta = stamp.astimezone(PARIS).replace(tzinfo=None, microsecond=0) - EPOCH
     return delta / timedelta(days=1)
 
 
