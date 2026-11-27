@@ -12,7 +12,7 @@ from collections import Counter
 from pathlib import Path
 from urllib.parse import quote
 
-from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, DISPLAY_PREFIX, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
+from dashboard.trot_analytics.dates import DATE_PATTERN, DATETIME_PATTERN, DISPLAY_PREFIX, cle_indicateur, date_kind, depuis_nombre, meme_date_sheets, vers_cellule_operationnelle, vers_nombre
 
 from .controle_sync_sheets import HISTORY,lire_cles_independantes,verifier_avant,verifier_apres
 from .lectures_sheets import get_lecture
@@ -590,6 +590,7 @@ class SynchroniseurSheets:
                 first, row = cell[1], int(cell[2])
                 label = (entry['values'][0][1] if first == 'A' else
                          values[row - 1][1] if first == 'C' else '')
+                label = cle_indicateur(label)
                 if label in dates:
                     structure.append(format_cell(properties['sheetId'], row, 2, 'DATE_TIME',
                                                  note=f'Affichage Europe/Paris. Source : {dates[label]}'))
@@ -601,16 +602,15 @@ class SynchroniseurSheets:
         totals = totaux_reference(metrics)
         managed = {key: (value, definition, totals.get(key, '')) for key, (value, definition) in metrics.items()
                    if key.startswith(PUBLISHED_PREFIXES) or (
-                       key in INDICATEURS_RESULTATS and any(len(row) > 1 and row[1] == key for row in values))}
+                       key in INDICATEURS_RESULTATS and any(len(row) > 1 and cle_indicateur(row[1]) == key for row in values))}
         if managed:
             if updates:
                 values = self.check(get_lecture(self.session, self.base+'/values/'+path,
                     params={'valueRenderOption':'UNFORMATTED_VALUE'}, timeout=30)).get('values', [])
             seen = set()
             for row in values[1:]:
-                if len(row) < 2 or row[1] not in managed:
+                if len(row) < 2 or (key := cle_indicateur(row[1])) not in managed:
                     continue
-                key = row[1]
                 if key in seen:
                     raise ErreurSynchronisation('Indicateur KPI en double : ' + key)
                 seen.add(key)

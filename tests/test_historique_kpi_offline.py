@@ -13,6 +13,16 @@ class HistoryTests(unittest.TestCase):
     def materialiser(self,updates):
         return [u['values'][0] for u in updates]
 
+    def test_libelle_paris_conserve_la_cle_historique(self):
+        label = 'Collecte · Acquisition UTC'
+        previous = [SOURCE_HEADERS, ['Collecte', label, 46353.5, 'Définition', '']]
+        current = [SOURCE_HEADERS, ['Collecte', 'Collecte · Acquisition (Paris)', 46353.5, 'Définition', '']]
+        saved = self.materialiser(planifier(previous, [], self.now)[0])
+        updates, last = planifier(current, saved, self.now + timedelta(minutes=1))
+        self.assertEqual(last, 2)
+        self.assertEqual(updates[0]['values'][0][0], saved[1][0])
+        self.assertEqual(updates[0]['values'][0][4], current[1][1])
+
     def test_zero_vide_et_total_conserves_sans_inventer_jour_passe(self):
         updates,last=planifier(self.source,[],self.now)
         rows=self.materialiser(updates)

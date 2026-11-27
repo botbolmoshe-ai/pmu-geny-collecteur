@@ -62,7 +62,7 @@ def actualisation_requise(horse, now, ttl_heures=24):
     if not complete or complete > now:
         return 'HISTORIQUE_ABSENT_OU_NON_DATE'
     race = instant(horse.get('derniere_course_officielle_utc'))
-    if race and horse.get('derniere_performance_date', '') < race.date().isoformat():
+    if race and horse.get('derniere_performance_date', '') < race.astimezone(PARIS).date().isoformat():
         return 'PUBLICATION_GENY_EN_ATTENTE'
     if race and race > complete:
         return 'NOUVELLE_COURSE_OFFICIELLE'
@@ -728,10 +728,10 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                     attempts[('COLLECTE',key)]=1
                 # Date de vérification != couverture : Geny peut publier la nouvelle course plus tard.
                 race = instant(horse.get('derniere_course_officielle_utc')) if not reprise else None
-                if report.get('complet') and race and horse.get('derniere_performance_date', '') < race.date().isoformat():
+                if report.get('complet') and race and horse.get('derniere_performance_date', '') < race.astimezone(PARIS).date().isoformat():
                     doc = capture_valide(cache, ident)
                     horse['derniere_performance_date'] = max((r.get('date', '') for r in doc['performances']), default='')
-                    if horse['derniere_performance_date'] < race.date().isoformat():
+                    if horse['derniere_performance_date'] < race.astimezone(PARIS).date().isoformat():
                         horse['motif_actualisation'] = 'PUBLICATION_GENY_EN_ATTENTE'
                         horse['prochain_essai_utc'] = (datetime.now(UTC)+timedelta(hours=6)).isoformat()
             except Exception as exc:

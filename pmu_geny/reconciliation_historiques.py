@@ -5,7 +5,7 @@ from functools import lru_cache
 import re
 
 from dashboard.trot_analytics.correspondance_geny import AMBIGUE, CHAMP, CONFIRMEE
-from dashboard.trot_analytics.dates import meme_date_sheets
+from dashboard.trot_analytics.dates import afficher_instant, meme_date_sheets
 from .controle_historique import classifier
 from .controle_sync_sheets import cle_sportive
 from .historiques_incrementaux import course_geny_connue, instant, lire
@@ -76,7 +76,7 @@ class ReconciliationHistoriques:
                 return ('HISTO_OK_NOM_ID', len(keys), stamp.isoformat(),
                         f'Capture Geny validée et relue dans Sheets ({total}/{total}).')
             return ('HISTO_PUBLICATION_EN_ATTENTE', len(keys), stamp.isoformat(),
-                    f'Capture Geny validée le {stamp.isoformat()}. '
+                    f'Capture Geny validée le {afficher_instant(stamp)} (Paris). '
                     f'{len(attendues & keys)}/{total} performances de la capture relues dans Sheets. Reprendre la publication.')
         partielle = (partial.get('identite_verifiee') is True
                      and str(partial.get('identifiant_cheval', ident)) == ident

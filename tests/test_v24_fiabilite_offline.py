@@ -190,7 +190,7 @@ class KpiTests(unittest.TestCase):
         self.assertEqual(metrics[label][0], capture)
         updates = plan_kpi([['Dimension', 'Indicateur'], ['ML', label]], metrics)
         self.assertEqual(updates[0]['range'], "'Data Quality & KPI'!A2:D2")
-        self.assertEqual(updates[0]['values'][0][:3], ['Collecte', label, capture])
+        self.assertEqual(updates[0]['values'][0][:3], ['Collecte', label.removesuffix(' UTC') + ' (Paris)', capture])
 
     def test_real_reference_reconciles_all_13_races_and_historical_baseline(self):
         if not Path('reference_pmu').is_dir():self.skipTest('reference facultative absente')

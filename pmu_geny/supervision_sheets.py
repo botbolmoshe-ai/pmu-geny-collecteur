@@ -64,6 +64,8 @@ def lignes_supervision(cache, now):
                      nombre_paris(next_at) if instant(next_at) else '', mesure, age, motif,
                      definition, PROVENANCE + source])
 
+    add('Supervision', 'Dernière actualisation de la vue', 'Calculée', CONTROLE,
+        'Instant de calcul des états et des âges affichés dans cet onglet.', last=now)
     tick = prochain_tick(now, (7, 22, 37, 52))
     global_at = instant(state.get('dernier_global_publie_utc'))
     nuit = creneau_nocturne(now)
@@ -76,6 +78,17 @@ def lignes_supervision(cache, now):
         next_at=prochain_tick(now, (7, 22, 37, 52),
                               debut=global_at+timedelta(hours=1) if global_at and global_at <= now else now, jour=True),
         motif='Reprise au prochain tick PMU éligible.' if global_status in ('À reprendre', 'En retard') else '')
+    local_day = now.astimezone(PARIS).date()
+    for offset, periode in ((0, 'J'), (1, 'J+1')):
+        path = f'sources_pmu/programme_{local_day+timedelta(days=offset)}.json'
+        programme = lire(cache/path)
+        capture = instant(programme.get('date_controle_utc'))
+        statut = ('À acquérir' if not capture else 'À rafraîchir'
+                  if offset == 0 and not nuit and now-capture >= timedelta(minutes=30) else 'Acquis')
+        add('PMU', f'Programme {periode}', statut, path,
+            'Dernière acquisition du programme et nombre de courses retenues.',
+            last=capture, next_at=tick if offset == 0 else None,
+            mesure=len(programme.get('programme', [])) if capture else '')
     jalons = plan['jalons_dus']
     add('Prévisions', 'Jalons H-3 / H-2', 'À publier' if jalons else 'À surveiller', CHECKPOINT,
         'Couples course–jalon dus au moment de la lecture. Les versions certifiées restent dans jalons/.',

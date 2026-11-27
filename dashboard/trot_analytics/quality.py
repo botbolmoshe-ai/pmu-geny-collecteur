@@ -1,6 +1,8 @@
 """Compact, read-only presentation of the published quality indicators."""
 from collections import OrderedDict
-from .dates import PARIS, afficher_date, afficher_instant, afficher_valeur_kpi, indicateur_horodate
+from .dates import (
+    PARIS, afficher_date, afficher_indicateur, afficher_instant, afficher_valeur_kpi, indicateur_horodate,
+)
 from .logic import number,timestamp
 from .correspondance_geny import KPI_PREFIX
 
@@ -57,7 +59,7 @@ def quality_sections(kpis, query=""):
         if query and query not in f"{dimension} {label} {definition}".casefold():
             continue
         sections.setdefault(dimension, []).append({
-            "Indicateur": label.removesuffix(" UTC") + " (Paris)" if indicateur_horodate(label) else label,
+            "Indicateur": afficher_indicateur(label),
             "Description": definition or "—",
             "Nombre / valeur": display_value(afficher_valeur_kpi(label, row.get("Valeur (automatique)")), rate=is_rate(label)),
             "Total": display_value(row.get(TOTAL_FIELD)),

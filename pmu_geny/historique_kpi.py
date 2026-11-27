@@ -3,7 +3,7 @@ from datetime import datetime,timezone
 import json
 from urllib.parse import quote
 
-from dashboard.trot_analytics.dates import PARIS, depuis_nombre, indicateur_horodate, vers_nombre
+from dashboard.trot_analytics.dates import PARIS, cle_indicateur, depuis_nombre, indicateur_horodate, vers_nombre
 from .kpi_registre import PREFIXES_ANCIENNES_ECHEANCES
 
 TAB='Historique qualité'
@@ -23,7 +23,7 @@ def planifier(source,existing,now):
         if len(row)<5 or row[0] in positions:raise ValueError('DOUBLON_OU_RELEVE_INVALIDE')
         try:
             stamp=datetime.fromisoformat(row[2])
-            if (json.loads(row[0])!=[row[1],row[4]] or stamp.tzinfo is None
+            if (json.loads(row[0])!=[row[1],cle_indicateur(row[4])] or stamp.tzinfo is None
                     or stamp.astimezone(PARIS).date().isoformat()!=row[1]):
                 raise ValueError('RELEVE_INCOHERENT')
         except (ValueError,TypeError):raise ValueError('RELEVE_INCOHERENT')
@@ -33,7 +33,7 @@ def planifier(source,existing,now):
     labels=set()
     for row in source[1:]:
         if len(row)<2 or not str(row[1] or '').strip():continue
-        label=str(row[1])
+        label=cle_indicateur(str(row[1]))
         # Les anciennes lignes restent visibles dans le registre, figées à leur dernier relevé.
         if label.startswith(PREFIXES_ANCIENNES_ECHEANCES):
             continue

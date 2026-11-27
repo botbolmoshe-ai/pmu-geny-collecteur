@@ -2,7 +2,7 @@
 from collections import OrderedDict
 from datetime import date,datetime,timezone
 from statistics import median
-from .dates import PARIS
+from .dates import PARIS, afficher_indicateur
 from .logic import number, selected,timestamp
 
 VALUE='Valeur (automatique)'
@@ -115,10 +115,10 @@ def history_series(history,start,end,as_of=None):
         if (not captured or captured>as_of or captured.astimezone(PARIS).date()!=day(r[OBSERVED])
                 or not str(r.get('Indicateur') or '').strip()):
             raise ValueError('Horodatage ou indicateur du relevé invalide')
-        key=(r[OBSERVED],r.get('Indicateur'))
+        key=(r[OBSERVED],afficher_indicateur(r['Indicateur']))
         if key in seen:raise ValueError('Plusieurs relevés pour un indicateur et une date')
         seen.add(key)
-    return [{**r,'Date':r[OBSERVED]} for r in rows]
+    return [{**r,'Date':r[OBSERVED],'Indicateur':afficher_indicateur(r['Indicateur'])} for r in rows]
 
 
 def latest_history(rows):

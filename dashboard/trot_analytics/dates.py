@@ -153,7 +153,15 @@ def afficher_source(value):
 
 
 def indicateur_horodate(label):
-    return isinstance(label, str) and label.endswith(" UTC")
+    return isinstance(label, str) and label.endswith((" UTC", " (Paris)"))
+
+
+def cle_indicateur(label):
+    return label.removesuffix(" (Paris)") + " UTC" if isinstance(label, str) and label.endswith(" (Paris)") else label
+
+
+def afficher_indicateur(label):
+    return label.removesuffix(" UTC") + " (Paris)" if isinstance(label, str) and label.endswith(" UTC") else label
 
 
 def afficher_valeur_kpi(label, value):

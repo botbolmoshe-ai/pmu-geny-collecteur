@@ -7,6 +7,7 @@ import json
 import math
 
 from dashboard.trot_analytics.correspondance_geny import CHAMP, COLONNE, CONFIRMEE, KPI_PREFIX, STATUTS, statut_ligne
+from dashboard.trot_analytics.dates import afficher_indicateur, cle_indicateur
 
 KPI_TAB = 'Data Quality & KPI'
 PREFIXES_ANCIENNES_ECHEANCES = ('Échéances · H2 ', 'Échéances · H1 ')
@@ -547,23 +548,23 @@ def plan_kpi(values, metrics):
         if not any(str(value or '').strip() for value in row[:4]) and len(row)>4 and row[4]!='':
             updates.append({'range':f"'{KPI_TAB}'!E{number}",'values':[['']]})
             continue
-        if len(row)>1 and row[1] in metrics:
-            value,definition=metrics[row[1]]
-            label=row[1]
+        if len(row)>1 and (label := cle_indicateur(row[1])) in metrics:
+            value,definition=metrics[label]
+            visible = afficher_indicateur(label)
             desired=[value,definition]+([totals[label]] if label in totals else [])
             end='E' if label in totals else 'D'
             categorie = dimension(label)
-            if categorie and row[0] != categorie:
+            if visible != row[1] or (categorie and row[0] != categorie):
                 updates.append({'range': f"'{KPI_TAB}'!A{number}:{end}{number}",
-                                'values': [[categorie, label, *desired]]})
+                                'values': [[categorie or row[0], visible, *desired]]})
             elif row[2:2+len(desired)]!=desired:
                 updates.append({'range':f"'{KPI_TAB}'!C{number}:{end}{number}",'values':[desired]})
-    present={row[1] for row in values[1:] if len(row)>1}
+    present={cle_indicateur(row[1]) for row in values[1:] if len(row)>1}
     last=max((i for i,row in enumerate(values,start=1) if any(str(v or '').strip() for v in row)),default=1)
     for label,(value,definition) in metrics.items():
         if label.startswith(PUBLISHED_PREFIXES) and label not in present:
             last+=1
-            desired=[dimension(label) or 'ML',label,value,definition]+([totals[label]] if label in totals else [])
+            desired=[dimension(label) or 'ML',afficher_indicateur(label),value,definition]+([totals[label]] if label in totals else [])
             end='E' if label in totals else 'D'
             updates.append({'range':f"'{KPI_TAB}'!A{last}:{end}{last}",'values':[desired]})
     return updates
