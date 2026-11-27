@@ -98377,7 +98377,7 @@
     },
     "2758430": {
       "nom": "JOKE DU HOUSSEL",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "1",
       "engagement": "2026-11-27_R1C5",
       "vu_utc": "2026-11-27T12:06:44.013248+00:00",
@@ -98408,7 +98408,51 @@
       "nombre_performances": 57,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-16"
+      "derniere_performance_date": "2026-11-16",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 57,
+          "cellules_actualisees": 0,
+          "lignes_source": 57,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 57,
+            "lignes_avant": 39701,
+            "cles_avant": 39701,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3971,
+            "import_initial_explicite": false,
+            "lignes_attendues": 39758,
+            "lignes_apres": 39758,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 2,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1042,
+              "HISTO_OK_NOM": 403,
+              "HISTO_NON_COLLECTE": 1952,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 143,
+              "HISTO_PUBLICATION_EN_ATTENTE": 8
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T12:16:15.592219+00:00"
     },
     "2742878": {
       "nom": "JIRI PACHA",
@@ -98664,7 +98708,7 @@
     }
   },
   "passage_utc": "2026-11-27T12:06:44.013248+00:00",
-  "maj_utc": "2026-11-27T12:15:53.291732+00:00",
+  "maj_utc": "2026-11-27T12:16:15.592249+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 11,
@@ -99493,9 +99537,9 @@
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "publication_cycle": {
     "debut_utc": "2026-11-27T12:13:45.815106+00:00",
-    "controle_utc": "2026-11-27T12:15:53.291732+00:00",
-    "chevaux_confirmes_sheets": 3,
-    "performances_ajoutees_et_confirmees_sheets": 163,
+    "controle_utc": "2026-11-27T12:16:15.592249+00:00",
+    "chevaux_confirmes_sheets": 4,
+    "performances_ajoutees_et_confirmees_sheets": 220,
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
   },
