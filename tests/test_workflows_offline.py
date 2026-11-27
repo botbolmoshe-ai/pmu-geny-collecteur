@@ -100,6 +100,12 @@ class WorkflowSyntaxTests(unittest.TestCase):
                         ['bash', '-e', '-c', commandes + script], text=True,
                         env={**os.environ, 'RUN_ACTIF': actif, 'GITHUB_REPOSITORY': 'exemple/pmu'})
                     self.assertEqual(stdout.count(f'workflow run {workflow}'), int(not actif))
+        for nocturne in ('true', 'false'):
+            stdout = subprocess.check_output(
+                ['bash', '-e', '-c', commandes + relais], text=True,
+                env={**os.environ, 'RUN_ACTIF': '', 'GITHUB_REPOSITORY': 'exemple/pmu',
+                     'GENY_ACQUISITION_INDEPENDANTE': 'true', 'PMU_NOCTURNE': nocturne})
+            self.assertEqual('acquisition_independante=true' in stdout, nocturne == 'false')
 
     def test_rattrapage_dedie_valide_budget_et_selectionne_le_mode_selon_paris(self):
         path = Path(__file__).resolve().parents[1] / '.github/workflows/rattrapage-historiques.yml'
