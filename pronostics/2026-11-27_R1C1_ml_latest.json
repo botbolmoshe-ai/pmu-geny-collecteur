@@ -1,9 +1,9 @@
 {
   "date": "2026-11-27",
   "course": "R1C1",
-  "calcul_utc": "2026-11-27T14:06:12.646449+00:00",
+  "calcul_utc": "2026-11-27T16:33:10.081256+00:00",
   "depart": "2026-11-27T18:23:00+01:00",
-  "donnees_observees_utc": "2026-11-27T14:06:06.524452+00:00",
+  "donnees_observees_utc": "2026-11-27T16:33:05.947087+00:00",
   "modele": "gradient_boosting",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
@@ -113,9 +113,9 @@
     "discipline_montee": 14,
     "forme_pmu_discipline": 14,
     "forme_geny_comparable": 6,
-    "forme_ferrure_neutre": 13,
-    "forme_ferrure_moderee": 13,
-    "forme_ferrure_actuelle": 13,
+    "forme_ferrure_neutre": 14,
+    "forme_ferrure_moderee": 14,
+    "forme_ferrure_actuelle": 14,
     "chrono_comparable_mediane_sec_km": 4,
     "chrono_comparable_nb_sorties": 4,
     "tandem_podium_lisse": 0,
@@ -126,13 +126,13 @@
     "distance_autostart": 14,
     "position_autostart_relative": 14,
     "ligne_autostart": 14,
-    "forme_geny_meme_depart": 11,
-    "sorties_geny_meme_depart": 11,
+    "forme_geny_meme_depart": 12,
+    "sorties_geny_meme_depart": 12,
     "recul_depart_m": 0,
     "est_crack": 13,
     "est_haut_potentiel": 13,
     "sorties_geny_comparables_120j": 14,
-    "ferrures_historiques_comparees": 13
+    "ferrures_historiques_comparees": 14
   },
   "entrees_modele": [
     {
@@ -715,8 +715,8 @@
       "historique_ok": true,
       "historique_complet": true,
       "methode_liaison": "NOM_EXACT_ET_ID_GENY_CONFIRME",
-      "source_historique": "https://www.geny.com/cheval/2768313-kara-de-pierrepont/course/1698065",
-      "historique_extrait_utc": "2026-11-13T00:17:34.250626+00:00",
+      "source_historique": "https://www.geny.com/cheval/2768313-kara-de-pierrepont",
+      "historique_extrait_utc": "2026-11-27T14:09:59.648344+00:00",
       "intervenants_pmu": {
         "driver_score": "AABRIVARD",
         "entraineur_score": "JGVANEECKHAUTE"
@@ -774,7 +774,13 @@
         "chrono_comparable_nb_sorties": 3,
         "geny_forme_parcours": 4.25,
         "geny_forme_autostart": 4.25,
-        "geny_chrono_parcours": 71.9
+        "geny_chrono_parcours": 71.9,
+        "forme_geny_meme_depart": 3.003,
+        "sorties_geny_meme_depart": 4,
+        "forme_ferrure_neutre": 2.4676,
+        "ferrures_historiques_comparees": 15,
+        "forme_ferrure_moderee": 2.5532,
+        "forme_ferrure_actuelle": 2.6223
       }
     },
     {
@@ -1216,6 +1222,12 @@
       "score_non_calibre": 0.15779
     },
     {
+      "numero": 9,
+      "nom": "KARA DE PIERREPONT",
+      "cheval_id": "2768313",
+      "score_non_calibre": 0.13727
+    },
+    {
       "numero": 12,
       "nom": "KISS ME TO LIVE",
       "cheval_id": "2762580",
@@ -1232,12 +1244,6 @@
       "nom": "KOTKITA GIRL",
       "cheval_id": "2767486",
       "score_non_calibre": 0.10247
-    },
-    {
-      "numero": 9,
-      "nom": "KARA DE PIERREPONT",
-      "cheval_id": "2768313",
-      "score_non_calibre": 0.03865
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."
