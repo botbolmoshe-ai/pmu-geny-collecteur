@@ -46434,9 +46434,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C6",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "A_FAIRE",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C6",
       "numero": "6",
       "numero_reconcilie_depuis_snapshot": true,
@@ -46457,7 +46457,13 @@
       },
       "preuve_identite": "LIENS_COURSE_GENY",
       "course_geny_deja_lue": true,
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "historique_complet_au_utc": "2026-11-27T01:05:32.279179+00:00",
+      "derniere_verification_utc": "2026-11-27T01:05:32.279179+00:00",
+      "prochaine_verification_utc": "2026-11-28T01:05:32.279179+00:00",
+      "nombre_performances": 38,
+      "erreur": "",
+      "derniere_performance_date": "2026-11-14"
     },
     "contexte:4915e8af22a549a992596c2b": {
       "nom": "L'EXPRESS DE PLAY",
@@ -79080,23 +79086,23 @@
     "travaux_distincts_restants": 1323,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 876,
-    "identifiants_sans_carriere_complete": 110,
+    "identifiants_sans_carriere_complete": 109,
     "contextes_distincts_sans_identifiant": 765,
     "noms_distincts_sans_identifiant": 761,
     "identifiants_geny_distincts": 1144,
     "identites_non_resolues": 1086,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 0,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 7332,
-    "tentatives_collecte": 7,
-    "captures_validees": 7,
+    "tentatives_collecte": 8,
+    "captures_validees": 8,
     "captures_partielles": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T00:59:26.588012+00:00",
-  "maj_utc": "2026-11-27T01:05:24.545701+00:00",
+  "maj_utc": "2026-11-27T01:05:32.825227+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -80995,27 +81001,27 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:59:26.588012+00:00",
-    "controle_utc": "2026-11-27T01:05:24.545701+00:00",
+    "controle_utc": "2026-11-27T01:05:32.825227+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 7,
+    "carrieres_completes_distinctes": 8,
     "chevaux_confirmes_sheets": 7,
     "performances_ajoutees_et_confirmees_sheets": 197,
-    "requetes_http_geny": 94,
+    "requetes_http_geny": 99,
     "requetes_geny_par_ressource": {
-      "document": 7,
+      "document": 8,
       "stylesheet": 2,
       "script": 52,
       "font": 3,
-      "fetch": 14,
-      "image": 16
+      "fetch": 16,
+      "image": 18
     },
-    "ressources_geny_servies_du_cache_http": 342,
+    "ressources_geny_servies_du_cache_http": 399,
     "attente_inter_chevaux_secondes": 95.48,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 35.98,
+    "duree_acces_geny_secondes": 41.21,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 70.4,
-    "carrieres_publiees_par_heure_cycle": 70.4,
+    "carrieres_validees_par_heure_cycle": 78.64,
+    "carrieres_publiees_par_heure_cycle": 68.81,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -81026,5 +81032,5 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "derniere_acquisition_validee_utc": "2026-11-27T01:04:53.129669+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-27T01:05:32.279179+00:00"
 }
