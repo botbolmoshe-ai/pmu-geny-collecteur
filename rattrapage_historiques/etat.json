@@ -38079,9 +38079,9 @@
       "course_url": "https://www.geny.com/course/1698671/partants-pronostics",
       "numero": "6",
       "engagement": "2026-11-15_R3C5",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-15_R3C5",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2017,
@@ -38100,7 +38100,11 @@
       "course_geny_deja_lue": true,
       "cible_equivalente_a": "contexte:15207c3896efec13b6a3aaaa",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:15207c3896efec13b6a3aaaa"
+      "autre_contexte_meme_nom": "contexte:15207c3896efec13b6a3aaaa",
+      "rattrapage_complet_au_utc": "2026-11-27T03:02:24.971917+00:00",
+      "historique_complet_au_utc": "2026-11-27T03:02:24.971917+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:490e27bd2aaa49d534ba0826": {
       "nom": "GENERAL DU NORD",
@@ -53174,7 +53178,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-15_R3C5",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-15|BEAUMONT DE LOMAGNE|R3C5",
@@ -53203,7 +53207,32 @@
       "prochaine_verification_utc": "2026-11-28T03:02:24.971917+00:00",
       "nombre_performances": 114,
       "erreur": "",
-      "derniere_performance_date": "2026-11-15"
+      "derniere_performance_date": "2026-11-15",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 114,
+          "cellules_actualisees": 0,
+          "lignes_source": 114,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 114,
+            "lignes_avant": 38160,
+            "cles_avant": 38160,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3816,
+            "import_initial_explicite": false,
+            "lignes_attendues": 38274,
+            "lignes_apres": 38274,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T03:02:45.680348+00:00",
+      "rattrapage_complet_au_utc": "2026-11-27T03:02:24.971917+00:00",
+      "ajouts_confirmes": 114
     },
     "contexte:fa9748935462c3c9ca14164c": {
       "nom": "GENERAL DU NORD",
@@ -79430,12 +79459,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1350,
-    "cibles_restantes": 1234,
+    "cibles_completees": 1352,
+    "cibles_restantes": 1232,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1316,
+    "travaux_distincts_restants": 1315,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 869,
+    "carrieres_distinctes_a_completer": 868,
     "identifiants_sans_carriere_complete": 118,
     "contextes_distincts_sans_identifiant": 749,
     "noms_distincts_sans_identifiant": 745,
@@ -79443,8 +79472,8 @@
     "identites_non_resolues": 1070,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 7607,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 7721,
     "tentatives_collecte": 5,
     "captures_validees": 5,
     "captures_partielles": 0,
@@ -79452,7 +79481,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T02:59:11.054693+00:00",
-  "maj_utc": "2026-11-27T03:02:26.120419+00:00",
+  "maj_utc": "2026-11-27T03:02:45.697457+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -81351,11 +81380,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T02:59:11.054693+00:00",
-    "controle_utc": "2026-11-27T03:02:26.120419+00:00",
+    "controle_utc": "2026-11-27T03:02:45.697457+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 5,
-    "chevaux_confirmes_sheets": 4,
-    "performances_ajoutees_et_confirmees_sheets": 237,
+    "chevaux_confirmes_sheets": 5,
+    "performances_ajoutees_et_confirmees_sheets": 351,
     "requetes_http_geny": 84,
     "requetes_geny_par_ressource": {
       "document": 5,
@@ -81370,8 +81399,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 28.96,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 92.28,
-    "carrieres_publiees_par_heure_cycle": 73.82,
+    "carrieres_validees_par_heure_cycle": 83.86,
+    "carrieres_publiees_par_heure_cycle": 83.86,
     "refus_geny": {
       "403": 0,
       "429": 0
