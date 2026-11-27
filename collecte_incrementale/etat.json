@@ -43278,7 +43278,7 @@
     },
     "2767486": {
       "nom": "KOTKITA GIRL",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "13",
       "engagement": "2026-11-27_R1C1",
       "vu_utc": "2026-11-27T12:19:02.888905+00:00",
@@ -43304,32 +43304,47 @@
       "derniere_performance_date": "2026-11-17",
       "sync_details": {
         "Historique chevaux": {
-          "lignes_ajoutees": 29,
-          "cellules_actualisees": 0,
-          "lignes_source": 29,
+          "lignes_ajoutees": 1,
+          "cellules_actualisees": 58,
+          "lignes_source": 30,
           "controle": {
             "statut": "VALIDE",
             "phase": "APRES",
-            "ajouts_prevus": 29,
-            "lignes_avant": 20060,
-            "cles_avant": 20060,
+            "ajouts_prevus": 1,
+            "lignes_avant": 40313,
+            "cles_avant": 40313,
             "doublons_valeurs_avant": 0,
             "cles_avec_variantes": 0,
-            "seuil_ajouts": 2006,
+            "seuil_ajouts": 4032,
             "import_initial_explicite": false,
-            "lignes_attendues": 20089,
-            "lignes_apres": 20089,
+            "lignes_attendues": 40314,
+            "lignes_apres": 40314,
             "doublons_valeurs_apres": 0,
             "motif": "COMPTAGES_ET_CLES_CONFORMES"
           }
         },
         "Courses & Prévisions": {
           "lignes_ajoutees": 0,
-          "cellules_actualisees": 3,
-          "lignes_source": 1
+          "cellules_actualisees": 6,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "nombre_performances": 2,
+              "date_capture": 2
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1052,
+              "HISTO_OK_NOM": 405,
+              "HISTO_NON_COLLECTE": 1952,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 139
+            }
+          }
         }
       },
-      "sync_utc": "2026-11-17T13:45:24.899695+00:00",
+      "sync_utc": "2026-11-27T12:23:52.634001+00:00",
       "derniere_course_officielle_utc": "2026-11-17T15:44:00+00:00",
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
       "annee_naissance_pmu": 2020,
@@ -99154,7 +99169,7 @@
     }
   },
   "passage_utc": "2026-11-27T12:19:02.888905+00:00",
-  "maj_utc": "2026-11-27T12:23:25.924880+00:00",
+  "maj_utc": "2026-11-27T12:23:52.634031+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 4,
@@ -99925,11 +99940,11 @@
   "sync_kpi_utc": "2026-11-27T12:18:14.410966+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T12:19:02.888905+00:00",
-    "controle_utc": "2026-11-27T12:23:25.924880+00:00",
+    "controle_utc": "2026-11-27T12:23:52.634031+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 4,
-    "chevaux_confirmes_sheets": 8,
-    "performances_ajoutees_et_confirmees_sheets": 449,
+    "chevaux_confirmes_sheets": 9,
+    "performances_ajoutees_et_confirmees_sheets": 450,
     "requetes_http_geny": 78,
     "requetes_geny_par_ressource": {
       "document": 4,
@@ -99944,8 +99959,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 24.95,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 54.75,
-    "carrieres_publiees_par_heure_cycle": 109.49,
+    "carrieres_validees_par_heure_cycle": 49.7,
+    "carrieres_publiees_par_heure_cycle": 111.82,
     "refus_geny": {
       "403": 0,
       "429": 0
