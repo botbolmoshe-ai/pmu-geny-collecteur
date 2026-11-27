@@ -174,20 +174,23 @@ def planifier(cache, now, force=False):
                               'phase': phase, 'echeance': deadline.isoformat()})
             break
     prochain_jalon = min(upcoming).isoformat() if upcoming else None
-    if not nuit and last and last+timedelta(hours=1)>now:
-        upcoming.append(last+timedelta(hours=1))
+    prochain_global = last + timedelta(hours=1) if not nuit and last else None
+    if prochain_global and prochain_global > now:
+        upcoming.append(prochain_global)
     needs.sort(key=lambda item: (instant(item['echeance']) < now, instant(item['echeance']), item['course']))
     selection = list(dict.fromkeys(item['course'].split('_', 1)[1] for item in needs))
     from .rapprochement_reunions import planifier_rapprochements
-    results = planifier_rapprochements(cache, now, prochaines=upcoming)
-    secours = bool(selection or results or (nuit and preparation) or secours_programme or (
-        global_due and (not last or now - last >= timedelta(hours=2))))
+    prochains_rapprochements = []
+    results = planifier_rapprochements(cache, now, prochaines=prochains_rapprochements)
+    upcoming.extend(prochains_rapprochements)
+    secours = bool(selection or results or (nuit and preparation) or secours_programme or global_due)
     return {'plan_utc':now.isoformat(), 'date':day, 'erreurs': erreurs, 'version_jalons':VERSION_JALONS,
             'executer':bool(global_due or selection or results or preparation),
             'mode': ('JALONS' if selection else 'RAPPROCHEMENT' if results else
                      'PREPARATION_JOUR' if preparation else 'GLOBAL' if global_due else 'ATTENTE'),
             'date_preparation': preparation, 'global_du': global_due, 'secours_pmu': secours,
             'selection':selection, 'prochain_jalon_utc':prochain_jalon, 'jalons_dus':needs, 'rapprochements_dus':results,
+            'prochain_rapprochement_utc': min(prochains_rapprochements).isoformat() if prochains_rapprochements else None,
             'prochain_besoin_utc':min(upcoming).isoformat() if upcoming else None}
 
 

@@ -6,6 +6,16 @@ from pmu_geny.dates_registre import projection
 
 
 class DatesRegistreTests(unittest.TestCase):
+    def test_audit_accepte_le_retrait_du_tcd_mais_detecte_un_onglet_metier_absent(self):
+        from pmu_geny.audit_dates_sheets import OBLIGATOIRES, onglets_dates
+
+        tables = dict.fromkeys((*OBLIGATOIRES, 'Historique qualité'))
+        self.assertEqual(onglets_dates(tables), [*OBLIGATOIRES, 'Historique qualité'])
+        self.assertNotIn('TCD', onglets_dates(tables))
+        del tables[OBLIGATOIRES[0]]
+        with self.assertRaises(ValueError):
+            onglets_dates(tables)
+
     def test_instants_paris(self):
         for raw, wall in (
             ('2026-03-29T00:59:00Z', '2026-03-29T01:59'),

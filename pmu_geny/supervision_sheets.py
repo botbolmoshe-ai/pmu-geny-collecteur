@@ -32,13 +32,14 @@ REFERENTIEL_HEADERS = (
 )
 
 
-def prochain_tick(now, minutes, *, debut=None, jour=False):
+def prochain_tick(now, minutes, *, debut=None, jour=False, nuit=False):
     debut = max(now, debut or now).astimezone(timezone.utc)
     cursor = debut.replace(second=0, microsecond=0)
     while True:
         if cursor >= debut:
             local = cursor.astimezone(PARIS)
-            if local.minute in minutes and (not jour or 7 <= local.hour < 21):
+            en_journee = 7 <= local.hour < 21
+            if local.minute in minutes and (not jour or en_journee) and (not nuit or not en_journee):
                 return cursor.isoformat()
         cursor += timedelta(minutes=1)
 
@@ -81,13 +82,10 @@ def lignes_supervision(cache, now):
         last=state.get('dernier_jalon_publie_utc'), next_at=tick if jalons else plan['prochain_jalon_utc'],
         mesure=len(jalons))
     rapprochements = plan['rapprochements_dus']
-    prochaines = []
-    from .rapprochement_reunions import planifier_rapprochements
-    planifier_rapprochements(cache, now, prochaines=prochaines)
     add('Résultats', 'Rapprochements H+30', 'À rapprocher' if rapprochements else 'À surveiller', CHECKPOINT,
         'Nombre de réunions à traiter. Échéance 30 minutes après le dernier départ de chaque réunion.',
         last=state.get('dernier_rapprochement_publie_utc'),
-        next_at=tick if rapprochements else min(prochaines, default=None), mesure=len(rapprochements))
+        next_at=tick if rapprochements else plan['prochain_rapprochement_utc'], mesure=len(rapprochements))
     add('Résultats', 'Arrivée officielle', 'Vérifiée' if state.get('derniere_arrivee_verifiee_utc') else 'Preuve attendue',
         CHECKPOINT, 'Dernière observation PMU d’un podium relu dans les résultats Sheets.',
         last=state.get('derniere_arrivee_verifiee_utc'))
@@ -106,11 +104,17 @@ def lignes_supervision(cache, now):
         mesure=str(incident.get('code', '')), motif='Respecter le délai de reprise Geny.' if cooldown['actif'] else '')
     for domain, path, queue in (('Geny incrémental', INCREMENTAL, increment), ('Geny rattrapage', RATTRAPAGE, backlog)):
         cycle, bilan = queue.get('collecte_cycle') or {}, queue.get('bilan') or {}
+        reprise = instant(cooldown['echeance_utc']) if cooldown['actif'] else None
+        if path == INCREMENTAL:
+            prochain = min(prochain_tick(now, (5, 20, 35, 50), debut=reprise, jour=True),
+                           prochain_tick(now, (12, 42), debut=reprise, nuit=True))
+        else:
+            prochain = prochain_tick(now, (27, 57), debut=reprise, nuit=True)
         add(domain, 'Carrières acquises', queue.get('statut', 'Non observé'), path,
             'Carrières distinctes complètes validées pendant le dernier passage.',
             last=queue.get('derniere_acquisition_validee_utc') or cycle.get('controle_utc'),
             mesure=cycle.get('carrieres_completes_distinctes', ''),
-            next_at=cooldown['echeance_utc'] if cooldown['actif'] else None,
+            next_at=prochain,
             motif=queue.get('motif_ordonnancement') or queue.get('motif_fin_passage', ''))
         publication = queue.get('publication_cycle') or {}
         dernier_passage = instant(cycle.get('controle_utc'))
@@ -118,11 +122,16 @@ def lignes_supervision(cache, now):
         if ('performances_ajoutees_et_confirmees_sheets' in cycle and dernier_passage
                 and (not derniere_publication or dernier_passage >= derniere_publication)):
             publication = cycle
-        add(domain, 'Performances publiées', queue.get('sync_kpi', 'Non observé'), path,
+        publication_statut = ('Erreur de synchronisation' if publication.get('erreurs_sync') else
+                              'Relue' if publication else 'Non observée')
+        add(domain, 'Performances publiées', publication_statut, path,
             'Performances ajoutées et confirmées pendant le dernier passage de publication.',
             last=publication.get('controle_utc'), mesure=publication.get('performances_ajoutees_et_confirmees_sheets', ''),
             motif=f"Synchronisations en attente : {bilan['synchronisations_en_attente']}"
             if 'synchronisations_en_attente' in bilan else '')
+        add(domain, 'Indicateurs Sheets', queue.get('sync_kpi', 'Non observé'), path,
+            'Statut et dernière synchronisation des KPI de la file.',
+            last=queue.get('sync_kpi_utc'))
         add(domain, 'Requêtes Geny', 'Mesuré' if 'requetes_http_geny' in cycle else 'Non mesuré', path,
             'Requêtes réseau Geny observées lors du dernier passage, hors réponses servies du cache HTTP.',
             last=cycle.get('controle_utc'), mesure=cycle.get('requetes_http_geny', ''))

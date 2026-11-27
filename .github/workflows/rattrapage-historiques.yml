@@ -1,5 +1,8 @@
 name: 03 — Geny Rattrapage global
 on:
+  schedule:
+    - cron: '27,57 0-6,21-23 * * *'
+      timezone: Europe/Paris
   workflow_dispatch:
     inputs:
       max_minutes:
@@ -43,7 +46,7 @@ jobs:
     steps:
       - name: Valider le budget avant de charger la collecte
         env:
-          MAX_MINUTES: ${{ inputs.max_minutes }}
+          MAX_MINUTES: ${{ inputs.max_minutes || 7 }}
         run: |
           case "$MAX_MINUTES" in
             [1-9]|1[0-5]) ;;
@@ -65,14 +68,18 @@ jobs:
           ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
           RECONCILIER_IDENTITES: ${{ inputs.reconcilier_identites || false }}
           ARCHIVES_DIAGNOSTICS: ${{ inputs.archives_diagnostics || '' }}
+          MAX_MINUTES: ${{ inputs.max_minutes || 7 }}
+          PASSAGE_PLANIFIE: ${{ github.event_name == 'schedule' }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p resultats/rattrapage
           python -m pmu_geny.persistance_production --restaurer
           python - <<'PY'
-          import json,os
+          import json, os
+          from datetime import datetime, timezone
           from pathlib import Path
+          from pmu_geny.echeances_production import budget_collecte_nocturne
           path=Path('cache_pmu/rattrapage_historiques/etat.json')
           state=json.loads(path.read_text()) if path.exists() else {}
           done=(state.get('statut')=='TERMINE' and 'historiques_ferrures_a_completer' in state.get('bilan',{})
@@ -83,8 +90,14 @@ jobs:
               assert state['sync_kpi']=='OK'
               assert state['bilan']['cibles_completees']==len(state['chevaux'])
               print('RATTRAPAGE_DEJA_TERMINE',json.dumps(state['bilan']))
+          budget = int(os.environ['MAX_MINUTES'])
+          if os.environ['PASSAGE_PLANIFIE'] == 'true':
+              budget = min(budget, budget_collecte_nocturne('cache_pmu', datetime.now(timezone.utc)))
+          if not budget:
+              print('RATTRAPAGE_DIFFERE_HORS_CRENEAU_OU_ECHEANCE_PMU')
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:
-              f.write('actif='+('false' if done else 'true')+'\n')
+              f.write('actif='+('true' if budget and not done else 'false')+'\n')
+              f.write(f'budget={budget}\n')
           PY
       - uses: actions/cache@v4
         if: steps.etat.outputs.actif == 'true'
@@ -101,16 +114,29 @@ jobs:
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
-          MAX_MINUTES: ${{ inputs.max_minutes || 2 }}
+          MAX_MINUTES: ${{ steps.etat.outputs.budget }}
+          PASSAGE_PLANIFIE: ${{ github.event_name == 'schedule' }}
           ARCHIVES_DIAGNOSTICS: ${{ inputs.archives_diagnostics || '' }}
           ACTUALISER_INVENTAIRE: ${{ inputs.actualiser_inventaire || false }}
           RECONCILIER_IDENTITES: ${{ inputs.reconcilier_identites || false }}
           GH_TOKEN: ${{ github.token }}
         run: |
           args=(--dedie)
-          case "$(TZ=Europe/Paris date +%H)" in
-            2[1-3]|0[0-6]) args+=(--nocturne);;
-          esac
+          if [ "$PASSAGE_PLANIFIE" = 'true' ]; then
+            budget=$(python -c 'from datetime import datetime, timezone; from pmu_geny.echeances_production import budget_collecte_nocturne; print(budget_collecte_nocturne("cache_pmu", datetime.now(timezone.utc)))')
+            if [ "$budget" -lt "$MAX_MINUTES" ]; then MAX_MINUTES="$budget"; fi
+            if [ "$MAX_MINUTES" -le 0 ]; then
+              echo 'RATTRAPAGE_DIFFERE_HORS_CRENEAU_OU_ECHEANCE_PMU'
+              exit 0
+            fi
+          fi
+          if [ "$PASSAGE_PLANIFIE" = 'true' ]; then
+            args+=(--nocturne)
+          else
+            case "$(date +%H)" in
+              2[1-3]|0[0-6]) args+=(--nocturne);;
+            esac
+          fi
           printf 'RATTRAPAGE_DEDIE budget_minutes=%s options=%s\n' "$MAX_MINUTES" "${args[*]}"
           if [ "$ACTUALISER_INVENTAIRE" = 'true' ]; then args+=(--actualiser-inventaire); fi
           if [ -n "$ARCHIVES_DIAGNOSTICS" ]; then args+=(--archives-diagnostics "$ARCHIVES_DIAGNOSTICS"); fi

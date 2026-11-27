@@ -33,6 +33,7 @@ def executer(cache, plan_path, clock=lambda: datetime.now(timezone.utc)):
         sauver(plan_path, {**plan, 'selection': fresh['selection'],
                            'jalons_dus': fresh['jalons_dus'], 'erreurs': fresh['erreurs'],
                            'prochain_jalon_utc': fresh['prochain_jalon_utc'],
+                           'prochain_rapprochement_utc': fresh['prochain_rapprochement_utc'],
                            'prochain_besoin_utc': fresh['prochain_besoin_utc'],
                            'rapprochements_dus': list(obligations.values())})
         return fresh['selection']
