@@ -125,3 +125,13 @@ class KPIReferenceTests(unittest.TestCase):
         self.assertLess(workflow.index("PMU_KPI_DIFFERE: 'true'"),workflow.index('Certifier les publications'))
         self.assertLess(workflow.index('Certifier les publications'),workflow.index("PMU_KPI_ONLY: 'true'"))
         self.assertLess(workflow.index('Conserver les preuves meme'),workflow.index("PMU_KPI_ONLY: 'true'"))
+
+    def test_kpi_reflete_un_jalon_tardif_si_la_publication_est_relue(self):
+        import yaml
+
+        workflow = Path(__file__).resolve().parents[1] / '.github/workflows/pmu-v16.yml'
+        steps = yaml.safe_load(workflow.read_text())['jobs']['traiter-course']['steps']
+        kpi = next(step for step in steps if step.get('env', {}).get('PMU_KPI_ONLY') == 'true')
+        self.assertIn("steps.publication.conclusion == 'success'", kpi['if'])
+        self.assertIn("steps.persistance_finale.conclusion == 'success'", kpi['if'])
+        self.assertNotIn('steps.certification.conclusion', kpi['if'])

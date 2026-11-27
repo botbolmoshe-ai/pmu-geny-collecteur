@@ -361,7 +361,7 @@ jobs:
         if: always() && steps.plan.outputs.executer == 'true'
         run: python -m pmu_geny.persistance_production --cache cache_pmu
       - name: Consolider les KPI apres certification et persistance
-        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.persistance_finale.conclusion == 'success' && steps.certification.conclusion == 'success'
+        if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.persistance_finale.conclusion == 'success'
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
