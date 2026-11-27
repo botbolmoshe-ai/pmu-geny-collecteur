@@ -1,8 +1,8 @@
 # Reprise globale des historiques déjà rencontrés
 
-Le workflow manuel `rattrapage-historiques.yml` dispose de son propre état `pmu-data/rattrapage_historiques/etat.json`. Il ne dépend d'aucun
-nouvel engagement et n'utilise aucune fenêtre de sept jours. Son code est
-développé sur `feature/reprise-historiques-globale`, puis déployé sur `main`.
+Le workflow **03 — Geny Rattrapage global** (`rattrapage-historiques.yml`)
+reprend son état depuis `pmu-data/rattrapage_historiques/etat.json`. Son
+inventaire couvre les chevaux déjà rencontrés, toutes dates confondues.
 
 ## Périmètre et inventaire
 
@@ -77,21 +77,21 @@ complète et de relecture après écriture sont ceux de la production.
 
 ## Planification et limites
 
-Le rattrapage automatique utilise le temps restant des passages de minuit à
-05 h (Europe/Paris) du workflow `historiques-incrementaux.yml`. Les deux étapes
-s'exécutent successivement sous le verrou `pmu-donnees-production`. Le stock
-ne passe qu'après les partants du jour et respecte les échéances PMU, la pause
-Geny et les reprises imminentes. Le workflow manuel reste disponible avec les
-mêmes protections. GitHub Actions peut retarder un déclenchement.
+Le workflow 03 programme le rattrapage aux minutes 27 et 57, entre 21 h et
+07 h en Europe/Paris. Le workflow 02 traite les partants prioritaires aux
+minutes 12 et 42 pendant ce créneau. Les deux chaînes partagent le verrou
+d’accès Geny et le verrou d’écriture Sheets sérialise les publications.
+À chaque passage, le workflow 03 vérifie les obligations PMU et réduit son
+budget si nécessaire. Le lancement manuel applique les mêmes gardes métier.
 
 Entre deux chevaux, le rattrapage vérifie si un cycle PMU ou le collecteur courant
 attend le verrou. Il termine alors son passage et consolide ses KPI pour céder
 la place. Si cette vérification GitHub est indisponible, il cède aussi par prudence.
 Un cheval déjà commencé finit sa sauvegarde et sa publication avant de céder.
 
-Le collecteur courant cède lui aussi entre deux chevaux lorsqu'un cycle PMU
-attend. La reprise globale continue de céder au PMU et au collecteur courant ;
-il n'existe pas de renvoi mutuel entre les deux collecteurs.
+Le bilan publié dans `rattrapage_historiques/bilan.json` alimente
+`PMU_DATA`. L’onglet `Referentiel_pmu_data` détaille les preuves de
+correspondance et les historiques effectivement relus dans Sheets.
 
 Les bilans distinguent les tentatives, `captures_validees` et
 `collectes_rejetees`, dès les checkpoints intermédiaires. Le motif de fin

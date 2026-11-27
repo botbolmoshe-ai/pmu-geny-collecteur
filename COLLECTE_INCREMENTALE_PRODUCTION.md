@@ -13,20 +13,22 @@ heure de Paris. L'heure réelle de début détermine le mode si GitHub retarde u
 passage. La nuit, la file des partants à venir passe avant le rattrapage du stock.
 Le passage manuel garde sa durée configurable (20 minutes au maximum).
 
-Les deux collecteurs et le cycle PMU partagent le verrou
-`pmu-donnees-production`. La collecte nocturne cède si le programme ou les
-partants du prochain jour de courses doivent être préparés, ou si un
-rapprochement d'arrivées est dû. Le cycle GLOBAL horaire est réservé à la
-journée, comme les publications TOP3 et ML. Le secours réévalue les tâches dues
-et le relais remet la collecte en file après le checkpoint PMU. Un lancement
-déjà en file évite un second déclenchement.
+Le jour, le workflow **02 — Geny Collecte incrémentale** sauvegarde d’abord
+les captures dans sa file durable. Un job distinct reprend cette file pour la
+publication Sheets sous le verrou commun. La nuit, le workflow 02 donne la
+priorité aux engagements J/J+1 et cède si une obligation PMU doit être traitée.
+Le workflow 03 exécute le rattrapage global sur son propre créneau nocturne.
 
-Pendant la première semaine, comparer la couverture du même jour dans le
-premier bilan horaire de collecte après 07 h (ou dans le registre à 07 h),
-la couverture du relevé gelé à H-1 et les preuves des jalons PMU. Les bilans
-incrémentaux indiquent le motif de fin, les captures validées et la couverture
-par date. Les diagnostics distinguent un refus Geny, une échéance PMU et une
-file sans tâche éligible.
+Le cycle global PMU est dû toutes les heures en journée. Les jalons H-3 et H-2,
+les arrivées et les acquisitions J/J+1 gardent leurs preuves propres. Le secours
+réévalue les tâches dues et le relais Geny vérifie qu’aucun passage n’est déjà
+en file avant un déclenchement.
+
+Comparer la couverture du même jour dans la file incrémentale, les preuves
+des jalons H-3/H-2 et les publications effectivement relues dans Sheets.
+`PMU_DATA` présente les acquisitions et publications par chaîne.
+`Referentiel_pmu_data` restitue les preuves de correspondance et l’état
+des carrières.
 
 ## Dates et actualisation
 
@@ -40,9 +42,8 @@ file sans tâche éligible.
 
 Une ancienne capture est datée à partir de son `extrait_utc`, jamais à partir de
 la migration, du commit Git ou de la date de modification du fichier. Une capture
-sans date vérifiable reste à vérifier. La colonne existante
-« Historique · Mise à jour UTC » continue d'afficher la date disponible ; aucune
-colonne ni feuille supplémentaire n'est créée par la synchronisation individuelle.
+sans date vérifiable reste à vérifier. La consultation affiche la date disponible dans la projection Paris, au format
+`JJ/MM/AAAA HH:mm:ss`. L’instant original reste dans la preuve technique.
 
 Un cheval engagé est revérifié après 24 heures, ou après une nouvelle course
 officielle. Le rattrapage des courses des sept derniers jours reste possible.
