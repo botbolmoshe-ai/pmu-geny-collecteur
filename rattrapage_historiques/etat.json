@@ -31634,7 +31634,7 @@
       "course_url": "https://www.geny.com/course/1698228/partants-pronostics",
       "numero": "3",
       "engagement": "2026-11-14_R8C6",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C6",
@@ -31659,7 +31659,32 @@
       "prochaine_verification_utc": "2026-11-28T01:04:53.129669+00:00",
       "nombre_performances": 38,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 38,
+          "cellules_actualisees": 0,
+          "lignes_source": 38,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 38,
+            "lignes_avant": 37589,
+            "cles_avant": 37589,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3759,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37627,
+            "lignes_apres": 37627,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T01:05:17.043309+00:00",
+      "rattrapage_complet_au_utc": "2026-11-27T01:04:53.129669+00:00",
+      "ajouts_confirmes": 38
     },
     "contexte:0551be616f2e9ea3409089db": {
       "nom": "LEANE DU PARC",
@@ -46299,9 +46324,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C6",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C6",
       "numero": "3",
       "numero_reconcilie_depuis_snapshot": true,
@@ -46324,7 +46349,11 @@
       "course_geny_deja_lue": true,
       "cible_equivalente_a": "contexte:9c719c60a7cea633dcd1125b",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:9c719c60a7cea633dcd1125b"
+      "autre_contexte_meme_nom": "contexte:9c719c60a7cea633dcd1125b",
+      "rattrapage_complet_au_utc": "2026-11-27T01:04:53.129669+00:00",
+      "historique_complet_au_utc": "2026-11-27T01:04:53.129669+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:2c262609ab4ba551cadf6cd8": {
       "nom": "LEANE DU PARC",
@@ -79045,12 +79074,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1335,
-    "cibles_restantes": 1249,
+    "cibles_completees": 1337,
+    "cibles_restantes": 1247,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1324,
+    "travaux_distincts_restants": 1323,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 877,
+    "carrieres_distinctes_a_completer": 876,
     "identifiants_sans_carriere_complete": 110,
     "contextes_distincts_sans_identifiant": 765,
     "noms_distincts_sans_identifiant": 761,
@@ -79058,8 +79087,8 @@
     "identites_non_resolues": 1086,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 7294,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 7332,
     "tentatives_collecte": 7,
     "captures_validees": 7,
     "captures_partielles": 0,
@@ -79067,7 +79096,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T00:59:26.588012+00:00",
-  "maj_utc": "2026-11-27T01:04:53.651585+00:00",
+  "maj_utc": "2026-11-27T01:05:17.063424+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -80966,11 +80995,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:59:26.588012+00:00",
-    "controle_utc": "2026-11-27T01:04:53.651585+00:00",
+    "controle_utc": "2026-11-27T01:05:17.063424+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 7,
-    "chevaux_confirmes_sheets": 6,
-    "performances_ajoutees_et_confirmees_sheets": 159,
+    "chevaux_confirmes_sheets": 7,
+    "performances_ajoutees_et_confirmees_sheets": 197,
     "requetes_http_geny": 94,
     "requetes_geny_par_ressource": {
       "document": 7,
@@ -80985,8 +81014,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 35.98,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 77.05,
-    "carrieres_publiees_par_heure_cycle": 66.04,
+    "carrieres_validees_par_heure_cycle": 71.9,
+    "carrieres_publiees_par_heure_cycle": 71.9,
     "refus_geny": {
       "403": 0,
       "429": 0
