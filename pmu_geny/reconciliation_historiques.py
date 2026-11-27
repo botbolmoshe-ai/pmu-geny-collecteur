@@ -67,8 +67,12 @@ class ReconciliationHistoriques:
         if valide:
             attendues = {cle_sportive({'identifiant_cheval': ident,
                 'date_course_historique': perf['date'], **perf}) for perf in doc['performances']}
+            if len(attendues) != total:
+                return ('HISTO_PARTIEL_GENY', len(keys), stamp.isoformat(),
+                        f'{len(attendues)}/{total} signatures sportives distinctes dans la capture Geny. '
+                        'Vérifier les variantes source avant toute nouvelle publication.')
             manquantes = attendues - keys
-            if len(attendues) == total and not manquantes:
+            if not manquantes:
                 return ('HISTO_OK_NOM_ID', len(keys), stamp.isoformat(),
                         f'Capture Geny validée et relue dans Sheets ({total}/{total}).')
             return ('HISTO_PUBLICATION_EN_ATTENTE', len(keys), stamp.isoformat(),

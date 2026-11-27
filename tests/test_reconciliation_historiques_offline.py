@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from dashboard.trot_analytics.correspondance_geny import AMBIGUE, CHAMP, CONFIRMEE, NON_EFFECTUEE
-from pmu_geny.historiques_incrementaux import course_geny_connue, ecrire
+from pmu_geny.historiques_incrementaux import course_geny_connue, ecrire, lire
 from pmu_geny.moteur_sheets import SynchroniseurSheets, SynchronisationOccupee, verrou_local
 from pmu_geny.reconciliation_historiques import ReconciliationHistoriques
 from pmu_geny.sync_google_sheets import publier_plan
@@ -110,6 +110,20 @@ class ReconciliationTests(unittest.TestCase):
         self.assertEqual(session.tables[TAB][1][-1], 'OUI')
         self.assertEqual(path.read_bytes(), freeze)
 
+
+    def test_capture_avec_variantes_du_meme_resultat_reste_partielle(self):
+        row = self.capture('2731917', 'Jazz Pettevinière', total=2)
+        path = self.cache/'historiques/2731917/historique_geny.json'
+        doc = lire(path)
+        first = doc['performances'][0]
+        doc['performances'] = [{**first, 'texte_source': 'Crse E | Nc'},
+                               {**first, 'texte_source': 'Nc'}]
+        doc['nombre_extrait'] = 2
+        ecrire(path, doc)
+        recon = ReconciliationHistoriques(self.cache, [row], now=NOW)
+        status, count, _, note = recon.historique('2731917')
+        self.assertEqual((status, count), ('HISTO_PARTIEL_GENY', 1))
+        self.assertIn('1/2 signatures sportives distinctes', note)
 
     def test_publications_pmu_ne_rejouent_pas_un_ancien_diagnostic(self):
         row = {'date_course': '2026-11-27', 'rncn': 'R1C2', 'course_key': 'course',
