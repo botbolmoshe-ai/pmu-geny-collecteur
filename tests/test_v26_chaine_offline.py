@@ -241,13 +241,14 @@ class ChaineTests(unittest.TestCase):
             git('commit', '-m', 'data', cwd=repo)
             git('push', 'origin', 'pmu-data', cwd=repo)
             git('switch', 'main', cwd=repo)
+            from pmu_geny.persistance_production import restaurer
+            restaurer(cache, repo)
             inc.ecrire(cache/inc.QUEUE, {'version': 1, 'chevaux': {'123456': {'sync': 'A_FAIRE'}}})
             inc.ecrire(cache/'etat_persistant.json', {'version': 1, 'chevaux': {'123456': {'statut': 'COMPLET'}}})
             inc.ecrire(cache/'historiques/123456/historique_geny.json', {'preuve': 'historique valide'})
             # Même si un appelant fournit un fichier de prévision modifié, il n'est pas publié.
             inc.ecrire(cache/'pronostics/fige.json', {'preuve': 'ne doit pas etre publiee'})
-            with patch.object(inc, '__file__', str(repo/'pmu_geny/historiques_incrementaux.py')):
-                inc.checkpoint_distant(cache)
+            inc.checkpoint_distant(cache, root=repo)
             queue = json.loads(git('show', 'pmu-data:collecte_incrementale/etat.json', cwd=remote))
             frozen = json.loads(git('show', 'pmu-data:pronostics/fige.json', cwd=remote))
             self.assertEqual(queue['chevaux']['123456']['sync'], 'A_FAIRE')
