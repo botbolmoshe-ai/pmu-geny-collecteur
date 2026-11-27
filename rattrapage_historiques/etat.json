@@ -31979,7 +31979,7 @@
       "course_url": "https://www.geny.com/course/1698228/partants-pronostics",
       "numero": "11",
       "engagement": "2026-11-14_R8C6",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-24_R3C5",
@@ -32004,7 +32004,32 @@
       "prochaine_verification_utc": "2026-11-28T01:02:55.942862+00:00",
       "nombre_performances": 27,
       "erreur": "",
-      "derniere_performance_date": "2026-11-24"
+      "derniere_performance_date": "2026-11-24",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 27,
+          "cellules_actualisees": 0,
+          "lignes_source": 27,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 27,
+            "lignes_avant": 37513,
+            "cles_avant": 37513,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3752,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37540,
+            "lignes_apres": 37540,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T01:03:15.190430+00:00",
+      "rattrapage_complet_au_utc": "2026-11-27T01:02:55.942862+00:00",
+      "ajouts_confirmes": 27
     },
     "contexte:f78d70e3cf526e7215c50a40": {
       "nom": "LOUSTIC VERT",
@@ -46590,9 +46615,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C6",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C6",
       "numero": "11",
       "numero_reconcilie_depuis_snapshot": true,
@@ -46615,7 +46640,11 @@
       "course_geny_deja_lue": true,
       "cible_equivalente_a": "contexte:6f4c5c0d82d8b05a7afdfdfe",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:6f4c5c0d82d8b05a7afdfdfe"
+      "autre_contexte_meme_nom": "contexte:6f4c5c0d82d8b05a7afdfdfe",
+      "rattrapage_complet_au_utc": "2026-11-27T01:02:55.942862+00:00",
+      "historique_complet_au_utc": "2026-11-27T01:02:55.942862+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:8c8e6387d88160953264a64d": {
       "nom": "LOUSTIC VERT",
@@ -78940,12 +78969,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1329,
-    "cibles_restantes": 1255,
+    "cibles_completees": 1331,
+    "cibles_restantes": 1253,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1327,
+    "travaux_distincts_restants": 1326,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 880,
+    "carrieres_distinctes_a_completer": 879,
     "identifiants_sans_carriere_complete": 113,
     "contextes_distincts_sans_identifiant": 765,
     "noms_distincts_sans_identifiant": 761,
@@ -78953,8 +78982,8 @@
     "identites_non_resolues": 1086,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 7218,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 7245,
     "tentatives_collecte": 4,
     "captures_validees": 4,
     "captures_partielles": 0,
@@ -78962,7 +78991,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T00:59:26.588012+00:00",
-  "maj_utc": "2026-11-27T01:02:56.402132+00:00",
+  "maj_utc": "2026-11-27T01:03:15.209948+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -80861,11 +80890,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:59:26.588012+00:00",
-    "controle_utc": "2026-11-27T01:02:56.402132+00:00",
+    "controle_utc": "2026-11-27T01:03:15.209948+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 4,
-    "chevaux_confirmes_sheets": 3,
-    "performances_ajoutees_et_confirmees_sheets": 83,
+    "chevaux_confirmes_sheets": 4,
+    "performances_ajoutees_et_confirmees_sheets": 110,
     "requetes_http_geny": 79,
     "requetes_geny_par_ressource": {
       "document": 4,
@@ -80880,8 +80909,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 21.03,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 68.63,
-    "carrieres_publiees_par_heure_cycle": 51.47,
+    "carrieres_validees_par_heure_cycle": 62.99,
+    "carrieres_publiees_par_heure_cycle": 62.99,
     "refus_geny": {
       "403": 0,
       "429": 0
