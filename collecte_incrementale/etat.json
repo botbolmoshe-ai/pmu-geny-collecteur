@@ -9155,7 +9155,7 @@
     },
     "2799777": {
       "nom": "LOU PANTAIL",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "9",
       "engagement": "2026-11-27_R1C3",
       "vu_utc": "2026-11-27T14:08:32.203069+00:00",
@@ -9179,20 +9179,45 @@
       "erreur": "",
       "sync_details": {
         "Historique chevaux": {
-          "lignes_ajoutees": 1,
-          "cellules_actualisees": 0,
-          "lignes_source": 13
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 27,
+          "lignes_source": 13,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 0,
+            "lignes_avant": 40316,
+            "cles_avant": 40316,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4032,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40316,
+            "lignes_apres": 40316,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
         },
         "Courses & Prévisions": {
           "lignes_ajoutees": 0,
-          "cellules_actualisees": 2,
-          "lignes_source": 1
-        },
-        "Data Quality & KPI": {
-          "indicateurs_actualises": 25
+          "cellules_actualisees": 0,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {},
+            "etats": {
+              "HISTO_OK_NOM_ID": 1050,
+              "HISTO_OK_NOM": 405,
+              "HISTO_NON_COLLECTE": 1942,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 141,
+              "HISTO_PUBLICATION_EN_ATTENTE": 10
+            }
+          }
         }
       },
-      "sync_utc": "2026-11-13T18:13:15.701276+00:00",
+      "sync_utc": "2026-11-27T14:17:11.340101+00:00",
       "ferrures_manquantes": 0,
       "depart_a_venir_utc": "2026-11-27T18:33:00+00:00",
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
@@ -99510,7 +99535,7 @@
     }
   },
   "passage_utc": "2026-11-27T14:08:32.203069+00:00",
-  "maj_utc": "2026-11-27T14:16:51.029121+00:00",
+  "maj_utc": "2026-11-27T14:17:11.340136+00:00",
   "bilan": {
     "chevaux_suivis": 3519,
     "tentatives_collecte": 12,
@@ -100175,8 +100200,8 @@
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "publication_cycle": {
     "debut_utc": "2026-11-27T14:16:04.570928+00:00",
-    "controle_utc": "2026-11-27T14:16:51.029121+00:00",
-    "chevaux_confirmes_sheets": 2,
+    "controle_utc": "2026-11-27T14:17:11.340136+00:00",
+    "chevaux_confirmes_sheets": 3,
     "performances_ajoutees_et_confirmees_sheets": 0,
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
