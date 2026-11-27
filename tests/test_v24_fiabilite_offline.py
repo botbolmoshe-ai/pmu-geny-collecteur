@@ -163,6 +163,20 @@ class KpiTests(unittest.TestCase):
         self.assertEqual(updates[0]['values'][0][2],m['Courses distinctes collectées'][0])
         self.assertEqual(updates[0]['values'][0][0],1)
 
+    def test_perimetre_resultats_inclut_les_courses_sans_ligne_de_partant(self):
+        from pmu_geny.kpi_registre import PERIMETRE_RESULTATS, totaux_reference
+        self.source['Résultats & Analyse']['c'] = {
+            'course_key': 'c', 'date_course': '2026-11-12', 'rncn': 'R1C2',
+            'heure_depart_paris': (NOW-timedelta(hours=1)).isoformat(),
+            'arrivee_officielle_numeros': '1,2,3',
+        }
+        metrics = calculer_kpi(self.root, self.source, NOW)
+        totals = totaux_reference(metrics)
+        self.assertEqual(metrics['Courses distinctes collectées'][0], 2)
+        self.assertEqual(metrics[PERIMETRE_RESULTATS][0], 3)
+        self.assertEqual(totals['Courses avec arrivée officielle'], 3)
+        self.assertEqual(totals['Courses avec sélection TOP3 direct'], 2)
+
     def test_real_reference_reconciles_all_13_races_and_historical_baseline(self):
         if not Path('reference_pmu').is_dir():self.skipTest('reference facultative absente')
         from pmu_geny.qualite_registre_v21 import evaluer

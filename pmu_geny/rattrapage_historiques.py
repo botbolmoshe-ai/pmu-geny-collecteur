@@ -573,7 +573,7 @@ def prochaine_tache(state,now,attempts):
         corrected=bool(h.get('priorite_identite_corrigee') and not h.get('historique_complet_au_utc'))
         # Le besoin J+1 doit primer sur une identite corrigee ancienne pendant la nuit.
         if state.get('priorite_collecte') == 'STOCK_NOCTURNE':
-            order = (enrichment, unidentified, priority, night, not h.get('priorite_lot_96'),
+            order = (enrichment, unidentified, not h.get('priorite_lot_96'), priority, night,
                      h.get('engagement',''), key)
         else:
             order = (enrichment, night, not h.get('partant_course_passee'), not corrected,

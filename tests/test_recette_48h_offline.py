@@ -12,6 +12,16 @@ from pmu_geny.sync_google_sheets import DISPLAY_NAMES, publier_plan, source_rows
 
 
 class Recette48h(TestCase):
+    def test_publication_globale_ne_touche_pas_aux_carrieres_geny(self):
+        engine = Mock()
+        engine.source.return_value = {'Courses & Prévisions': {}, 'Résultats & Analyse': {},
+                                      'Historique chevaux': {'capture': {}}}
+        self.assertEqual(publier_plan(engine, {'mode': 'GLOBAL'}), set())
+        engine.synchroniser_cycle.assert_not_called()
+        engine.synchroniser_tables.assert_called_once_with(
+            {'Courses & Prévisions': {}, 'Résultats & Analyse': {}},
+            scope='CYCLE_PMU', full_source=True, allow_structure=True)
+
     def test_collision_reprise_et_interdiction_de_certifier_sans_relecture(self):
         with TemporaryDirectory() as tmp:
             cache = Path(tmp)

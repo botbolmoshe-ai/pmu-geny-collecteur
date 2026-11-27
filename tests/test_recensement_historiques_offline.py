@@ -34,8 +34,9 @@ class RecensementTests(unittest.TestCase):
                     return {'statut': 'ACCES_LIMITE_429'}
                 return {'complet': True}
 
-            def accepter(_, horse, __):
-                horse.update(id='12345', collecte='COMPLET', sync='A_FAIRE')
+            def accepter(_, horse, __, *, origine):
+                horse.update(id='12345', collecte='COMPLET', sync='A_FAIRE',
+                             historique_complet_au_utc=datetime.now(timezone.utc).isoformat())
 
             def sync(_):
                 return {'Historique chevaux': {'controle': {'statut': 'VALIDE'}, 'lignes_ajoutees': 2}}

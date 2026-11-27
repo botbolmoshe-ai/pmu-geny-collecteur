@@ -61,6 +61,20 @@ class EcheancesTests(unittest.TestCase):
         self.assertEqual(e.planifier(self.cache,self.now,force=True)['mode'],'GLOBAL')
         self.assertEqual(e.planifier(self.cache,self.now+timedelta(hours=1))['mode'],'JALONS')
 
+    def test_programme_de_jour_actualise_sans_recalculer_ni_prioriser_le_secours_trop_tot(self):
+        # Deux heures avant l'ouverture H3. La publication globale est encore récente.
+        now = self.now - timedelta(hours=2)
+        self.mark_global(now - timedelta(minutes=10))
+        path = self.cache/'sources_pmu'/'programme_2026-11-17.json'
+        programme = e.lire(path)
+        programme['date_controle_utc'] = (now - timedelta(minutes=15)).isoformat()
+        e.sauver(path, programme)
+        plan = e.planifier(self.cache, now)
+        self.assertEqual((plan['mode'], plan['date_preparation']), ('PREPARATION_JOUR', '2026-11-17'))
+        self.assertFalse(plan['secours_pmu'])
+        self.assertFalse(plan['global_du'])
+        self.assertTrue(e.planifier(self.cache, now + timedelta(minutes=15))['secours_pmu'])
+
     def test_collecte_ne_charge_pas_navigateur_pendant_pause_sauf_publication_a_reprendre(self):
         e.sauver(self.cache/'etat_persistant.json',{'dernier_blocage_geny':{'utc':self.now.isoformat(),'code':'403'}})
         self.assertFalse(e.plan_collecte(self.cache,self.now)['executer'])
@@ -68,6 +82,8 @@ class EcheancesTests(unittest.TestCase):
         self.assertFalse(e.plan_collecte(self.cache,self.now)['executer'])
         earlier = self.now - timedelta(minutes=40)
         self.mark_global(earlier)
+        path = self.cache/'sources_pmu'/'programme_2026-11-17.json'
+        e.sauver(path, {**e.lire(path), 'date_controle_utc': earlier.isoformat()})
         self.assertTrue(e.plan_collecte(self.cache,earlier)['executer'])
         later=self.now+timedelta(hours=1)
         self.assertEqual(e.plan_collecte(self.cache,later)['motif'],'ECHEANCE_PMU_PRIORITAIRE')
@@ -239,6 +255,8 @@ class EcheancesTests(unittest.TestCase):
         path=self.cache/h2['versions']['ml']['fichier']; frozen=path.read_bytes()
         self.assertEqual(hashlib.sha256(frozen).hexdigest(),h2['versions']['ml']['sha256'])
         self.mark_global(now)
+        programme = self.cache/'sources_pmu'/'programme_2026-11-17.json'
+        e.sauver(programme, {**e.lire(programme), 'date_controle_utc': now.isoformat()})
         self.assertFalse(e.planifier(self.cache,now)['executer'])
         later=self.now+timedelta(minutes=95)
         self.predictions(later)

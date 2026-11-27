@@ -142,25 +142,24 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
-      - name: Installer dependances Python et navigateur optionnel
+      - name: Installer les dependances du mode choisi
         if: steps.plan.outputs.executer == 'true'
         env:
           MODE_PRODUCTION: ${{ inputs.mode || 'auto' }}
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install -r requirements.txt
-          # Le test de production PMU ne doit jamais attendre un navigateur Geny.
-          # Les cycles normaux tentent Chromium pendant 45 secondes au maximum.
           if [ "$MODE_PRODUCTION" != "decouvrir" ] && [ "$MODE_PRODUCTION" != "collecter" ]; then
-            echo 'MODE_PMU_PRIORITAIRE : navigateur Geny facultatif; synchronisation Sheets prioritaire'
+            python -m pip install -q beautifulsoup4==4.14.3
           else
+            python -m pip install -r requirements.txt
             timeout 45s python -m playwright install chromium || echo 'GENY_CHROMIUM_NON_DISPONIBLE : PMU et Google Sheets continuent'
           fi
       - name: Installer les dependances ML (cycles legers inclus)
         if: steps.plan.outputs.executer == 'true' && steps.plan.outputs.mode != 'PREPARATION_JOUR'
+        continue-on-error: true
         run: python -m pip install -q -r requirements-ml.txt
-      - name: Cycle automatique quotidien (PMU puis Geny, sans doublons)
+      - name: Cycle automatique quotidien PMU et prévisions
         id: cycle_auto
         if: steps.plan.outputs.executer == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.mode == 'auto')
         shell: bash
@@ -424,12 +423,18 @@ jobs:
         if: always() && github.ref == 'refs/heads/main' && steps.cycle_auto.conclusion == 'success' && steps.persistance_finale.conclusion == 'success' && (steps.publication.conclusion == 'success' || steps.perimetre.outputs.mode == 'PREPARATION_JOUR')
         env:
           GH_TOKEN: ${{ github.token }}
+          GENY_ACQUISITION_INDEPENDANTE: ${{ vars.GENY_ACQUISITION_INDEPENDANTE }}
+          PMU_NOCTURNE: ${{ steps.plan.outputs.nocturne }}
         run: |
           if python -m pmu_geny.echeances_production --cache cache_pmu --relais-historiques; then
             active=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/historiques-incrementaux.yml/runs?branch=main&per_page=30" \
               --jq '.workflow_runs[] | select(.status != "completed") | .id')
             if [ -z "$active" ]; then
-              gh workflow run historiques-incrementaux.yml --repo "$GITHUB_REPOSITORY" --ref main -f max_minutes=7
+              options=(-f max_minutes=7)
+              if [ "$GENY_ACQUISITION_INDEPENDANTE" = 'true' ] && [ "$PMU_NOCTURNE" = 'false' ]; then
+                options+=(-f acquisition_independante=true)
+              fi
+              gh workflow run historiques-incrementaux.yml --repo "$GITHUB_REPOSITORY" --ref main "${options[@]}"
             else
               echo "RELAIS_HISTORIQUES_DEJA_EN_FILE $active"
             fi
