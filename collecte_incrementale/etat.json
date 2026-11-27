@@ -97346,7 +97346,7 @@
     },
     "2806886": {
       "nom": "LAKOS DE BERLES",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "11",
       "engagement": "2026-11-27_R1C3",
       "vu_utc": "2026-11-27T10:07:37.138226+00:00",
@@ -97378,11 +97378,39 @@
       "nombre_performances": 28,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-06"
+      "derniere_performance_date": "2026-11-06",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 28,
+          "cellules_actualisees": 0,
+          "lignes_source": 28,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 28,
+            "lignes_avant": 38808,
+            "cles_avant": 38808,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3881,
+            "import_initial_explicite": false,
+            "lignes_attendues": 38836,
+            "lignes_apres": 38836,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 0,
+          "lignes_source": 0
+        }
+      },
+      "sync_utc": "2026-11-27T10:12:28.990526+00:00"
     }
   },
   "passage_utc": "2026-11-27T10:07:37.138226+00:00",
-  "maj_utc": "2026-11-27T10:12:06.239589+00:00",
+  "maj_utc": "2026-11-27T10:12:28.990552+00:00",
   "bilan": {
     "chevaux_suivis": 3361,
     "tentatives_collecte": 7,
@@ -98230,11 +98258,11 @@
   "sync_kpi_utc": "2026-11-27T02:58:34.092247+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T10:07:37.138226+00:00",
-    "controle_utc": "2026-11-27T10:12:06.239589+00:00",
+    "controle_utc": "2026-11-27T10:12:28.990552+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 7,
-    "chevaux_confirmes_sheets": 6,
-    "performances_ajoutees_et_confirmees_sheets": 151,
+    "chevaux_confirmes_sheets": 7,
+    "performances_ajoutees_et_confirmees_sheets": 179,
     "requetes_http_geny": 109,
     "requetes_geny_par_ressource": {
       "document": 10,
@@ -98249,8 +98277,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 42.45,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 93.65,
-    "carrieres_publiees_par_heure_cycle": 80.27,
+    "carrieres_validees_par_heure_cycle": 86.35,
+    "carrieres_publiees_par_heure_cycle": 86.35,
     "refus_geny": {
       "403": 0,
       "429": 0
