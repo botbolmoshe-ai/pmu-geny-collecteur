@@ -93936,7 +93936,7 @@
     },
     "2771297": {
       "nom": "KEMILLA DE BRION",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "2",
       "engagement": "2026-11-27_R1C1",
       "vu_utc": "2026-11-27T00:51:23.559580+00:00",
@@ -93967,11 +93967,39 @@
       "nombre_performances": 39,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-04"
+      "derniere_performance_date": "2026-11-04",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 39,
+          "cellules_actualisees": 0,
+          "lignes_source": 39,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 39,
+            "lignes_avant": 37344,
+            "cles_avant": 37344,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3735,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37383,
+            "lignes_apres": 37383,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-27T00:57:12.004331+00:00"
     }
   },
   "passage_utc": "2026-11-27T00:51:23.559580+00:00",
-  "maj_utc": "2026-11-27T00:56:46.235866+00:00",
+  "maj_utc": "2026-11-27T00:57:12.004367+00:00",
   "bilan": {
     "chevaux_suivis": 3361,
     "tentatives_collecte": 15,
@@ -94398,11 +94426,11 @@
   "sync_kpi_utc": "2026-11-26T23:08:22.379994+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:51:23.559580+00:00",
-    "controle_utc": "2026-11-27T00:56:46.235866+00:00",
+    "controle_utc": "2026-11-27T00:57:12.004367+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 5,
-    "chevaux_confirmes_sheets": 4,
-    "performances_ajoutees_et_confirmees_sheets": 118,
+    "chevaux_confirmes_sheets": 5,
+    "performances_ajoutees_et_confirmees_sheets": 157,
     "requetes_http_geny": 96,
     "requetes_geny_par_ressource": {
       "document": 7,
@@ -94417,8 +94445,8 @@
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 30.97,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 55.78,
-    "carrieres_publiees_par_heure_cycle": 44.63,
+    "carrieres_validees_par_heure_cycle": 51.66,
+    "carrieres_publiees_par_heure_cycle": 51.66,
     "refus_geny": {
       "403": 0,
       "429": 0
