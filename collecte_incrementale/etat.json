@@ -91896,7 +91896,7 @@
     },
     "2778907": {
       "nom": "KLASS HAUFOR",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "5",
       "engagement": "2026-11-27_R1C1",
       "vu_utc": "2026-11-27T12:19:02.888905+00:00",
@@ -91926,7 +91926,49 @@
       "id_pmu": "KLASS HAUFOR-TURQUOISE HAUFOR-FACE TIME BOURBON",
       "derniere_verification_utc": "2026-11-27T12:24:03.329945+00:00",
       "prochaine_verification_utc": "2026-11-28T12:24:03.329945+00:00",
-      "erreur": ""
+      "erreur": "",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 60,
+          "lignes_source": 30,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 0,
+            "lignes_avant": 40314,
+            "cles_avant": 40314,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4032,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40314,
+            "lignes_apres": 40314,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 2,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "date_capture": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1052,
+              "HISTO_OK_NOM": 405,
+              "HISTO_NON_COLLECTE": 1952,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 139
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T12:24:28.769213+00:00"
     },
     "2761958": {
       "nom": "KARA D'OR",
@@ -99172,7 +99214,7 @@
     }
   },
   "passage_utc": "2026-11-27T12:19:02.888905+00:00",
-  "maj_utc": "2026-11-27T12:24:04.013842+00:00",
+  "maj_utc": "2026-11-27T12:24:28.769244+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 5,
@@ -99943,10 +99985,10 @@
   "sync_kpi_utc": "2026-11-27T12:18:14.410966+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T12:19:02.888905+00:00",
-    "controle_utc": "2026-11-27T12:24:04.013842+00:00",
+    "controle_utc": "2026-11-27T12:24:28.769244+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 5,
-    "chevaux_confirmes_sheets": 9,
+    "chevaux_confirmes_sheets": 10,
     "performances_ajoutees_et_confirmees_sheets": 450,
     "requetes_http_geny": 83,
     "requetes_geny_par_ressource": {
@@ -99962,8 +100004,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 30.58,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 59.78,
-    "carrieres_publiees_par_heure_cycle": 107.6,
+    "carrieres_validees_par_heure_cycle": 55.23,
+    "carrieres_publiees_par_heure_cycle": 110.47,
     "refus_geny": {
       "403": 0,
       "429": 0
