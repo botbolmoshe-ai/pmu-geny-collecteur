@@ -134,7 +134,7 @@ class ReconciliationTests(unittest.TestCase):
                 engine = Mock()
                 engine.source.return_value = {TAB: {'partant': row}, 'Résultats & Analyse': {}}
                 publier_plan(engine, {'mode': mode, 'date': row['date_course'], 'selection': [row['rncn']]})
-                tables = engine.synchroniser_tables.call_args.args[0]
+                tables = engine.synchroniser_tables.call_args_list[0].args[0]
                 self.assertNotIn('Historique chevaux', tables)
                 self.assertNotIn('historique_statut', tables[TAB]['partant'])
                 self.assertNotIn(CHAMP, tables[TAB]['partant'])

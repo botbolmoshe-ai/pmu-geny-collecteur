@@ -8,7 +8,15 @@ from .lectures_sheets import get_lecture
 from .moteur_sheets import SynchroniseurSheets
 from .sync_google_sheets import SHEET_TABS, colname
 
-TABS = (*SHEET_TABS, 'Data Quality & KPI', 'TCD', 'Historique qualité')
+OBLIGATOIRES = (*SHEET_TABS, 'Data Quality & KPI')
+TABS = (*OBLIGATOIRES, 'TCD', 'Historique qualité')
+
+
+def onglets_dates(tables):
+    absent = set(OBLIGATOIRES) - tables.keys()
+    if absent:
+        raise ValueError('Onglets de données absents : ' + ', '.join(sorted(absent)))
+    return [tab for tab in TABS if tab in tables]
 
 
 def categorie(cell):
@@ -61,7 +69,7 @@ def pages(engine, tab, props):
 def inventorier(engine):
     tables = engine.metadata()
     report = {}
-    for tab in TABS:
+    for tab in onglets_dates(tables):
         props = tables[tab]
         headers = []
         counts = {}

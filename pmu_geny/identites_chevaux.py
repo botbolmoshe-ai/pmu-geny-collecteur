@@ -372,7 +372,10 @@ def champs_correspondance_geny(tentative, pmu_id, geny_id, methode):
         statut, motif = NON_EFFECTUEE, ''
     details = [motif] if motif else []
     if tentative and statut == tentative.get('statut'):
-        details.extend(f'{label} {tentative[key]}' for label, key in (
-            ('Contrôle UTC', 'utc'), ('Reprise UTC', 'reprise_utc')) if tentative.get(key))
+        from dashboard.trot_analytics.dates import afficher_instant
+
+        details.extend(f'{label} {stamp}' for label, key in (
+            ('Contrôle (Paris)', 'utc'), ('Reprise (Paris)', 'reprise_utc'))
+            if (stamp := afficher_instant(tentative.get(key))))
     return {CHAMP: statut, '_note_correspondance_geny': '\n'.join(details),
             '_id_pmu_correspondance': pmu_id, '_id_geny_correspondance': geny_id}

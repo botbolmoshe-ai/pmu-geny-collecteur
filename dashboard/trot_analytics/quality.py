@@ -1,7 +1,8 @@
 """Compact, read-only presentation of the published quality indicators."""
 from collections import OrderedDict
-from datetime import timezone
-from .dates import afficher_date, afficher_instant, afficher_valeur_kpi, indicateur_horodate
+from .dates import (
+    PARIS, afficher_date, afficher_indicateur, afficher_instant, afficher_valeur_kpi, indicateur_horodate,
+)
 from .logic import number,timestamp
 from .correspondance_geny import KPI_PREFIX
 
@@ -14,7 +15,7 @@ def display_value(value, *, rate=False):
         return "—"
     numeric = number(value)
     if numeric is None:
-        return afficher_instant(value, timezone.utc) or str(value)
+        return afficher_instant(value) or str(value)
     if rate:
         return f"{numeric * 100:.1f}".replace(".", ",") + " %"
     if numeric.is_integer():
@@ -42,7 +43,7 @@ def quality_sections(kpis, query=""):
         elif label.startswith("Autostart prospectif · "):
             dimension = "Autostart prospectif"
         elif label.startswith(("Échéances · H1 ", "Échéances · H2 ")):
-            dimension = "Échéances · Historique H-2/H-1"
+            dimension = "Échéances · Archives des anciens jalons"
         elif label.startswith(("Échéances · ", "H+30 · ")):
             dimension = "Échéances"
         elif label.startswith("Collecte · "):
@@ -58,7 +59,7 @@ def quality_sections(kpis, query=""):
         if query and query not in f"{dimension} {label} {definition}".casefold():
             continue
         sections.setdefault(dimension, []).append({
-            "Indicateur": label.removesuffix(" UTC") + " (Paris)" if indicateur_horodate(label) else label,
+            "Indicateur": afficher_indicateur(label),
             "Description": definition or "—",
             "Nombre / valeur": display_value(afficher_valeur_kpi(label, row.get("Valeur (automatique)")), rate=is_rate(label)),
             "Total": display_value(row.get(TOTAL_FIELD)),
@@ -70,7 +71,6 @@ def render_quality(kpis, courses=None, history=None):
     import pandas as pd
     import streamlit as st
     from datetime import datetime
-    from zoneinfo import ZoneInfo
     from .quality_dates import cohort_metrics, daily_series, history_series, latest_history, date_rows
 
     modes=["Courses de la période", "Relevés historiques", "Registre actuel"] if courses is not None else ["Registre actuel"]
@@ -78,7 +78,7 @@ def render_quality(kpis, courses=None, history=None):
     mode=controls[0].selectbox("Lecture des indicateurs",modes,key="quality_mode")
     series=[]
     if mode!="Registre actuel":
-        today=datetime.now(ZoneInfo('Europe/Paris')).date()
+        today=datetime.now(PARIS).date()
         interval=controls[1].date_input("Période — une date ou un intervalle",value=(today,today),format="DD/MM/YYYY",key="quality_period")
         if len(interval)!=2:
             st.info("Choisissez la date de fin ; pour une seule journée, choisissez deux fois la même date.")

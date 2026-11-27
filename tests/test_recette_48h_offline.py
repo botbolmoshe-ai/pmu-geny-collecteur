@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, call, patch
 
 from pmu_geny import echeances_production as prod
 from pmu_geny import rapprochement_reunions as resultats
@@ -18,9 +18,18 @@ class Recette48h(TestCase):
                                       'Historique chevaux': {'capture': {}}}
         self.assertEqual(publier_plan(engine, {'mode': 'GLOBAL'}), set())
         engine.synchroniser_cycle.assert_not_called()
-        engine.synchroniser_tables.assert_called_once_with(
-            {'Courses & Prévisions': {}, 'Résultats & Analyse': {}},
-            scope='CYCLE_PMU', full_source=True, allow_structure=True)
+        self.assertEqual(engine.synchroniser_tables.call_args_list, [
+            call({'Courses & Prévisions': {}}, scope='CYCLE_PMU', full_source=True, allow_structure=True),
+            call({'Résultats & Analyse': {}}, scope='CYCLE_PMU', full_source=True, allow_structure=True),
+        ])
+
+    def test_preuve_jalon_reutilisable_si_onglet_resultats_en_echec(self):
+        engine = Mock()
+        engine.source.return_value = {'Courses & Prévisions': {}, 'Résultats & Analyse': {}}
+        engine.synchroniser_tables.side_effect = [None, ErreurSynchronisation('Sheets 429')]
+        publications = {}
+        self.assertEqual(publier_plan(engine, {'mode': 'GLOBAL'}, publications=publications), set())
+        self.assertEqual(publications, {'Courses & Prévisions': True, 'Résultats & Analyse': False})
 
     def test_collision_reprise_et_interdiction_de_certifier_sans_relecture(self):
         with TemporaryDirectory() as tmp:
@@ -182,7 +191,7 @@ class Recette48h(TestCase):
                     prod.enregistrer_publication(cache, now, plan, True,
                                                 sheets={**proof, 'rapprochements_verifies': sorted(verified)})
                     state = prod.lire(cache/'orchestration/production_etat.json')
-                    if state:
+                    if state.get('dernier_global_publie_utc'):
                         checkpoints[now.date().isoformat()] = state['dernier_global_publie_utc']
 
             self.assertEqual(len(retries), 2)
@@ -201,3 +210,44 @@ class Recette48h(TestCase):
                     if prediction.get('calcul_utc') and prediction.get('depart'):
                         self.assertLess(prod.instant(prediction['calcul_utc']), prod.instant(prediction['depart']))
             print('RECETTE_CYCLE_PYTHON_48H', sorted(retries), checkpoints)
+
+    def test_cycles_globaux_dus_sur_trois_heures_de_jalons_concurrents(self):
+        from pmu_geny.cycle_production import executer
+
+        with TemporaryDirectory() as tmp:
+            cache = Path(tmp)
+            plan_path = cache/'plan.json'
+            start = datetime(2026, 11, 27, 10, tzinfo=timezone.utc)
+            day, tomorrow = '2026-11-27', '2026-11-28'
+            meetings = [{'code': f'R{index+1}C1',
+                         'depart': (start+timedelta(hours=index+3)).isoformat()} for index in range(3)]
+            initial = start - timedelta(hours=1)
+            prod.sauver(cache/'orchestration/production_etat.json', {'dernier_global_publie_utc':initial.isoformat()})
+            prod.sauver(cache/'sources_pmu'/f'programme_{day}.json',
+                        {'date_controle_utc':initial.isoformat(), 'programme':meetings})
+
+            def acquisition(cache, date, selection, *args, now, actualiser_plan=None, **kwargs):
+                self.assertEqual(selection, [])
+                prod.sauver(cache/'sources_pmu'/f'programme_{date}.json',
+                            {'date_controle_utc':now.isoformat(), 'programme':meetings if date == day else []})
+                if actualiser_plan:
+                    self.assertTrue(actualiser_plan())
+
+            for index in range(3):
+                now = start + timedelta(hours=index)
+                with self.subTest(now=now), patch('pmu_geny.cycle_production.run', side_effect=acquisition) as run:
+                    plan = prod.planifier(cache, now)
+                    self.assertTrue(plan['global_du'])
+                    self.assertEqual(plan['mode'], 'JALONS')
+                    prod.sauver(plan_path, plan)
+                    executer(cache, plan_path, lambda: now)
+                    self.assertEqual([call.args[1] for call in run.call_args_list], [day, tomorrow])
+                    effective = prod.lire(plan_path)
+                    self.assertEqual(effective['mode'], 'GLOBAL')
+                    self.assertTrue(effective['jalons_dus'])
+                    report = prod.enregistrer_publication(cache, now, effective, True,
+                        sheets={'lecture_utc':now.isoformat(), 'courses':{}})
+                    self.assertEqual(report['global']['statut'], 'PUBLIE')
+                    checkpoint = prod.lire(cache/'orchestration/production_etat.json')
+                    self.assertEqual(checkpoint['dernier_global_publie_utc'], now.isoformat())
+                    self.assertNotIn('dernier_jalon_publie_utc', checkpoint)

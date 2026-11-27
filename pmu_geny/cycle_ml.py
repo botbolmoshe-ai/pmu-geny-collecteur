@@ -6,11 +6,10 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 
 from .ml_v19 import load, save, train
 
-PARIS = ZoneInfo('Europe/Paris')
 
 
 def run(cache, now=None, force=False):

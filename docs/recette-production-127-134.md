@@ -51,3 +51,44 @@ Le passage indépendant du 27 a validé cinq carrières en 86 requêtes Geny, sa
 La PR #137 fournit la base de publication Git. La PR #139 ajoute le chemin indépendant de jour derrière le paramètre manuel acquisition_independante. Après recette réelle, ce chemin est activé par défaut pour les crons de jour et les relais PMU de jour. La variable GENY_ACQUISITION_INDEPENDANTE à false redonne le chemin historique aux déclenchements automatiques. Revert des commits par ordre inverse en fenêtre calme si nécessaire. Les anciens instantanés pmu-data et les captures en attente utilisent le même schéma.
 
 Les accès manuels et le stock nocturne conservent la sérialisation historique. L’observation de deux journées réelles, la couverture intégrale de l’échantillon comparatif Geny et la mesure du respect des objectifs de service restent nécessaires pour clôturer les tickets. Les domaines de recherche Geny soumis à autorisation gardent les contrôles existants. Aucun résultat nominatif n’est déduit de l’absence de preuve locale.
+
+## Reprise du 27 novembre après la PR #142
+
+La branche `fix/127-134-138-autonomie-supervision` et la [PR #143](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/pull/143) reprennent le travail après `f202852e` et la suppression du workflow de migration dans `cecc2239`. Les cinq fichiers actifs conservent leur chemin et les clés de jobs de validation restent identiques. La migration de structure du 24 novembre a été appliquée et relue. Son ancien point d’entrée a été supprimé. Les parseurs, le contrôle de schéma et la recette historique restent disponibles. [Preuve de migration](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45434020426)
+
+Le 27 novembre, le cycle global a été relu à 11:27:26. À 14:16, cette preuve avait environ 2 h 49. Le cycle de 13:04 a publié les jalons, et Geny a poursuivi son acquisition et sa publication. Lorsque les jalons étaient dus, l’exécution choisissait le chemin ciblé. Même lorsqu’elle commençait en mode global, l’actualisation du programme pouvait réduire le périmètre aux jalons et empêcher l’acquisition de J+1. Le global conserve désormais son périmètre et les courses de jalon sont placées en tête du calcul. Le secours du workflow incrémental peut demander le global dès son échéance, sous les gardes existantes de relai et de dédoublonnage. [Cycle global](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45982023309) · [Cycle jalons](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45995585816)
+
+Les preuves de relecture de `Courses & Prévisions` et `Résultats & Analyse` sont persistées séparément avant la certification. Le global progresse seulement après une acquisition fraîche de J et J+1 pendant le cycle et la confirmation des deux publications. Le rapprochement garde la règle du dernier départ de chaque réunion +30 minutes. Son checkpoint et ceux du jalon, de l’arrivée observée et de la dernière publication PMU sont indépendants.
+
+Le passage Geny nocturne de rattrapage est programmé dans le workflow 03, aux minutes 27 et 57 de 21 h à 07 h, heure de Paris. Le workflow 02 garde la priorité des partants et traite sa file incrémentale aux minutes 12 et 42. Le passage de rattrapage revalide son budget avant et après l’installation du navigateur, puis applique les gardes métier et le cooldown déjà partagés. Le verrou d’écriture Sheets reste commun. GitHub peut retarder ou omettre un tick. Les échéances PMU, les preuves durables et le relai de secours pilotent la reprise au passage suivant.
+
+### Mesures
+
+| Contrôle | Résultat |
+| --- | --- |
+| Trois heures consécutives avec jalons dus | 3 cycles globaux sur 3 avec acquisition J/J+1 et checkpoint indépendant dans la recette. L’ancien chemin ciblé ne lançait pas J+1. |
+| Panne Sheets sur le périmètre Résultats | Le jalon relu reste certifiable. Le global et les rapprochements sans preuve reprennent au passage suivant. |
+| Identités, 30 cibles avec ID dans le stock | 28 confirmations locales, 2 sans preuve suffisante. |
+| Identités, 30 cibles sans ID dans le stock | 2 confirmations locales, 28 sans tentative établie. |
+| Dernier passage nocturne archivé | 10 carrières complètes et 734 performances, 110 requêtes réseau et 520 ressources servies du cache. |
+| Comparaison des passages nocturnes des 26 et 27 novembre | 61,1 puis 11,0 requêtes par carrière. Les chevaux diffèrent. Cette comparaison décrit les passages observés. |
+| Stock et lot de référence | 1 362 cibles complétées sur 2 584. 76 cibles publiées sur 96. 749 contextes distincts sans preuve locale, dont 693 avec course et 56 sans course. |
+
+Les deux échantillons suivent un ordre déterministe par SHA-256 de `2026-11-27#134/<clé cible>` dans chacun des deux groupes du checkpoint `3744b0e5`. Ils mesurent les preuves d’identité disponibles hors réseau. Le pilote en ligne à cohorte identique et le contrôle des 20 carrières restantes restent nécessaires pour conclure sur le gain HTTP et la couverture. [Checkpoint mesuré](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/blob/3744b0e57089b5683a3629e593b3f909c779bc13/rattrapage_historiques/bilan.json)
+
+### Registre et horaires
+
+`PMU_DATA` présente l’état, le dernier checkpoint, la prochaine échéance théorique, la mesure, la fraîcheur, le motif et la source. `Referentiel_pmu_data` fournit deux vues filtrées, Courses et Chevaux. Une ligne cheval correspond à un ID Geny confirmé, un ID PMU disponible ou, en l’absence d’identifiant, à un contexte stable. Le moteur existant compare les identités et les signatures sportives avec les performances effectivement relues dans Sheets. Les preuves sont issues notamment du mapping de courses, des manifestes, des recherches d’identité, de la résolution par course et des archives de réconciliation déjà consommées par le moteur. Les vues se reconstituent depuis ces sources et sont contrôlées après écriture sous le verrou Sheets.
+
+La référence commune est `Europe/Paris`. Le format de consultation est `JJ/MM/AAAA HH:mm:ss`. Les échanges et preuves gardent un instant avec fuseau. Pour le passage Geny signalé à 14:26, GitHub indique une fin à 13:26:50 Paris et la file durable un dernier contrôle à 13:26:43 Paris. Ces sources concordent. L’écran ou le journal qui a affiché 14:26 n’est pas disponible, donc la cause exacte de cet affichage reste indéterminée. Le contrôle distingue explicitement un horodatage réellement futur d’une conversion normale. [Run Geny](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/45997371859) · [File durable](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/blob/3744b0e57089b5683a3629e593b3f909c779bc13/collecte_incrementale/etat.json)
+
+### Validation et retour arrière
+
+```sh
+git fetch origin
+git switch --detach origin/fix/127-134-138-autonomie-supervision
+python -m unittest discover -s tests -p 'test_*.py'
+python -m unittest discover -s dashboard -p 'test_*.py'
+```
+
+Les tests de persistance vérifient les écritures concurrentes disjointes, la reprise d’une avance distante et le conflit explicite sur un même fichier. Après intégration, observer deux journées réelles et les créneaux nocturnes. Vérifier le dernier global, les jalons, le rapprochement de chaque réunion, la relecture des deux vues et les KPI Streamlit avant toute clôture. Un revert du code rétablit l’ordonnancement antérieur. Les checkpoints et les onglets déjà alimentés restent consultables. Le workflow 04 fournit l’audit et la sauvegarde vérifiée pour la migration des formats Sheets.

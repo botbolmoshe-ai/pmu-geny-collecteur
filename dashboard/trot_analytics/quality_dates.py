@@ -2,7 +2,7 @@
 from collections import OrderedDict
 from datetime import date,datetime,timezone
 from statistics import median
-from zoneinfo import ZoneInfo
+from .dates import PARIS, afficher_indicateur
 from .logic import number, selected,timestamp
 
 VALUE='Valeur (automatique)'
@@ -68,13 +68,13 @@ def cohort_metrics(courses,start,end,now=None):
         add('Prévisions','Courses avec TOP3 '+title+' complet',sum(bool(selected(r,method)) for r in groups.values()),len(groups),
             'Sélection stockée de trois numéros distincts avec rangs 1/2/3, tous partants confirmés ; ne certifie pas sa publication passée.')
     now = now or datetime.now(timezone.utc)
-    today = now.astimezone(ZoneInfo('Europe/Paris')).date()
+    today = now.astimezone(PARIS).date()
     eligible = collected = 0
     ages = []
     complete = followed = 0
     for group in groups.values():
         depart = timestamp(group[0].get('Départ (Paris)'))
-        if not depart or depart.astimezone(ZoneInfo('Europe/Paris')).date() > today:
+        if not depart or depart.astimezone(PARIS).date() > today:
             continue
         followed += 1
         picked = selected(group, 'cotes')
@@ -112,13 +112,13 @@ def history_series(history,start,end,as_of=None):
     seen=set()
     for r in rows:
         captured=timestamp(r.get('Relevé UTC'))
-        if (not captured or captured>as_of or captured.astimezone(ZoneInfo('Europe/Paris')).date()!=day(r[OBSERVED])
+        if (not captured or captured>as_of or captured.astimezone(PARIS).date()!=day(r[OBSERVED])
                 or not str(r.get('Indicateur') or '').strip()):
             raise ValueError('Horodatage ou indicateur du relevé invalide')
-        key=(r[OBSERVED],r.get('Indicateur'))
+        key=(r[OBSERVED],afficher_indicateur(r['Indicateur']))
         if key in seen:raise ValueError('Plusieurs relevés pour un indicateur et une date')
         seen.add(key)
-    return [{**r,'Date':r[OBSERVED]} for r in rows]
+    return [{**r,'Date':r[OBSERVED],'Indicateur':afficher_indicateur(r['Indicateur'])} for r in rows]
 
 
 def latest_history(rows):

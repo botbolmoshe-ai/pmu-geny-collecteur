@@ -370,9 +370,26 @@ class EcheancesTests(unittest.TestCase):
 
     def test_cycle_global_non_valide_sur_programme_ancien(self):
         now=self.now+timedelta(minutes=40);self.predictions(now)
-        before=(self.cache/'orchestration/production_etat.json').read_bytes()
-        self.publish(now, {**e.planifier(self.cache,now), 'mode': 'GLOBAL'})
-        self.assertEqual((self.cache/'orchestration/production_etat.json').read_bytes(),before)
+        path = self.cache/'orchestration/production_etat.json'
+        before = e.lire(path)['dernier_global_publie_utc']
+        report = self.publish(now, {**e.planifier(self.cache,now), 'mode': 'GLOBAL'})
+        self.assertEqual(e.lire(path)['dernier_global_publie_utc'], before)
+        self.assertEqual(e.lire(path)['derniere_publication_pmu_utc'], now.isoformat())
+        self.assertEqual(report['global']['statut'], 'A_REPRENDRE')
+
+    def test_une_panne_resultats_nefface_pas_la_preuve_du_jalon(self):
+        now = self.now + timedelta(minutes=40)
+        self.predictions(now)
+        plan = {**e.planifier(self.cache, now), 'mode': 'GLOBAL'}
+        by_type = {mode: {'calcul_utc': now.isoformat(), 'numeros': [1, 2, 3]}
+                   for mode in ('direct', 'ml')}
+        proof = {'lecture_utc': now.isoformat(), 'courses': {self.key: by_type},
+                 'publications': {'Courses & Prévisions': True, 'Résultats & Analyse': False}}
+        report = e.enregistrer_publication(self.cache, now, plan, False, sheets=proof)
+        saved = e.lire(self.cache/'orchestration/production_etat.json')
+        self.assertEqual(report['global']['statut'], 'A_REPRENDRE')
+        self.assertEqual(saved['dernier_global_publie_utc'], self.now.isoformat())
+        self.assertEqual(saved['dernier_jalon_publie_utc'], now.isoformat())
 
     def test_cycle_cible_ne_recertifie_pas_les_courses_non_rafraichies(self):
         now=self.now+timedelta(minutes=40);self.predictions(now)
@@ -419,14 +436,11 @@ class EcheancesTests(unittest.TestCase):
             'historiques-incrementaux.yml': ('publication', 'recensement'),
             'rattrapage-historiques.yml': ('rattrapage',),
             'validation-iterative-v21.yml': ('dates-registre',),
-            'migration-structure-geny.yml': (),
         }.items():
             config=yaml.load((root/name).read_text(),Loader=yaml.BaseLoader)
             expected = {'group':'pmu-donnees-production', 'cancel-in-progress':'false','queue':'max'}
             for job in jobs:
                 self.assertEqual(config['jobs'][job]['concurrency'], expected)
-            if not jobs:
-                self.assertEqual(config['concurrency'], expected)
 
     def test_cli_fait_echouer_un_controle_fonctionnel_non_publie(self):
         from unittest.mock import patch

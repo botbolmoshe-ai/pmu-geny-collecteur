@@ -3,10 +3,9 @@ import pandas as pd
 import plotly.express as px
 import re
 from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-from trot_analytics.dates import afficher_instant
+from trot_analytics.dates import PARIS, afficher_instant
 from trot_analytics.logic import couverture_reunions, records, selected, number, timestamp, result_matching
 from trot_analytics.quality import render_quality
 from trot_analytics.correspondance_geny import COLONNE as COLONNE_GENY, STATUTS as STATUTS_GENY, libelle_historique, statut_ligne
@@ -19,7 +18,6 @@ from trot_analytics.profils import (
 )
 
 st.set_page_config(page_title="TROT Analytics",page_icon="📊",layout="wide")
-PARIS=ZoneInfo("Europe/Paris")
 TABS=("Courses & Prévisions","Résultats & Analyse","Data Quality & KPI")
 HISTORY_TAB="Historique qualité"
 SCOPES=["https://www.googleapis.com/auth/spreadsheets.readonly"]

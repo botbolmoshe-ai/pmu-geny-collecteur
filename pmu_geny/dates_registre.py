@@ -56,5 +56,5 @@ def enrichir_publication(tab, headers, updates, appends):
 
 def nombre_kpi(value, label, *, legacy=False):
     if instant_iso(value) or (legacy and indicateur_horodate(label)):
-        return nombre_paris(value)
+        return nombre_paris(value, utc=not str(label).endswith(" (Paris)"))
     return value

@@ -1,7 +1,7 @@
 """Priorité aux partants disponibles ; le stock utilise les créneaux libres."""
 from datetime import timedelta
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 from . import historiques_incrementaux as inc
 from .echeances_production import FRAICHEUR_PREPARATION_NOCTURNE, pause_geny_active, reunions_du_jour
 from .liaison_chevaux_v22 import nom_normalise
@@ -9,7 +9,7 @@ from .liaison_chevaux_v22 import nom_normalise
 
 def evaluer(cache, now, state=None, *, nocturne=False):
     cache=Path(cache);state=state or inc.lire(cache/inc.QUEUE,{'chevaux':{}})
-    local = now.astimezone(ZoneInfo('Europe/Paris'))
+    local = now.astimezone(PARIS)
     today = local.date()
     journal=inc.lire(cache/'etat_persistant.json',{'chevaux':{}})['chevaux']
     ids={}

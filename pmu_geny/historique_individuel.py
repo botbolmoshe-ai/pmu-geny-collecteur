@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 from datetime import datetime, timezone
 from urllib.parse import urlencode, urlparse
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 
 from .extraction_historique_par_cheval import extraire_cheval
 from .controle_historique import classifier
@@ -88,7 +88,7 @@ def rechercher(horse, page):
         if not candidates and sans_nationalite:
             raise ValueError('RECHERCHE_GENY_NOM_AMBIGU')
     year = horse.get('annee_naissance_pmu')
-    current = datetime.now(ZoneInfo('Europe/Paris')).year
+    current = datetime.now(PARIS).year
     if len(candidates) == 1 and horse.get('rapprochement_geny') != 'NOM_AMBIGU':
         fiche = next(iter(candidates.values()))
         if not year or fiche['age_geny'] is None or current - fiche['age_geny'] == year:

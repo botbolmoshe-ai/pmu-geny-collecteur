@@ -2,9 +2,8 @@
 from datetime import datetime,timezone
 import json
 from urllib.parse import quote
-from zoneinfo import ZoneInfo
 
-from dashboard.trot_analytics.dates import depuis_nombre, indicateur_horodate, vers_nombre
+from dashboard.trot_analytics.dates import PARIS, cle_indicateur, depuis_nombre, indicateur_horodate, vers_nombre
 from .kpi_registre import PREFIXES_ANCIENNES_ECHEANCES
 
 TAB='Historique qualité'
@@ -17,15 +16,15 @@ def planifier(source,existing,now):
     if not source or source[0][:5]!=SOURCE_HEADERS:raise ValueError('SCHEMA_KPI_INCOMPATIBLE')
     if not any(any(v not in ('',None) for v in row) for row in existing):existing=[]
     if existing and existing[0]!=HEADERS:raise ValueError('SCHEMA_HISTORIQUE_KPI_INCOMPATIBLE')
-    day=now.astimezone(ZoneInfo('Europe/Paris')).date().isoformat()
+    day=now.astimezone(PARIS).date().isoformat()
     positions={}
     for n,row in enumerate(existing[1:],2):
         if not any(v not in ('',None) for v in row):continue
         if len(row)<5 or row[0] in positions:raise ValueError('DOUBLON_OU_RELEVE_INVALIDE')
         try:
             stamp=datetime.fromisoformat(row[2])
-            if (json.loads(row[0])!=[row[1],row[4]] or stamp.tzinfo is None
-                    or stamp.astimezone(ZoneInfo('Europe/Paris')).date().isoformat()!=row[1]):
+            if (json.loads(row[0])!=[row[1],cle_indicateur(row[4])] or stamp.tzinfo is None
+                    or stamp.astimezone(PARIS).date().isoformat()!=row[1]):
                 raise ValueError('RELEVE_INCOHERENT')
         except (ValueError,TypeError):raise ValueError('RELEVE_INCOHERENT')
         positions[row[0]]=(n,row)
@@ -34,7 +33,7 @@ def planifier(source,existing,now):
     labels=set()
     for row in source[1:]:
         if len(row)<2 or not str(row[1] or '').strip():continue
-        label=str(row[1])
+        label=cle_indicateur(str(row[1]))
         # Les anciennes lignes restent visibles dans le registre, figées à leur dernier relevé.
         if label.startswith(PREFIXES_ANCIENNES_ECHEANCES):
             continue
@@ -113,5 +112,5 @@ def enregistrer(engine,tables,now=None):
         # Ranges explicites : relire puis réessayer ne crée pas un deuxième append.
         engine.check(engine.session.post(engine.base+'/values:batchUpdate',json={
             'valueInputOption':'RAW','data':updates},timeout=45))
-    print('HISTORIQUE_KPI '+json.dumps({'date':now.astimezone(ZoneInfo('Europe/Paris')).date().isoformat(),
+    print('HISTORIQUE_KPI '+json.dumps({'date':now.astimezone(PARIS).date().isoformat(),
         'plages_actualisees':len(updates)},ensure_ascii=False),flush=True)

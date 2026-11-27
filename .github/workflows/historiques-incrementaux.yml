@@ -1,4 +1,4 @@
-name: PMU - Historiques incrementaux par cheval
+name: 02 — Geny Collecte incrémentale
 on:
   schedule:
     - cron: '12,42 0-6,21-23 * * *'
@@ -39,6 +39,9 @@ concurrency:
   group: pmu-geny-acquisition
   cancel-in-progress: false
   queue: max
+env:
+  TZ: Europe/Paris
+
 jobs:
   historiques:
     permissions:
@@ -146,33 +149,21 @@ jobs:
           assert 1 <= int(os.environ['MAX_MINUTES']) <= 20
           PY
           if [ "$COLLECTE_NOCTURNE" = 'true' ]; then
-            budget_nocturne() {
-              python -c 'from datetime import datetime, timezone; from pmu_geny.echeances_production import budget_collecte_nocturne; print(budget_collecte_nocturne("cache_pmu", datetime.now(timezone.utc)))'
-            }
-            SECONDS=0
-            budget=$(budget_nocturne)
+            budget=$(python -c 'from datetime import datetime, timezone; from pmu_geny.echeances_production import budget_collecte_nocturne; print(budget_collecte_nocturne("cache_pmu", datetime.now(timezone.utc)))')
             prioritaire=$(( budget < MAX_MINUTES ? budget : MAX_MINUTES ))
-            # Sur un créneau exploitable pour les deux files, garder deux minutes
-            # pour le fond et une minute pour le relais. La garde PMU reste prioritaire.
-            if [ "$budget" -ge 5 ] && [ "$prioritaire" -gt "$(( budget - 3 ))" ]; then
-              prioritaire=$(( budget - 3 ))
-            fi
-            echo "BUDGET_NOCTURNE initial=${budget}m prioritaire=${prioritaire}m geny=$GENY_AUTORISE"
             if [ "$prioritaire" -gt 0 ]; then
               python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$prioritaire" --publier --nocturne "${options[@]}"
-            fi
-            budget=$(budget_nocturne)
-            restant=$(( 15 - (SECONDS + 59) / 60 ))
-            fond=$(( budget < restant ? budget : restant ))
-            echo "BUDGET_NOCTURNE apres_prioritaire=${budget}m restant_cycle=${restant}m fond=${fond}m"
-            if [ "$fond" -gt 0 ]; then
-              python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$fond" --publier --nocturne "${options[@]}"
-            else
-              echo 'RATTRAPAGE_FOND_DIFFERE BUDGET_CRENEAU_NOCTURNE'
             fi
           else
             python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${options[@]}"
           fi
+      - name: Actualiser le référentiel après un passage groupé
+        if: always() && !cancelled() && env.ACQUISITION_INDEPENDANTE != 'true' && steps.plan.outputs.executer == 'true'
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+          PMU_SUPERVISION_ONLY: 'referentiel'
+        run: python -m pmu_geny.sync_google_sheets
       - name: Archiver les diagnostics et le suivi
         if: always()
         uses: actions/upload-artifact@v4
@@ -202,6 +193,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Relire la file durable et publier les captures en attente
+        id: publier
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
@@ -211,6 +203,14 @@ jobs:
           python -m pmu_geny.persistance_production --restaurer
           python -m pip install -q google-auth==2.43.0 requests beautifulsoup4==4.14.3
           python -m pmu_geny.historiques_incrementaux --cache cache_pmu --publication-seule --max-minutes 3
+
+      - name: Actualiser le référentiel PMU–Geny
+        if: always() && !cancelled() && steps.publier.outcome != 'skipped'
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+          PMU_SUPERVISION_ONLY: 'referentiel'
+        run: python -m pmu_geny.sync_google_sheets
 
   recensement:
     if: github.event_name == 'workflow_dispatch' && (inputs.date_courses != '' || inputs.hippodrome != '')

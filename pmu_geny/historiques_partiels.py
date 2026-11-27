@@ -5,7 +5,7 @@ import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 
 from .controle_historique import PARTIELS, classifier
 from .liaison_chevaux_v22 import nom_geny_concordant
@@ -30,7 +30,7 @@ def conserver(cache, horse, report):
         if not isinstance(row,dict):continue
         try:day=date.fromisoformat(row.get('date',''))
         except (ValueError,TypeError):continue
-        if day>stamp.astimezone(ZoneInfo('Europe/Paris')).date():continue
+        if day>stamp.astimezone(PARIS).date():continue
         if all(str(row.get(k) or '').strip() for k in ('hippodrome','discipline','distance_m','classement')):
             rows.append(row)
     # Même contrôle de doublons et de champs que pour une carrière complète.

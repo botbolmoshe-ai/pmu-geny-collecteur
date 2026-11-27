@@ -276,7 +276,7 @@ class AppTests(unittest.TestCase):
         self.assertEqual(result.iloc[0]['Gagnant potentiel direct · Verdict'],'Trouvé')
         self.assertEqual(result.iloc[0]['Gagnant potentiel ML · Rang officiel'],'7')
         self.assertEqual(result.iloc[0]['Gagnant potentiel ML · Nom'],'D')
-        self.assertEqual(result.iloc[0]['Arrivée lue dans le flux PMU (Paris)'],d.strftime('%d/%m/%Y')+' 12:15')
+        self.assertEqual(result.iloc[0]['Arrivée lue dans le flux PMU (Paris)'],d.strftime('%d/%m/%Y')+' 12:15:00')
         self.app.radio[0].set_value('Performance').run()
         self.assertEqual(len(self.app.exception),0)
         self.assertEqual(len(self.app.error),0)

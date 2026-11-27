@@ -174,20 +174,23 @@ def planifier(cache, now, force=False):
                               'phase': phase, 'echeance': deadline.isoformat()})
             break
     prochain_jalon = min(upcoming).isoformat() if upcoming else None
-    if not nuit and last and last+timedelta(hours=1)>now:
-        upcoming.append(last+timedelta(hours=1))
+    prochain_global = last + timedelta(hours=1) if not nuit and last else None
+    if prochain_global and prochain_global > now:
+        upcoming.append(prochain_global)
     needs.sort(key=lambda item: (instant(item['echeance']) < now, instant(item['echeance']), item['course']))
     selection = list(dict.fromkeys(item['course'].split('_', 1)[1] for item in needs))
     from .rapprochement_reunions import planifier_rapprochements
-    results = planifier_rapprochements(cache, now, prochaines=upcoming)
-    secours = bool(selection or results or (nuit and preparation) or secours_programme or (
-        global_due and (not last or now - last >= timedelta(hours=2))))
+    prochains_rapprochements = []
+    results = planifier_rapprochements(cache, now, prochaines=prochains_rapprochements)
+    upcoming.extend(prochains_rapprochements)
+    secours = bool(selection or results or (nuit and preparation) or secours_programme or global_due)
     return {'plan_utc':now.isoformat(), 'date':day, 'erreurs': erreurs, 'version_jalons':VERSION_JALONS,
             'executer':bool(global_due or selection or results or preparation),
             'mode': ('JALONS' if selection else 'RAPPROCHEMENT' if results else
                      'PREPARATION_JOUR' if preparation else 'GLOBAL' if global_due else 'ATTENTE'),
             'date_preparation': preparation, 'global_du': global_due, 'secours_pmu': secours,
             'selection':selection, 'prochain_jalon_utc':prochain_jalon, 'jalons_dus':needs, 'rapprochements_dus':results,
+            'prochain_rapprochement_utc': min(prochains_rapprochements).isoformat() if prochains_rapprochements else None,
             'prochain_besoin_utc':min(upcoming).isoformat() if upcoming else None}
 
 
@@ -375,17 +378,32 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
     cache = Path(cache)
     report = {'controle_utc':now.isoformat(), 'publication_reussie':bool(publie),
               'plan':plan, 'courses':[], 'erreurs':list(plan.get('erreurs', []))}
+    state_path = cache/'orchestration/production_etat.json'
+    checkpoints = lire(state_path)
+    mises_a_jour = {}
+
+    def avancer(champ, valeur):
+        previous = instant(checkpoints.get(champ))
+        if valeur and valeur <= now and (not previous or previous > now or valeur > previous):
+            mises_a_jour[champ] = valeur.astimezone(timezone.utc).isoformat()
+
     day = plan.get('date') or now.astimezone(PARIS).date().isoformat()
     reunions = list(reunions_du_jour(cache, day))
     by_course = {c['code']: r for r in reunions for c in r['attendues']}
     phases_dues = {(item['course'], item['phase']) for item in plan.get('jalons_dus', [])}
     observation = instant(sheets.get('lecture_utc')) if sheets else None
-    sheets_confirme = bool(publie and observation and observation <= now)
-    if plan.get('mode') in ('GLOBAL', 'JALONS', 'RAPPROCHEMENT'):
-        report['publication_reussie'] = sheets_confirme
-        if not sheets_confirme:
+    publications = sheets.get('publications') if sheets else None
+    observation_valide = bool(observation and observation <= now)
+    courses_confirmees = observation_valide and (
+        publie if publications is None else publications.get('Courses & Prévisions', False))
+    resultats_confirmes = observation_valide and (
+        publie if publications is None else publications.get('Résultats & Analyse', False))
+    mode = plan.get('mode')
+    if mode in ('GLOBAL', 'JALONS', 'RAPPROCHEMENT'):
+        report['publication_reussie'] = bool(observation_valide and publie)
+        if not report['publication_reussie']:
             report['erreurs'].append({'motif': 'PUBLICATION_SHEETS_NON_PROUVEE'})
-    if sheets_confirme and plan.get('mode') in ('GLOBAL', 'JALONS'):
+    if courses_confirmees and mode in ('GLOBAL', 'JALONS'):
         courses = [c for r in reunions if r['coherente'] for c in r['attendues']]
         for c in courses:
             if plan.get('mode')=='JALONS' and c['code'] not in plan.get('selection',[c['code']]):
@@ -471,16 +489,25 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
             if phases:
                 sauver(cache/'jalons'/f'{key}.json', phases)
             report['courses'].append({'course':key, 'top3_direct_et_ml':len(proofs)==2, 'jalons':phases})
-        if plan.get('mode') == 'GLOBAL' and observation:
-            # Un retard attesté est une anomalie, pas un échec de publication globale.
-            # Ne pas redéclencher indéfiniment le global au détriment des historiques.
-            # Le cache ancien d'un programme ne suffit pas à valider un cycle global.
-            days = [now.astimezone(PARIS).date()+timedelta(days=n) for n in (0,1)]
-            stamps = [instant(lire(cache/'sources_pmu'/f'programme_{d}.json').get('date_controle_utc')) for d in days]
-            started = instant(plan.get('plan_utc'))
-            if started and all(s and started <= s <= observation and now-s <= MARGE for s in stamps):
-                sauver(cache/'orchestration/production_etat.json',
-                       {'dernier_global_publie_utc':now.isoformat()})
+    if plan.get('mode') == 'GLOBAL':
+        # Chaque programme doit avoir été acquis pendant ce cycle et avant la
+        # relecture Sheets. Une publication ciblée ne certifie jamais le global.
+        dates = [datetime.fromisoformat(day).date()+timedelta(days=n) for n in (0, 1)]
+        captures = {str(d): instant(lire(cache/'sources_pmu'/f'programme_{d}.json').get('date_controle_utc'))
+                    for d in dates}
+        started = instant(plan.get('plan_utc'))
+        confirme = bool(courses_confirmees and resultats_confirmes and started and all(
+            stamp and started <= stamp <= observation and observation-stamp <= MARGE
+            for stamp in captures.values()))
+        report['global'] = {'statut': 'PUBLIE' if confirme else 'A_REPRENDRE',
+                            'programmes': {d: stamp.isoformat() if stamp else None
+                                           for d, stamp in captures.items()}}
+        if confirme:
+            avancer('dernier_global_publie_utc', observation)
+        else:
+            report['erreurs'].append({'motif': 'GLOBAL_J_J1_NON_PROUVE'})
+    if courses_confirmees or resultats_confirmes:
+        avancer('derniere_publication_pmu_utc', observation)
     report['rapprochements'] = []
     if plan.get('rapprochements_dus') and plan.get('mode') in ('RAPPROCHEMENT', 'GLOBAL', 'JALONS'):
         for item in plan.get('rapprochements_dus', []):
@@ -500,11 +527,21 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                     continue
                 report['erreurs'].append({'reunion': item['reunion'], 'motif': 'RAPPROCHEMENT_NON_DEMARRE'})
                 continue
-            if sheets_confirme and item['reunion'] not in sheets.get('rapprochements_verifies', []):
+            if not resultats_confirmes or item['reunion'] not in sheets.get('rapprochements_verifies', []):
                 report['erreurs'].append({'reunion': item['reunion'], 'motif': 'RAPPROCHEMENT_NON_CONFIRME_SHEETS'})
-            elif sheets_confirme and not record.get('publication_sheets_utc'):
+            elif resultats_confirmes and not record.get('publication_sheets_utc'):
                 record['publication_sheets_utc'] = observation.isoformat()
                 sauver(path, record)
+            if resultats_confirmes and item['reunion'] in sheets.get('rapprochements_verifies', []):
+                avancer('dernier_rapprochement_publie_utc', observation)
+                for code, course in record.get('courses', {}).items():
+                    if course.get('statut') == 'ARRIVEE_OFFICIELLE':
+                        arrival = lire(cache/'arrivees'/f"{item['date']}_{code}.json")
+                        stamp = instant(arrival.get('verifie_utc'))
+                        if stamp and stamp <= observation:
+                            # Plusieurs arrivées peuvent être certifiées dans une même relecture.
+                            current = instant(mises_a_jour.get('derniere_arrivee_verifiee_utc'))
+                            avancer('derniere_arrivee_verifiee_utc', max(current or stamp, stamp))
             report['rapprochements'].append({
                 field: record.get(field) for field in ('reunion', 'echeance', 'declenchement_utc', 'statut',
                                                        'arrivees_a_reprendre', 'publication_sheets_utc')
@@ -533,7 +570,7 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
             due = any((f'{day}_{code}', phase) in phases_dues for code in expected)
             if not due and now <= first-offset:
                 continue
-            status = 'ECHEC' if due and not sheets_confirme else 'INCOMPLET'
+            status = 'ECHEC' if due and not courses_confirmees else 'INCOMPLET'
             if complete:
                 status = ('PUBLIE_A_TEMPS' if all(p['statut'] == 'PUBLIE_A_TEMPS'
                           for p in per_course.values()) else 'PUBLIE_EN_RETARD')
@@ -551,6 +588,8 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
                                        default=None) if complete else None,
                 'courses': per_course,
             }
+            if complete and due:
+                avancer('dernier_jalon_publie_utc', instant(records[phase]['publication_utc']))
             if due and status != 'PUBLIE_A_TEMPS':
                 report['erreurs'].append({'reunion': key, 'phase': phase, 'motif': status})
         if records:
@@ -560,7 +599,7 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
     if actif():
         from .ipr_prospectif import certifier, mesurer
         try:
-            if sheets_confirme:
+            if courses_confirmees:
                 report['ipr_jalons_figes'] = certifier(cache, plan, sheets)
             bilan = mesurer(cache, now)
             sauver(cache/'ipr/bilan.json', bilan)
@@ -568,6 +607,8 @@ def enregistrer_publication(cache, now, plan, publie, *, sheets=None):
         except Exception as exc:
             report['ipr_controle'] = 'INDISPONIBLE'
             print(f'::warning::Contrôle IPR indisponible ({type(exc).__name__})', flush=True)
+    if mises_a_jour:
+        sauver(state_path, {**checkpoints, **mises_a_jour})
     sauver(cache/'qualite/dernier_controle_production.json', report)
     return report
 

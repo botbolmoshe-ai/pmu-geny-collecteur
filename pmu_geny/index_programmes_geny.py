@@ -2,13 +2,12 @@
 import argparse
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from dashboard.trot_analytics.dates import PARIS
 
 from .cadence_geny import CadenceGeny
 from .echeances_production import instant, lire, pause_geny_active, sauver
 from .persistance_production import publier
 
-PARIS = ZoneInfo("Europe/Paris")
 DELAI_REPRISE = timedelta(minutes=25)
 
 

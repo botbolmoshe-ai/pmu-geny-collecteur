@@ -1,6 +1,7 @@
 """Comparer l'état courant attendu et les données relues dans le registre."""
 import argparse
 from collections import Counter
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -19,6 +20,12 @@ def auditer(engine):
         reconciliation = ReconciliationHistoriques(engine.cache, history)
         diagnostics, ecarts = reconciliation.participations(courses, {})
         stock = reconciliation.stock()
+        from .supervision_sheets import lignes_referentiel, lignes_supervision
+        now = datetime.now(timezone.utc)
+        vue = lignes_referentiel(engine.cache, history, now)[1:]
+        if len({row[1] for row in vue}) != len(vue):
+            raise ValueError('Clés du référentiel PMU–Geny en double')
+        supervision = lignes_supervision(engine.cache, now)
 
     def repartir(rows, key, default):
         return dict(Counter(row.get(key) or default for row in rows))
@@ -40,7 +47,9 @@ def auditer(engine):
                   'cibles_inventoriees': len(stock),
                   'correspondances_stock': repartir(stock.values(), CHAMP, NON_EFFECTUEE),
                   'historiques_stock': repartir(stock.values(), 'historique_statut', 'NON_QUALIFIE'),
-                  'cas_ticket': cases},
+                  'cas_ticket': cases,
+                  'supervision_lignes': len(supervision)-1,
+                  'referentiel_lignes': dict(Counter(row[0] for row in vue))},
         'participations': details,
         'stock': stock,
     }

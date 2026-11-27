@@ -6,6 +6,16 @@ from pmu_geny.dates_registre import projection
 
 
 class DatesRegistreTests(unittest.TestCase):
+    def test_audit_accepte_le_retrait_du_tcd_mais_detecte_un_onglet_metier_absent(self):
+        from pmu_geny.audit_dates_sheets import OBLIGATOIRES, onglets_dates
+
+        tables = dict.fromkeys((*OBLIGATOIRES, 'Historique qualité'))
+        self.assertEqual(onglets_dates(tables), [*OBLIGATOIRES, 'Historique qualité'])
+        self.assertNotIn('TCD', onglets_dates(tables))
+        del tables[OBLIGATOIRES[0]]
+        with self.assertRaises(ValueError):
+            onglets_dates(tables)
+
     def test_instants_paris(self):
         for raw, wall in (
             ('2026-03-29T00:59:00Z', '2026-03-29T01:59'),
@@ -32,7 +42,7 @@ class DatesRegistreTests(unittest.TestCase):
     def test_url_et_texte_source(self):
         url = 'https://example.com/2026-11-22?q=a%20b'
         self.assertEqual(afficher_source(url + ' · publié le 2026-11-22 · lu 2026-11-22T23:36:48Z'),
-                         url + ' · publié le 22/11/2026 · lu 23/11/2026 00:36 (Paris)')
+                         url + ' · publié le 22/11/2026 · lu 23/11/2026 00:36:48 (Paris)')
         self.assertEqual(afficher_source('14/11/26 | Vincennes | Monté'),
                          '14/11/26 | Vincennes | Monté')
 
@@ -79,7 +89,7 @@ class DatesRegistreTests(unittest.TestCase):
         from pmu_geny.migration_dates_sheets import planifier
 
         stamp = '2026-11-22T23:36:00Z'
-        legacy_format = {'type': 'DATE_TIME', 'pattern': 'dd/MM/yyyy HH:mm:ss'}
+        legacy_format = {'type': 'DATE_TIME', 'pattern': 'dd/MM/yyyy HH:mm'}
         headers = ['Départ (Paris)', 'Paris · Départ']
         rows = {
             1: [{'userEnteredValue': {'stringValue': label}} for label in headers],
@@ -96,5 +106,5 @@ class DatesRegistreTests(unittest.TestCase):
         self.assertEqual(len(updates), 1)
         self.assertEqual(updates[0]['fields'], 'userEnteredFormat')
         fmt = updates[0]['rows'][0]['values'][0]['userEnteredFormat']
-        self.assertEqual(fmt['numberFormat']['pattern'], 'dd/mm/yyyy hh:mm')
+        self.assertEqual(fmt['numberFormat']['pattern'], 'dd/mm/yyyy hh:mm:ss')
         self.assertEqual(fmt['textFormat'], {'bold': True})

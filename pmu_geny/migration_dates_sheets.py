@@ -12,7 +12,7 @@ from pathlib import Path
 from dashboard.trot_analytics.dates import (
     DATE_PATTERN, DATETIME_PATTERN, TIME_PATTERN, date_kind, lire_instant_consultation, vers_nombre,
 )
-from .audit_dates_sheets import TABS, pages
+from .audit_dates_sheets import TABS, onglets_dates, pages
 from .dates_registre import SOURCES, libelle_paris, nombre_kpi, projection
 from .lectures_sheets import get_lecture
 from .moteur_sheets import SynchroniseurSheets, verrou_local
@@ -214,7 +214,7 @@ def planifier(tab, props, rows):
 
 def snapshot(engine):
     tables = engine.metadata()
-    return {tab: (tables[tab], dict(pages(engine, tab, tables[tab]))) for tab in TABS}
+    return {tab: (tables[tab], dict(pages(engine, tab, tables[tab]))) for tab in onglets_dates(tables)}
 
 
 def empreinte(snapshot_data):
@@ -293,17 +293,18 @@ def migrer(engine, archive, *, appliquer=False, reference=None):
         verifier(before, after, {tab: plan[1] for tab, plan in plans.items()})
         if reference:
             original = relire_archive(reference)
+            original = {tab: data for tab, data in original.items() if tab in after}
             original_updates = {tab: planifier(tab, props, rows)[1]
                                 for tab, (props, rows) in original.items()}
             verifier(original, after, original_updates)
-            print('REGISTRE_DATES_REFERENCE_INITIALE_VERIFIEE=6', flush=True)
+            print(f'REGISTRE_DATES_REFERENCE_INITIALE_VERIFIEE={len(original)}', flush=True)
         for tab, (props, rows) in after.items():
             residual, changes, unknown = planifier(tab, props, rows)
             formats_en_ecart = any(request.get('updateCells', {}).get('fields') == 'userEnteredFormat'
                                    for request in residual)
             if changes or unknown or formats_en_ecart:
                 raise ValueError(f'Migration non idempotente après relecture de {tab}')
-        print('MIGRATION_DATES_SHEETS_VERIFIEE=6', flush=True)
+        print(f'MIGRATION_DATES_SHEETS_VERIFIEE={len(after)}', flush=True)
 
 
 def main():
