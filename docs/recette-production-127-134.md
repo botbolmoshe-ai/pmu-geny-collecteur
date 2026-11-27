@@ -92,3 +92,11 @@ python -m unittest discover -s dashboard -p 'test_*.py'
 ```
 
 Les tests de persistance vérifient les écritures concurrentes disjointes, la reprise d’une avance distante et le conflit explicite sur un même fichier. Après intégration, observer deux journées réelles et les créneaux nocturnes. Vérifier le dernier global, les jalons, le rapprochement de chaque réunion, la relecture des deux vues et les KPI Streamlit avant toute clôture. Un revert du code rétablit l’ordonnancement antérieur. Les checkpoints et les onglets déjà alimentés restent consultables. Le workflow 04 fournit l’audit et la sauvegarde vérifiée pour la migration des formats Sheets.
+
+### Premier passage après déploiement
+
+Le cycle du 27/11/2026 a acquis le programme J à 15:06:05 (6 courses) et J+1 à 15:06:34 (9 courses), puis a certifié le global à 15:07:00, heure de Paris. Il a certifié le H-3 de R1 à temps et le H-2 de R5 avec 12 minutes de retard. L’échéance de R5 était à 14:55, avant le lancement. Le statut global Actions rend ce retard visible. Le checkpoint global et celui des jalons ont avancé après relecture. [Cycle réel](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/actions/runs/46012744993) · [Checkpoint](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/blob/72165c73/orchestration/production_etat.json)
+
+La synchronisation a relu 20 lignes de supervision et 3 866 lignes de référentiel, dont 303 courses et 3 563 lignes cheval. La lecture directe des deux onglets a vérifié les formats natifs et les statuts des trois chevaux du #138. LOVELY JENILOU et LACIENDA FLASH ont respectivement 33 et 35 performances. L’AMIRAL TURGOT est identifié sous le 2816916 et sa carrière reste à publier. [Classeur](https://docs.google.com/spreadsheets/d/1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo/edit)
+
+La PR #144 permet la consolidation des KPI après une publication relue et un jalon tardif dûment signalé. Elle aligne aussi la seconde affichée dans Sheets sur Streamlit, à partir de l’instant technique d’origine. Les deux journées complètes des 28 et 29 novembre feront l’objet du bilan prévu dans la surveillance indépendante existante le 30 novembre. [PR #144](https://github.com/botbolmoshe-ai/pmu-geny-collecteur/pull/144)
