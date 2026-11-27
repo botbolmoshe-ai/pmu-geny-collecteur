@@ -98920,7 +98920,7 @@
     },
     "2725517": {
       "nom": "JADE DU CEDRE",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "7",
       "engagement": "2026-11-27_R1C5",
       "vu_utc": "2026-11-27T12:19:02.888905+00:00",
@@ -98950,7 +98950,51 @@
       "nombre_performances": 55,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-15"
+      "derniere_performance_date": "2026-11-15",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 55,
+          "cellules_actualisees": 0,
+          "lignes_source": 55,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 55,
+            "lignes_avant": 40152,
+            "cles_avant": 40152,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4016,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40207,
+            "lignes_apres": 40207,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1,
+              "date_capture": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1050,
+              "HISTO_OK_NOM": 404,
+              "HISTO_NON_COLLECTE": 1952,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 142
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T12:21:55.431032+00:00"
     },
     "2728824": {
       "nom": "JOIE DES VENTES",
@@ -99008,7 +99052,7 @@
     }
   },
   "passage_utc": "2026-11-27T12:19:02.888905+00:00",
-  "maj_utc": "2026-11-27T12:21:30.233755+00:00",
+  "maj_utc": "2026-11-27T12:21:55.431073+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 1,
@@ -99779,11 +99823,11 @@
   "sync_kpi_utc": "2026-11-27T12:18:14.410966+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T12:19:02.888905+00:00",
-    "controle_utc": "2026-11-27T12:21:30.233755+00:00",
+    "controle_utc": "2026-11-27T12:21:55.431073+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 5,
-    "performances_ajoutees_et_confirmees_sheets": 288,
+    "chevaux_confirmes_sheets": 6,
+    "performances_ajoutees_et_confirmees_sheets": 343,
     "requetes_http_geny": 62,
     "requetes_geny_par_ressource": {
       "document": 1,
@@ -99798,8 +99842,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 6.94,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 24.43,
-    "carrieres_publiees_par_heure_cycle": 122.16,
+    "carrieres_validees_par_heure_cycle": 20.86,
+    "carrieres_publiees_par_heure_cycle": 125.19,
     "refus_geny": {
       "403": 0,
       "429": 0
