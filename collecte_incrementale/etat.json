@@ -94301,7 +94301,7 @@
     },
     "2869888": {
       "nom": "NARCO DU CHATELET",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "11",
       "engagement": "2026-11-27_R1C2",
       "vu_utc": "2026-11-27T02:51:10.505813+00:00",
@@ -94332,11 +94332,39 @@
       "nombre_performances": 11,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-04"
+      "derniere_performance_date": "2026-11-04",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 11,
+          "cellules_actualisees": 0,
+          "lignes_source": 11,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 11,
+            "lignes_avant": 37842,
+            "cles_avant": 37842,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3785,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37853,
+            "lignes_apres": 37853,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-27T02:55:45.893922+00:00"
     }
   },
   "passage_utc": "2026-11-27T02:51:10.505813+00:00",
-  "maj_utc": "2026-11-27T02:55:21.934268+00:00",
+  "maj_utc": "2026-11-27T02:55:45.893952+00:00",
   "bilan": {
     "chevaux_suivis": 3361,
     "tentatives_collecte": 7,
@@ -94733,11 +94761,11 @@
   "sync_kpi_utc": "2026-11-27T00:58:48.581202+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T02:51:10.505813+00:00",
-    "controle_utc": "2026-11-27T02:55:21.934268+00:00",
+    "controle_utc": "2026-11-27T02:55:45.893952+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 7,
-    "chevaux_confirmes_sheets": 6,
-    "performances_ajoutees_et_confirmees_sheets": 177,
+    "chevaux_confirmes_sheets": 7,
+    "performances_ajoutees_et_confirmees_sheets": 188,
     "requetes_http_geny": 106,
     "requetes_geny_par_ressource": {
       "document": 9,
@@ -94752,8 +94780,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 36.5,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 100.23,
-    "carrieres_publiees_par_heure_cycle": 85.91,
+    "carrieres_validees_par_heure_cycle": 91.51,
+    "carrieres_publiees_par_heure_cycle": 91.51,
     "refus_geny": {
       "403": 0,
       "429": 0
