@@ -55,9 +55,8 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git fetch origin pmu-data
-          mkdir -p cache_pmu resultats/incremental
-          git archive origin/pmu-data | tar -x -C cache_pmu
+          mkdir -p resultats/incremental
+          python -m pmu_geny.persistance_production --restaurer
       - name: Reserver les echeances et respecter la pause avant de charger le navigateur
         id: plan
         run: python -m pmu_geny.echeances_production --cache cache_pmu --collecte-selon-heure
@@ -88,6 +87,9 @@ jobs:
           if [ "${{ steps.plan.outputs.geny }}" = 'true' ]; then
             python -m playwright install chromium
           fi
+      - name: Actualiser les index du programme Geny échus
+        if: steps.plan.outputs.geny == 'true'
+        run: timeout 60s python -m pmu_geny.index_programmes_geny --cache cache_pmu
       - name: Collecter, sauvegarder et synchroniser un cheval puis le suivant
         if: steps.plan.outputs.executer == 'true'
         env:
@@ -171,9 +173,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git fetch origin pmu-data
-          mkdir -p cache_pmu
-          git archive origin/pmu-data | tar -x -C cache_pmu
+          python -m pmu_geny.persistance_production --restaurer
           python -m pmu_geny.historiques_incrementaux --date-courses "$DATE_COURSES" --hippodrome "$HIPPODROME"
       - uses: actions/cache@v4
         with:

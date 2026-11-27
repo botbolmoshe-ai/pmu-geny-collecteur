@@ -11,7 +11,6 @@ import hashlib
 import json
 import os
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -439,43 +438,15 @@ def suspendre_geny(cache, state, stamp, code, reprise_serveur=None):
     ecrire(cache/'etat_persistant.json', journal)
 
 
-def checkpoint_distant(cache, *, queue=QUEUE):
-    """Publier seulement les fichiers de collecte sous le verrou partagé des workflows."""
-    root = Path(__file__).resolve().parents[1]
-    def git(*args, cwd=root):
-        return subprocess.check_output(['git', *args], cwd=cwd, text=True).strip()
-    git('fetch', 'origin', 'pmu-data')
-    with tempfile.TemporaryDirectory(prefix='pmu-checkpoint-') as tmp:
-        target = Path(tmp)/'data'
-        git('worktree', 'add', '--detach', str(target), 'origin/pmu-data')
-        try:
-            ecrire(target/queue, lire(cache/queue))
-            if queue!=QUEUE:
-                shutil.copytree(cache/queue.parent,target/queue.parent,dirs_exist_ok=True)
-            recensements = QUEUE.parent/'recensements'
-            if queue == QUEUE and (cache/recensements).is_dir():
-                shutil.copytree(cache/recensements, target/recensements, dirs_exist_ok=True)
-            for name in ('historiques', 'historiques_partiels', 'historiques_versions', 'manifestes','sources_geny/liens','sources_geny/identites'):
-                if (cache/name).exists():
-                    shutil.copytree(cache/name, target/name, dirs_exist_ok=True)
-            shutil.copy2(cache/'etat_persistant.json', target/'etat_persistant.json')
-            git('add', str(queue.parent), 'historiques', 'etat_persistant.json', cwd=target)
-            if (target/'manifestes').exists():
-                git('add', 'manifestes', cwd=target)
-            if (target/'historiques_versions').exists():
-                git('add', 'historiques_versions', cwd=target)
-            if (target/'historiques_partiels').exists():
-                git('add', 'historiques_partiels', cwd=target)
-            for directory in ('sources_geny/liens', 'sources_geny/identites'):
-                if (target/directory).exists():
-                    git('add', directory, cwd=target)
-            changed = subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=target).returncode
-            if changed:
-                git('commit', '-m', 'PMU : checkpoint collecte incrementale', cwd=target)
-                # Pas de force push : un conflit arrête le passage avant le cheval suivant.
-                git('push', 'origin', 'HEAD:refs/heads/pmu-data', cwd=target)
-        finally:
-            git('worktree', 'remove', '--force', str(target))
+def checkpoint_distant(cache, *, queue=QUEUE, root=None):
+    """Publier le delta de collecte et conserver les preuves des autres chaînes."""
+    from .persistance_production import publier
+
+    paths = (queue, queue.parent / 'recensements') if queue == QUEUE else (queue.parent,)
+    return publier(cache, root, chemins=(*paths, 'historiques', 'historiques_partiels',
+                                  'historiques_versions', 'manifestes', 'sources_geny/liens',
+                                  'sources_geny/identites', 'etat_persistant.json'),
+                   message='PMU : checkpoint collecte incrementale')
 
 
 def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,

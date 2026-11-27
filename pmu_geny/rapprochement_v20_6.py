@@ -240,6 +240,7 @@ def index_programme(cache, date, etat_path, ttl_heures=6):
     Sur 403/429 explicite, consigner le blocage pour le cooldown partagé.
     """
     from .auto_v18 import load, save
+    from .cadence_geny import reprise_serveur
     from .collecte_geny_v4 import diagnostic_acces, dismiss_consent
     target = Path(cache) / 'sources_geny' / f'index_{date}.json'
     existing = load(target, {}) or {}
@@ -263,8 +264,11 @@ def index_programme(cache, date, etat_path, ttl_heures=6):
             verdict = diagnostic_acces(http_status, page.title(), page.locator('body').inner_text(), page.content())
             if verdict in ('ACCES_LIMITE_429','ACCES_REFUSE_403'):
                 state = load(etat_path,{}) or {}
-                state['dernier_blocage_geny']={'utc':datetime.now(timezone.utc).isoformat(),
-                                              'code':'403' if '403' in verdict else '429'}
+                now = datetime.now(timezone.utc)
+                incident = {'utc': now.isoformat(), 'code': '403' if '403' in verdict else '429'}
+                if resp and (reprise := reprise_serveur(resp.header_value('retry-after'), now)):
+                    incident['reprise_au_plus_tot_utc'] = reprise.isoformat()
+                state['dernier_blocage_geny'] = incident
                 save(etat_path, state)
                 return {'statut':'GENY_BLOQUE','motif':verdict, 'courses':[]}
             if http_status != 200:

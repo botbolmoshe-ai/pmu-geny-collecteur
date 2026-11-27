@@ -394,13 +394,14 @@ class RepriseTests(unittest.TestCase):
             inc.ecrire(repo/'etat_persistant.json',{'version':1,'chevaux':{}})
             git('add','.',cwd=repo);git('commit','-m','data',cwd=repo);git('push','origin','pmu-data',cwd=repo)
             git('switch','main',cwd=repo)
+            from pmu_geny.persistance_production import restaurer
+            restaurer(cache, repo)
             inc.ecrire(cache/inc.QUEUE,{'preuve':'NE PAS PUBLIER'})
             inc.ecrire(cache/back.QUEUE,{'version':1,'chevaux':{},'preuve':'reprise'})
             inc.ecrire(cache/back.INVENTAIRE,{'preuve':'inventaire'})
             inc.ecrire(cache/'historiques/123456/historique_geny.json',{'preuve':'capture'})
             inc.ecrire(cache/'etat_persistant.json',{'version':1,'chevaux':{}})
-            with patch.object(inc,'__file__',str(repo/'pmu_geny/historiques_incrementaux.py')):
-                inc.checkpoint_distant(cache,queue=back.QUEUE)
+            inc.checkpoint_distant(cache,queue=back.QUEUE,root=repo)
             self.assertEqual(json.loads(git('show','pmu-data:'+str(inc.QUEUE),cwd=remote)),{'preuve':'production intacte'})
             self.assertEqual(json.loads(git('show','pmu-data:'+str(back.QUEUE),cwd=remote))['preuve'],'reprise')
             self.assertEqual(json.loads(git('show','pmu-data:'+str(back.INVENTAIRE),cwd=remote))['preuve'],'inventaire')
