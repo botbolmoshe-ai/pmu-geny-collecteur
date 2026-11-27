@@ -32040,9 +32040,9 @@
       "course_url": "https://www.geny.com/course/1698228/partants-pronostics",
       "numero": "12",
       "engagement": "2026-11-14_R8C6",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C6",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2021,
@@ -32061,7 +32061,11 @@
       "course_geny_deja_lue": true,
       "cible_equivalente_a": "contexte:8c8e6387d88160953264a64d",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:8c8e6387d88160953264a64d"
+      "autre_contexte_meme_nom": "contexte:8c8e6387d88160953264a64d",
+      "rattrapage_complet_au_utc": "2026-11-27T01:03:34.933574+00:00",
+      "historique_complet_au_utc": "2026-11-27T01:03:34.933574+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:4b0fe5d9d186a95772041b89": {
       "nom": "LORIQUET",
@@ -46652,7 +46656,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C6",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C6",
@@ -46681,7 +46685,32 @@
       "prochaine_verification_utc": "2026-11-28T01:03:34.933574+00:00",
       "nombre_performances": 30,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 30,
+          "cellules_actualisees": 0,
+          "lignes_source": 30,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 30,
+            "lignes_avant": 37540,
+            "cles_avant": 37540,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3754,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37570,
+            "lignes_apres": 37570,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T01:03:57.554448+00:00",
+      "rattrapage_complet_au_utc": "2026-11-27T01:03:34.933574+00:00",
+      "ajouts_confirmes": 30
     },
     "contexte:f3540a96d876b62af7b974c9": {
       "nom": "LORIQUET",
@@ -78975,12 +79004,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1331,
-    "cibles_restantes": 1253,
+    "cibles_completees": 1333,
+    "cibles_restantes": 1251,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1326,
+    "travaux_distincts_restants": 1325,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 879,
+    "carrieres_distinctes_a_completer": 878,
     "identifiants_sans_carriere_complete": 112,
     "contextes_distincts_sans_identifiant": 765,
     "noms_distincts_sans_identifiant": 761,
@@ -78988,8 +79017,8 @@
     "identites_non_resolues": 1086,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 7245,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 7275,
     "tentatives_collecte": 5,
     "captures_validees": 5,
     "captures_partielles": 0,
@@ -78997,7 +79026,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T00:59:26.588012+00:00",
-  "maj_utc": "2026-11-27T01:03:35.411827+00:00",
+  "maj_utc": "2026-11-27T01:03:57.573528+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -80896,11 +80925,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:59:26.588012+00:00",
-    "controle_utc": "2026-11-27T01:03:35.411827+00:00",
+    "controle_utc": "2026-11-27T01:03:57.573528+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 5,
-    "chevaux_confirmes_sheets": 4,
-    "performances_ajoutees_et_confirmees_sheets": 110,
+    "chevaux_confirmes_sheets": 5,
+    "performances_ajoutees_et_confirmees_sheets": 140,
     "requetes_http_geny": 84,
     "requetes_geny_par_ressource": {
       "document": 5,
@@ -80915,8 +80944,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 26.01,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 72.34,
-    "carrieres_publiees_par_heure_cycle": 57.87,
+    "carrieres_validees_par_heure_cycle": 66.42,
+    "carrieres_publiees_par_heure_cycle": 66.42,
     "refus_geny": {
       "403": 0,
       "429": 0
