@@ -97534,7 +97534,7 @@
     },
     "2826424": {
       "nom": "LACKING SPIRIT",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "15",
       "engagement": "2026-11-27_R1C3",
       "vu_utc": "2026-11-27T10:07:37.138226+00:00",
@@ -97561,11 +97561,40 @@
       "id": "2826424",
       "preuve_identite": "COURSE_GENY_VERIFIEE",
       "nombre_performances_partielles": 18,
-      "prochain_essai_utc": "2026-11-27T16:14:40.090054+00:00"
+      "prochain_essai_utc": "2026-11-27T16:14:40.090054+00:00",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 18,
+          "cellules_actualisees": 0,
+          "lignes_source": 18,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 18,
+            "lignes_avant": 38914,
+            "cles_avant": 38914,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3892,
+            "import_initial_explicite": false,
+            "lignes_attendues": 38932,
+            "lignes_apres": 38932,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-27T10:15:03.665462+00:00",
+      "erreur": ""
     }
   },
   "passage_utc": "2026-11-27T10:07:37.138226+00:00",
-  "maj_utc": "2026-11-27T10:14:40.121595+00:00",
+  "maj_utc": "2026-11-27T10:15:03.665495+00:00",
   "bilan": {
     "chevaux_suivis": 3361,
     "tentatives_collecte": 11,
@@ -98413,11 +98442,11 @@
   "sync_kpi_utc": "2026-11-27T02:58:34.092247+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T10:07:37.138226+00:00",
-    "controle_utc": "2026-11-27T10:14:40.121595+00:00",
+    "controle_utc": "2026-11-27T10:15:03.665495+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 10,
-    "chevaux_confirmes_sheets": 10,
-    "performances_ajoutees_et_confirmees_sheets": 257,
+    "chevaux_confirmes_sheets": 11,
+    "performances_ajoutees_et_confirmees_sheets": 275,
     "requetes_http_geny": 129,
     "requetes_geny_par_ressource": {
       "document": 14,
@@ -98432,8 +98461,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 65.24,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 85.11,
-    "carrieres_publiees_par_heure_cycle": 85.11,
+    "carrieres_validees_par_heure_cycle": 80.62,
+    "carrieres_publiees_par_heure_cycle": 88.68,
     "refus_geny": {
       "403": 0,
       "429": 0
