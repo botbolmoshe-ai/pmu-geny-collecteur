@@ -97594,18 +97594,18 @@
     }
   },
   "passage_utc": "2026-11-27T10:07:37.138226+00:00",
-  "maj_utc": "2026-11-27T10:15:03.665495+00:00",
+  "maj_utc": "2026-11-27T10:15:24.429693+00:00",
   "bilan": {
-    "chevaux_suivis": 3361,
+    "chevaux_suivis": 3520,
     "tentatives_collecte": 11,
     "captures_validees": 10,
     "captures_partielles": 1,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 3056
+    "actualisations_en_attente": 3210
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 15,
@@ -97614,15 +97614,15 @@
   },
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-27T10:07:37.138226+00:00",
+    "controle_utc": "2026-11-27T10:15:05.522198+00:00",
     "pret": false,
     "partants_a_venir": 179,
     "couverture_par_jour": {
       "2026-11-27": {
         "partants": 79,
-        "historiques_complets": 28,
-        "sans_historique_complet": 51,
-        "historiques_a_actualiser": 61
+        "historiques_complets": 38,
+        "sans_historique_complet": 41,
+        "historiques_a_actualiser": 51
       },
       "2026-11-28": {
         "partants": 100,
@@ -97669,8 +97669,7 @@
       },
       {
         "course": "2026-11-27_R5C3",
-        "numero": "10",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R5C3",
@@ -97714,13 +97713,11 @@
       },
       {
         "course": "2026-11-27_R1C2",
-        "numero": "6",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C2",
-        "numero": "7",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C2",
@@ -97729,13 +97726,11 @@
       },
       {
         "course": "2026-11-27_R1C2",
-        "numero": "9",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C3",
-        "numero": "1",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C3",
@@ -97779,28 +97774,23 @@
       },
       {
         "course": "2026-11-27_R1C3",
-        "numero": "10",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C3",
-        "numero": "11",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C3",
-        "numero": "12",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C3",
-        "numero": "13",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C3",
-        "numero": "14",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-27_R1C3",
@@ -98439,10 +98429,10 @@
       }
     ]
   },
-  "sync_kpi_utc": "2026-11-27T02:58:34.092247+00:00",
+  "sync_kpi_utc": "2026-11-27T10:15:24.427777+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T10:07:37.138226+00:00",
-    "controle_utc": "2026-11-27T10:15:03.665495+00:00",
+    "controle_utc": "2026-11-27T10:15:24.429693+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 10,
     "chevaux_confirmes_sheets": 11,
@@ -98461,8 +98451,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 65.24,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 80.62,
-    "carrieres_publiees_par_heure_cycle": 88.68,
+    "carrieres_validees_par_heure_cycle": 77.04,
+    "carrieres_publiees_par_heure_cycle": 84.74,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -98473,5 +98463,6 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT"
+  "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
+  "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
 }
