@@ -53263,9 +53263,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-15_R3C5",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "A_FAIRE",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-15|BEAUMONT DE LOMAGNE|R3C5",
       "numero": "10",
       "numero_reconcilie_depuis_snapshot": true,
@@ -53286,7 +53286,13 @@
       },
       "preuve_identite": "LIENS_COURSE_GENY",
       "course_geny_deja_lue": true,
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "historique_complet_au_utc": "2026-11-27T03:01:03.764221+00:00",
+      "derniere_verification_utc": "2026-11-27T03:01:03.764221+00:00",
+      "prochaine_verification_utc": "2026-11-28T03:01:03.764221+00:00",
+      "nombre_performances": 66,
+      "erreur": "",
+      "derniere_performance_date": "2026-11-15"
     },
     "contexte:019c7763c5db78c0b099c80b": {
       "nom": "ILOU FIRST RICHER",
@@ -79360,23 +79366,23 @@
     "travaux_distincts_restants": 1318,
     "historiques_ferrures_a_completer": 447,
     "carrieres_distinctes_a_completer": 871,
-    "identifiants_sans_carriere_complete": 121,
+    "identifiants_sans_carriere_complete": 120,
     "contextes_distincts_sans_identifiant": 749,
     "noms_distincts_sans_identifiant": 745,
     "identifiants_geny_distincts": 1160,
     "identites_non_resolues": 1070,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 0,
+    "synchronisations_en_attente": 1,
     "ajouts_confirmes": 7467,
-    "tentatives_collecte": 2,
-    "captures_validees": 2,
+    "tentatives_collecte": 3,
+    "captures_validees": 3,
     "captures_partielles": 0,
     "collectes_rejetees": 0
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T02:59:11.054693+00:00",
-  "maj_utc": "2026-11-27T03:00:54.746981+00:00",
+  "maj_utc": "2026-11-27T03:01:04.495381+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -81275,27 +81281,27 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T02:59:11.054693+00:00",
-    "controle_utc": "2026-11-27T03:00:54.746981+00:00",
+    "controle_utc": "2026-11-27T03:01:04.495381+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 2,
+    "carrieres_completes_distinctes": 3,
     "chevaux_confirmes_sheets": 2,
     "performances_ajoutees_et_confirmees_sheets": 97,
-    "requetes_http_geny": 69,
+    "requetes_http_geny": 74,
     "requetes_geny_par_ressource": {
-      "document": 2,
+      "document": 3,
       "stylesheet": 2,
       "script": 52,
       "font": 3,
-      "fetch": 4,
-      "image": 6
+      "fetch": 6,
+      "image": 8
     },
-    "ressources_geny_servies_du_cache_http": 57,
+    "ressources_geny_servies_du_cache_http": 114,
     "attente_inter_chevaux_secondes": 22.24,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 11.61,
+    "duree_acces_geny_secondes": 17.15,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 69.44,
-    "carrieres_publiees_par_heure_cycle": 69.44,
+    "carrieres_validees_par_heure_cycle": 95.2,
+    "carrieres_publiees_par_heure_cycle": 63.47,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -81306,5 +81312,5 @@
     },
     "prochain_acces_geny_utc": null
   },
-  "derniere_acquisition_validee_utc": "2026-11-27T03:00:23.268570+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-27T03:01:03.764221+00:00"
 }
