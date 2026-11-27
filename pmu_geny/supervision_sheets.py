@@ -44,6 +44,30 @@ def prochain_tick(now, minutes, *, debut=None, jour=False, nuit=False):
         cursor += timedelta(minutes=1)
 
 
+def preuves_rapprochements_archivees(cache, now):
+    """Retrouver la dernière preuve antérieure aux nouveaux checkpoints."""
+    rapprochement, arrivee = (None, ''), (None, '')
+    for path in (cache/'rapprochements').glob('????-??-??_R*.json'):
+        record = lire(path)
+        publication = instant(record.get('publication_sheets_utc'))
+        if not publication or publication > now:
+            continue
+        if not rapprochement[0] or publication > rapprochement[0]:
+            rapprochement = publication, str(path.relative_to(cache))
+        date = path.stem.split('_')[0]
+        for code, result in record.get('courses', {}).items():
+            if result.get('statut') != 'ARRIVEE_OFFICIELLE':
+                continue
+            source = f'arrivees/{date}_{code}.json'
+            preuve = lire(cache/source)
+            checked = instant(preuve.get('verifie_utc'))
+            if (preuve.get('source') == 'PMU_API_PARTICIPANTS' and checked and checked <= publication
+                    and result.get('podium') and result['podium'] == preuve.get('podium_definitif_pmu')
+                    and (not arrivee[0] or checked > arrivee[0])):
+                arrivee = checked, source
+    return rapprochement, arrivee
+
+
 def lignes_supervision(cache, now):
     state = lire(cache/CHECKPOINT)
     report = lire(cache/CONTROLE)
@@ -95,13 +119,21 @@ def lignes_supervision(cache, now):
         last=state.get('dernier_jalon_publie_utc'), next_at=tick if jalons else plan['prochain_jalon_utc'],
         mesure=len(jalons))
     rapprochements = plan['rapprochements_dus']
-    add('Résultats', 'Rapprochements H+30', 'À rapprocher' if rapprochements else 'À surveiller', CHECKPOINT,
+    rapprochement = (state.get('dernier_rapprochement_publie_utc'), CHECKPOINT)
+    arrivee = (state.get('derniere_arrivee_verifiee_utc'), CHECKPOINT)
+    if not rapprochement[0] or not arrivee[0]:
+        dernier_rapprochement, derniere_arrivee = preuves_rapprochements_archivees(cache, now)
+        if not rapprochement[0] and dernier_rapprochement[0]:
+            rapprochement = dernier_rapprochement
+        if not arrivee[0] and derniere_arrivee[0]:
+            arrivee = derniere_arrivee
+    add('Résultats', 'Rapprochements H+30', 'À rapprocher' if rapprochements else 'À surveiller', rapprochement[1],
         'Nombre de réunions à traiter. Échéance 30 minutes après le dernier départ de chaque réunion.',
-        last=state.get('dernier_rapprochement_publie_utc'),
+        last=rapprochement[0],
         next_at=tick if rapprochements else plan['prochain_rapprochement_utc'], mesure=len(rapprochements))
-    add('Résultats', 'Arrivée officielle', 'Vérifiée' if state.get('derniere_arrivee_verifiee_utc') else 'Preuve attendue',
-        CHECKPOINT, 'Dernière observation PMU d’un podium relu dans les résultats Sheets.',
-        last=state.get('derniere_arrivee_verifiee_utc'))
+    add('Résultats', 'Arrivée officielle', 'Vérifiée' if arrivee[0] else 'Preuve attendue',
+        arrivee[1], 'Dernière observation PMU d’un podium relu dans les résultats Sheets.',
+        last=arrivee[0])
     add('Sheets', 'Publication PMU', 'Relue' if report.get('publication_reussie') else 'À vérifier',
         CHECKPOINT, 'Dernière relecture d’une publication métier PMU, y compris ciblée.',
         last=state.get('derniere_publication_pmu_utc'), next_at=tick)

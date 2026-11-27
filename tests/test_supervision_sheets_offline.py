@@ -34,6 +34,22 @@ class SupervisionTests(unittest.TestCase):
         self.assertEqual(rows['Publication PMU'][2], 'Horodatage futur')
         self.assertNotEqual(rows['Jalons H-3 / H-2'][3], rows['Cycle global J/J+1'][3])
 
+    def test_une_preuve_anterieure_au_checkpoint_reste_visible(self):
+        publication = self.now - timedelta(hours=3)
+        checked = publication - timedelta(minutes=2)
+        sauver(self.cache/'rapprochements/2026-11-27_R2.json', {
+            'publication_sheets_utc': publication.isoformat(),
+            'courses': {'R2C1': {'statut': 'ARRIVEE_OFFICIELLE', 'podium': [1, 2, 3]}},
+        })
+        sauver(self.cache/'arrivees/2026-11-27_R2C1.json', {
+            'source': 'PMU_API_PARTICIPANTS', 'verifie_utc': checked.isoformat(), 'podium_definitif_pmu': [1, 2, 3],
+        })
+        rows = {row[1]: row for row in lignes_supervision(self.cache, self.now)[1:]}
+        self.assertEqual(rows['Rapprochements H+30'][3], nombre_paris(publication))
+        self.assertEqual(rows['Arrivée officielle'][3], nombre_paris(checked))
+        self.assertTrue(rows['Arrivée officielle'][-1].endswith('/arrivees/2026-11-27_R2C1.json'))
+        self.assertFalse((self.cache/CHECKPOINT).exists())
+
     def test_tick_paris_change_de_jour_et_suit_le_passage_a_l_heure_d_ete(self):
         spring = datetime(2026, 3, 29, 0, 59, tzinfo=timezone.utc)
         self.assertEqual(prochain_tick(spring, (7, 22, 37, 52)), '2026-03-29T01:07:00+00:00')
