@@ -558,7 +558,9 @@ class SynchroniseurSheets:
         return [dict(zip(headers, row)) for row in values[1:] if row]
 
     def _synchroniser_kpi(self,tables,source,*,relire_courses=False):
-        from .kpi_registre import KPI_TAB, PUBLISHED_PREFIXES, calculer_kpi, plan_kpi, totaux_reference
+        from .kpi_registre import (
+            INDICATEURS_RESULTATS, KPI_TAB, PUBLISHED_PREFIXES, calculer_kpi, plan_kpi, totaux_reference,
+        )
         if KPI_TAB not in tables:
             raise ErreurSynchronisation('Onglet absent : ' + KPI_TAB)
         path=quote("'"+KPI_TAB+"'!A:E",safe="!:'")
@@ -614,7 +616,8 @@ class SynchroniseurSheets:
                 json={'valueInputOption':'RAW','data':updates},timeout=45))
         totals = totaux_reference(metrics)
         managed = {key: (value, definition, totals.get(key, '')) for key, (value, definition) in metrics.items()
-                   if key.startswith(PUBLISHED_PREFIXES)}
+                   if key.startswith(PUBLISHED_PREFIXES) or (
+                       key in INDICATEURS_RESULTATS and any(len(row) > 1 and row[1] == key for row in values))}
         if managed:
             if updates:
                 values = self.check(get_lecture(self.session, self.base+'/values/'+path,

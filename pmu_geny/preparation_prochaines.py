@@ -51,6 +51,7 @@ def evaluer(cache, now, state=None, *, nocturne=False):
                     # L'absence de TOP3 reste un blocage du rattrapage de fond,
                     # mais ne doit pas empêcher d'enrichir les données qui
                     # permettront précisément de calculer ce TOP3.
+            cid = inc.course_geny_connue(cache, code)
             for number,h in horses.items():
                 if h.get('statut_np')=='NON_PARTANT':continue
                 name=nom_normalise(h.get('nom'));known=ids.get(name,set())
@@ -75,7 +76,6 @@ def evaluer(cache, now, state=None, *, nocturne=False):
                 if not horse_ok:
                     issues.append({'course':code,'numero':str(number),'motif':'PROFIL_PMU_INCOMPLET'})
                 if reason:issues.append({'course':code,'numero':str(number),'motif':reason})
-                cid=inc.course_geny_connue(cache,code)
                 engagements.append({'cle_file':key,'engagement':code,'numero':str(number),'nom':h.get('nom'),
                     'preparation_pmu_ok':pmu_ok and bool(name),
                     'depart_utc': depart.isoformat(), 'premier_depart_utc': premiers_departs.get(c['code'], depart).isoformat(),

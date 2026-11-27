@@ -87,6 +87,7 @@ def creneau_nocturne(now):
 
 
 FRAICHEUR_PREPARATION_NOCTURNE = timedelta(hours=24)
+PERIODE_PROGRAMME_JOUR = timedelta(minutes=12)
 
 
 def profil_preparation_disponible(cache, date, course, now):
@@ -129,6 +130,17 @@ def planifier(cache, now, force=False):
     nuit = creneau_nocturne(now)
     global_due = not nuit and (force or not last or not timedelta(0) <= now-last < timedelta(hours=1))
     preparation = preparation_nocturne(cache, now) if nuit else None
+    secours_programme = False
+    if not nuit:
+        programme = lire(cache/'sources_pmu'/f'programme_{day}.json')
+        capture = instant(programme.get('date_controle_utc'))
+        diagnostic = lire(cache/'sources_pmu'/f'diagnostic_{day}.json')
+        essai = instant(diagnostic.get('horodatage_utc'))
+        if ((not capture or not timedelta(0) <= now-capture < PERIODE_PROGRAMME_JOUR)
+                and (not essai or not timedelta(0) <= now-essai < timedelta(minutes=5))):
+            secours_programme = not capture or not timedelta(0) <= now-capture < MARGE
+            if not global_due:
+                preparation = day
     needs, upcoming, erreurs = [], [], []
     for reunion in reunions_du_jour(cache, day):
         key = reunion['reunion']
@@ -168,7 +180,7 @@ def planifier(cache, now, force=False):
     selection = list(dict.fromkeys(item['course'].split('_', 1)[1] for item in needs))
     from .rapprochement_reunions import planifier_rapprochements
     results = planifier_rapprochements(cache, now, prochaines=upcoming)
-    secours = bool(selection or results or preparation or (
+    secours = bool(selection or results or (nuit and preparation) or secours_programme or (
         global_due and (not last or now - last >= timedelta(hours=2))))
     return {'plan_utc':now.isoformat(), 'date':day, 'erreurs': erreurs, 'version_jalons':VERSION_JALONS,
             'executer':bool(global_due or selection or results or preparation),

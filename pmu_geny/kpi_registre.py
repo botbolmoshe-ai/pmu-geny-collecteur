@@ -10,6 +10,8 @@ from dashboard.trot_analytics.correspondance_geny import CHAMP, COLONNE, CONFIRM
 
 KPI_TAB = 'Data Quality & KPI'
 PREFIXES_ANCIENNES_ECHEANCES = ('Échéances · H2 ', 'Échéances · H1 ')
+PERIMETRE_RESULTATS = 'Registre · Courses distinctes du périmètre résultats et prévisions'
+INDICATEURS_RESULTATS = ('Courses avec arrivée officielle', 'Courses avec arrivée vérifiée', 'Courses évaluées')
 
 def _load(path):
     try:return json.loads(path.read_text(encoding='utf-8'))
@@ -29,6 +31,8 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
     source=source if source is not None else limiter_cours_registre(source_rows(cache))
     participants=list(source['Courses & Prévisions'].values())
     reports=list(source['Résultats & Analyse'].values())
+    courses_previsions = {row['course_key'] for row in participants}
+    courses_resultats = {row['course_key'] for row in reports}
     count=len(participants)
     arrived=0;verified=0;scores=[]
     for row in reports:
@@ -281,6 +285,25 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
     for label,field in [('Captures complètes','captures_validees'),('Captures partielles','captures_partielles'),('Rejets','collectes_rejetees')]:
         operational.append(metric('Collecte · '+label+' dernier passage',queue.get('bilan',{}).get(field,''),
                                   'Compteur du passage horodaté '+str(queue.get('passage_utc','non disponible'))))
+    for offset, label in ((0, 'J'), (1, 'J+1')):
+        date = (now.astimezone(PARIS).date() + timedelta(days=offset)).isoformat()
+        programme = _load(cache/'sources_pmu'/f'programme_{date}.json')
+        operational.append(metric(f'Collecte · PMU · Programme {label} UTC', programme.get('date_controle_utc', ''),
+                                  'Acquisition du programme PMU, indépendante de sa publication dans Sheets.'))
+    pmu = _load(cache/'orchestration/production_etat.json')
+    publication_geny = max((stamp for h in queue.get('chevaux', {}).values()
+                            if h.get('sync_details', {}).get('Historique chevaux', {}).get(
+                                'controle', {}).get('statut') == 'VALIDE'
+                            and (stamp := instant(h.get('sync_utc'))) and stamp <= now), default=None)
+    operational.extend([
+        metric('Collecte · PMU · Publication globale UTC', pmu.get('dernier_global_publie_utc', ''),
+               'Dernière publication globale attestée à partir de la relecture Sheets.'),
+        metric('Collecte · Geny · Acquisition incrémentale validée UTC', queue.get('derniere_acquisition_validee_utc', ''),
+               'Date source de la dernière carrière complète validée dans la file incrémentale.'),
+        metric('Collecte · Geny · Publication incrémentale vérifiée UTC',
+               publication_geny.isoformat() if publication_geny else '',
+               'Dernière carrière incrémentale relue avec contrôle valide dans Sheets.'),
+    ])
     from .cotes_v19 import cote_valide, instant
     from .auto_v18 import PARIS
     odds_cohorts = defaultdict(list)
@@ -363,7 +386,9 @@ def calculer_kpi(cache, source=None, now=None, *, sheets_courses=None):
         *odds_metrics,
         *operational,
         metric('Chevaux distincts rencontrés',len({nom_normalise(r.get('cheval')) for r in participants if nom_normalise(r.get('cheval'))}),'Noms normalisés distincts ; identifiant stable à privilégier.'),
-        metric('Courses distinctes collectées',len({r['course_key'] for r in participants}),'Courses présentes, préparations J+1 incluses.'),
+        metric('Courses distinctes collectées',len(courses_previsions),'Courses présentes dans Courses & Prévisions, préparations J+1 incluses.'),
+        metric(PERIMETRE_RESULTATS, len(courses_previsions | courses_resultats),
+               'Union des clés distinctes de Courses & Prévisions et Résultats & Analyse, préparations J+1 incluses.'),
         metric('Partants avec historique identifié (nom/ID)',linked,'Participations dont le statut commence par HISTO_OK.'),
         metric('Chevaux avec historique partiel',sum('PARTIEL' in str(r.get('historique_statut','')) for r in participants),'Participations avec statut partiel ; distinct du stock de fichiers partiels.'),
         metric('Partants avec historique disponible',has_history,'Nombre de performances strictement positif, valeur numérique contrôlée.'),
@@ -423,9 +448,10 @@ def totaux_reference(metrics):
         'TOP3 direct sur musique PMU seule','Participations avec sélection ML publiée',
         'Participations avec modèle ML non entraîné'):
         if participants is not None:totals[label]=participants
-    for label in ('Courses distinctes collectées','Courses avec arrivée officielle',
-                  'Courses avec arrivée vérifiée','Courses évaluées','Courses avec sélection TOP3 direct'):
+    for label in ('Courses distinctes collectées', 'Courses avec sélection TOP3 direct'):
         if courses is not None:totals[label]=courses
+    if (perimetre := value(PERIMETRE_RESULTATS)) is not None:
+        totals.update(dict.fromkeys(INDICATEURS_RESULTATS, perimetre))
     if evaluated is not None:
         totals['Taux de TOP3 exact (3 sur 3)']=evaluated
         totals['Moyenne de chevaux TOP3 retrouvés']=3

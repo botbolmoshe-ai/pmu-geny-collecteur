@@ -1150,6 +1150,10 @@ def publier_plan(engine, plan):
             tables[resultats] = scope
         if tables:
             engine.synchroniser_tables(tables, scope=mode, allow_structure=True)
+    elif mode == 'GLOBAL':
+        source = source or engine.source()
+        engine.synchroniser_tables({tab: source[tab] for tab in (courses, resultats)}, scope='CYCLE_PMU',
+                                    full_source=True, allow_structure=True)
     else:
         engine.synchroniser_cycle(include_kpi=False)
     for reunion in reunions:

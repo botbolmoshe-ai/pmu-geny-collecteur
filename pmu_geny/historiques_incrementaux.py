@@ -699,13 +699,13 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 if reprise and horse.get('preuve_identite'):
                     reprise.propager_identite(state,horse)
                 if report.get('complet'):
-                    if reprise:
-                        last = reprise.derniere_acquisition_validee(cache, state)
-                        accepter(cache,horse,report,origine='RATTRAPAGE_GLOBAL')
-                        stamp = horse['historique_complet_au_utc']
-                        state['derniere_acquisition_validee_utc'] = max(
-                            (value for value in (last, stamp) if value), key=instant)
-                    else:accepter(cache, horse, report)
+                    last = (reprise.derniere_acquisition_validee(cache, state) if reprise else
+                            state.get('derniere_acquisition_validee_utc'))
+                    origine = 'RATTRAPAGE_GLOBAL' if reprise else 'COLLECTE_INCREMENTALE_PRODUCTION'
+                    accepter(cache, horse, report, origine=origine)
+                    stamp = horse['historique_complet_au_utc']
+                    state['derniere_acquisition_validee_utc'] = max(
+                        (value for value in (last, stamp) if instant(value)), key=instant)
                     accepted+=1
                     captures_completes.add(str(horse['id']))
                     valide = True
@@ -797,7 +797,8 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 raise RuntimeError('SYNCHRONISATION_NON_CONFIGUREE')
             historique = horse.get('sync_details', {}).get('Historique chevaux', {})
             publication_provee = historique.get('controle', {}).get('statut') == 'VALIDE'
-            if publication_seule and sync is None and not publication_provee:
+            if (publication_seule and sync is None and not publication_provee
+                    and horse.get('nombre_performances') != 0):
                 raise RuntimeError('RELECTURE_HISTORIQUE_SHEETS_NON_PROUVEE')
             if publication_provee:
                 sync_confirmees.add(str(horse.get('id') or key))

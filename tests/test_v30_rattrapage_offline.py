@@ -118,6 +118,17 @@ class RepriseTests(unittest.TestCase):
                 self.assertEqual(back.prochaine_tache(state,self.now.replace(hour=hour),{}),('absent','COLLECTE'))
         self.assertEqual(back.prochaine_tache(state,self.now,{('COLLECTE','absent'):1}),('ferrures','COLLECTE'))
 
+    def test_lot_fixe_reste_prioritaire_dans_les_carrieres_du_stock(self):
+        absent = {'collecte': 'A_REPRENDRE', 'motif_actualisation': 'HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE'}
+        state = {'priorite_collecte': 'STOCK_NOCTURNE', 'chevaux': {
+            'direct': {**absent, 'id': '123456', 'nom': 'Fiche connue', 'geny': {'id': '123456'}},
+            'lot': {**absent, 'id': '987654', 'nom': 'Cible du lot', 'priorite_lot_96': True,
+                    'lien_candidat': 'https://www.geny.com/cheval/987654'},
+        }}
+        self.assertEqual(back.prochaine_tache(state, self.now, {}), ('lot', 'COLLECTE'))
+        state['noms_partants_proteges'] = [back.nom_normalise('Cible du lot')]
+        self.assertEqual(back.prochaine_tache(state, self.now, {}), ('direct', 'COLLECTE'))
+
     def test_identifiant_connu_avant_contexte_a_resoudre_sans_sauter_la_validation(self):
         now=self.now.replace(hour=12)
         state={'chevaux':{
