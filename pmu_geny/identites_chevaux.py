@@ -59,6 +59,19 @@ def courses_verifiees():
     return json.loads(REGISTRE.read_text(encoding='utf-8')).get('courses_verifiees', [])
 
 
+def course_verifiee(engagement):
+    from .echeances_production import instant
+
+    now = datetime.now(timezone.utc)
+    matches = {course[1] for proof in courses_verifiees()
+               if proof.get('engagement') == engagement and proof.get('http') == 200
+               and (stamp := instant(proof.get('capture_utc'))) and stamp <= now
+               and (course := re.fullmatch(r'https://www\.geny\.com/course/(\d+)(?:-[^/]+)?/partants-pronostics',
+                                           proof.get('source_url', '')))
+               and course[1] == str(proof.get('course_geny_id'))}
+    return 'GENY-' + matches.pop() if len(matches) == 1 else ''
+
+
 def qualifier_observation(record):
     """Conserver la provenance ; appliquer seulement une liaison déjà vérifiée."""
     record = dict(record)

@@ -323,7 +323,8 @@ class SynchroniseurSheets:
                 json={'requests': requests[start:start+250]}, timeout=30))
         return len(confirmed)
 
-    def _synchroniser_onglet(self,tab,incoming,properties,*,full_source,allow_structure):
+    def _synchroniser_onglet(self,tab,incoming,properties,*,full_source,allow_structure,
+                             reconciliation=None):
         from .sync_google_sheets import lire_feuille_complete,canonical_headers,plan_sheet,colname,DISPLAY_NAMES,reconcilier_cles_historiques,RETIRED_SHEET_COLUMNS,SHEET_HEADER_LABELS
         values=lire_feuille_complete(self.session,self.base,tab,properties,raw_dates=True)
         if not values:raise ErreurSynchronisation('Onglet sans en-tetes : '+tab)
@@ -352,7 +353,19 @@ class SynchroniseurSheets:
         if statut_seul:
             deja_publies = {f"{row.get('course_key')}|{row.get('numero')}" for row in existing}
             incoming = {key: row for key, row in incoming.items() if key in deja_publies}
-        if tab == 'Courses & Prévisions' and (statut_seul or full_source):
+        diagnostics, anomalies = {}, {}
+        if tab == 'Courses & Prévisions' and reconciliation is not None:
+            from .reconciliation_historiques import CHAMPS_HISTORIQUE, ReconciliationHistoriques
+            diagnostics, anomalies = ReconciliationHistoriques(
+                self.cache, reconciliation['historique']).participations(existing, incoming)
+            # Seule la projection courante possède ces champs de restitution.
+            legacy = CHAMPS_HISTORIQUE | {CHAMP, '_note_correspondance_geny'}
+            incoming = {key: {field: value for field, value in row.items() if field not in legacy}
+                        for key, row in incoming.items()}
+            for key, diagnostic in diagnostics.items():
+                incoming[key] = {**incoming.get(key, {}), **diagnostic}
+            statut_seul = statut_seul or bool(diagnostics and not allow_structure)
+        elif statut_seul:
             incoming = {**incoming, **self._correspondances_archivees(existing, incoming)}
         if tab==HISTORY:
             incoming=reconcilier_cles_historiques(existing,incoming)
@@ -476,6 +489,30 @@ class SynchroniseurSheets:
             result['correspondances_geny_verifiees'] = self._controler_correspondances(
                 tab, self.metadata()[tab] if formater else properties, effective_headers,
                 correspondances, formater=formater)
+        if diagnostics:
+            # Confirmer les trois champs courants sur les lignes réellement écrites.
+            changed = (bool(appends) or any(effective_headers[col - 1] in CHAMPS_HISTORIQUE
+                                            for _, col, _ in updates))
+            after = self.lire_courses(self.metadata()) if changed else existing
+            confirmed = {f"{r.get('course_key')}|{r.get('numero')}": r for r in after}
+            for key, expected in diagnostics.items():
+                actual = confirmed.get(key, {})
+                for field in CHAMPS_HISTORIQUE.intersection(effective_headers):
+                    target = expected[field]
+                    value = actual.get(field)
+                    if field == 'historique_maj_utc':
+                        equal = meme_date_sheets(field, value or '', target)
+                    else:
+                        equal = str(value or '0') == str(target)
+                    if not equal:
+                        raise ErreurSynchronisation(f'Historique courant différent dans Sheets : {key}, {field}')
+            reconciliation['courses'] = after
+            result['reconciliation_historiques'] = {
+                'participations_verifiees': len(diagnostics),
+                'ecarts_avant': dict(anomalies),
+                'etats': dict(Counter(row['historique_statut'] for row in diagnostics.values())),
+            }
+            print('RECONCILIATION_HISTORIQUES ' + json.dumps(result['reconciliation_historiques']), flush=True)
         if control:
             if batches or appends:
                 fresh=self.metadata()[tab]
@@ -485,6 +522,10 @@ class SynchroniseurSheets:
                 after_rows=[dict(zip(effective_headers,row)) for row in after[1:]]
             else:after_rows=existing
             result['controle']=verifier_apres(control,after_rows)
+            if reconciliation is not None:
+                reconciliation['historique'] = [
+                    {name: depuis_nombre(name, value) for name, value in row.items()} for row in after_rows
+                ]
         print(f'SYNC_GOOGLE_SHEETS onglet={tab} lignes_source={len(incoming)} '
               f'cellules_mises_a_jour={len(updates)} lignes_ajoutees={len(appends)}',flush=True)
         return result
@@ -557,7 +598,7 @@ class SynchroniseurSheets:
         headers = canonical_headers(values[0])
         return [dict(zip(headers, row)) for row in values[1:] if row]
 
-    def _synchroniser_kpi(self,tables,source,*,relire_courses=False):
+    def _synchroniser_kpi(self,tables,source,*,relire_courses=False,courses_verifiees=None):
         from .kpi_registre import (
             INDICATEURS_RESULTATS, KPI_TAB, PUBLISHED_PREFIXES, calculer_kpi, plan_kpi, totaux_reference,
         )
@@ -566,8 +607,8 @@ class SynchroniseurSheets:
         path=quote("'"+KPI_TAB+"'!A:E",safe="!:'")
         values=self.check(get_lecture(self.session,self.base+'/values/'+path,
             params={'valueRenderOption':'UNFORMATTED_VALUE'},timeout=30)).get('values',[])
-        sheets_courses = self.lire_courses(tables) if relire_courses else None
-        if sheets_courses is not None:
+        sheets_courses = self.lire_courses(tables) if relire_courses else courses_verifiees
+        if relire_courses:
             from .sync_google_sheets import COTES_COLUMNS, sheet_value
             published = {(row.get('course_key'), str(row.get('numero'))): row for row in sheets_courses}
             verified = set()
@@ -657,19 +698,37 @@ class SynchroniseurSheets:
             enregistrer(self,tables)
         return {KPI_TAB:{'indicateurs_actualises':len(updates), 'indicateurs_verifies':len(managed)}}
 
-    def synchroniser_tables(self,source,*,scope,full_source=False,allow_structure=False,kpi_source=None):
+    def _lire_historique_courant(self, properties):
+        from .sync_google_sheets import canonical_headers, lire_feuille_complete
+
+        values = lire_feuille_complete(self.session, self.base, HISTORY, properties, raw_dates=True)
+        if not values:
+            raise ErreurSynchronisation('Historique sans en-têtes')
+        headers = canonical_headers(values[0])
+        rows = [dict(zip(headers, row)) for row in values[1:]]
+        independent = lire_cles_independantes(self.session, self.base, HISTORY, properties, headers)
+        verifier_avant(headers, rows, {}, [], full_source=False, observed_keys=independent)
+        return [{name: depuis_nombre(name, value) for name, value in row.items()} for row in rows]
+
+    def synchroniser_tables(self,source,*,scope,full_source=False,allow_structure=False,
+                            kpi_source=None,reconcilier=False):
         start=time.monotonic();before=(self.session.lectures,self.session.ecritures)
         with verrou_local(self.spreadsheet):
             tables=self.metadata();counts={}
+            reconciliation = {} if reconcilier else None
             # Vérifier l'historique avant toute publication dans les autres onglets.
             for tab,incoming in sorted(source.items(),key=lambda item:item[0]!=HISTORY):
                 if tab not in tables:raise ErreurSynchronisation('Onglet absent : '+tab)
-                if not incoming and not full_source:
+                if not incoming and not full_source and not (reconcilier and tab == 'Courses & Prévisions'):
                     counts[tab]={'lignes_ajoutees':0,'cellules_actualisees':0,'lignes_source':0}
                     continue
+                if reconcilier and tab == 'Courses & Prévisions' and 'historique' not in reconciliation:
+                    reconciliation['historique'] = self._lire_historique_courant(tables[HISTORY])
                 counts[tab]=self._synchroniser_onglet(tab,incoming,tables[tab],
-                    full_source=full_source,allow_structure=allow_structure)
-            if kpi_source is not None:counts.update(self._synchroniser_kpi(tables,kpi_source))
+                    full_source=full_source,allow_structure=allow_structure,reconciliation=reconciliation)
+            if kpi_source is not None:
+                counts.update(self._synchroniser_kpi(tables,kpi_source,
+                    courses_verifiees=reconciliation.get('courses') if reconcilier else None))
         print('SHEETS_MOTEUR_UNIQUE '+json.dumps({'perimetre':scope,
             'lectures_api':self.session.lectures-before[0],'ecritures_api':self.session.ecritures-before[1],
             'duree_secondes':round(time.monotonic()-start,3)},ensure_ascii=False),flush=True)
@@ -679,22 +738,18 @@ class SynchroniseurSheets:
         from .sync_google_sheets import SHEET_TABS
         source=self.source()
         return self.synchroniser_tables({tab:source[tab] for tab in SHEET_TABS},scope='CYCLE_PMU',
-            full_source=True,allow_structure=True,kpi_source=source if include_kpi else None)
+            full_source=True,allow_structure=True,kpi_source=source if include_kpi else None,reconcilier=True)
 
     def synchroniser_cheval(self,horse,*,include_kpi=True,include_courses=True):
-        from .liaison_chevaux_v22 import nom_normalise
-        source=self.source();ident=horse['geny']['id']
+        source=self.source();ident=str(horse['geny']['id'])
         history={k:v for k,v in source[HISTORY].items() if str(v.get('identifiant_cheval'))==ident}
         if not history and horse.get('nombre_performances')!=0:
             raise ErreurSynchronisation('Aucune performance a synchroniser pour '+ident)
-        allowed={'course_key','numero','historique_statut','historique_nb_courses_datees','historique_maj_utc'}
-        courses={k:{f:v for f,v in row.items() if f in allowed} for k,row in source['Courses & Prévisions'].items()
-                 if nom_normalise(row.get('cheval'))==nom_normalise(horse['nom'])
-                 and str(row.get('historique_statut','')).startswith(('HISTO_OK','HISTO_PARTIEL'))}
-        tables={HISTORY:history}
-        if include_courses:tables['Courses & Prévisions']=courses
+        tables = {HISTORY: history}
+        if include_courses:
+            tables['Courses & Prévisions'] = {}
         return self.synchroniser_tables(tables,scope='CHEVAL' if include_courses else 'RATTRAPAGE',
-            kpi_source=source if include_kpi else None)
+            kpi_source=source if include_kpi else None,reconcilier=include_courses)
 
     def inventaire_rattrapage(self):
         """Lecture complète seule : inventaire et preuve des clés déjà publiées."""
@@ -733,15 +788,10 @@ class SynchroniseurSheets:
                 'ids_couverts':[ident for ident,wanted in expected.items() if wanted<=keys],
                 'lignes_historique':len(rows),'controle':control}
 
-    def synchroniser_correspondances(self):
-        """Actualiser les preuves seules sur les lignes déjà publiées."""
-        from dashboard.trot_analytics.correspondance_geny import CHAMP
-
-        tab = 'Courses & Prévisions'
-        champs = {'course_key', 'numero', CHAMP, '_note_correspondance_geny'}
-        courses = {key: {field: value for field, value in row.items() if field in champs}
-                   for key, row in self.source()[tab].items() if CHAMP in row}
-        return self.synchroniser_tables({tab: courses}, scope='CORRESPONDANCES_GENY')
+    def synchroniser_correspondances(self, *, include_kpi=False):
+        """Actualiser les diagnostics courants sur les lignes déjà publiées."""
+        return self.synchroniser_tables({'Courses & Prévisions': {}}, scope='CORRESPONDANCES_GENY',
+            reconcilier=True, kpi_source=self.source() if include_kpi else None)
 
     def synchroniser_kpi(self):
         with verrou_local(self.spreadsheet):return self._synchroniser_kpi(self.metadata(),self.source(),relire_courses=True)

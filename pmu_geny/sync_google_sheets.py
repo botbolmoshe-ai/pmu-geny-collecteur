@@ -81,7 +81,7 @@ CLEARABLE_COLUMNS = frozenset(PROFILE_COLUMNS + DEPART_COLUMNS) | MATCHING_COLUM
     'ml_proba_podium','ml_score_non_calibre',
     'top3_direct_source_forme','top3_direct_qualite','top3_direct_historiques_exploites',
     'motif_ml_non_evaluable', 'top3_ml_calcule_utc', *REPORT_NAME_COLUMNS.values(), *WINNER_SELECTION_COLUMNS, *WINNER_REPORT_COLUMNS,
-    'jalon_compare', *ETAT_JALON_COLUMNS})
+    'jalon_compare', 'historique_maj_utc', *ETAT_JALON_COLUMNS})
 PARTANT_PMU_COLUMNS = frozenset({'driver_jockey','entraineur','proprietaire','ferrure','musique_pmu'})
 IPR_NUMERIC = frozenset({'ipr_score', 'ipr_rang_shadow', 'ipr_n_historiques_comparables', 'ipr_couverture'})
 
@@ -1137,23 +1137,28 @@ def publier_plan(engine, plan):
     mode = plan.get('mode')
     courses, _, resultats = SHEET_TABS
     reunions = {row['reunion'] for row in plan.get('rapprochements_dus', [])}
-    source = engine.source() if reunions or mode == 'JALONS' else {}
+    source = engine.source() if reunions or mode in ('JALONS', 'GLOBAL') else {}
     scope = {key: row for key, row in source.get(resultats, {}).items()
              if row.get('reunion_pmu') in reunions}
     tables = {}
-    if mode == 'JALONS':
-        codes = set(plan['selection'])
-        tables[courses] = {key: row for key, row in source[courses].items()
-                          if row.get('date_course') == plan['date'] and row.get('rncn') in codes}
+    if mode in ('JALONS', 'GLOBAL'):
+        from .reconciliation_historiques import CHAMPS_HISTORIQUE
+        restitution = CHAMPS_HISTORIQUE | {STATUT_GENY, '_note_correspondance_geny'}
+        participants = source[courses]
+        if mode == 'JALONS':
+            codes = set(plan['selection'])
+            participants = {key: row for key, row in participants.items()
+                            if row.get('date_course') == plan['date'] and row.get('rncn') in codes}
+        tables[courses] = {key: {field: val for field, val in row.items() if field not in restitution}
+                           for key, row in participants.items()}
     if mode in ('JALONS', 'RAPPROCHEMENT'):
         if scope:
             tables[resultats] = scope
         if tables:
             engine.synchroniser_tables(tables, scope=mode, allow_structure=True)
     elif mode == 'GLOBAL':
-        source = source or engine.source()
-        engine.synchroniser_tables({tab: source[tab] for tab in (courses, resultats)}, scope='CYCLE_PMU',
-                                    full_source=True, allow_structure=True)
+        tables[resultats] = source[resultats]
+        engine.synchroniser_tables(tables, scope='CYCLE_PMU', full_source=True, allow_structure=True)
     else:
         engine.synchroniser_cycle(include_kpi=False)
     for reunion in reunions:
