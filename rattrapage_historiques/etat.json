@@ -32037,7 +32037,7 @@
       "course_url": "https://www.geny.com/course/1698228/partants-pronostics",
       "numero": "13",
       "engagement": "2026-11-14_R8C6",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C6",
@@ -32062,7 +32062,32 @@
       "prochaine_verification_utc": "2026-11-28T01:01:37.841523+00:00",
       "nombre_performances": 34,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 34,
+          "cellules_actualisees": 0,
+          "lignes_source": 34,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 34,
+            "lignes_avant": 37463,
+            "cles_avant": 37463,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3747,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37497,
+            "lignes_apres": 37497,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T01:02:02.833690+00:00",
+      "rattrapage_complet_au_utc": "2026-11-27T01:01:37.841523+00:00",
+      "ajouts_confirmes": 34
     },
     "contexte:99b3c502a63d251bcc093eee": {
       "nom": "LADY MAURE",
@@ -46588,9 +46613,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C6",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C6",
       "numero": "13",
       "numero_reconcilie_depuis_snapshot": true,
@@ -46613,7 +46638,11 @@
       "course_geny_deja_lue": true,
       "cible_equivalente_a": "contexte:4b0fe5d9d186a95772041b89",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:4b0fe5d9d186a95772041b89"
+      "autre_contexte_meme_nom": "contexte:4b0fe5d9d186a95772041b89",
+      "rattrapage_complet_au_utc": "2026-11-27T01:01:37.841523+00:00",
+      "historique_complet_au_utc": "2026-11-27T01:01:37.841523+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:45b1262fe77a0eaa9c07713c": {
       "nom": "LADY MAURE",
@@ -78870,12 +78899,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1325,
-    "cibles_restantes": 1259,
+    "cibles_completees": 1327,
+    "cibles_restantes": 1257,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1329,
+    "travaux_distincts_restants": 1328,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 882,
+    "carrieres_distinctes_a_completer": 881,
     "identifiants_sans_carriere_complete": 115,
     "contextes_distincts_sans_identifiant": 765,
     "noms_distincts_sans_identifiant": 761,
@@ -78883,8 +78912,8 @@
     "identites_non_resolues": 1086,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 7168,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 7202,
     "tentatives_collecte": 2,
     "captures_validees": 2,
     "captures_partielles": 0,
@@ -78892,7 +78921,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T00:59:26.588012+00:00",
-  "maj_utc": "2026-11-27T01:01:38.355732+00:00",
+  "maj_utc": "2026-11-27T01:02:02.851625+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -80791,11 +80820,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:59:26.588012+00:00",
-    "controle_utc": "2026-11-27T01:01:38.355732+00:00",
+    "controle_utc": "2026-11-27T01:02:02.851625+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 2,
-    "chevaux_confirmes_sheets": 1,
-    "performances_ajoutees_et_confirmees_sheets": 33,
+    "chevaux_confirmes_sheets": 2,
+    "performances_ajoutees_et_confirmees_sheets": 67,
     "requetes_http_geny": 67,
     "requetes_geny_par_ressource": {
       "document": 2,
@@ -80810,8 +80839,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 11.27,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 54.64,
-    "carrieres_publiees_par_heure_cycle": 27.32,
+    "carrieres_validees_par_heure_cycle": 46.08,
+    "carrieres_publiees_par_heure_cycle": 46.08,
     "refus_geny": {
       "403": 0,
       "429": 0
