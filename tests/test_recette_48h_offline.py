@@ -182,7 +182,7 @@ class Recette48h(TestCase):
                     prod.enregistrer_publication(cache, now, plan, True,
                                                 sheets={**proof, 'rapprochements_verifies': sorted(verified)})
                     state = prod.lire(cache/'orchestration/production_etat.json')
-                    if state:
+                    if state.get('dernier_global_publie_utc'):
                         checkpoints[now.date().isoformat()] = state['dernier_global_publie_utc']
 
             self.assertEqual(len(retries), 2)
@@ -201,3 +201,44 @@ class Recette48h(TestCase):
                     if prediction.get('calcul_utc') and prediction.get('depart'):
                         self.assertLess(prod.instant(prediction['calcul_utc']), prod.instant(prediction['depart']))
             print('RECETTE_CYCLE_PYTHON_48H', sorted(retries), checkpoints)
+
+    def test_cycles_globaux_dus_sur_trois_heures_de_jalons_concurrents(self):
+        from pmu_geny.cycle_production import executer
+
+        with TemporaryDirectory() as tmp:
+            cache = Path(tmp)
+            plan_path = cache/'plan.json'
+            start = datetime(2026, 11, 27, 10, tzinfo=timezone.utc)
+            day, tomorrow = '2026-11-27', '2026-11-28'
+            meetings = [{'code': f'R{index+1}C1',
+                         'depart': (start+timedelta(hours=index+3)).isoformat()} for index in range(3)]
+            initial = start - timedelta(hours=1)
+            prod.sauver(cache/'orchestration/production_etat.json', {'dernier_global_publie_utc':initial.isoformat()})
+            prod.sauver(cache/'sources_pmu'/f'programme_{day}.json',
+                        {'date_controle_utc':initial.isoformat(), 'programme':meetings})
+
+            def acquisition(cache, date, selection, *args, now, actualiser_plan=None, **kwargs):
+                self.assertEqual(selection, [])
+                prod.sauver(cache/'sources_pmu'/f'programme_{date}.json',
+                            {'date_controle_utc':now.isoformat(), 'programme':meetings if date == day else []})
+                if actualiser_plan:
+                    self.assertTrue(actualiser_plan())
+
+            for index in range(3):
+                now = start + timedelta(hours=index)
+                with self.subTest(now=now), patch('pmu_geny.cycle_production.run', side_effect=acquisition) as run:
+                    plan = prod.planifier(cache, now)
+                    self.assertTrue(plan['global_du'])
+                    self.assertEqual(plan['mode'], 'JALONS')
+                    prod.sauver(plan_path, plan)
+                    executer(cache, plan_path, lambda: now)
+                    self.assertEqual([call.args[1] for call in run.call_args_list], [day, tomorrow])
+                    effective = prod.lire(plan_path)
+                    self.assertEqual(effective['mode'], 'GLOBAL')
+                    self.assertTrue(effective['jalons_dus'])
+                    report = prod.enregistrer_publication(cache, now, effective, True,
+                        sheets={'lecture_utc':now.isoformat(), 'courses':{}})
+                    self.assertEqual(report['global']['statut'], 'PUBLIE')
+                    checkpoint = prod.lire(cache/'orchestration/production_etat.json')
+                    self.assertEqual(checkpoint['dernier_global_publie_utc'], now.isoformat())
+                    self.assertNotIn('dernier_jalon_publie_utc', checkpoint)

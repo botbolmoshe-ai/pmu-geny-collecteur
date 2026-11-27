@@ -257,9 +257,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
     save(cache/'sources_pmu'/f'diagnostic_{date}.json',controle)
     print('DIAGNOSTIC_PMU '+json.dumps(controle,ensure_ascii=False))
     if actualiser_plan:
-        cible = actualiser_plan()
-        if cible:
-            selection, priorites, prioritaire = cible, cible, True
+        priorites = actualiser_plan()
     codes_metier = {c['code'] for c in courses}
     if prioritaire or (production and date == now.astimezone(PARIS).date().isoformat()):
         # La certification du jour couvre toutes les courses attendues de la réunion.
@@ -389,7 +387,7 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         else:
             entry['traitement']='PREPARATION_AVANT_DEPART'
         # Météo sourcée indépendante de Geny et des statuts NP : même sans manifeste.
-        cycle_leger = prioritaire or key not in codes_metier
+        cycle_leger = prioritaire or key in order or key not in codes_metier
         if not est_partie and not cycle_leger:
             try:
                 from .contexte_meteo_v20 import collecter_meteo

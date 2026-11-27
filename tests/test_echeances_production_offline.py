@@ -370,9 +370,12 @@ class EcheancesTests(unittest.TestCase):
 
     def test_cycle_global_non_valide_sur_programme_ancien(self):
         now=self.now+timedelta(minutes=40);self.predictions(now)
-        before=(self.cache/'orchestration/production_etat.json').read_bytes()
-        self.publish(now, {**e.planifier(self.cache,now), 'mode': 'GLOBAL'})
-        self.assertEqual((self.cache/'orchestration/production_etat.json').read_bytes(),before)
+        path = self.cache/'orchestration/production_etat.json'
+        before = e.lire(path)['dernier_global_publie_utc']
+        report = self.publish(now, {**e.planifier(self.cache,now), 'mode': 'GLOBAL'})
+        self.assertEqual(e.lire(path)['dernier_global_publie_utc'], before)
+        self.assertEqual(e.lire(path)['derniere_publication_pmu_utc'], now.isoformat())
+        self.assertEqual(report['global']['statut'], 'A_REPRENDRE')
 
     def test_cycle_cible_ne_recertifie_pas_les_courses_non_rafraichies(self):
         now=self.now+timedelta(minutes=40);self.predictions(now)
