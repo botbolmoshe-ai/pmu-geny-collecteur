@@ -93796,7 +93796,7 @@
     },
     "2769872": {
       "nom": "KALAMITY DE CHENU",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "1",
       "engagement": "2026-11-27_R1C1",
       "vu_utc": "2026-11-27T00:51:23.559580+00:00",
@@ -93826,11 +93826,39 @@
       "nombre_performances": 42,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-10-31"
+      "derniere_performance_date": "2026-10-31",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 42,
+          "cellules_actualisees": 0,
+          "lignes_source": 42,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 42,
+            "lignes_avant": 37227,
+            "cles_avant": 37227,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3723,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37269,
+            "lignes_apres": 37269,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 1
+        }
+      },
+      "sync_utc": "2026-11-27T00:53:42.677438+00:00"
     }
   },
   "passage_utc": "2026-11-27T00:51:23.559580+00:00",
-  "maj_utc": "2026-11-27T00:53:21.127719+00:00",
+  "maj_utc": "2026-11-27T00:53:42.677464+00:00",
   "bilan": {
     "chevaux_suivis": 3361,
     "tentatives_collecte": 12,
@@ -94257,11 +94285,11 @@
   "sync_kpi_utc": "2026-11-26T23:08:22.379994+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:51:23.559580+00:00",
-    "controle_utc": "2026-11-27T00:53:21.127719+00:00",
+    "controle_utc": "2026-11-27T00:53:42.677464+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 2,
-    "chevaux_confirmes_sheets": 1,
-    "performances_ajoutees_et_confirmees_sheets": 1,
+    "chevaux_confirmes_sheets": 2,
+    "performances_ajoutees_et_confirmees_sheets": 43,
     "requetes_http_geny": 81,
     "requetes_geny_par_ressource": {
       "document": 4,
@@ -94276,8 +94304,8 @@
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 15.37,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 61.24,
-    "carrieres_publiees_par_heure_cycle": 30.62,
+    "carrieres_validees_par_heure_cycle": 51.75,
+    "carrieres_publiees_par_heure_cycle": 51.75,
     "refus_geny": {
       "403": 0,
       "429": 0
