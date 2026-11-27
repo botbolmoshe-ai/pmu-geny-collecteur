@@ -30,6 +30,14 @@ class DatesRegistreTests(unittest.TestCase):
                                  wall)
         self.assertEqual(nombre_paris('25/10/2026 02:15', utc=False), '25/10/2026 02:15')
 
+    def test_affichage_sheets_meme_seconde_que_streamlit_au_changement_heure(self):
+        from dashboard.trot_analytics.dates import afficher_instant, afficher_valeur_kpi
+
+        stamp = '2026-03-29T00:59:59.900000Z'
+        self.assertEqual(afficher_valeur_kpi('Dernière capture (Paris)', nombre_paris(stamp)),
+                         afficher_instant(stamp))
+        self.assertEqual(afficher_instant(stamp), '29/03/2026 01:59:59')
+
     def test_dates_natives_et_vides(self):
         stamp = '2026-11-22T23:36:48.804558+00:00'
         self.assertAlmostEqual(projection('extraction_utc', vers_nombre('extraction_utc', stamp)),
