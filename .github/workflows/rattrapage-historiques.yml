@@ -31,7 +31,6 @@ concurrency:
   queue: max
 env:
   TZ: Europe/Paris
-  PMU_REFERENTIEL: 'true'
 
 jobs:
   rattrapage:
@@ -117,6 +116,13 @@ jobs:
           if [ -n "$ARCHIVES_DIAGNOSTICS" ]; then args+=(--archives-diagnostics "$ARCHIVES_DIAGNOSTICS"); fi
           if [ "$RECONCILIER_IDENTITES" = 'true' ]; then args+=(--reconcilier-identites); fi
           python -m pmu_geny.rattrapage_historiques --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${args[@]}"
+      - name: Actualiser le référentiel PMU–Geny
+        if: always() && !cancelled() && steps.etat.outputs.actif == 'true'
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+          PMU_SUPERVISION_ONLY: 'referentiel'
+        run: python -m pmu_geny.sync_google_sheets
       - name: Archiver le bilan et les controles
         if: always()
         uses: actions/upload-artifact@v4

@@ -672,9 +672,6 @@ class SynchroniseurSheets:
             if kpi_source is not None:
                 counts.update(self._synchroniser_kpi(tables,kpi_source,
                     courses_verifiees=reconciliation.get('courses') if reconcilier else None))
-            if scope == 'CORRESPONDANCES_GENY' and os.getenv('PMU_REFERENTIEL') == 'true':
-                from .supervision_sheets import REFERENTIEL, publier_referentiel
-                publier_referentiel(self, reconciliation['historique'], tables.get(REFERENTIEL))
         print('SHEETS_MOTEUR_UNIQUE '+json.dumps({'perimetre':scope,
             'lectures_api':self.session.lectures-before[0],'ecritures_api':self.session.ecritures-before[1],
             'duree_secondes':round(time.monotonic()-start,3)},ensure_ascii=False),flush=True)

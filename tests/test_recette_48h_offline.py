@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, call, patch
 
 from pmu_geny import echeances_production as prod
 from pmu_geny import rapprochement_reunions as resultats
@@ -18,9 +18,18 @@ class Recette48h(TestCase):
                                       'Historique chevaux': {'capture': {}}}
         self.assertEqual(publier_plan(engine, {'mode': 'GLOBAL'}), set())
         engine.synchroniser_cycle.assert_not_called()
-        engine.synchroniser_tables.assert_called_once_with(
-            {'Courses & Prévisions': {}, 'Résultats & Analyse': {}},
-            scope='CYCLE_PMU', full_source=True, allow_structure=True)
+        self.assertEqual(engine.synchroniser_tables.call_args_list, [
+            call({'Courses & Prévisions': {}}, scope='CYCLE_PMU', full_source=True, allow_structure=True),
+            call({'Résultats & Analyse': {}}, scope='CYCLE_PMU', full_source=True, allow_structure=True),
+        ])
+
+    def test_preuve_jalon_reutilisable_si_onglet_resultats_en_echec(self):
+        engine = Mock()
+        engine.source.return_value = {'Courses & Prévisions': {}, 'Résultats & Analyse': {}}
+        engine.synchroniser_tables.side_effect = [None, ErreurSynchronisation('Sheets 429')]
+        publications = {}
+        self.assertEqual(publier_plan(engine, {'mode': 'GLOBAL'}, publications=publications), set())
+        self.assertEqual(publications, {'Courses & Prévisions': True, 'Résultats & Analyse': False})
 
     def test_collision_reprise_et_interdiction_de_certifier_sans_relecture(self):
         with TemporaryDirectory() as tmp:

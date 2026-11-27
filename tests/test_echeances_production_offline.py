@@ -377,6 +377,20 @@ class EcheancesTests(unittest.TestCase):
         self.assertEqual(e.lire(path)['derniere_publication_pmu_utc'], now.isoformat())
         self.assertEqual(report['global']['statut'], 'A_REPRENDRE')
 
+    def test_une_panne_resultats_nefface_pas_la_preuve_du_jalon(self):
+        now = self.now + timedelta(minutes=40)
+        self.predictions(now)
+        plan = {**e.planifier(self.cache, now), 'mode': 'GLOBAL'}
+        by_type = {mode: {'calcul_utc': now.isoformat(), 'numeros': [1, 2, 3]}
+                   for mode in ('direct', 'ml')}
+        proof = {'lecture_utc': now.isoformat(), 'courses': {self.key: by_type},
+                 'publications': {'Courses & Prévisions': True, 'Résultats & Analyse': False}}
+        report = e.enregistrer_publication(self.cache, now, plan, False, sheets=proof)
+        saved = e.lire(self.cache/'orchestration/production_etat.json')
+        self.assertEqual(report['global']['statut'], 'A_REPRENDRE')
+        self.assertEqual(saved['dernier_global_publie_utc'], self.now.isoformat())
+        self.assertEqual(saved['dernier_jalon_publie_utc'], now.isoformat())
+
     def test_cycle_cible_ne_recertifie_pas_les_courses_non_rafraichies(self):
         now=self.now+timedelta(minutes=40);self.predictions(now)
         path=self.cache/'sources_pmu/programme_2026-11-17.json';data=e.lire(path)

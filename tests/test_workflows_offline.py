@@ -95,7 +95,7 @@ class WorkflowSyntaxTests(unittest.TestCase):
         self.assertEqual(publier['needs'], 'historiques')
         acquisition = next(s for s in collecter['steps'] if '--acquisition-seule' in s.get('run', ''))
         self.assertNotIn('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON', acquisition['env'])
-        self.assertIn('--publication-seule', publier['steps'][-1]['run'])
+        self.assertTrue(any('--publication-seule' in step.get('run', '') for step in publier['steps']))
         self.assertEqual(historique['jobs']['historiques']['permissions']['actions'], 'write')
         self.assertEqual(pmu['permissions']['actions'], 'write')
         secours = next(step for step in historique['jobs']['historiques']['steps']

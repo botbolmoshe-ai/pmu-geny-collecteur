@@ -1130,7 +1130,7 @@ def lire_feuille_complete(session, base, tab, properties, page_rows=2000, *, raw
     return values
 
 
-def publier_plan(engine, plan):
+def publier_plan(engine, plan, *, publications=None):
     """Publier toutes les obligations du plan et relire les résultats ciblés."""
     from .moteur_sheets import ErreurSynchronisation
 
@@ -1151,16 +1151,40 @@ def publier_plan(engine, plan):
                             if row.get('date_course') == plan['date'] and row.get('rncn') in codes}
         tables[courses] = {key: {field: val for field, val in row.items() if field not in restitution}
                            for key, row in participants.items()}
-    if mode in ('JALONS', 'RAPPROCHEMENT'):
-        if scope:
-            tables[resultats] = scope
-        if tables:
-            engine.synchroniser_tables(tables, scope=mode, allow_structure=True)
-    elif mode == 'GLOBAL':
-        tables[resultats] = source[resultats]
-        engine.synchroniser_tables(tables, scope='CYCLE_PMU', full_source=True, allow_structure=True)
-    else:
+    if mode not in ('JALONS', 'RAPPROCHEMENT', 'GLOBAL'):
         engine.synchroniser_cycle(include_kpi=False)
+        return set()
+    if mode == 'GLOBAL':
+        tables[resultats] = source[resultats]
+    elif scope:
+        tables[resultats] = scope
+    for tab, rows in tables.items():
+        try:
+            engine.synchroniser_tables({tab: rows}, scope='CYCLE_PMU' if mode == 'GLOBAL' else mode,
+                                       full_source=mode == 'GLOBAL', allow_structure=True)
+        except (ErreurSynchronisation, ValueError, RuntimeError, OSError) as exc:
+            if publications is None:
+                raise
+            publications[tab] = False
+            print(f'::error title=Publication Sheets::{tab} : {exc}', flush=True)
+        else:
+            if publications is not None:
+                publications[tab] = True
+    if publications is not None and publications.get(resultats) is False:
+        return set()
+    try:
+        return verifier_rapprochements_sheets(engine, resultats, reunions, scope)
+    except (ErreurSynchronisation, ValueError, RuntimeError, OSError) as exc:
+        if publications is None:
+            raise
+        publications[resultats] = False
+        print(f'::error title=Relecture des rapprochements::{exc}', flush=True)
+        return set()
+
+
+def verifier_rapprochements_sheets(engine, resultats, reunions, scope):
+    from .moteur_sheets import ErreurSynchronisation
+
     for reunion in reunions:
         record = load_json(engine.cache / 'rapprochements' / f'{reunion}.json')
         codes = {row['rncn'] for row in scope.values() if row['reunion_pmu'] == reunion}
@@ -1197,25 +1221,39 @@ def main():
     from .moteur_sheets import ErreurSynchronisation, SynchroniseurSheets
     cache=Path(os.getenv('PMU_CACHE','cache_pmu'))
     spreadsheet=os.getenv('GOOGLE_SHEETS_ID','1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo')
+    supervision = os.getenv('PMU_SUPERVISION_ONLY')
     if not os.getenv('GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON'):
-        print('SYNC_GOOGLE_SHEETS=NON_CONFIGURE: secret absent');return int(bool(os.getenv('PMU_PREUVE_SHEETS')))
+        print('SYNC_GOOGLE_SHEETS=NON_CONFIGURE: secret absent')
+        return int(bool(supervision or os.getenv('PMU_PREUVE_SHEETS')))
     engine=None
     try:
         engine=SynchroniseurSheets(cache,spreadsheet)
-        if os.getenv('PMU_SUPERVISION_ONLY') == 'true':
+        if supervision:
             from .supervision_sheets import synchroniser
-            synchroniser(engine, avec_referentiel=False)
+            synchroniser(engine, avec_referentiel=supervision == 'referentiel')
         elif os.getenv('PMU_KPI_ONLY')=='true':engine.synchroniser_kpi()
         elif os.getenv('PMU_KPI_DIFFERE')=='true':
             plan = load_json(Path(os.environ['PMU_PLAN'])) if os.getenv('PMU_PLAN') else {}
-            reunions_verifiees = publier_plan(engine, plan)
+            publications = {}
+            reunions_verifiees = publier_plan(engine, plan, publications=publications)
             from .echeances_production import preuves_sheets, sauver
             if os.getenv('PMU_PREUVE_SHEETS'):
-                rows = engine.lire_courses(engine.metadata())
+                if plan.get('mode') in ('GLOBAL', 'JALONS') and publications.get(SHEET_TABS[0]):
+                    try:
+                        rows = engine.lire_courses(engine.metadata())
+                    except (ErreurSynchronisation, ValueError, RuntimeError, OSError) as exc:
+                        publications[SHEET_TABS[0]] = False
+                        print(f'::error title=Relecture des courses::{exc}', flush=True)
+                        rows = []
+                else:
+                    rows = []
                 preuves = preuves_sheets(rows, datetime.now(timezone.utc),
                                         observations_verifiees=engine.observations_verifiees)
                 preuves['rapprochements_verifies'] = sorted(reunions_verifiees)
+                preuves['publications'] = publications
                 sauver(os.environ['PMU_PREUVE_SHEETS'], preuves)
+            if not all(publications.values()):
+                return 1
         else:engine.synchroniser_cycle()
         return 0
     except ErreurSynchronisation as exc:

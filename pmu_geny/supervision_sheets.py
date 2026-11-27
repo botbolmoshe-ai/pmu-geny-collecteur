@@ -33,10 +33,10 @@ REFERENTIEL_HEADERS = (
 
 
 def prochain_tick(now, minutes, *, debut=None, jour=False):
-    cursor = max(now, debut or now).astimezone(timezone.utc)
-    cursor = cursor.replace(second=0, microsecond=0)
+    debut = max(now, debut or now).astimezone(timezone.utc)
+    cursor = debut.replace(second=0, microsecond=0)
     while True:
-        if cursor >= max(now, debut or now):
+        if cursor >= debut:
             local = cursor.astimezone(PARIS)
             if local.minute in minutes and (not jour or 7 <= local.hour < 21):
                 return cursor.isoformat()
@@ -112,9 +112,15 @@ def lignes_supervision(cache, now):
             mesure=cycle.get('carrieres_completes_distinctes', ''),
             next_at=cooldown['echeance_utc'] if cooldown['actif'] else None,
             motif=queue.get('motif_ordonnancement') or queue.get('motif_fin_passage', ''))
+        publication = queue.get('publication_cycle') or {}
+        dernier_passage = instant(cycle.get('controle_utc'))
+        derniere_publication = instant(publication.get('controle_utc'))
+        if ('performances_ajoutees_et_confirmees_sheets' in cycle and dernier_passage
+                and (not derniere_publication or dernier_passage >= derniere_publication)):
+            publication = cycle
         add(domain, 'Performances publiées', queue.get('sync_kpi', 'Non observé'), path,
-            'Performances ajoutées et confirmées dans Sheets pendant le dernier passage.',
-            last=queue.get('sync_kpi_utc'), mesure=cycle.get('performances_ajoutees_et_confirmees_sheets', ''),
+            'Performances ajoutées et confirmées pendant le dernier passage de publication.',
+            last=publication.get('controle_utc'), mesure=publication.get('performances_ajoutees_et_confirmees_sheets', ''),
             motif=f"Synchronisations en attente : {bilan['synchronisations_en_attente']}"
             if 'synchronisations_en_attente' in bilan else '')
         add(domain, 'Requêtes Geny', 'Mesuré' if 'requetes_http_geny' in cycle else 'Non mesuré', path,
@@ -259,7 +265,7 @@ def _publier_vue(engine, name, rows, props, timestamps):
     rows = [['' if value is None else value for value in row] for row in rows]
     if props is None:
         used_ids = {item['sheetId'] for item in engine.metadata().values()}
-        sheet_id = max(used_ids, default=0) + 1
+        sheet_id = next(i for i in range(1, len(used_ids)+2) if i not in used_ids)
         props = {'sheetId': sheet_id, 'title': name, 'gridProperties': {
             'rowCount': max(50, len(rows)), 'columnCount': width, 'frozenRowCount': 1,
             'frozenColumnCount': 2, 'hideGridlines': True}}

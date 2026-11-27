@@ -41,7 +41,6 @@ concurrency:
   queue: max
 env:
   TZ: Europe/Paris
-  PMU_REFERENTIEL: 'true'
 
 jobs:
   historiques:
@@ -177,6 +176,13 @@ jobs:
           else
             python -m pmu_geny.historiques_incrementaux --cache cache_pmu --max-minutes "$MAX_MINUTES" --publier "${options[@]}"
           fi
+      - name: Actualiser le référentiel après un passage groupé
+        if: always() && !cancelled() && env.ACQUISITION_INDEPENDANTE != 'true' && steps.plan.outputs.executer == 'true'
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+          PMU_SUPERVISION_ONLY: 'referentiel'
+        run: python -m pmu_geny.sync_google_sheets
       - name: Archiver les diagnostics et le suivi
         if: always()
         uses: actions/upload-artifact@v4
@@ -206,6 +212,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Relire la file durable et publier les captures en attente
+        id: publier
         env:
           GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
@@ -215,6 +222,14 @@ jobs:
           python -m pmu_geny.persistance_production --restaurer
           python -m pip install -q google-auth==2.43.0 requests beautifulsoup4==4.14.3
           python -m pmu_geny.historiques_incrementaux --cache cache_pmu --publication-seule --max-minutes 3
+
+      - name: Actualiser le référentiel PMU–Geny
+        if: always() && !cancelled() && steps.publier.outcome != 'skipped'
+        env:
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_ID: '1BjzDzC6NsLRMax2XjrCIcCIIgz6hyCJ1YTWOa5hiGLo'
+          PMU_SUPERVISION_ONLY: 'referentiel'
+        run: python -m pmu_geny.sync_google_sheets
 
   recensement:
     if: github.event_name == 'workflow_dispatch' && (inputs.date_courses != '' || inputs.hippodrome != '')
