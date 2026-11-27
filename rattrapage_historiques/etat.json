@@ -31817,9 +31817,9 @@
       "course_url": "https://www.geny.com/course/1698228/partants-pronostics",
       "numero": "7",
       "engagement": "2026-11-14_R8C6",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-14_R8C6",
       "ferrures_manquantes": 0,
       "annee_naissance_pmu": 2021,
@@ -31838,7 +31838,11 @@
       "course_geny_deja_lue": true,
       "cible_equivalente_a": "contexte:4915e8af22a549a992596c2b",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:4915e8af22a549a992596c2b"
+      "autre_contexte_meme_nom": "contexte:4915e8af22a549a992596c2b",
+      "rattrapage_complet_au_utc": "2026-11-27T01:00:28.642369+00:00",
+      "historique_complet_au_utc": "2026-11-27T01:00:28.642369+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:1edec3e2a48602c1ab2b013d": {
       "nom": "LADY DAIRPET",
@@ -46352,7 +46356,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R8C6",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|CAEN|R8C6",
@@ -46381,7 +46385,32 @@
       "prochaine_verification_utc": "2026-11-28T01:00:28.642369+00:00",
       "nombre_performances": 33,
       "erreur": "",
-      "derniere_performance_date": "2026-11-14"
+      "derniere_performance_date": "2026-11-14",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 33,
+          "cellules_actualisees": 0,
+          "lignes_source": 33,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 33,
+            "lignes_avant": 37430,
+            "cles_avant": 37430,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3743,
+            "import_initial_explicite": false,
+            "lignes_attendues": 37463,
+            "lignes_apres": 37463,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T01:00:53.575013+00:00",
+      "rattrapage_complet_au_utc": "2026-11-27T01:00:28.642369+00:00",
+      "ajouts_confirmes": 33
     },
     "contexte:56ed7aca58dca01863405312": {
       "nom": "LADY DAIRPET",
@@ -78835,12 +78864,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1323,
-    "cibles_restantes": 1261,
+    "cibles_completees": 1325,
+    "cibles_restantes": 1259,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1330,
+    "travaux_distincts_restants": 1329,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 883,
+    "carrieres_distinctes_a_completer": 882,
     "identifiants_sans_carriere_complete": 116,
     "contextes_distincts_sans_identifiant": 765,
     "noms_distincts_sans_identifiant": 761,
@@ -78848,8 +78877,8 @@
     "identites_non_resolues": 1086,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 7135,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 7168,
     "tentatives_collecte": 1,
     "captures_validees": 1,
     "captures_partielles": 0,
@@ -78857,7 +78886,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T00:59:26.588012+00:00",
-  "maj_utc": "2026-11-27T01:00:29.176871+00:00",
+  "maj_utc": "2026-11-27T01:00:53.595021+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -80756,11 +80785,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T00:59:26.588012+00:00",
-    "controle_utc": "2026-11-27T01:00:29.176871+00:00",
+    "controle_utc": "2026-11-27T01:00:53.595021+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 1,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 33,
     "requetes_http_geny": 62,
     "requetes_geny_par_ressource": {
       "document": 1,
@@ -80775,8 +80804,8 @@
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 5.93,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 57.52,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 41.38,
+    "carrieres_publiees_par_heure_cycle": 41.38,
     "refus_geny": {
       "403": 0,
       "429": 0
