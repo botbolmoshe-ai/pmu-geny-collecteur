@@ -558,8 +558,9 @@ def run(cache:Path, date:str, selection:list[str], max_new:int, phase:str='auto'
         except Exception as exc:entry['erreur_export']=str(exc)
     state['fiches_geny_budget_consommees']=max_new-remaining_new
     save(index,state)
-    from .historiques_incrementaux import alimenter
-    alimenter(cache,now)  # Aucune consultation Geny ni écriture Sheets ici.
+    if not production:
+        from .historiques_incrementaux import alimenter
+        alimenter(cache, now)
     print(json.dumps({'date':date,'courses_pmu':len(courses),'courses_selectionnees':len(selected),
                       'manifestes_associes':sum(e.get('identifiant_geny') is not None for e in state['courses'].values()),
                       'rapprochements_ambigus':sum(e.get('rapprochement_geny',{}).get('statut')=='CORRESPONDANCE_AMBIGUE' for e in state['courses'].values()),

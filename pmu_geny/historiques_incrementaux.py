@@ -257,13 +257,16 @@ def materialiser_manifestes(cache, state):
                 'nombre_partants_attendu': len(horses), 'partants': horses}]})
 
 
-def prochaine_tache(state, now, attempts):
-    # Les synchronisations échouées sont prioritaires et ne recollectent pas Geny.
-    for key, h in state['chevaux'].items():
-        if h.get('sync') == 'A_FAIRE' and attempts.get(('SYNC', key), 0) < 1:
-            retry = instant(h.get('prochaine_sync_utc'))
-            if not retry or now >= retry:
-                return key, 'SYNC'
+def prochaine_tache(state, now, attempts, *, phase=None):
+    if phase != 'acquisition':
+        # Les synchronisations échouées sont reprises depuis leurs captures.
+        for key, h in state['chevaux'].items():
+            if h.get('sync') == 'A_FAIRE' and attempts.get(('SYNC', key), 0) < 1:
+                retry = instant(h.get('prochaine_sync_utc'))
+                if not retry or now >= retry:
+                    return key, 'SYNC'
+    if phase == 'publication':
+        return None, 'PUBLICATIONS_DUES_TRAITEES'
     cooldown = instant(state.get('prochain_acces_geny_utc'))
     if cooldown and now < cooldown:
         return None, 'COOLDOWN'
@@ -452,7 +455,7 @@ def checkpoint_distant(cache, *, queue=QUEUE, root=None):
 def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         collect=None, checkpoint=None, sync=None, mode='production', stop_requested=None,
         prochains_depart=False, creneau_reserve=None, nocturne=False, perimetre=None, archive_recensement=None,
-        cadence_geny=None):
+        cadence_geny=None, phase=None):
     cache = Path(cache)
     now = datetime.now(UTC)
     reprise=None
@@ -460,6 +463,12 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         from . import rattrapage_historiques as reprise
     elif mode!='production':
         raise ValueError('MODE_COLLECTE_INCONNU')
+    if phase is not None and (reprise or perimetre or phase not in {'acquisition', 'publication'}):
+        raise ValueError('PHASE_RESERVEE_A_LA_FILE_INCREMENTALE')
+    acquisition_seule = phase == 'acquisition'
+    publication_seule = phase == 'publication'
+    if acquisition_seule and (publier or sync):
+        raise ValueError('PUBLICATION_INCOMPATIBLE_AVEC_ACQUISITION_SEULE')
     queue=reprise.QUEUE if reprise else QUEUE
     associations = {}
     rejeu = {}
@@ -475,64 +484,86 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 associations[contexte] = ident
         if archive_recensement:
             rejeu = recensement.captures_a_rejouer(archive_recensement, chemin_suivi, suivi, state, associations)
+    elif publication_seule:
+        state = lire(cache/queue, {'version': 1, 'chevaux': {}})
+        if state.get('version') != 1 or not isinstance(state.get('chevaux'), dict):
+            raise ValueError('FILE_INCREMENTALE_INCOMPATIBLE')
+        if state.get('sync_kpi') != 'A_REPRENDRE' and prochaine_tache(
+                state, now, {}, phase=phase)[0] is None:
+            return state
     else:
         state = reprise.preparer(cache,now) if reprise else alimenter(cache, now)
-    if prochains_depart and not reprise:
-        from .preparation_prochaines import appliquer
-        appliquer(cache,state,now,nocturne=nocturne)
-    elif not reprise:state.pop('politique_collecte',None)
-    state['passage_utc'] = now.isoformat()
-    state['priorite_collecte'] = ('STOCK_NOCTURNE' if reprise else 'DEPARTS_DU_JOUR_NOCTURNE') if nocturne else (
-        'PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR')
-    state.pop('motif_fin_passage',None)
-    state.pop('creneau_reserve', None)
-    from .echeances_production import pause_geny_active
-    states = {'back' if reprise else 'prod': state}
-    pause = pause_geny_active(cache, now, **states)
-    if pause:
-        state['prochain_acces_geny_utc'] = pause.isoformat()
-    else:
-        state.pop('prochain_acces_geny_utc', None)
+    if not publication_seule:
+        if prochains_depart and not reprise:
+            from .preparation_prochaines import appliquer
+            appliquer(cache,state,now,nocturne=nocturne)
+        elif not reprise:
+            state.pop('politique_collecte', None)
+        state['passage_utc'] = now.isoformat()
+        state['priorite_collecte'] = ('STOCK_NOCTURNE' if reprise else 'DEPARTS_DU_JOUR_NOCTURNE') if nocturne else (
+            'PARTANTS_SANS_HISTORIQUE_NUIT' if nuit_collecte(now) else 'ENGAGEMENTS_JOUR')
+        state.pop('motif_fin_passage', None)
+        state.pop('creneau_reserve', None)
+        from .echeances_production import pause_geny_active
+        states = {'back' if reprise else 'prod': state}
+        pause = pause_geny_active(cache, now, **states)
+        if pause:
+            state['prochain_acces_geny_utc'] = pause.isoformat()
+        else:
+            state.pop('prochain_acces_geny_utc', None)
     attempts, count, accepted, partials = {}, 0, 0, 0
     sheets_engine=None
     captures_completes = set()
     sync_confirmees = set()
-    ajouts_sheets_confirmes = 0
+    ajouts_sheets_confirmes, erreurs_sync = 0, 0
     refus_geny = {'403': 0, '429': 0}
     refus_http = {'403': 0, '429': 0}
     from collections import Counter
     requetes_par_ressource = Counter()
     hits_cache_http = 0
     requetes_geny, attente_geny, duree_geny = 0, 0.0, 0.0
-    if cadence_geny is None:
+    if publication_seule:
+        cadence_geny = False
+    elif cadence_geny is None:
         cadence_geny = collect is None
     profil = None
-    executor_reel = collect is None
+    executor_reel = collect is None and not publication_seule
     if executor_reel:
         collect = executer_enfant
         from .historique_individuel import RECHERCHE_NON_AUTORISEE, recherche_bloquee_avant_navigation
     cadence = CadenceGeny(cache) if cadence_geny else None
     deadline = None if max_minutes is None else time.monotonic()+max_minutes*60
+    motif = 'BUDGET_TEMPS_ATTEINT'
     def save(*, distant=True):
         state['maj_utc'] = datetime.now(UTC).isoformat()
         heures = max(1, (instant(state['maj_utc']) - now).total_seconds()) / 3600
-        state['collecte_cycle'] = {
-            'debut_utc': state['passage_utc'], 'controle_utc': state['maj_utc'], 'source': 'Geny',
-            'carrieres_completes_distinctes': len(captures_completes),
-            'chevaux_confirmes_sheets': len(sync_confirmees),
-            'performances_ajoutees_et_confirmees_sheets': ajouts_sheets_confirmes,
-            'requetes_http_geny': requetes_geny, 'requetes_geny_par_ressource': dict(requetes_par_ressource),
-            'ressources_geny_servies_du_cache_http': hits_cache_http,
-            'attente_inter_chevaux_secondes': round(attente_geny, 2),
-            'intervalle_inter_chevaux_secondes': cadence.intervalle if cadence else None,
-            'duree_acces_geny_secondes': round(duree_geny, 2),
-            'refus_sans_validation': cadence.etat.get('incidents_sans_validation', 0) if cadence else 0,
-            'carrieres_validees_par_heure_cycle': round(len(captures_completes) / heures, 2),
-            'carrieres_publiees_par_heure_cycle': round(len(sync_confirmees) / heures, 2),
-            'refus_geny': refus_geny, 'reponses_http_refusees_geny': refus_http, 'prochain_acces_geny_utc': state.get('prochain_acces_geny_utc'),
-        }
-        state.setdefault('bilan',{}).update(tentatives_collecte=count,
-            captures_validees=accepted,captures_partielles=partials,collectes_rejetees=count-accepted-partials)
+        if publication_seule:
+            state['publication_cycle'] = {
+                'debut_utc': now.isoformat(), 'controle_utc': state['maj_utc'],
+                'chevaux_confirmes_sheets': len(sync_confirmees),
+                'performances_ajoutees_et_confirmees_sheets': ajouts_sheets_confirmes,
+                'erreurs_sync': erreurs_sync,
+                'motif_fin_passage': motif,
+            }
+        else:
+            state['collecte_cycle'] = {
+                'debut_utc': state['passage_utc'], 'controle_utc': state['maj_utc'], 'source': 'Geny',
+                'carrieres_completes_distinctes': len(captures_completes),
+                'chevaux_confirmes_sheets': len(sync_confirmees),
+                'performances_ajoutees_et_confirmees_sheets': ajouts_sheets_confirmes,
+                'requetes_http_geny': requetes_geny, 'requetes_geny_par_ressource': dict(requetes_par_ressource),
+                'ressources_geny_servies_du_cache_http': hits_cache_http,
+                'attente_inter_chevaux_secondes': round(attente_geny, 2),
+                'intervalle_inter_chevaux_secondes': cadence.intervalle if cadence else None,
+                'duree_acces_geny_secondes': round(duree_geny, 2),
+                'refus_sans_validation': cadence.etat.get('incidents_sans_validation', 0) if cadence else 0,
+                'carrieres_validees_par_heure_cycle': round(len(captures_completes) / heures, 2),
+                'carrieres_publiees_par_heure_cycle': round(len(sync_confirmees) / heures, 2),
+                'refus_geny': refus_geny, 'reponses_http_refusees_geny': refus_http,
+                'prochain_acces_geny_utc': state.get('prochain_acces_geny_utc'),
+            }
+            state.setdefault('bilan', {}).update(tentatives_collecte=count, captures_validees=accepted,
+                captures_partielles=partials, collectes_rejetees=count-accepted-partials)
         if reprise:
             previous = {field: state['bilan'].get(field) for field in (
                 'contextes_distincts_sans_identifiant', 'noms_distincts_sans_identifiant',
@@ -540,7 +571,8 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             current = reprise.bilan(state)
             if any(current[field] != value for field, value in previous.items()):
                 state['sync_kpi'] = 'A_REPRENDRE'
-        else:materialiser_manifestes(cache, state)
+        elif not publication_seule:
+            materialiser_manifestes(cache, state)
         ecrire(cache/queue, state)
         if perimetre:
             suivi['controle_utc'] = state['maj_utc']
@@ -553,7 +585,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             return
         if checkpoint:
             checkpoint(cache)
-        elif publier:
+        elif publier or acquisition_seule:
             if reprise:checkpoint_distant(cache,queue=queue)
             else:checkpoint_distant(cache)
     save()
@@ -563,7 +595,6 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
         if reason:
             state['motif_fin_passage']=str(reason)
             break
-        choisir=reprise.prochaine_tache if reprise else prochaine_tache
         capture_archivee = None
         if rejeu:
             key = next(iter(rejeu))
@@ -577,10 +608,16 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             key, action = recensement.tache(suivi, state, associations, pause, syncs)
             if pause:
                 state['prochain_acces_geny_utc'] = pause.isoformat()
+        elif reprise:
+            key, action = reprise.prochaine_tache(state, datetime.now(UTC), attempts)
+        elif phase:
+            key, action = prochaine_tache(state, datetime.now(UTC), attempts, phase=phase)
         else:
-            key, action = choisir(state, datetime.now(UTC), attempts)
+            key, action = prochaine_tache(state, datetime.now(UTC), attempts)
         if key is None:
-            state['motif_fin_passage']=action
+            motif = action
+            if not publication_seule:
+                state['motif_fin_passage'] = action
             break
         if action == 'COLLECTE' and max_chevaux is not None and count >= max_chevaux:
             state['motif_fin_passage']='MAX_CHEVAUX_ATTEINT'
@@ -740,7 +777,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 else:
                     ligne.update(statut='DEJA_PUBLIE', capture=horse.get('collecte'))
             save()  # Publier les données AVANT toute écriture Sheets.
-            if horse.get('sync') != 'A_FAIRE':
+            if acquisition_seule or horse.get('sync') != 'A_FAIRE':
                 continue
         if perimetre:
             syncs.add(key)
@@ -759,7 +796,10 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             else:
                 raise RuntimeError('SYNCHRONISATION_NON_CONFIGUREE')
             historique = horse.get('sync_details', {}).get('Historique chevaux', {})
-            if historique.get('controle', {}).get('statut') == 'VALIDE':
+            publication_provee = historique.get('controle', {}).get('statut') == 'VALIDE'
+            if publication_seule and sync is None and not publication_provee:
+                raise RuntimeError('RELECTURE_HISTORIQUE_SHEETS_NON_PROUVEE')
+            if publication_provee:
                 sync_confirmees.add(str(horse.get('id') or key))
                 ajouts_sheets_confirmes += historique.get('lignes_ajoutees', 0)
             horse.update(sync='OK', sync_utc=datetime.now(UTC).isoformat(), erreur='')
@@ -771,6 +811,7 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                                  publication_utc=horse['sync_utc'] if preuve else None,
                                  performances_ajoutees=historique.get('lignes_ajoutees', 0) if preuve else 0)
         except Exception as exc:
+            erreurs_sync += 1
             horse.update(sync='A_FAIRE', erreur=f'{type(exc).__name__}: {exc}',
                          prochaine_sync_utc=(datetime.now(UTC)+timedelta(minutes=10)).isoformat())
             if perimetre:
@@ -783,15 +824,18 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
                 if sheets_engine:sheets_engine.fermer()
                 raise  # Incident visible en échec Actions ; ne pas continuer silencieusement.
         save()
-    state.setdefault('motif_fin_passage','BUDGET_TEMPS_ATTEINT')
+    if not publication_seule:
+        state.setdefault('motif_fin_passage', 'BUDGET_TEMPS_ATTEINT')
     if prochains_depart and not reprise:
         from .preparation_prochaines import appliquer
         appliquer(cache,state,datetime.now(UTC),nocturne=nocturne)
-    state['bilan'] = {'chevaux_suivis': len(state['chevaux']), 'tentatives_collecte': count,
-                      'captures_validees':accepted,'captures_partielles':partials,
-                      'collectes_rejetees':count-accepted-partials,
-                      'synchronisations_en_attente': sum(h.get('sync') == 'A_FAIRE' for h in state['chevaux'].values()),
-                      'actualisations_en_attente': sum(bool(h.get('motif_actualisation')) for h in state['chevaux'].values())}
+    if not publication_seule:
+        state['bilan'] = {'chevaux_suivis': len(state['chevaux']), 'tentatives_collecte': count,
+                          'captures_validees': accepted, 'captures_partielles': partials,
+                          'collectes_rejetees': count-accepted-partials}
+    state.setdefault('bilan', {}).update(
+        synchronisations_en_attente=sum(h.get('sync') == 'A_FAIRE' for h in state['chevaux'].values()),
+        actualisations_en_attente=sum(bool(h.get('motif_actualisation')) for h in state['chevaux'].values()))
     state['statut'] = ('PARTIEL_REPRENABLE' if state['bilan']['actualisations_en_attente'] or
                        state['bilan']['synchronisations_en_attente'] else 'A_JOUR')
     if reprise:
@@ -813,6 +857,8 @@ def run(cache, *, max_minutes=15, max_chevaux=None, publier=False,
             raise
         finally:sheets_engine.fermer()
     save()
+    if publication_seule and erreurs_sync:
+        raise RuntimeError(f'PUBLICATIONS_SHEETS_A_REPRENDRE : {erreurs_sync}')
     return suivi if perimetre else state
 
 
@@ -824,6 +870,9 @@ def main():
     parser.add_argument('--publier', action='store_true')
     parser.add_argument('--nocturne', action='store_true')
     parser.add_argument('--local', action='store_true', help='Publications sans requête Geny')
+    phases = parser.add_mutually_exclusive_group()
+    phases.add_argument('--acquisition-seule', action='store_true')
+    phases.add_argument('--publication-seule', action='store_true')
     parser.add_argument('--date-courses')
     parser.add_argument('--hippodrome')
     parser.add_argument('--archive-recensement', type=Path)
@@ -834,6 +883,19 @@ def main():
         parser.error('--date-courses et --hippodrome doivent être fournis ensemble')
     if args.max_minutes < 1 or (args.max_chevaux is not None and args.max_chevaux < 1):
         parser.error('Bornes positives requises')
+    if args.acquisition_seule or args.publication_seule:
+        if args.date_courses or args.nocturne or args.local or args.publier:
+            parser.error('Phases indépendantes réservées au passage incrémental de jour')
+        if args.publication_seule and not all(os.environ.get(k) for k in
+                                             ('GOOGLE_SHEETS_ID', 'GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON')):
+            raise SystemExit('Secrets Sheets absents : publication à reprendre')
+        phase = 'publication' if args.publication_seule else 'acquisition'
+        state = run(Path(args.cache), max_minutes=args.max_minutes, max_chevaux=args.max_chevaux,
+                    publier=args.publication_seule, prochains_depart=args.acquisition_seule, phase=phase)
+        cycle = 'publication_cycle' if args.publication_seule else 'collecte_cycle'
+        print('BILAN_INCREMENTAL ' + json.dumps({
+            'phase': phase, **state.get('bilan', {}), **state.get(cycle, {})}))
+        return
     if args.date_courses and not args.publier:
         from .recensement_historiques import bilan, ouvrir
         _, suivi = ouvrir(Path(args.cache), args.date_courses, args.hippodrome)

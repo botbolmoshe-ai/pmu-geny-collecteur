@@ -65,7 +65,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: pmu-donnees-production
+  group: ${{ (inputs.mode == 'decouvrir' || inputs.mode == 'collecter') && 'pmu-geny-acquisition' || format('cycle-pmu-{0}', github.run_id) }}
   cancel-in-progress: false
   queue: max
 
@@ -73,6 +73,10 @@ jobs:
   traiter-course:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    concurrency:
+      group: pmu-donnees-production
+      cancel-in-progress: false
+      queue: max
     env:
       IPR_SHADOW_ENABLED: ${{ vars.IPR_SHADOW_ENABLED || 'true' }}
     steps:
@@ -320,13 +324,13 @@ jobs:
         if: always() && steps.publication.conclusion == 'success' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'JALONS' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT')
         continue-on-error: true
         run: timeout 45s python -m pmu_geny.avis_24h_trot --cache cache_pmu
-      - name: Réparer les ferrures du cache après la publication globale
+      - name: Réparer les ferrures courantes après la publication globale
         if: always() && steps.perimetre.outputs.mode == 'GLOBAL' && steps.publication.conclusion == 'success'
         run: |
           python - <<'PYFERRURES'
           from pathlib import Path
-          from pmu_geny.reparer_ferrures import reparer
-          print(reparer(Path('cache_pmu'), partants=True))
+          from pmu_geny.reparer_ferrures import reparer_partants
+          print(reparer_partants(Path('cache_pmu')))
           PYFERRURES
       - name: Apprentissage ML unique apres les cycles de resultats
         if: always() && steps.plan.outputs.executer == 'true' && steps.publication.conclusion == 'success' && steps.plan.outputs.nocturne == 'false' && (steps.perimetre.outputs.mode == 'GLOBAL' || steps.perimetre.outputs.mode == 'RAPPROCHEMENT' || steps.perimetre.outputs.rapprochements == 'true' || inputs.mode == 'entrainer_ml')

@@ -26,13 +26,17 @@ permissions:
   contents: write
   actions: read
 concurrency:
-  group: pmu-donnees-production
+  group: pmu-geny-acquisition
   cancel-in-progress: false
   queue: max
 jobs:
   rattrapage:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    concurrency:
+      group: pmu-donnees-production
+      cancel-in-progress: false
+      queue: max
     steps:
       - name: Valider le budget avant de charger la collecte
         env:

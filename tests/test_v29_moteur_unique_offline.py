@@ -159,13 +159,12 @@ class MoteurTests(unittest.TestCase):
     def test_workflows_partagent_le_verrou_et_ne_s_annulent_pas(self):
         import yaml
         root=Path(__file__).resolve().parents[1]
-        groups=[]
-        for file in ('pmu-v16.yml','historiques-incrementaux.yml'):
+        for file, job in (('pmu-v16.yml', 'traiter-course'),
+                          ('historiques-incrementaux.yml', 'publication')):
             config=yaml.load((root/'.github/workflows'/file).read_text(),Loader=yaml.BaseLoader)
-            groups.append(config['concurrency']['group'])
-            self.assertEqual(config['concurrency']['cancel-in-progress'],'false')
-        self.assertEqual(groups[0], 'pmu-donnees-production')
-        self.assertTrue(groups[1].endswith("|| 'pmu-donnees-production' }}"))
+            verrou = config['jobs'][job]['concurrency']
+            self.assertEqual(verrou['group'], 'pmu-donnees-production')
+            self.assertEqual(verrou['cancel-in-progress'], 'false')
 
     def test_reprise_kpi_seule_sans_recollecter_ni_republier_les_chevaux(self):
         from datetime import datetime,timedelta,timezone
