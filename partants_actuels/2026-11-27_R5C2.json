@@ -1,0 +1,462 @@
+{
+  "date": "2026-11-27",
+  "course": "R5C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "dernierRapportDirect",
+    "dernierRapportReference",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KARLITO SCOTT",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 4808500,
+        "gainsVictoires": 1395000,
+        "gainsPlace": 3413500,
+        "gainsAnneeEnCours": 1844000,
+        "gainsAnneePrecedente": 982000
+      }
+    },
+    {
+      "nom": "KAISER DE CHANLECY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4852000,
+        "gainsVictoires": 3217500,
+        "gainsPlace": 1634500,
+        "gainsAnneeEnCours": 58500,
+        "gainsAnneePrecedente": 3004000
+      }
+    },
+    {
+      "nom": "KATIEU DE COUZAN",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5094500,
+        "gainsVictoires": 1417500,
+        "gainsPlace": 3677000,
+        "gainsAnneeEnCours": 1790500,
+        "gainsAnneePrecedente": 759500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:19.094514+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "KARLITO SCOTT-ALEXIA SCOTT-UGO DE NIEUL",
+      "driver_jockey": "O. MERLE",
+      "entraineur": "O. MERLE",
+      "proprietaire": "O. MERLE",
+      "musique_pmu": "9aDa3a0aDa8a4aDa2aDa",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 48085.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "nom": "KARLITO SCOTT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "KAISER DE CHANLECY-BOLLEVILLE-REDEO JOSSELYN",
+      "driver_jockey": "J.CH. FERON",
+      "entraineur": "F.J. PELTIER",
+      "proprietaire": "Ecurie de CHANLECY",
+      "ferrure": "D4",
+      "musique_pmu": "Da0a9a6a7a(25)4a1a2m9a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 48520.0,
+      "nom": "KAISER DE CHANLECY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "KATIEU DE COUZAN-USSYA LITTORAL-EPIC JULRY",
+      "driver_jockey": "D. BEKAERT",
+      "entraineur": "F.J. PELTIER",
+      "proprietaire": "Ecurie Laurent GUELERAUD",
+      "ferrure": "DA",
+      "musique_pmu": "4a2aDa3aDa4aDa4aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 50945.0,
+      "nom": "KATIEU DE COUZAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "KING GIORGIO-ELENA PRINCESSE-READY CASH",
+      "driver_jockey": "E. GOUT",
+      "entraineur": "E. GOUT",
+      "proprietaire": "Geoffrey BLANC",
+      "ferrure": "D4",
+      "musique_pmu": "4m4a7aDaDa8a6a2aDa5a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 51885.0,
+      "nom": "KING GIORGIO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "KISS PAULCA-TISYA DES CAILLONS-DAHLIA DU RIB",
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "Sté. Ent. Bernard GRASSET",
+      "proprietaire": "M. GRASSET",
+      "ferrure": "D4",
+      "musique_pmu": "2a1a3aDa0a7a2a2a4aDa",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 53560.0,
+      "nom": "KISS PAULCA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "KISS ME JIVE-FLORIDE DU BOURG-OLBLAK DU BOCAGE",
+      "driver_jockey": "N. PACHA",
+      "entraineur": "Nils PACHA",
+      "proprietaire": "Jacky GEFFROY",
+      "ferrure": "D4",
+      "musique_pmu": "5a5a6mDmDm4mDm3m7a(25)",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 54140.0,
+      "nom": "KISS ME JIVE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "KALINA LOVE-CALINE DU BIWETZ-VERY WELL JET",
+      "driver_jockey": "L. FRESNEAU",
+      "entraineur": "L. FRESNEAU",
+      "proprietaire": "Jacky GEFFROY",
+      "ferrure": "D4",
+      "musique_pmu": "9a9aDaDaDa0aDa2a2a3a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 55680.0,
+      "nom": "KALINA LOVE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "KELLE ILE LILA-BELLE ILE ROYALE-AKIM DU CAP VERT",
+      "driver_jockey": "K. DEVIENNE",
+      "entraineur": "L. BROUST",
+      "proprietaire": "Ecurie Laurent VIRICEL",
+      "ferrure": "D4",
+      "musique_pmu": "2a7a6aDa9a8aDa3aDa3a",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 56635.0,
+      "nom": "KELLE ILE LILA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "KEL COPAIN-QUELLE COPINE-PRODIGIOUS",
+      "driver_jockey": "J. GUELPA",
+      "entraineur": "S. GUELPA",
+      "proprietaire": "S. GUELPA",
+      "ferrure": "D4",
+      "musique_pmu": "3a3a4a8a5a2a2a3a5a(25)",
+      "sexe": "Mâle",
+      "age_ans": 6,
+      "gains_euros": 76955.0,
+      "nom": "KEL COPAIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "KATCHINA-VIGA DU RIB-DRAGON DES RACQUES",
+      "driver_jockey": "P. REPICHET",
+      "entraineur": "P. REPICHET",
+      "proprietaire": "L. MIRTO",
+      "ferrure": "D4",
+      "musique_pmu": "6a9aDa1aDa4a2a2a2aDa",
+      "sexe": "Femelle",
+      "age_ans": 6,
+      "gains_euros": 103295.0,
+      "nom": "KATCHINA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "KOLIBRI-UBRINE-VIGOVE",
+      "driver_jockey": "E. BRIAND",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "PA",
+      "musique_pmu": "2a2a3a2a5a2a0aAa0a4a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 105080.0,
+      "nom": "KOLIBRI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "KALGARY-ANNABELLA SMILING-LOVE YOU",
+      "driver_jockey": "N. ENSCH",
+      "entraineur": "N. ENSCH",
+      "proprietaire": "Ecurie Bernard SANCHO",
+      "musique_pmu": "9aDa1aDaDa1aDaDa1a6a",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 105980.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "nom": "KALGARY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "KING CRIMSON-ALLEZ DARLING-BOLD EAGLE",
+      "driver_jockey": "L. GOETZ",
+      "entraineur": "B. GOETZ",
+      "proprietaire": "B. GOETZ",
+      "ferrure": "D4",
+      "musique_pmu": "2a1a2a2a8a1a1a6a1aDa",
+      "sexe": "Hongre",
+      "age_ans": 6,
+      "gains_euros": 113605.0,
+      "nom": "KING CRIMSON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+        "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C2/participants",
+          "capture_utc": "2026-11-27T10:04:19.094514+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

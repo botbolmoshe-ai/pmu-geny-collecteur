@@ -1,0 +1,539 @@
+{
+  "date": "2026-11-28",
+  "course": "R1C3",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NEW SPIRIT",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1416500,
+        "gainsVictoires": 877500,
+        "gainsPlace": 539000,
+        "gainsAnneeEnCours": 1416500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NATIONAL HERO",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1983000,
+        "gainsVictoires": 1372500,
+        "gainsPlace": 610500,
+        "gainsAnneeEnCours": 1194000,
+        "gainsAnneePrecedente": 789000
+      }
+    },
+    {
+      "nom": "NEWTON DE LOIRON",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2012500,
+        "gainsVictoires": 1552500,
+        "gainsPlace": 460000,
+        "gainsAnneeEnCours": 2012500,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:52.717724+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "NEW SPIRIT-CALA ROSSA-IMPRESSIONIST",
+      "driver_jockey": "J. DUBOIS",
+      "entraineur": "J. DUBOIS",
+      "proprietaire": "J. DUBOIS",
+      "musique_pmu": "Da1a3aDa5a4aDaDa",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 14165.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NEW SPIRIT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "NATIONAL HERO-A NOUS DEUX-FABULOUS WOOD",
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "B. GOGLIN",
+      "proprietaire": "Ecurie KOMING BACK",
+      "ferrure": "P4",
+      "musique_pmu": "3a8a1a(25)7a3a7a6a1a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 19830.0,
+      "nom": "NATIONAL HERO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "NEWTON DE LOIRON-DOTKA DE LOIRON-BIRD PARKER",
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "J.M. BAUDOUIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "ferrure": "P4",
+      "musique_pmu": "6a0a1a2a1a7aDa",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 20125.0,
+      "nom": "NEWTON DE LOIRON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "NAVAH MERCURY-DAPHNE DES EPINES-ALADIN D'ECAJEUL",
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "B. GOGLIN",
+      "proprietaire": "Ecurie MERCURE",
+      "musique_pmu": "6aDm4m7a2a8aDa2a2a4a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 20300.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NAVAH MERCURY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "NIARKOS DU CEBE-EPOPEE DU CEBE-ATLAS DE JOUDES",
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "Ecurie du GRAND BUISSON",
+      "ferrure": "PA",
+      "musique_pmu": "9a3aDa2a3a2a2a(25)Da",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 20750.0,
+      "nom": "NIARKOS DU CEBE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "NICKEL GEMA-ETOILE GEMA-BOLD EAGLE",
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie Marc SASSIER",
+      "ferrure": "P4",
+      "musique_pmu": "1a2a1a3a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 21060.0,
+      "nom": "NICKEL GEMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "NELSON CHARENTAIS-FOUDRE CHARENTAISE-UN CHARME FOU",
+      "driver_jockey": "R. LAMY",
+      "entraineur": "E. VARIN",
+      "proprietaire": "Ecurie Régis MAURICE",
+      "ferrure": "P4",
+      "musique_pmu": "1a5a6a2a2a7a0a8a2a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 22255.0,
+      "nom": "NELSON CHARENTAIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "NIMBUS DU NORD-EAST ISLAND-BOLD EAGLE",
+      "driver_jockey": "G. GELORMINI",
+      "entraineur": "R. KUIPER",
+      "proprietaire": "Alf NORDEMO",
+      "musique_pmu": "2a1a2aDaDaDa2a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 23475.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NIMBUS DU NORD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "NOBEL DU GERS-GLORIA DU GERS-ROYAL DREAM",
+      "driver_jockey": "J.M. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Ecurie Jean-Michel RANCOULE",
+      "musique_pmu": "1aDa4a1a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 23730.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NOBEL DU GERS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "NOBELL DALLAUCH-CLARA DALLAUCH-IN THE MONEY",
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "N. BRIDAULT",
+      "proprietaire": "D. DROUILLY",
+      "ferrure": "P4",
+      "musique_pmu": "4a5aDaDa4a3a2a2aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 23895.0,
+      "nom": "NOBELL DALLAUCH",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "NO LIMITS QUICK-HIGHNESS QUICK-PRODIGIOUS",
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "A. RIPOLL RIGO",
+      "proprietaire": "A. RIPOLL RIGO",
+      "musique_pmu": "2a1aDa1aDa4a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 23920.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NO LIMITS QUICK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "NICE PARIS-BONNE AVENTURE-GALIUS",
+      "driver_jockey": "N. BAZIRE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Scuderia MISTERO S.R.L.",
+      "musique_pmu": "7a3aDa1a4a4a3a5a2a4a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 24225.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NICE PARIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "NICO DU CAIEU-CIVELLE DU CAIEU-SAXO DE VANDEL",
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "F. OUVRIE",
+      "proprietaire": "G. PICQ",
+      "musique_pmu": "4aDa4a1a1a2a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 25070.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NICO DU CAIEU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "NARCO CONNECTION-FEVER-FACE TIME BOURBON",
+      "driver_jockey": "A. MERIEL",
+      "entraineur": "Sté. Ent. Fabrice SOULOY",
+      "proprietaire": "L. DUGROSPREZ",
+      "musique_pmu": "Da3a4a2a2a1a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 25210.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NARCO CONNECTION",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "15": {
+      "id_pmu": "NOURKIS-BELLA DU VIVIER-SINGALO",
+      "driver_jockey": "M. VERVA",
+      "entraineur": "G. VERVA",
+      "proprietaire": "G. VERVA",
+      "musique_pmu": "4a9aDaDa6a1a2a3a4a3a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 25380.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+          "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+        }
+      },
+      "nom": "NOURKIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C3/participants",
+        "capture_utc": "2026-11-27T10:04:52.717724+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

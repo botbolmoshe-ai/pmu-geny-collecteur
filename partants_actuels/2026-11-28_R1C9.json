@@ -1,0 +1,461 @@
+{
+  "date": "2026-11-28",
+  "course": "R1C9",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "HERDUNO",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 19263500,
+        "gainsVictoires": 10867500,
+        "gainsPlace": 8396000,
+        "gainsAnneeEnCours": 6041500,
+        "gainsAnneePrecedente": 1518500
+      }
+    },
+    {
+      "nom": "JOSHUA PEJI",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 19774000,
+        "gainsVictoires": 14670000,
+        "gainsPlace": 5104000,
+        "gainsAnneeEnCours": 1614000,
+        "gainsAnneePrecedente": 8955000
+      }
+    },
+    {
+      "nom": "JOURNEY OF DREAM",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 20897000,
+        "gainsVictoires": 10305000,
+        "gainsPlace": 10592000,
+        "gainsAnneeEnCours": 3420000,
+        "gainsAnneePrecedente": 3691000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:58.094954+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "HERDUNO-VERDUNA-ROBERT KEEPER",
+      "driver_jockey": "J. POUTREL",
+      "entraineur": "J. POUTREL",
+      "proprietaire": "Mlle Claire ANGEL",
+      "ferrure": "PA",
+      "musique_pmu": "2a4a0a1a2a1a1a4a1a8a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 192635.0,
+      "nom": "HERDUNO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "JOSHUA PEJI-VERY SWEET-DROLE DE JET",
+      "driver_jockey": "D. BONNE",
+      "entraineur": "D. BONNE",
+      "proprietaire": "P.G. GUILLARD",
+      "ferrure": "PA",
+      "musique_pmu": "Da7aDm4mDa3aDaDm(25)1a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 197740.0,
+      "nom": "JOSHUA PEJI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "JOURNEY OF DREAM-STORY CHARM-PRODIGIOUS",
+      "driver_jockey": "M. IONESCU",
+      "entraineur": "R. DERIEUX",
+      "proprietaire": "Ecurie SERENITE",
+      "musique_pmu": "0a0a1a1a0a0a(25)3a7a1a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 208970.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "nom": "JOURNEY OF DREAM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "JOYEUX DU LANDRET-ANAKINE DU BELLAY-BON COPAIN",
+      "driver_jockey": "B. ROBIN",
+      "entraineur": "B. ROBIN",
+      "proprietaire": "B. ROBIN",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a1a3a1a4a2a2a5a2a7a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 253265.0,
+      "nom": "JOYEUX DU LANDRET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "JOJO TOONS-TATA MARGUERITE-UNITED BACK",
+      "driver_jockey": "M. BEZIER",
+      "entraineur": "M. BEZIER",
+      "proprietaire": "A.P. BEZIER",
+      "ferrure": "DP/PA",
+      "musique_pmu": "8a6a9a0a8a5a5a1a1aDa",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 297300.0,
+      "nom": "JOJO TOONS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "JIPET DE CREPIN-ABIKIE-BOCCADOR DE SIMM",
+      "driver_jockey": "S. ERNAULT",
+      "entraineur": "S. ERNAULT",
+      "proprietaire": "Mme Cl. LE PIMPEC",
+      "ferrure": "PA",
+      "musique_pmu": "Da1a7a0a2a1a7aGa4a1a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 312000.0,
+      "nom": "JIPET DE CREPIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "HEUREUX DE FLEUR-NEVER SO GREAT-VERY NICE MARCEAUX",
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "Mme S. RAIMOND",
+      "proprietaire": "J.P. BESSY",
+      "ferrure": "D4",
+      "musique_pmu": "2a6a0a1a4a2a2a3a5a1a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 320000.0,
+      "nom": "HEUREUX DE FLEUR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "IKURO JIEL-HIOSCA JIEL-QUALYPSO JIEL",
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "J.L. DERSOIR",
+      "proprietaire": "Ecurie LUCK",
+      "musique_pmu": "8m9m7m0a6m1m2m2m1m(25)",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 324070.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "nom": "IKURO JIEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "HERE WE GO-VENDETTA DE JOUDES-ROYAL DREAM",
+      "driver_jockey": "L. FERRO",
+      "entraineur": "L. FERRO",
+      "proprietaire": "Stall ALLEGRA RACING CLUB",
+      "ferrure": "PA",
+      "musique_pmu": "(25)Da5a0a6a4aDm(24)6a5a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 340350.0,
+      "nom": "HERE WE GO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "INDY DARK-RASTA PERRINE-READY CASH",
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "J.F. MARY",
+      "proprietaire": "J.F. MARY",
+      "ferrure": "D4",
+      "musique_pmu": "0a0a6a5a5a6a4a7a6a0a",
+      "sexe": "Mâle",
+      "age_ans": 8,
+      "gains_euros": 375885.0,
+      "nom": "INDY DARK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "ILLUSION JIPAD-TOUTOUNE JIPAD-BOCCADOR DE SIMM",
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "P. LELIEVRE",
+      "proprietaire": "Ecurie Pascal LELIEVRE",
+      "ferrure": "D4",
+      "musique_pmu": "0aDa0a4aDm(25)Dm5a2a4a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 376068.0,
+      "nom": "ILLUSION JIPAD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "HAMILTON DU HAM-SCARLET DU HAM-RACHMANINOV SEVEN",
+      "driver_jockey": "CH. MARTENS",
+      "entraineur": "Y. DESMET",
+      "proprietaire": "Y. DESMET",
+      "ferrure": "D4",
+      "musique_pmu": "0a4aDaDa7a1a6a3a9a4a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 396360.0,
+      "nom": "HAMILTON DU HAM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "JIZOU D'ETANG-NAZOULENE-PARIS HAUFOR",
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "CH. BIGEON",
+      "proprietaire": "ELEVAGE DE L'ETANG",
+      "ferrure": "D4",
+      "musique_pmu": "1a1a1a1a1aDaDaDa1a5a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 397760.0,
+      "nom": "JIZOU D'ETANG",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+        "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C9/participants",
+          "capture_utc": "2026-11-27T10:04:58.094954+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

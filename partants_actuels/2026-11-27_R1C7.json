@@ -1,0 +1,316 @@
+{
+  "date": "2026-11-27",
+  "course": "R1C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "dernierRapportDirect",
+    "dernierRapportReference",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "IDUNN",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 9434500,
+        "gainsVictoires": 3195000,
+        "gainsPlace": 6239500,
+        "gainsAnneeEnCours": 3036000,
+        "gainsAnneePrecedente": 1868500
+      }
+    },
+    {
+      "nom": "HEGA DES LANDIERS",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 10364000,
+        "gainsVictoires": 4050000,
+        "gainsPlace": 6314000,
+        "gainsAnneeEnCours": 1403500,
+        "gainsAnneePrecedente": 1984500
+      }
+    },
+    {
+      "nom": "ISIS DU LEARD",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 11334500,
+        "gainsVictoires": 7672500,
+        "gainsPlace": 3662000,
+        "gainsAnneeEnCours": 1749000,
+        "gainsAnneePrecedente": 548000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:21.885566+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "IDUNN-TIFFY-LONTZAC",
+      "driver_jockey": "J. MAILLARD",
+      "entraineur": "Mme G. MASSCHAELE",
+      "proprietaire": "Jean Paul DERENNE",
+      "ferrure": "DP",
+      "musique_pmu": "7a6a6a4a9a1a2a2aDa3a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 94345.0,
+      "nom": "IDUNN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "HEGA DES LANDIERS-MEGA DES LANDIERS-BOCCADOR DE SIMM",
+      "driver_jockey": "G. GILARD",
+      "entraineur": "D. CHERADAME",
+      "proprietaire": "D. CHERADAME",
+      "musique_pmu": "8m8m4a0a9a2m9m6m0a7a",
+      "sexe": "Femelle",
+      "age_ans": 9,
+      "gains_euros": 103640.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+        }
+      },
+      "nom": "HEGA DES LANDIERS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "ISIS DU LEARD-BALI DU LEARD-DJANGO RIFF",
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "K. LEBLANC",
+      "proprietaire": "G.M. NICOLAS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1mDa0aDmDm1m6a(25)8m0a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 113345.0,
+      "nom": "ISIS DU LEARD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "ILOVIROIZ DI LEONE-URANIA DES BAULTS-MAGNIFICENT RODNEY",
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "Joris FILOGRASSO",
+      "proprietaire": "Joris FILOGRASSO",
+      "ferrure": "P4",
+      "musique_pmu": "0a0a8m5mDa4a4m8mDaDa",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 114260.0,
+      "nom": "ILOVIROIZ DI LEONE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "GIRL DE L'ETOILE-AZALEE DE L'ETOILE-PALADIN BLEU",
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "L. THIEULENT",
+      "proprietaire": "Ecurie ALTA BLEU",
+      "ferrure": "D4",
+      "musique_pmu": "8a0a7a6aDm6a4a0a0a(25)",
+      "sexe": "Femelle",
+      "age_ans": 10,
+      "gains_euros": 158640.0,
+      "nom": "GIRL DE L'ETOILE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "CREEK'S NU LOVE-CREEK'S TAMINA-NU PAGADI",
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "O. RAFFIN",
+      "proprietaire": "S. LEFORT",
+      "ferrure": "D4",
+      "musique_pmu": "4m0a6a6a3a4a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 158869.0,
+      "nom": "CREEK'S NU LOVE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "IN LOVE DE BLARY-AGORA DE BLARY-CARAT WILLIAMS",
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Ecurie MIP",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Dm4m5m7m6aDa(25)3mDm0a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 161370.0,
+      "nom": "IN LOVE DE BLARY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "IBIZA DE CONNEE-PIANA DE CONNEE-PAGALOR",
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "CH.A. MALLET",
+      "proprietaire": "Ecurie Christophe MALLET",
+      "ferrure": "D4",
+      "musique_pmu": "2m7m2mDa2m1m4m6m2m0a",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 173920.0,
+      "nom": "IBIZA DE CONNEE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.885566+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

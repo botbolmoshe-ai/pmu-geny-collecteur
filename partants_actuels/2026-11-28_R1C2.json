@@ -1,0 +1,366 @@
+{
+  "date": "2026-11-28",
+  "course": "R1C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "ecurie",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "OPIUM D'AMOUR",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 2113500,
+        "gainsVictoires": 472500,
+        "gainsPlace": 1641000,
+        "gainsAnneeEnCours": 2113500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "OZZARO DIBAH",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 2364000,
+        "gainsVictoires": 945000,
+        "gainsPlace": 1419000,
+        "gainsAnneeEnCours": 2364000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "ODOACRE TURGOT",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 2644000,
+        "gainsVictoires": 1710000,
+        "gainsPlace": 934000,
+        "gainsAnneeEnCours": 2644000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:51.241499+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "OPIUM D'AMOUR-GAZELLE D'AMOUR-PRINCE D'ESPACE",
+      "driver_jockey": "A. GUARATO",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Ecurie Sébastien GUARATO",
+      "musique_pmu": "Da4a4a2aDa1a",
+      "sexe": "Hongre",
+      "age_ans": 2,
+      "gains_euros": 21135.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "OPIUM D'AMOUR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "OZZARO DIBAH-VANILLE DU NOYER-CHARLY DU NOYER",
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "S. ROUSSELLE",
+      "proprietaire": "Ecurie DIBAH",
+      "musique_pmu": "Da2a1a3a4a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 23640.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "OZZARO DIBAH",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "ODOACRE TURGOT-GELINOTTE TURGOT-HOHNECK",
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "P. BOEY",
+      "musique_pmu": "4a1a2a3a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 26440.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "ODOACRE TURGOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "OLIVIO BELLO-BOLIVIA BELLA-JUST A GIGOLO",
+      "driver_jockey": "C. DELBECQ",
+      "entraineur": "J. ROBERT",
+      "proprietaire": "J. ROBERT",
+      "musique_pmu": "3a4a2a4a4a2a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 29045.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "OLIVIO BELLO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "OTTO D'IQUAINE-HORELA D'IQUAINE-CLIF DU POMMEREUX",
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Ecurie Sébastien GUARATO",
+      "musique_pmu": "2a5a1aDa1a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 33775.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "OTTO D'IQUAINE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "ORACE DES MOLLES-GRAINE DES MOLLES-HOHNECK",
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "J.L. BERAUD",
+      "musique_pmu": "3a3a1a1a4a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 39165.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "ORACE DES MOLLES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "OSWALD PORT-DEESSE PORT-IDAO DE TILLARD",
+      "driver_jockey": "THEO DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Théo DUVALDESTIN",
+      "musique_pmu": "1a1a1a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 41625.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "OSWALD PORT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "ONYX D'AVRIL-CAPUCINE D'AVRIL-IZOARD VEDAQUAIS",
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "PH. ALLAIRE",
+      "proprietaire": "PH. ALLAIRE",
+      "musique_pmu": "Da1aDa1a4a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 42690.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "ONYX D'AVRIL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "OSSAU DU PRE-GEISHA DU PRE-IDAO DE TILLARD",
+      "driver_jockey": "CL. DUVALDESTIN",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ecurie OLMENHOF",
+      "musique_pmu": "1a2a1a1a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 62250.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+          "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+        }
+      },
+      "nom": "OSSAU DU PRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C2/participants",
+        "capture_utc": "2026-11-27T10:04:51.241499+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "date": "2026-11-28",
+  "course": "R1C8",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "KOOGOO GAAGAA",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 6691000,
+        "gainsVictoires": 468700,
+        "gainsPlace": 223200,
+        "gainsAnneeEnCours": 691900,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "LOUVE ANGEL",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 12262500,
+        "gainsVictoires": 4050000,
+        "gainsPlace": 8212500,
+        "gainsAnneeEnCours": 4874000,
+        "gainsAnneePrecedente": 3129000
+      }
+    },
+    {
+      "nom": "LILI DRY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 13304000,
+        "gainsVictoires": 2520000,
+        "gainsPlace": 10784000,
+        "gainsAnneeEnCours": 2838000,
+        "gainsAnneePrecedente": 4693000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:57.072636+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "KOOGOO GAAGAA-CINDERELLA-GOOGOO GAAGAA",
+      "driver_jockey": "D. BONNE",
+      "entraineur": "N. BAZIRE",
+      "proprietaire": "Kim KAERSLUND (DEN)",
+      "ferrure": "D4",
+      "musique_pmu": "0a6a0a3a8a1a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 66910.0,
+      "nom": "KOOGOO GAAGAA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+        "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+          "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "LOUVE ANGEL-ALTESSE ECLATANTE-SAXO DE VANDEL",
+      "driver_jockey": "M. CHAMPENOIS",
+      "entraineur": "N. RAIMBEAUX",
+      "proprietaire": "N. RAIMBEAUX",
+      "ferrure": "D4",
+      "musique_pmu": "0m2m4m1m5m5m9m0mDm0a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 122625.0,
+      "nom": "LOUVE ANGEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+        "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+          "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "LILI DRY-GIULIA JOSSELYN-GOETMALS WOOD",
+      "driver_jockey": "A. ANDRE",
+      "entraineur": "Antonin ANDRE",
+      "proprietaire": "Ecurie DRY",
+      "ferrure": "D4",
+      "musique_pmu": "4m3aDa8a8aDa6a4aDa3a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 133040.0,
+      "nom": "LILI DRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+        "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+          "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "LASKA DU LEVANT-SOANA DU LEVANT-EXCELLENT",
+      "driver_jockey": "M. DURVILLE",
+      "entraineur": "B. CARPENTIER",
+      "proprietaire": "B. CARPENTIER",
+      "ferrure": "D4",
+      "musique_pmu": "6m5m5m5m7m1mDm2m2mDm",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 167920.0,
+      "nom": "LASKA DU LEVANT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+        "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+          "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "LAKANA DE FELLIERE-CARENA DE FELLIERE-EARL SIMON",
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "Ecurie Alexis GRIMAULT",
+      "ferrure": "D4",
+      "musique_pmu": "2m4m2m9m4m9m2m3m2m5m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 351315.0,
+      "nom": "LAKANA DE FELLIERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+        "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+          "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "LONDON-TILDA-ROCKFELLER CENTER",
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "M. MOTTIER",
+      "proprietaire": "Mme D. MOTTIER",
+      "ferrure": "PA",
+      "musique_pmu": "0aDa1m3m1m(25)DaDa5aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 425770.0,
+      "nom": "LONDON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+        "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+          "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "LIBERTE DU GOUTIER-CANDIE D'ATOUT-PRODIGIOUS",
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "TH. DUVALDESTIN",
+      "proprietaire": "Ecurie SAINT MARTIN",
+      "ferrure": "D4",
+      "musique_pmu": "1m1m4m3m0m1m1m(25)6m8m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 463830.0,
+      "nom": "LIBERTE DU GOUTIER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+        "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+          "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "LISBONNE DRY-DELICATESSEN-SINGALO",
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "P. PLOQUIN",
+      "proprietaire": "Ecurie DRY",
+      "ferrure": "D4",
+      "musique_pmu": "3m2m1m8aDm3m5m7a2mDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 515440.0,
+      "nom": "LISBONNE DRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+        "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C8/participants",
+          "capture_utc": "2026-11-27T10:04:57.072636+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "date": "2026-11-28",
+  "course": "R1C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MANHATTAN EMGE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 20914500,
+        "gainsVictoires": 17977500,
+        "gainsPlace": 2937000,
+        "gainsAnneeEnCours": 11155000,
+        "gainsAnneePrecedente": 7903000
+      }
+    },
+    {
+      "nom": "LOUIS VITTON MIJO",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 21468000,
+        "gainsVictoires": 13230000,
+        "gainsPlace": 8238000,
+        "gainsAnneeEnCours": 8690000,
+        "gainsAnneePrecedente": 10154000
+      }
+    },
+    {
+      "nom": "GOLDEN GIO",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 23854000,
+        "gainsVictoires": 17099300,
+        "gainsPlace": 4970000,
+        "gainsAnneeEnCours": 5869300,
+        "gainsAnneePrecedente": 16200000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:56.205874+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "MANHATTAN EMGE-ECLIPSE SOMOLLI-GOTLAND",
+      "driver_jockey": "D. BONNE",
+      "entraineur": "Y. HENRY",
+      "proprietaire": "Y. HENRY",
+      "musique_pmu": "1aDa1a1a1a2a1a1a(25)4a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 209145.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "nom": "MANHATTAN EMGE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "LOUIS VITTON MIJO-TOQUE ORANGE-DOLLAR MACKER",
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "M. JOURNO",
+      "ferrure": "DA",
+      "musique_pmu": "2a8aDaDa1a3aDaDaDa4a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 214680.0,
+      "nom": "LOUIS VITTON MIJO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "GOLDEN GIO-ZED WISE AS-FACE TIME BOURBON",
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "ZACON GIO SRL (ITY)",
+      "ferrure": "DP",
+      "musique_pmu": "DaDa4a2aDa2a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 238540.0,
+      "nom": "GOLDEN GIO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "GINGER GIO-DORIS DEO (US)-TONY GIO",
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "ZACON GIO SRL (ITY)",
+      "ferrure": "D4",
+      "musique_pmu": "2a2a3aDa6a7a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 267008.0,
+      "nom": "GINGER GIO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "LIGHT MY FIRE-REETHI RAH JET-READY CASH",
+      "driver_jockey": "A. GUARATO",
+      "entraineur": "S. GUARATO",
+      "proprietaire": "Ecurie ELAG",
+      "ferrure": "D4",
+      "musique_pmu": "0a4a0aDa(25)7a0m3a3aDa",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 322275.0,
+      "nom": "LIGHT MY FIRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "MAGIC MAN-GARDEN PARTY-PRODIGIOUS",
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "Sté. Ent. Etienne DUBOIS",
+      "proprietaire": "Sté. Ent. Etienne DUBOIS",
+      "ferrure": "PA",
+      "musique_pmu": "4a2a3aDa1a1aDa4aDa(25)",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 332130.0,
+      "nom": "MAGIC MAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "MENTOR DE PLAY-AUBE D'ORTIGE-DAHLIA DU RIB",
+      "driver_jockey": "F. BLANDIN",
+      "entraineur": "F. BLANDIN",
+      "proprietaire": "Ecurie Franck BLANDIN",
+      "ferrure": "DA",
+      "musique_pmu": "3a5aDa3a2a2a7a1a2a3a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 339400.0,
+      "nom": "MENTOR DE PLAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "LORD DU BASSIN-FALENTINA DU GITE-ROYAL DREAM",
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "J. RATTINA",
+      "ferrure": "DP",
+      "musique_pmu": "5a2a1a1aDaDa6a1a(25)1a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 361630.0,
+      "nom": "LORD DU BASSIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "PHANTOM EXPRESS-COMEWITHAFLASH-READLY EXPRESS",
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "Joachim ELFVING",
+      "proprietaire": "Patrik SKOGLUND SPORT & MEDIA AB (SWE)",
+      "ferrure": "D4",
+      "musique_pmu": "1a1a1a0a2aDa",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 369552.0,
+      "nom": "PHANTOM EXPRESS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+        "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C7/participants",
+          "capture_utc": "2026-11-27T10:04:56.205874+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

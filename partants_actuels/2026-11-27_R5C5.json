@@ -1,0 +1,474 @@
+{
+  "date": "2026-11-27",
+  "course": "R5C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "dernierRapportDirect",
+    "dernierRapportReference",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LE GRAND FLAC",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 4336500,
+        "gainsVictoires": 2340000,
+        "gainsPlace": 1996500,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 666000
+      }
+    },
+    {
+      "nom": "LUCKY ARCTIC",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4582000,
+        "gainsVictoires": 2205000,
+        "gainsPlace": 2377000,
+        "gainsAnneeEnCours": 1740500,
+        "gainsAnneePrecedente": 2458500
+      }
+    },
+    {
+      "nom": "LIBRIS EX BOURBON",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4593500,
+        "gainsVictoires": 1561500,
+        "gainsPlace": 3032000,
+        "gainsAnneeEnCours": 1611000,
+        "gainsAnneePrecedente": 2052000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:20.601342+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "LE GRAND FLAC-CLASS PETTEVINIERE-FACE TIME BOURBON",
+      "driver_jockey": "CH. MARTENS",
+      "entraineur": "V. MARTENS",
+      "proprietaire": "Ecurie OLMENHOF",
+      "musique_pmu": "(25)5a8a3a(24)8a4a3a1a3a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 43365.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "nom": "LE GRAND FLAC",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "LUCKY ARCTIC-UNE VIE-UP AND QUICK",
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "DA",
+      "musique_pmu": "3a8a0a3a4a2aDa5a2a6a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 45820.0,
+      "nom": "LUCKY ARCTIC",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "LIBRIS EX BOURBON-UNE BELLE BOURBON-PRODIGIOUS",
+      "driver_jockey": "L. GOETZ",
+      "entraineur": "CHARLES BOUVIER",
+      "proprietaire": "Kirsten AXISA",
+      "ferrure": "D4",
+      "musique_pmu": "1a0a1aDa2a4a1a0a9a6a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 45935.0,
+      "nom": "LIBRIS EX BOURBON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "LUTECE SMART-CUP OF SMART-UN MEC D'HERIPRE",
+      "driver_jockey": "N. CINIER",
+      "entraineur": "D. CINIER",
+      "proprietaire": "D. CINIER",
+      "ferrure": "P4",
+      "musique_pmu": "3a4a5a7aDa7a2a8aDa4a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 46590.0,
+      "nom": "LUTECE SMART",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "LA HORSE-CREOLE D'EBANE-BOLERO LOVE",
+      "driver_jockey": "Y.A. BRIAND",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "musique_pmu": "0aDm6a0a6aDm0a(25)8mDm",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 46970.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "nom": "LA HORSE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "LA BELLE MISS-QUELLE MISS WIC-QUAKER JET",
+      "driver_jockey": "K. THONNERIEUX",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "D4",
+      "musique_pmu": "7a3a6aDaDa3a7a3a1a3a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 48240.0,
+      "nom": "LA BELLE MISS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "LENNON-SWEET PEARL-FOLLOW YOU",
+      "driver_jockey": "E. BRIAND",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1a1a0a7a5a1a7a4a3aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 49725.0,
+      "nom": "LENNON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "LUCIFER-VALLEY VICTORIA-DJANGO RIFF",
+      "driver_jockey": "S. STEFANO",
+      "entraineur": "J.M. ROUBAUD",
+      "proprietaire": "A. LOFFREDO",
+      "ferrure": "D4",
+      "musique_pmu": "Dm4a0a4a9a2a9a7a4a8a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 52915.0,
+      "nom": "LUCIFER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "LAWMAN-ULZHANE-READY CASH",
+      "driver_jockey": "N. ENSCH",
+      "entraineur": "N. ENSCH",
+      "proprietaire": "Ecurie Nicolas ENSCH",
+      "musique_pmu": "0a9m6mDm6a7a8a3a8m2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 71050.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "nom": "LAWMAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "LASKO DES FORGES-VICTOIRE DE FORGES-GU D'HERIPRE",
+      "driver_jockey": "N. MORTAGNE",
+      "entraineur": "N. MORTAGNE",
+      "proprietaire": "Ecurie LOUIS D'AUR",
+      "musique_pmu": "3a4aDa3aDa9aDa4a1aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 87145.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "nom": "LASKO DES FORGES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "LOOK D'HERMES-URFEE DU MOUCHEL-LOVE YOU",
+      "driver_jockey": "K. DEVIENNE",
+      "entraineur": "J.M. ROUBAUD",
+      "proprietaire": "Ecurie MARECHAL",
+      "ferrure": "D4",
+      "musique_pmu": "9aAaDm6a9a2a6m3m6aDa",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 90470.0,
+      "nom": "LOOK D'HERMES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "LAKARA-ECLIPSE DE KARA-VILLAGE MYSTIC",
+      "driver_jockey": "J.CH. FERON",
+      "entraineur": "J.CH. FERON",
+      "proprietaire": "Ecurie J.C. FERON",
+      "musique_pmu": "9a2a3a7a7a2a1a1aDa2a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 103895.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "nom": "LAKARA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "LORKY RED-FRANCA MARIA SLY-DROLE DE JET",
+      "driver_jockey": "B. GOETZ",
+      "entraineur": "B. GOETZ",
+      "proprietaire": "P. BREVUNE",
+      "musique_pmu": "8a1a7a6a1a2a9a1a5a3a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 108250.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+          "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+        }
+      },
+      "nom": "LORKY RED",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C5/participants",
+        "capture_utc": "2026-11-27T10:04:20.601342+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

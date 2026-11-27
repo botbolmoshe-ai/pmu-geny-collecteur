@@ -1,0 +1,313 @@
+{
+  "date": "2026-11-27",
+  "course": "R5C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "dernierRapportDirect",
+    "dernierRapportReference",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "handicapPoids",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "JO DE CAZOULENE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 12078500,
+        "gainsVictoires": 4117500,
+        "gainsPlace": 7961000,
+        "gainsAnneeEnCours": 2693500,
+        "gainsAnneePrecedente": 2728500
+      }
+    },
+    {
+      "nom": "ILLYTRASS",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 13434500,
+        "gainsVictoires": 5872500,
+        "gainsPlace": 7562000,
+        "gainsAnneeEnCours": 4117000,
+        "gainsAnneePrecedente": 3288500
+      }
+    },
+    {
+      "nom": "HAVRE DE PAIX",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 19087000,
+        "gainsVictoires": 8820000,
+        "gainsPlace": 10267000,
+        "gainsAnneeEnCours": 4058000,
+        "gainsAnneePrecedente": 1051000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:21.415301+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "JO DE CAZOULENE-ROSALIE DU PIN-REFLET GEDE",
+      "driver_jockey": "Mme LAETITIA GOUT",
+      "entraineur": "B. GOETZ",
+      "proprietaire": "B. GOETZ",
+      "ferrure": "D4",
+      "musique_pmu": "4a3a2a4a2a7a0aDm6a0a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 120785.0,
+      "nom": "JO DE CAZOULENE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "ILLYTRASS-BARAKA DES ONDES-CYPRIEN DES BORDES",
+      "driver_jockey": "Mme L. LECOQ",
+      "entraineur": "D. CINIER",
+      "proprietaire": "D. CINIER",
+      "ferrure": "D4",
+      "musique_pmu": "Da4a3a2a4a8a1a1a4a8a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 134345.0,
+      "nom": "ILLYTRASS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "HAVRE DE PAIX-ROYALE ACTION-ROYAL DREAM",
+      "driver_jockey": "W. BAUDY",
+      "entraineur": "W. BAUDY",
+      "proprietaire": "W. BAUDY",
+      "ferrure": "D4",
+      "musique_pmu": "Da8m1m4m5mDm7m3m4m5m",
+      "sexe": "Mâle",
+      "age_ans": 9,
+      "gains_euros": 190870.0,
+      "nom": "HAVRE DE PAIX",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "HARRY DU LYS-HEREBIE DU LYS-UP AND QUICK",
+      "driver_jockey": "M. GRUMETZ",
+      "entraineur": "Maxime GRUMETZ",
+      "proprietaire": "PH. GRUMETZ",
+      "ferrure": "D4",
+      "musique_pmu": "8m0m6m0m4m0a4m0a7m4m",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 200935.0,
+      "nom": "HARRY DU LYS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "IMPERIAL KEY-PALMA PIERRE-BRUTUS DE BAILLY",
+      "driver_jockey": "CH. BOUTEILLER",
+      "entraineur": "J. CUOQ",
+      "proprietaire": "A. LANGUE",
+      "ferrure": "D4",
+      "musique_pmu": "8a7a0m4m2m1m6m2m(25)1m",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 226885.0,
+      "nom": "IMPERIAL KEY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "GOUTIER CELESTE-LUMIERE CELESTE-QUIDO DU GOUTIER",
+      "driver_jockey": "O. PLACIER",
+      "entraineur": "Nils PACHA",
+      "proprietaire": "S. DOUANEAU",
+      "ferrure": "D4",
+      "musique_pmu": "0mDm(25)9m3m(24)1m2m1m1m",
+      "sexe": "Hongre",
+      "age_ans": 10,
+      "gains_euros": 249860.0,
+      "nom": "GOUTIER CELESTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "JOIE DE LA COTE-URANIE DES ELFES-CASH AND GO",
+      "driver_jockey": "Q. SEGUIN",
+      "entraineur": "S. LALOUM",
+      "proprietaire": "A. LALOUM",
+      "ferrure": "D4",
+      "musique_pmu": "0a4a5m2a3a6a5a8a3a4a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 251390.0,
+      "nom": "JOIE DE LA COTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "INSTANT GRAVE-PERLE GRAVE-TIEGO D'ETANG",
+      "driver_jockey": "Mme A. VAUTIER",
+      "entraineur": "N. LANGLOIS",
+      "proprietaire": "Ecurie CHORT",
+      "ferrure": "D4",
+      "musique_pmu": "8m3m1m3m4m9a7m4m3m0a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 269025.0,
+      "nom": "INSTANT GRAVE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 25,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+        "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026/R5/C7/participants",
+          "capture_utc": "2026-11-27T10:04:21.415301+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

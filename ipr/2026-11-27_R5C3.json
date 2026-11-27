@@ -2,11 +2,11 @@
   "date": "2026-11-27",
   "course": "R5C3",
   "depart": "2026-11-27T18:05:00+01:00",
-  "observation_utc": "2026-11-26T16:48:06.326647+00:00",
-  "calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+  "observation_utc": "2026-11-27T10:04:19.310619+00:00",
+  "calcul_utc": "2026-11-27T10:04:28.509330+00:00",
   "version": "ipr-v1",
   "usage": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
-  "preparation": true,
+  "preparation": false,
   "discipline": "a",
   "distance": 2650,
   "mode_depart": "",
@@ -27,29 +27,42 @@
   ],
   "chevaux": {
     "1": {
-      "ipr_score": null,
-      "ipr_confiance": "NON ÉVALUABLE",
-      "ipr_n_historiques_comparables": null,
-      "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_score": 0.0,
+      "ipr_confiance": "FAIBLE",
+      "ipr_n_historiques_comparables": 1,
+      "ipr_couverture": 33.3,
+      "ipr_motifs": "0/1 avec effectif · échantillon effectif 1.0 · DAI pondérés 0% · rang ordinal en secours",
+      "source": "https://www.geny.com/cheval/2655111",
+      "historique_extrait_utc": "2026-11-26T23:07:29.977102+00:00",
+      "sorties": [
+        {
+          "jour": "2026-02-12",
+          "rang": 6,
+          "effectif": null,
+          "merite": 0.0,
+          "poids": 0.1458702342511385,
+          "couverture": 0.3333333333333333,
+          "dai": false
+        }
+      ],
       "nom": "HOLLYWOOD TRICK",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
-      "ipr_rang_shadow": null
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
+      "ipr_rang_shadow": 2
     },
     "2": {
       "ipr_score": null,
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "IDEFIX DHELPA",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "3": {
@@ -57,23 +70,32 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "GIRLY VICTORY",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "4": {
-      "ipr_score": 17.38,
+      "ipr_score": 22.39,
       "ipr_confiance": "MOYENNE",
       "ipr_n_historiques_comparables": 10,
       "ipr_couverture": 50.0,
-      "ipr_motifs": "Préparation J+1 · 0/10 avec effectif · échantillon effectif 7.6 · DAI pondérés 14% · rang ordinal en secours",
-      "source": "https://www.geny.com/cheval/2741865-kandie-d-orco/course/1698196",
-      "historique_extrait_utc": "2026-11-16T19:09:29.080624+00:00",
+      "ipr_motifs": "0/10 avec effectif · échantillon effectif 8.0 · DAI pondérés 13% · rang ordinal en secours",
+      "source": "https://www.geny.com/cheval/2741865-kandie-d-orco",
+      "historique_extrait_utc": "2026-11-27T00:52:11.341186+00:00",
       "sorties": [
+        {
+          "jour": "2026-11-21",
+          "rang": 2,
+          "effectif": null,
+          "merite": 0.7,
+          "poids": 0.4521735269753378,
+          "couverture": 0.5,
+          "dai": false
+        },
         {
           "jour": "2026-11-13",
           "rang": 5,
@@ -154,22 +176,13 @@
           "poids": 0.17400558203792782,
           "couverture": 0.5,
           "dai": false
-        },
-        {
-          "jour": "2026-03-08",
-          "rang": 2,
-          "effectif": null,
-          "merite": 0.7,
-          "poids": 0.14167445055232905,
-          "couverture": 0.5,
-          "dai": false
         }
       ],
       "nom": "KANDIE D'ORCO",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": 1
     },
     "5": {
@@ -177,12 +190,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "KINGEN MEARAS",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "6": {
@@ -190,12 +203,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "KEEN ON ME",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "7": {
@@ -203,12 +216,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "JUPITER DU CORTA",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "8": {
@@ -216,12 +229,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "KAPORAL VISAIS",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "9": {
@@ -229,12 +242,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "JALAPENO",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "10": {
@@ -242,12 +255,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Historique Geny absent ou postérieur au relevé",
       "nom": "HAJIME",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "11": {
@@ -255,12 +268,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "GOLDEN VISAIS",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "12": {
@@ -268,12 +281,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "JASON GINYU",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     },
     "13": {
@@ -281,12 +294,12 @@
       "ipr_confiance": "NON ÉVALUABLE",
       "ipr_n_historiques_comparables": null,
       "ipr_couverture": null,
-      "ipr_motifs": "Préparation J+1 · Identité Geny absente ou ambiguë",
+      "ipr_motifs": "Identité Geny absente ou ambiguë",
       "nom": "GRAND TRIO LUDOIS",
       "statut_np": "PARTANT",
       "ipr_statut": "EXPÉRIMENTAL — NON UTILISÉ DANS LES PRONOSTICS",
       "ipr_version": "ipr-v1",
-      "ipr_calcul_utc": "2026-11-26T16:48:06.759630+00:00",
+      "ipr_calcul_utc": "2026-11-27T10:04:28.509330+00:00",
       "ipr_rang_shadow": null
     }
   },

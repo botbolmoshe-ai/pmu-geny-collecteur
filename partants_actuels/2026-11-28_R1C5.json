@@ -1,0 +1,455 @@
+{
+  "date": "2026-11-28",
+  "course": "R1C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LADY DES ARRIS",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8760000,
+        "gainsVictoires": 2970000,
+        "gainsPlace": 5790000,
+        "gainsAnneeEnCours": 2484000,
+        "gainsAnneePrecedente": 4671000
+      }
+    },
+    {
+      "nom": "LADY HAUFOR",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 8950000,
+        "gainsVictoires": 5220000,
+        "gainsPlace": 3730000,
+        "gainsAnneeEnCours": 3076000,
+        "gainsAnneePrecedente": 2424000
+      }
+    },
+    {
+      "nom": "LAREDO BAY",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 9591500,
+        "gainsVictoires": 5602500,
+        "gainsPlace": 3989000,
+        "gainsAnneeEnCours": 1210000,
+        "gainsAnneePrecedente": 5579000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:54.617504+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "LADY DES ARRIS-ALENSKA-GOLDEN BRIDGE",
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "V. LEBARQUE",
+      "proprietaire": "Ecurie Comte P. de MONTESSON",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a3a3aDa6a3aDaDa6aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 87600.0,
+      "nom": "LADY DES ARRIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "LADY HAUFOR-CITY HAUFOR-BOCCADOR DE SIMM",
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "CH. BIGEON",
+      "proprietaire": "Ecurie Christian BIGEON",
+      "ferrure": "DP/PA",
+      "musique_pmu": "1a9a7a3a3a(25)6a5aDa7a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 89500.0,
+      "nom": "LADY HAUFOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "LAREDO BAY-CAUSEWAY BAY-FACE TIME BOURBON",
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "D. LOCQUENEUX",
+      "proprietaire": "Ecurie M-STABLES",
+      "ferrure": "P4",
+      "musique_pmu": "0aDaDa7aDa2a(25)2a9a0a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 95915.0,
+      "nom": "LAREDO BAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "LATIKA BELLA-CATINKA BELLA-CARAT WILLIAMS",
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Ecurie Hervé GUERIN",
+      "ferrure": "DP/PA",
+      "musique_pmu": "9a6a3a1a3a1a(25)2a1a0a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 100890.0,
+      "nom": "LATIKA BELLA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "LOLA DU CAMPUS-ELISIA DE VANDEL-VOELAND",
+      "driver_jockey": "M. MOTTIER",
+      "entraineur": "D. LOCQUENEUX",
+      "proprietaire": "Stal CAMPUS RPF",
+      "ferrure": "D4",
+      "musique_pmu": "8a6a4a5a5a0a0a2m8a9a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 101710.0,
+      "nom": "LOLA DU CAMPUS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "LIPA STAR-CALINKA STAR-UZO JOSSELYN",
+      "driver_jockey": "E. LELIEVRE",
+      "entraineur": "E. LELIEVRE",
+      "proprietaire": "E. LELIEVRE",
+      "ferrure": "D4",
+      "musique_pmu": "4a3a1a4aDa4a1a1a(25)3a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 102060.0,
+      "nom": "LIPA STAR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "LAGUNE PIYA-DESTINEE PIYA-FACE TIME BOURBON",
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "A. DE VAUGIRAUD",
+      "proprietaire": "Mme N. VIEL-PIERRE",
+      "ferrure": "D4",
+      "musique_pmu": "4a9a0a6a(25)2aDa6a5a8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 108425.0,
+      "nom": "LAGUNE PIYA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "LOUANGE CASTELETS-CORTERA-PRODIGIOUS",
+      "driver_jockey": "T. OUVRIE",
+      "entraineur": "J.PH. MONCLIN",
+      "proprietaire": "F. HENRY",
+      "ferrure": "D4",
+      "musique_pmu": "0a9a5a9a2a1a0a4a4a5a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 110565.0,
+      "nom": "LOUANGE CASTELETS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "LITTLE ITALY-TATE GALLERY-ORLANDO VICI",
+      "driver_jockey": "R. LAMY",
+      "entraineur": "P. LEVESQUE",
+      "proprietaire": "Ecurie Camille LEVESQUE",
+      "ferrure": "D4",
+      "musique_pmu": "5a2aDa5a4a8a0a1a(25)1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 111935.0,
+      "nom": "LITTLE ITALY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "LOUISA D'ATOUT-BIANCA D'ATOUT-GOTLAND",
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "M. ABRIVARD",
+      "proprietaire": "Ecurie QUERCUS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "3a0aDaDa9a2aDa(25)Da3a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 112430.0,
+      "nom": "LOUISA D'ATOUT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "LELIA FRANCE-BLACK ROSA FRANCE-CARAT WILLIAMS",
+      "driver_jockey": "CEDRIC TERRY",
+      "entraineur": "F. TERRY",
+      "proprietaire": "Ecurie BREIZH D'ESPACE",
+      "ferrure": "D4",
+      "musique_pmu": "Da6m7m2m2m4aDm7a9a4m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 113610.0,
+      "nom": "LELIA FRANCE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "LOVELY DU VALLON-PERLE DU VALLON-BIRD PARKER",
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "V. RENAULT",
+      "proprietaire": "Thibault SPEICHER",
+      "ferrure": "D4",
+      "musique_pmu": "5aDa6aDa6a3a0a9m4a(25)",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 117990.0,
+      "nom": "LOVELY DU VALLON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "LOU DU DONJON-SCIENCE DU DONJON-GOTLAND",
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "P. BELLOCHE",
+      "proprietaire": "Ecurie B",
+      "ferrure": "D4",
+      "musique_pmu": "7a1aDaDa1a1a(25)1a8a2a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 122235.0,
+      "nom": "LOU DU DONJON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+        "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C5/participants",
+          "capture_utc": "2026-11-27T10:04:54.617504+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

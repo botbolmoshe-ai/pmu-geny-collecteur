@@ -1,0 +1,545 @@
+{
+  "date": "2026-11-28",
+  "course": "R1C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MASTER PIT",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3277500,
+        "gainsVictoires": 2947500,
+        "gainsPlace": 330000,
+        "gainsAnneeEnCours": 3277500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MEXICAIN",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 3291000,
+        "gainsVictoires": 1530000,
+        "gainsPlace": 1761000,
+        "gainsAnneeEnCours": 1865000,
+        "gainsAnneePrecedente": 1426000
+      }
+    },
+    {
+      "nom": "MUSTANG HAUFOR",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 3724500,
+        "gainsVictoires": 877500,
+        "gainsPlace": 2847000,
+        "gainsAnneeEnCours": 3136500,
+        "gainsAnneePrecedente": 588000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-27T10:04:53.756672+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "MASTER PIT-BELLA BOURBON-PRODIGIOUS",
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "W. NIMCZYK",
+      "proprietaire": "G. HERZ",
+      "ferrure": "D4",
+      "musique_pmu": "1a1aAa3a6a1a1a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 32775.0,
+      "nom": "MASTER PIT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "MEXICAIN-UKRAINIENNE-QUAKER JET",
+      "driver_jockey": "M. IONESCU",
+      "entraineur": "R. DERIEUX",
+      "proprietaire": "Ecurie SERENITE",
+      "musique_pmu": "9aDa9a1a2a(25)4a2a1a4a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 32910.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "nom": "MEXICAIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "MUSTANG HAUFOR-SANTA HAUFOR-UN MEC D'HERIPRE",
+      "driver_jockey": "CH.J. BIGEON",
+      "entraineur": "CH.J. BIGEON",
+      "proprietaire": "Arnaud DENIAU",
+      "ferrure": "D4",
+      "musique_pmu": "3a1a3a3a4aDa2a2a2aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 37245.0,
+      "nom": "MUSTANG HAUFOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "MEC DE MUTRECY-DELPHYSIA-VALKO JENILAT",
+      "driver_jockey": "P.PH. PLOQUIN",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "Stéphane LE STRAT",
+      "ferrure": "D4",
+      "musique_pmu": "3a4a8a2aDa3a1aDa1aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 38215.0,
+      "nom": "MEC DE MUTRECY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "MONEY DI MALAVITA-UKRAINSKA DARBY-HOOKER BERRY",
+      "driver_jockey": "D. THOMAIN",
+      "entraineur": "F. GHEKIERE",
+      "proprietaire": "K. DE POORTER",
+      "ferrure": "D4",
+      "musique_pmu": "4a6a5a6aDaDm1aDa6a1a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 39415.0,
+      "nom": "MONEY DI MALAVITA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "MIRABILIS VRIE-BASTIDE VRIE-ETONNANT",
+      "driver_jockey": "A. ABRIVARD",
+      "entraineur": "L.CL. ABRIVARD",
+      "proprietaire": "Ecurie Alexandre ABRIVARD",
+      "ferrure": "D4",
+      "musique_pmu": "3a3a8a2a3a3a6a9aDa0a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 40160.0,
+      "nom": "MIRABILIS VRIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "MOJI DE VANDEL-DAELIA DE VANDEL-VILLAGE MYSTIC",
+      "driver_jockey": "E. RAFFIN",
+      "entraineur": "J.M. BAUDOUIN",
+      "proprietaire": "SAS Ecurie DEFRANCE",
+      "ferrure": "D4",
+      "musique_pmu": "DaDa5a3a6a2a2a5a7a2a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 40865.0,
+      "nom": "MOJI DE VANDEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "MERGINIO-DASCALIA-CASH AND GO",
+      "driver_jockey": "CH. MARTENS",
+      "entraineur": "A. VANBERGHEN",
+      "proprietaire": "B.V.B.A. VANBERGHEN",
+      "ferrure": "D4",
+      "musique_pmu": "2a6a5a1a9a1a2a7aDa0a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 41240.0,
+      "nom": "MERGINIO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "MOSCATO SHOW-DOURGA DUBRIO-PRINCE D'ESPACE",
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "G. BEAUFILS",
+      "proprietaire": "Ecurie J.C.-G. BEAUFILS",
+      "ferrure": "D4",
+      "musique_pmu": "1a1a4a1a2a2a(25)8a8a6a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 42035.0,
+      "nom": "MOSCATO SHOW",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "MARTIN DOL-DOLGA DU VIVIER-DJANGO RIFF",
+      "driver_jockey": "B. ROCHARD",
+      "entraineur": "M. SASSIER",
+      "proprietaire": "Charles PLANCHAIS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "4a2aDa1a1a(25)5a3a1a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 42420.0,
+      "nom": "MARTIN DOL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "MYSTERE DES MARES-BELLE DU BISSON-HOOKER BERRY",
+      "driver_jockey": "L. VERRIERE",
+      "entraineur": "J.L. VERRIERE",
+      "proprietaire": "J.L. VERRIERE",
+      "ferrure": "D4",
+      "musique_pmu": "6aDaDa1a2aDa4aDa7a5a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 42875.0,
+      "nom": "MYSTERE DES MARES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "MAESTRO DE BRION-DIVINE DU KLAU-UP AND QUICK",
+      "driver_jockey": "GUILLAUME MARTIN",
+      "entraineur": "L.B. MARTIN",
+      "proprietaire": "L.B. MARTIN",
+      "ferrure": "D4",
+      "musique_pmu": "Da2a3a1a7a6a2a3a5a3a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 42970.0,
+      "nom": "MAESTRO DE BRION",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "MEDELLIN ELLIS-DONA MAZA-BOLD EAGLE",
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "P.Y. VERVA",
+      "proprietaire": "Ecurie du DAMIER",
+      "ferrure": "D4",
+      "musique_pmu": "6aDa2a0a1a4a3a4a3m0a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 43040.0,
+      "nom": "MEDELLIN ELLIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "MURPHY DU PONCELET-CANDY DU PONCELET-COUP DE POKER",
+      "driver_jockey": "M. VERVA",
+      "entraineur": "M. VERVA",
+      "proprietaire": "M. VERVA",
+      "ferrure": "PA",
+      "musique_pmu": "8a0a0a5a2a5a4a9a8a9a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 43275.0,
+      "nom": "MURPHY DU PONCELET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "id_pmu": "MADMAX JEF-TOPAZE JEF-BOLERO LOVE",
+      "driver_jockey": "G. GELORMINI",
+      "entraineur": "J.M. BAUDOUIN",
+      "proprietaire": "J.M. FREYSSENGE",
+      "ferrure": "D4",
+      "musique_pmu": "7m9a0a7a7a4a3a(25)2a3a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 43360.0,
+      "nom": "MADMAX JEF",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "id_pmu": "MAJOR MESLOIS-OCARINA MESLOISE-ROC MESLOIS",
+      "driver_jockey": "F. NIVARD",
+      "entraineur": "F. NIVARD",
+      "proprietaire": "J.CL. HAREL",
+      "ferrure": "PA",
+      "musique_pmu": "0a3a3a6a0a0a(25)Dm6a5a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 43785.0,
+      "nom": "MAJOR MESLOIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+        "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/28112026/R1/C4/participants",
+          "capture_utc": "2026-11-27T10:04:53.756672+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

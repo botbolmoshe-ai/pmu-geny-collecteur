@@ -12,12 +12,20 @@
       "motif_selection": "ALLOCATION_ELEVEE",
       "traitement": "PREPARATION_AVANT_DEPART",
       "statut_meteo": "METEO_NON_VERIFIEE",
-      "erreur_meteo": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>",
+      "erreur_meteo": "ValueError: Géocodage hippodrome non univoque : HIPPODROME MARSEILLE PONT DE VIVAUX (0 correspondances)",
       "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "statut_ipr": "CALCULE",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C1": {
       "identifiant_geny": null,
@@ -34,7 +42,15 @@
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "statut_ipr": "CALCULE",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C2": {
       "identifiant_geny": null,
@@ -51,7 +67,15 @@
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "statut_ipr": "CALCULE",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C3": {
       "identifiant_geny": null,
@@ -68,7 +92,15 @@
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "statut_ipr": "CALCULE",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C4": {
       "identifiant_geny": null,
@@ -85,7 +117,15 @@
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "statut_ipr": "CALCULE",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
     },
     "R1C5": {
       "identifiant_geny": null,
@@ -102,15 +142,212 @@
       "statut_avis_experts": "EXPERTS_1_SUR_1",
       "statut_ipr": "CALCULE",
       "historique_geny": "FILE_INCREMENTALE_INDEPENDANTE",
-      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT"
+      "motif_attente_geny": "QUOTA_DECOUVERTE_ATTEINT",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE"
+    },
+    "R5C1": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T16:55:00+01:00",
+      "nom": "PRIX DE SAINT-LOUP",
+      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+      "nombre_declares": 12,
+      "priorite_metier": null,
+      "motif_selection": "HIPPODROME_HORS_SELECTION",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
+    },
+    "R5C2": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T17:30:00+01:00",
+      "nom": "PRIX DE LA ROSE",
+      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+      "nombre_declares": 13,
+      "priorite_metier": null,
+      "motif_selection": "HIPPODROME_HORS_SELECTION",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
+    },
+    "R5C4": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T18:40:00+01:00",
+      "nom": "PRIX FRANCOIS-REGIS LE VEXIER",
+      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+      "nombre_declares": 13,
+      "priorite_metier": null,
+      "motif_selection": "HIPPODROME_HORS_SELECTION",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
+    },
+    "R5C5": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T19:15:00+01:00",
+      "nom": "PRIX DU PRADO",
+      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+      "nombre_declares": 13,
+      "priorite_metier": null,
+      "motif_selection": "HIPPODROME_HORS_SELECTION",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
+    },
+    "R5C6": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T19:50:00+01:00",
+      "nom": "PRIX DES CAMOINS",
+      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+      "nombre_declares": 16,
+      "priorite_metier": null,
+      "motif_selection": "HIPPODROME_HORS_SELECTION",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
+    },
+    "R5C7": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T20:32:00+01:00",
+      "nom": "PRIX DE GRAVELLES",
+      "hippodrome": "HIPPODROME MARSEILLE PONT DE VIVAUX",
+      "nombre_declares": 8,
+      "priorite_metier": null,
+      "motif_selection": "HIPPODROME_HORS_SELECTION",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
+    },
+    "R1C6": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T21:18:00+01:00",
+      "nom": "PRIX DON DU SANG (PRIX CERES)",
+      "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+      "nombre_declares": 17,
+      "priorite_metier": "P1",
+      "motif_selection": "VINCENNES",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
+    },
+    "R1C7": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T21:48:00+01:00",
+      "nom": "PRIX LES RESTOS DU COEUR (PRIX PHILAGORIA)",
+      "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+      "nombre_declares": 8,
+      "priorite_metier": "P1",
+      "motif_selection": "VINCENNES",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_PARTIEL",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
+    },
+    "R1C8": {
+      "identifiant_geny": null,
+      "etat": "A_DECOUVRIR",
+      "statut_cotes": "COTES_RELEVEES",
+      "statut_top3_cotes": "CALCULE_COMPLET",
+      "depart": "2026-11-27T22:13:00+01:00",
+      "nom": "PRIX OTTILIA",
+      "hippodrome": "HIPPODROME DE PARIS-VINCENNES",
+      "nombre_declares": 15,
+      "priorite_metier": "P1",
+      "motif_selection": "VINCENNES",
+      "traitement": "PREPARATION_AVANT_DEPART",
+      "statut_partants_actuels": "PARTANTS_ACTUELS_ENREGISTRES",
+      "paliers_independants": {
+        "direct": "CALCULE_COMPLET",
+        "cotes": "CALCULE_COMPLET"
+      },
+      "statut_snapshot_ml": "CAPTURE_PMU",
+      "statut_ml": "ML_EXPERIMENTAL_CALCULE",
+      "statut_ipr": "CALCULE"
     }
   },
   "alertes": [],
   "source_programme": "PMU_API",
-  "dernier_controle_pmu": "2026-11-26T16:47:49.866675+00:00",
+  "dernier_controle_pmu": "2026-11-27T10:04:17.397492+00:00",
   "diagnostic_pmu": {
     "date": "2026-11-27",
-    "horodatage_utc": "2026-11-26T16:47:49.866675+00:00",
+    "horodatage_utc": "2026-11-27T10:04:17.397492+00:00",
     "source_url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/27112026",
     "statut": "COURSES_DISPONIBLES",
     "courses_retenues": 6,
@@ -691,7 +928,8 @@
           "conditions": "PRIX ELMA Course 3 Course E Départ à l'Autostart 41.000. - Attelé, femelles. - 2.100 mètres (G. P.) 18.450, 10.250, 5.740, 3.280, 2.050, 820, 410. Pour juments de 6 ans, n'ayant pas gagné 120.000.",
           "conditionSexe": "FEMELLES",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 41000
+          "montantPrix": 41000,
+          "corde": "CORDE_GAUCHE"
         }
       },
       {
@@ -748,7 +986,8 @@
           "conditions": "PRIX BRASILIA Course 2 Course D Départ à l'Autostart 46.000. - Attelé, mâles. - 2.100 mètres (G. P.) 20.700, 11.500, 6.440, 3.680, 2.300, 920, 460. Pour chevaux entiers et hongres de 5 ans, n'ayant pas gagné 81.000.",
           "conditionSexe": "MALES_ET_HONGRES",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 46000
+          "montantPrix": 46000,
+          "corde": "CORDE_GAUCHE"
         }
       },
       {
@@ -1268,7 +1507,8 @@
           "conditions": "PRIX DE LA RHUNE Course  1 Course F Challenge de l'Avenir APPRENTIS - LADS-JOCKEYS Départ à l'Autostart 15.500. - Attelé, mâles. - 2.150 mètres. 6.975, 3.875, 2.170, 1.240, 775, 310, 155.- alloués par la S.E.T.F. Pour chevaux entiers et hongres de 5 ans, n'ayant pas gagné 42.000.",
           "conditionSexe": "MALES_ET_HONGRES",
           "categorieParticularite": "APPRENTIS_LADS_JOCKEYS_AUTOSTART",
-          "montantPrix": 15500
+          "montantPrix": 15500,
+          "corde": "CORDE_DROITE"
         }
       },
       {
@@ -1325,7 +1565,8 @@
           "conditions": "PRIX DU TAILLON Course  3 Course F Challenge de l'Avenir APPRENTIS - LADS-JOCKEYS Départ à l'Autostart 15.500. - Attelé, femelles. - 2.150 mètres. 6.975, 3.875, 2.170, 1.240, 775, 310, 155.- alloués par la S.E.T.F. Pour juments de 5 ans, n'ayant pas gagné 42.000.",
           "conditionSexe": "FEMELLES",
           "categorieParticularite": "APPRENTIS_LADS_JOCKEYS_AUTOSTART",
-          "montantPrix": 15500
+          "montantPrix": 15500,
+          "corde": "CORDE_DROITE"
         }
       },
       {
@@ -1353,7 +1594,8 @@
           "conditions": "PRIX DU ROC DES OMBRES Course  4 Course E Départ à l'Autostart 17.000. - Attelé. - 2.150 mètres. 7.650, 4.250, 2.380, 1.360, 850, 340, 170.- alloués par la S.E.T.F. Pour 3 ans, n'ayant pas gagné 14.000.",
           "conditionSexe": "TOUS_CHEVAUX",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 17000
+          "montantPrix": 17000,
+          "corde": "CORDE_DROITE"
         }
       },
       {
@@ -1381,7 +1623,8 @@
           "conditions": "PRIX PIERRE PAUL RIQUET Course  5 Course F Départ à l'Autostart 15.000. - Attelé. - 2.750 mètres. 6.750, 3.750, 2.100, 1.200, 750, 300, 150.- alloués par la S.E.T.F. Pour 4 ans, n'ayant pas gagné 26.500.",
           "conditionSexe": "TOUS_CHEVAUX",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 15000
+          "montantPrix": 15000,
+          "corde": "CORDE_DROITE"
         }
       },
       {
@@ -1409,7 +1652,8 @@
           "conditions": "PRIX PIERRE PAUL RIQUET Course  5 Course F Départ à l'Autostart 15.000. - Attelé. - 2.750 mètres. 6.750, 3.750, 2.100, 1.200, 750, 300, 150.- alloués par la S.E.T.F. Pour 4 ans, n'ayant pas gagné 26.500.",
           "conditionSexe": "TOUS_CHEVAUX",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 15000
+          "montantPrix": 15000,
+          "corde": "CORDE_DROITE"
         }
       },
       {
@@ -1437,7 +1681,8 @@
           "conditions": "PRIX DU SYNDICAT NATIONAL DES PROPRIETAIRES DE TROTTEURS Course  6 Course F Départ à l'Autostart 22.000. - Attelé. - 2.750 mètres. 9.900, 5.500, 3.080, 1.760, 1.100, 440, 220.- alloués par la S.E.T.F. Pour 8, 9 et 10 ans, n'ayant pas gagné 132.000.",
           "conditionSexe": "TOUS_CHEVAUX",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 22000
+          "montantPrix": 22000,
+          "corde": "CORDE_DROITE"
         }
       },
       {
@@ -1465,7 +1710,8 @@
           "conditions": "PRIX DE L'ANETO Course  7 Course E Départ à l'Autostart 24.000. - Attelé. - 2.150 mètres. 10.800, 6.000, 3.360, 1.920, 1.200, 480, 240.- alloués par la S.E.T.F. Pour 6, 7 et 8 ans, n'ayant pas gagné 119.000.",
           "conditionSexe": "TOUS_CHEVAUX",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 24000
+          "montantPrix": 24000,
+          "corde": "CORDE_DROITE"
         }
       }
     ],
@@ -1495,7 +1741,8 @@
           "conditions": "PRIX ELMA Course 3 Course E Départ à l'Autostart 41.000. - Attelé, femelles. - 2.100 mètres (G. P.) 18.450, 10.250, 5.740, 3.280, 2.050, 820, 410. Pour juments de 6 ans, n'ayant pas gagné 120.000.",
           "conditionSexe": "FEMELLES",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 41000
+          "montantPrix": 41000,
+          "corde": "CORDE_GAUCHE"
         }
       },
       {
@@ -1552,7 +1799,8 @@
           "conditions": "PRIX BRASILIA Course 2 Course D Départ à l'Autostart 46.000. - Attelé, mâles. - 2.100 mètres (G. P.) 20.700, 11.500, 6.440, 3.680, 2.300, 920, 460. Pour chevaux entiers et hongres de 5 ans, n'ayant pas gagné 81.000.",
           "conditionSexe": "MALES_ET_HONGRES",
           "categorieParticularite": "AUTOSTART",
-          "montantPrix": 46000
+          "montantPrix": 46000,
+          "corde": "CORDE_GAUCHE"
         }
       },
       {
