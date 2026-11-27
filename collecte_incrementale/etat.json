@@ -98535,7 +98535,7 @@
     },
     "2710894": {
       "nom": "JOISO POKER PRO",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "2",
       "engagement": "2026-11-27_R1C5",
       "vu_utc": "2026-11-27T12:19:02.888905+00:00",
@@ -98564,7 +98564,51 @@
       "nombre_performances": 79,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-04"
+      "derniere_performance_date": "2026-11-04",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 79,
+          "cellules_actualisees": 0,
+          "lignes_source": 79,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 79,
+            "lignes_avant": 39864,
+            "cles_avant": 39864,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3987,
+            "import_initial_explicite": false,
+            "lignes_attendues": 39943,
+            "lignes_apres": 39943,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 2,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1045,
+              "HISTO_OK_NOM": 403,
+              "HISTO_NON_COLLECTE": 1952,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 143,
+              "HISTO_PUBLICATION_EN_ATTENTE": 5
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T12:19:32.928982+00:00"
     },
     "2732328": {
       "nom": "JACKPOTINA",
@@ -98782,7 +98826,7 @@
     }
   },
   "passage_utc": "2026-11-27T12:19:02.888905+00:00",
-  "maj_utc": "2026-11-27T12:19:04.302179+00:00",
+  "maj_utc": "2026-11-27T12:19:32.929014+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 0,
@@ -98793,7 +98837,7 @@
     "actualisations_en_attente": 3183
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 21,
@@ -99553,11 +99597,11 @@
   "sync_kpi_utc": "2026-11-27T12:18:14.410966+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T12:19:02.888905+00:00",
-    "controle_utc": "2026-11-27T12:19:04.302179+00:00",
+    "controle_utc": "2026-11-27T12:19:32.929014+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 79,
     "requetes_http_geny": 0,
     "requetes_geny_par_ressource": {},
     "ressources_geny_servies_du_cache_http": 0,
@@ -99566,7 +99610,7 @@
     "duree_acces_geny_secondes": 0.0,
     "refus_sans_validation": 0,
     "carrieres_validees_par_heure_cycle": 0.0,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_publiees_par_heure_cycle": 119.84,
     "refus_geny": {
       "403": 0,
       "429": 0
