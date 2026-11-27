@@ -99341,7 +99341,7 @@
     },
     "2901965": {
       "nom": "OURAGANE JENILOU",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "1",
       "engagement": "2026-11-28_R1C1",
       "vu_utc": "2026-11-27T14:08:32.203069+00:00",
@@ -99372,7 +99372,51 @@
       "nombre_performances": 3,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-10-30"
+      "derniere_performance_date": "2026-10-30",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 3,
+          "cellules_actualisees": 0,
+          "lignes_source": 3,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 3,
+            "lignes_avant": 40317,
+            "cles_avant": 40317,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4032,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40320,
+            "lignes_apres": 40320,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 2,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1053,
+              "HISTO_OK_NOM": 405,
+              "HISTO_NON_COLLECTE": 1942,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 141,
+              "HISTO_PUBLICATION_EN_ATTENTE": 7
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T14:18:27.791001+00:00"
     },
     "2898896": {
       "nom": "OLYMPE DE BELINE",
@@ -99592,7 +99636,7 @@
     }
   },
   "passage_utc": "2026-11-27T14:08:32.203069+00:00",
-  "maj_utc": "2026-11-27T14:18:00.723260+00:00",
+  "maj_utc": "2026-11-27T14:18:27.791035+00:00",
   "bilan": {
     "chevaux_suivis": 3519,
     "tentatives_collecte": 12,
@@ -100257,9 +100301,9 @@
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "publication_cycle": {
     "debut_utc": "2026-11-27T14:16:04.570928+00:00",
-    "controle_utc": "2026-11-27T14:18:00.723260+00:00",
-    "chevaux_confirmes_sheets": 5,
-    "performances_ajoutees_et_confirmees_sheets": 1,
+    "controle_utc": "2026-11-27T14:18:27.791035+00:00",
+    "chevaux_confirmes_sheets": 6,
+    "performances_ajoutees_et_confirmees_sheets": 4,
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
   },
