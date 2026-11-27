@@ -100008,7 +100008,7 @@
     },
     "2900590": {
       "nom": "OASIS DU CHOQUEL",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "8",
       "engagement": "2026-11-28_R1C1",
       "vu_utc": "2026-11-27T22:41:20.768905+00:00",
@@ -100036,7 +100036,51 @@
       "nombre_performances": 4,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-02"
+      "derniere_performance_date": "2026-11-02",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 4,
+          "cellules_actualisees": 0,
+          "lignes_source": 4,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 4,
+            "lignes_avant": 40354,
+            "cles_avant": 40354,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4036,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40358,
+            "lignes_apres": 40358,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1,
+              "date_capture": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1061,
+              "HISTO_OK_NOM": 406,
+              "HISTO_NON_COLLECTE": 1942,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 139
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T22:43:55.793359+00:00"
     },
     "2896121": {
       "nom": "OLDHAM",
@@ -100116,7 +100160,7 @@
     }
   },
   "passage_utc": "2026-11-27T22:41:20.768905+00:00",
-  "maj_utc": "2026-11-27T22:43:22.677653+00:00",
+  "maj_utc": "2026-11-27T22:43:55.793383+00:00",
   "bilan": {
     "chevaux_suivis": 3519,
     "tentatives_collecte": 2,
@@ -100618,11 +100662,11 @@
   "sync_kpi_utc": "2026-11-27T16:37:02.779950+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T22:41:20.768905+00:00",
-    "controle_utc": "2026-11-27T22:43:22.677653+00:00",
+    "controle_utc": "2026-11-27T22:43:55.793383+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 2,
-    "chevaux_confirmes_sheets": 1,
-    "performances_ajoutees_et_confirmees_sheets": 4,
+    "chevaux_confirmes_sheets": 2,
+    "performances_ajoutees_et_confirmees_sheets": 8,
     "requetes_http_geny": 67,
     "requetes_geny_par_ressource": {
       "document": 2,
@@ -100637,8 +100681,8 @@
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 11.72,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 59.06,
-    "carrieres_publiees_par_heure_cycle": 29.53,
+    "carrieres_validees_par_heure_cycle": 46.44,
+    "carrieres_publiees_par_heure_cycle": 46.44,
     "refus_geny": {
       "403": 0,
       "429": 0
