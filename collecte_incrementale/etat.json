@@ -98767,7 +98767,7 @@
     },
     "2714951": {
       "nom": "JAZZISSIME",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "5",
       "engagement": "2026-11-27_R1C5",
       "vu_utc": "2026-11-27T12:19:02.888905+00:00",
@@ -98796,7 +98796,51 @@
       "nombre_performances": 61,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-10"
+      "derniere_performance_date": "2026-11-10",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 61,
+          "cellules_actualisees": 0,
+          "lignes_source": 61,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 61,
+            "lignes_avant": 40042,
+            "cles_avant": 40042,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4005,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40103,
+            "lignes_apres": 40103,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 2,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1048,
+              "HISTO_OK_NOM": 404,
+              "HISTO_NON_COLLECTE": 1952,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 143,
+              "HISTO_PUBLICATION_EN_ATTENTE": 1
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T12:20:53.343666+00:00"
     },
     "2756008": {
       "nom": "JAYA DU QUENNE",
@@ -98914,7 +98958,7 @@
     }
   },
   "passage_utc": "2026-11-27T12:19:02.888905+00:00",
-  "maj_utc": "2026-11-27T12:20:26.811489+00:00",
+  "maj_utc": "2026-11-27T12:20:53.343698+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 0,
@@ -99685,11 +99729,11 @@
   "sync_kpi_utc": "2026-11-27T12:18:14.410966+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T12:19:02.888905+00:00",
-    "controle_utc": "2026-11-27T12:20:26.811489+00:00",
+    "controle_utc": "2026-11-27T12:20:53.343698+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
-    "chevaux_confirmes_sheets": 3,
-    "performances_ajoutees_et_confirmees_sheets": 178,
+    "chevaux_confirmes_sheets": 4,
+    "performances_ajoutees_et_confirmees_sheets": 239,
     "requetes_http_geny": 0,
     "requetes_geny_par_ressource": {},
     "ressources_geny_servies_du_cache_http": 0,
@@ -99698,7 +99742,7 @@
     "duree_acces_geny_secondes": 0.0,
     "refus_sans_validation": 0,
     "carrieres_validees_par_heure_cycle": 0.0,
-    "carrieres_publiees_par_heure_cycle": 128.69,
+    "carrieres_publiees_par_heure_cycle": 130.37,
     "refus_geny": {
       "403": 0,
       "429": 0
