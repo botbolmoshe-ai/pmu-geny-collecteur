@@ -38115,7 +38115,7 @@
       "course_url": "https://www.geny.com/course/1698671/partants-pronostics",
       "numero": "7",
       "engagement": "2026-11-15_R3C5",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-15_R3C5",
@@ -38140,7 +38140,32 @@
       "prochaine_verification_utc": "2026-11-28T03:04:26.376729+00:00",
       "nombre_performances": 93,
       "erreur": "",
-      "derniere_performance_date": "2026-11-15"
+      "derniere_performance_date": "2026-11-15",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 93,
+          "cellules_actualisees": 0,
+          "lignes_source": 93,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 93,
+            "lignes_avant": 38424,
+            "cles_avant": 38424,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 3843,
+            "import_initial_explicite": false,
+            "lignes_attendues": 38517,
+            "lignes_apres": 38517,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T03:04:46.999071+00:00",
+      "rattrapage_complet_au_utc": "2026-11-27T03:04:26.376729+00:00",
+      "ajouts_confirmes": 93
     },
     "contexte:85d159f836c514f6b424c4f6": {
       "nom": "HISTORIC DAY",
@@ -53281,9 +53306,9 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-15_R3C5",
-      "sync": "SANS_MODIFICATION",
-      "collecte": "A_REPRENDRE",
-      "motif_actualisation": "HISTORIQUE_ABSENT_PARTIEL_OU_NON_DATE",
+      "sync": "OK",
+      "collecte": "COMPLET",
+      "motif_actualisation": "",
       "engagement_source": "2026-11-15|BEAUMONT DE LOMAGNE|R3C5",
       "numero": "7",
       "numero_reconcilie_depuis_snapshot": true,
@@ -53306,7 +53331,11 @@
       "course_geny_deja_lue": true,
       "cible_equivalente_a": "contexte:490e27bd2aaa49d534ba0826",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:490e27bd2aaa49d534ba0826"
+      "autre_contexte_meme_nom": "contexte:490e27bd2aaa49d534ba0826",
+      "rattrapage_complet_au_utc": "2026-11-27T03:04:26.376729+00:00",
+      "historique_complet_au_utc": "2026-11-27T03:04:26.376729+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:5a76b10170f157e4af0c7822": {
       "nom": "HISTORIC DAY",
@@ -79535,12 +79564,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1356,
-    "cibles_restantes": 1228,
+    "cibles_completees": 1358,
+    "cibles_restantes": 1226,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1313,
+    "travaux_distincts_restants": 1312,
     "historiques_ferrures_a_completer": 447,
-    "carrieres_distinctes_a_completer": 866,
+    "carrieres_distinctes_a_completer": 865,
     "identifiants_sans_carriere_complete": 115,
     "contextes_distincts_sans_identifiant": 749,
     "noms_distincts_sans_identifiant": 745,
@@ -79548,8 +79577,8 @@
     "identites_non_resolues": 1070,
     "liens_a_resoudre": 95,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 1,
-    "ajouts_confirmes": 7871,
+    "synchronisations_en_attente": 0,
+    "ajouts_confirmes": 7964,
     "tentatives_collecte": 8,
     "captures_validees": 8,
     "captures_partielles": 0,
@@ -79557,7 +79586,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-27T02:59:11.054693+00:00",
-  "maj_utc": "2026-11-27T03:04:27.313420+00:00",
+  "maj_utc": "2026-11-27T03:04:47.018557+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 20,
@@ -81456,11 +81485,11 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-27T02:59:11.054693+00:00",
-    "controle_utc": "2026-11-27T03:04:27.313420+00:00",
+    "controle_utc": "2026-11-27T03:04:47.018557+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 8,
-    "chevaux_confirmes_sheets": 7,
-    "performances_ajoutees_et_confirmees_sheets": 501,
+    "chevaux_confirmes_sheets": 8,
+    "performances_ajoutees_et_confirmees_sheets": 594,
     "requetes_http_geny": 100,
     "requetes_geny_par_ressource": {
       "document": 8,
@@ -81475,8 +81504,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 45.7,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 91.06,
-    "carrieres_publiees_par_heure_cycle": 79.68,
+    "carrieres_validees_par_heure_cycle": 85.72,
+    "carrieres_publiees_par_heure_cycle": 85.72,
     "refus_geny": {
       "403": 0,
       "429": 0
