@@ -100333,7 +100333,7 @@
     },
     "2895697": {
       "nom": "OLIVIO BELLO",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "4",
       "engagement": "2026-11-28_R1C2",
       "vu_utc": "2026-11-27T22:41:20.768905+00:00",
@@ -100365,11 +100365,55 @@
       "nombre_performances": 6,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-02"
+      "derniere_performance_date": "2026-11-02",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 6,
+          "cellules_actualisees": 0,
+          "lignes_source": 6,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 6,
+            "lignes_avant": 40373,
+            "cles_avant": 40373,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4038,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40379,
+            "lignes_apres": 40379,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1,
+              "date_capture": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1065,
+              "HISTO_OK_NOM": 406,
+              "HISTO_NON_COLLECTE": 1933,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 144
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T22:48:26.580247+00:00"
     }
   },
   "passage_utc": "2026-11-27T22:41:20.768905+00:00",
-  "maj_utc": "2026-11-27T22:47:54.218645+00:00",
+  "maj_utc": "2026-11-27T22:48:26.580271+00:00",
   "bilan": {
     "chevaux_suivis": 3519,
     "tentatives_collecte": 6,
@@ -100871,11 +100915,11 @@
   "sync_kpi_utc": "2026-11-27T16:37:02.779950+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T22:41:20.768905+00:00",
-    "controle_utc": "2026-11-27T22:47:54.218645+00:00",
+    "controle_utc": "2026-11-27T22:48:26.580271+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 6,
-    "chevaux_confirmes_sheets": 5,
-    "performances_ajoutees_et_confirmees_sheets": 23,
+    "chevaux_confirmes_sheets": 6,
+    "performances_ajoutees_et_confirmees_sheets": 29,
     "requetes_http_geny": 102,
     "requetes_geny_par_ressource": {
       "document": 8,
@@ -100890,8 +100934,8 @@
     "intervalle_inter_chevaux_secondes": 60,
     "duree_acces_geny_secondes": 34.05,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 54.9,
-    "carrieres_publiees_par_heure_cycle": 45.75,
+    "carrieres_validees_par_heure_cycle": 50.73,
+    "carrieres_publiees_par_heure_cycle": 50.73,
     "refus_geny": {
       "403": 0,
       "429": 0
