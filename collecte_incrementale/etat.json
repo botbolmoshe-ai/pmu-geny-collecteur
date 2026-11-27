@@ -35678,7 +35678,7 @@
     },
     "2736633": {
       "nom": "JONGLEUSE DE BRY",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "1",
       "engagement": "2026-11-27_R1C4",
       "vu_utc": "2026-11-27T12:19:02.888905+00:00",
@@ -35707,7 +35707,49 @@
       "id_pmu": "JONGLEUSE DE BRY-ANNA DE LA LOGE-DIJON",
       "derniere_verification_utc": "2026-11-27T12:25:58.315447+00:00",
       "prochaine_verification_utc": "2026-11-28T12:25:58.315447+00:00",
-      "erreur": ""
+      "erreur": "",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 42,
+          "lignes_source": 21,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 0,
+            "lignes_avant": 40316,
+            "cles_avant": 40316,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4032,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40316,
+            "lignes_apres": 40316,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 4,
+          "lignes_source": 3550,
+          "correspondances_geny_verifiees": 3550,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3550,
+            "ecarts_avant": {
+              "date_capture": 2
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1052,
+              "HISTO_OK_NOM": 405,
+              "HISTO_NON_COLLECTE": 1952,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 139
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-27T12:26:23.938646+00:00"
     },
     "2026-11-17_R3C2_10": {
       "nom": "NAUSICA DE CORBERY",
@@ -99247,7 +99289,7 @@
     }
   },
   "passage_utc": "2026-11-27T12:19:02.888905+00:00",
-  "maj_utc": "2026-11-27T12:25:58.851172+00:00",
+  "maj_utc": "2026-11-27T12:26:23.938677+00:00",
   "bilan": {
     "chevaux_suivis": 3520,
     "tentatives_collecte": 8,
@@ -100018,10 +100060,10 @@
   "sync_kpi_utc": "2026-11-27T12:18:14.410966+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-27T12:19:02.888905+00:00",
-    "controle_utc": "2026-11-27T12:25:58.851172+00:00",
+    "controle_utc": "2026-11-27T12:26:23.938677+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 8,
-    "chevaux_confirmes_sheets": 12,
+    "chevaux_confirmes_sheets": 13,
     "performances_ajoutees_et_confirmees_sheets": 452,
     "requetes_http_geny": 98,
     "requetes_geny_par_ressource": {
@@ -100037,8 +100079,8 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 47.19,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 69.24,
-    "carrieres_publiees_par_heure_cycle": 103.86,
+    "carrieres_validees_par_heure_cycle": 65.3,
+    "carrieres_publiees_par_heure_cycle": 106.11,
     "refus_geny": {
       "403": 0,
       "429": 0
