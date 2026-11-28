@@ -1,16 +1,16 @@
 {
   "date": "2026-11-28",
   "course": "R1C8",
-  "calcul_utc": "2026-11-28T10:56:39.000074+00:00",
+  "calcul_utc": "2026-11-28T13:12:15.036890+00:00",
   "depart": "2026-11-28T17:35:00+01:00",
-  "donnees_observees_utc": "2026-11-28T10:56:31.421877+00:00",
-  "modele": "gradient_boosting",
+  "donnees_observees_utc": "2026-11-28T13:12:03.677141+00:00",
+  "modele": "regression_logistique",
   "statut": "ML_EXPERIMENTAL_ENTRAINE_NON_CALIBRE",
   "experimental": true,
   "promotion_production": false,
-  "entrainement_utc": "2026-11-27T10:06:04.551687+00:00",
-  "dernier_label_entrainement_utc": "2026-11-26T23:05:13.410681+00:00",
-  "empreinte_modele": "5793c226526d674fa1c28e852a739f781c22b8c28a33e578d8bb919fdd5ea242",
+  "entrainement_utc": "2026-11-28T10:58:37.661688+00:00",
+  "dernier_label_entrainement_utc": "2026-11-27T22:38:54.610929+00:00",
+  "empreinte_modele": "5de58f1d952d95d05ab84cb842f12e987ace50d1dc806d3b478d4d1a78b8488b",
   "features_schema": "pmu-podium-actif-v1",
   "variables_modele": [
     "courses_30j",
@@ -90,10 +90,10 @@
     "aptitude_hippodrome": 0,
     "taux_podium_distance": 4,
     "nb_partants": 8,
-    "meteo_pluie_mm": 8,
-    "meteo_vent_kmh": 8,
-    "meteo_temperature_c": 8,
-    "meteo_humidite_pct": 8,
+    "meteo_pluie_mm": 0,
+    "meteo_vent_kmh": 0,
+    "meteo_temperature_c": 0,
+    "meteo_humidite_pct": 0,
     "avis_experts_score": 0,
     "info_ecurie_score": 0,
     "driver_score": 5,
@@ -169,10 +169,10 @@
         "taux_podium_distance": null,
         "nb_partants": 8.0,
         "sorties_geny_comparables_120j": 0,
-        "meteo_pluie_mm": 0.0,
-        "meteo_vent_kmh": 9.9,
-        "meteo_temperature_c": 3.6,
-        "meteo_humidite_pct": 73.0,
+        "meteo_pluie_mm": null,
+        "meteo_vent_kmh": null,
+        "meteo_temperature_c": null,
+        "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -226,10 +226,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 8.0,
-        "meteo_pluie_mm": 0.0,
-        "meteo_vent_kmh": 9.9,
-        "meteo_temperature_c": 3.6,
-        "meteo_humidite_pct": 73.0,
+        "meteo_pluie_mm": null,
+        "meteo_vent_kmh": null,
+        "meteo_temperature_c": null,
+        "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": 0.15384615384615385,
@@ -284,10 +284,10 @@
         "taux_podium_distance": null,
         "nb_partants": 8.0,
         "sorties_geny_comparables_120j": 0,
-        "meteo_pluie_mm": 0.0,
-        "meteo_vent_kmh": 9.9,
-        "meteo_temperature_c": 3.6,
-        "meteo_humidite_pct": 73.0,
+        "meteo_pluie_mm": null,
+        "meteo_vent_kmh": null,
+        "meteo_temperature_c": null,
+        "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -342,10 +342,10 @@
         "taux_podium_distance": 0.5,
         "nb_partants": 8.0,
         "sorties_geny_comparables_120j": 3,
-        "meteo_pluie_mm": 0.0,
-        "meteo_vent_kmh": 9.9,
-        "meteo_temperature_c": 3.6,
-        "meteo_humidite_pct": 73.0,
+        "meteo_pluie_mm": null,
+        "meteo_vent_kmh": null,
+        "meteo_temperature_c": null,
+        "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": 0.4,
@@ -406,10 +406,10 @@
         "taux_podium_distance": 0.52632,
         "nb_partants": 8.0,
         "sorties_geny_comparables_120j": 2,
-        "meteo_pluie_mm": 0.0,
-        "meteo_vent_kmh": 9.9,
-        "meteo_temperature_c": 3.6,
-        "meteo_humidite_pct": 73.0,
+        "meteo_pluie_mm": null,
+        "meteo_vent_kmh": null,
+        "meteo_temperature_c": null,
+        "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": 0.2727272727272727,
@@ -468,10 +468,10 @@
         "aptitude_hippodrome": null,
         "taux_podium_distance": null,
         "nb_partants": 8.0,
-        "meteo_pluie_mm": 0.0,
-        "meteo_vent_kmh": 9.9,
-        "meteo_temperature_c": 3.6,
-        "meteo_humidite_pct": 73.0,
+        "meteo_pluie_mm": null,
+        "meteo_vent_kmh": null,
+        "meteo_temperature_c": null,
+        "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": 0.5555555555555556,
@@ -526,10 +526,10 @@
         "taux_podium_distance": 0.5,
         "nb_partants": 8.0,
         "sorties_geny_comparables_120j": 2,
-        "meteo_pluie_mm": 0.0,
-        "meteo_vent_kmh": 9.9,
-        "meteo_temperature_c": 3.6,
-        "meteo_humidite_pct": 73.0,
+        "meteo_pluie_mm": null,
+        "meteo_vent_kmh": null,
+        "meteo_temperature_c": null,
+        "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": null,
@@ -590,10 +590,10 @@
         "taux_podium_distance": 0.61538,
         "nb_partants": 8.0,
         "sorties_geny_comparables_120j": 2,
-        "meteo_pluie_mm": 0.0,
-        "meteo_vent_kmh": 9.9,
-        "meteo_temperature_c": 3.6,
-        "meteo_humidite_pct": 73.0,
+        "meteo_pluie_mm": null,
+        "meteo_vent_kmh": null,
+        "meteo_temperature_c": null,
+        "meteo_humidite_pct": null,
         "avis_experts_score": null,
         "info_ecurie_score": null,
         "driver_score": 0.2777777777777778,
@@ -625,19 +625,19 @@
       "numero": 6,
       "nom": "LONDON",
       "cheval_id": "",
-      "score_non_calibre": 0.62152
+      "score_non_calibre": 0.88562
     },
     {
       "numero": 1,
       "nom": "KOOGOO GAAGAA",
       "cheval_id": "2818134",
-      "score_non_calibre": 0.49062
+      "score_non_calibre": 0.84892
     },
     {
-      "numero": 3,
-      "nom": "LILI DRY",
-      "cheval_id": "2782585",
-      "score_non_calibre": 0.37934
+      "numero": 2,
+      "nom": "LOUVE ANGEL",
+      "cheval_id": "",
+      "score_non_calibre": 0.82709
     }
   ],
   "classement_complet": [
@@ -645,49 +645,49 @@
       "numero": 6,
       "nom": "LONDON",
       "cheval_id": "",
-      "score_non_calibre": 0.62152
+      "score_non_calibre": 0.88562
     },
     {
       "numero": 1,
       "nom": "KOOGOO GAAGAA",
       "cheval_id": "2818134",
-      "score_non_calibre": 0.49062
-    },
-    {
-      "numero": 3,
-      "nom": "LILI DRY",
-      "cheval_id": "2782585",
-      "score_non_calibre": 0.37934
+      "score_non_calibre": 0.84892
     },
     {
       "numero": 2,
       "nom": "LOUVE ANGEL",
       "cheval_id": "",
-      "score_non_calibre": 0.35679
+      "score_non_calibre": 0.82709
+    },
+    {
+      "numero": 3,
+      "nom": "LILI DRY",
+      "cheval_id": "2782585",
+      "score_non_calibre": 0.78555
     },
     {
       "numero": 4,
       "nom": "LASKA DU LEVANT",
       "cheval_id": "2805029",
-      "score_non_calibre": 0.23257
+      "score_non_calibre": 0.59128
     },
     {
       "numero": 5,
       "nom": "LAKANA DE FELLIERE",
       "cheval_id": "2806492",
-      "score_non_calibre": 0.19467
-    },
-    {
-      "numero": 8,
-      "nom": "LISBONNE DRY",
-      "cheval_id": "2805512",
-      "score_non_calibre": 0.08744
+      "score_non_calibre": 0.30971
     },
     {
       "numero": 7,
       "nom": "LIBERTE DU GOUTIER",
       "cheval_id": "2810509",
-      "score_non_calibre": 0.06753
+      "score_non_calibre": 0.14283
+    },
+    {
+      "numero": 8,
+      "nom": "LISBONNE DRY",
+      "cheval_id": "2805512",
+      "score_non_calibre": 0.10014
     }
   ],
   "note": "Score non calibre; cotes exclues des variables."
