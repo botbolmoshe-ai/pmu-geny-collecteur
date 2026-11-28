@@ -106935,7 +106935,7 @@
     },
     "2863616": {
       "nom": "NATIONAL HERO",
-      "sync": "SANS_MODIFICATION",
+      "sync": "A_FAIRE",
       "numero": "2",
       "engagement": "2026-11-28_R1C3",
       "vu_utc": "2026-11-28T13:15:52.218736+00:00",
@@ -106951,14 +106951,21 @@
         "preuve_course_utc": "2026-11-28T11:07:07.429798+00:00"
       },
       "id": "2863616",
-      "collecte": "A_REPRENDRE",
+      "collecte": "COMPLET",
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
       "annee_naissance_pmu": 2023,
       "recherche_geny_par_nom": false,
-      "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
+      "motif_actualisation": "",
       "depart_a_venir_utc": "2026-11-28T13:33:00+00:00",
       "premier_depart_reunion_utc": "2026-11-28T12:23:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "historique_complet_au_utc": "2026-11-28T13:16:49.937903+00:00",
+      "derniere_verification_utc": "2026-11-28T13:16:49.937903+00:00",
+      "prochaine_verification_utc": "2026-11-29T13:16:49.937903+00:00",
+      "nombre_performances": 8,
+      "erreur": "",
+      "ferrures_manquantes": 0,
+      "derniere_performance_date": "2026-11-16"
     },
     "2887592": {
       "nom": "NEWTON DE LOIRON",
@@ -107178,18 +107185,18 @@
     }
   },
   "passage_utc": "2026-11-28T13:15:52.218736+00:00",
-  "maj_utc": "2026-11-28T13:16:43.256197+00:00",
+  "maj_utc": "2026-11-28T13:16:50.291388+00:00",
   "bilan": {
     "chevaux_suivis": 3878,
-    "tentatives_collecte": 0,
-    "captures_validees": 0,
+    "tentatives_collecte": 1,
+    "captures_validees": 1,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
     "actualisations_en_attente": 3593
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 23,
@@ -109591,19 +109598,26 @@
   "sync_kpi_utc": "2026-11-28T11:10:53.079318+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-28T13:15:52.218736+00:00",
-    "controle_utc": "2026-11-28T13:16:43.256197+00:00",
+    "controle_utc": "2026-11-28T13:16:50.291388+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 0,
+    "carrieres_completes_distinctes": 1,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
-    "requetes_http_geny": 0,
-    "requetes_geny_par_ressource": {},
+    "requetes_http_geny": 62,
+    "requetes_geny_par_ressource": {
+      "document": 1,
+      "stylesheet": 2,
+      "script": 52,
+      "font": 3,
+      "fetch": 2,
+      "image": 2
+    },
     "ressources_geny_servies_du_cache_http": 0,
     "attente_inter_chevaux_secondes": 48.04,
     "intervalle_inter_chevaux_secondes": 60,
-    "duree_acces_geny_secondes": 0.0,
+    "duree_acces_geny_secondes": 5.44,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 61.99,
     "carrieres_publiees_par_heure_cycle": 0.0,
     "refus_geny": {
       "403": 0,
@@ -109624,5 +109638,5 @@
     "erreurs_sync": 0,
     "motif_fin_passage": "PUBLICATIONS_DUES_TRAITEES"
   },
-  "derniere_acquisition_validee_utc": "2026-11-28T11:07:11.512506+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-28T13:16:49.937903+00:00"
 }
