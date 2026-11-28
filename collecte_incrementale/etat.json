@@ -107234,15 +107234,15 @@
     }
   },
   "passage_utc": "2026-11-28T13:15:52.218736+00:00",
-  "maj_utc": "2026-11-28T13:22:35.105868+00:00",
+  "maj_utc": "2026-11-28T13:22:36.835481+00:00",
   "bilan": {
-    "chevaux_suivis": 3878,
+    "chevaux_suivis": 3877,
     "tentatives_collecte": 8,
     "captures_validees": 8,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
-    "synchronisations_en_attente": 0,
-    "actualisations_en_attente": 3593
+    "synchronisations_en_attente": 8,
+    "actualisations_en_attente": 3584
   },
   "statut": "PARTIEL_REPRENABLE",
   "sync_kpi": "A_REPRENDRE",
@@ -107254,15 +107254,15 @@
   },
   "priorite_collecte": "ENGAGEMENTS_JOUR",
   "preparation_prochaines_courses": {
-    "controle_utc": "2026-11-28T13:15:52.218736+00:00",
+    "controle_utc": "2026-11-28T13:22:36.722115+00:00",
     "pret": false,
     "partants_a_venir": 475,
     "couverture_par_jour": {
       "2026-11-28": {
         "partants": 82,
-        "historiques_complets": 36,
-        "sans_historique_complet": 46,
-        "historiques_a_actualiser": 81
+        "historiques_complets": 44,
+        "sans_historique_complet": 38,
+        "historiques_a_actualiser": 73
       },
       "2026-11-29": {
         "partants": 393,
@@ -107274,8 +107274,11 @@
     "blocages": [
       {
         "course": "2026-11-28_R1C3",
-        "numero": "2",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
+      },
+      {
+        "course": "2026-11-28_R1C3",
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-28_R1C3",
@@ -107294,13 +107297,19 @@
       },
       {
         "course": "2026-11-28_R1C3",
-        "numero": "6",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
       },
       {
         "course": "2026-11-28_R1C3",
-        "numero": "7",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
+      },
+      {
+        "course": "2026-11-28_R1C3",
+        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
+      },
+      {
+        "course": "2026-11-28_R1C3",
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-28_R1C3",
@@ -107309,8 +107318,11 @@
       },
       {
         "course": "2026-11-28_R1C3",
-        "numero": "9",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
+      },
+      {
+        "course": "2026-11-28_R1C3",
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-28_R1C3",
@@ -107319,8 +107331,11 @@
       },
       {
         "course": "2026-11-28_R1C3",
-        "numero": "11",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
+      },
+      {
+        "course": "2026-11-28_R1C3",
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-28_R1C3",
@@ -107329,18 +107344,27 @@
       },
       {
         "course": "2026-11-28_R1C3",
-        "numero": "13",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
       },
       {
         "course": "2026-11-28_R1C3",
-        "numero": "14",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-28_R1C3",
-        "numero": "15",
-        "motif": "HISTORIQUE_ABSENT_OU_NON_DATE"
+        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
+      },
+      {
+        "course": "2026-11-28_R1C3",
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
+      },
+      {
+        "course": "2026-11-28_R1C3",
+        "motif": "PUBLICATION_HISTORIQUE_EN_ATTENTE"
+      },
+      {
+        "course": "2026-11-28_R1C3",
+        "motif": "PREVISION_A_ACTUALISER_APRES_HISTORIQUE"
       },
       {
         "course": "2026-11-28_R1C4",
@@ -109647,7 +109671,7 @@
   "sync_kpi_utc": "2026-11-28T11:10:53.079318+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-28T13:15:52.218736+00:00",
-    "controle_utc": "2026-11-28T13:22:35.105868+00:00",
+    "controle_utc": "2026-11-28T13:22:36.835481+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 8,
     "chevaux_confirmes_sheets": 0,
@@ -109666,7 +109690,7 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 38.55,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 71.48,
+    "carrieres_validees_par_heure_cycle": 71.18,
     "carrieres_publiees_par_heure_cycle": 0.0,
     "refus_geny": {
       "403": 0,
@@ -109687,5 +109711,6 @@
     "erreurs_sync": 0,
     "motif_fin_passage": "PUBLICATIONS_DUES_TRAITEES"
   },
-  "derniere_acquisition_validee_utc": "2026-11-28T13:22:34.799172+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-28T13:22:34.799172+00:00",
+  "motif_fin_passage": "CADENCE_GENY_DIFFEREE"
 }
