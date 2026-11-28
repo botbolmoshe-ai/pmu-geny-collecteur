@@ -100446,7 +100446,7 @@
     },
     "2895998": {
       "nom": "OTTO D'IQUAINE",
-      "sync": "SANS_MODIFICATION",
+      "sync": "A_FAIRE",
       "numero": "5",
       "engagement": "2026-11-28_R1C2",
       "vu_utc": "2026-11-28T11:00:42.233591+00:00",
@@ -100460,14 +100460,21 @@
         "preuve": "LIENS_COURSE_GENY"
       },
       "id": "2895998",
-      "collecte": "A_REPRENDRE",
+      "collecte": "COMPLET",
       "rapprochement_geny": "NOM_EXACT_ET_ID_GENY_CONFIRME",
       "annee_naissance_pmu": 2024,
       "recherche_geny_par_nom": false,
-      "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
+      "motif_actualisation": "",
       "depart_a_venir_utc": "2026-11-28T12:58:00+00:00",
       "premier_depart_reunion_utc": "2026-11-28T12:23:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "historique_complet_au_utc": "2026-11-28T11:02:41.982312+00:00",
+      "derniere_verification_utc": "2026-11-28T11:02:41.982312+00:00",
+      "prochaine_verification_utc": "2026-11-29T11:02:41.982312+00:00",
+      "nombre_performances": 5,
+      "erreur": "",
+      "ferrures_manquantes": 0,
+      "derniere_performance_date": "2026-11-02"
     },
     "2896537": {
       "nom": "ORACE DES MOLLES",
@@ -106496,11 +106503,11 @@
     }
   },
   "passage_utc": "2026-11-28T11:00:42.233591+00:00",
-  "maj_utc": "2026-11-28T11:02:35.083933+00:00",
+  "maj_utc": "2026-11-28T11:02:42.456917+00:00",
   "bilan": {
     "chevaux_suivis": 3519,
-    "tentatives_collecte": 1,
-    "captures_validees": 1,
+    "tentatives_collecte": 2,
+    "captures_validees": 2,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 0,
@@ -108939,26 +108946,26 @@
   "sync_kpi_utc": "2026-11-28T02:41:59.601672+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-28T11:00:42.233591+00:00",
-    "controle_utc": "2026-11-28T11:02:35.083933+00:00",
+    "controle_utc": "2026-11-28T11:02:42.456917+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 1,
+    "carrieres_completes_distinctes": 2,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
-    "requetes_http_geny": 62,
+    "requetes_http_geny": 68,
     "requetes_geny_par_ressource": {
-      "document": 1,
+      "document": 2,
       "stylesheet": 2,
       "script": 52,
       "font": 3,
-      "fetch": 2,
-      "image": 2
+      "fetch": 4,
+      "image": 5
     },
-    "ressources_geny_servies_du_cache_http": 0,
+    "ressources_geny_servies_du_cache_http": 57,
     "attente_inter_chevaux_secondes": 99.44,
     "intervalle_inter_chevaux_secondes": 60,
-    "duree_acces_geny_secondes": 5.53,
+    "duree_acces_geny_secondes": 11.06,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 31.9,
+    "carrieres_validees_par_heure_cycle": 59.89,
     "carrieres_publiees_par_heure_cycle": 0.0,
     "refus_geny": {
       "403": 0,
@@ -108979,5 +108986,5 @@
     "erreurs_sync": 0,
     "motif_fin_passage": "PUBLICATIONS_DUES_TRAITEES"
   },
-  "derniere_acquisition_validee_utc": "2026-11-28T11:01:34.630936+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-28T11:02:41.982312+00:00"
 }
