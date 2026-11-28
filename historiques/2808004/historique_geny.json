@@ -1,6 +1,6 @@
 {
-  "nombre_annonce_geny": 24,
-  "nombre_extrait": 24,
+  "nombre_annonce_geny": 25,
+  "nombre_extrait": 25,
   "blocs_qualification_exclus": 0,
   "dates_uniques": true,
   "lignes_uniques": true,
@@ -10,13 +10,74 @@
   "manquants": 0,
   "performances": [
     {
+      "date": "2026-11-12",
+      "hippodrome": "Vincennes",
+      "discipline": "Attelé",
+      "distance_m": "2100",
+      "classement": "5",
+      "chrono": "1'11''1",
+      "texte_source": "12/11/26 | Vincennes | Attelé | 2 100 | GP | G | Auto | Dur | Gr. II | 120 000 € | A. Abrivard | 1'11''1 | 12.4 | 5 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 120000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "depart_geny": "Auto",
+      "terrain_geny": "Dur",
+      "groupe_geny": "II",
+      "chrono_geny_sec_km": 71.1,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 12.4,
+      "geny_parsing_motifs": "OK",
+      "depart_trot": {
+        "mode": "Autostart",
+        "source": "GENY_DONNEES_STRUCTUREES",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "course_id": 1698061
+      },
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1698061
+        ]
+      }
+    },
+    {
       "date": "2026-09-12",
       "hippodrome": "Vincennes",
       "discipline": "Attelé",
       "distance_m": "2850",
       "classement": "2",
       "chrono": "1'10''9",
-      "texte_source": "12/09/26 | Vincennes | Attelé | 2 850 | GP | G | - | Dur | Gr. I | 300 000 € | A. Abrivard | 1'10''9 | 10.2 | 2 | e"
+      "texte_source": "12/09/26 | Vincennes | Attelé | 2 850 | GP | G | - | Dur | Gr. I | 300 000 € | A. Abrivard | 1'10''9 | 10.2 | 2 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 300000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "groupe_geny": "I",
+      "chrono_geny_sec_km": 70.9,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 10.2,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1683365
+        ]
+      }
     },
     {
       "date": "2026-08-29",
@@ -25,7 +86,29 @@
       "distance_m": "2700",
       "classement": "1",
       "chrono": "1'13''9",
-      "texte_source": "29/08/26 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 1'13''9 | 13.7 | 1 | er"
+      "texte_source": "29/08/26 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 1'13''9 | 13.7 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 120000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "groupe_geny": "II",
+      "chrono_geny_sec_km": 73.9,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 13.7,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1679858
+        ]
+      }
     },
     {
       "date": "2026-08-06",
@@ -34,7 +117,36 @@
       "distance_m": "2150",
       "classement": "1",
       "chrono": "1'12''0",
-      "texte_source": "06/08/26 | Enghien | Attelé | 2 150 | G | Auto | Dur | Crse B | 60 000 € | A. Abrivard | 1'12''0 | 3.7 | 1 | er"
+      "texte_source": "06/08/26 | Enghien | Attelé | 2 150 | G | Auto | Dur | Crse B | 60 000 € | A. Abrivard | 1'12''0 | 3.7 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 60000,
+      "corde_geny": "G",
+      "depart_geny": "Auto",
+      "terrain_geny": "Dur",
+      "categorie_geny": "B",
+      "chrono_geny_sec_km": 72.0,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 3.7,
+      "geny_parsing_motifs": "OK",
+      "depart_trot": {
+        "mode": "Autostart",
+        "source": "GENY_DONNEES_STRUCTUREES",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "course_id": 1674305
+      },
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1674305
+        ]
+      }
     },
     {
       "date": "2026-05-02",
@@ -43,7 +155,26 @@
       "distance_m": "2850",
       "classement": "Dai",
       "chrono": "",
-      "texte_source": "02/05/26 | Vincennes | Attelé | 2 850 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 20 | Dai"
+      "texte_source": "02/05/26 | Vincennes | Attelé | 2 850 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 20 | Dai",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 120000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "groupe_geny": "II",
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 20.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP/PA",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Plaqué ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": []
+      }
     },
     {
       "date": "2026-04-11",
@@ -52,7 +183,26 @@
       "distance_m": "2700",
       "classement": "Dai",
       "chrono": "",
-      "texte_source": "11/04/26 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 10 | Dai"
+      "texte_source": "11/04/26 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 10 | Dai",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 120000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "groupe_geny": "II",
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 10.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": []
+      }
     },
     {
       "date": "2026-03-09",
@@ -61,7 +211,26 @@
       "distance_m": "2450",
       "classement": "6",
       "chrono": "1'11''5",
-      "texte_source": "09/03/26 | Caen | Attelé | 2 450 | D | - | Dur | Crse B | 35 000 € | A. Abrivard | 1'11''5 | 16 | 6 | e"
+      "texte_source": "09/03/26 | Caen | Attelé | 2 450 | D | - | Dur | Crse B | 35 000 € | A. Abrivard | 1'11''5 | 16 | 6 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 35000,
+      "corde_geny": "D",
+      "terrain_geny": "Dur",
+      "categorie_geny": "B",
+      "chrono_geny_sec_km": 71.5,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 16.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": []
+      }
     },
     {
       "date": "2026-01-31",
@@ -70,7 +239,29 @@
       "distance_m": "2700",
       "classement": "1",
       "chrono": "1'12''4",
-      "texte_source": "31/01/26 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Crse A | 62 000 € | A. Abrivard | 1'12''4 | 4.7 | 1 | er"
+      "texte_source": "31/01/26 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Crse A | 62 000 € | A. Abrivard | 1'12''4 | 4.7 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 62000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "A",
+      "chrono_geny_sec_km": 72.4,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 4.7,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1630617
+        ]
+      }
     },
     {
       "date": "2025-12-31",
@@ -79,7 +270,29 @@
       "distance_m": "2850",
       "classement": "1",
       "chrono": "1'14''4",
-      "texte_source": "31/12/25 | Vincennes | Attelé | 2 850 | GP | G | - | Dur | Crse B | 52 000 € | A. Abrivard | 1'14''4 | 4.4 | 1 | er"
+      "texte_source": "31/12/25 | Vincennes | Attelé | 2 850 | GP | G | - | Dur | Crse B | 52 000 € | A. Abrivard | 1'14''4 | 4.4 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 52000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "B",
+      "chrono_geny_sec_km": 74.4,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 4.4,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1624981
+        ]
+      }
     },
     {
       "date": "2025-11-05",
@@ -88,7 +301,25 @@
       "distance_m": "3000",
       "classement": "Dai",
       "chrono": "",
-      "texte_source": "05/11/25 | Nantes | Attelé | 3 000 | G | - | Dur | Crse B | 30 000 € | A. Prat | 79 | Dai"
+      "texte_source": "05/11/25 | Nantes | Attelé | 3 000 | G | - | Dur | Crse B | 30 000 € | A. Prat | 79 | Dai",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 30000,
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "B",
+      "driver_geny": "A. Prat",
+      "cote_geny_historique": 79.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": []
+      }
     },
     {
       "date": "2025-08-30",
@@ -97,7 +328,29 @@
       "distance_m": "2700",
       "classement": "5",
       "chrono": "1'12''3",
-      "texte_source": "30/08/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 1'12''3 | 19 | 5 | e"
+      "texte_source": "30/08/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 1'12''3 | 19 | 5 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 120000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "groupe_geny": "II",
+      "chrono_geny_sec_km": 72.3,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 19.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP/PA",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Plaqué ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1597243
+        ]
+      }
     },
     {
       "date": "2025-08-16",
@@ -106,7 +359,26 @@
       "distance_m": "2175",
       "classement": "Dai",
       "chrono": "",
-      "texte_source": "16/08/25 | Vincennes | Attelé | 2 175 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 28 | Dai"
+      "texte_source": "16/08/25 | Vincennes | Attelé | 2 175 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 28 | Dai",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 120000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "groupe_geny": "II",
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 28.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": []
+      }
     },
     {
       "date": "2025-07-29",
@@ -115,7 +387,26 @@
       "distance_m": "2850",
       "classement": "8",
       "chrono": "1'13''5",
-      "texte_source": "29/07/25 | Meslay-du-Maine | Attelé | 2 850 | D | - | Dur | Crse B | 30 000 € | T. Roullier | 1'13''5 | 68 | 8 | e"
+      "texte_source": "29/07/25 | Meslay-du-Maine | Attelé | 2 850 | D | - | Dur | Crse B | 30 000 € | T. Roullier | 1'13''5 | 68 | 8 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 30000,
+      "corde_geny": "D",
+      "terrain_geny": "Dur",
+      "categorie_geny": "B",
+      "chrono_geny_sec_km": 73.5,
+      "driver_geny": "T. Roullier",
+      "cote_geny_historique": 68.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": []
+      }
     },
     {
       "date": "2025-06-07",
@@ -124,7 +415,29 @@
       "distance_m": "2700",
       "classement": "4",
       "chrono": "1'11''8",
-      "texte_source": "07/06/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 1'11''8 | 41 | 4 | e"
+      "texte_source": "07/06/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. II | 120 000 € | A. Abrivard | 1'11''8 | 41 | 4 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 120000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "groupe_geny": "II",
+      "chrono_geny_sec_km": 71.8,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 41.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1574786
+        ]
+      }
     },
     {
       "date": "2025-05-03",
@@ -133,7 +446,29 @@
       "distance_m": "2700",
       "classement": "4",
       "chrono": "1'12''7",
-      "texte_source": "03/05/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. III | 70 000 € | A. Abrivard | 1'12''7 | 7.6 | 4 | e"
+      "texte_source": "03/05/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Gr. III | 70 000 € | A. Abrivard | 1'12''7 | 7.6 | 4 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 70000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "groupe_geny": "III",
+      "chrono_geny_sec_km": 72.7,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 7.6,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1566689
+        ]
+      }
     },
     {
       "date": "2025-04-05",
@@ -142,7 +477,29 @@
       "distance_m": "2850",
       "classement": "3",
       "chrono": "1'12''7",
-      "texte_source": "05/04/25 | Vincennes | Attelé | 2 850 | GP | G | - | Dur | Crse A | 62 000 € | A. Abrivard | 1'12''7 | 4.3 | 3 | e"
+      "texte_source": "05/04/25 | Vincennes | Attelé | 2 850 | GP | G | - | Dur | Crse A | 62 000 € | A. Abrivard | 1'12''7 | 4.3 | 3 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 62000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "A",
+      "chrono_geny_sec_km": 72.7,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 4.3,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1559953
+        ]
+      }
     },
     {
       "date": "2025-03-22",
@@ -151,7 +508,29 @@
       "distance_m": "2700",
       "classement": "1",
       "chrono": "1'12''8",
-      "texte_source": "22/03/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Crse A | 62 000 € | A. Abrivard | 1'12''8 | 8 | 1 | er"
+      "texte_source": "22/03/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Crse A | 62 000 € | A. Abrivard | 1'12''8 | 8 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 62000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "A",
+      "chrono_geny_sec_km": 72.8,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 8.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1556958
+        ]
+      }
     },
     {
       "date": "2025-02-20",
@@ -160,7 +539,37 @@
       "distance_m": "2100",
       "classement": "1",
       "chrono": "1'12''3",
-      "texte_source": "20/02/25 | Vincennes | Attelé | 2 100 | GP | G | Auto | Dur | Crse A | 62 000 € | A. Abrivard | 1'12''3 | 2.8 | 1 | er"
+      "texte_source": "20/02/25 | Vincennes | Attelé | 2 100 | GP | G | Auto | Dur | Crse A | 62 000 € | A. Abrivard | 1'12''3 | 2.8 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 62000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "depart_geny": "Auto",
+      "terrain_geny": "Dur",
+      "categorie_geny": "A",
+      "chrono_geny_sec_km": 72.3,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 2.8,
+      "geny_parsing_motifs": "OK",
+      "depart_trot": {
+        "mode": "Autostart",
+        "source": "GENY_DONNEES_STRUCTUREES",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "course_id": 1550960
+      },
+      "ferrure": "DP",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré ant. / Déferré post.",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1550960
+        ]
+      }
     },
     {
       "date": "2025-02-02",
@@ -169,7 +578,29 @@
       "distance_m": "2700",
       "classement": "2",
       "chrono": "1'15''1",
-      "texte_source": "02/02/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Crse B | 52 000 € | A. Abrivard | 1'15''1 | 9.7 | 2 | e"
+      "texte_source": "02/02/25 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Crse B | 52 000 € | A. Abrivard | 1'15''1 | 9.7 | 2 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 52000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "B",
+      "chrono_geny_sec_km": 75.1,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 9.7,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1547964
+        ]
+      }
     },
     {
       "date": "2024-12-07",
@@ -178,7 +609,37 @@
       "distance_m": "2100",
       "classement": "1",
       "chrono": "1'12''8",
-      "texte_source": "07/12/24 | Vincennes | Attelé | 2 100 | GP | G | Auto | Dur | Crse D | 40 000 € | A. Abrivard | 1'12''8 | 5 | 1 | er"
+      "texte_source": "07/12/24 | Vincennes | Attelé | 2 100 | GP | G | Auto | Dur | Crse D | 40 000 € | A. Abrivard | 1'12''8 | 5 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 40000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "depart_geny": "Auto",
+      "terrain_geny": "Dur",
+      "categorie_geny": "D",
+      "chrono_geny_sec_km": 72.8,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 5.0,
+      "geny_parsing_motifs": "OK",
+      "depart_trot": {
+        "mode": "Autostart",
+        "source": "GENY_DONNEES_STRUCTUREES",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "course_id": 1538175
+      },
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1538175
+        ]
+      }
     },
     {
       "date": "2024-11-14",
@@ -187,7 +648,29 @@
       "distance_m": "2700",
       "classement": "4",
       "chrono": "1'16''1",
-      "texte_source": "14/11/24 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Crse D | 40 000 € | A. Abrivard | 1'16''1 | 9.4 | 4 | e"
+      "texte_source": "14/11/24 | Vincennes | Attelé | 2 700 | GP | G | - | Dur | Crse D | 40 000 € | A. Abrivard | 1'16''1 | 9.4 | 4 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 40000,
+      "piste_geny": "GP",
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "D",
+      "chrono_geny_sec_km": 76.1,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 9.4,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1533141
+        ]
+      }
     },
     {
       "date": "2024-10-29",
@@ -196,7 +679,37 @@
       "distance_m": "2100",
       "classement": "1",
       "chrono": "1'14''6",
-      "texte_source": "29/10/24 | Vincennes | Attelé | 2 100 | GPP | G | Auto | Dur | Crse E | 35 000 € | A. Abrivard | 1'14''6 | 2.2 | 1 | er"
+      "texte_source": "29/10/24 | Vincennes | Attelé | 2 100 | GPP | G | Auto | Dur | Crse E | 35 000 € | A. Abrivard | 1'14''6 | 2.2 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 35000,
+      "piste_geny": "GPP",
+      "corde_geny": "G",
+      "depart_geny": "Auto",
+      "terrain_geny": "Dur",
+      "categorie_geny": "E",
+      "chrono_geny_sec_km": 74.6,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 2.2,
+      "geny_parsing_motifs": "OK",
+      "depart_trot": {
+        "mode": "Autostart",
+        "source": "GENY_DONNEES_STRUCTUREES",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "course_id": 1529477
+      },
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1529477
+        ]
+      }
     },
     {
       "date": "2024-10-19",
@@ -205,7 +718,26 @@
       "distance_m": "2150",
       "classement": "Dai",
       "chrono": "",
-      "texte_source": "19/10/24 | Enghien | Attelé | 2 150 | G | Auto | Dur | Crse D | 40 000 € | A. Abrivard | 4.7 | Dai"
+      "texte_source": "19/10/24 | Enghien | Attelé | 2 150 | G | Auto | Dur | Crse D | 40 000 € | A. Abrivard | 4.7 | Dai",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 40000,
+      "corde_geny": "G",
+      "depart_geny": "Auto",
+      "terrain_geny": "Dur",
+      "categorie_geny": "D",
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 4.7,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": []
+      }
     },
     {
       "date": "2024-06-06",
@@ -214,7 +746,28 @@
       "distance_m": "2800",
       "classement": "1",
       "chrono": "1'18''7",
-      "texte_source": "06/06/24 | Pontchâteau | Attelé | 2 800 | G | - | Dur | Crse D | 22 000 € | A. Abrivard | 1'18''7 | 2 | 1 | er"
+      "texte_source": "06/06/24 | Pontchâteau | Attelé | 2 800 | G | - | Dur | Crse D | 22 000 € | A. Abrivard | 1'18''7 | 2 | 1 | er",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 22000,
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "D",
+      "chrono_geny_sec_km": 78.7,
+      "driver_geny": "A. Abrivard",
+      "cote_geny_historique": 2.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1493009
+        ]
+      }
     },
     {
       "date": "2024-05-08",
@@ -223,11 +776,36 @@
       "distance_m": "2300",
       "classement": "3",
       "chrono": "1'14''8",
-      "texte_source": "08/05/24 | Le Mans | Attelé | 2 300 | G | - | Dur | Crse F | 15 000 € | L.-C. Abrivard | 1'14''8 | 22 | 3 | e"
+      "texte_source": "08/05/24 | Le Mans | Attelé | 2 300 | G | - | Dur | Crse F | 15 000 € | L.-C. Abrivard | 1'14''8 | 22 | 3 | e",
+      "geny_parsing_version": "1",
+      "allocation_geny_eur": 15000,
+      "corde_geny": "G",
+      "terrain_geny": "Dur",
+      "categorie_geny": "F",
+      "chrono_geny_sec_km": 74.8,
+      "driver_geny": "L.-C. Abrivard",
+      "cote_geny_historique": 22.0,
+      "geny_parsing_motifs": "OK",
+      "ferrure": "F",
+      "ferrure_qualification": "SOURCEE",
+      "ferrure_source": {
+        "source": "GENY_ARIA_LABEL",
+        "url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+        "capture_utc": "2026-11-28T15:30:54.534784+00:00",
+        "code_brut": "Ferré des 4",
+        "identifiant_cheval": "2808004",
+        "courses_ids": [
+          1486694
+        ]
+      }
     }
   ],
-  "source_url": "https://www.geny.com/cheval/2808004-lord-du-bassin/course/1698061",
-  "extrait_utc": "2026-11-11T11:01:43.409424+00:00",
+  "source_url": "https://www.geny.com/cheval/2808004-lord-du-bassin",
+  "extrait_utc": "2026-11-28T15:30:54.534784+00:00",
   "consentement": "NON_TESTE",
+  "ferrures_renseignees": 25,
+  "ferrures_manquantes": 0,
+  "ferrures_statut": "COMPLET",
+  "schema_ferrures": 1,
   "statut": "COMPLET"
 }
