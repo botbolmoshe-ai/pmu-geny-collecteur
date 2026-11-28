@@ -52,10 +52,10 @@
     "captures_ignorees": 8
   },
   "passage_utc": "2026-11-28T02:49:31.533739+00:00",
-  "maj_utc": "2026-11-28T02:50:23.393052+00:00",
+  "maj_utc": "2026-11-28T02:50:41.107844+00:00",
   "statut": "PARTIEL_REPRENABLE",
   "priorite_collecte": "STOCK_NOCTURNE",
-  "sync_kpi": "A_REPRENDRE",
+  "sync_kpi": "OK",
   "bilan": {
     "cibles_inventoriees": 2584,
     "cibles_completees": 1366,
@@ -80,7 +80,7 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-28T02:49:31.533739+00:00",
-    "controle_utc": "2026-11-28T02:50:23.393052+00:00",
+    "controle_utc": "2026-11-28T02:50:41.107844+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
     "chevaux_confirmes_sheets": 3,
@@ -93,7 +93,7 @@
     "duree_acces_geny_secondes": 0.0,
     "refus_sans_validation": 1,
     "carrieres_validees_par_heure_cycle": 0.0,
-    "carrieres_publiees_par_heure_cycle": 208.26,
+    "carrieres_publiees_par_heure_cycle": 155.23,
     "refus_geny": {
       "403": 0,
       "429": 0
@@ -104,6 +104,7 @@
     },
     "prochain_acces_geny_utc": "2026-11-28T03:11:41.631735+00:00"
   },
+  "motif_fin_passage": "COOLDOWN",
   "lignes_historique_initiales": 15484,
   "dernier_controle_inventaire": {
     "capture_utc": "2026-11-27T02:58:50.016518+00:00",
@@ -131,13 +132,12 @@
     "bilan": {
       "ABSENT_DE_LA_FILE": 1478,
       "A_REPRENDRE": 766,
-      "COMPLET": 584,
+      "COMPLET": 587,
       "FERRURES_A_COMPLETER": 423,
-      "LIEN_GENY_A_RESOUDRE": 47,
-      "SYNCHRONISATION_A_REPRENDRE": 3
+      "LIEN_GENY_A_RESOUDRE": 47
     },
     "noms_distincts": 3301,
-    "controle_utc": "2026-11-28T02:49:31.533739+00:00"
+    "controle_utc": "2026-11-28T02:50:25.951274+00:00"
   },
   "cohortes": {
     "initiale": {
@@ -166,9 +166,9 @@
   },
   "collecte_tentee_utc": "2026-11-27T03:05:38.272436+00:00",
   "derniere_acquisition_validee_utc": "2026-11-27T03:05:47.058998+00:00",
-  "controle_ordonnancement_utc": "2026-11-27T03:06:27.698192+00:00",
-  "motif_ordonnancement": "BUDGET_TEMPS_ATTEINT",
-  "sync_kpi_utc": "2026-11-27T03:06:23.874742+00:00",
+  "controle_ordonnancement_utc": "2026-11-28T02:50:25.951256+00:00",
+  "motif_ordonnancement": "COOLDOWN",
+  "sync_kpi_utc": "2026-11-28T02:50:41.106009+00:00",
   "dernier_creneau_reserve_utc": "2026-11-19T20:07:22.244110+00:00",
   "dernier_controle_nocturne": {
     "utc": "2026-11-27T02:58:38.285837+00:00",
@@ -184,7 +184,7 @@
     "nouvelle_alerte": false
   },
   "cooldown_geny": {
-    "controle_utc": "2026-11-28T02:50:23.452527+00:00",
+    "controle_utc": "2026-11-28T02:50:41.168540+00:00",
     "dernier_incident": {
       "utc": "2026-11-28T02:41:41.631735+00:00",
       "code": "403"
