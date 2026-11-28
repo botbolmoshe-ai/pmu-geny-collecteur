@@ -107617,7 +107617,7 @@
     },
     "2878545": {
       "nom": "NOURKIS",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "15",
       "engagement": "2026-11-28_R1C3",
       "vu_utc": "2026-11-28T15:25:09.880624+00:00",
@@ -107645,7 +107645,51 @@
       "nombre_performances": 10,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-08"
+      "derniere_performance_date": "2026-11-08",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 10,
+          "cellules_actualisees": 0,
+          "lignes_source": 10,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 10,
+            "lignes_avant": 40454,
+            "cles_avant": 40454,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4046,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40464,
+            "lignes_apres": 40464,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 2,
+          "lignes_source": 3943,
+          "correspondances_geny_verifiees": 3943,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3943,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1091,
+              "HISTO_OK_NOM": 436,
+              "HISTO_NON_COLLECTE": 2254,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 149,
+              "HISTO_PUBLICATION_EN_ATTENTE": 11
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-28T15:34:39.666885+00:00"
     },
     "2823255": {
       "nom": "MANHATTAN EMGE",
@@ -107971,7 +108015,7 @@
     }
   },
   "passage_utc": "2026-11-28T15:25:09.880624+00:00",
-  "maj_utc": "2026-11-28T15:34:10.059651+00:00",
+  "maj_utc": "2026-11-28T15:34:39.666912+00:00",
   "bilan": {
     "chevaux_suivis": 3877,
     "tentatives_collecte": 22,
@@ -110199,9 +110243,9 @@
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "publication_cycle": {
     "debut_utc": "2026-11-28T15:32:45.461456+00:00",
-    "controle_utc": "2026-11-28T15:34:10.059651+00:00",
-    "chevaux_confirmes_sheets": 3,
-    "performances_ajoutees_et_confirmees_sheets": 2,
+    "controle_utc": "2026-11-28T15:34:39.666912+00:00",
+    "chevaux_confirmes_sheets": 4,
+    "performances_ajoutees_et_confirmees_sheets": 12,
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
   },
