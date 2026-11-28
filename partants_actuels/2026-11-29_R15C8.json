@@ -1,0 +1,499 @@
+{
+  "date": "2026-11-29",
+  "course": "R15C8",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LA PERLE DU CAIEU",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1662000,
+        "gainsVictoires": 0,
+        "gainsPlace": 1662000,
+        "gainsAnneeEnCours": 380000,
+        "gainsAnneePrecedente": 1249000
+      }
+    },
+    {
+      "nom": "LAMOURA QUICK",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1842500,
+        "gainsVictoires": 1822500,
+        "gainsPlace": 20000,
+        "gainsAnneeEnCours": 20000,
+        "gainsAnneePrecedente": 1282500
+      }
+    },
+    {
+      "nom": "LINDA FORGETIERE",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1886500,
+        "gainsVictoires": 697500,
+        "gainsPlace": 1189000,
+        "gainsAnneeEnCours": 1115500,
+        "gainsAnneePrecedente": 771000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:58:03.122172+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "LA PERLE DU CAIEU-CIVELLE DU CAIEU-UN AMOUR D'HAUFOR",
+      "driver_jockey": "DAVID RENAULT",
+      "entraineur": "Mlle Manon CAMPOUS",
+      "proprietaire": "Mlle Manon CAMPOUS",
+      "ferrure": "DP/PA",
+      "musique_pmu": "7a7a8aDa8a2aDa(25)DaDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 16620.0,
+      "nom": "LA PERLE DU CAIEU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "LAMOURA QUICK-UMOURA QUICK-LOVE YOU",
+      "driver_jockey": "LOUIS LAHOUCINE",
+      "entraineur": "E. VARIN",
+      "proprietaire": "Ecurie E. VARIN",
+      "ferrure": "DP",
+      "musique_pmu": "DaDa8aDaDaDaDa7a(25)Da",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 18425.0,
+      "nom": "LAMOURA QUICK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "LINDA FORGETIERE-SOFIA FORGETIERE-RODRIGO JET",
+      "driver_jockey": "Mlle C. LEGRAIN",
+      "entraineur": "E. CHEDEVILLE",
+      "proprietaire": "E. CHEDEVILLE",
+      "musique_pmu": "8aDa9a5a1a3a4aDa(25)Da",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 18865.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "nom": "LINDA FORGETIERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "LANIA DU MESLE-TANIA DU NOYER-DRAGON DU FRESNE",
+      "driver_jockey": "FLORENT PELTIER",
+      "entraineur": "E. PELTIER",
+      "proprietaire": "E. PELTIER",
+      "ferrure": "D4",
+      "musique_pmu": "7a2a0a6a0a4a3a0a(25)5a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 22225.0,
+      "nom": "LANIA DU MESLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "LITTLE BAD GIRL-CABOTINE DE LAXA-PASSWORD",
+      "driver_jockey": "G. LEMAITRE",
+      "entraineur": "A. LEBOURGEOIS",
+      "proprietaire": "A. LEBOURGEOIS",
+      "musique_pmu": "7a4a3aDm5a9a8a7a5a0a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 22620.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "nom": "LITTLE BAD GIRL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "LOVA DE SANA-UVINA DU VIVIER-BOEING DU BOCAGE",
+      "driver_jockey": "Mme R. GENDRON",
+      "entraineur": "Nathan BOISRAME",
+      "proprietaire": "Nathan BOISRAME",
+      "musique_pmu": "DmDa0m9a0m8m5m3m6m4m",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 23175.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "nom": "LOVA DE SANA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "LHASSA DU SCION-TECHTONIQUE-NI HO PED D'OMBREE",
+      "driver_jockey": "Mme LEA LE GUERCH",
+      "entraineur": "J.F. POPOT",
+      "proprietaire": "V. LANGENAIS",
+      "musique_pmu": "0aDaDmDaDa4aDaDa1aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 23835.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "nom": "LHASSA DU SCION",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "LA PETITE MANON-ORIANE DE GUEZ-DOBERMAN",
+      "driver_jockey": "K. DAVID",
+      "entraineur": "F. DE MEYER",
+      "proprietaire": "Mme Mai-Miti AKOKA-AUBRY",
+      "ferrure": "D4",
+      "musique_pmu": "8a2a0a0a9a0a5a1a9aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 23855.0,
+      "nom": "LA PETITE MANON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "LANHELEN DU PILET-AZUELA-SEVERINO",
+      "driver_jockey": "MAXENCE LECOQ",
+      "entraineur": "Lucas LABBE",
+      "proprietaire": "A. TROUVE",
+      "ferrure": "DA",
+      "musique_pmu": "Da0a0a7a7aDaDm7a7a4a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 26020.0,
+      "nom": "LANHELEN DU PILET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "LILY BIRD DU ROYAL-EFIE DE FLORANGE-OISEAU DE FEUX",
+      "driver_jockey": "R. VILAULT",
+      "entraineur": "A. PLARD",
+      "proprietaire": "A. PLARD",
+      "ferrure": "D4",
+      "musique_pmu": "6a6a8aDa2aDa6a8a2a1a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 28140.0,
+      "nom": "LILY BIRD DU ROYAL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "LADY BOVARY-ALTA PANCA-LOOK DE STAR",
+      "driver_jockey": "N. MEREL",
+      "entraineur": "G. CHAMPENOIS",
+      "proprietaire": "G. CHAMPENOIS",
+      "ferrure": "D4",
+      "musique_pmu": "2a3m5a3a5a6a5a6a5m5a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 28555.0,
+      "nom": "LADY BOVARY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "LOULIE MANATHIS-FOUDRE MANATHIS-EXPRESS JET",
+      "driver_jockey": "Y. JULIEN",
+      "entraineur": "Nathan BOISRAME",
+      "proprietaire": "Nathan BOISRAME",
+      "musique_pmu": "2a6a5a2a6a3a7a3aDa9a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 28705.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "nom": "LOULIE MANATHIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "LUEUR DES LANDES-ROURA DE KACY-PASSWORD",
+      "driver_jockey": "L. LEGRAND",
+      "entraineur": "S. HARDY",
+      "proprietaire": "Ecurie SMACH",
+      "ferrure": "D4",
+      "musique_pmu": "0a7a3a9a4a4a8a0a2aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 28875.0,
+      "nom": "LUEUR DES LANDES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "LYNA DE DALINE-DOUCEUR DE DALINE-EROS DU CHENE",
+      "driver_jockey": "L. CHUPIN",
+      "entraineur": "F. JOSEPH",
+      "proprietaire": "F. JOSEPH",
+      "ferrure": "D4",
+      "musique_pmu": "1a5a1a2a9a3a6a7a(25)4a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 28955.0,
+      "nom": "LYNA DE DALINE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+        "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C8/participants",
+          "capture_utc": "2026-11-28T10:58:03.122172+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

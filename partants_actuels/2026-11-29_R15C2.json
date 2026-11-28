@@ -1,0 +1,448 @@
+{
+  "date": "2026-11-29",
+  "course": "R15C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NAPOLI HAUFOR",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NINIA DALAMEDA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NOBLIA BELLA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:10.314325+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "NAPOLI HAUFOR-ENVIE D'HAUFOR-TIEGO D'ETANG",
+      "driver_jockey": "A. GILLES",
+      "entraineur": "A. GILLES",
+      "proprietaire": "A. GILLES",
+      "ferrure": "PA",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "nom": "NAPOLI HAUFOR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "NINIA DALAMEDA-AHIRA DES MARES-DRAGON DES RACQUES",
+      "driver_jockey": "E. DE JESUS",
+      "entraineur": "K. WESKA",
+      "proprietaire": "K. WESKA",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NINIA DALAMEDA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "NOBLIA BELLA-BOLIVIA BELLA-BOLD EAGLE",
+      "driver_jockey": "T. OUVRIE",
+      "entraineur": "J.P. MARMION",
+      "proprietaire": "Ecurie Jean Paul MARMION",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NOBLIA BELLA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "NUBIE-EPINE-PRINCE GEDE",
+      "driver_jockey": "CH. ROUSSEL",
+      "entraineur": "CH. ROUSSEL",
+      "proprietaire": "CH. ROUSSEL",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NUBIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "NUMERALIE-CELEBRE PEINTURE-DIEGO DU GUELIER",
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "A. HUREAU",
+      "proprietaire": "Ecurie JOUSSE",
+      "musique_pmu": "5a9aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 600.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NUMERALIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "NEPTUNE DU BUISSON-BRISE DU BUISSON-CHARLY DU NOYER",
+      "driver_jockey": "L. GUINOISEAU",
+      "entraineur": "TH. RAFFEGEAU",
+      "proprietaire": "Ecurie Thierry RAFFEGEAU",
+      "musique_pmu": "4a6a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 1260.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NEPTUNE DU BUISSON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "NINA DU CHATELET-EBORA DU CHATELET-COBRA BLEU",
+      "driver_jockey": "B. GROULT",
+      "entraineur": "B. GROULT",
+      "proprietaire": "B. GROULT",
+      "musique_pmu": "5a5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 1400.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NINA DU CHATELET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "NATACHA DE RETZ-EXOTICA DE RETZ-FEELING CASH",
+      "driver_jockey": "S. ERNAULT",
+      "entraineur": "S. ERNAULT",
+      "proprietaire": "Ecurie des CHARMES",
+      "ferrure": "PA",
+      "musique_pmu": "3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 1680.0,
+      "nom": "NATACHA DE RETZ",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "NATURAL FACE-RANGELIE-GOETMALS WOOD",
+      "driver_jockey": "ET. LEFRANC",
+      "entraineur": "ET. LEFRANC",
+      "proprietaire": "Ecurie Etienne LEFRANC",
+      "musique_pmu": "Da3a5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2420.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NATURAL FACE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "NOUBA DU DOLLAR-VENEZIA DE LOU-UN AMOUR D'HAUFOR",
+      "driver_jockey": "S. BAUDE",
+      "entraineur": "Sté. Ent. Rodolphe DOUYERE",
+      "proprietaire": "Sté. Ent. Rodolphe DOUYERE",
+      "musique_pmu": "4aDaDa3aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2760.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NOUBA DU DOLLAR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "NUIT DE PAQUES-TRYADE DU STADE-BILIBILI",
+      "driver_jockey": "A. REBECHE",
+      "entraineur": "J. VILAULT",
+      "proprietaire": "J. VILAULT",
+      "musique_pmu": "6a4a6a7a5aDa6a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2980.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "nom": "NUIT DE PAQUES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "NICOTIANA BERRY-APOTHEOSE D'EM-OURAGAN DE CELLAND",
+      "driver_jockey": "CEDRIC TERRY",
+      "entraineur": "S. BOURLIER",
+      "proprietaire": "Ecurie Stéphane BOURLIER",
+      "ferrure": "P4",
+      "musique_pmu": "Da3a7aDa6a4a7a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 3195.0,
+      "nom": "NICOTIANA BERRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+        "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C2/participants",
+          "capture_utc": "2026-11-28T10:57:10.314325+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

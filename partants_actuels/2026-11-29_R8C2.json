@@ -1,0 +1,505 @@
+{
+  "date": "2026-11-29",
+  "course": "R8C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NENA DES SOURCES",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NIKITA DU CORTA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NINO DU SERAN",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:56:47.321541+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "NENA DES SOURCES-VANETTA D'AZUR-BILIBILI",
+      "driver_jockey": "TH. BUSSET",
+      "entraineur": "TH. BUSSET",
+      "proprietaire": "TH. BOUDET",
+      "ferrure": "PA",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "nom": "NENA DES SOURCES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "NIKITA DU CORTA-UTOPIA JOSSELYN-GU D'HERIPRE",
+      "driver_jockey": "Q. CHAUVE-LAFFAY",
+      "entraineur": "A.P. GIRAUD",
+      "proprietaire": "A.P. GIRAUD",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "nom": "NIKITA DU CORTA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "NINO DU SERAN-DIVA DU CHENE-SUPERVISOR",
+      "driver_jockey": "R. HEMERY",
+      "entraineur": "J.M. BOUVARD",
+      "proprietaire": "J.M. BOUVARD",
+      "musique_pmu": "Da",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "nom": "NINO DU SERAN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "NOUBA DES GOUJONS-DAME DES GOUJONS-SINGALO",
+      "driver_jockey": "J.M. GAUDIN",
+      "entraineur": "J.M. GAUDIN",
+      "proprietaire": "TH. PELOFY",
+      "musique_pmu": "0aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "nom": "NOUBA DES GOUJONS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "NUNCIO BELLO-DULCIA BELLA-EXCELLENT",
+      "driver_jockey": "V. DORISON",
+      "entraineur": "V. DORISON",
+      "proprietaire": "Mikael MARTINS",
+      "ferrure": "PA",
+      "musique_pmu": "DaDa9a7aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 140.0,
+      "nom": "NUNCIO BELLO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "NASH GRIFF-HANYA GRIFF-GALIUS",
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "L. LERENARD",
+      "proprietaire": "Ecurie GRIFF",
+      "ferrure": "PA",
+      "musique_pmu": "Da6a8aDa7a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 400.0,
+      "nom": "NASH GRIFF",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "NEWTON DE RATILLY-ENORA DE NUIT-QUAKER JET",
+      "driver_jockey": "B. CHAUVE-LAFFAY",
+      "entraineur": "A.P. GIRAUD",
+      "proprietaire": "J.PH. DARD",
+      "ferrure": "PA",
+      "musique_pmu": "5aDaDaDa7a",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 840.0,
+      "nom": "NEWTON DE RATILLY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "NAPO-OCEANARA-EARL SIMON",
+      "driver_jockey": "D. BEKAERT",
+      "entraineur": "M. BONNEFOY",
+      "proprietaire": "A. BONNEFOY",
+      "ferrure": "P4",
+      "musique_pmu": "4a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 1120.0,
+      "nom": "NAPO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "NEMESIS DU LOISIR-INES DU LOISIR-SINGALO",
+      "driver_jockey": "L. DURANTET",
+      "entraineur": "L. DURANTET",
+      "proprietaire": "L. DURANTET",
+      "musique_pmu": "DaDm5aDa8a9m5aDmDmDm",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 1630.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "nom": "NEMESIS DU LOISIR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "NOBELIX-END LOVE CAPTAIN-CHARLY DU NOYER",
+      "driver_jockey": "J. CUOQ",
+      "entraineur": "J. CUOQ",
+      "proprietaire": "A. DE GASPARIS",
+      "musique_pmu": "DaDaDa4aDaDa5aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 1945.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "nom": "NOBELIX",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "NEW YORK DU BOURG-AZZURRA DE LOU-DOLLAR MACKER",
+      "driver_jockey": "Mlle E. DUMAS",
+      "entraineur": "L. DURANTET",
+      "proprietaire": "Florian DURANTET",
+      "musique_pmu": "9a8aDm3a7mDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2100.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "nom": "NEW YORK DU BOURG",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "NIKAIA WIND-TINA WOOD-HOHNECK",
+      "driver_jockey": "F.J. PELTIER",
+      "entraineur": "L. DURANTET",
+      "proprietaire": "Jean-Michel DURANTET",
+      "musique_pmu": "5aDaDa3aDaDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2640.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "nom": "NIKAIA WIND",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "NEIGE HOUR-FINEST HOUR-FAKIR DU LORAULT",
+      "driver_jockey": "M. DUJMIC",
+      "entraineur": "M. DUJMIC",
+      "proprietaire": "D. DOLIVET",
+      "ferrure": "PA",
+      "musique_pmu": "5a3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2800.0,
+      "nom": "NEIGE HOUR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "NOBLESSE DU ROI-QUALINE D'AUGE-VILLEROI",
+      "driver_jockey": "A. GAUDIN",
+      "entraineur": "A. GAUDIN",
+      "proprietaire": "A. GAUDIN",
+      "musique_pmu": "DaDa2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 3750.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+          "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+        }
+      },
+      "nom": "NOBLESSE DU ROI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C2/participants",
+        "capture_utc": "2026-11-28T10:56:47.321541+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

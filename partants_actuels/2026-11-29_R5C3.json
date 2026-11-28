@@ -1,0 +1,477 @@
+{
+  "date": "2026-11-29",
+  "course": "R5C3",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NABAB DE CHENU",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 2330000,
+        "gainsVictoires": 1552500,
+        "gainsPlace": 777500,
+        "gainsAnneeEnCours": 2330000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NAGRADO GOLD",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1877000,
+        "gainsVictoires": 540000,
+        "gainsPlace": 1337000,
+        "gainsAnneeEnCours": 1877000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NO PAIN",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1816000,
+        "gainsVictoires": 1327500,
+        "gainsPlace": 488500,
+        "gainsAnneeEnCours": 1748500,
+        "gainsAnneePrecedente": 67500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:56:43.207729+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "NABAB DE CHENU-ADRIANA DE CHENU-BRIAC DARK",
+      "driver_jockey": "P. PELLEROT",
+      "entraineur": "P. PELLEROT",
+      "proprietaire": "Ecurie Pierre PELLEROT",
+      "musique_pmu": "5a3a1a6a1a5a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 23300.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NABAB DE CHENU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "NAGRADO GOLD-CARTE GOLD-VERY NICE MARCEAUX",
+      "driver_jockey": "M. CRIADO",
+      "entraineur": "J. GUERIEL",
+      "proprietaire": "J. GUERIEL",
+      "musique_pmu": "7a4a2a2a1a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 18770.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NAGRADO GOLD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "NO PAIN-DOULOUREUSE-HELGAFELL",
+      "driver_jockey": "V. CABOS",
+      "entraineur": "R. WESTERINK",
+      "proprietaire": "R. SIE",
+      "musique_pmu": "DaDa4a1a1aDa5a4a(25)5a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 18160.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NO PAIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "NOUIC DI PALBA-VINDIANA DRY-UN MEC D'HERIPRE",
+      "driver_jockey": "Q. MACHET",
+      "entraineur": "Q. MACHET",
+      "proprietaire": "Q. MACHET",
+      "musique_pmu": "1m6a4a3a4a5a5a(25)6a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 17715.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NOUIC DI PALBA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "NACRE GALAXY-GOLDEN GALAXY-CHARLY DU NOYER",
+      "driver_jockey": "TH. PRUDHON",
+      "entraineur": "E. PRUDHON",
+      "proprietaire": "Mme E. MEZQUITA",
+      "musique_pmu": "1a2aDaDa7a(25)4aDa1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 21635.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NACRE GALAXY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "NORMAND KISS-DARLING KISS-ALDO DES CHAMPS",
+      "driver_jockey": "V. ROYER",
+      "entraineur": "Mme A. GERMAIN",
+      "proprietaire": "J.L. VAYR",
+      "ferrure": "P4",
+      "musique_pmu": "5a2a2a3a5a2a(25)6a2a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 23410.0,
+      "nom": "NORMAND KISS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "NOISETTE DE QUERAY-DOUCETTE DE QUERAY-GET HAPPY",
+      "driver_jockey": "F. CORBINEAU",
+      "entraineur": "B. OLICARD",
+      "proprietaire": "B. OLICARD",
+      "musique_pmu": "0a1a3a5aDa1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 16965.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NOISETTE DE QUERAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "NANUCHKA-GLORIA GLAMOUR-ERIDAN",
+      "driver_jockey": "S. STEFANO",
+      "entraineur": "J.M. ROUBAUD",
+      "proprietaire": "P.EMMANUEL MARY",
+      "ferrure": "P4",
+      "musique_pmu": "4a1a7aDa7a1a2a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 23740.0,
+      "nom": "NANUCHKA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "NIKE RIVER-VIVA SAINT PAUL-BOLD EAGLE",
+      "driver_jockey": "C. GAZENGEL",
+      "entraineur": "C. GAZENGEL",
+      "proprietaire": "Ecurie CHAMPIE",
+      "ferrure": "PA",
+      "musique_pmu": "3a3a1a5a8aDa7a6aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 16645.0,
+      "nom": "NIKE RIVER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "NAOMIE DUEM-ETOILE DE L'ELLE-FOLLOW YOU",
+      "driver_jockey": "P. GESRET",
+      "entraineur": "Mlle S. TREICH",
+      "proprietaire": "Ecurie DUEM",
+      "musique_pmu": "3a3a8aDa2a1a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 16335.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NAOMIE DUEM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "NEVIDENCE ROC-VICTOIRE DES BOTS-REAL DE LOU",
+      "driver_jockey": "ET. CLOZIER",
+      "entraineur": "ET. CLOZIER",
+      "proprietaire": "Olivier SIMONETTI",
+      "musique_pmu": "2a8a6a7a6a6a2a2a4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 16840.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NEVIDENCE ROC",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "NEZHA DU PATURAL-MANGALA DU PATURAL-TITAN D'OCCAGNES",
+      "driver_jockey": "F. CLOZIER",
+      "entraineur": "P.M. MANCEAU",
+      "proprietaire": "P.M. MANCEAU",
+      "musique_pmu": "Da2aDaDa6a8a3a6a2a8a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 14995.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+          "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+        }
+      },
+      "nom": "NEZHA DU PATURAL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C3/participants",
+        "capture_utc": "2026-11-28T10:56:43.207729+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

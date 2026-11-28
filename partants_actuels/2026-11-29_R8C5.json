@@ -1,0 +1,488 @@
+{
+  "date": "2026-11-29",
+  "course": "R8C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MISS HAPPY",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1906500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1906500,
+        "gainsAnneeEnCours": 1707000,
+        "gainsAnneePrecedente": 199500
+      }
+    },
+    {
+      "nom": "MISTER JOHNS",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1672000,
+        "gainsVictoires": 810000,
+        "gainsPlace": 862000,
+        "gainsAnneeEnCours": 1672000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MARQUIS FORTIS",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1567400,
+        "gainsVictoires": 1215000,
+        "gainsPlace": 352400,
+        "gainsAnneeEnCours": 1567400,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:31.603966+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "MISS HAPPY-HAPPY DES CHARRONS-ATLAS DE JOUDES",
+      "driver_jockey": "P. CALLIER",
+      "entraineur": "G. NAKACHE",
+      "proprietaire": "G. NAKACHE",
+      "ferrure": "D4",
+      "musique_pmu": "3a0a3aDa2a4a2a4a7a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 19065.0,
+      "nom": "MISS HAPPY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "MISTER JOHNS-DOUCE PASSION-ERIDAN",
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "Sté. Ent. Bernard GRASSET",
+      "proprietaire": "Walter MARENGHI",
+      "ferrure": "D4",
+      "musique_pmu": "Da4a6a0a3a4a7a1aDa3a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16720.0,
+      "nom": "MISTER JOHNS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "MARQUIS FORTIS-BELLE LURETTE-ALTO DE VIETTE",
+      "driver_jockey": "A. TINTILLIER",
+      "entraineur": "H. NEUVILLE",
+      "proprietaire": "H. NEUVILLE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "0aDaDa3a5a1a7aDa1aDa",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 15674.0,
+      "nom": "MARQUIS FORTIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "MA DALTON-FEERIE DELO-VULCAIN DE VANDEL",
+      "driver_jockey": "D. BEKAERT",
+      "entraineur": "A. BONNEFOY",
+      "proprietaire": "Mme Nicole GROSSE",
+      "ferrure": "DP",
+      "musique_pmu": "Da2a0a0aDaDa0a5aDa8a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 17625.0,
+      "nom": "MA DALTON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "MEDIA BLEU-CLELIA DU CHATELET-DIABLE DE VAUVERT",
+      "driver_jockey": "MICKAEL CORMY",
+      "entraineur": "MICKAEL CORMY",
+      "proprietaire": "M. GALLIER",
+      "ferrure": "DP",
+      "musique_pmu": "6a3a1a2a3a2a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 19740.0,
+      "nom": "MEDIA BLEU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "MELINE DE MONGOCHY-RAYONNANTE-CHARLY DU NOYER",
+      "driver_jockey": "Q. CHAUVE-LAFFAY",
+      "entraineur": "G. TOURON",
+      "proprietaire": "D. DROUILLY",
+      "ferrure": "DP/PA",
+      "musique_pmu": "8a4aDaDaDa6aDa8a3a7a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 17335.0,
+      "nom": "MELINE DE MONGOCHY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "MILADY OAKS-CARESS OAKS-TAG WOOD",
+      "driver_jockey": "G. VIDAL",
+      "entraineur": "G. VIDAL",
+      "proprietaire": "Ecurie des CHENES",
+      "musique_pmu": "DaDa8aDa6a7a9aDa6a5a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 15905.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "nom": "MILADY OAKS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "MESSALINE-CASA JENILOU-FABULOUS WOOD",
+      "driver_jockey": "F.J. PELTIER",
+      "entraineur": "G. FOURNIGAULT",
+      "proprietaire": "Mme Fabienne PHILIPPON",
+      "ferrure": "D4",
+      "musique_pmu": "0a3aDa3a3a6aDa5a(25)Da",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 16230.0,
+      "nom": "MESSALINE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "MARYSE PIPOL-USHUAIA DES BOIS-PICSOU DE VILLABON",
+      "driver_jockey": "B. RUET",
+      "entraineur": "PIERRE BRASSARD",
+      "proprietaire": "PIERRE BRASSARD",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da0a4a8a4a2a(25)Da8a7a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 14845.0,
+      "nom": "MARYSE PIPOL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "MISTRAL DES SABLES-VENISE DES SABLES-GOSPEL PAT",
+      "driver_jockey": "P. LERENARD",
+      "entraineur": "L. LERENARD",
+      "proprietaire": "Rémy MENORET",
+      "ferrure": "P4",
+      "musique_pmu": "Dm1m7aDa5m0a3m2a4m7a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 15220.0,
+      "nom": "MISTRAL DES SABLES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "MOUNA D'OLIVERIE-THE QUEEN LOOK-UP AND QUICK",
+      "driver_jockey": "F. BROUST",
+      "entraineur": "L. BROUST",
+      "proprietaire": "S. PIOLAT",
+      "musique_pmu": "0a6aDm8a6a9a4a7a(25)9a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 13045.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "nom": "MOUNA D'OLIVERIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "MACFLY JIGANAYS-ESCAPADE ROYALE-COUP DROIT",
+      "driver_jockey": "J.CH. GANDRE",
+      "entraineur": "J.CH. GANDRE",
+      "proprietaire": "J. GANDRE",
+      "ferrure": "D4",
+      "musique_pmu": "0aDaDaAa8a0a6a8a2a8a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 7685.0,
+      "nom": "MACFLY JIGANAYS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "MISS IBIZA-AGORA-BRILLANTISSIME",
+      "driver_jockey": "B. CHAUVE-LAFFAY",
+      "entraineur": "A.P. GIRAUD",
+      "proprietaire": "A.P. GIRAUD",
+      "ferrure": "DA",
+      "musique_pmu": "0aDa8a5a5a1a2a2a(25)5a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 14375.0,
+      "nom": "MISS IBIZA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+        "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C5/participants",
+          "capture_utc": "2026-11-28T10:57:31.603966+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

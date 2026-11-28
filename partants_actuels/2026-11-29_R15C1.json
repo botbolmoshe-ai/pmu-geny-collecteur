@@ -1,0 +1,442 @@
+{
+  "date": "2026-11-29",
+  "course": "R15C1",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "ecurie",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NALA DU DONJON",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NAVANA DU DIGEON",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NO WOMAN NO CRY",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:04.639215+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "NALA DU DONJON-CARA DU DONJON-GELATI CUT",
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "Ch. DREUX",
+      "proprietaire": "Ecurie Charles DREUX",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "nom": "NALA DU DONJON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "NAVANA DU DIGEON-HAVANA SUPREME-SEDUISANT FOUTEAU",
+      "driver_jockey": "CH. DREUX",
+      "entraineur": "Ch. DREUX",
+      "proprietaire": "Ecurie Charles DREUX",
+      "ferrure": "P4",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "nom": "NAVANA DU DIGEON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "NO WOMAN NO CRY-EX GRATIA-FABULOUS WOOD",
+      "driver_jockey": "M. HERRAULT",
+      "entraineur": "J.L. BIGEON",
+      "proprietaire": "J. SECHE",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "nom": "NO WOMAN NO CRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "NONCHALANCE-DIVA-OFFSHORE DREAM",
+      "driver_jockey": "S. BAUDE",
+      "entraineur": "M. LENDERS",
+      "proprietaire": "Jürgen JOCHEM",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "nom": "NONCHALANCE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "NOA SANTIGNY-TIGRESSE SMILING-READY CASH",
+      "driver_jockey": "S. HARDY",
+      "entraineur": "Anthonin FAVRIS",
+      "proprietaire": "Anthonin FAVRIS",
+      "ferrure": "PA",
+      "musique_pmu": "Da",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "nom": "NOA SANTIGNY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "NINA RICCI ERA-TOQUE ORANGE-SAXO DE VANDEL",
+      "driver_jockey": "R. LAMY",
+      "entraineur": "G. LIGERON",
+      "proprietaire": "M. JOURNO",
+      "ferrure": "P4",
+      "musique_pmu": "Da4a0a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 960.0,
+      "nom": "NINA RICCI ERA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "NIKITA BOUM-IRISH DANCE-CAPTAIN SPARROW",
+      "driver_jockey": "P. SORAIS",
+      "entraineur": "P. SORAIS",
+      "proprietaire": "P. SORAIS",
+      "musique_pmu": "7a8a8a6a4a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 1335.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "nom": "NIKITA BOUM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "NEFERTITI AWAGNE-BRISE D'AWAGNE-TREIZIEME JOUR",
+      "driver_jockey": "Mlle C. LEGRAIN",
+      "entraineur": "Anthonin FAVRIS",
+      "proprietaire": "Anthonin FAVRIS",
+      "musique_pmu": "4a1a6a7a0a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 1615.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "nom": "NEFERTITI AWAGNE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "NETFLIX MIJO-GALILEE QUESNOT-BOCCADOR DE SIMM",
+      "driver_jockey": "G. LIGERON",
+      "entraineur": "G. LIGERON",
+      "proprietaire": "M. JOURNO",
+      "ferrure": "P4",
+      "musique_pmu": "6aDa3aDa7aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2125.0,
+      "nom": "NETFLIX MIJO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "NICOTINE DE LA FYE-UGOLINA DE LA FYE-OURAGAN DE CELLAND",
+      "driver_jockey": "E. CIVE",
+      "entraineur": "F. COPPYN",
+      "proprietaire": "Ecurie de la FYE",
+      "ferrure": "P4",
+      "musique_pmu": "9aDa6a0a3a7a6a0a(25)0a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2450.0,
+      "nom": "NICOTINE DE LA FYE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "NEMESIS VICI-CYNTHIA VICI-FIFTY KALOUMA",
+      "driver_jockey": "T. OUVRIE",
+      "entraineur": "F. LEDOUX",
+      "proprietaire": "Mme Célia FOUCHER",
+      "musique_pmu": "8aDaDa6a4aDa4aDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2900.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "nom": "NEMESIS VICI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "NEW FOR ME VITRAY-FOR ME DE VITRAY-ROC MESLOIS",
+      "driver_jockey": "Mlle M. LIBERGE",
+      "entraineur": "CH. LIBERGE",
+      "proprietaire": "CH. LIBERGE",
+      "musique_pmu": "4a6a0a3a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 3170.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+          "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+        }
+      },
+      "nom": "NEW FOR ME VITRAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C1/participants",
+        "capture_utc": "2026-11-28T10:57:04.639215+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

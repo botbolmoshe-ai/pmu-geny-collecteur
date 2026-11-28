@@ -1,0 +1,526 @@
+{
+  "date": "2026-11-29",
+  "course": "R16C2",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "ecurie",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "NANTIE DES MONTS",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 399500,
+        "gainsVictoires": 0,
+        "gainsPlace": 399500,
+        "gainsAnneeEnCours": 399500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NIKITA DE LAURMA",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 302000,
+        "gainsVictoires": 0,
+        "gainsPlace": 302000,
+        "gainsAnneeEnCours": 302000,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "NAUSICAA JIEL",
+      "deferre": "PROTEGE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 297000,
+        "gainsVictoires": 0,
+        "gainsPlace": 297000,
+        "gainsAnneeEnCours": 297000,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:12.978831+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "NANTIE DES MONTS-REINE DE GUEHAM-QUAKER JET",
+      "driver_jockey": "J.CH. PITON",
+      "entraineur": "Lorenzo ZOLLO",
+      "proprietaire": "Lorenzo ZOLLO",
+      "musique_pmu": "3a4a5a7a9a5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 3995.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "nom": "NANTIE DES MONTS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "NIKITA DE LAURMA-IN RACE FOR MONEY-CAPTAIN SPARROW",
+      "driver_jockey": "J. BAAS",
+      "entraineur": "Jan BAAS",
+      "proprietaire": "Jan BAAS",
+      "ferrure": "P4",
+      "musique_pmu": "Aa5a3a3a0a3a7a5aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 3020.0,
+      "nom": "NIKITA DE LAURMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "NAUSICAA JIEL-VALENTINA JIEL-HOKKAIDO JIEL",
+      "driver_jockey": "CH. PLANCHAIS",
+      "entraineur": "J.L. DERSOIR",
+      "proprietaire": "Ecurie LUCK",
+      "ferrure": "P4",
+      "musique_pmu": "Da5a4aDm6aDa5a6aDm(25)",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 2970.0,
+      "nom": "NAUSICAA JIEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "NOBLESSE CHATAULT-GAYA DU CHATAULT-CELEBRISSIME",
+      "driver_jockey": "G. LANNOO",
+      "entraineur": "A. LANNOO",
+      "proprietaire": "Dirk BAUDONCQ",
+      "musique_pmu": "5a5a6aDaDa3a5a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 4415.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "nom": "NOBLESSE CHATAULT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "NAMOURA JIEL-SURABAYA JIEL-HOKKAIDO JIEL",
+      "driver_jockey": "M. BIZOUX",
+      "entraineur": "J.L. DERSOIR",
+      "proprietaire": "Ecurie LUCK",
+      "ferrure": "P4",
+      "musique_pmu": "3a5a8a4a6a6a",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 3930.0,
+      "nom": "NAMOURA JIEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "NINOS-CASH DIVA-EARL SIMON",
+      "driver_jockey": "J. MELIS MACIAS",
+      "entraineur": "D. BROHIER",
+      "proprietaire": "J. MELIS MACIAS",
+      "ferrure": "PA",
+      "musique_pmu": "Dm4a4aDmDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 3160.0,
+      "nom": "NINOS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "NEZIRO JOSSELYN-GEZIRA JOSSELYN-LOVE YOU",
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "Pavel TAMSIN",
+      "proprietaire": "Mlle Stéphanie GRISEZ",
+      "ferrure": "P4",
+      "musique_pmu": "2a5a8aDa",
+      "sexe": "Mâle",
+      "age_ans": 3,
+      "gains_euros": 3500.0,
+      "nom": "NEZIRO JOSSELYN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "NERZH D'OLIVERIE-ESTORIL D'OLIVERIE-BOCCADOR DE SIMM",
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "A. MARION",
+      "proprietaire": "Ecurie SANTAMARIA",
+      "ferrure": "PA",
+      "musique_pmu": "5a4aDa5a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 2550.0,
+      "nom": "NERZH D'OLIVERIE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "NASDAQ DU POHOSE-DHARAMSALA DU JAL-CAPTAIN SPARROW",
+      "driver_jockey": "P. HOUEL",
+      "entraineur": "G. HOUEL",
+      "proprietaire": "Ecurie H.G. HOUEL",
+      "ferrure": "P4",
+      "musique_pmu": "5a9a7a",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 740.0,
+      "nom": "NASDAQ DU POHOSE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "NEVER KATCH ME-GEDUGAZE PENA-HEAVEN'S PRIDE",
+      "driver_jockey": "J. FERRON",
+      "entraineur": "A. CLERIN",
+      "proprietaire": "A. CLERIN",
+      "musique_pmu": "0a5m4a5a8a9aDm9a9aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 2590.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "nom": "NEVER KATCH ME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "NECTAR DE FAEL-HARMONIE DE FAEL-GOTLAND",
+      "driver_jockey": "V. SAUSSAYE",
+      "entraineur": "Antonin ANDRE",
+      "proprietaire": "Antonin ANDRE",
+      "ferrure": "PA",
+      "musique_pmu": "DmDaDaDaDa4aDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 1320.0,
+      "nom": "NECTAR DE FAEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "NEXPRESSO ETRE-SAGA DE BOLERO-EXPRESS JET",
+      "driver_jockey": "M. VERVA",
+      "entraineur": "H. GRIFT",
+      "proprietaire": "Ecurie des AS",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "nom": "NEXPRESSO ETRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "NAVARO DU CAPRE-HISTOIRE MAGIQUE-MAGNIFICENT RODNEY",
+      "driver_jockey": "DAVID LEFEVRE",
+      "entraineur": "Lorenzo ZOLLO",
+      "proprietaire": "Lorenzo ZOLLO",
+      "ferrure": "P4",
+      "musique_pmu": "4a6a9a9aDaDa",
+      "sexe": "Hongre",
+      "age_ans": 3,
+      "gains_euros": 1280.0,
+      "nom": "NAVARO DU CAPRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "NORKA DAIRPET-HOT FOR EVER-INOUI DANICA",
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "J.R. DELLIAUX",
+      "proprietaire": "Ecurie du DAMIER",
+      "sexe": "Femelle",
+      "age_ans": 3,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+          "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+        }
+      },
+      "nom": "NORKA DAIRPET",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C2/participants",
+        "capture_utc": "2026-11-28T10:57:12.978831+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

@@ -1,0 +1,339 @@
+{
+  "date": "2026-11-29",
+  "course": "R8C8",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "HEROS D'YVEL",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 24492500,
+        "gainsVictoires": 16830000,
+        "gainsPlace": 7662500,
+        "gainsAnneeEnCours": 134000,
+        "gainsAnneePrecedente": 3712000
+      }
+    },
+    {
+      "nom": "IL VIENT DU LUDE",
+      "deferre": "PROTEGE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 29436500,
+        "gainsVictoires": 12330000,
+        "gainsPlace": 17106500,
+        "gainsAnneeEnCours": 6799000,
+        "gainsAnneePrecedente": 5584000
+      }
+    },
+    {
+      "nom": "HESCORT LOVE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 30388000,
+        "gainsVictoires": 16290000,
+        "gainsPlace": 14098000,
+        "gainsAnneeEnCours": 9216000,
+        "gainsAnneePrecedente": 2302000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:58.628152+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "HEROS D'YVEL-TONIA D'YVEL-UN AMOUR D'HAUFOR",
+      "driver_jockey": "MICKAEL CORMY",
+      "entraineur": "MICKAEL CORMY",
+      "proprietaire": "Ecurie du VIEUX CHENE",
+      "ferrure": "D4",
+      "musique_pmu": "Da7aDa0a6a0aDa(25)4a7a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 244925.0,
+      "nom": "HEROS D'YVEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "IL VIENT DU LUDE-BYZANCE FROMENTRO-ARTISTE DE JOUDES",
+      "driver_jockey": "A. TINTILLIER",
+      "entraineur": "Sté. Ent. Anthony TINTILLIER",
+      "proprietaire": "Sté. Ent. Anthony TINTILLIER",
+      "ferrure": "PA",
+      "musique_pmu": "7a0a1a4a6a6a4a8a1a7a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 294365.0,
+      "nom": "IL VIENT DU LUDE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "HESCORT LOVE-REINE DES IFS-VIVALDO BELLO",
+      "driver_jockey": "J. DUBOIS",
+      "entraineur": "Sté. Ent. Bernard GRASSET",
+      "proprietaire": "Ecurie J.P.-F. LAMARE",
+      "ferrure": "D4",
+      "musique_pmu": "2a0a1a2a6a1a1a1a0a5a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 303880.0,
+      "nom": "HESCORT LOVE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "IMPULSE JULRY-RUMBA JULRY-CHARLY DU NOYER",
+      "driver_jockey": "B. RUET",
+      "entraineur": "J.P. GAUVIN",
+      "proprietaire": "Ecurie JULRY",
+      "ferrure": "D4",
+      "musique_pmu": "8aDa3a6m1aDa6m1a7aDa",
+      "sexe": "Femelle",
+      "age_ans": 8,
+      "gains_euros": 310715.0,
+      "nom": "IMPULSE JULRY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "JAPPELOUP TURGOT-DOUCHKA TURGOT-UP AND QUICK",
+      "driver_jockey": "D. BEKAERT",
+      "entraineur": "M. ABRIVARD",
+      "proprietaire": "Ecurie TURGOT",
+      "ferrure": "D4",
+      "musique_pmu": "8a5a5a2a7a8a1a3a9a8a",
+      "sexe": "Mâle",
+      "age_ans": 7,
+      "gains_euros": 325195.0,
+      "nom": "JAPPELOUP TURGOT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "HERODE DU CORTA-JELNA CLAIRCHAMP-PICSOU DE VILLABON",
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "TH. BONNARDEL",
+      "proprietaire": "Y.A. BRIAND",
+      "ferrure": "D4",
+      "musique_pmu": "2a3a8a9a6aDa1a2a1a2a",
+      "sexe": "Hongre",
+      "age_ans": 9,
+      "gains_euros": 331555.0,
+      "nom": "HERODE DU CORTA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "GEANT SARTHOIS-STRADA SARTHOISE-RADJAH DE L'ABBAYE",
+      "driver_jockey": "Q. CHAUVE-LAFFAY",
+      "entraineur": "M. BONNEFOY",
+      "proprietaire": "Ecurie SIDERE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "DaDa6a7a2a4a9a6a1a6a",
+      "sexe": "Hongre",
+      "age_ans": 10,
+      "gains_euros": 339080.0,
+      "nom": "GEANT SARTHOIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "GUERRIER CASTELETS-PRINCESSE VAUMICEL-UNICLOVE",
+      "driver_jockey": "L. GUENET",
+      "entraineur": "Mme Barbara GUENET",
+      "proprietaire": "Mme Barbara GUENET",
+      "ferrure": "D4",
+      "musique_pmu": "1a9a5a3a9a3a8a4a6a9a",
+      "sexe": "Hongre",
+      "age_ans": 10,
+      "gains_euros": 343437.0,
+      "nom": "GUERRIER CASTELETS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "HABIT DE SOIREE-MAMAORA-BOOSTER WINNER",
+      "driver_jockey": "F. SENET",
+      "entraineur": "F. SENET",
+      "proprietaire": "Mme M. STIHL",
+      "ferrure": "D4",
+      "musique_pmu": "0a9a6a5a0a0a8a5a6a3a",
+      "sexe": "Mâle",
+      "age_ans": 9,
+      "gains_euros": 347445.0,
+      "nom": "HABIT DE SOIREE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+        "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C8/participants",
+          "capture_utc": "2026-11-28T10:57:58.628152+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

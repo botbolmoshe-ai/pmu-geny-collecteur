@@ -1,0 +1,533 @@
+{
+  "date": "2026-11-29",
+  "course": "R16C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MAUVE D'HUIN",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1626500,
+        "gainsVictoires": 1387500,
+        "gainsPlace": 239000,
+        "gainsAnneeEnCours": 1410000,
+        "gainsAnneePrecedente": 216500
+      }
+    },
+    {
+      "nom": "MATRIONA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1658500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1658500,
+        "gainsAnneeEnCours": 617000,
+        "gainsAnneePrecedente": 1041500
+      }
+    },
+    {
+      "nom": "MAMOUR DU CHENE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1694500,
+        "gainsVictoires": 0,
+        "gainsPlace": 1694500,
+        "gainsAnneeEnCours": 432500,
+        "gainsAnneePrecedente": 1262000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:37.946082+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "MAUVE D'HUIN-FIDJI D'ERPION-NIKY",
+      "driver_jockey": "J. VAN DEN PUTTE JR.",
+      "entraineur": "Kris STAELENS",
+      "proprietaire": "Kris STAELENS",
+      "musique_pmu": "1a1a1a1a5a(25)6a3aDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 16265.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "nom": "MAUVE D'HUIN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "MATRIONA-AUMEVILLE-DOBERMAN",
+      "driver_jockey": "A. GARANDEAU",
+      "entraineur": "A. GARANDEAU",
+      "proprietaire": "Ecurie HERMA",
+      "musique_pmu": "0a4a3a9a3aDa(25)5a5a4a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 16585.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "nom": "MATRIONA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "MAMOUR DU CHENE-GEISHA DU CHENE-UN AMOUR D'HAUFOR",
+      "driver_jockey": "DAVID LEFEVRE",
+      "entraineur": "B. BARBIER",
+      "proprietaire": "Mme Helena BARBIER",
+      "ferrure": "D4",
+      "musique_pmu": "8aDa7a5aDa2a8a0aDa0a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16945.0,
+      "nom": "MAMOUR DU CHENE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "MAZA MENCOURT-CIABATTA-BOLD EAGLE",
+      "driver_jockey": "G. DEMOULIN",
+      "entraineur": "G. DEMOULIN",
+      "proprietaire": "G. DEMOULIN",
+      "musique_pmu": "Da5a3a1a2aDa3a6aDa3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 15185.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "nom": "MAZA MENCOURT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "MY SWEET DADDY-CORSICA-READY CASH",
+      "driver_jockey": "PH. MASSCHAELE",
+      "entraineur": "J.Y. MARECHAL",
+      "proprietaire": "J.Y. MARECHAL",
+      "ferrure": "DA",
+      "musique_pmu": "4aDaDa2aDa1a1a6a4aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16615.0,
+      "nom": "MY SWEET DADDY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "MAJAX DE REVE D'OR-FELINE SPEED-LOVE YOU",
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "J.R. DELLIAUX",
+      "proprietaire": "Ecurie du DAMIER",
+      "ferrure": "DP/PA",
+      "musique_pmu": "7a5a1aDa6aDa0aDa1a3a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16205.0,
+      "nom": "MAJAX DE REVE D'OR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "MOON D'AVRIL-GAIA D'AVRIL-URIEL SPEED",
+      "driver_jockey": "TH. DROMIGNY",
+      "entraineur": "Raphaël ONGHENA",
+      "proprietaire": "Raphaël ONGHENA",
+      "musique_pmu": "1a7a4aDa6a5a2aDa2a2a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 15848.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "nom": "MOON D'AVRIL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "MADEMOISELLE DJEMA-DIVA DU PONT-PRINCE D'ESPACE",
+      "driver_jockey": "G. FAVRIS",
+      "entraineur": "F. TABESSE",
+      "proprietaire": "Mme A. PIERRE",
+      "ferrure": "D4",
+      "musique_pmu": "9a7a7aDaDa8aDa8aDa6a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 3265.0,
+      "nom": "MADEMOISELLE DJEMA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "MILORD DU CHATAULT-TARNIE DES CINTY-URIEL SPEED",
+      "driver_jockey": "P. HOUEL",
+      "entraineur": "G. HOUEL",
+      "proprietaire": "T. VAN DE VOORDE",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da4a0a7m0aDaDa(25)Da3a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 13880.0,
+      "nom": "MILORD DU CHATAULT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "MAMBO DE L'AUMOY-COLOMBE MIKA-VIGOVE",
+      "driver_jockey": "J. MELIS MACIAS",
+      "entraineur": "D. BROHIER",
+      "proprietaire": "D. BROHIER",
+      "musique_pmu": "5a7aDa9m0a7aDa7a4aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 13435.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "nom": "MAMBO DE L'AUMOY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "MY SPIRIT ERA-FIRST DANCE-ERIDAN",
+      "driver_jockey": "A. MUIDEBLED",
+      "entraineur": "A. MUIDEBLED",
+      "proprietaire": "PH. DAVERGNE",
+      "musique_pmu": "0m6a8a9a7a6aDa5a6a7m",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 14960.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "nom": "MY SPIRIT ERA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "MIRA DES ILES-GALILEE DES ILES-TITAN D'OCCAGNES",
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "E. VARIN",
+      "proprietaire": "A. LE COURTOIS",
+      "ferrure": "D4",
+      "musique_pmu": "DaDmDaDaDa1aDaDaDa3a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 14215.0,
+      "nom": "MIRA DES ILES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "MILAZZIA-CHEYENNE DE JIEL-DIJON",
+      "driver_jockey": "B. PITON",
+      "entraineur": "B. PITON",
+      "proprietaire": "Christophe AMIGO",
+      "musique_pmu": "7aDaDa7a6a7a7a6a6aDm",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 14505.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "nom": "MILAZZIA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "MONDER DU CAPRE-GENOVA-VAUX LE VICOMTE",
+      "driver_jockey": "J.CH. PITON",
+      "entraineur": "Lorenzo ZOLLO",
+      "proprietaire": "Lorenzo ZOLLO",
+      "ferrure": "D4",
+      "musique_pmu": "Da5aDaDa5a0a0a(25)0aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 11180.0,
+      "nom": "MONDER DU CAPRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+        "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C4/participants",
+          "capture_utc": "2026-11-28T10:57:37.946082+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

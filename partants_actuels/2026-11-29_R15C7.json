@@ -1,0 +1,493 @@
+{
+  "date": "2026-11-29",
+  "course": "R15C7",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "JOKER DE LA CRIERE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 11208000,
+        "gainsVictoires": 3960000,
+        "gainsPlace": 7248000,
+        "gainsAnneeEnCours": 4775500,
+        "gainsAnneePrecedente": 1299500
+      }
+    },
+    {
+      "nom": "JULIUS ECUS",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 11226500,
+        "gainsVictoires": 5445000,
+        "gainsPlace": 5781500,
+        "gainsAnneeEnCours": 5356000,
+        "gainsAnneePrecedente": 2451000
+      }
+    },
+    {
+      "nom": "JOW PIQUENARD",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 11249000,
+        "gainsVictoires": 2857500,
+        "gainsPlace": 8391500,
+        "gainsAnneeEnCours": 2765000,
+        "gainsAnneePrecedente": 2929000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:58:00.393209+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "JOKER DE LA CRIERE-SYBELE DE QUADRO-TRESOR WIC",
+      "driver_jockey": "F. LAGADEUC",
+      "entraineur": "J. CHEVREUX",
+      "proprietaire": "J. CHEVREUX",
+      "ferrure": "D4",
+      "musique_pmu": "3a4a9a5a5a5a7a2a4a1a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 112080.0,
+      "nom": "JOKER DE LA CRIERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "JULIUS ECUS-BEA ECUS-DJANGO RIFF",
+      "driver_jockey": "Y. LEBOURGEOIS",
+      "entraineur": "A. RANDON",
+      "proprietaire": "Ec. Arnaud RANDON",
+      "musique_pmu": "1a1a2a1a4a3aDa5a3aDa",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 112265.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "nom": "JULIUS ECUS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "JOW PIQUENARD-GARBIE DOP-DIJON",
+      "driver_jockey": "A. GUYARD",
+      "entraineur": "A. GUYARD",
+      "proprietaire": "Mme Linda MARY",
+      "ferrure": "D4",
+      "musique_pmu": "9a9a7a4a2a3a5a1a3a6a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 112490.0,
+      "nom": "JOW PIQUENARD",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "JALMAROSA-UBELURIKA-UHLAN DU VAL",
+      "driver_jockey": "S. BAUDE",
+      "entraineur": "D. DELAROCHE",
+      "proprietaire": "Ecurie Daniel DELAROCHE",
+      "musique_pmu": "0a0a5aDa1a6a1a4a4a7a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 114620.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "nom": "JALMAROSA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "JOKER DE BELLOU-SERIE OUEST-UN AMOUR D'HAUFOR",
+      "driver_jockey": "CEDRIC TERRY",
+      "entraineur": "A.PH. GRIMAULT",
+      "proprietaire": "A. GASSIRARO",
+      "ferrure": "D4",
+      "musique_pmu": "Da3a4a8a9a0a6a6a7a6a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 114755.0,
+      "nom": "JOKER DE BELLOU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "JUANA DE SEY-APPASSIONATA-ARTISTE DE JOUDES",
+      "driver_jockey": "R. LAMY",
+      "entraineur": "TH. LEVESQUE",
+      "proprietaire": "Ecurie Thomas LEVESQUE",
+      "ferrure": "D4",
+      "musique_pmu": "3a(25)6a1a8a0a1aDm0a0a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 117045.0,
+      "nom": "JUANA DE SEY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "INFINITIF D'ERABLE-QUOPACABANA DE MAY-CARAT WILLIAMS",
+      "driver_jockey": "P. SORAIS",
+      "entraineur": "J.M. GUILLOTTE",
+      "proprietaire": "J.M. GUILLOTTE",
+      "musique_pmu": "1a6m6m3m(25)2m9aDa0a0a",
+      "sexe": "Hongre",
+      "age_ans": 8,
+      "gains_euros": 117570.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "nom": "INFINITIF D'ERABLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "JADE-VOTKA BLEUE-CHARLY DU NOYER",
+      "driver_jockey": "A. REBECHE",
+      "entraineur": "V. LEBARQUE",
+      "proprietaire": "Ecurie Comte P. de MONTESSON",
+      "ferrure": "DP/PA",
+      "musique_pmu": "5aDa8a6a4a4a8a0aDaDm",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 117735.0,
+      "nom": "JADE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "JUTONNIERE-NADEGE FRANCERIE-UBRIACO",
+      "driver_jockey": "T. OUVRIE",
+      "entraineur": "J.P. MARMION",
+      "proprietaire": "Ecurie Jean Paul MARMION",
+      "ferrure": "D4",
+      "musique_pmu": "Da8a9a6a8a1a2aDaDa(25)",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 118005.0,
+      "nom": "JUTONNIERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "JADE D'ERABLE-RUE D'ERABLE-DJANGO RIFF",
+      "driver_jockey": "CL. THOMAIN",
+      "entraineur": "CL. THOMAIN",
+      "proprietaire": "Ecurie du HARAS D'ERABLE",
+      "ferrure": "D4",
+      "musique_pmu": "0a6a0a1a8a4a4a0a7a9a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 118960.0,
+      "nom": "JADE D'ERABLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "JAHIA DU TRIO-THAIS DU TRIO-AMIRAL SACHA",
+      "driver_jockey": "G. D'HAENENS",
+      "entraineur": "TH. LAMARE",
+      "proprietaire": "Ecurie de QUERVILLE",
+      "ferrure": "D4",
+      "musique_pmu": "9a5a7a5a8a4mDa5mDa(25)",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 119060.0,
+      "nom": "JAHIA DU TRIO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "JOLIE QUEEN-TOUNDRA DU BOUFFEY-TEXAS CHARM",
+      "driver_jockey": "J. MINEE",
+      "entraineur": "F. TERRY",
+      "proprietaire": "Ecurie POLE POSITION",
+      "ferrure": "D4",
+      "musique_pmu": "4a6a7aDm5a9aDa3a4a5a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 119145.0,
+      "nom": "JOLIE QUEEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "JERRY DE L'ERDRE-TINA DE L'ERDRE-REAL DE LOU",
+      "driver_jockey": "TH. CHALON",
+      "entraineur": "CH. CHALON",
+      "proprietaire": "Mme A. PAPON",
+      "ferrure": "D4",
+      "musique_pmu": "7a3a1a8a8a6a9a7a9a8a",
+      "sexe": "Hongre",
+      "age_ans": 7,
+      "gains_euros": 119275.0,
+      "nom": "JERRY DE L'ERDRE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "JAYA DES BROUSSES-TAMARA DUBRIO-UN MEC D'HERIPRE",
+      "driver_jockey": "ANTHONY DOLLION",
+      "entraineur": "Anthony DOLLION",
+      "proprietaire": "Anthony DOLLION",
+      "ferrure": "D4",
+      "musique_pmu": "Da1a3aDa3a2a6a3aDa9a",
+      "sexe": "Femelle",
+      "age_ans": 7,
+      "gains_euros": 119605.0,
+      "nom": "JAYA DES BROUSSES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+        "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C7/participants",
+          "capture_utc": "2026-11-28T10:58:00.393209+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

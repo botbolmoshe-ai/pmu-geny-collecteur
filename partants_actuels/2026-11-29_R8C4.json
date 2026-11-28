@@ -1,0 +1,526 @@
+{
+  "date": "2026-11-29",
+  "course": "R8C4",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "ecurie",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "MAM'ZELLE GEM",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1717000,
+        "gainsVictoires": 607500,
+        "gainsPlace": 1109500,
+        "gainsAnneeEnCours": 1185500,
+        "gainsAnneePrecedente": 531500
+      }
+    },
+    {
+      "nom": "MAYA GRIFF",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2032500,
+        "gainsVictoires": 1327500,
+        "gainsPlace": 705000,
+        "gainsAnneeEnCours": 2032500,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "MAHRANA DU HAUTY",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 1956000,
+        "gainsVictoires": 652500,
+        "gainsPlace": 1303500,
+        "gainsAnneeEnCours": 1311500,
+        "gainsAnneePrecedente": 644500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:11.708282+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "MAM'ZELLE GEM-ARKAVA DU BOCAGE-CLIF DU POMMEREUX",
+      "driver_jockey": "L. LAMAZIERE",
+      "entraineur": "L. LERENARD",
+      "proprietaire": "Ecurie GRIFF",
+      "ferrure": "D4",
+      "musique_pmu": "7m2a1a4mDaDa8a9mDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 17170.0,
+      "nom": "MAM'ZELLE GEM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "MAYA GRIFF-GRANADA GRIFF-FREE MAN",
+      "driver_jockey": "D. BEKAERT",
+      "entraineur": "L. LERENARD",
+      "proprietaire": "Ecurie GRIFF",
+      "ferrure": "D4",
+      "musique_pmu": "0a1a2a4a1a8a7a3a(25)Da",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 20325.0,
+      "nom": "MAYA GRIFF",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "MAHRANA DU HAUTY-VAHRANA DU HAUTY-DOBERMAN",
+      "driver_jockey": "J. CUOQ",
+      "entraineur": "J. CUOQ",
+      "proprietaire": "B. BALOUZET",
+      "musique_pmu": "5a5a4a3a8a6a8a1a9a5a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 19560.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "nom": "MAHRANA DU HAUTY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "MAYBE LOUANGES-DAME DES LOUANGES-VIVALDO BELLO",
+      "driver_jockey": "F. BROUST",
+      "entraineur": "L. BROUST",
+      "proprietaire": "L. BROUST",
+      "ferrure": "D4",
+      "musique_pmu": "7a5a6m9a2a3a5a6a4aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16210.0,
+      "nom": "MAYBE LOUANGES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "MORDICUS-COMETE DU VAL-TAG WOOD",
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "MICKAEL CORMY",
+      "proprietaire": "PH. NICOLINI",
+      "ferrure": "D4",
+      "musique_pmu": "3aDa7a1a1a4aDaDaDa(25)",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 17500.0,
+      "nom": "MORDICUS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "MODIANO MAY-FORTUNA SMART-TIMOKO",
+      "driver_jockey": "P. CALLIER",
+      "entraineur": "G. TOURON",
+      "proprietaire": "D. CLAEYS",
+      "musique_pmu": "Da8a0a0a1a9a9aDaDa2a",
+      "sexe": "Mâle",
+      "age_ans": 4,
+      "gains_euros": 15805.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "nom": "MODIANO MAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "MYLOVE DES RIVIERE-BODIE SLY-VILLEROI",
+      "driver_jockey": "Q. CHAUVE-LAFFAY",
+      "entraineur": "H. CHAUVE-LAFFAY",
+      "proprietaire": "Lionel GIRAUD",
+      "ferrure": "D4",
+      "musique_pmu": "1a6a4aDa4a2aDa9aDa(25)",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 18755.0,
+      "nom": "MYLOVE DES RIVIERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "MAGNUS SEN-BEA DES MARAIS-OTELLO PIERJI",
+      "driver_jockey": "M. MESSAGER",
+      "entraineur": "Y. LAVIGNE",
+      "proprietaire": "M.G. MESSAGER",
+      "ferrure": "DA",
+      "musique_pmu": "4a2a6a5a6a7a6a7a5a6a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 16545.0,
+      "nom": "MAGNUS SEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "MAGNUS ROMO-ERICA TINOE-LAETENTER DIEM",
+      "driver_jockey": "PH. DANTHU",
+      "entraineur": "Mme Jennifer VALETTE",
+      "proprietaire": "Mme Jennifer VALETTE",
+      "musique_pmu": "9a3a6a0a9a8a5a7a0a7a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 14545.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "nom": "MAGNUS ROMO",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "MERCI MERCY-ELISE D'OR-BOLD EAGLE",
+      "driver_jockey": "F.J. PELTIER",
+      "entraineur": "M. BUSSET",
+      "proprietaire": "E. LALOY",
+      "ferrure": "PA",
+      "musique_pmu": "9a2mDaDa7aDaDa5a5a1a",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 13275.0,
+      "nom": "MERCI MERCY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "MON LUCERNAIS-FIRST LUCERNAISE-FAIRPLAY D'URZY",
+      "driver_jockey": "B. RUET",
+      "entraineur": "G. TOURON",
+      "proprietaire": "G. TOURON",
+      "ferrure": "D4",
+      "musique_pmu": "Da3a6a0a7aDa5a7a0aDa",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 6765.0,
+      "nom": "MON LUCERNAIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "MARLAU DU FOREZ-GOCELIA DU FOREZ-KIWI",
+      "driver_jockey": "TH. BUSSET",
+      "entraineur": "O. CHENE",
+      "proprietaire": "O. CHENE",
+      "musique_pmu": "5a3a0a0a8a0a4a6a0a7a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 7700.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "nom": "MARLAU DU FOREZ",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "MISS DE MAI-ALZA DES PLEIGNES-CLIF DU POMMEREUX",
+      "driver_jockey": "D. MARASCO",
+      "entraineur": "D. MARASCO",
+      "proprietaire": "F. ISSAUTIER",
+      "ferrure": "DP",
+      "musique_pmu": "0a2aDaDa5a5aDa7aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 4,
+      "gains_euros": 15105.0,
+      "nom": "MISS DE MAI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "MILLESIME SMART-CUP OF SMART-ROYAL DREAM",
+      "driver_jockey": "B. CHAUVE-LAFFAY",
+      "entraineur": "A.P. GIRAUD",
+      "proprietaire": "Marc MATHEVET",
+      "ferrure": "DA",
+      "musique_pmu": "9a3a0a2aDa4a2a4aDa5a",
+      "sexe": "Hongre",
+      "age_ans": 4,
+      "gains_euros": 15340.0,
+      "nom": "MILLESIME SMART",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+        "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C4/participants",
+          "capture_utc": "2026-11-28T10:57:11.708282+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

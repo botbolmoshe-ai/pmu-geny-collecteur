@@ -1,0 +1,493 @@
+{
+  "date": "2026-11-29",
+  "course": "R15C6",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LES MOTS BLEUS",
+      "deferre": "PROTEGE_ANTERIEURS_DEFERRRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 1980000,
+        "gainsVictoires": 630000,
+        "gainsPlace": 1350000,
+        "gainsAnneeEnCours": 1178000,
+        "gainsAnneePrecedente": 802000
+      }
+    },
+    {
+      "nom": "LU DE MUTRECY",
+      "deferre": "DEFERRE_ANTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2073500,
+        "gainsVictoires": 0,
+        "gainsPlace": 2073500,
+        "gainsAnneeEnCours": 665500,
+        "gainsAnneePrecedente": 847000
+      }
+    },
+    {
+      "nom": "LOOK DES LANDES",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 2094500,
+        "gainsVictoires": 450000,
+        "gainsPlace": 1644500,
+        "gainsAnneeEnCours": 1268000,
+        "gainsAnneePrecedente": 624000
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:57.312319+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "LES MOTS BLEUS-ELSASS BLUES-CLIF DU POMMEREUX",
+      "driver_jockey": "R. VILAULT",
+      "entraineur": "CH. MOTTIER",
+      "proprietaire": "Mme M. MAILLARD",
+      "ferrure": "DP/PA",
+      "musique_pmu": "Da3a3a0a6a6a1a9m6aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 19800.0,
+      "nom": "LES MOTS BLEUS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "LU DE MUTRECY-DELPHYSIA-REVE DE BEYLEV",
+      "driver_jockey": "G. D'HAENENS",
+      "entraineur": "J.B. LELIEVRE",
+      "proprietaire": "J.B. LELIEVRE",
+      "ferrure": "DA",
+      "musique_pmu": "DaDa7m2m5a0a5a5a4m6m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 20735.0,
+      "nom": "LU DE MUTRECY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "LOOK DES LANDES-PALOMA DES LANDES-NIKY",
+      "driver_jockey": "MATHEO DUVAL",
+      "entraineur": "S. HARDY",
+      "proprietaire": "M. HARDY",
+      "ferrure": "D4",
+      "musique_pmu": "0a0a5aDa6a5aDa7a4a4a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 20945.0,
+      "nom": "LOOK DES LANDES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "LEGGERO DES RAYERS-DIVINA DESBOIS-DIABLO DU NOYER",
+      "driver_jockey": "E. CIVE",
+      "entraineur": "J. POUTREL",
+      "proprietaire": "J. POUTREL",
+      "ferrure": "PA",
+      "musique_pmu": "0m5a4a0a0a7a0a9a(25)7a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 23825.0,
+      "nom": "LEGGERO DES RAYERS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "LEMON DE THABE-QUAIPIRINA-QUARO",
+      "driver_jockey": "G. LEMAITRE",
+      "entraineur": "A. RANDON",
+      "proprietaire": "François CHERON",
+      "ferrure": "D4",
+      "musique_pmu": "0a0a5aDa0a4aDa3aTaDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 24885.0,
+      "nom": "LEMON DE THABE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "LEGOLAS PAULOIS-DAISY PAULOIS-ORLANDO VICI",
+      "driver_jockey": "R. COIGNET",
+      "entraineur": "B. GOGLIN",
+      "proprietaire": "B. GOGLIN",
+      "musique_pmu": "0aDa9a3a6a0a(25)DaDa7a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 25890.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "nom": "LEGOLAS PAULOIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "LAPACHO DU FIER-ALL ALONG-ECU PIERJI",
+      "driver_jockey": "FLORENT PELTIER",
+      "entraineur": "D. DELAROCHE",
+      "proprietaire": "Ecurie Daniel DELAROCHE",
+      "ferrure": "DA",
+      "musique_pmu": "0a7a9a0a6a5a3a6a0a0a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 26570.0,
+      "nom": "LAPACHO DU FIER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "LOUSTIC DE CHENU-FASHION DE CHENU-DAVIDSON DU PONT",
+      "driver_jockey": "K. DAVID",
+      "entraineur": "P. HEDIGER",
+      "proprietaire": "P. HEDIGER",
+      "ferrure": "D4",
+      "musique_pmu": "DaDm0a5m5aDa9a2a5a4a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 27750.0,
+      "nom": "LOUSTIC DE CHENU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "LIMBO TOINOU-DOMINICAINE-VERY NICE MARCEAUX",
+      "driver_jockey": "TH. ROUSSIN",
+      "entraineur": "G. HOUEL",
+      "proprietaire": "Freddy WEHRUNG",
+      "ferrure": "DP/PA",
+      "musique_pmu": "2a5m4a3aDa8a2aDa3aDm",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 27945.0,
+      "nom": "LIMBO TOINOU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "LARGO TEJY-BORA FLIGNY-GALA TEJY",
+      "driver_jockey": "L. FOUINEAU",
+      "entraineur": "CH. CHALON",
+      "proprietaire": "Ecurie CHALON",
+      "musique_pmu": "6a9a4a8a3a5a7aDa7a4a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 27980.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "nom": "LARGO TEJY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "LASCAR DE BEAUM-QUINDA LOUISE-KENOR DE COSSE",
+      "driver_jockey": "G. MONTHULE",
+      "entraineur": "P. MONTHULE",
+      "proprietaire": "P. MONTHULE",
+      "ferrure": "D4",
+      "musique_pmu": "4aDm5a8a6a3a5a7a6aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 28045.0,
+      "nom": "LASCAR DE BEAUM",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "LECLAT DE PERTHUIS-CATHY DE PERTHUIS-DIABLE DE VAUVERT",
+      "driver_jockey": "L. CHUPIN",
+      "entraineur": "R. BERNIER",
+      "proprietaire": "S. BERNIER",
+      "ferrure": "DP",
+      "musique_pmu": "2a3a3a5aDa0aDa2a(25)9a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 28520.0,
+      "nom": "LECLAT DE PERTHUIS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "LYS DU RIB-PASSIFLORE DU RIB-OURAGAN DE CELLAND",
+      "driver_jockey": "A. ROUSSIN",
+      "entraineur": "B. LEFEVRE",
+      "proprietaire": "Ecurie RIB",
+      "musique_pmu": "6a4a0a8a6a0a8a1a2a4a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 28610.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "nom": "LYS DU RIB",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "LUCKY DE POMMERAY-TEMA DE BASSIERE-DOBERMAN",
+      "driver_jockey": "Q. MICHEL",
+      "entraineur": "J. BORDAS",
+      "proprietaire": "Jean Pierre GALLOU",
+      "ferrure": "D4",
+      "musique_pmu": "DmDm4aDaDmDaDaDa1a3a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 29220.0,
+      "nom": "LUCKY DE POMMERAY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+        "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R15/C6/participants",
+          "capture_utc": "2026-11-28T10:57:57.312319+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

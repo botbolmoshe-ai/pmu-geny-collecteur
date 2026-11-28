@@ -1,0 +1,488 @@
+{
+  "date": "2026-11-29",
+  "course": "R8C6",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LOVA DE BOURGOGNE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5001500,
+        "gainsVictoires": 1530000,
+        "gainsPlace": 3471500,
+        "gainsAnneeEnCours": 3034500,
+        "gainsAnneePrecedente": 1605000
+      }
+    },
+    {
+      "nom": "LEA D'EP",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4185000,
+        "gainsVictoires": 1710000,
+        "gainsPlace": 2475000,
+        "gainsAnneeEnCours": 2561000,
+        "gainsAnneePrecedente": 619000
+      }
+    },
+    {
+      "nom": "LAPON DE BERTRANGE",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 4372500,
+        "gainsVictoires": 720000,
+        "gainsPlace": 3652500,
+        "gainsAnneeEnCours": 2096000,
+        "gainsAnneePrecedente": 1175500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:36.702758+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "LOVA DE BOURGOGNE-ARTEMIS DU GOUTIER-ROCKFELLER CENTER",
+      "driver_jockey": "P. CALLIER",
+      "entraineur": "P. CALLIER",
+      "proprietaire": "P. CALLIER",
+      "ferrure": "D4",
+      "musique_pmu": "6a9a6a4a4a2a8a2a1a0a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 50015.0,
+      "nom": "LOVA DE BOURGOGNE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "LEA D'EP-GANESHA DE NAPPES-CAPTAIN CRAZY",
+      "driver_jockey": "A. TINTILLIER",
+      "entraineur": "Sté. Ent. Anthony TINTILLIER",
+      "proprietaire": "Mme G. MARNIQUET",
+      "ferrure": "D4",
+      "musique_pmu": "4a3a1a6a2a2aDa(25)7a5a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 41850.0,
+      "nom": "LEA D'EP",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "LAPON DE BERTRANGE-ELITE DE BERTRANGE-AKIM DU CAP VERT",
+      "driver_jockey": "Q. CHAUVE-LAFFAY",
+      "entraineur": "L. LERENARD",
+      "proprietaire": "Mme Christine GIROUD",
+      "ferrure": "D4",
+      "musique_pmu": "6a9a4a2aDa3aDa8a3a7a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 43725.0,
+      "nom": "LAPON DE BERTRANGE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "LIZA MARCEAUX-ELODIE MARCEAUX-LOVE YOU",
+      "driver_jockey": "TH. BRIAND",
+      "entraineur": "J.PH. DUCHER",
+      "proprietaire": "Ecurie TOP TEN ETALONS",
+      "ferrure": "DA",
+      "musique_pmu": "2a3a3aDaDaDa1a5aDaDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 51810.0,
+      "nom": "LIZA MARCEAUX",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "LE GRAND MASSIF-SUEDE-VERY LOOK",
+      "driver_jockey": "M. DUJMIC",
+      "entraineur": "M. DUJMIC",
+      "proprietaire": "M. DUJMIC",
+      "ferrure": "D4",
+      "musique_pmu": "Da0aDaDa9a5a7a9a1a4a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 48500.0,
+      "nom": "LE GRAND MASSIF",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "LOOK AT ME-PEARL QUEEN-EARL SIMON",
+      "driver_jockey": "B. RUET",
+      "entraineur": "M. BONNEFOY",
+      "proprietaire": "Philippe GROSSE",
+      "ferrure": "D4",
+      "musique_pmu": "0a1aDa7a9a1a0a8aDaDm",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 51610.0,
+      "nom": "LOOK AT ME",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "LOKI DE BEAUCAMPS-REINE D'AWAGNE-URIEL SPEED",
+      "driver_jockey": "M. GRUMETZ",
+      "entraineur": "P. DESPREZ",
+      "proprietaire": "P. DESPREZ",
+      "ferrure": "P4",
+      "musique_pmu": "0a6aDa0aDa1aDa(25)4a3a",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 53585.0,
+      "nom": "LOKI DE BEAUCAMPS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "LOOPING BEN MAX-DYNAMO STAR-LORD ANGOT",
+      "driver_jockey": "J.F. SENET",
+      "entraineur": "J.F. SENET",
+      "proprietaire": "Ecurie J-F. SENET",
+      "ferrure": "D4",
+      "musique_pmu": "0a8a1aDm5a6a6a4a0a7a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 53745.0,
+      "nom": "LOOPING BEN MAX",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "LOVERGIRL POWER-CROIX MAJYC-BOCCADOR DE SIMM",
+      "driver_jockey": "PH. DANTHU",
+      "entraineur": "Mme Jennifer VALETTE",
+      "proprietaire": "Mme Jennifer VALETTE",
+      "musique_pmu": "0m0a6aDaAa0aDaDa(25)8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 14535.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "nom": "LOVERGIRL POWER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "LYUBOV-EPONA DE GRANOU-RUBIS DE PADD",
+      "driver_jockey": "J. CUOQ",
+      "entraineur": "J. CUOQ",
+      "proprietaire": "J. CUOQ",
+      "ferrure": "D4",
+      "musique_pmu": "7a9a0a1a2a3a1aDa3a0a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 37675.0,
+      "nom": "LYUBOV",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "LOVER STRYCK-STORIA WEST-KESACO PHEDO",
+      "driver_jockey": "L. LAMAZIERE",
+      "entraineur": "J. CUOQ",
+      "proprietaire": "Marc CARTIER",
+      "musique_pmu": "8m(24)2m1m1m4m",
+      "sexe": "Mâle",
+      "age_ans": 5,
+      "gains_euros": 29005.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "nom": "LOVER STRYCK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "LEADER BENOIT-DOLIA DE TOUCHYVON-ESPOIR PRESTANCE",
+      "driver_jockey": "G. TOURON",
+      "entraineur": "G. TOURON",
+      "proprietaire": "Mlle P. HERRY",
+      "ferrure": "DP",
+      "musique_pmu": "Da8a4a4aDa0aDaDa7a4a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 16150.0,
+      "nom": "LEADER BENOIT",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "LOUNA D'OR-ROCAMBOLESQUE-PASSWORD",
+      "driver_jockey": "R. HEMERY",
+      "entraineur": "M. DUPUIS",
+      "proprietaire": "J. LEGRAND",
+      "ferrure": "D4",
+      "musique_pmu": "8a0a9a8aDa3a0a4a0a8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 40390.0,
+      "nom": "LOUNA D'OR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+        "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R8/C6/participants",
+          "capture_utc": "2026-11-28T10:57:36.702758+00:00"
+        }
+      },
+      "divergences_sources": []
+    }
+  }
+}

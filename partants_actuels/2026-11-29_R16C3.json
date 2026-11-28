@@ -1,0 +1,455 @@
+{
+  "date": "2026-11-29",
+  "course": "R16C3",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "ORELIE DES CHARMES",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "ORNELLA ELEVEN",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    },
+    {
+      "nom": "ORSU DE CANA",
+      "deferre": null,
+      "gainsParticipant": {
+        "gainsCarriere": 0,
+        "gainsVictoires": 0,
+        "gainsPlace": 0,
+        "gainsAnneeEnCours": 0,
+        "gainsAnneePrecedente": 0
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:32.887255+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "ORELIE DES CHARMES-JULIETTA-FELICIANO",
+      "driver_jockey": "Mlle CL. LELIEVRE",
+      "entraineur": "P. LELIEVRE",
+      "proprietaire": "Ecurie des CHARMES",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "ORELIE DES CHARMES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "ORNELLA ELEVEN-BARAKA DE CARSI-EXPRESS JET",
+      "driver_jockey": "F. GUERINEAU",
+      "entraineur": "A. RIPOLL RIGO",
+      "proprietaire": "A. RIPOLL RIGO",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "ORNELLA ELEVEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "ORSU DE CANA-HISTORY OF LUFFY-GO ON BOY",
+      "driver_jockey": "R. DERIEUX",
+      "entraineur": "R. DERIEUX",
+      "proprietaire": "Mlle C. MONFORT",
+      "sexe": "Hongre",
+      "age_ans": 2,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "ORSU DE CANA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "OSWALDO DE BUSSY-BRUME DE LUNES-CLIF DU POMMEREUX",
+      "driver_jockey": "A. COLLETTE",
+      "entraineur": "CH. MOTTIER",
+      "proprietaire": "Ecurie SANG ET OR",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "OSWALDO DE BUSSY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "ORIENT COBB-DELICIOUS GIRL-COUP DE POKER",
+      "driver_jockey": "M. ABRIVARD",
+      "entraineur": "G.A. POU POU",
+      "proprietaire": "David Claude COUSIN",
+      "musique_pmu": "DaDaDaDa",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "ORIENT COBB",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "OUT OF NOWHERE-FIRST THING FIRST-ESPOIR PRESTANCE",
+      "driver_jockey": "P.Y. VERVA",
+      "entraineur": "A.J. MOLLEMA",
+      "proprietaire": "Z. TOKOLI",
+      "sexe": "Hongre",
+      "age_ans": 2,
+      "gains_euros": 0.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "OUT OF NOWHERE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "OXO D'ERPION-BIANCA DU VIVIER-BILIBILI",
+      "driver_jockey": "DAVID LEFEVRE",
+      "entraineur": "J.M. CHAINEUX",
+      "proprietaire": "J. ERNOTTE",
+      "musique_pmu": "7a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 125.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "OXO D'ERPION",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "ORION RENKA-JE T'AIME RENKA-ICI C'EST PARIS",
+      "driver_jockey": "F. VANDENABEELE",
+      "entraineur": "M. ROTHENGATTER",
+      "proprietaire": "Stal VAN NIEROP",
+      "musique_pmu": "4a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 150.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "ORION RENKA",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "OTSTEPPER-DIVINE MAX-ROYAL DREAM",
+      "driver_jockey": "A. GARANDEAU",
+      "entraineur": "A. GARANDEAU",
+      "proprietaire": "M. BRIDAULT",
+      "musique_pmu": "6a",
+      "sexe": "Mâle",
+      "age_ans": 2,
+      "gains_euros": 340.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "OTSTEPPER",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "ODYSSEE DU CAIEU-VIRGULE DU CAIEU-UN AMOUR D'HAUFOR",
+      "driver_jockey": "F. OUVRIE",
+      "entraineur": "Tristan OUVRIE",
+      "proprietaire": "ET. BOBO",
+      "musique_pmu": "Da7a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 380.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "ODYSSEE DU CAIEU",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "ORIANA JABI-BONNIE PARKER-ESPOIR PRESTANCE",
+      "driver_jockey": "J. BAAS",
+      "entraineur": "Jan BAAS",
+      "proprietaire": "Jan BAAS",
+      "musique_pmu": "3a4a0a",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 600.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "ORIANA JABI",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "OUATE DU CHENE-DOUCEUR DU CHENE-GOLDEN BRIDGE",
+      "driver_jockey": "J. KOUBICHE",
+      "entraineur": "ST. MEUNIER",
+      "proprietaire": "R. MAZZETTI",
+      "musique_pmu": "5aDa",
+      "sexe": "Femelle",
+      "age_ans": 2,
+      "gains_euros": 625.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+          "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+        }
+      },
+      "nom": "OUATE DU CHENE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "recul_m": 0,
+        "champ_recul": "handicapDistance",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R16/C3/participants",
+        "capture_utc": "2026-11-28T10:57:32.887255+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}

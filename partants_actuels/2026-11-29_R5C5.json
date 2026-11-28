@@ -1,0 +1,584 @@
+{
+  "date": "2026-11-29",
+  "course": "R5C5",
+  "champs_participant_pmu_observes": [
+    "age",
+    "allure",
+    "avisEntraineur",
+    "deferre",
+    "driver",
+    "driverChange",
+    "eleveur",
+    "engagement",
+    "entraineur",
+    "gainsParticipant",
+    "handicapDistance",
+    "idCheval",
+    "indicateurInedit",
+    "jumentPleine",
+    "musique",
+    "nom",
+    "nomMere",
+    "nomPere",
+    "nombreCourses",
+    "nombrePlaces",
+    "nombrePlacesSecond",
+    "nombrePlacesTroisieme",
+    "nombreVictoires",
+    "numPmu",
+    "oeilleres",
+    "placeCorde",
+    "poidsConditionMonteChange",
+    "proprietaire",
+    "race",
+    "robe",
+    "sexe",
+    "statut",
+    "supplement",
+    "urlCasaque"
+  ],
+  "diagnostic_profils_pmu": [
+    {
+      "nom": "LOVE QUEEN",
+      "deferre": "DEFERRE_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5199500,
+        "gainsVictoires": 2880000,
+        "gainsPlace": 2319500,
+        "gainsAnneeEnCours": 2322500,
+        "gainsAnneePrecedente": 1157000
+      }
+    },
+    {
+      "nom": "LE WINNER AS",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5263000,
+        "gainsVictoires": 0,
+        "gainsPlace": 5263000,
+        "gainsAnneeEnCours": 1515000,
+        "gainsAnneePrecedente": 1309000
+      }
+    },
+    {
+      "nom": "LEXINGTON DU BOURG",
+      "deferre": "DEFERRE_ANTERIEURS_POSTERIEURS",
+      "gainsParticipant": {
+        "gainsCarriere": 5045000,
+        "gainsVictoires": 2430000,
+        "gainsPlace": 2615000,
+        "gainsAnneeEnCours": 61000,
+        "gainsAnneePrecedente": 2687500
+      }
+    }
+  ],
+  "source": "PMU_API_PARTICIPANTS",
+  "capture_utc": "2026-11-28T10:57:03.198538+00:00",
+  "chevaux": {
+    "1": {
+      "id_pmu": "LOVE QUEEN-TOUNDRA DU BOUFFEY-SINGALO",
+      "driver_jockey": "TH. DUCOS",
+      "entraineur": "F. TERRY",
+      "proprietaire": "Ecurie POLE POSITION",
+      "ferrure": "DP",
+      "musique_pmu": "3a0a4aDaDa1a1aDa7a5a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 51995.0,
+      "nom": "LOVE QUEEN",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 1,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "2": {
+      "id_pmu": "LE WINNER AS-CARACAS-FABULOUS WOOD",
+      "driver_jockey": "PIERRICK LE MOEL",
+      "entraineur": "S. LALOUM",
+      "proprietaire": "A. LALOUM",
+      "ferrure": "D4",
+      "musique_pmu": "9a5a3a5a7a4a4a7a5a5a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 52630.0,
+      "nom": "LE WINNER AS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 2,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "3": {
+      "id_pmu": "LEXINGTON DU BOURG-CHELSEA DU BOURG-REAL DE LOU",
+      "driver_jockey": "T. VLAEMYNCK DEBOST",
+      "entraineur": "L. DELESTRE",
+      "proprietaire": "L. DELESTRE",
+      "ferrure": "D4",
+      "musique_pmu": "0aDaDa6a7aDa8aDa9a(25)",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 50450.0,
+      "nom": "LEXINGTON DU BOURG",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 3,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "4": {
+      "id_pmu": "LETOILE AMERICAINE-VEDETTE AMERICAINE-TIMOKO",
+      "driver_jockey": "S. STEFANO",
+      "entraineur": "J.M. ROUBAUD",
+      "proprietaire": "G. BALDINI",
+      "ferrure": "D4",
+      "musique_pmu": "7aDa4aDaDa6aDa1a0aDa",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 51460.0,
+      "nom": "LETOILE AMERICAINE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 4,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "5": {
+      "id_pmu": "LEADER DE CHOISEL-CLARA DE CHOISEL-AVE AVIS",
+      "driver_jockey": "M. GRASSET",
+      "entraineur": "K. BUSNEL",
+      "proprietaire": "J.G. VIOL",
+      "ferrure": "D4",
+      "musique_pmu": "Da3a0aDa1aDa1aDa2a2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 51055.0,
+      "nom": "LEADER DE CHOISEL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 5,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "6": {
+      "id_pmu": "LICORNE QUICK-CALL ME QUICK-UP AND QUICK",
+      "driver_jockey": "P. GESRET",
+      "entraineur": "E. PRUDHON",
+      "proprietaire": "Ecurie QUICK STAR",
+      "musique_pmu": "9aDa5a3a8a2a8a0aDm2a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 49975.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "nom": "LICORNE QUICK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 6,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "7": {
+      "id_pmu": "LE PREMIER ORTHON-FLOWER DU DOLLAR-FIFTY KALOUMA",
+      "driver_jockey": "M. CRIADO",
+      "entraineur": "Y. LACOMBE",
+      "proprietaire": "Mlle Eve DUFFILLOL",
+      "ferrure": "D4",
+      "musique_pmu": "4a3a4a6aDa3a7a2a9a3a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 51810.0,
+      "nom": "LE PREMIER ORTHON",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 7,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "8": {
+      "id_pmu": "LANCELOT DE BEYLEV-FOLIE DE BEYLEV-REVE DE BEYLEV",
+      "driver_jockey": "I.P. BLANCHON",
+      "entraineur": "K. AIT OUAKLI",
+      "proprietaire": "K. AIT OUAKLI",
+      "ferrure": "DA",
+      "musique_pmu": "0aDa8m6m8a0aDmDm7a6m",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 51255.0,
+      "nom": "LANCELOT DE BEYLEV",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 8,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "9": {
+      "id_pmu": "L'INDIEN PEARL-BLUE STAR ROLLING-DOBERMAN",
+      "driver_jockey": "Y. VIDAL",
+      "entraineur": "Y. VIDAL",
+      "proprietaire": "Y. VIDAL",
+      "ferrure": "P4",
+      "musique_pmu": "6a6aDa5a5aDa4a3aDa4a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 49150.0,
+      "nom": "L'INDIEN PEARL",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 9,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "10": {
+      "id_pmu": "LICORNE D'OURVILLE-GYM D'OURVILLE-VALKO JENILAT",
+      "driver_jockey": "L. LALANDE",
+      "entraineur": "L. LALANDE",
+      "proprietaire": "Ecurie SALLELOISE",
+      "ferrure": "D4",
+      "musique_pmu": "5aDa5a1a5aDa2a5aDm4a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 44515.0,
+      "nom": "LICORNE D'OURVILLE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 10,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "11": {
+      "id_pmu": "LORETTE UP STAR-ROSA DE VANDEL-ENINO DU POMMEREUX",
+      "driver_jockey": "V. CABOS",
+      "entraineur": "G. VAN DE SIJPE",
+      "proprietaire": "G. VAN DE SIJPE",
+      "ferrure": "D4",
+      "musique_pmu": "7a0a7a0a3aDa2a4a6a6a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 47340.0,
+      "nom": "LORETTE UP STAR",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 11,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "12": {
+      "id_pmu": "LEWIS DE BLARY-ELEVATION-FELICIANO",
+      "driver_jockey": "F. MARTY",
+      "entraineur": "F. MARTY",
+      "proprietaire": "Ecurie TENACIOUS SAUVIGNEY",
+      "musique_pmu": "9aDa5a1a2aDa1a6a(25)0a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 49225.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "nom": "LEWIS DE BLARY",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 12,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    },
+    "13": {
+      "id_pmu": "LEAVING NEW YORK-FAMILLE ROYALE-READY CASH",
+      "driver_jockey": "TH. PRUDHON",
+      "entraineur": "E. PRUDHON",
+      "proprietaire": "Ecurie DUEM",
+      "ferrure": "DP",
+      "musique_pmu": "4aDa1a2a(25)7a3a2aDa2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 48910.0,
+      "nom": "LEAVING NEW YORK",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 13,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "14": {
+      "id_pmu": "L'AMETHYSTE-GREENHOUSE-ROYAL DREAM",
+      "driver_jockey": "M. GERGOUIL",
+      "entraineur": "J. FOIN",
+      "proprietaire": "Ecurie QUERCUS",
+      "ferrure": "DA",
+      "musique_pmu": "0a3a6a2a2a7a8a4a6a8a",
+      "sexe": "Femelle",
+      "age_ans": 5,
+      "gains_euros": 49895.0,
+      "nom": "L'AMETHYSTE",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 14,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "15": {
+      "id_pmu": "LUCKY DES GAUDINES-FIGUERA MARBOULA-EXCELLENT",
+      "driver_jockey": "C. GAZENGEL",
+      "entraineur": "M. DAOUGABEL",
+      "proprietaire": "Mme Nathalie HAMON",
+      "ferrure": "D4",
+      "musique_pmu": "2a2a2a7a0aDaDaDa8aDa",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 49285.0,
+      "nom": "LUCKY DES GAUDINES",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 15,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CODE_RECONNU",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "divergences_sources": []
+    },
+    "16": {
+      "id_pmu": "LASCO DES LUCAS-VALESKA DES LUCAS-GOLDEN BRIDGE",
+      "driver_jockey": "A. HONORE",
+      "entraineur": "CH. FEYTE",
+      "proprietaire": "Ecurie LOUISE B",
+      "musique_pmu": "9a5a7aDa4a(25)9a1a4a2a",
+      "sexe": "Hongre",
+      "age_ans": 5,
+      "gains_euros": 46560.0,
+      "ferrure": "F",
+      "provenance_champs": {
+        "ferrure": {
+          "source": "PMU_API_PARTICIPANTS",
+          "champ": "deferre",
+          "valeur_brute": null,
+          "convention": "TROT_SANS_DECLARATION_DEFERRAGE",
+          "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+          "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+        }
+      },
+      "nom": "LASCO DES LUCAS",
+      "statut_np": "PARTANT",
+      "depart_trot": {
+        "mode": "Autostart",
+        "champ_mode": "categorieParticularite",
+        "position": 16,
+        "champ_position": "placeCorde",
+        "source": "PMU_API_PARTICIPANTS",
+        "url": "https://online.turfinfo.api.pmu.fr/rest/client/1/programme/29112026/R5/C5/participants",
+        "capture_utc": "2026-11-28T10:57:03.198538+00:00"
+      },
+      "ferrure_qualification": "CONVENTION_PMU",
+      "divergences_sources": []
+    }
+  }
+}
