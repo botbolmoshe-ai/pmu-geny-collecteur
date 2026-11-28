@@ -42026,7 +42026,7 @@
       "course_url": "https://www.geny.com/course/1698463/partants-pronostics",
       "numero": "1",
       "engagement": "2026-11-14_R1C4",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_prioritaire": "2026-11-27_R1C4",
@@ -42046,7 +42046,10 @@
       "historique_complet_au_utc": "2026-11-27T12:06:55.468214+00:00",
       "cible_equivalente_a": "contexte:243cd0989413cab0d3c16d9f",
       "partant_course_passee": true,
-      "autre_contexte_meme_nom": "contexte:243cd0989413cab0d3c16d9f"
+      "autre_contexte_meme_nom": "contexte:243cd0989413cab0d3c16d9f",
+      "rattrapage_complet_au_utc": "2026-11-27T12:06:55.468214+00:00",
+      "preuve_sync": "MEME_IDENTIFIANT_OU_CONTEXTE_VERIFIE",
+      "erreur": ""
     },
     "contexte:f5e514656be0701059991c55": {
       "nom": "JIMMYZ",
@@ -42205,7 +42208,7 @@
         "SHEETS:Courses & Prévisions"
       ],
       "engagement": "2026-11-14_R1C4",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "collecte": "COMPLET",
       "motif_actualisation": "",
       "engagement_source": "2026-11-14|VINCENNES|R1C4",
@@ -42227,7 +42230,33 @@
       "preuve_identite": "CAPTURE_GENY",
       "nombre_performances": 58,
       "historique_complet_au_utc": "2026-11-27T12:06:55.468214+00:00",
-      "partant_course_passee": true
+      "partant_course_passee": true,
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 0,
+          "lignes_source": 58,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 0,
+            "lignes_avant": 40379,
+            "cles_avant": 40379,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4038,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40379,
+            "lignes_apres": 40379,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        }
+      },
+      "sync_utc": "2026-11-28T02:49:56.307314+00:00",
+      "erreur": "",
+      "rattrapage_complet_au_utc": "2026-11-27T12:06:55.468214+00:00",
+      "ajouts_confirmes": 0
     },
     "contexte:f76a8b9a73234e19d9e25e6b": {
       "nom": "LILIBETH SMART",
@@ -79868,12 +79897,12 @@
   "lignes_historique_initiales": 15484,
   "bilan": {
     "cibles_inventoriees": 2584,
-    "cibles_completees": 1362,
-    "cibles_restantes": 1222,
+    "cibles_completees": 1364,
+    "cibles_restantes": 1220,
     "cibles_equivalentes": 643,
-    "travaux_distincts_restants": 1307,
+    "travaux_distincts_restants": 1306,
     "historiques_ferrures_a_completer": 444,
-    "carrieres_distinctes_a_completer": 863,
+    "carrieres_distinctes_a_completer": 862,
     "identifiants_sans_carriere_complete": 122,
     "contextes_distincts_sans_identifiant": 737,
     "noms_distincts_sans_identifiant": 733,
@@ -79881,7 +79910,7 @@
     "identites_non_resolues": 1048,
     "liens_a_resoudre": 77,
     "identites_a_verifier": 0,
-    "synchronisations_en_attente": 4,
+    "synchronisations_en_attente": 2,
     "ajouts_confirmes": 8104,
     "tentatives_collecte": 0,
     "captures_validees": 0,
@@ -79890,7 +79919,7 @@
   },
   "statut": "PARTIEL_REPRENABLE",
   "passage_utc": "2026-11-28T02:49:31.533739+00:00",
-  "maj_utc": "2026-11-28T02:49:39.888335+00:00",
+  "maj_utc": "2026-11-28T02:49:56.332881+00:00",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 21,
@@ -81790,10 +81819,10 @@
   },
   "collecte_cycle": {
     "debut_utc": "2026-11-28T02:49:31.533739+00:00",
-    "controle_utc": "2026-11-28T02:49:39.888335+00:00",
+    "controle_utc": "2026-11-28T02:49:56.332881+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 0,
-    "chevaux_confirmes_sheets": 0,
+    "chevaux_confirmes_sheets": 1,
     "performances_ajoutees_et_confirmees_sheets": 0,
     "requetes_http_geny": 0,
     "requetes_geny_par_ressource": {},
@@ -81803,7 +81832,7 @@
     "duree_acces_geny_secondes": 0.0,
     "refus_sans_validation": 1,
     "carrieres_validees_par_heure_cycle": 0.0,
-    "carrieres_publiees_par_heure_cycle": 0.0,
+    "carrieres_publiees_par_heure_cycle": 145.17,
     "refus_geny": {
       "403": 0,
       "429": 0
