@@ -74598,7 +74598,7 @@
     },
     "2824264": {
       "nom": "GOLDEN GIO",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "3",
       "engagement": "2026-11-28_R1C7",
       "vu_utc": "2026-11-28T15:25:09.880624+00:00",
@@ -74630,32 +74630,45 @@
       "derniere_performance_date": "2026-11-22",
       "sync_details": {
         "Historique chevaux": {
-          "lignes_ajoutees": 20,
-          "cellules_actualisees": 0,
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 40,
           "lignes_source": 20,
           "controle": {
             "statut": "VALIDE",
             "phase": "APRES",
-            "ajouts_prevus": 20,
-            "lignes_avant": 28071,
-            "cles_avant": 28071,
+            "ajouts_prevus": 0,
+            "lignes_avant": 40454,
+            "cles_avant": 40454,
             "doublons_valeurs_avant": 0,
             "cles_avec_variantes": 0,
-            "seuil_ajouts": 2808,
+            "seuil_ajouts": 4046,
             "import_initial_explicite": false,
-            "lignes_attendues": 28091,
-            "lignes_apres": 28091,
+            "lignes_attendues": 40454,
+            "lignes_apres": 40454,
             "doublons_valeurs_apres": 0,
             "motif": "COMPTAGES_ET_CLES_CONFORMES"
           }
         },
         "Courses & Prévisions": {
           "lignes_ajoutees": 0,
-          "cellules_actualisees": 3,
-          "lignes_source": 1
+          "cellules_actualisees": 0,
+          "lignes_source": 3943,
+          "correspondances_geny_verifiees": 3943,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3943,
+            "ecarts_avant": {},
+            "etats": {
+              "HISTO_OK_NOM_ID": 1090,
+              "HISTO_OK_NOM": 436,
+              "HISTO_NON_COLLECTE": 2254,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 149,
+              "HISTO_PUBLICATION_EN_ATTENTE": 12
+            }
+          }
         }
       },
-      "sync_utc": "2026-11-22T23:40:30.433988+00:00",
+      "sync_utc": "2026-11-28T15:34:10.059625+00:00",
       "id_pmu": "GOLDEN GIO-ZED WISE AS-FACE TIME BOURBON"
     },
     "2793709": {
@@ -107958,7 +107971,7 @@
     }
   },
   "passage_utc": "2026-11-28T15:25:09.880624+00:00",
-  "maj_utc": "2026-11-28T15:33:44.892988+00:00",
+  "maj_utc": "2026-11-28T15:34:10.059651+00:00",
   "bilan": {
     "chevaux_suivis": 3877,
     "tentatives_collecte": 22,
@@ -110186,8 +110199,8 @@
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "publication_cycle": {
     "debut_utc": "2026-11-28T15:32:45.461456+00:00",
-    "controle_utc": "2026-11-28T15:33:44.892988+00:00",
-    "chevaux_confirmes_sheets": 2,
+    "controle_utc": "2026-11-28T15:34:10.059651+00:00",
+    "chevaux_confirmes_sheets": 3,
     "performances_ajoutees_et_confirmees_sheets": 2,
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
