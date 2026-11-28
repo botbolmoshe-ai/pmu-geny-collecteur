@@ -96393,23 +96393,6 @@
       "preparation_pmu_ok": true,
       "course_url": "https://www.geny.com/course/1700981/partants-pronostics"
     },
-    "2026-11-28_R1C7_1": {
-      "nom": "MANHATTAN EMGE",
-      "sync": "SANS_MODIFICATION",
-      "numero": "1",
-      "engagement": "2026-11-28_R1C7",
-      "vu_utc": "2026-11-28T15:25:09.880624+00:00",
-      "id_pmu": "MANHATTAN EMGE-ECLIPSE SOMOLLI-GOTLAND",
-      "verification_periodique": true,
-      "rapprochement_geny": "NON_ASSOCIE",
-      "annee_naissance_pmu": 2022,
-      "recherche_geny_par_nom": true,
-      "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
-      "depart_a_venir_utc": "2026-11-28T16:00:00+00:00",
-      "premier_depart_reunion_utc": "2026-11-28T12:23:00+00:00",
-      "preparation_pmu_ok": true,
-      "course_url": "https://www.geny.com/course/1700985/partants-pronostics"
-    },
     "2026-11-28_R1C7_2": {
       "nom": "LOUIS VITTON MIJO",
       "sync": "SANS_MODIFICATION",
@@ -107520,21 +107503,56 @@
       "erreur": "",
       "ferrures_manquantes": 0,
       "derniere_performance_date": "2026-11-08"
+    },
+    "2823255": {
+      "nom": "MANHATTAN EMGE",
+      "sync": "A_FAIRE",
+      "numero": "1",
+      "engagement": "2026-11-28_R1C7",
+      "vu_utc": "2026-11-28T15:25:09.880624+00:00",
+      "id_pmu": "MANHATTAN EMGE-ECLIPSE SOMOLLI-GOTLAND",
+      "verification_periodique": true,
+      "rapprochement_geny": "NON_ASSOCIE",
+      "annee_naissance_pmu": 2022,
+      "recherche_geny_par_nom": true,
+      "motif_actualisation": "",
+      "depart_a_venir_utc": "2026-11-28T16:00:00+00:00",
+      "premier_depart_reunion_utc": "2026-11-28T12:23:00+00:00",
+      "preparation_pmu_ok": true,
+      "course_url": "https://www.geny.com/course/1700985/partants-pronostics",
+      "collecte": "COMPLET",
+      "geny": {
+        "id": "2823255",
+        "nom": "Manhattan Emgé",
+        "url_geny": "https://www.geny.com/cheval/2823255-manhattan-emge/course/1700985",
+        "nationalite_geny": "FR",
+        "source_lien": "GENY_QUERY_PARTANTS",
+        "preuve": "COURSE_GENY_VERIFIEE"
+      },
+      "id": "2823255",
+      "preuve_identite": "COURSE_GENY_VERIFIEE",
+      "historique_complet_au_utc": "2026-11-28T15:25:21.054928+00:00",
+      "derniere_verification_utc": "2026-11-28T15:25:21.054928+00:00",
+      "prochaine_verification_utc": "2026-11-29T15:25:21.054928+00:00",
+      "nombre_performances": 20,
+      "erreur": "",
+      "ferrures_manquantes": 0,
+      "derniere_performance_date": "2026-11-15"
     }
   },
   "passage_utc": "2026-11-28T15:25:09.880624+00:00",
-  "maj_utc": "2026-11-28T15:25:13.776389+00:00",
+  "maj_utc": "2026-11-28T15:25:21.569514+00:00",
   "bilan": {
     "chevaux_suivis": 3877,
-    "tentatives_collecte": 0,
-    "captures_validees": 0,
+    "tentatives_collecte": 1,
+    "captures_validees": 1,
     "captures_partielles": 0,
     "collectes_rejetees": 0,
     "synchronisations_en_attente": 1,
     "actualisations_en_attente": 3584
   },
   "statut": "PARTIEL_REPRENABLE",
-  "sync_kpi": "OK",
+  "sync_kpi": "A_REPRENDRE",
   "sync_kpi_details": {
     "Data Quality & KPI": {
       "indicateurs_actualises": 14,
@@ -109681,19 +109699,26 @@
   "sync_kpi_utc": "2026-11-28T13:26:30.105624+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-28T15:25:09.880624+00:00",
-    "controle_utc": "2026-11-28T15:25:13.776389+00:00",
+    "controle_utc": "2026-11-28T15:25:21.569514+00:00",
     "source": "Geny",
-    "carrieres_completes_distinctes": 0,
+    "carrieres_completes_distinctes": 1,
     "chevaux_confirmes_sheets": 0,
     "performances_ajoutees_et_confirmees_sheets": 0,
-    "requetes_http_geny": 0,
-    "requetes_geny_par_ressource": {},
-    "ressources_geny_servies_du_cache_http": 0,
+    "requetes_http_geny": 83,
+    "requetes_geny_par_ressource": {
+      "document": 3,
+      "stylesheet": 2,
+      "script": 71,
+      "font": 3,
+      "fetch": 2,
+      "image": 2
+    },
+    "ressources_geny_servies_du_cache_http": 40,
     "attente_inter_chevaux_secondes": 0.0,
     "intervalle_inter_chevaux_secondes": 30,
-    "duree_acces_geny_secondes": 0.0,
+    "duree_acces_geny_secondes": 6.03,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 0.0,
+    "carrieres_validees_par_heure_cycle": 307.98,
     "carrieres_publiees_par_heure_cycle": 0.0,
     "refus_geny": {
       "403": 0,
@@ -109714,5 +109739,5 @@
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
   },
-  "derniere_acquisition_validee_utc": "2026-11-28T13:22:34.799172+00:00"
+  "derniere_acquisition_validee_utc": "2026-11-28T15:25:21.054928+00:00"
 }
