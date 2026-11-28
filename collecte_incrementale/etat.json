@@ -107772,7 +107772,7 @@
     },
     "2782020": {
       "nom": "LOUIS VITTON MIJO",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "2",
       "engagement": "2026-11-28_R1C7",
       "vu_utc": "2026-11-28T15:25:09.880624+00:00",
@@ -107804,7 +107804,51 @@
       "nombre_performances": 32,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-10-23"
+      "derniere_performance_date": "2026-10-23",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 32,
+          "cellules_actualisees": 0,
+          "lignes_source": 32,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 32,
+            "lignes_avant": 40484,
+            "cles_avant": 40484,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4049,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40516,
+            "lignes_apres": 40516,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 2,
+          "lignes_source": 3943,
+          "correspondances_geny_verifiees": 3943,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3943,
+            "ecarts_avant": {
+              "statut_historique": 1,
+              "nombre_performances": 1
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1093,
+              "HISTO_OK_NOM": 437,
+              "HISTO_NON_COLLECTE": 2254,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 149,
+              "HISTO_PUBLICATION_EN_ATTENTE": 8
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-28T15:35:36.029016+00:00"
     },
     "2818806": {
       "nom": "GINGER GIO",
@@ -108059,7 +108103,7 @@
     }
   },
   "passage_utc": "2026-11-28T15:25:09.880624+00:00",
-  "maj_utc": "2026-11-28T15:35:08.426494+00:00",
+  "maj_utc": "2026-11-28T15:35:36.029043+00:00",
   "bilan": {
     "chevaux_suivis": 3877,
     "tentatives_collecte": 22,
@@ -110287,9 +110331,9 @@
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "publication_cycle": {
     "debut_utc": "2026-11-28T15:32:45.461456+00:00",
-    "controle_utc": "2026-11-28T15:35:08.426494+00:00",
-    "chevaux_confirmes_sheets": 5,
-    "performances_ajoutees_et_confirmees_sheets": 32,
+    "controle_utc": "2026-11-28T15:35:36.029043+00:00",
+    "chevaux_confirmes_sheets": 6,
+    "performances_ajoutees_et_confirmees_sheets": 64,
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
   },
