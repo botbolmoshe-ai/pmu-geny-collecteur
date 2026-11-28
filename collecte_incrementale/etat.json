@@ -106907,7 +106907,7 @@
     },
     "2878977": {
       "nom": "NARCO CONNECTION",
-      "sync": "A_FAIRE",
+      "sync": "OK",
       "numero": "14",
       "engagement": "2026-11-28_R1C3",
       "vu_utc": "2026-11-28T13:15:52.218736+00:00",
@@ -106938,7 +106938,52 @@
       "nombre_performances": 6,
       "erreur": "",
       "ferrures_manquantes": 0,
-      "derniere_performance_date": "2026-11-23"
+      "derniere_performance_date": "2026-11-23",
+      "sync_details": {
+        "Historique chevaux": {
+          "lignes_ajoutees": 6,
+          "cellules_actualisees": 0,
+          "lignes_source": 6,
+          "controle": {
+            "statut": "VALIDE",
+            "phase": "APRES",
+            "ajouts_prevus": 6,
+            "lignes_avant": 40409,
+            "cles_avant": 40409,
+            "doublons_valeurs_avant": 0,
+            "cles_avec_variantes": 0,
+            "seuil_ajouts": 4041,
+            "import_initial_explicite": false,
+            "lignes_attendues": 40415,
+            "lignes_apres": 40415,
+            "doublons_valeurs_apres": 0,
+            "motif": "COMPTAGES_ET_CLES_CONFORMES"
+          }
+        },
+        "Courses & Prévisions": {
+          "lignes_ajoutees": 0,
+          "cellules_actualisees": 29,
+          "lignes_source": 3943,
+          "correspondances_geny_verifiees": 3943,
+          "reconciliation_historiques": {
+            "participations_verifiees": 3943,
+            "ecarts_avant": {
+              "statut_historique": 9,
+              "nombre_performances": 2,
+              "date_capture": 9
+            },
+            "etats": {
+              "HISTO_OK_NOM_ID": 1076,
+              "HISTO_OK_NOM": 444,
+              "HISTO_NON_COLLECTE": 2265,
+              "HISTO_PARTIEL_GENY": 2,
+              "GENY_IDENTIFIE_CARRIERE_MANQUANTE": 149,
+              "HISTO_PUBLICATION_EN_ATTENTE": 7
+            }
+          }
+        }
+      },
+      "sync_utc": "2026-11-28T13:23:26.501497+00:00"
     },
     "2863616": {
       "nom": "NATIONAL HERO",
@@ -107234,7 +107279,7 @@
     }
   },
   "passage_utc": "2026-11-28T13:15:52.218736+00:00",
-  "maj_utc": "2026-11-28T13:23:00.481566+00:00",
+  "maj_utc": "2026-11-28T13:23:26.501522+00:00",
   "bilan": {
     "chevaux_suivis": 3877,
     "tentatives_collecte": 8,
@@ -109705,9 +109750,9 @@
   "politique_collecte": "PROCHAINS_DEPARTS_SEULEMENT",
   "publication_cycle": {
     "debut_utc": "2026-11-28T13:23:00.464337+00:00",
-    "controle_utc": "2026-11-28T13:23:00.481566+00:00",
-    "chevaux_confirmes_sheets": 0,
-    "performances_ajoutees_et_confirmees_sheets": 0,
+    "controle_utc": "2026-11-28T13:23:26.501522+00:00",
+    "chevaux_confirmes_sheets": 1,
+    "performances_ajoutees_et_confirmees_sheets": 6,
     "erreurs_sync": 0,
     "motif_fin_passage": "BUDGET_TEMPS_ATTEINT"
   },
