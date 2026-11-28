@@ -96440,7 +96440,24 @@
       "motif_actualisation": "HISTORIQUE_ABSENT_OU_NON_DATE",
       "depart_a_venir_utc": "2026-11-28T17:10:00+00:00",
       "premier_depart_reunion_utc": "2026-11-28T12:23:00+00:00",
-      "preparation_pmu_ok": true
+      "preparation_pmu_ok": true,
+      "collecte": "A_REPRENDRE",
+      "erreur": "ValueError: HISTORIQUE_NON_VALIDE",
+      "prochain_essai_utc": "2026-12-05T15:30:26.998371+00:00",
+      "dernier_echec_collecte": {
+        "utc": "2026-11-28T15:30:26.998389+00:00",
+        "statut": "RECHERCHE_GENY_NON_AUTORISEE",
+        "motifs": [],
+        "erreur": "HISTORIQUE_NON_VALIDE",
+        "identite_verifiee": null,
+        "diagnostic": "resultats/incremental/2026-11-28_R1C9_2/1795879826998220423/resultat.json"
+      },
+      "recherche_identite_geny": {
+        "statut": "RECHERCHE_BLOQUEE",
+        "motif": "RECHERCHE_GENY_NON_AUTORISEE",
+        "utc": "2026-11-28T15:30:26.906598+00:00",
+        "reprise_utc": "2026-12-05T15:30:26.998371+00:00"
+      }
     },
     "2026-11-28_R1C9_3": {
       "nom": "JOURNEY OF DREAM",
@@ -107760,13 +107777,13 @@
     }
   },
   "passage_utc": "2026-11-28T15:25:09.880624+00:00",
-  "maj_utc": "2026-11-28T15:30:25.269992+00:00",
+  "maj_utc": "2026-11-28T15:30:26.998416+00:00",
   "bilan": {
     "chevaux_suivis": 3877,
-    "tentatives_collecte": 13,
+    "tentatives_collecte": 14,
     "captures_validees": 9,
     "captures_partielles": 0,
-    "collectes_rejetees": 4,
+    "collectes_rejetees": 5,
     "synchronisations_en_attente": 1,
     "actualisations_en_attente": 3584
   },
@@ -109918,7 +109935,7 @@
   "sync_kpi_utc": "2026-11-28T13:26:30.105624+00:00",
   "collecte_cycle": {
     "debut_utc": "2026-11-28T15:25:09.880624+00:00",
-    "controle_utc": "2026-11-28T15:30:25.269992+00:00",
+    "controle_utc": "2026-11-28T15:30:26.998416+00:00",
     "source": "Geny",
     "carrieres_completes_distinctes": 9,
     "chevaux_confirmes_sheets": 0,
@@ -109937,7 +109954,7 @@
     "intervalle_inter_chevaux_secondes": 30,
     "duree_acces_geny_secondes": 48.44,
     "refus_sans_validation": 0,
-    "carrieres_validees_par_heure_cycle": 102.73,
+    "carrieres_validees_par_heure_cycle": 102.17,
     "carrieres_publiees_par_heure_cycle": 0.0,
     "refus_geny": {
       "403": 0,
